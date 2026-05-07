@@ -136,10 +136,21 @@ func take_damage(amount: int, source_pos: Vector3) -> void:
         velocity.x = away.x * KNOCKBACK_SPEED
         velocity.z = away.z * KNOCKBACK_SPEED
         velocity.y = 4.0
+    _hit_punch()
     if hp <= 0:
         _die()
     else:
         _set_state(State.HURT)
+
+
+# Brief scale "punch" on the visual when hit — the physics knockback
+# alone doesn't read as a hit unless the body squashes.
+func _hit_punch() -> void:
+    if not visual:
+        return
+    visual.scale = Vector3(1.20, 0.85, 1.20)
+    var t := create_tween()
+    t.tween_property(visual, "scale", Vector3.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _die() -> void:

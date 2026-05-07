@@ -24,6 +24,13 @@ extends Node3D
 var _yaw: float = 0.0
 var _pitch: float = -0.25       # slight downward tilt by default
 
+# Trauma-style screen shake. Owners call shake(amp, duration) to add
+# kick on big events; per-frame the trauma decays linearly and offsets
+# the camera position by a noise-driven jitter.
+var _shake_amp: float = 0.0
+var _shake_t: float = 0.0
+var _shake_dur: float = 0.0
+
 
 func _ready() -> void:
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -57,9 +64,34 @@ func _process(delta: float) -> void:
     global_position = global_position.lerp(desired, clamp(delta * follow_smooth, 0.0, 1.0))
     rotation = Vector3(_pitch, _yaw, 0.0)
 
+    # Trauma decay + per-frame jitter. Applied as a position offset
+    # post-lerp so the shake is purely visual and doesn't poison the
+    # smoothed follow target.
+    if _shake_t > 0.0:
+        _shake_t = max(0.0, _shake_t - delta)
+        var k: float = _shake_t / max(_shake_dur, 0.001)
+        var amp: float = _shake_amp * k
+        global_position += Vector3(
+            randf_range(-1.0, 1.0) * amp,
+            randf_range(-1.0, 1.0) * amp * 0.6,
+            randf_range(-1.0, 1.0) * amp
+        )
+        if _shake_t == 0.0:
+            _shake_amp = 0.0
+
 
 func get_yaw() -> float:
     return _yaw
+
+
+# Apply a kick to the camera. Multiple calls stack — the larger
+# amplitude + longer duration win.
+func shake(amplitude: float, duration: float) -> void:
+    if amplitude > _shake_amp:
+        _shake_amp = amplitude
+    if duration > _shake_t:
+        _shake_t = duration
+        _shake_dur = duration
 
 
 # Camera-forward in world space, flattened to XZ. Owner uses this to

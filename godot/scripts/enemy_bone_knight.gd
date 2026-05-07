@@ -278,10 +278,20 @@ func take_damage(amount: int, source_pos: Vector3) -> void:
         velocity.x = away.x * KNOCKBACK_SPEED
         velocity.z = away.z * KNOCKBACK_SPEED
         velocity.y = 3.0
+    _hit_punch()
     if hp <= 0:
         _die()
     else:
         _set_state(State.HURT)
+
+
+func _hit_punch() -> void:
+    if not rig:
+        return
+    var base_scale: Vector3 = rig.scale
+    rig.scale = base_scale * Vector3(1.10, 0.90, 1.10)
+    var t := create_tween()
+    t.tween_property(rig, "scale", base_scale, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 # Called by tux_player when the player parries/blocks the knight's

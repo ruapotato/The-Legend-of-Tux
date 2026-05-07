@@ -134,6 +134,10 @@ func take_damage(amount: int, source_pos: Vector3) -> void:
         away = Vector3(0, 0, 1)
     away = away.normalized()
     velocity = away * KNOCKBACK_SPEED + Vector3(0, 2.0, 0)
+    if visual:
+        visual.scale = Vector3(1.25, 0.80, 1.25)
+        var t := create_tween()
+        t.tween_property(visual, "scale", Vector3.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
     if hp <= 0:
         _die()
     else:

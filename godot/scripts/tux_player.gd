@@ -206,14 +206,20 @@ func take_damage(amount: int, source_pos: Vector3, attacker: Node = null) -> voi
     var was_parry: bool = state.parry_active
     if state.take_hit(source_pos, amount):
         GameState.damage(amount)
+        if camera and camera.has_method("shake"):
+            camera.shake(0.18, 0.22)
         # ACT_HURT will fire its sound via _dispatch_action_sounds.
     else:
         if was_parry:
             SoundBank.play_3d("parry", global_position)
             _shove_attacker(attacker, TuxState.PARRY_PUSH_FORCE)
+            if camera and camera.has_method("shake"):
+                camera.shake(0.08, 0.14)
         elif was_blocking:
             SoundBank.play_3d("shield_block", global_position)
             _shove_attacker(attacker, TuxState.BLOCK_PUSH_FORCE)
+            if camera and camera.has_method("shake"):
+                camera.shake(0.06, 0.12)
         # i-frames during a roll/flip are intentionally silent.
 
 
@@ -235,6 +241,8 @@ func _shove_attacker(attacker: Node, force: float) -> void:
 
 func _on_sword_hit(_target: Node) -> void:
     SoundBank.play_3d("sword_hit", global_position)
+    if camera and camera.has_method("shake"):
+        camera.shake(0.05, 0.10)
 
 
 func _on_player_died() -> void:
