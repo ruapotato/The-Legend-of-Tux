@@ -542,7 +542,7 @@ def emit_load_zones(b, zones):
         if not target_scene.startswith("res://"):
             target_scene = "res://scenes/%s.tscn" % target_scene
         target_spawn = lz.get("target_spawn", "default")
-        auto = "true" if lz.get("auto", lz.get("prompt", "") == "") else "false"
+        auto = "true" if lz.get("auto", True) else "false"
         prompt = escape(lz.get("prompt", ""))
         shape = b.add_sub("BoxShape3D", [("size", vstr([sx, sy, sz]))])
         attrs = [
@@ -569,7 +569,7 @@ def emit_load_zones(b, zones):
             'outline_size = 8\n'
             'billboard = 1\n'
             'no_depth_test = true\n'
-            % (i, shape, i, sy + 0.5, prompt or "[E] Travel")
+            % (i, shape, i, sy + 0.5, prompt or "Travel")
         )
 
 

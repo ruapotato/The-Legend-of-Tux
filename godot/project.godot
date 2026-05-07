@@ -90,6 +90,7 @@ item_use={
 GameState="*res://scripts/game_state.gd"
 SoundBank="*res://scripts/sound_bank.gd"
 Dialog="*res://scripts/dialog.gd"
+SceneFader="*res://scripts/scene_fader.gd"
 
 [rendering]
 

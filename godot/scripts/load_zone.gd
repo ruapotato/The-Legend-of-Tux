@@ -1,17 +1,21 @@
 extends Area3D
 
-# Scene-transition trigger. Walk in (and optionally press E if a prompt
-# is set) to load `target_scene` and have the destination's DungeonRoot
-# place Tux at the spawn matching `target_spawn`.
+# Scene-transition trigger. Walking the player into the volume fires
+# the change — the prompt label is now purely a signpost so the player
+# knows where they're going, not a gate they have to confirm at. The
+# scene swap goes through SceneFader for a clean fade-to-black.
+#
+# `auto_trigger` (default true) gates whether body-enter actually
+# fires. Set false on a load zone if you want it to require explicit
+# interact, but you'll need to wire that flow yourself.
 
 @export_file("*.tscn") var target_scene: String = ""
 @export var target_spawn: String = "default"
-@export_multiline var prompt: String = ""    # if non-empty: hold E to confirm
-@export var auto_trigger: bool = true        # if true: walk-in triggers; if false: needs interact
+@export_multiline var prompt: String = ""
+@export var auto_trigger: bool = true
 
 @onready var hint: Label3D = $Hint if has_node("Hint") else null
 
-var _player_inside: bool = false
 var _firing: bool = false
 
 
@@ -20,46 +24,27 @@ func _ready() -> void:
     collision_mask = 2
     monitoring = true
     body_entered.connect(_on_enter)
-    body_exited.connect(_on_exit)
     if hint:
-        hint.text = prompt if prompt != "" else "[E] Travel"
-        # Always visible — the prior "show on player-inside" hid the
-        # only signpost telling the player where the exits are.
+        hint.text = prompt if prompt != "" else "Travel"
         hint.visible = true
 
 
 func _on_enter(body: Node) -> void:
+    if _firing or not auto_trigger:
+        return
     if not body.is_in_group("player"):
         return
-    _player_inside = true
-    if auto_trigger and prompt == "":
-        _fire()
+    _fire(body)
 
 
-func _on_exit(body: Node) -> void:
-    if body.is_in_group("player"):
-        _player_inside = false
-
-
-func _unhandled_input(event: InputEvent) -> void:
-    if not _player_inside or _firing:
-        return
-    if prompt == "" and auto_trigger:
-        return
-    if event.is_action_pressed("interact") and not Dialog.is_active():
-        get_viewport().set_input_as_handled()
-        _fire()
-
-
-func _fire() -> void:
+func _fire(player: Node) -> void:
     if _firing or target_scene == "":
         return
     _firing = true
     GameState.next_spawn_id = target_spawn
-    # Defer the scene change one frame so any in-flight signals/inputs
-    # finish cleanly before the tree is swapped out.
-    call_deferred("_do_change_scene")
-
-
-func _do_change_scene() -> void:
-    get_tree().change_scene_to_file(target_scene)
+    # Freeze the player so they can't keep walking off the world while
+    # the fade plays out. Scene change disposes the player anyway, so
+    # we don't need to re-enable.
+    if player and player is CharacterBody3D:
+        player.set_physics_process(false)
+    SceneFader.change_scene(target_scene)

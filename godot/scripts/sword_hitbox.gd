@@ -1,17 +1,15 @@
 extends Area3D
 
-# Sword hit volume. Signal-driven so we never poll get_overlapping_*
-# while monitoring is in transition (the prior _physics_process polling
-# tripped Godot's internal "monitoring is off" guard whenever an
-# enemy's _set_state deferred a monitoring=false on the same hitbox).
+# Sword hit volume. Pure signal-driven: no _physics_process, no calls
+# to get_overlapping_* anywhere — the script literally cannot trip
+# Godot's "monitoring is off" guard because it never queries physics
+# state directly.
 #
-#   arm()    : clear hit set, enable monitoring, schedule a deferred
-#              one-shot pass over already-overlapping objects (entries
-#              that happened BEFORE we armed don't fire body_entered)
-#   disarm() : monitoring → false (deferred)
-#
-# area_entered / body_entered fire as new contacts come in while armed.
-# Every receiver is dispatched at most once per arm cycle.
+# Trade-off: if a body is ALREADY inside the volume when arm() flips
+# monitoring on, area_entered/body_entered won't fire (the contact
+# didn't "enter" — it was already there). For sword swings this is
+# almost never an issue because the blade is sweeping through space
+# during the active window, so each contact happens during arm.
 
 signal target_hit(target: Node)
 
@@ -22,38 +20,22 @@ var _already_hit: Array = []
 
 func _ready() -> void:
     monitoring = false
+    set_physics_process(false)
     area_entered.connect(_on_area_entered)
     body_entered.connect(_on_body_entered)
-    # Nothing to do in physics_process anymore.
-    set_physics_process(false)
 
 
 func arm() -> void:
     _already_hit.clear()
     monitoring = true
-    # Anything that was inside our volume BEFORE we armed won't fire
-    # the entry signals. Defer one frame so the engine has registered
-    # the monitoring switch, then sweep the existing overlaps.
-    call_deferred("_initial_overlap_pass")
 
 
 func disarm() -> void:
     set_deferred("monitoring", false)
 
 
-func _initial_overlap_pass() -> void:
-    if not monitoring:
-        return
-    for area in get_overlapping_areas():
-        _on_area_entered(area)
-    for body in get_overlapping_bodies():
-        _on_body_entered(body)
-
-
 func _on_area_entered(area: Area3D) -> void:
-    if not monitoring:
-        return
-    if area in _already_hit:
+    if not monitoring or area in _already_hit:
         return
     var receiver: Object = area if area.has_method("take_damage") else area.get_parent()
     if not receiver or not receiver.has_method("take_damage"):
@@ -64,9 +46,7 @@ func _on_area_entered(area: Area3D) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-    if not monitoring:
-        return
-    if body in _already_hit:
+    if not monitoring or body in _already_hit:
         return
     if not body.has_method("take_damage"):
         return
