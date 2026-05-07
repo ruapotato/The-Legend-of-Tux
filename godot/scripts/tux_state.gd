@@ -19,12 +19,17 @@ enum {
     ACT_SPIN,
     ACT_BLOCK,
     ACT_ROLL,
+    ACT_FLIP,
     ACT_JUMP,
     ACT_FALL,
     ACT_LAND,
     ACT_HURT,
     ACT_DEAD,
 }
+
+# Flip variants — set when ACT_FLIP starts; the animator uses it to pick
+# the right pose (front/back/side).
+enum FlipKind { FRONT, BACK, SIDE_LEFT, SIDE_RIGHT }
 
 # Animation tags consumed by tux_anim.gd. String-typed so the animator
 # doesn't have to import this file's enum.
@@ -42,8 +47,13 @@ const ANIM_CHARGING_FULL := "charging_full"
 const ANIM_SPIN          := "spin"
 const ANIM_BLOCK_RAISE   := "block_raise"
 const ANIM_BLOCK_HOLD    := "block_hold"
+const ANIM_BLOCK_WALK    := "block_walk"
 const ANIM_PARRY         := "parry"
 const ANIM_ROLL          := "roll"
+const ANIM_FRONT_FLIP    := "front_flip"
+const ANIM_BACK_FLIP     := "back_flip"
+const ANIM_SIDE_FLIP_L   := "side_flip_left"
+const ANIM_SIDE_FLIP_R   := "side_flip_right"
 const ANIM_JUMP          := "jump"
 const ANIM_FALL          := "fall"
 const ANIM_LAND          := "land"
@@ -101,6 +111,26 @@ const ROLL_SPEED           := 8.5
 const ROLL_DURATION        := 0.45
 const ROLL_IFRAME_END      := 0.38        # i-frames cover most of the roll
 
+# Flip dodge from shield: short hop in the stick's direction, full
+# rotation of the rig around the appropriate axis. I-frames cover most
+# of the move so it works as an evasive option, not just a stunt.
+const FLIP_DURATION        := 0.55
+const FLIP_IFRAME_END      := 0.45
+const FLIP_SPEED           := 7.0
+const FLIP_IMPULSE         := 7.0
+
+# Block locomotion + face-tracking. The shield doesn't lock you in
+# place — you can walk slowly while raising it, and your facing slowly
+# rotates to follow camera-forward so you can keep the shield pointed
+# at a circling enemy by aiming the camera.
+const BLOCK_WALK_SPEED     := 2.2
+const BLOCK_FACE_TURN      := 6.0     # rad/s — slower than free turn
+
+# Knockback applied to the attacker when their hit is parried/blocked.
+# tux_player passes these to attacker.get_knockback() if available.
+const BLOCK_PUSH_FORCE     := 7.0
+const PARRY_PUSH_FORCE     := 11.0
+
 # Block is hold-to-raise; the first PARRY_WINDOW seconds count as a
 # parry (deflects with no stamina cost). After that, regular block —
 # costs stamina on each hit, holds position.
@@ -153,6 +183,7 @@ var swing_index: int = 0       # rotates 0/1/2 across consecutive swings
 var combo_queued: bool = false
 var parry_active: bool = false   # true during PARRY_WINDOW after raising shield
 var charge_time: float = 0.0    # accumulated while in ACT_CHARGING
+var flip_kind: int = FlipKind.BACK    # set by _begin_shield_flip()
 
 # ---- Animation request -------------------------------------------------
 var requested_anim: String = ANIM_IDLE
@@ -190,6 +221,7 @@ func step(delta: float) -> void:
             ACT_SPIN:        changed = _act_spin(delta)
             ACT_BLOCK:       changed = _act_block(delta)
             ACT_ROLL:        changed = _act_roll(delta)
+            ACT_FLIP:        changed = _act_flip(delta)
             ACT_JUMP:        changed = _act_jump(delta)
             ACT_FALL:        changed = _act_fall(delta)
             ACT_LAND:        changed = _act_land(delta)
@@ -424,22 +456,61 @@ func _act_block(_delta: float) -> bool:
 
     if not input_shield_held:
         return set_action(ACT_IDLE)
+    # Shield + attack → small jump-strike that commits forward with the
+    # swipe-down animation. Lets the shield pressure into a counter.
     if input_attack_pressed and _can_swing():
-        # Shield-bash variant: cancel block into a swing. (Cheap version
-        # for now — same animation as a normal swing.)
-        return _begin_attack_or_jab()
+        return _begin_shield_jump_slash()
+    # Shield + jump → directional flip dodge.
+    if input_jump_pressed and _can_roll():
+        return _begin_shield_flip()
     if input_roll_pressed and _can_roll():
         return _begin_roll()
 
-    vel.x = move_toward(vel.x, 0.0, 16.0 * _step_delta)
-    vel.z = move_toward(vel.z, 0.0, 16.0 * _step_delta)
+    # Slow walk while shielded so the player can reposition without
+    # dropping the guard. Speed is capped at BLOCK_WALK_SPEED — well
+    # under WALK_MAX_VEL — and accelerates more slowly than free walk.
+    var stick_dir := _stick_to_world_dir()
+    if stick_dir.length() > 0.1:
+        vel.x = stick_dir.x * BLOCK_WALK_SPEED * input_stick.length()
+        vel.z = stick_dir.z * BLOCK_WALK_SPEED * input_stick.length()
+    else:
+        vel.x = move_toward(vel.x, 0.0, 16.0 * _step_delta)
+        vel.z = move_toward(vel.z, 0.0, 16.0 * _step_delta)
     vel.y = -1.0
+
+    # Slowly rotate facing toward camera-forward so the shield tracks
+    # where the player is aiming. The slow turn lets the player keep an
+    # enemy framed by the shield via small mouse adjustments.
+    face_yaw = _approach_angle(face_yaw, input_camera_yaw, BLOCK_FACE_TURN * _step_delta)
+
+    var moving: bool = stick_dir.length() > 0.1
     if action_time < BLOCK_RAISE_DURATION:
         _request_anim(ANIM_BLOCK_RAISE, 1.0 / BLOCK_RAISE_DURATION)
     elif parry_active:
         _request_anim(ANIM_PARRY, 1.0)
+    elif moving:
+        _request_anim(ANIM_BLOCK_WALK, 1.0)
     else:
         _request_anim(ANIM_BLOCK_HOLD, 1.0)
+    return false
+
+
+# Aerial flip dodge from a shielded jump. The flip kind is picked from
+# the stick: forward = front flip, backward = back flip, sideways = side
+# flip. Movement is committed for the whole jump; air control is locked.
+func _act_flip(_delta: float) -> bool:
+    _apply_gravity()
+    var tag := ANIM_BACK_FLIP
+    match flip_kind:
+        FlipKind.FRONT:      tag = ANIM_FRONT_FLIP
+        FlipKind.BACK:       tag = ANIM_BACK_FLIP
+        FlipKind.SIDE_LEFT:  tag = ANIM_SIDE_FLIP_L
+        FlipKind.SIDE_RIGHT: tag = ANIM_SIDE_FLIP_R
+    _request_anim(tag, 1.0 / FLIP_DURATION)
+    if is_on_floor and action_time > 0.10:
+        return set_action(ACT_LAND)
+    if action_time >= FLIP_DURATION:
+        return set_action(ACT_FALL)
     return false
 
 
@@ -517,8 +588,10 @@ func _act_dead(_delta: float) -> bool:
 func take_hit(source_pos: Vector3, _damage: int) -> bool:
     if action == ACT_DEAD:
         return false
-    # I-frames during the active part of a roll.
+    # I-frames during the active part of a roll or flip.
     if action == ACT_ROLL and action_time <= ROLL_IFRAME_END:
+        return false
+    if action == ACT_FLIP and action_time <= FLIP_IFRAME_END:
         return false
     # Parry: free deflect inside the parry window.
     if action == ACT_BLOCK and parry_active:
@@ -558,6 +631,44 @@ func _can_swing() -> bool:
 
 func _can_roll() -> bool:
     return is_on_floor and get_stamina.call() >= COST_ROLL
+
+
+func _begin_shield_jump_slash() -> bool:
+    if get_stamina.call() < COST_JUMP_ATTACK:
+        return false
+    spend_stamina.call(COST_JUMP_ATTACK)
+    # Small lift; the JUMP_ATTACK action's forward push will commit Tux
+    # forward through the strike.
+    vel.y = JUMP_IMPULSE * 0.55
+    return set_action(ACT_JUMP_ATTACK)
+
+
+func _begin_shield_flip() -> bool:
+    if get_stamina.call() < COST_ROLL:
+        return false
+    spend_stamina.call(COST_ROLL)
+    # Pick the flip kind from stick. Defaults to a back flip when the
+    # stick is neutral so a held-shield + jump still does something
+    # readable.
+    if abs(input_stick.x) > 0.3 and abs(input_stick.x) > abs(input_stick.y):
+        flip_kind = FlipKind.SIDE_RIGHT if input_stick.x > 0 else FlipKind.SIDE_LEFT
+    elif input_stick.y < -0.3:
+        flip_kind = FlipKind.FRONT
+    else:
+        flip_kind = FlipKind.BACK
+
+    var fwd := Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
+    var right := Vector3(-cos(face_yaw), 0.0, sin(face_yaw))
+    var move_dir := Vector3.ZERO
+    match flip_kind:
+        FlipKind.FRONT:      move_dir = fwd
+        FlipKind.BACK:       move_dir = -fwd
+        FlipKind.SIDE_RIGHT: move_dir = right
+        FlipKind.SIDE_LEFT:  move_dir = -right
+    vel.y = FLIP_IMPULSE
+    vel.x = move_dir.x * FLIP_SPEED
+    vel.z = move_dir.z * FLIP_SPEED
+    return set_action(ACT_FLIP)
 
 
 func _begin_attack_or_jab() -> bool:

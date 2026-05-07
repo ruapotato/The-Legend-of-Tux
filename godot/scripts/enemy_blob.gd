@@ -168,4 +168,14 @@ func _set_state(new_state: int) -> void:
 
 func _on_attack_overlap(body: Node) -> void:
     if body.is_in_group("player") and body.has_method("take_damage"):
-        body.take_damage(attack_damage, global_position)
+        body.take_damage(attack_damage, global_position, self)
+
+
+# Called by the player when their shield deflects this enemy's attack.
+# The blob is shoved away with vertical lift, then drops into HURT so
+# it can't immediately re-lunge.
+func get_knockback(direction: Vector3, force: float) -> void:
+    velocity.x = direction.x * force
+    velocity.z = direction.z * force
+    velocity.y = 4.0
+    _set_state(State.HURT)

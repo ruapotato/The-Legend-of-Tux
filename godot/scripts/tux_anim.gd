@@ -7,17 +7,21 @@ extends RefCounted
 # with parry window, roll dodge, sprint).
 
 const ONE_SHOT_DURATION := {
-    "swing_1":     0.45,
-    "swing_2":     0.45,
-    "swing_3":     0.55,
-    "jab":         0.30,
-    "jump_attack": 0.70,
-    "spin":        0.45,
-    "block_raise": 0.12,
-    "parry":       0.20,
-    "roll":        0.45,
-    "land":        0.18,
-    "hurt":        0.40,
+    "swing_1":         0.45,
+    "swing_2":         0.45,
+    "swing_3":         0.55,
+    "jab":             0.30,
+    "jump_attack":     0.70,
+    "spin":            0.45,
+    "block_raise":     0.12,
+    "parry":           0.20,
+    "roll":            0.45,
+    "front_flip":      0.55,
+    "back_flip":       0.55,
+    "side_flip_left":  0.55,
+    "side_flip_right": 0.55,
+    "land":            0.18,
+    "hurt":            0.40,
 }
 
 var bones: Dictionary = {}
@@ -85,8 +89,13 @@ func _apply(tag: String, t: float) -> void:
         "spin":           _pose_spin(t)
         "block_raise":    _pose_block(t, t / 0.12)
         "block_hold":     _pose_block(t, 1.0)
+        "block_walk":     _pose_block_walk(t)
         "parry":          _pose_parry(t)
         "roll":           _pose_roll(t)
+        "front_flip":     _pose_front_flip(t)
+        "back_flip":      _pose_back_flip(t)
+        "side_flip_left":  _pose_side_flip(t, -1.0)
+        "side_flip_right": _pose_side_flip(t,  1.0)
         "jump":           _pose_jump(t)
         "fall":           _pose_fall(t)
         "land":           _pose_land(t)
@@ -161,18 +170,30 @@ func _pose_swing(t: float, variant: int) -> void:
         _rot(bones.get("head"),  Vector3(lerpf(0.0, 0.3, fall), 0, 0))
 
 
-# Block: shield arm (left wing) raised UP and IN FRONT of the body — not
-# out to the side. arm.x rotates the wing forward (lifts it from hanging
-# at the side); arm.y rotates it inward across the chest so the shield
-# sits at the body's centerline (12 o'clock) rather than at the
-# shoulder (3 o'clock). arm.z stays small — extra Z lift would push the
-# shield outward.
+# Block: shield arm (left wing) raised UP and IN FRONT of the body. To
+# read at "12 o'clock" — directly in front, not at the shoulder — the
+# arm needs strong inward Y rotation so it crosses the body's
+# centerline. Larger negative Y was the magic; previous values had the
+# shield drift back to the shoulder.
 func _pose_block(_t: float, phase: float) -> void:
     var p: float = clamp(phase, 0.0, 1.0)
-    _rot(bones.get("arm_l"), Vector3(-1.55 * p - 0.1, -0.55 * p, -0.20 * p))
+    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, -1.10 * p, -0.05 * p))
     _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
     _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
     _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
+
+
+# Walking-while-blocking: same shield-up arm, but legs pump in a slow
+# walk cycle. We're driving from a time cursor that resets each switch,
+# so the wobble stays calm.
+func _pose_block_walk(t: float) -> void:
+    _pose_block(t, 1.0)
+    var freq: float = 4.0
+    var amp: float = 0.32
+    var phase: float = sin(t * freq)
+    var phase_b: float = sin(t * freq + PI)
+    _rot(bones.get("leg_l"), Vector3(phase * amp, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(phase_b * amp, 0, 0))
 
 
 # Forward thrust: arm jabs straight ahead in a quick poke, body weight
@@ -229,18 +250,59 @@ func _pose_charging(t: float, full: bool) -> void:
     _rot(bones.get("head"),   Vector3(0.05, 0.0, 0.0))
 
 
-# Spin attack: arm stays at the swing-end position (blade extended
-# forward-and-out) while the pelvis rotates a full 360 around Y. The
-# arm pose is held constant — what you see is the body whirling under
-# the planted sword, not the sword whipping into a new position.
+# Spin attack: sword arm extended STRAIGHT TO THE SIDE — pure Z-axis
+# rotation, no X (forward/back) and no Y (inward) component, so the
+# blade is horizontal at shoulder height. Pelvis rotates 360 around Y;
+# the body whirls under the planted, side-extended sword.
 func _pose_spin(t: float) -> void:
     var phase: float = clamp(t / 0.45, 0.0, 1.0)
     var spin: float = phase * TAU
     _rot(bones.get("pelvis"), Vector3(0, spin, 0))
-    _rot(bones.get("arm_r"),  Vector3(-1.5, 0.6, 0.15))   # matches swing-end
-    _rot(bones.get("arm_l"),  Vector3(-0.6, 0.0, -0.8))
-    _rot(bones.get("torso"),  Vector3(0.05, 0, 0))
-    _rot(bones.get("head"),   Vector3(0.10, 0, 0))
+    _rot(bones.get("arm_r"),  Vector3(0, 0, -PI / 2))   # arm straight out, no slope
+    _rot(bones.get("arm_l"),  Vector3(0, 0,  PI / 2))   # other arm out for balance
+    _rot(bones.get("torso"),  Vector3(0, 0, 0))
+    _rot(bones.get("head"),   Vector3(0, 0, 0))
+
+
+# Forward flip: pelvis rotates around X axis through one full revolution.
+# Arms tucked, legs tucked, blending out to neutral over the last 0.10s
+# so the recovery doesn't end on a frozen ball.
+func _pose_front_flip(t: float) -> void:
+    var dur: float = 0.55
+    var phase: float = clamp(t / dur, 0.0, 1.0)
+    var spin: float = phase * TAU
+    var blend: float = clamp((dur - t) / 0.10, 0.0, 1.0)
+    _rot(bones.get("pelvis"), Vector3(spin, 0, 0))
+    _rot(bones.get("arm_l"),  Vector3(-1.5 * blend, 0, -0.4 * blend))
+    _rot(bones.get("arm_r"),  Vector3(-1.5 * blend, 0,  0.4 * blend))
+    _rot(bones.get("leg_l"),  Vector3(-1.0 * blend, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-1.0 * blend, 0, 0))
+
+
+# Backward flip: opposite rotation around X, arms thrown overhead.
+func _pose_back_flip(t: float) -> void:
+    var dur: float = 0.55
+    var phase: float = clamp(t / dur, 0.0, 1.0)
+    var spin: float = -phase * TAU
+    var blend: float = clamp((dur - t) / 0.10, 0.0, 1.0)
+    _rot(bones.get("pelvis"), Vector3(spin, 0, 0))
+    _rot(bones.get("arm_l"),  Vector3(-2.2 * blend, 0, -0.2 * blend))
+    _rot(bones.get("arm_r"),  Vector3(-2.2 * blend, 0,  0.2 * blend))
+    _rot(bones.get("leg_l"),  Vector3(-0.4 * blend, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-0.4 * blend, 0, 0))
+
+
+# Side flip: pelvis rotates around Z axis. dir = -1 (left) or +1 (right).
+func _pose_side_flip(t: float, dir: float) -> void:
+    var dur: float = 0.55
+    var phase: float = clamp(t / dur, 0.0, 1.0)
+    var spin: float = phase * TAU * dir
+    var blend: float = clamp((dur - t) / 0.10, 0.0, 1.0)
+    _rot(bones.get("pelvis"), Vector3(0, 0, spin))
+    _rot(bones.get("arm_l"),  Vector3(-1.5 * blend, 0, -0.4 * blend))
+    _rot(bones.get("arm_r"),  Vector3(-1.5 * blend, 0,  0.4 * blend))
+    _rot(bones.get("leg_l"),  Vector3(-0.8 * blend, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-0.8 * blend, 0, 0))
 
 
 func _pose_parry(t: float) -> void:

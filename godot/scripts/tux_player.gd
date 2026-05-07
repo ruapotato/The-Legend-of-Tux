@@ -147,20 +147,36 @@ func get_face_yaw() -> float:
 
 # ---- Damage in / out --------------------------------------------------
 
-func take_damage(amount: int, source_pos: Vector3) -> void:
+func take_damage(amount: int, source_pos: Vector3, attacker: Node = null) -> void:
     var was_blocking: bool = state.action == TuxState.ACT_BLOCK
     var was_parry: bool = state.parry_active
-    var was_iframes: bool = state.action == TuxState.ACT_ROLL \
-                            and state.action_time <= TuxState.ROLL_IFRAME_END
     if state.take_hit(source_pos, amount):
         GameState.damage(amount)
         # ACT_HURT will fire its sound via _dispatch_action_sounds.
     else:
         if was_parry:
             SoundBank.play_3d("parry", global_position)
+            _shove_attacker(attacker, TuxState.PARRY_PUSH_FORCE)
         elif was_blocking:
             SoundBank.play_3d("shield_block", global_position)
-        # i-frames during a roll are intentionally silent.
+            _shove_attacker(attacker, TuxState.BLOCK_PUSH_FORCE)
+        # i-frames during a roll/flip are intentionally silent.
+
+
+# Knock the attacker backward when their hit lands on a raised shield.
+# `attacker` is whichever node passed itself as the source — usually
+# the enemy CharacterBody3D. Falls back silently if the attacker can't
+# accept knockback.
+func _shove_attacker(attacker: Node, force: float) -> void:
+    if not attacker or not is_instance_valid(attacker):
+        return
+    if not attacker.has_method("get_knockback"):
+        return
+    var dir: Vector3 = attacker.global_position - global_position
+    dir.y = 0.0
+    if dir.length() < 0.001:
+        return
+    attacker.get_knockback(dir.normalized(), force)
 
 
 func _on_sword_hit(_target: Node) -> void:
@@ -193,6 +209,7 @@ func _dispatch_action_sounds() -> void:
             TS.ACT_SPIN:        SoundBank.play_3d("spin_attack", global_position)
             TS.ACT_BLOCK:       SoundBank.play_3d("shield_raise", global_position)
             TS.ACT_ROLL:        SoundBank.play_3d("roll", global_position)
+            TS.ACT_FLIP:        SoundBank.play_3d("jump", global_position)
             TS.ACT_JUMP:        SoundBank.play_3d("jump", global_position)
             TS.ACT_LAND:        SoundBank.play_3d("land", global_position)
             TS.ACT_HURT:        SoundBank.play_3d("hurt", global_position)
