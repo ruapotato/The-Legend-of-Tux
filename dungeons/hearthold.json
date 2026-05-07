@@ -1,0 +1,87 @@
+{
+  "name": "Hearthold",
+  "id": "hearthold",
+
+  "environment": {
+    "sky_top":         [0.40, 0.55, 0.78, 1],
+    "sky_horizon":     [0.78, 0.74, 0.62, 1],
+    "ground_horizon":  [0.45, 0.40, 0.30, 1],
+    "ground_bottom":   [0.14, 0.12, 0.08, 1],
+    "ambient_color":   [0.55, 0.55, 0.52, 1],
+    "ambient_energy":  0.55,
+    "fog_density":     0.005,
+    "fog_color":       [0.68, 0.66, 0.58, 1],
+    "sun_dir":         [0.3, -0.6, -0.5],
+    "sun_color":       [1.0, 0.95, 0.82, 1],
+    "sun_energy":      1.0
+  },
+
+  "floor": {
+    "rect":  [-20, -20, 20, 20],
+    "y":     0,
+    "color": [0.50, 0.46, 0.40, 1]
+  },
+
+  "rooms": [
+    {
+      "id": "town",
+      "rect": [-20, -20, 20, 20],
+      "wall_height": 5,
+      "wall_color":  [0.55, 0.50, 0.42, 1]
+    }
+  ],
+
+  "doorways": [
+    {"x": 0, "z":  20, "width": 3.0, "door": null},
+    {"x": 0, "z": -20, "width": 3.0, "door": null}
+  ],
+
+  "spawns": [
+    {"id": "default",         "pos": [0, 0.5, 18],  "rotation_y": 3.14159},
+    {"id": "from_sourceplain","pos": [0, 0.5, 18],  "rotation_y": 3.14159},
+    {"id": "from_sigilkeep",  "pos": [0, 0.5, -18], "rotation_y": 0}
+  ],
+
+  "lights": [
+    {"pos": [-8, 4, 0],  "color": [1.0, 0.85, 0.55, 1], "energy": 1.0, "range": 12.0},
+    {"pos": [ 8, 4, 0],  "color": [1.0, 0.85, 0.55, 1], "energy": 1.0, "range": 12.0}
+  ],
+
+  "props": [
+    {
+      "type": "sign",
+      "pos": [-3, 0, 16],
+      "rotation_y": 0,
+      "message": "Hearthold.\n\nThe gate is thrown open. Smoke from the kilns rises to meet the rooks. North: the Sigilkeep. The wardstones still glow there, faintly."
+    },
+    {
+      "type": "sign",
+      "pos": [-12, 0, 4],
+      "rotation_y": 1.5708,
+      "message": "A hand-painted shingle: \"Takka the Pebbler. Trades stone for stone. Will not haggle.\"\n\nThe shop is shuttered."
+    },
+    {
+      "type": "sign",
+      "pos": [12, 0, 4],
+      "rotation_y": -1.5708,
+      "message": "A wax-sealed notice on the smithy door:\n\n\"By order of the keepers of the Hold: no sword may be carried past the inner gate. Edge magic flares badly near the sealed wards.\""
+    }
+  ],
+
+  "load_zones": [
+    {
+      "pos": [0, 1.0, 19.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "sourceplain",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Out to the plain"
+    },
+    {
+      "pos": [0, 1.0, -19.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "sigilkeep",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Toward the Sigilkeep"
+    }
+  ]
+}

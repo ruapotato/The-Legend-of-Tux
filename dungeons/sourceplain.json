@@ -1,0 +1,85 @@
+{
+  "name": "Sourceplain",
+  "id": "sourceplain",
+
+  "environment": {
+    "sky_top":         [0.36, 0.55, 0.82, 1],
+    "sky_horizon":     [0.86, 0.84, 0.74, 1],
+    "ground_horizon":  [0.55, 0.50, 0.36, 1],
+    "ground_bottom":   [0.18, 0.16, 0.10, 1],
+    "ambient_color":   [0.55, 0.60, 0.62, 1],
+    "ambient_energy":  0.6,
+    "fog_density":     0.003,
+    "fog_color":       [0.78, 0.82, 0.78, 1],
+    "sun_dir":         [0.5, -0.7, -0.4],
+    "sun_color":       [1.0, 0.95, 0.82, 1],
+    "sun_energy":      1.3
+  },
+
+  "floor": {
+    "rect":  [-30, -30, 30, 30],
+    "y":     0,
+    "color": [0.36, 0.48, 0.28, 1]
+  },
+
+  "tree_walls": [
+    {
+      "boundary": [
+        [-30, 30], [-3, 30], [-3, 29], [3, 29], [3, 30], [30, 30],
+        [30, -28], [3, -28], [3, -29], [-3, -29], [-3, -28], [-30, -28]
+      ],
+      "spacing": 2.0,
+      "trunk_height": 6.0,
+      "canopy_radius": 2.2,
+      "trunk_color":  [0.22, 0.15, 0.10, 1],
+      "canopy_color": [0.16, 0.32, 0.16, 1],
+      "seed": 3003
+    }
+  ],
+
+  "spawns": [
+    {"id": "default",         "pos": [0, 0.5, 28],  "rotation_y": 3.14159},
+    {"id": "from_wyrdwood",   "pos": [0, 0.5, 28],  "rotation_y": 3.14159},
+    {"id": "from_hearthold",  "pos": [0, 0.5, -27], "rotation_y": 0}
+  ],
+
+  "lights": [],
+
+  "enemies": [
+    {"type": "blob", "pos": [-8, 0, 8]},
+    {"type": "blob", "pos": [ 9, 0, 4]},
+    {"type": "bat",  "pos": [12, 3.0, -6]}
+  ],
+
+  "props": [
+    {
+      "type": "sign",
+      "pos": [0, 0, 24],
+      "rotation_y": 0,
+      "message": "Sourceplain.\n\nThe wide grass stretches toward Hearthold's walls. The Source runs strong here — once it sang, before the hoarder took the Sigil."
+    },
+    {
+      "type": "sign",
+      "pos": [-12, 0, 0],
+      "rotation_y": 1.5708,
+      "message": "A toppled stone marker. The runes are worn smooth on the side that faced the wind. The other side reads:\n\n\"Take. Use. Pass on.\""
+    }
+  ],
+
+  "load_zones": [
+    {
+      "pos": [0, 1.0, 29.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "wyrdwood",
+      "target_spawn": "from_sourceplain",
+      "prompt": "[E] Back across the bridge"
+    },
+    {
+      "pos": [0, 1.0, -28.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "hearthold",
+      "target_spawn": "from_sourceplain",
+      "prompt": "[E] To Hearthold's gate"
+    }
+  ]
+}

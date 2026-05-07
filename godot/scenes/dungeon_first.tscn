@@ -1,78 +1,128 @@
-[gd_scene load_steps=21 format=3 uid="uid://btuxdng01"]
+[gd_scene load_steps=45 format=3 uid="uid://btuxdungeonf01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpl01"  path="res://scenes/tux.tscn"               id="1_tux"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn"               id="2_hud"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn"        id="3_blob"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="4_knight"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn"         id="5_sign"]
-[ext_resource type="PackedScene" uid="uid://btuxdoor01" path="res://scenes/door.tscn"              id="6_door"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn"    id="7_chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn"        id="8_key"]
-[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn"         id="9_boom"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn"              id="10_glim"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="11_camera"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd"     id="12_debug"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd"        id="13_pause"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01"  path="res://scenes/enemy_bone_bat.tscn" id="14_bat"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxdoor01" path="res://scenes/door.tscn" id="door"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 
-[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
-sky_top_color = Color(0.08, 0.10, 0.18, 1)
+[sub_resource type="ProceduralSkyMaterial" id="s1"]
+sky_top_color = Color(0.08, 0.1, 0.18, 1)
 sky_horizon_color = Color(0.16, 0.14, 0.12, 1)
-ground_horizon_color = Color(0.12, 0.10, 0.08, 1)
+ground_horizon_color = Color(0.12, 0.1, 0.08, 1)
 ground_bottom_color = Color(0.04, 0.04, 0.04, 1)
 
-[sub_resource type="Sky" id="sky"]
-sky_material = SubResource("sky_mat")
+[sub_resource type="Sky" id="s2"]
+sky_material = SubResource("s1")
 
-[sub_resource type="Environment" id="env"]
+[sub_resource type="Environment" id="s3"]
 background_mode = 2
-sky = SubResource("sky")
+sky = SubResource("s2")
 ambient_light_source = 3
-ambient_light_color = Color(0.45, 0.40, 0.35, 1)
+ambient_light_color = Color(0.45, 0.4, 0.35, 1)
 ambient_light_energy = 0.45
 fog_enabled = true
-fog_light_color = Color(0.20, 0.18, 0.16, 1)
-fog_density = 0.020
+fog_density = 0.02
+fog_light_color = Color(0.2, 0.18, 0.16, 1)
 
-[sub_resource type="StandardMaterial3D" id="floor_mat"]
-albedo_color = Color(0.22, 0.20, 0.18, 1)
-roughness = 0.92
+[sub_resource type="StandardMaterial3D" id="s4"]
+albedo_color = Color(0.22, 0.2, 0.18, 1)
+roughness = 0.95
+metallic = 0
 
-[sub_resource type="StandardMaterial3D" id="wall_mat"]
-albedo_color = Color(0.42, 0.38, 0.32, 1)
-roughness = 0.92
-
-[sub_resource type="BoxShape3D" id="floor_shape"]
+[sub_resource type="BoxShape3D" id="s5"]
 size = Vector3(24, 0.4, 40)
 
-[sub_resource type="PlaneMesh" id="floor_mesh"]
+[sub_resource type="PlaneMesh" id="s6"]
 size = Vector2(24, 40)
 
-[sub_resource type="BoxShape3D" id="wall_long_shape"]
-size = Vector3(0.5, 4.0, 40)
+[sub_resource type="StandardMaterial3D" id="s7"]
+albedo_color = Color(0.42, 0.38, 0.32, 1)
+roughness = 0.92
+metallic = 0
 
-[sub_resource type="BoxMesh" id="wall_long_mesh"]
-size = Vector3(0.5, 4.0, 40)
+[sub_resource type="BoxShape3D" id="s8"]
+size = Vector3(11, 4, 0.5)
 
-[sub_resource type="BoxShape3D" id="wall_wide_shape"]
-size = Vector3(24.0, 4.0, 0.5)
+[sub_resource type="BoxMesh" id="s9"]
+size = Vector3(11, 4, 0.5)
 
-[sub_resource type="BoxMesh" id="wall_wide_mesh"]
-size = Vector3(24.0, 4.0, 0.5)
+[sub_resource type="BoxShape3D" id="s10"]
+size = Vector3(11, 4, 0.5)
 
-[sub_resource type="BoxShape3D" id="wall_mid_shape"]
-size = Vector3(11.0, 4.0, 0.5)
+[sub_resource type="BoxMesh" id="s11"]
+size = Vector3(11, 4, 0.5)
 
-[sub_resource type="BoxMesh" id="wall_mid_mesh"]
-size = Vector3(11.0, 4.0, 0.5)
+[sub_resource type="BoxShape3D" id="s12"]
+size = Vector3(24, 4, 0.5)
 
-[node name="DungeonFirst" type="Node3D"]
+[sub_resource type="BoxMesh" id="s13"]
+size = Vector3(24, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="s14"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxMesh" id="s15"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxShape3D" id="s16"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxMesh" id="s17"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxShape3D" id="s18"]
+size = Vector3(24, 4, 0.5)
+
+[sub_resource type="BoxMesh" id="s19"]
+size = Vector3(24, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="s20"]
+size = Vector3(11, 4, 0.5)
+
+[sub_resource type="BoxMesh" id="s21"]
+size = Vector3(11, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="s22"]
+size = Vector3(11, 4, 0.5)
+
+[sub_resource type="BoxMesh" id="s23"]
+size = Vector3(11, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="s24"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxMesh" id="s25"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxShape3D" id="s26"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxMesh" id="s27"]
+size = Vector3(0.5, 4, 20)
+
+[sub_resource type="BoxShape3D" id="s28"]
+size = Vector3(4, 3, 1)
+
+[node name="Hollow of the Last Wyrd" type="Node3D"]
+script = ExtResource("root_script")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
-environment = SubResource("env")
+environment = SubResource("s3")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.788, -0.500, 0.357, 0, 0.582, 0.813, -0.616, -0.640, 0.458, 0, 14, 0)
+transform = Transform3D(0.8, -0, 0.6, 0.48824, 0.581238, -0.650987, -0.348743, 0.813733, 0.464991, 0, 14, 0)
 light_color = Color(0.95, 0.85, 0.65, 1)
 light_energy = 0.7
 shadow_enabled = true
@@ -84,174 +134,241 @@ collision_mask = 0
 
 [node name="Shape" type="CollisionShape3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-shape = SubResource("floor_shape")
+shape = SubResource("s5")
 
 [node name="Mesh" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("floor_mesh")
-surface_material_override/0 = SubResource("floor_mat")
+mesh = SubResource("s6")
+surface_material_override/0 = SubResource("s4")
 
-[node name="WallEast" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.25, 2, -20)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape3D" parent="WallEast"]
-shape = SubResource("wall_long_shape")
-
-[node name="Mesh" type="MeshInstance3D" parent="WallEast"]
-mesh = SubResource("wall_long_mesh")
-surface_material_override/0 = SubResource("wall_mat")
-
-[node name="WallWest" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 2, -20)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape3D" parent="WallWest"]
-shape = SubResource("wall_long_shape")
-
-[node name="Mesh" type="MeshInstance3D" parent="WallWest"]
-mesh = SubResource("wall_long_mesh")
-surface_material_override/0 = SubResource("wall_mat")
-
-[node name="WallSouth" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.25)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape3D" parent="WallSouth"]
-shape = SubResource("wall_wide_shape")
-
-[node name="Mesh" type="MeshInstance3D" parent="WallSouth"]
-mesh = SubResource("wall_wide_mesh")
-surface_material_override/0 = SubResource("wall_mat")
-
-[node name="WallNorth" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -40.25)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape3D" parent="WallNorth"]
-shape = SubResource("wall_wide_shape")
-
-[node name="Mesh" type="MeshInstance3D" parent="WallNorth"]
-mesh = SubResource("wall_wide_mesh")
-surface_material_override/0 = SubResource("wall_mat")
-
-[node name="MidWallWest" type="StaticBody3D" parent="."]
+[node name="Wall1" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2, -20)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="MidWallWest"]
-shape = SubResource("wall_mid_shape")
+[node name="Shape" type="CollisionShape3D" parent="Wall1"]
+shape = SubResource("s8")
 
-[node name="Mesh" type="MeshInstance3D" parent="MidWallWest"]
-mesh = SubResource("wall_mid_mesh")
-surface_material_override/0 = SubResource("wall_mat")
+[node name="Mesh" type="MeshInstance3D" parent="Wall1"]
+mesh = SubResource("s9")
+surface_material_override/0 = SubResource("s7")
 
-[node name="MidWallEast" type="StaticBody3D" parent="."]
+[node name="Wall2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 2, -20)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="MidWallEast"]
-shape = SubResource("wall_mid_shape")
+[node name="Shape" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("s10")
 
-[node name="Mesh" type="MeshInstance3D" parent="MidWallEast"]
-mesh = SubResource("wall_mid_mesh")
-surface_material_override/0 = SubResource("wall_mat")
+[node name="Mesh" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("s11")
+surface_material_override/0 = SubResource("s7")
 
-[node name="EntryTorch1" type="OmniLight3D" parent="."]
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("s12")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("s13")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, -10)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("s14")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall4"]
+mesh = SubResource("s15")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -10)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall5"]
+shape = SubResource("s16")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall5"]
+mesh = SubResource("s17")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -40)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall6"]
+shape = SubResource("s18")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall6"]
+mesh = SubResource("s19")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall7" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2, -20)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall7"]
+shape = SubResource("s20")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall7"]
+mesh = SubResource("s21")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall8" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 2, -20)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall8"]
+shape = SubResource("s22")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall8"]
+mesh = SubResource("s23")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall9" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, -30)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall9"]
+shape = SubResource("s24")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall9"]
+mesh = SubResource("s25")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall10" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -30)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall10"]
+shape = SubResource("s26")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall10"]
+mesh = SubResource("s27")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Door0" parent="." instance=ExtResource("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+requires_key = true
+locked_message = "Locked. A small key would open this door."
+unlock_message = "The lock turns. The door slides open."
+
+[node name="Light0" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, -6)
-light_color = Color(1.0, 0.75, 0.45, 1)
+light_color = Color(1, 0.75, 0.45, 1)
 light_energy = 1.4
-omni_range = 12.0
+omni_range = 12
 
-[node name="EntryTorch2" type="OmniLight3D" parent="."]
+[node name="Light1" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, -6)
-light_color = Color(1.0, 0.75, 0.45, 1)
+light_color = Color(1, 0.75, 0.45, 1)
 light_energy = 1.4
-omni_range = 12.0
+omni_range = 12
 
-[node name="BossTorch1" type="OmniLight3D" parent="."]
+[node name="Light2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, -28)
 light_color = Color(0.95, 0.55, 0.35, 1)
 light_energy = 1.6
-omni_range = 14.0
+omni_range = 14
 
-[node name="BossTorch2" type="OmniLight3D" parent="."]
+[node name="Light3" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, -28)
 light_color = Color(0.95, 0.55, 0.35, 1)
 light_energy = 1.6
-omni_range = 14.0
+omni_range = 14
 
-[node name="Sign" parent="." instance=ExtResource("5_sign")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-message = "An old wooden sign:
+[node name="Spawns" type="Node3D" parent="."]
 
-\"Beyond the locked gate sleeps the hoarder of one Sigil. Bring courage — the courage to share what you find.\"
+[node name="default" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0.5, -2)
 
-The carving is fresh, but the tree it was cut from is older than memory."
-
-[node name="Blob1" parent="." instance=ExtResource("3_blob")]
+[node name="Blob0" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -10)
 
-[node name="Blob2" parent="." instance=ExtResource("3_blob")]
+[node name="Blob1" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -10)
 
-[node name="Blob3" parent="." instance=ExtResource("3_blob")]
+[node name="Blob2" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14)
 
-[node name="Bat1" parent="." instance=ExtResource("14_bat")]
+[node name="Bat3" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.6, -8)
 
-[node name="Bat2" parent="." instance=ExtResource("14_bat")]
+[node name="Bat4" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.8, -12)
 
-[node name="Bat3" parent="." instance=ExtResource("14_bat")]
+[node name="Bat5" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -28)
 
-[node name="LoreSign1" parent="." instance=ExtResource("5_sign")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, -16)
-message = "Carved into the stone:
-
-\"The Maker wove this realm from the Source. Where the Sigils are hoarded, the weave thins, and walls outlast their reasons.\""
-
-[node name="LoreSign2" parent="." instance=ExtResource("5_sign")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33)
-message = "Etched in fresher stone, in a hand that doesn't quite match:
-
-\"What you take from this place, share. The Sigil grows weak in stillness.\""
-
-[node name="KeyChest" parent="." instance=ExtResource("7_chest")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -17)
-contents_scene = ExtResource("8_key")
-open_message = "A small key. The locked door ahead might match."
-
-[node name="Door" parent="." instance=ExtResource("6_door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
-requires_key = true
-locked_message = "An iron lock holds the door fast. A small key would fit."
-unlock_message = "The lock springs. The door slides into its frame."
-
-[node name="BoneKnight" parent="." instance=ExtResource("4_knight")]
+[node name="Knight6" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
 
-[node name="BoomerangChest" parent="." instance=ExtResource("7_chest")]
+[node name="Sign0" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+message = "An old wooden sign:\n\n\"Beyond the locked gate sleeps the hoarder of one Sigil. Bring courage — the courage to share what you find.\""
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, -10, 0, -16)
+message = "Carved into the stone:\n\n\"The Maker wove this realm from the Source. Where the Sigils are hoarded, the weave thins, and walls outlast their reasons.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33)
+message = "Etched in fresher stone:\n\n\"What you take from this place, share. The Sigil grows weak in stillness.\""
+
+[node name="Chest3" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -17)
+contents_scene = ExtResource("key_pickup")
+open_message = "A small key. The locked door ahead might match."
+
+[node name="Chest4" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37)
-contents_scene = ExtResource("9_boom")
+contents_scene = ExtResource("boomerang_pickup")
 open_message = "A bone-and-wood boomerang. Press F to throw it; it returns on its own."
 
-[node name="Tux" parent="." instance=ExtResource("1_tux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
+[node name="LoadZone0" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+script = ExtResource("load_zone_script")
+target_scene = "res://scenes/wyrdwood.tscn"
+target_spawn = "from_dungeon"
+auto_trigger = false
+prompt = "[E] Back to the Wyrdwood"
+
+[node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
+shape = SubResource("s28")
+
+[node name="Hint" type="Label3D" parent="LoadZone0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+text = "[E] Back to the Wyrdwood"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true
+
+[node name="Tux" parent="." instance=ExtResource("tux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 camera_path = NodePath("../Camera")
 
-[node name="Glim" parent="." instance=ExtResource("10_glim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, -2)
+[node name="Glim" parent="." instance=ExtResource("glim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, 0)
 
 [node name="Camera" type="Node3D" parent="."]
-script = ExtResource("11_camera")
+script = ExtResource("camera_script")
 
 [node name="SpringArm" type="SpringArm3D" parent="Camera"]
 spring_length = 4.5
@@ -260,11 +377,11 @@ margin = 0.05
 [node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
 fov = 70.0
 
-[node name="HUD" parent="." instance=ExtResource("2_hud")]
+[node name="HUD" parent="." instance=ExtResource("hud")]
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
-script = ExtResource("12_debug")
+script = ExtResource("debug_script")
 visible_initial = false
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
-script = ExtResource("13_pause")
+script = ExtResource("pause_script")

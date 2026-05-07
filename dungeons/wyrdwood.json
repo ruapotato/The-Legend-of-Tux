@@ -1,0 +1,97 @@
+{
+  "name": "Wyrdwood",
+  "id": "wyrdwood",
+
+  "environment": {
+    "sky_top":         [0.18, 0.22, 0.28, 1],
+    "sky_horizon":     [0.30, 0.32, 0.30, 1],
+    "ground_horizon":  [0.18, 0.20, 0.15, 1],
+    "ground_bottom":   [0.05, 0.07, 0.05, 1],
+    "ambient_color":   [0.40, 0.46, 0.40, 1],
+    "ambient_energy":  0.35,
+    "fog_density":     0.022,
+    "fog_color":       [0.30, 0.34, 0.28, 1],
+    "sun_dir":         [0.2, -0.5, -0.4],
+    "sun_color":       [0.85, 0.82, 0.70, 1],
+    "sun_energy":      0.55
+  },
+
+  "floor": {
+    "rect":  [-15, -30, 15, 15],
+    "y":     0,
+    "color": [0.18, 0.26, 0.14, 1]
+  },
+
+  "tree_walls": [
+    {
+      "boundary": [
+        [-15, 15], [-3, 15], [-3, 14], [3, 14], [3, 15], [15, 15],
+        [15, -27], [13, -27], [13, -26], [16, -26], [16, -30],
+        [-3, -30], [-3, -29], [3, -29], [3, -30], [-15, -30]
+      ],
+      "spacing": 1.1,
+      "trunk_height": 5.5,
+      "canopy_radius": 1.7,
+      "trunk_color":  [0.13, 0.09, 0.06, 1],
+      "canopy_color": [0.08, 0.18, 0.10, 1],
+      "seed": 2002
+    }
+  ],
+
+  "spawns": [
+    {"id": "default",       "pos": [0, 0.5, 13],  "rotation_y": 3.14159},
+    {"id": "from_glade",    "pos": [0, 0.5, 13],  "rotation_y": 3.14159},
+    {"id": "from_dungeon",  "pos": [14, 0.5, -26],"rotation_y": 1.5708},
+    {"id": "from_sourceplain","pos": [0, 0.5, -28],"rotation_y": 0}
+  ],
+
+  "lights": [
+    {"pos": [-6, 3, -5], "color": [0.95, 0.85, 0.55, 1], "energy": 1.0, "range": 10.0},
+    {"pos": [ 6, 3, -15],"color": [0.95, 0.85, 0.55, 1], "energy": 1.0, "range": 10.0}
+  ],
+
+  "enemies": [
+    {"type": "blob", "pos": [-4, 0, -4]},
+    {"type": "blob", "pos": [ 5, 0, -10]},
+    {"type": "bat",  "pos": [-6, 2.5, -18]}
+  ],
+
+  "props": [
+    {
+      "type": "sign",
+      "pos": [0, 0, 11],
+      "rotation_y": 0,
+      "message": "The path forks here.\n\nEast lies a hollow under a fallen elder. North, the path runs to the bridge."
+    },
+    {
+      "type": "sign",
+      "pos": [10, 0, -23],
+      "rotation_y": 0,
+      "message": "Hollow of the Last Wyrd.\n\nA carved root frames the entrance. The dust inside is fresh."
+    }
+  ],
+
+  "load_zones": [
+    {
+      "pos": [0, 1.0, 14.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "wyrdkin_glade",
+      "target_spawn": "from_wyrdwood",
+      "prompt": "[E] Back to the Glade"
+    },
+    {
+      "pos": [14.5, 1.0, -26.5],
+      "size": [1.0, 3.0, 4.0],
+      "target_scene": "dungeon_first",
+      "target_spawn": "default",
+      "prompt": "[E] Enter the Hollow"
+    },
+    {
+      "pos": [0, 1.0, -29.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "sourceplain",
+      "target_spawn": "from_wyrdwood",
+      "prompt": "[E] Onto the bridge"
+    }
+  ]
+}

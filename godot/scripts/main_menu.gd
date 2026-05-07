@@ -4,6 +4,7 @@ extends Control
 # author and maintain a tscn for the buttons; the only scene we need
 # is the parent that hosts this script.
 
+@export var world_start_path: String = "res://scenes/wyrdkin_glade.tscn"
 @export var dungeon_path: String = "res://scenes/dungeon_first.tscn"
 @export var sandbox_path: String = "res://scenes/combat_arena.tscn"
 
@@ -50,9 +51,10 @@ func _ready() -> void:
     spacer.custom_minimum_size = Vector2(0, 24)
     box.add_child(spacer)
 
-    box.add_child(_make_button("Enter the Dungeon",  _on_play))
-    box.add_child(_make_button("Combat Sandbox",     _on_sandbox))
-    box.add_child(_make_button("Quit",               _on_quit))
+    box.add_child(_make_button("Begin in Wyrdkin Glade", _on_play))
+    box.add_child(_make_button("Skip to the Hollow",     _on_dungeon))
+    box.add_child(_make_button("Combat Sandbox",         _on_sandbox))
+    box.add_child(_make_button("Quit",                   _on_quit))
 
 
 func _make_button(label: String, on_pressed: Callable) -> Button:
@@ -65,6 +67,10 @@ func _make_button(label: String, on_pressed: Callable) -> Button:
 
 
 func _on_play() -> void:
+    get_tree().change_scene_to_file(world_start_path)
+
+
+func _on_dungeon() -> void:
     get_tree().change_scene_to_file(dungeon_path)
 
 

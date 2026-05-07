@@ -1,0 +1,107 @@
+{
+  "name": "Hollow of the Last Wyrd",
+  "id": "dungeon_first",
+
+  "environment": {
+    "sky_top":         [0.08, 0.10, 0.18, 1],
+    "sky_horizon":     [0.16, 0.14, 0.12, 1],
+    "ground_horizon":  [0.12, 0.10, 0.08, 1],
+    "ground_bottom":   [0.04, 0.04, 0.04, 1],
+    "ambient_color":   [0.45, 0.40, 0.35, 1],
+    "ambient_energy":  0.45,
+    "fog_density":     0.020,
+    "fog_color":       [0.20, 0.18, 0.16, 1],
+    "sun_dir":         [0.3, -0.7, -0.4],
+    "sun_color":       [0.95, 0.85, 0.65, 1],
+    "sun_energy":      0.7
+  },
+
+  "floor": {
+    "rect":  [-12, -40, 12, 0],
+    "y":     0,
+    "color": [0.22, 0.20, 0.18, 1]
+  },
+
+  "rooms": [
+    {"id": "entry", "rect": [-12, -20, 12,   0], "wall_height": 4, "wall_color": [0.42, 0.38, 0.32, 1]},
+    {"id": "boss",  "rect": [-12, -40, 12, -20], "wall_height": 4, "wall_color": [0.42, 0.38, 0.32, 1]}
+  ],
+
+  "doorways": [
+    {
+      "rooms": ["entry", "boss"],
+      "x": 0, "z": -20, "width": 2.0,
+      "door": {
+        "type": "locked",
+        "locked_message": "Locked. A small key would open this door.",
+        "unlock_message": "The lock turns. The door slides open."
+      }
+    }
+  ],
+
+  "spawns": [
+    {"id": "default", "pos": [0, 0.5, -2], "rotation_y": 3.14159}
+  ],
+
+  "lights": [
+    {"pos": [ 8, 3,  -6], "color": [1.0, 0.75, 0.45, 1], "energy": 1.4, "range": 12.0},
+    {"pos": [-8, 3,  -6], "color": [1.0, 0.75, 0.45, 1], "energy": 1.4, "range": 12.0},
+    {"pos": [ 7, 3, -28], "color": [0.95, 0.55, 0.35, 1], "energy": 1.6, "range": 14.0},
+    {"pos": [-7, 3, -28], "color": [0.95, 0.55, 0.35, 1], "energy": 1.6, "range": 14.0}
+  ],
+
+  "enemies": [
+    {"type": "blob",   "pos": [ 5,   0, -10]},
+    {"type": "blob",   "pos": [-5,   0, -10]},
+    {"type": "blob",   "pos": [ 0,   0, -14]},
+    {"type": "bat",    "pos": [-8, 2.6,  -8]},
+    {"type": "bat",    "pos": [ 8, 2.8, -12]},
+    {"type": "bat",    "pos": [ 0, 2.6, -28]},
+    {"type": "knight", "pos": [ 0,   0, -30]}
+  ],
+
+  "props": [
+    {
+      "type": "sign",
+      "pos": [0, 0, -4],
+      "rotation_y": 0,
+      "message": "An old wooden sign:\n\n\"Beyond the locked gate sleeps the hoarder of one Sigil. Bring courage — the courage to share what you find.\""
+    },
+    {
+      "type": "sign",
+      "pos": [-10, 0, -16],
+      "rotation_y": -1.5708,
+      "message": "Carved into the stone:\n\n\"The Maker wove this realm from the Source. Where the Sigils are hoarded, the weave thins, and walls outlast their reasons.\""
+    },
+    {
+      "type": "sign",
+      "pos": [0, 0, -33],
+      "rotation_y": 0,
+      "message": "Etched in fresher stone:\n\n\"What you take from this place, share. The Sigil grows weak in stillness.\""
+    },
+    {
+      "type": "chest",
+      "pos": [8, 0, -17],
+      "rotation_y": 0,
+      "contents": "key",
+      "open_message": "A small key. The locked door ahead might match."
+    },
+    {
+      "type": "chest",
+      "pos": [0, 0, -37],
+      "rotation_y": 0,
+      "contents": "boomerang",
+      "open_message": "A bone-and-wood boomerang. Press F to throw it; it returns on its own."
+    }
+  ],
+
+  "load_zones": [
+    {
+      "pos": [0, 1.0, 1.5],
+      "size": [4.0, 3.0, 1.0],
+      "target_scene": "wyrdwood",
+      "target_spawn": "from_dungeon",
+      "prompt": "[E] Back to the Wyrdwood"
+    }
+  ]
+}

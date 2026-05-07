@@ -1,0 +1,240 @@
+[gd_scene load_steps=28 format=3 uid="uid://btuxsigilkee01"]
+
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+
+[sub_resource type="ProceduralSkyMaterial" id="s1"]
+sky_top_color = Color(0.1, 0.1, 0.15, 1)
+sky_horizon_color = Color(0.18, 0.16, 0.18, 1)
+ground_horizon_color = Color(0.12, 0.1, 0.08, 1)
+ground_bottom_color = Color(0.04, 0.04, 0.04, 1)
+
+[sub_resource type="Sky" id="s2"]
+sky_material = SubResource("s1")
+
+[sub_resource type="Environment" id="s3"]
+background_mode = 2
+sky = SubResource("s2")
+ambient_light_source = 3
+ambient_light_color = Color(0.4, 0.36, 0.4, 1)
+ambient_light_energy = 0.4
+fog_enabled = true
+fog_density = 0.018
+fog_light_color = Color(0.2, 0.18, 0.22, 1)
+
+[sub_resource type="StandardMaterial3D" id="s4"]
+albedo_color = Color(0.2, 0.18, 0.2, 1)
+roughness = 0.95
+metallic = 0
+
+[sub_resource type="BoxShape3D" id="s5"]
+size = Vector3(36, 0.4, 40)
+
+[sub_resource type="PlaneMesh" id="s6"]
+size = Vector2(36, 40)
+
+[sub_resource type="StandardMaterial3D" id="s7"]
+albedo_color = Color(0.3, 0.27, 0.3, 1)
+roughness = 0.92
+metallic = 0
+
+[sub_resource type="BoxShape3D" id="s8"]
+size = Vector3(36, 7, 0.5)
+
+[sub_resource type="BoxMesh" id="s9"]
+size = Vector3(36, 7, 0.5)
+
+[sub_resource type="BoxShape3D" id="s10"]
+size = Vector3(16.5, 7, 0.5)
+
+[sub_resource type="BoxMesh" id="s11"]
+size = Vector3(16.5, 7, 0.5)
+
+[sub_resource type="BoxShape3D" id="s12"]
+size = Vector3(16.5, 7, 0.5)
+
+[sub_resource type="BoxMesh" id="s13"]
+size = Vector3(16.5, 7, 0.5)
+
+[sub_resource type="BoxShape3D" id="s14"]
+size = Vector3(0.5, 7, 40)
+
+[sub_resource type="BoxMesh" id="s15"]
+size = Vector3(0.5, 7, 40)
+
+[sub_resource type="BoxShape3D" id="s16"]
+size = Vector3(0.5, 7, 40)
+
+[sub_resource type="BoxMesh" id="s17"]
+size = Vector3(0.5, 7, 40)
+
+[sub_resource type="BoxShape3D" id="s18"]
+size = Vector3(4, 3, 1)
+
+[node name="Sigilkeep" type="Node3D"]
+script = ExtResource("root_script")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("s3")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("s5")
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("s6")
+surface_material_override/0 = SubResource("s4")
+
+[node name="Wall1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -22)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall1"]
+shape = SubResource("s8")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall1"]
+mesh = SubResource("s9")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.75, 3.5, 18)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("s10")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("s11")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.75, 3.5, 18)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("s12")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("s13")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 3.5, -2)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("s14")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall4"]
+mesh = SubResource("s15")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Wall5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.5, -2)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Wall5"]
+shape = SubResource("s16")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall5"]
+mesh = SubResource("s17")
+surface_material_override/0 = SubResource("s7")
+
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 5, -8)
+light_color = Color(0.55, 0.4, 0.85, 1)
+light_energy = 1.6
+omni_range = 14
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5, -8)
+light_color = Color(0.55, 0.4, 0.85, 1)
+light_energy = 1.6
+omni_range = 14
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -18)
+light_color = Color(0.95, 0.3, 0.3, 1)
+light_energy = 1.4
+omni_range = 16
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="default" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0.5, 16)
+
+[node name="from_hearthold" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0.5, 16)
+
+[node name="Sign0" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+message = "The Sigilkeep.\n\nThe great door is sealed. A line of wardstones glows across the threshold, dim. Khorgaul's hoard pulses behind them."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+message = "Carved into the wardstone:\n\n\"This door opens for one who has shared three Sigils. Bring proof of giving.\"\n\nThe wards do not stir."
+
+[node name="LoadZone0" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 17.5)
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+script = ExtResource("load_zone_script")
+target_scene = "res://scenes/hearthold.tscn"
+target_spawn = "from_sigilkeep"
+auto_trigger = false
+prompt = "[E] Back to Hearthold"
+
+[node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
+shape = SubResource("s18")
+
+[node name="Hint" type="Label3D" parent="LoadZone0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+text = "[E] Back to Hearthold"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true
+
+[node name="Tux" parent="." instance=ExtResource("tux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+camera_path = NodePath("../Camera")
+
+[node name="Glim" parent="." instance=ExtResource("glim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, 0)
+
+[node name="Camera" type="Node3D" parent="."]
+script = ExtResource("camera_script")
+
+[node name="SpringArm" type="SpringArm3D" parent="Camera"]
+spring_length = 4.5
+margin = 0.05
+
+[node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
+fov = 70.0
+
+[node name="HUD" parent="." instance=ExtResource("hud")]
+
+[node name="DebugOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("debug_script")
+visible_initial = false
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("pause_script")

@@ -24,6 +24,12 @@ var _stamina_remainder: float = 0.0
 var pebbles: int = 0
 var keys: int = 0    # small keys for the current dungeon
 
+# Cross-scene transition state. When a LoadZone fires it sets
+# next_spawn_id; the next scene's DungeonRoot reads it on _ready and
+# positions Tux at the matching named spawn. Cleared once consumed so
+# subsequent loads default to the "default" spawn.
+var next_spawn_id: String = ""
+
 # Inventory: name → true (owned). Active item is the one bound to the
 # B-button (item_use input).
 var inventory: Dictionary = {}
