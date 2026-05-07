@@ -88,6 +88,7 @@ item_use={
 [autoload]
 
 GameState="*res://scripts/game_state.gd"
+SoundBank="*res://scripts/sound_bank.gd"
 
 [rendering]
 

@@ -27,6 +27,12 @@ var _blade_node: MeshInstance3D = null
 var _trail_cooldown: float = 0.0
 const TRAIL_INTERVAL: float = 0.025
 
+# Sound dispatch state — tracks transitions in the action machine and
+# the swing index so combo continuations also fire a swing whoosh.
+var _prev_action: int = -1
+var _prev_swing_idx: int = -1
+var _charge_ready_played: bool = false
+
 
 func _ready() -> void:
     add_to_group("player")
@@ -55,7 +61,11 @@ func _ready() -> void:
     var arm_r: Node3D = bones["arm_r"]
     var arm_l: Node3D = bones["arm_l"]
     var SWORD_LOCAL := Transform3D(Basis.IDENTITY, Vector3(-0.07, -0.32, 0))
-    var SHIELD_LOCAL := Transform3D(Basis.IDENTITY, Vector3(0.07, -0.30, 0))
+    # Shield rotated -90° around X so the broad face is perpendicular to
+    # the wing's length axis — when arm_l rotates forward to block, the
+    # broad face ends up pointing toward the enemy instead of being
+    # flush against the wing.
+    var SHIELD_LOCAL := Transform3D(Basis(Vector3(1, 0, 0), -PI / 2), Vector3(0.07, -0.30, 0))
     remove_child(sword)
     arm_r.add_child(sword)
     sword.transform = SWORD_LOCAL
@@ -110,6 +120,7 @@ func _physics_process(delta: float) -> void:
         sword_hitbox.disarm()
 
     _emit_trail_if_active(delta)
+    _dispatch_action_sounds()
 
 
 func _read_inputs() -> void:
@@ -137,16 +148,68 @@ func get_face_yaw() -> float:
 # ---- Damage in / out --------------------------------------------------
 
 func take_damage(amount: int, source_pos: Vector3) -> void:
+    var was_blocking: bool = state.action == TuxState.ACT_BLOCK
+    var was_parry: bool = state.parry_active
+    var was_iframes: bool = state.action == TuxState.ACT_ROLL \
+                            and state.action_time <= TuxState.ROLL_IFRAME_END
     if state.take_hit(source_pos, amount):
         GameState.damage(amount)
+        # ACT_HURT will fire its sound via _dispatch_action_sounds.
+    else:
+        if was_parry:
+            SoundBank.play_3d("parry", global_position)
+        elif was_blocking:
+            SoundBank.play_3d("shield_block", global_position)
+        # i-frames during a roll are intentionally silent.
 
 
 func _on_sword_hit(_target: Node) -> void:
-    pass
+    SoundBank.play_3d("sword_hit", global_position)
 
 
 func _on_player_died() -> void:
     state.kill()
+
+
+# ---- Sound dispatch ----------------------------------------------------
+
+# Translates state-machine events into one-shot SFX. Watches both the
+# action enum and the swing_index so combo continuations (which stay
+# in ACT_ATTACK but bump swing_index) get their own whoosh.
+func _dispatch_action_sounds() -> void:
+    var TS := TuxState
+    var act: int = state.action
+    var swing_idx: int = state.swing_index
+    var changed: bool = act != _prev_action
+
+    # Combo step inside ACT_ATTACK — same action, new swing index.
+    if act == TS.ACT_ATTACK and (changed or swing_idx != _prev_swing_idx):
+        SoundBank.play_3d("sword_swing", global_position)
+
+    if changed:
+        match act:
+            TS.ACT_JAB:         SoundBank.play_3d("sword_jab", global_position)
+            TS.ACT_JUMP_ATTACK: SoundBank.play_3d("jump_strike", global_position)
+            TS.ACT_SPIN:        SoundBank.play_3d("spin_attack", global_position)
+            TS.ACT_BLOCK:       SoundBank.play_3d("shield_raise", global_position)
+            TS.ACT_ROLL:        SoundBank.play_3d("roll", global_position)
+            TS.ACT_JUMP:        SoundBank.play_3d("jump", global_position)
+            TS.ACT_LAND:        SoundBank.play_3d("land", global_position)
+            TS.ACT_HURT:        SoundBank.play_3d("hurt", global_position)
+            TS.ACT_DEAD:        SoundBank.play_3d("death", global_position)
+            TS.ACT_CHARGING:    SoundBank.play_3d("sword_charge", global_position)
+        if act == TS.ACT_CHARGING:
+            _charge_ready_played = false
+
+    # Charge crosses the spin threshold — play the "fully charged" cue
+    # exactly once per charge.
+    if act == TS.ACT_CHARGING and not _charge_ready_played \
+            and state.charge_time >= TS.CHARGE_TIME_FOR_SPIN:
+        SoundBank.play_3d("sword_charge_ready", global_position)
+        _charge_ready_played = true
+
+    _prev_action = act
+    _prev_swing_idx = swing_idx
 
 
 # ---- Sword trail FX ---------------------------------------------------

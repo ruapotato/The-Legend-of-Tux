@@ -34,6 +34,7 @@ func _on_switch_activated() -> void:
     _is_open = true
     _close_t = open_duration
     _anim_t = 0.0
+    SoundBank.play_3d("gate_open", global_position)
     opened.emit()
 
 
@@ -48,6 +49,7 @@ func _process(delta: float) -> void:
         if _close_t <= 0.0:
             _is_open = false
             _anim_t = 0.0
+            SoundBank.play_3d("gate_close", global_position)
             closed.emit()
     else:
         if _anim_t < anim_time:

@@ -76,3 +76,4 @@ func regen_stamina(rate_per_sec: float, delta: float) -> void:
 func add_pebbles(amount: int) -> void:
     pebbles += amount
     pebbles_changed.emit(pebbles)
+    SoundBank.play_2d("pebble_get")

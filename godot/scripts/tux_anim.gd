@@ -187,49 +187,46 @@ func _pose_jab(t: float) -> void:
     _rot(bones.get("leg_l"), Vector3(0.1, 0, 0))
 
 
-# Aerial down-strike: blade extended forward and slightly down (sword
-# leading the dive), free wing tucked back for balance, body angled
-# forward into the strike. Pose is mostly static — the trail effect
-# spawned by tux_player sells the motion better than a frantic per-
-# tick arc.
+# Aerial down-strike: blade extended STRAIGHT FORWARD (arm horizontal,
+# 90° from torso), free wing tucked back for balance. Pose is mostly
+# static — the trail FX spawned by tux_player sells the motion. The
+# brief lerp from -1.0 → -1.55 is just a tiny wind-up so the strike
+# isn't a stiff snap to the final pose.
 func _pose_jump_attack(t: float) -> void:
     var phase: float = clamp(t / 0.70, 0.0, 1.0)
-    # Subtle wind-up at the start (arm cocks up briefly), then the
-    # forward thrust commits.
     var thrust_in: float = clamp(phase * 4.0, 0.0, 1.0)
-    var arm_x: float = lerpf(-1.2, -1.85, thrust_in)
-    _rot(bones.get("arm_r"), Vector3(arm_x, -0.25, 0.05))
+    var arm_x: float = lerpf(-1.00, -1.55, thrust_in)   # ends at exactly 90° forward
+    _rot(bones.get("arm_r"), Vector3(arm_x, -0.15, 0.0))
     _rot(bones.get("arm_l"), Vector3(-0.7, 0.25, -0.5))
-    _rot(bones.get("torso"), Vector3(0.35, 0, 0))
-    _rot(bones.get("head"),  Vector3(0.20, 0, 0))
+    _rot(bones.get("torso"), Vector3(0.10, 0, 0))
+    _rot(bones.get("head"),  Vector3(0.15, 0, 0))
     _rot(bones.get("leg_l"), Vector3(-0.5, 0, 0))
     _rot(bones.get("leg_r"), Vector3(-0.25, 0, 0))
 
 
-# Charging wind-up. Body twists, sword arm cocked far back. To avoid the
-# visible "pop" when ACT_CHARGING starts right after a swing ends, we
-# blend in from the swing-end pose (arm extended forward) over the first
-# ~0.18s before settling into the wound-back pose. When `full` is true
-# the pose adds a tremor sine to read as ready-to-go.
+# Charging wind-up. Sword stays extended forward — we wanted "straight
+# out or slightly back from the player" rather than wound-back-by-the-
+# shoulder. The blade drops a touch through the charge to read as
+# weight gathering, but stays roughly in the plane of the swing. When
+# `full` is true the pose adds a tremor sine for the ready-to-go feel.
 func _pose_charging(t: float, full: bool) -> void:
     var blend: float = clamp(t / 0.18, 0.0, 1.0)
-    # "swing-end" arm pose (extended forward, slightly to the right)
+    # "swing-end" arm pose (extended forward, slightly to the right) →
+    # charge-ready pose (arm slightly back from straight-forward, dropped
+    # a hair so the blade reads as gathering weight).
     var arm_r_start := Vector3(-1.5, 0.6, 0.15)
-    # wound-back charge-ready pose
-    var arm_r_end   := Vector3(-0.6, -0.7, 1.2)
+    var arm_r_end   := Vector3(-1.30, 0.10, 0.10)
     var arm_r_now: Vector3 = arm_r_start.lerp(arm_r_end, blend)
     if full:
-        var tremor: float = sin(t * 30.0) * 0.05
+        var tremor: float = sin(t * 30.0) * 0.04
         arm_r_now += Vector3(tremor, 0.0, tremor)
     _rot(bones.get("arm_r"), arm_r_now)
 
-    var twist: float = -0.5 * blend
-    _rot(bones.get("torso"),  Vector3(0.05, twist, 0.0))
-    _rot(bones.get("pelvis"), Vector3(0.0,  twist * 0.4, 0.0))
-    _rot(bones.get("arm_l"),  Vector3(-0.4, 0.4, -0.5))
-    _rot(bones.get("leg_l"),  Vector3(-0.2, 0, 0))
-    _rot(bones.get("leg_r"),  Vector3(-0.2, 0, 0))
-    _rot(bones.get("head"),   Vector3(0.0, twist * 0.5, 0.0))
+    _rot(bones.get("torso"),  Vector3(0.05, 0.0, 0.0))
+    _rot(bones.get("arm_l"),  Vector3(-0.5, 0.1, -0.7))
+    _rot(bones.get("leg_l"),  Vector3(-0.1, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-0.1, 0, 0))
+    _rot(bones.get("head"),   Vector3(0.05, 0.0, 0.0))
 
 
 # Spin attack: arm stays at the swing-end position (blade extended

@@ -37,6 +37,7 @@ func take_damage(_amount: int, _source_pos: Vector3) -> void:
     _active = true
     _cooldown_t = cooldown
     _refresh_color()
+    SoundBank.play_3d("crystal_hit", global_position)
     activated.emit()
 
 

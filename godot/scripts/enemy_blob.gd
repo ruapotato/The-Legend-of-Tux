@@ -144,6 +144,7 @@ func _die() -> void:
     hitbox.monitoring = false
     hitbox.monitorable = false
     attack_hitbox.monitoring = false
+    SoundBank.play_3d("blob_die", global_position)
     GameState.add_pebbles(pebble_reward)
     died.emit()
     # Flatten into a puddle then disappear.
@@ -153,10 +154,16 @@ func _die() -> void:
 
 
 func _set_state(new_state: int) -> void:
+    var prev := state
     state = new_state
     state_time = 0.0
     if state != State.ATTACK:
         attack_hitbox.monitoring = false
+    # Audio cues for state transitions worth hearing.
+    if state == State.CHASE and prev == State.IDLE:
+        SoundBank.play_3d("blob_alert", global_position)
+    elif state == State.ATTACK and prev == State.WIND_UP:
+        SoundBank.play_3d("blob_attack", global_position)
 
 
 func _on_attack_overlap(body: Node) -> void:
