@@ -1,0 +1,21 @@
+# Godot editor cache + imports.
+/godot/.godot/
+/godot/*.import
+/godot/.import/
+
+# Godot engine binary (gitignored — drop your own copy in the repo root).
+/Godot_v*.x86_64
+/Godot_v*.exe
+/Godot_v*_macos*
+
+# Editor / OS cruft.
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Python bytecode (for tools/).
+__pycache__/
+*.pyc

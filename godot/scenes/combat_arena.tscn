@@ -1,0 +1,187 @@
+[gd_scene load_steps=22 format=3 uid="uid://btuxarn01"]
+
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="1_tux"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="2_hud"]
+[ext_resource type="PackedScene" uid="uid://btuxtgt01" path="res://scenes/practice_target.tscn" id="3_target"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="4_camera"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="5_treewall"]
+[ext_resource type="Script" path="res://scripts/hit_switch.gd" id="6_switch"]
+[ext_resource type="Script" path="res://scripts/timed_gate.gd" id="7_gate"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.45, 0.62, 0.86, 1)
+sky_horizon_color = Color(0.86, 0.85, 0.78, 1)
+ground_horizon_color = Color(0.55, 0.46, 0.32, 1)
+ground_bottom_color = Color(0.20, 0.16, 0.10, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_color = Color(0.40, 0.50, 0.65, 1)
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_light_color = Color(0.65, 0.74, 0.86, 1)
+fog_density = 0.012
+fog_height = 6.0
+fog_height_density = 0.04
+
+[sub_resource type="BoxShape3D" id="floor_shape"]
+size = Vector3(36, 0.4, 36)
+
+[sub_resource type="PlaneMesh" id="floor_mesh"]
+size = Vector2(36, 36)
+
+[sub_resource type="StandardMaterial3D" id="floor_mat"]
+albedo_color = Color(0.30, 0.42, 0.26, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="platform_mesh"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxShape3D" id="platform_shape"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="stone_mat"]
+albedo_color = Color(0.55, 0.55, 0.58, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="crystal_mesh"]
+radius = 0.35
+height = 0.7
+radial_segments = 6
+rings = 4
+
+[sub_resource type="BoxShape3D" id="crystal_shape"]
+size = Vector3(0.6, 0.7, 0.6)
+
+[sub_resource type="BoxMesh" id="bar_mesh"]
+size = Vector3(0.1, 2.4, 0.1)
+
+[sub_resource type="BoxShape3D" id="gate_shape"]
+size = Vector3(1.8, 2.4, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="iron_mat"]
+albedo_color = Color(0.20, 0.20, 0.22, 1)
+metallic = 0.7
+roughness = 0.5
+
+[node name="CombatArena" type="Node3D"]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.464497, 0.336824, 0, 0.587785, 0.809017, -0.573576, -0.662513, 0.481283, 0, 12, 0)
+light_color = Color(1, 0.97, 0.86, 1)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("floor_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("floor_mesh")
+surface_material_override/0 = SubResource("floor_mat")
+
+[node name="TreeWall" type="Node3D" parent="."]
+script = ExtResource("5_treewall")
+boundary_points = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+spacing = 1.6
+trunk_height = 5.5
+canopy_radius = 1.8
+seed = 4242
+
+[node name="Platform" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Platform"]
+shape = SubResource("platform_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Platform"]
+mesh = SubResource("platform_mesh")
+surface_material_override/0 = SubResource("stone_mat")
+
+[node name="HitSwitch" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.2, 5)
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+script = ExtResource("6_switch")
+cooldown = 0.0
+
+[node name="Mesh" type="MeshInstance3D" parent="HitSwitch"]
+mesh = SubResource("crystal_mesh")
+
+[node name="Shape" type="CollisionShape3D" parent="HitSwitch"]
+shape = SubResource("crystal_shape")
+
+[node name="TimedGate" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 5)
+script = ExtResource("7_gate")
+hit_switch_path = NodePath("../HitSwitch")
+open_duration = 5.0
+open_offset = 2.6
+
+[node name="Bars" type="StaticBody3D" parent="TimedGate"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="TimedGate/Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("gate_shape")
+
+[node name="Bar1" type="MeshInstance3D" parent="TimedGate/Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.2, 0)
+mesh = SubResource("bar_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="Bar2" type="MeshInstance3D" parent="TimedGate/Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, 0)
+mesh = SubResource("bar_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="Bar3" type="MeshInstance3D" parent="TimedGate/Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, 0)
+mesh = SubResource("bar_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="Bar4" type="MeshInstance3D" parent="TimedGate/Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.2, 0)
+mesh = SubResource("bar_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="Tux" parent="." instance=ExtResource("1_tux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+camera_path = NodePath("../Camera")
+
+[node name="Camera" type="Node3D" parent="."]
+script = ExtResource("4_camera")
+
+[node name="SpringArm" type="SpringArm3D" parent="Camera"]
+spring_length = 4.5
+margin = 0.05
+
+[node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
+fov = 70.0
+
+[node name="PracticeTarget1" parent="." instance=ExtResource("3_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="PracticeTarget2" parent="." instance=ExtResource("3_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="PracticeTarget3" parent="." instance=ExtResource("3_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]

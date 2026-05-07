@@ -1,0 +1,292 @@
+extends RefCounted
+
+# Procedural skeletal animator for Tux. Drives the 7-bone Node3D rig
+# (pelvis / torso / head / arm_l / arm_r / leg_l / leg_r) with per-tick
+# Euler rotations computed from the current pose tag and a time cursor.
+# Pose set is custom for stamina-melee combat (light combo, hold-block
+# with parry window, roll dodge, sprint).
+
+const ONE_SHOT_DURATION := {
+    "swing_1":     0.45,
+    "swing_2":     0.45,
+    "swing_3":     0.55,
+    "jab":         0.30,
+    "jump_attack": 0.60,
+    "spin":        0.70,
+    "block_raise": 0.12,
+    "parry":       0.20,
+    "roll":        0.55,
+    "land":        0.18,
+    "hurt":        0.40,
+}
+
+var bones: Dictionary = {}
+var rest_rotations: Dictionary = {}
+var current_tag: String = "idle"
+var speed: float = 1.0
+var _time: float = 0.0
+var _just_ended: bool = false
+
+
+func setup(bone_dict: Dictionary) -> void:
+    bones = bone_dict
+    for key in bones.keys():
+        var n: Node3D = bones[key]
+        if n != null:
+            rest_rotations[key] = n.rotation
+
+
+func play(tag: String, speed_mult: float = 1.0, reset: bool = false) -> void:
+    if tag != current_tag or reset:
+        current_tag = tag
+        _time = 0.0
+        _just_ended = false
+    speed = speed_mult
+
+
+func tick(delta: float) -> void:
+    _just_ended = false
+    var dt: float = delta * speed
+    var dur: float = ONE_SHOT_DURATION.get(current_tag, 0.0)
+    if dur > 0.0:
+        if _time < dur:
+            _time += dt
+            if _time >= dur:
+                _just_ended = true
+                _time = dur
+    else:
+        _time += dt
+    _apply(current_tag, _time)
+
+
+func is_at_end() -> bool:
+    return _just_ended
+
+
+# ---- Pose dispatch -----------------------------------------------------
+
+func _apply(tag: String, t: float) -> void:
+    for key in bones.keys():
+        var n: Node3D = bones[key]
+        if n != null:
+            n.rotation = rest_rotations.get(key, Vector3.ZERO)
+    match tag:
+        "idle":           _pose_idle(t)
+        "walk":           _pose_walk(t, 1.0)
+        "run":            _pose_walk(t, 1.7)
+        "sprint":         _pose_sprint(t)
+        "swing_1":        _pose_swing(t, 1)
+        "swing_2":        _pose_swing(t, 2)
+        "swing_3":        _pose_swing(t, 3)
+        "jab":            _pose_jab(t)
+        "jump_attack":    _pose_jump_attack(t)
+        "charging":       _pose_charging(t, false)
+        "charging_full":  _pose_charging(t, true)
+        "spin":           _pose_spin(t)
+        "block_raise":    _pose_block(t, t / 0.12)
+        "block_hold":     _pose_block(t, 1.0)
+        "parry":          _pose_parry(t)
+        "roll":           _pose_roll(t)
+        "jump":           _pose_jump(t)
+        "fall":           _pose_fall(t)
+        "land":           _pose_land(t)
+        "hurt":           _pose_hurt(t)
+        "dead":           _pose_dead(t)
+        _:                _pose_idle(t)
+
+
+# ---- Poses -------------------------------------------------------------
+
+func _pose_idle(t: float) -> void:
+    _rot(bones.get("torso"), Vector3(sin(t * 1.5) * 0.015, 0, 0))
+    _rot(bones.get("head"),  Vector3(0, sin(t * 0.7) * 0.08, 0))
+
+
+func _pose_walk(t: float, intensity: float) -> void:
+    var freq: float = 5.5 * intensity
+    var amp_leg: float = 0.5 * clamp(intensity, 0.5, 1.8)
+    var amp_arm: float = 0.4 * clamp(intensity, 0.5, 1.8)
+    var phase: float = sin(t * freq)
+    var phase_b: float = sin(t * freq + PI)
+    _rot(bones.get("leg_l"), Vector3(phase * amp_leg, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(phase_b * amp_leg, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(phase_b * amp_arm, 0, 0))
+    _rot(bones.get("arm_r"), Vector3(phase * amp_arm, 0, 0))
+    _rot(bones.get("torso"), Vector3(0, phase * 0.07, 0))
+    _rot(bones.get("pelvis"), Vector3(0, 0, phase * 0.04))
+
+
+# Sprint: faster cadence, body leaned forward, arms tucked back.
+func _pose_sprint(t: float) -> void:
+    var freq: float = 9.5
+    var phase: float = sin(t * freq)
+    var phase_b: float = sin(t * freq + PI)
+    _rot(bones.get("leg_l"), Vector3(phase * 0.7, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(phase_b * 0.7, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(-0.5 + phase_b * 0.3, 0, -0.2))
+    _rot(bones.get("arm_r"), Vector3(-0.5 + phase * 0.3, 0,  0.2))
+    _rot(bones.get("torso"), Vector3(-0.4, phase * 0.08, 0))
+    _rot(bones.get("head"),  Vector3(0.2, 0, 0))
+
+
+# Sword swings — three variants for visual rhythm. swing_1 = R→L
+# horizontal, swing_2 = L→R, swing_3 = overhead chop. The right wing
+# does the cutting; left wing is held back for balance.
+func _pose_swing(t: float, variant: int) -> void:
+    var dur: float = 0.45
+    if variant == 3:
+        dur = 0.55
+    var phase: float = clamp(t / dur, 0.0, 1.0)
+    var s: float = ease(phase, 0.35)
+    if variant == 1:
+        var swing: float = lerpf(-1.1, 1.4, s)
+        _rot(bones.get("arm_r"), Vector3(-1.5, swing, 0.2))
+        _rot(bones.get("arm_l"), Vector3(-0.4, 0.0, -0.7))
+        _rot(bones.get("torso"), Vector3(0.05, swing * 0.45, 0))
+        _rot(bones.get("head"),  Vector3(0.0, swing * 0.25, 0))
+    elif variant == 2:
+        var swing2: float = lerpf(1.4, -1.1, s)
+        _rot(bones.get("arm_r"), Vector3(-1.5, swing2, 0.2))
+        _rot(bones.get("arm_l"), Vector3(-0.4, 0.0, -0.7))
+        _rot(bones.get("torso"), Vector3(0.05, swing2 * 0.45, 0))
+        _rot(bones.get("head"),  Vector3(0.0, swing2 * 0.25, 0))
+    else:
+        # Overhead chop: arm rises, then slams forward and down.
+        var rise: float = clamp(s * 2.2, 0.0, 1.0)
+        var fall: float = clamp(s * 2.2 - 1.2, 0.0, 1.0)
+        var arm_x: float = lerpf(-0.4, -2.7, rise) + lerpf(0.0, 1.7, fall)
+        _rot(bones.get("arm_r"), Vector3(arm_x, 0.0, 0.0))
+        _rot(bones.get("arm_l"), Vector3(-0.6, 0.0, -0.6))
+        _rot(bones.get("torso"), Vector3(lerpf(0.0, 0.4, fall), 0, 0))
+        _rot(bones.get("head"),  Vector3(lerpf(0.0, 0.3, fall), 0, 0))
+
+
+# Block: shield arm (left) up across the face, sword arm tucked. Phase
+# 0..1 controls how raised the shield is (raise → hold).
+func _pose_block(_t: float, phase: float) -> void:
+    var p: float = clamp(phase, 0.0, 1.0)
+    _rot(bones.get("arm_l"), Vector3(-1.4 * p - 0.2, 0.2 * p, -1.1 * p - 0.2))
+    _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
+    _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
+    _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
+
+
+# Forward thrust: arm jabs straight ahead in a quick poke, body weight
+# leaning into the strike, then snapping back.
+func _pose_jab(t: float) -> void:
+    var phase: float = clamp(t / 0.30, 0.0, 1.0)
+    var poke: float = sin(phase * PI)
+    _rot(bones.get("arm_r"), Vector3(-2.0 - poke * 0.6, -0.1, 0.1))
+    _rot(bones.get("arm_l"), Vector3(-0.5, 0.0, -0.7))
+    _rot(bones.get("torso"), Vector3(0.15 + poke * 0.25, 0.05, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.3 - poke * 0.25, 0, 0))
+    _rot(bones.get("leg_l"), Vector3(0.1, 0, 0))
+
+
+# Aerial down-strike: arm starts overhead and chops through the body's
+# centerline as Tux drops. Looks like a heavy chop committed mid-air.
+func _pose_jump_attack(t: float) -> void:
+    var phase: float = clamp(t / 0.60, 0.0, 1.0)
+    var rise: float = clamp(phase * 1.6, 0.0, 1.0)
+    var fall: float = clamp(phase * 1.6 - 0.6, 0.0, 1.0)
+    var arm_x: float = lerpf(-0.4, -2.9, rise) + lerpf(0.0, 1.6, fall)
+    _rot(bones.get("arm_r"), Vector3(arm_x, 0.0, 0.0))
+    _rot(bones.get("arm_l"), Vector3(-0.6, 0.0, -0.6))
+    _rot(bones.get("torso"), Vector3(lerpf(-0.2, 0.5, fall), 0, 0))
+    _rot(bones.get("leg_l"), Vector3(-0.4, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.4, 0, 0))
+
+
+# Charging wind-up. Body twists, sword arm cocked far back, knees bent.
+# When `full` is true the pose adds a tremor sine to read as ready-to-go.
+func _pose_charging(t: float, full: bool) -> void:
+    var tremor: float = sin(t * 30.0) * 0.05 if full else 0.0
+    var twist: float = -0.5
+    _rot(bones.get("torso"),  Vector3(0.05, twist, 0.0))
+    _rot(bones.get("pelvis"), Vector3(0.0,  twist * 0.4, 0.0))
+    _rot(bones.get("arm_r"),  Vector3(-0.6 + tremor, -0.7, 1.2 + tremor))
+    _rot(bones.get("arm_l"),  Vector3(-0.4, 0.4, -0.5))
+    _rot(bones.get("leg_l"),  Vector3(-0.2, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-0.2, 0, 0))
+    _rot(bones.get("head"),   Vector3(0.0, twist * 0.5, 0.0))
+
+
+# Spin attack: pelvis rotates a full 360 around its Y axis over the
+# duration; sword arm extended outward perpendicular to the body so the
+# blade sweeps a circular arc.
+func _pose_spin(t: float) -> void:
+    var phase: float = clamp(t / 0.70, 0.0, 1.0)
+    var spin: float = phase * TAU
+    _rot(bones.get("pelvis"), Vector3(0, spin, 0))
+    _rot(bones.get("torso"),  Vector3(0, 0, 0))
+    _rot(bones.get("arm_r"),  Vector3(-1.55, 0, 0.1))     # arm out perpendicular
+    _rot(bones.get("arm_l"),  Vector3(-0.6, 0, -0.8))
+    _rot(bones.get("leg_l"),  Vector3(0, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(0, 0, 0))
+
+
+func _pose_parry(t: float) -> void:
+    # Parry is the same as a fully-raised block, but with a quick wobble
+    # that distinguishes it visually. The "flash" should be on the shield
+    # mesh material — handled by the player script, not here.
+    var p: float = 1.0
+    var wobble: float = sin(t * 30.0) * 0.05
+    _rot(bones.get("arm_l"), Vector3(-1.6 + wobble, 0.2, -1.3))
+    _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
+    _rot(bones.get("torso"), Vector3(0.05, 0.0, 0))
+
+
+func _pose_roll(t: float) -> void:
+    var phase: float = clamp(t / 0.55, 0.0, 1.0)
+    var spin: float = phase * TAU
+    _rot(bones.get("pelvis"), Vector3(spin, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(-1.6, 0, -0.4))
+    _rot(bones.get("arm_r"), Vector3(-1.6, 0,  0.4))
+    _rot(bones.get("leg_l"), Vector3(-1.2, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-1.2, 0, 0))
+
+
+func _pose_jump(_t: float) -> void:
+    _rot(bones.get("arm_l"), Vector3(-1.8, 0, -0.5))
+    _rot(bones.get("arm_r"), Vector3(-1.8, 0,  0.5))
+    _rot(bones.get("leg_l"), Vector3(-0.5, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.7, 0, 0))
+    _rot(bones.get("torso"), Vector3(-0.15, 0, 0))
+
+
+func _pose_fall(t: float) -> void:
+    var sway: float = sin(t * 4.0) * 0.1
+    _rot(bones.get("arm_l"), Vector3(-1.1 + sway, 0, -0.6))
+    _rot(bones.get("arm_r"), Vector3(-1.1 - sway, 0,  0.6))
+    _rot(bones.get("leg_l"), Vector3(-0.2 - sway, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.4 + sway, 0, 0))
+
+
+func _pose_land(t: float) -> void:
+    var phase: float = clamp(t / 0.18, 0.0, 1.0)
+    var depth: float = sin(phase * PI) * 0.7
+    _rot(bones.get("torso"), Vector3(0.6 * depth, 0, 0))
+    _rot(bones.get("leg_l"), Vector3(-0.6 * depth, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.6 * depth, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(-0.4, 0, -0.5))
+    _rot(bones.get("arm_r"), Vector3(-0.4, 0,  0.5))
+
+
+func _pose_hurt(t: float) -> void:
+    var phase: float = clamp(t / 0.40, 0.0, 1.0)
+    var jolt: float = sin(phase * PI) * 0.5
+    _rot(bones.get("torso"), Vector3(-0.4 - jolt, 0, 0))
+    _rot(bones.get("head"),  Vector3(-0.3, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(-0.5, 0, -1.4))
+    _rot(bones.get("arm_r"), Vector3(-0.5, 0,  1.4))
+
+
+func _pose_dead(_t: float) -> void:
+    _rot(bones.get("pelvis"), Vector3(0, 0, PI / 2))
+    _rot(bones.get("arm_l"), Vector3(-0.3, 0, -0.4))
+    _rot(bones.get("arm_r"), Vector3(-0.3, 0,  0.4))
+
+
+static func _rot(node: Node3D, euler: Vector3) -> void:
+    if node != null:
+        node.rotation = euler

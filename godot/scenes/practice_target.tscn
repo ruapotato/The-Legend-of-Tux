@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxtgt01"]
+
+[ext_resource type="Script" path="res://scripts/practice_target.gd" id="1_target"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="body_mesh"]
+radius = 0.4
+height = 1.6
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="straw_mat"]
+albedo_color = Color(0.85, 0.55, 0.35, 1)
+roughness = 0.85
+
+[sub_resource type="BoxShape3D" id="hit_box"]
+size = Vector3(0.9, 1.7, 0.9)
+
+[node name="PracticeTarget" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_target")
+max_hp = 3
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("straw_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("hit_box")
