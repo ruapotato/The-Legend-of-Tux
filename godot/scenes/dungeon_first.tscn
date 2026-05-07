@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn"              id="10_glim"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="11_camera"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd"     id="12_debug"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd"        id="13_pause"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01"  path="res://scenes/enemy_bone_bat.tscn" id="14_bat"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.08, 0.10, 0.18, 1)
@@ -190,6 +192,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -10)
 [node name="Blob3" parent="." instance=ExtResource("3_blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14)
 
+[node name="Bat1" parent="." instance=ExtResource("14_bat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.6, -8)
+
+[node name="Bat2" parent="." instance=ExtResource("14_bat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.8, -12)
+
+[node name="Bat3" parent="." instance=ExtResource("14_bat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -28)
+
+[node name="LoreSign1" parent="." instance=ExtResource("5_sign")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, -16)
+message = "Carved into the stone:
+
+\"The Maker wove this realm from the Source. Where the Sigils are hoarded, the weave thins, and walls outlast their reasons.\""
+
+[node name="LoreSign2" parent="." instance=ExtResource("5_sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33)
+message = "Etched in fresher stone, in a hand that doesn't quite match:
+
+\"What you take from this place, share. The Sigil grows weak in stillness.\""
+
 [node name="KeyChest" parent="." instance=ExtResource("7_chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -17)
 contents_scene = ExtResource("8_key")
@@ -231,3 +254,6 @@ fov = 70.0
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("12_debug")
 visible_initial = false
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("13_pause")

@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="8_blob"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="9_debug"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="10_knight"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="11_pause"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="12_glim"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.45, 0.62, 0.86, 1)
@@ -199,7 +201,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -6)
 [node name="BoneKnight" parent="." instance=ExtResource("10_knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
+[node name="Glim" parent="." instance=ExtResource("12_glim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, 0)
+
 [node name="HUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("11_pause")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("9_debug")

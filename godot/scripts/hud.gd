@@ -7,7 +7,9 @@ extends CanvasLayer
 
 @onready var hp_root: HBoxContainer = $Margin/Layout/HPRow
 @onready var stamina_bar: ProgressBar = $Margin/Layout/StaminaBar
+@onready var keys_label: Label = $Margin/Layout/KeysLabel
 @onready var pebble_label: Label = $TopRight/PebbleLabel
+@onready var item_label: Label = $TopRight/ItemLabel
 @onready var death_overlay: ColorRect = $DeathOverlay
 @onready var death_label: Label = $DeathOverlay/DeathLabel
 
@@ -19,11 +21,16 @@ func _ready() -> void:
     GameState.hp_changed.connect(_on_hp_changed)
     GameState.stamina_changed.connect(_on_stamina_changed)
     GameState.pebbles_changed.connect(_on_pebbles_changed)
+    GameState.keys_changed.connect(_on_keys_changed)
+    GameState.active_item_changed.connect(_on_active_item_changed)
+    GameState.item_acquired.connect(_on_item_acquired)
     GameState.player_died.connect(_on_player_died)
     death_overlay.visible = false
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
     _on_pebbles_changed(GameState.pebbles)
+    _on_keys_changed(GameState.keys)
+    _on_active_item_changed(GameState.active_b_item)
 
 
 func _on_hp_changed(current: int, maximum: int) -> void:
@@ -37,6 +44,28 @@ func _on_stamina_changed(current: int, maximum: int) -> void:
 
 func _on_pebbles_changed(amount: int) -> void:
     pebble_label.text = "Pebbles: %d" % amount
+
+
+func _on_keys_changed(amount: int) -> void:
+    if not keys_label:
+        return
+    if amount <= 0:
+        keys_label.text = ""
+    else:
+        keys_label.text = "Keys: %d" % amount
+
+
+func _on_active_item_changed(item_name: String) -> void:
+    if not item_label:
+        return
+    if item_name == "":
+        item_label.text = ""
+    else:
+        item_label.text = "[F] %s" % item_name.capitalize()
+
+
+func _on_item_acquired(_item_name: String) -> void:
+    SoundBank.play_2d("sword_charge_ready")
 
 
 func _on_player_died() -> void:
