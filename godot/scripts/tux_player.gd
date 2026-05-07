@@ -7,6 +7,7 @@ extends CharacterBody3D
 
 const TuxState = preload("res://scripts/tux_state.gd")
 const TuxAnim  = preload("res://scripts/tux_anim.gd")
+const BoomerangScene = preload("res://scenes/boomerang.tscn")
 
 @export var camera_path: NodePath
 
@@ -32,6 +33,10 @@ const TRAIL_INTERVAL: float = 0.025
 var _prev_action: int = -1
 var _prev_swing_idx: int = -1
 var _charge_ready_played: bool = false
+
+# Only one boomerang can be in flight at a time. Track via tree_exited
+# so the flag clears when the projectile despawns.
+var _boomerang_in_flight: bool = false
 
 
 func _ready() -> void:
@@ -125,6 +130,20 @@ func _physics_process(delta: float) -> void:
 
 
 func _read_inputs() -> void:
+    # Camera yaw still tracked (so the camera continues to follow even
+    # mid-dialog), but everything else zeros out while a textbox is up.
+    var cam_yaw: float = camera.get_yaw() if camera and camera.has_method("get_yaw") else 0.0
+    if Dialog.is_active():
+        state.input_stick = Vector2.ZERO
+        state.input_attack_pressed = false
+        state.input_attack_held    = false
+        state.input_shield_held    = false
+        state.input_jump_pressed   = false
+        state.input_roll_pressed   = false
+        state.input_sprint_held    = false
+        state.input_camera_yaw     = cam_yaw
+        return
+
     var stick := Vector2(
         Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
         Input.get_action_strength("move_back")  - Input.get_action_strength("move_forward")
@@ -139,7 +158,41 @@ func _read_inputs() -> void:
     state.input_jump_pressed   = Input.is_action_just_pressed("jump")
     state.input_roll_pressed   = Input.is_action_just_pressed("roll")
     state.input_sprint_held    = Input.is_action_pressed("sprint")
-    state.input_camera_yaw     = camera.get_yaw() if camera and camera.has_method("get_yaw") else 0.0
+    state.input_camera_yaw     = cam_yaw
+
+    if Input.is_action_just_pressed("item_use"):
+        _try_use_active_item()
+
+
+func _try_use_active_item() -> void:
+    var item: String = GameState.active_b_item
+    if item == "":
+        return
+    # Don't fire mid-attack/charge/spin/roll/flip — those need to finish.
+    var act: int = state.action
+    if act in [TuxState.ACT_ATTACK, TuxState.ACT_JAB, TuxState.ACT_JUMP_ATTACK,
+               TuxState.ACT_SPIN, TuxState.ACT_CHARGING, TuxState.ACT_ROLL,
+               TuxState.ACT_FLIP, TuxState.ACT_HURT, TuxState.ACT_DEAD]:
+        return
+    match item:
+        "boomerang":
+            _throw_boomerang()
+
+
+func _throw_boomerang() -> void:
+    if _boomerang_in_flight:
+        return
+    var b: Area3D = BoomerangScene.instantiate()
+    var scene_root: Node = get_tree().current_scene
+    if scene_root == null:
+        return
+    scene_root.add_child(b)
+    b.global_position = global_position + Vector3(0, 0.8, 0)
+    var fwd: Vector3 = Vector3(-sin(state.face_yaw), 0, -cos(state.face_yaw))
+    b.set_direction(fwd)
+    b.set_owner_player(self)
+    _boomerang_in_flight = true
+    b.tree_exited.connect(func() -> void: _boomerang_in_flight = false)
 
 
 func get_face_yaw() -> float:

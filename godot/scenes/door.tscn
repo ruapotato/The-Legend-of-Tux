@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxdoor01"]
+
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_d"]
+
+[sub_resource type="BoxShape3D" id="trigger_shape"]
+size = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="door_mat"]
+albedo_color = Color(0.42, 0.30, 0.18, 1)
+roughness = 0.80
+
+[sub_resource type="StandardMaterial3D" id="lock_mat"]
+albedo_color = Color(0.85, 0.65, 0.20, 1)
+metallic = 0.7
+roughness = 0.40
+emission_enabled = true
+emission = Color(0.85, 0.65, 0.20, 1)
+emission_energy_multiplier = 0.45
+
+[sub_resource type="StandardMaterial3D" id="frame_mat"]
+albedo_color = Color(0.55, 0.50, 0.45, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="door_mesh"]
+size = Vector3(1.6, 2.4, 0.20)
+
+[sub_resource type="BoxShape3D" id="door_col"]
+size = Vector3(1.6, 2.4, 0.20)
+
+[sub_resource type="BoxMesh" id="lock_mesh"]
+size = Vector3(0.18, 0.18, 0.06)
+
+[sub_resource type="BoxMesh" id="lintel_mesh"]
+size = Vector3(2.0, 0.30, 0.30)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_d")
+
+[node name="Trigger" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+
+[node name="TriggerShape" type="CollisionShape3D" parent="Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("trigger_shape")
+
+[node name="Body" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("door_col")
+
+[node name="Mesh" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+mesh = SubResource("door_mesh")
+surface_material_override/0 = SubResource("door_mat")
+
+[node name="Lock" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10, 0.13)
+mesh = SubResource("lock_mesh")
+surface_material_override/0 = SubResource("lock_mat")
+
+[node name="Lintel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 0)
+mesh = SubResource("lintel_mesh")
+surface_material_override/0 = SubResource("frame_mat")
+
+[node name="Hint" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 0)
+text = "[E] Open"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true

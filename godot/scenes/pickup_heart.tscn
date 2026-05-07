@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxpkht01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="PrismMesh" id="mesh"]
+size = Vector3(0.22, 0.18, 0.10)
+
+[sub_resource type="StandardMaterial3D" id="mat"]
+albedo_color = Color(0.30, 0.55, 0.95, 1)
+emission_enabled = true
+emission = Color(0.30, 0.55, 0.95, 1)
+emission_energy_multiplier = 0.7
+roughness = 0.4
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 1
+fish_amount = 1
+pickup_message = "A fish! HP restored."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("mesh")
+surface_material_override/0 = SubResource("mat")

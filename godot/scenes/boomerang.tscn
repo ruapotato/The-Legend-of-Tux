@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxbmrg01"]
+
+[ext_resource type="Script" path="res://scripts/boomerang.gd" id="1_b"]
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.45, 0.20, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="wood_mat"]
+albedo_color = Color(0.55, 0.34, 0.18, 1)
+roughness = 0.7
+emission_enabled = true
+emission = Color(0.85, 0.55, 0.20, 1)
+emission_energy_multiplier = 0.20
+
+[sub_resource type="BoxMesh" id="arm_a"]
+size = Vector3(0.40, 0.04, 0.08)
+
+[sub_resource type="BoxMesh" id="arm_b"]
+size = Vector3(0.40, 0.04, 0.08)
+
+[node name="Boomerang" type="Area3D"]
+script = ExtResource("1_b")
+collision_layer = 8
+collision_mask = 36
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+shape = SubResource("hit_shape")
+
+[node name="ArmA" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866, 0.10, 0, 0)
+mesh = SubResource("arm_a")
+surface_material_override/0 = SubResource("wood_mat")
+
+[node name="ArmB" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866, -0.10, 0, 0)
+mesh = SubResource("arm_b")
+surface_material_override/0 = SubResource("wood_mat")

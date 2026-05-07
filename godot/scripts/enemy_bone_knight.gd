@@ -21,6 +21,8 @@ extends CharacterBody3D
 
 const TuxAnim = preload("res://scripts/tux_anim.gd")
 const TuxState = preload("res://scripts/tux_state.gd")
+const PebblePickup = preload("res://scenes/pickup_pebble.tscn")
+const HeartPickup = preload("res://scenes/pickup_heart.tscn")
 
 signal died
 
@@ -298,11 +300,26 @@ func _die() -> void:
     hitbox.monitorable = false
     sword_hitbox.set_deferred("monitoring", false)
     SoundBank.play_3d("death", global_position)
-    GameState.add_pebbles(pebble_reward)
+    _drop_loot()
     died.emit()
     var t := create_tween()
     t.tween_property(rig, "scale", rig.scale * Vector3(1, 0.05, 1), 0.45)
     t.tween_callback(queue_free)
+
+
+func _drop_loot() -> void:
+    var parent: Node = get_parent()
+    if parent == null:
+        return
+    for i in range(pebble_reward):
+        var p := PebblePickup.instantiate()
+        parent.add_child(p)
+        var off := Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0))
+        p.global_position = global_position + off
+    # Bone knights always drop a heart since they're a tougher fight.
+    var h := HeartPickup.instantiate()
+    parent.add_child(h)
+    h.global_position = global_position + Vector3(0, 0.0, 0.4)
 
 
 # ---- Helpers -----------------------------------------------------------

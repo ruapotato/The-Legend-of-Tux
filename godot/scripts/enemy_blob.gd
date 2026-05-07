@@ -7,6 +7,9 @@ extends CharacterBody3D
 # State machine is inline — small enough that pulling it into a separate
 # RefCounted (as we did for Tux) would just be overhead.
 
+const PebblePickup = preload("res://scenes/pickup_pebble.tscn")
+const HeartPickup = preload("res://scenes/pickup_heart.tscn")
+
 signal died
 
 @export var max_hp: int = 3
@@ -16,6 +19,7 @@ signal died
 @export var lunge_speed: float = 7.0
 @export var attack_damage: int = 1
 @export var pebble_reward: int = 2
+@export var heart_drop_chance: float = 0.25
 
 const KNOCKBACK_SPEED: float = 8.0
 const GRAVITY: float = 24.0
@@ -145,12 +149,27 @@ func _die() -> void:
     hitbox.monitorable = false
     attack_hitbox.monitoring = false
     SoundBank.play_3d("blob_die", global_position)
-    GameState.add_pebbles(pebble_reward)
+    _drop_loot()
     died.emit()
     # Flatten into a puddle then disappear.
     var t := create_tween()
     t.tween_property(visual, "scale", Vector3(1.5, 0.05, 1.5), 0.20)
     t.tween_callback(queue_free)
+
+
+func _drop_loot() -> void:
+    var parent: Node = get_parent()
+    if parent == null:
+        return
+    for i in range(pebble_reward):
+        var p := PebblePickup.instantiate()
+        parent.add_child(p)
+        var off := Vector3(randf_range(-0.5, 0.5), 0.0, randf_range(-0.5, 0.5))
+        p.global_position = global_position + off
+    if randf() < heart_drop_chance:
+        var h := HeartPickup.instantiate()
+        parent.add_child(h)
+        h.global_position = global_position + Vector3(0, 0.0, 0)
 
 
 func _set_state(new_state: int) -> void:

@@ -5,7 +5,7 @@ config_version=5
 [application]
 
 config/name="The Legend of Tux"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [display]
@@ -89,6 +89,7 @@ item_use={
 
 GameState="*res://scripts/game_state.gd"
 SoundBank="*res://scripts/sound_bank.gd"
+Dialog="*res://scripts/dialog.gd"
 
 [rendering]
 
