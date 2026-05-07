@@ -382,10 +382,9 @@ def emit_tree_walls(b, walls):
             'script = ExtResource("tree_wall_script")',
             'boundary_points = %s' % boundary_str,
         ]
-        for k, default in [
-            ("spacing", 1.5), ("trunk_height", 5.0), ("canopy_radius", 1.7),
-            ("seed", 4242 + i), ("wall_height", 8.0),
-        ]:
+        if "closed" in tw:
+            props.append("closed = %s" % ("true" if tw["closed"] else "false"))
+        for k in ("spacing", "trunk_height", "canopy_radius", "seed", "wall_height"):
             if k in tw:
                 props.append("%s = %g" % (k, tw[k]))
         for k in ("trunk_color", "canopy_color"):

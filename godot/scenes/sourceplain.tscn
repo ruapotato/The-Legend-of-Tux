@@ -1,17 +1,17 @@
 [gd_scene load_steps=21 format=3 uid="uid://btuxsourcepl01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.36, 0.55, 0.82, 1)
@@ -44,10 +44,10 @@ size = Vector3(60, 0.4, 60)
 size = Vector2(60, 60)
 
 [sub_resource type="BoxShape3D" id="s7"]
-size = Vector3(4, 3, 1)
+size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s8"]
-size = Vector3(4, 3, 1)
+size = Vector3(4, 3, 1.5)
 
 [node name="Sourceplain" type="Node3D"]
 script = ExtResource("root_script")
@@ -76,11 +76,23 @@ surface_material_override/0 = SubResource("s4")
 
 [node name="TreeWall0" type="Node3D" parent="."]
 script = ExtResource("tree_wall_script")
-boundary_points = PackedVector2Array(-30, 30, -3, 30, -3, 29, 3, 29, 3, 30, 30, 30, 30, -28, 3, -28, 3, -29, -3, -29, -3, -28, -30, -28)
+boundary_points = PackedVector2Array(3, 30, 30, 30, 30, -30, 3, -30)
+closed = false
 spacing = 2
 trunk_height = 6
 canopy_radius = 2.2
 seed = 3003
+trunk_color = Color(0.22, 0.15, 0.1, 1)
+canopy_color = Color(0.16, 0.32, 0.16, 1)
+
+[node name="TreeWall1" type="Node3D" parent="."]
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -30, -30, -30, -30, 30, -3, 30)
+closed = false
+spacing = 2
+trunk_height = 6
+canopy_radius = 2.2
+seed = 3004
 trunk_color = Color(0.22, 0.15, 0.1, 1)
 canopy_color = Color(0.16, 0.32, 0.16, 1)
 
@@ -113,7 +125,7 @@ transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -12, 0
 message = "A toppled stone marker. The runes are worn smooth on the side that faced the wind. The other side reads:\n\n\"Take. Use. Pass on.\""
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 29.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 29)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -135,7 +147,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -28.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -29)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

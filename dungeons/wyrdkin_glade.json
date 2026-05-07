@@ -25,11 +25,15 @@
   "tree_walls": [
     {
       "boundary": [
-        [-15, -15], [-2, -15], [-2, -14],
-        [2, -14], [2, -15], [15, -15],
-        [15, 15], [-15, 15]
+        [3, -15],
+        [15, -15],
+        [15, 15],
+        [-15, 15],
+        [-15, -15],
+        [-3, -15]
       ],
-      "spacing": 1.4,
+      "closed": false,
+      "spacing": 1.3,
       "trunk_height": 5.5,
       "canopy_radius": 1.9,
       "trunk_color":  [0.20, 0.13, 0.09, 1],
@@ -39,8 +43,8 @@
   ],
 
   "spawns": [
-    {"id": "default",      "pos": [0, 0.5, 6],  "rotation_y": 0},
-    {"id": "from_wyrdwood","pos": [0, 0.5, -12], "rotation_y": 3.14159}
+    {"id": "default",       "pos": [0, 0.5, 6],   "rotation_y": 0},
+    {"id": "from_wyrdwood", "pos": [0, 0.5, -12], "rotation_y": 3.14159}
   ],
 
   "lights": [],
@@ -50,7 +54,7 @@
       "type": "sign",
       "pos": [-1.5, 0, 4],
       "rotation_y": 0,
-      "message": "Wyrdkin Glade.\n\nThe wyrdkin sleep beneath the great trees, and Glim flickers at your shoulder. North, beyond the elder pines, the Source flows thinner."
+      "message": "Wyrdkin Glade.\n\nThe wyrdkin sleep beneath the great trees, and Glim flickers at your shoulder. South, beyond the elder pines, the path runs to the Wyrdwood."
     },
     {
       "type": "sign",
@@ -62,8 +66,8 @@
 
   "load_zones": [
     {
-      "pos": [0, 1.0, -14.5],
-      "size": [4.0, 3.0, 1.0],
+      "pos": [0, 1.4, -14],
+      "size": [4.0, 3.0, 1.5],
       "target_scene": "wyrdwood",
       "target_spawn": "from_glade",
       "prompt": "[E] Through the elder pines"

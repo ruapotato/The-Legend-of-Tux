@@ -23,7 +23,9 @@ func _ready() -> void:
     body_exited.connect(_on_exit)
     if hint:
         hint.text = prompt if prompt != "" else "[E] Travel"
-        hint.visible = false
+        # Always visible — the prior "show on player-inside" hid the
+        # only signpost telling the player where the exits are.
+        hint.visible = true
 
 
 func _on_enter(body: Node) -> void:
@@ -32,15 +34,11 @@ func _on_enter(body: Node) -> void:
     _player_inside = true
     if auto_trigger and prompt == "":
         _fire()
-    elif hint:
-        hint.visible = true
 
 
 func _on_exit(body: Node) -> void:
     if body.is_in_group("player"):
         _player_inside = false
-        if hint:
-            hint.visible = false
 
 
 func _unhandled_input(event: InputEvent) -> void:

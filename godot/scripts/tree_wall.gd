@@ -17,6 +17,8 @@ extends Node3D
 @export var boundary_points: PackedVector2Array = PackedVector2Array([
     Vector2(-15,-15), Vector2(15,-15), Vector2(15,15), Vector2(-15,15)
 ])
+@export var closed: bool = true          # false = don't wrap last → first
+                                         # (use to leave an exit gap in the wall)
 @export var spacing: float = 1.4         # meters between trunk centers
 @export var trunk_height: float = 4.5
 @export var trunk_radius: float = 0.35
@@ -65,10 +67,14 @@ func _rebuild() -> void:
     canopy_mat.albedo_color = canopy_color
 
     # Walk each segment, dropping trunks at intervals and dropping a
-    # collision wall along the segment.
-    for i in boundary_points.size():
+    # collision wall along the segment. If `closed` is false the last
+    # point doesn't connect back to the first — that's how we leave an
+    # exit visible in the tree boundary.
+    var n := boundary_points.size()
+    var pairs := n if closed else n - 1
+    for i in range(pairs):
         var a := boundary_points[i]
-        var b := boundary_points[(i + 1) % boundary_points.size()]
+        var b := boundary_points[(i + 1) % n]
         _spawn_segment(a, b, rng, trunk_mesh, canopy_mesh, trunk_mat, canopy_mat)
 
 

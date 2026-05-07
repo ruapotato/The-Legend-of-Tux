@@ -1,16 +1,17 @@
 extends Area3D
 
-# Sword hit volume. Disabled by default; the owner turns it on during
-# the active window of a swing animation and listens for overlaps.
+# Sword hit volume. Signal-driven so we never poll get_overlapping_*
+# while monitoring is in transition (the prior _physics_process polling
+# tripped Godot's internal "monitoring is off" guard whenever an
+# enemy's _set_state deferred a monitoring=false on the same hitbox).
 #
-# Used by both the player (hits enemies / hittable areas) and enemies
-# (hits the player). Checks BOTH overlapping areas (e.g., the practice
-# target's child Hitbox) AND overlapping bodies (e.g., the player's
-# CharacterBody3D), calling take_damage on whichever responds.
+#   arm()    : clear hit set, enable monitoring, schedule a deferred
+#              one-shot pass over already-overlapping objects (entries
+#              that happened BEFORE we armed don't fire body_entered)
+#   disarm() : monitoring → false (deferred)
 #
-# Guards against the "monitoring is off" race that fires when an owner
-# disables monitoring via set_deferred — we now gate _physics_process
-# on the live `monitoring` property, not on a script-side flag.
+# area_entered / body_entered fire as new contacts come in while armed.
+# Every receiver is dispatched at most once per arm cycle.
 
 signal target_hit(target: Node)
 
@@ -21,45 +22,59 @@ var _already_hit: Array = []
 
 func _ready() -> void:
     monitoring = false
+    area_entered.connect(_on_area_entered)
+    body_entered.connect(_on_body_entered)
+    # Nothing to do in physics_process anymore.
+    set_physics_process(false)
 
 
 func arm() -> void:
-    if monitoring:
-        return
     _already_hit.clear()
     monitoring = true
+    # Anything that was inside our volume BEFORE we armed won't fire
+    # the entry signals. Defer one frame so the engine has registered
+    # the monitoring switch, then sweep the existing overlaps.
+    call_deferred("_initial_overlap_pass")
 
 
 func disarm() -> void:
     set_deferred("monitoring", false)
 
 
-func _physics_process(_delta: float) -> void:
+func _initial_overlap_pass() -> void:
     if not monitoring:
         return
     for area in get_overlapping_areas():
-        if area in _already_hit:
-            continue
-        var receiver: Object = area if area.has_method("take_damage") else area.get_parent()
-        if not receiver or not receiver.has_method("take_damage"):
-            continue
-        _already_hit.append(area)
-        receiver.take_damage(damage, global_position)
-        target_hit.emit(receiver)
+        _on_area_entered(area)
     for body in get_overlapping_bodies():
-        if body in _already_hit:
-            continue
-        if not body.has_method("take_damage"):
-            continue
-        _already_hit.append(body)
-        body.take_damage(damage, global_position, _find_attacker())
-        target_hit.emit(body)
+        _on_body_entered(body)
 
 
-# Walk up the tree to whichever ancestor is the actual fighter (player
-# or enemy CharacterBody3D). The hitbox is typically a few levels deep
-# (e.g., Knight/Sword/SwordHitbox) so we crawl until we find a node
-# with a `velocity` property — the universal sign of a movable body.
+func _on_area_entered(area: Area3D) -> void:
+    if not monitoring:
+        return
+    if area in _already_hit:
+        return
+    var receiver: Object = area if area.has_method("take_damage") else area.get_parent()
+    if not receiver or not receiver.has_method("take_damage"):
+        return
+    _already_hit.append(area)
+    receiver.take_damage(damage, global_position, _find_attacker())
+    target_hit.emit(receiver)
+
+
+func _on_body_entered(body: Node) -> void:
+    if not monitoring:
+        return
+    if body in _already_hit:
+        return
+    if not body.has_method("take_damage"):
+        return
+    _already_hit.append(body)
+    body.take_damage(damage, global_position, _find_attacker())
+    target_hit.emit(body)
+
+
 func _find_attacker() -> Node:
     var n: Node = get_parent()
     while n:

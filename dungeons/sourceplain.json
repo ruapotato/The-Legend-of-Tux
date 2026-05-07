@@ -25,15 +25,33 @@
   "tree_walls": [
     {
       "boundary": [
-        [-30, 30], [-3, 30], [-3, 29], [3, 29], [3, 30], [30, 30],
-        [30, -28], [3, -28], [3, -29], [-3, -29], [-3, -28], [-30, -28]
+        [3, 30],
+        [30, 30],
+        [30, -30],
+        [3, -30]
       ],
+      "closed": false,
       "spacing": 2.0,
       "trunk_height": 6.0,
       "canopy_radius": 2.2,
       "trunk_color":  [0.22, 0.15, 0.10, 1],
       "canopy_color": [0.16, 0.32, 0.16, 1],
       "seed": 3003
+    },
+    {
+      "boundary": [
+        [-3, -30],
+        [-30, -30],
+        [-30, 30],
+        [-3, 30]
+      ],
+      "closed": false,
+      "spacing": 2.0,
+      "trunk_height": 6.0,
+      "canopy_radius": 2.2,
+      "trunk_color":  [0.22, 0.15, 0.10, 1],
+      "canopy_color": [0.16, 0.32, 0.16, 1],
+      "seed": 3004
     }
   ],
 
@@ -68,15 +86,15 @@
 
   "load_zones": [
     {
-      "pos": [0, 1.0, 29.5],
-      "size": [4.0, 3.0, 1.0],
+      "pos": [0, 1.4, 29],
+      "size": [4.0, 3.0, 1.5],
       "target_scene": "wyrdwood",
       "target_spawn": "from_sourceplain",
       "prompt": "[E] Back across the bridge"
     },
     {
-      "pos": [0, 1.0, -28.5],
-      "size": [4.0, 3.0, 1.0],
+      "pos": [0, 1.4, -29],
+      "size": [4.0, 3.0, 1.5],
       "target_scene": "hearthold",
       "target_spawn": "from_sourceplain",
       "prompt": "[E] To Hearthold's gate"
