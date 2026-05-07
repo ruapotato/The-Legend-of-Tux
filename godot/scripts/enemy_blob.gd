@@ -125,7 +125,7 @@ func _physics_process(delta: float) -> void:
 
 
 # Sword hits and other Hittable-layer damage funnel through here.
-func take_damage(amount: int, source_pos: Vector3) -> void:
+func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
     hp -= amount

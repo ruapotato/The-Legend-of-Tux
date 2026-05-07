@@ -256,7 +256,7 @@ func _do_hurt(delta: float, dist: float) -> void:
 
 # ---- Damage in / out ---------------------------------------------------
 
-func take_damage(amount: int, source_pos: Vector3) -> void:
+func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
     # Front-arc shield block: if defending and the hit came from the

@@ -53,7 +53,7 @@ rings = 5
 
 [node name="Tux" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 1
+collision_mask = 5
 script = ExtResource("2_player")
 
 [node name="Collision" type="CollisionShape3D" parent="."]

@@ -26,7 +26,7 @@ func _ready() -> void:
             mesh.material_override = _flash_mat
 
 
-func take_damage(amount: int, _source_pos: Vector3) -> void:
+func take_damage(amount: int, _source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
     hp -= amount

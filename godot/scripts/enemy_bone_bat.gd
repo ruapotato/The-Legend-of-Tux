@@ -12,12 +12,14 @@ signal died
 @export var max_hp: int = 1
 @export var pebble_reward: int = 1
 
-const DETECT_RANGE: float = 9.0
-const SWOOP_SPEED: float = 9.0
+const DETECT_RANGE: float = 8.0       # commit to a dive when this close
+const INTEREST_RANGE: float = 16.0    # drift toward the player at this range
+const DRIFT_SPEED: float = 2.4
+const SWOOP_SPEED: float = 10.0
 const RECOVER_SPEED: float = 4.5
 const ATTACK_DAMAGE: int = 1
 const KNOCKBACK_SPEED: float = 5.5
-const SWOOP_DURATION: float = 0.65
+const SWOOP_DURATION: float = 0.85
 const HURT_DURATION: float = 0.30
 const SWOOP_END_DIST: float = 0.8     # finish swoop when this close to target
 
@@ -76,9 +78,19 @@ func _physics_process(delta: float) -> void:
 
 
 func _do_hover(_delta: float, to_player: Vector3, dist: float) -> void:
-    # Slow drift + altitude bob to keep it alive when player isn't close.
-    velocity.x = sin(state_time * 0.7) * 1.0
-    velocity.z = cos(state_time * 0.5) * 1.0
+    # Inside INTEREST_RANGE the bat drifts toward the player so it
+    # actively closes distance instead of waiting at its perch. Outside
+    # it idle-drifts so the world doesn't feel empty.
+    if dist < INTEREST_RANGE and player and is_instance_valid(player):
+        var horiz: Vector3 = Vector3(to_player.x, 0, to_player.z)
+        if horiz.length() > 0.1:
+            var n: Vector3 = horiz.normalized()
+            velocity.x = n.x * DRIFT_SPEED
+            velocity.z = n.z * DRIFT_SPEED
+            rotation.y = atan2(-n.x, -n.z)
+    else:
+        velocity.x = sin(state_time * 0.7) * 1.0
+        velocity.z = cos(state_time * 0.5) * 1.0
     var target_y: float = perch_y + sin(state_time * 1.5) * 0.2
     velocity.y = (target_y - global_position.y) * 4.0
     if dist < DETECT_RANGE and player:
@@ -89,6 +101,10 @@ func _do_hover(_delta: float, to_player: Vector3, dist: float) -> void:
 
 func _do_swoop(_delta: float, dist: float) -> void:
     attack_hitbox.monitoring = true
+    # Re-target the player each tick so the dive actually tracks instead
+    # of flying toward a stale point captured at SWOOP entry.
+    if player and is_instance_valid(player):
+        swoop_target = player.global_position + Vector3(0, 0.4, 0)
     var dir: Vector3 = swoop_target - global_position
     if dir.length_squared() > 1e-6:
         var n: Vector3 = dir.normalized()
@@ -125,7 +141,7 @@ func _flap_wings(delta: float) -> void:
         wing_r.rotation.z = 0.4 - a
 
 
-func take_damage(amount: int, source_pos: Vector3) -> void:
+func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
     hp -= amount

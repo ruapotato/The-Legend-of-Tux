@@ -31,7 +31,7 @@ func _ready() -> void:
 # Called by the sword hitbox when its overlap check matches this area's
 # parent group. The sword's host calls take_damage on the parent; we
 # expose take_damage here so the same dispatch reaches us.
-func take_damage(_amount: int, _source_pos: Vector3) -> void:
+func take_damage(_amount: int, _source_pos: Vector3, _attacker: Node = null) -> void:
     if _active:
         return
     _active = true
