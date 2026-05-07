@@ -32,6 +32,52 @@ var _time: float = 0.0
 var _just_ended: bool = false
 
 
+# ---- Clock-face wing aiming ---------------------------------------------
+# The "cheat" helper. Instead of hand-solving the Euler rotation for
+# every pose (rig flip + YXZ Euler order + arm-local convention all
+# conspire to make the arithmetic painful), just specify a clock
+# position and let this build the basis.
+#
+#   hour : 1-12, fractional OK. FRONT-VIEW convention seen by a viewer
+#          looking at Tux from the camera-behind position:
+#               12 = up               6 = down
+#                3 = Tux's right      9 = Tux's left
+#   depth: -1 = fully behind Tux, 0 = in the frontal plane (no
+#          forward/back component), +1 = fully in front of Tux. Mix
+#          freely — clock_dir(12, 1) means "wing pointing straight
+#          forward" (depth wins because horizontal magnitude is zero).
+#
+# Returns Vector3 Euler in YXZ order, drop straight into Node3D.rotation.
+# Applies to either arm — arm_l and arm_r share the same parent and
+# rest-direction convention, so a single helper covers both.
+static func clock_dir(hour: float, depth: float = 0.0) -> Vector3:
+    var ang: float = hour * PI / 6.0
+    var horiz: float = sqrt(max(0.0, 1.0 - depth * depth))
+    var dir_body: Vector3 = Vector3(
+        sin(ang) * horiz,
+        cos(ang) * horiz,
+        -depth
+    )
+    if dir_body.length_squared() < 1e-6:
+        return Vector3.ZERO
+    dir_body = dir_body.normalized()
+    # body → rig-local: rig has a 180° Y flip so it faces -Z.
+    var dir_rig: Vector3 = Vector3(-dir_body.x, dir_body.y, -dir_body.z)
+    # Build basis with -Y axis aligned to dir_rig — wing rest direction
+    # (arm-local -Y) will rotate to dir_rig. Cross-product order chosen
+    # so the +Z axis points "up-ish", which keeps the shield mesh
+    # right-side-up after SHIELD_LOCAL applies its own Rx(+π/2).
+    var y_axis: Vector3 = -dir_rig
+    var ref_up: Vector3 = Vector3.UP
+    var x_axis: Vector3
+    if absf(y_axis.dot(ref_up)) > 0.99:
+        x_axis = Vector3.RIGHT
+    else:
+        x_axis = y_axis.cross(ref_up).normalized()
+    var z_axis: Vector3 = x_axis.cross(y_axis).normalized()
+    return Basis(x_axis, y_axis, z_axis).get_euler()
+
+
 func setup(bone_dict: Dictionary) -> void:
     bones = bone_dict
     for key in bones.keys():
@@ -170,15 +216,16 @@ func _pose_swing(t: float, variant: int) -> void:
         _rot(bones.get("head"),  Vector3(lerpf(0.0, 0.3, fall), 0, 0))
 
 
-# Block: shield arm (left wing) raised UP and IN FRONT of the body.
-# Godot's YXZ Euler order means Y rotates the lifted arm in the X-Z
-# plane around world Y. Combined with the rig's 180° flip, POSITIVE Y
-# crosses the wing toward Tux's centerline (12 o'clock); negative Y
-# pushes it further out toward the shoulder (3 o'clock and beyond).
+# Block: shield arm extends STRAIGHT FORWARD (clock 12, depth 1). The
+# arm has no elbow joint, so we can't reach across the body to put the
+# shield at body centerline AND keep the broad face perpendicular to
+# forward — the latter wins, since "shield squared up to enemy" is the
+# gameplay-meaningful property. The shield mesh ends up slightly to
+# Tux's right of center as a result.
 func _pose_block(_t: float, phase: float) -> void:
     var p: float = clamp(phase, 0.0, 1.0)
-    # Y=+1.0 overshot to 10-11 o'clock; +0.5 brings it to roughly 12.
-    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, 0.5 * p, -0.05 * p))
+    var raised: Vector3 = clock_dir(12, 1)   # straight forward
+    _rot(bones.get("arm_l"), Vector3.ZERO.lerp(raised, p))
     _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
     _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
     _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
@@ -234,10 +281,8 @@ func _pose_jump_attack(t: float) -> void:
 # tilted ~45° toward Tux's left, which is the 7-8 o'clock arc.
 func _pose_charging(t: float, full: bool) -> void:
     var blend: float = clamp(t / 0.18, 0.0, 1.0)
-    var arm_r_start := Vector3(-1.5, 0.6, 0.15)        # swing end
-    # PI/2 = 9 o'clock on the front-view clock — sword extended STRAIGHT
-    # to the side, perpendicular to the spine (90° from vertical).
-    var arm_r_end   := Vector3(0.0, 0.0, PI / 2)
+    var arm_r_start := Vector3(-1.5, 0.6, 0.15)   # swing end (legacy Euler)
+    var arm_r_end   := clock_dir(9, 0)            # 9 o'clock — straight to Tux's left
     var arm_r_now: Vector3 = arm_r_start.lerp(arm_r_end, blend)
     if full:
         var tremor: float = sin(t * 30.0) * 0.04
@@ -251,16 +296,17 @@ func _pose_charging(t: float, full: bool) -> void:
     _rot(bones.get("head"),   Vector3(0.0, 0.0, 0.0))
 
 
-# Spin attack: sword arm extended STRAIGHT TO THE SIDE — pure Z-axis
-# rotation, no X (forward/back) and no Y (inward) component, so the
-# blade is horizontal at shoulder height. Pelvis rotates 360 around Y;
-# the body whirls under the planted, side-extended sword.
+# Spin attack: arm_r matches the charge-end pose (clock 9, level), and
+# arm_l keeps the same shoulder-tucked stance from the charge so the
+# release flows continuously — no flipping sides, no inward collapse.
+# Pelvis rotates 360 around Y; the body whirls under the planted, side-
+# extended sword.
 func _pose_spin(t: float) -> void:
     var phase: float = clamp(t / 0.45, 0.0, 1.0)
     var spin: float = phase * TAU
     _rot(bones.get("pelvis"), Vector3(0, spin, 0))
-    _rot(bones.get("arm_r"),  Vector3(0, 0, -PI / 2))   # arm straight out, no slope
-    _rot(bones.get("arm_l"),  Vector3(0, 0,  PI / 2))   # other arm out for balance
+    _rot(bones.get("arm_r"),  clock_dir(9, 0))           # match charge end
+    _rot(bones.get("arm_l"),  Vector3(-0.5, 0.1, -0.7))  # match charge arm_l
     _rot(bones.get("torso"),  Vector3(0, 0, 0))
     _rot(bones.get("head"),   Vector3(0, 0, 0))
 
