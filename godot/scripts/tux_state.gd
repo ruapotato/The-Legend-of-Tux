@@ -657,8 +657,10 @@ func _begin_shield_flip() -> bool:
     else:
         flip_kind = FlipKind.BACK
 
+    # `right` is forward × up; previous version had both signs flipped,
+    # which is why pushing right launched the side-flip leftward.
     var fwd := Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
-    var right := Vector3(-cos(face_yaw), 0.0, sin(face_yaw))
+    var right := Vector3(cos(face_yaw), 0.0, -sin(face_yaw))
     var move_dir := Vector3.ZERO
     match flip_kind:
         FlipKind.FRONT:      move_dir = fwd

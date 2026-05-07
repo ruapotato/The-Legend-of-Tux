@@ -170,14 +170,14 @@ func _pose_swing(t: float, variant: int) -> void:
         _rot(bones.get("head"),  Vector3(lerpf(0.0, 0.3, fall), 0, 0))
 
 
-# Block: shield arm (left wing) raised UP and IN FRONT of the body. To
-# read at "12 o'clock" — directly in front, not at the shoulder — the
-# arm needs strong inward Y rotation so it crosses the body's
-# centerline. Larger negative Y was the magic; previous values had the
-# shield drift back to the shoulder.
+# Block: shield arm (left wing) raised UP and IN FRONT of the body.
+# Godot's YXZ Euler order means Y rotates the lifted arm in the X-Z
+# plane around world Y. Combined with the rig's 180° flip, POSITIVE Y
+# crosses the wing toward Tux's centerline (12 o'clock); negative Y
+# pushes it further out toward the shoulder (3 o'clock and beyond).
 func _pose_block(_t: float, phase: float) -> void:
     var p: float = clamp(phase, 0.0, 1.0)
-    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, -1.10 * p, -0.05 * p))
+    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, 1.0 * p, -0.05 * p))
     _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
     _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
     _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
@@ -225,29 +225,30 @@ func _pose_jump_attack(t: float) -> void:
     _rot(bones.get("leg_r"), Vector3(-0.25, 0, 0))
 
 
-# Charging wind-up. Sword stays extended forward — we wanted "straight
-# out or slightly back from the player" rather than wound-back-by-the-
-# shoulder. The blade drops a touch through the charge to read as
-# weight gathering, but stays roughly in the plane of the swing. When
-# `full` is true the pose adds a tremor sine for the ready-to-go feel.
+# Charging wind-up. Sword draws back to the 7 o'clock position from the
+# player's POV (down-and-toward-the-shield-side), reading as a wound-up
+# spin ready to release. We blend in from the swing-end pose over ~0.18s
+# so the transition flows from a swing into the charge instead of
+# popping. Pure-Z rotation puts the blade in the body's vertical plane
+# tilted ~45° toward Tux's left, which is the 7-8 o'clock arc.
 func _pose_charging(t: float, full: bool) -> void:
     var blend: float = clamp(t / 0.18, 0.0, 1.0)
-    # "swing-end" arm pose (extended forward, slightly to the right) →
-    # charge-ready pose (arm slightly back from straight-forward, dropped
-    # a hair so the blade reads as gathering weight).
-    var arm_r_start := Vector3(-1.5, 0.6, 0.15)
-    var arm_r_end   := Vector3(-1.30, 0.10, 0.10)
+    var arm_r_start := Vector3(-1.5, 0.6, 0.15)        # swing end
+    # PI/6 corresponds to 7 o'clock on the front-view clock (12 = up,
+    # 3 = right, 6 = down, 9 = left). Use the F3 debug overlay to verify
+    # the actual angle on screen against where the user wants it.
+    var arm_r_end   := Vector3(0.0, 0.0, PI / 6)
     var arm_r_now: Vector3 = arm_r_start.lerp(arm_r_end, blend)
     if full:
         var tremor: float = sin(t * 30.0) * 0.04
-        arm_r_now += Vector3(tremor, 0.0, tremor)
+        arm_r_now += Vector3(0.0, 0.0, tremor)
     _rot(bones.get("arm_r"), arm_r_now)
 
-    _rot(bones.get("torso"),  Vector3(0.05, 0.0, 0.0))
+    _rot(bones.get("torso"),  Vector3(0.0, 0.0, 0.0))
     _rot(bones.get("arm_l"),  Vector3(-0.5, 0.1, -0.7))
-    _rot(bones.get("leg_l"),  Vector3(-0.1, 0, 0))
-    _rot(bones.get("leg_r"),  Vector3(-0.1, 0, 0))
-    _rot(bones.get("head"),   Vector3(0.05, 0.0, 0.0))
+    _rot(bones.get("leg_l"),  Vector3(0, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(0, 0, 0))
+    _rot(bones.get("head"),   Vector3(0.0, 0.0, 0.0))
 
 
 # Spin attack: sword arm extended STRAIGHT TO THE SIDE — pure Z-axis
