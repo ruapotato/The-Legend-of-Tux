@@ -61,11 +61,12 @@ func _ready() -> void:
     var arm_r: Node3D = bones["arm_r"]
     var arm_l: Node3D = bones["arm_l"]
     var SWORD_LOCAL := Transform3D(Basis.IDENTITY, Vector3(-0.07, -0.32, 0))
-    # Shield rotated -90° around X so the broad face is perpendicular to
-    # the wing's length axis — when arm_l rotates forward to block, the
-    # broad face ends up pointing toward the enemy instead of being
-    # flush against the wing.
-    var SHIELD_LOCAL := Transform3D(Basis(Vector3(1, 0, 0), -PI / 2), Vector3(0.07, -0.30, 0))
+    # Shield rotated +90° around X. With arm_l lifted forward (Rx ≈ -π/2)
+    # in the block pose, this makes the boss-decorated FRONT of the
+    # shield point at the enemy (body -Z) and the 0.50m dimension stand
+    # vertical. Earlier the rotation sign was flipped, which had the
+    # back of the shield facing the enemy.
+    var SHIELD_LOCAL := Transform3D(Basis(Vector3(1, 0, 0), PI / 2), Vector3(0.07, -0.30, 0))
     remove_child(sword)
     arm_r.add_child(sword)
     sword.transform = SWORD_LOCAL

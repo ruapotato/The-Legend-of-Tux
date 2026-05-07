@@ -367,30 +367,32 @@ func _act_jab(_delta: float) -> bool:
 # camera-relative input (or current facing) so the strike commits to a
 # direction. Lateral input is ignored — only forward/back stick adjusts
 # the constant forward push, so you can't slide sideways mid-strike.
-# Fall is slower than terminal so the swing reads in the air; combined
-# with the forward push you land a step ahead of your launch point.
+# Vertical motion uses normal gravity but caps the descent speed at
+# JUMP_ATTACK_FALL_VEL — this lets initial upward momentum (the small
+# hop from shield→attack) carry through as a natural arc instead of
+# getting squashed flat by a forced constant downward velocity.
 func _act_jump_attack(_delta: float) -> bool:
     hit_window_active = true
 
     if action_time == 0.0:
-        # Commit to the direction the player is steering toward, falling
-        # back to current facing when the stick is neutral.
         var stick_dir := _stick_to_world_dir()
         if stick_dir.length() > 0.1:
             face_yaw = atan2(-stick_dir.x, -stick_dir.z)
 
     var fwd := Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
     var fwd_speed: float = JUMP_ATTACK_FWD_SPEED
-    # Forward stick adds a touch more push; backward stick reduces it.
-    # Stick-X is intentionally ignored — once you commit to the strike,
-    # you can't crab sideways.
     if input_stick.y < -0.2:
         fwd_speed *= 1.5
     elif input_stick.y > 0.2:
         fwd_speed *= 0.5
     vel.x = fwd.x * fwd_speed
     vel.z = fwd.z * fwd_speed
-    vel.y = JUMP_ATTACK_FALL_VEL
+    # Apply gravity with a descent cap so the strike still reads as
+    # "committed downward" once you crest, but a hop into the strike
+    # actually rises first.
+    vel.y -= GRAVITY * _step_delta
+    if vel.y < JUMP_ATTACK_FALL_VEL:
+        vel.y = JUMP_ATTACK_FALL_VEL
 
     _request_anim(ANIM_JUMP_ATTACK, 1.0)
     if is_on_floor and action_time > 0.05:
@@ -637,9 +639,10 @@ func _begin_shield_jump_slash() -> bool:
     if get_stamina.call() < COST_JUMP_ATTACK:
         return false
     spend_stamina.call(COST_JUMP_ATTACK)
-    # Small lift; the JUMP_ATTACK action's forward push will commit Tux
-    # forward through the strike.
-    vel.y = JUMP_IMPULSE * 0.55
+    # Real hop now that JUMP_ATTACK applies gravity instead of pinning
+    # vel.y; 90% of a full jump impulse gives a satisfying leap into
+    # the strike without overshooting.
+    vel.y = JUMP_IMPULSE * 0.9
     return set_action(ACT_JUMP_ATTACK)
 
 

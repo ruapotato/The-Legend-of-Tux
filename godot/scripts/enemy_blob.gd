@@ -158,7 +158,11 @@ func _set_state(new_state: int) -> void:
     state = new_state
     state_time = 0.0
     if state != State.ATTACK:
-        attack_hitbox.monitoring = false
+        # Deferred — _set_state can be called inside the attack hitbox's
+        # body_entered signal (player blocks → get_knockback → HURT),
+        # and Godot disallows toggling monitoring during the in/out
+        # signal of that very Area3D.
+        attack_hitbox.set_deferred("monitoring", false)
     # Audio cues for state transitions worth hearing.
     if state == State.CHASE and prev == State.IDLE:
         SoundBank.play_3d("blob_alert", global_position)

@@ -177,7 +177,8 @@ func _pose_swing(t: float, variant: int) -> void:
 # pushes it further out toward the shoulder (3 o'clock and beyond).
 func _pose_block(_t: float, phase: float) -> void:
     var p: float = clamp(phase, 0.0, 1.0)
-    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, 1.0 * p, -0.05 * p))
+    # Y=+1.0 overshot to 10-11 o'clock; +0.5 brings it to roughly 12.
+    _rot(bones.get("arm_l"), Vector3(-1.65 * p - 0.05, 0.5 * p, -0.05 * p))
     _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
     _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
     _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
@@ -234,10 +235,9 @@ func _pose_jump_attack(t: float) -> void:
 func _pose_charging(t: float, full: bool) -> void:
     var blend: float = clamp(t / 0.18, 0.0, 1.0)
     var arm_r_start := Vector3(-1.5, 0.6, 0.15)        # swing end
-    # PI/6 corresponds to 7 o'clock on the front-view clock (12 = up,
-    # 3 = right, 6 = down, 9 = left). Use the F3 debug overlay to verify
-    # the actual angle on screen against where the user wants it.
-    var arm_r_end   := Vector3(0.0, 0.0, PI / 6)
+    # PI/2 = 9 o'clock on the front-view clock — sword extended STRAIGHT
+    # to the side, perpendicular to the spine (90° from vertical).
+    var arm_r_end   := Vector3(0.0, 0.0, PI / 2)
     var arm_r_now: Vector3 = arm_r_start.lerp(arm_r_end, blend)
     if full:
         var tremor: float = sin(t * 30.0) * 0.04
