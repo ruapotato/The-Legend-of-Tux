@@ -69,16 +69,24 @@ const SWING_HIT_WINDOW     := Vector2(0.10, 0.28)
 # swing queues the next combo step. Outside it, the press is buffered
 # only briefly so spam doesn't auto-chain forever.
 const SWING_COMBO_WINDOW   := Vector2(0.20, SWING_DURATION)
+# After the active hitbox closes, movement input cancels the recovery
+# tail so the player isn't stuck mid-anim. Combo press still wins if it
+# came earlier (combo_queued was set during SWING_COMBO_WINDOW).
+const SWING_MOVE_CANCEL    := 0.32
 
 # Forward thrust ("jab") triggered by stick-forward + attack press. Quick,
 # narrow hit window, lower stamina cost than a full swing.
 const JAB_DURATION         := 0.30
 const JAB_HIT_WINDOW       := Vector2(0.08, 0.20)
 
-# Down-strike: pressing attack while airborne. Drives Tux down at a fixed
-# speed and the hitbox stays open for the entire descent.
-const JUMP_ATTACK_DURATION := 0.6
-const JUMP_ATTACK_FALL_VEL := -16.0
+# Down-strike: pressing attack while airborne. Drives Tux down at a
+# controlled speed (slower than terminal so the strike reads), commits
+# to the facing direction at strike-start (no side steering), and
+# continues with a small forward push so you land further than you
+# jumped from.
+const JUMP_ATTACK_DURATION   := 0.7
+const JUMP_ATTACK_FALL_VEL   := -8.5
+const JUMP_ATTACK_FWD_SPEED  := 4.5
 
 # Charge → spin. CHARGING starts at the end of a swing (or jab) if the
 # player is still holding the attack button and didn't queue a combo.
@@ -86,12 +94,12 @@ const JUMP_ATTACK_FALL_VEL := -16.0
 # "fully charged" and releasing the button fires the spin attack.
 const CHARGE_TIME_FOR_SPIN := 1.0
 const CHARGE_DRAIN_PER_SEC := 5.0    # stamina cost while holding charge
-const SPIN_DURATION        := 0.70
-const SPIN_HIT_WINDOW      := Vector2(0.10, 0.60)
+const SPIN_DURATION        := 0.45
+const SPIN_HIT_WINDOW      := Vector2(0.05, 0.40)
 
 const ROLL_SPEED           := 8.5
-const ROLL_DURATION        := 0.55
-const ROLL_IFRAME_END      := 0.45        # i-frames cover most of the roll
+const ROLL_DURATION        := 0.45
+const ROLL_IFRAME_END      := 0.38        # i-frames cover most of the roll
 
 # Block is hold-to-raise; the first PARRY_WINDOW seconds count as a
 # parry (deflects with no stamina cost). After that, regular block —
@@ -268,10 +276,16 @@ func _act_attack(_delta: float) -> bool:
             and action_time <= SWING_COMBO_WINDOW.y and _can_swing():
         combo_queued = true
 
-    # Slow the player to a near-stop while swinging — Valheim-style
-    # commitment to the swing.
-    vel.x = move_toward(vel.x, 0.0, 30.0 * _step_delta)
-    vel.z = move_toward(vel.z, 0.0, 30.0 * _step_delta)
+    # Recovery cancel: once the active hit window closes, movement input
+    # is allowed to break out of the recovery tail. Without this the
+    # player feels glued to the ground after every swing.
+    if action_time >= SWING_MOVE_CANCEL and not combo_queued and input_stick.length() > 0.1:
+        return set_action(ACT_MOVE)
+
+    # Damp horizontal velocity, but gently — full hard-stop dampening
+    # made the recovery feel even sluggier than the anim would suggest.
+    vel.x = move_toward(vel.x, 0.0, 12.0 * _step_delta)
+    vel.z = move_toward(vel.z, 0.0, 12.0 * _step_delta)
     vel.y = -1.0
 
     var tag := ANIM_SWING_1
@@ -317,12 +331,35 @@ func _act_jab(_delta: float) -> bool:
     return false
 
 
-# Aerial down-strike: forced fast fall with hitbox active. Lands into a
-# regular ACT_LAND. Cheaper than spin but commits you airborne.
+# Aerial down-strike. On entry we snap face_yaw to the player's current
+# camera-relative input (or current facing) so the strike commits to a
+# direction. Lateral input is ignored — only forward/back stick adjusts
+# the constant forward push, so you can't slide sideways mid-strike.
+# Fall is slower than terminal so the swing reads in the air; combined
+# with the forward push you land a step ahead of your launch point.
 func _act_jump_attack(_delta: float) -> bool:
     hit_window_active = true
-    _air_steer()
+
+    if action_time == 0.0:
+        # Commit to the direction the player is steering toward, falling
+        # back to current facing when the stick is neutral.
+        var stick_dir := _stick_to_world_dir()
+        if stick_dir.length() > 0.1:
+            face_yaw = atan2(-stick_dir.x, -stick_dir.z)
+
+    var fwd := Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
+    var fwd_speed: float = JUMP_ATTACK_FWD_SPEED
+    # Forward stick adds a touch more push; backward stick reduces it.
+    # Stick-X is intentionally ignored — once you commit to the strike,
+    # you can't crab sideways.
+    if input_stick.y < -0.2:
+        fwd_speed *= 1.5
+    elif input_stick.y > 0.2:
+        fwd_speed *= 0.5
+    vel.x = fwd.x * fwd_speed
+    vel.z = fwd.z * fwd_speed
     vel.y = JUMP_ATTACK_FALL_VEL
+
     _request_anim(ANIM_JUMP_ATTACK, 1.0)
     if is_on_floor and action_time > 0.05:
         return set_action(ACT_LAND)

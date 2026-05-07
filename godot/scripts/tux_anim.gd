@@ -11,11 +11,11 @@ const ONE_SHOT_DURATION := {
     "swing_2":     0.45,
     "swing_3":     0.55,
     "jab":         0.30,
-    "jump_attack": 0.60,
-    "spin":        0.70,
+    "jump_attack": 0.70,
+    "spin":        0.45,
     "block_raise": 0.12,
     "parry":       0.20,
-    "roll":        0.55,
+    "roll":        0.45,
     "land":        0.18,
     "hurt":        0.40,
 }
@@ -161,11 +161,15 @@ func _pose_swing(t: float, variant: int) -> void:
         _rot(bones.get("head"),  Vector3(lerpf(0.0, 0.3, fall), 0, 0))
 
 
-# Block: shield arm (left) up across the face, sword arm tucked. Phase
-# 0..1 controls how raised the shield is (raise → hold).
+# Block: shield arm (left wing) raised UP and IN FRONT of the body — not
+# out to the side. arm.x rotates the wing forward (lifts it from hanging
+# at the side); arm.y rotates it inward across the chest so the shield
+# sits at the body's centerline (12 o'clock) rather than at the
+# shoulder (3 o'clock). arm.z stays small — extra Z lift would push the
+# shield outward.
 func _pose_block(_t: float, phase: float) -> void:
     var p: float = clamp(phase, 0.0, 1.0)
-    _rot(bones.get("arm_l"), Vector3(-1.4 * p - 0.2, 0.2 * p, -1.1 * p - 0.2))
+    _rot(bones.get("arm_l"), Vector3(-1.55 * p - 0.1, -0.55 * p, -0.20 * p))
     _rot(bones.get("arm_r"), Vector3(-0.4, -0.2, 0.6))
     _rot(bones.get("torso"), Vector3(0.05, 0.05, 0))
     _rot(bones.get("head"),  Vector3(0.05, -0.1, 0))
@@ -183,46 +187,63 @@ func _pose_jab(t: float) -> void:
     _rot(bones.get("leg_l"), Vector3(0.1, 0, 0))
 
 
-# Aerial down-strike: arm starts overhead and chops through the body's
-# centerline as Tux drops. Looks like a heavy chop committed mid-air.
+# Aerial down-strike: blade extended forward and slightly down (sword
+# leading the dive), free wing tucked back for balance, body angled
+# forward into the strike. Pose is mostly static — the trail effect
+# spawned by tux_player sells the motion better than a frantic per-
+# tick arc.
 func _pose_jump_attack(t: float) -> void:
-    var phase: float = clamp(t / 0.60, 0.0, 1.0)
-    var rise: float = clamp(phase * 1.6, 0.0, 1.0)
-    var fall: float = clamp(phase * 1.6 - 0.6, 0.0, 1.0)
-    var arm_x: float = lerpf(-0.4, -2.9, rise) + lerpf(0.0, 1.6, fall)
-    _rot(bones.get("arm_r"), Vector3(arm_x, 0.0, 0.0))
-    _rot(bones.get("arm_l"), Vector3(-0.6, 0.0, -0.6))
-    _rot(bones.get("torso"), Vector3(lerpf(-0.2, 0.5, fall), 0, 0))
-    _rot(bones.get("leg_l"), Vector3(-0.4, 0, 0))
-    _rot(bones.get("leg_r"), Vector3(-0.4, 0, 0))
+    var phase: float = clamp(t / 0.70, 0.0, 1.0)
+    # Subtle wind-up at the start (arm cocks up briefly), then the
+    # forward thrust commits.
+    var thrust_in: float = clamp(phase * 4.0, 0.0, 1.0)
+    var arm_x: float = lerpf(-1.2, -1.85, thrust_in)
+    _rot(bones.get("arm_r"), Vector3(arm_x, -0.25, 0.05))
+    _rot(bones.get("arm_l"), Vector3(-0.7, 0.25, -0.5))
+    _rot(bones.get("torso"), Vector3(0.35, 0, 0))
+    _rot(bones.get("head"),  Vector3(0.20, 0, 0))
+    _rot(bones.get("leg_l"), Vector3(-0.5, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-0.25, 0, 0))
 
 
-# Charging wind-up. Body twists, sword arm cocked far back, knees bent.
-# When `full` is true the pose adds a tremor sine to read as ready-to-go.
+# Charging wind-up. Body twists, sword arm cocked far back. To avoid the
+# visible "pop" when ACT_CHARGING starts right after a swing ends, we
+# blend in from the swing-end pose (arm extended forward) over the first
+# ~0.18s before settling into the wound-back pose. When `full` is true
+# the pose adds a tremor sine to read as ready-to-go.
 func _pose_charging(t: float, full: bool) -> void:
-    var tremor: float = sin(t * 30.0) * 0.05 if full else 0.0
-    var twist: float = -0.5
+    var blend: float = clamp(t / 0.18, 0.0, 1.0)
+    # "swing-end" arm pose (extended forward, slightly to the right)
+    var arm_r_start := Vector3(-1.5, 0.6, 0.15)
+    # wound-back charge-ready pose
+    var arm_r_end   := Vector3(-0.6, -0.7, 1.2)
+    var arm_r_now: Vector3 = arm_r_start.lerp(arm_r_end, blend)
+    if full:
+        var tremor: float = sin(t * 30.0) * 0.05
+        arm_r_now += Vector3(tremor, 0.0, tremor)
+    _rot(bones.get("arm_r"), arm_r_now)
+
+    var twist: float = -0.5 * blend
     _rot(bones.get("torso"),  Vector3(0.05, twist, 0.0))
     _rot(bones.get("pelvis"), Vector3(0.0,  twist * 0.4, 0.0))
-    _rot(bones.get("arm_r"),  Vector3(-0.6 + tremor, -0.7, 1.2 + tremor))
     _rot(bones.get("arm_l"),  Vector3(-0.4, 0.4, -0.5))
     _rot(bones.get("leg_l"),  Vector3(-0.2, 0, 0))
     _rot(bones.get("leg_r"),  Vector3(-0.2, 0, 0))
     _rot(bones.get("head"),   Vector3(0.0, twist * 0.5, 0.0))
 
 
-# Spin attack: pelvis rotates a full 360 around its Y axis over the
-# duration; sword arm extended outward perpendicular to the body so the
-# blade sweeps a circular arc.
+# Spin attack: arm stays at the swing-end position (blade extended
+# forward-and-out) while the pelvis rotates a full 360 around Y. The
+# arm pose is held constant — what you see is the body whirling under
+# the planted sword, not the sword whipping into a new position.
 func _pose_spin(t: float) -> void:
-    var phase: float = clamp(t / 0.70, 0.0, 1.0)
+    var phase: float = clamp(t / 0.45, 0.0, 1.0)
     var spin: float = phase * TAU
     _rot(bones.get("pelvis"), Vector3(0, spin, 0))
-    _rot(bones.get("torso"),  Vector3(0, 0, 0))
-    _rot(bones.get("arm_r"),  Vector3(-1.55, 0, 0.1))     # arm out perpendicular
-    _rot(bones.get("arm_l"),  Vector3(-0.6, 0, -0.8))
-    _rot(bones.get("leg_l"),  Vector3(0, 0, 0))
-    _rot(bones.get("leg_r"),  Vector3(0, 0, 0))
+    _rot(bones.get("arm_r"),  Vector3(-1.5, 0.6, 0.15))   # matches swing-end
+    _rot(bones.get("arm_l"),  Vector3(-0.6, 0.0, -0.8))
+    _rot(bones.get("torso"),  Vector3(0.05, 0, 0))
+    _rot(bones.get("head"),   Vector3(0.10, 0, 0))
 
 
 func _pose_parry(t: float) -> void:
@@ -236,14 +257,20 @@ func _pose_parry(t: float) -> void:
     _rot(bones.get("torso"), Vector3(0.05, 0.0, 0))
 
 
+# Forward roll: pelvis tumbles through one full revolution around X.
+# The tucked arm/leg pose blends BACK to neutral over the last ~0.10s
+# of the roll so the recovery doesn't end on a frozen ball-pose for a
+# couple of frames before the idle takes over.
 func _pose_roll(t: float) -> void:
-    var phase: float = clamp(t / 0.55, 0.0, 1.0)
+    var dur: float = 0.45
+    var phase: float = clamp(t / dur, 0.0, 1.0)
     var spin: float = phase * TAU
+    var blend: float = clamp((dur - t) / 0.10, 0.0, 1.0)   # 1 → 0 over last 0.10s
     _rot(bones.get("pelvis"), Vector3(spin, 0, 0))
-    _rot(bones.get("arm_l"), Vector3(-1.6, 0, -0.4))
-    _rot(bones.get("arm_r"), Vector3(-1.6, 0,  0.4))
-    _rot(bones.get("leg_l"), Vector3(-1.2, 0, 0))
-    _rot(bones.get("leg_r"), Vector3(-1.2, 0, 0))
+    _rot(bones.get("arm_l"), Vector3(-1.6 * blend, 0, -0.4 * blend))
+    _rot(bones.get("arm_r"), Vector3(-1.6 * blend, 0,  0.4 * blend))
+    _rot(bones.get("leg_l"), Vector3(-1.2 * blend, 0, 0))
+    _rot(bones.get("leg_r"), Vector3(-1.2 * blend, 0, 0))
 
 
 func _pose_jump(_t: float) -> void:

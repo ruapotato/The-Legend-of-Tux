@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
 # Player controller: ties together input, the action state machine
-# (tux_state.gd), the procedural animator (tux_anim.gd), the rig, and
-# the sword hitbox(es). The state machine owns the action logic; this
-# script is the integration layer.
+# (tux_state.gd), the procedural animator (tux_anim.gd), the rig, the
+# sword + shield, and the trail FX. The state machine owns the action
+# logic; this script is the integration layer.
 
 const TuxState = preload("res://scripts/tux_state.gd")
 const TuxAnim  = preload("res://scripts/tux_anim.gd")
@@ -12,14 +12,20 @@ const TuxAnim  = preload("res://scripts/tux_anim.gd")
 
 @onready var rig: Node3D = $Rig
 @onready var sword: Node3D = $Sword
+@onready var shield: Node3D = $Shield
 @onready var sword_hitbox: Area3D = $Sword/SwordHitbox
 @onready var spin_hitbox: Area3D = $SpinHitbox
-@onready var shield_mesh: MeshInstance3D = null   # set after rig load if present
 
 var state: RefCounted
 var anim: RefCounted
 var camera: Node = null
 var bones: Dictionary = {}
+
+# Cached references for the trail FX so we don't traverse the scene
+# tree every frame.
+var _blade_node: MeshInstance3D = null
+var _trail_cooldown: float = 0.0
+const TRAIL_INTERVAL: float = 0.025
 
 
 func _ready() -> void:
@@ -32,7 +38,6 @@ func _ready() -> void:
     state.get_stamina = func() -> int: return GameState.stamina
     state.spend_stamina = func(amount: int) -> void: GameState.spend_stamina(amount)
 
-    # Locate the bones the animator drives. Path matches tux_rig.tscn.
     bones = {
         "pelvis": rig.get_node("pelvis"),
         "torso":  rig.get_node("pelvis/torso"),
@@ -44,18 +49,22 @@ func _ready() -> void:
     }
     anim.setup(bones)
 
-    # Reparent the sword under arm_r so it tracks the wing's animation.
-    # The sword is authored at the player root for editor convenience;
-    # at runtime we move it under the wing pivot and pin its local
-    # transform so the grip sits at the wing tip. Tweak SWORD_LOCAL if
-    # the blade ends up clipping or floating.
+    # Reparent sword + shield so they track the wing animations. The
+    # local transforms below pin each prop to its wing tip; tweak the
+    # offsets if anything clips or floats during tuning.
     var arm_r: Node3D = bones["arm_r"]
+    var arm_l: Node3D = bones["arm_l"]
     var SWORD_LOCAL := Transform3D(Basis.IDENTITY, Vector3(-0.07, -0.32, 0))
+    var SHIELD_LOCAL := Transform3D(Basis.IDENTITY, Vector3(0.07, -0.30, 0))
     remove_child(sword)
     arm_r.add_child(sword)
     sword.transform = SWORD_LOCAL
+    remove_child(shield)
+    arm_l.add_child(shield)
+    shield.transform = SHIELD_LOCAL
 
-    # Camera is a sibling we point at this player.
+    _blade_node = sword.get_node_or_null("Blade") as MeshInstance3D
+
     if camera_path:
         camera = get_node_or_null(camera_path)
         if camera and camera.has_method("set"):
@@ -77,26 +86,20 @@ func _physics_process(delta: float) -> void:
     state.pos = global_position
     state.step(delta)
 
-    # Stamina regen: full rate when not blocking, none while blocking
-    # (blocking holds the meter so big blocks read as a serious cost).
+    # Stamina regen — paused while blocking so big blocks read as a
+    # serious cost.
     var is_blocking: bool = state.action == TuxState.ACT_BLOCK and state.action_time >= TuxState.BLOCK_RAISE_DURATION
     if not is_blocking:
         GameState.regen_stamina(30.0, delta)
 
     velocity = state.vel
     move_and_slide()
-
-    # Apply state's chosen face_yaw to the rig. The rig's root transform
-    # has its own basis flip; we rotate the WHOLE CharacterBody3D so the
-    # collision shape and sword rotate with the visuals.
     rotation.y = state.face_yaw
 
-    # Drive animator from the state's request.
     anim.play(state.requested_anim, state.requested_anim_speed, state.requested_anim_reset)
     anim.tick(delta)
 
-    # Sword hitbox gating. The spin uses a separate, larger radial
-    # hitbox; regular swings/jab/jump-strike use the blade hitbox.
+    # Hitbox gating.
     if state.spin_hit_active:
         spin_hitbox.arm()
     else:
@@ -105,6 +108,8 @@ func _physics_process(delta: float) -> void:
         sword_hitbox.arm()
     else:
         sword_hitbox.disarm()
+
+    _emit_trail_if_active(delta)
 
 
 func _read_inputs() -> void:
@@ -137,9 +142,50 @@ func take_damage(amount: int, source_pos: Vector3) -> void:
 
 
 func _on_sword_hit(_target: Node) -> void:
-    # Hook for hit-stop, screen shake, sword sfx etc. No-op for now.
     pass
 
 
 func _on_player_died() -> void:
     state.kill()
+
+
+# ---- Sword trail FX ---------------------------------------------------
+
+# Spawns fading ghost copies of the blade during JUMP_ATTACK and SPIN.
+# Each ghost is parented under the player but flagged top_level so its
+# world transform is captured at spawn and stays fixed — it doesn't
+# follow Tux as he moves through the trail.
+func _emit_trail_if_active(delta: float) -> void:
+    var emitting: bool = state.action == TuxState.ACT_JUMP_ATTACK \
+                      or state.action == TuxState.ACT_SPIN
+    if not emitting:
+        _trail_cooldown = 0.0
+        return
+    _trail_cooldown -= delta
+    if _trail_cooldown > 0.0:
+        return
+    _trail_cooldown = TRAIL_INTERVAL
+    _spawn_ghost_blade()
+
+
+func _spawn_ghost_blade() -> void:
+    if not _blade_node or not _blade_node.mesh:
+        return
+    var ghost := MeshInstance3D.new()
+    ghost.mesh = _blade_node.mesh
+    ghost.top_level = true
+    var mat := StandardMaterial3D.new()
+    mat.albedo_color = Color(0.65, 0.85, 1.0, 0.55)
+    mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+    mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    mat.emission_enabled = true
+    mat.emission = Color(0.7, 0.95, 1.2)
+    mat.emission_energy_multiplier = 1.6
+    ghost.material_override = mat
+    add_child(ghost)
+    ghost.global_transform = _blade_node.global_transform
+    var t := create_tween()
+    t.set_parallel(true)
+    t.tween_property(mat, "albedo_color:a", 0.0, 0.22)
+    t.tween_property(ghost, "scale", Vector3(0.45, 0.45, 0.45), 0.22)
+    t.chain().tween_callback(ghost.queue_free)

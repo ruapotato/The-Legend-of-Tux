@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://btuxarn01"]
+[gd_scene load_steps=23 format=3 uid="uid://btuxarn01"]
 
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="1_tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="2_hud"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="5_treewall"]
 [ext_resource type="Script" path="res://scripts/hit_switch.gd" id="6_switch"]
 [ext_resource type="Script" path="res://scripts/timed_gate.gd" id="7_gate"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="8_blob"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.45, 0.62, 0.86, 1)
@@ -183,5 +184,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
 
 [node name="PracticeTarget3" parent="." instance=ExtResource("3_target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="Blob1" parent="." instance=ExtResource("8_blob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="Blob2" parent="." instance=ExtResource("8_blob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
 
 [node name="HUD" parent="." instance=ExtResource("2_hud")]

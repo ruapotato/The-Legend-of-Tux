@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btuxpl01"]
+[gd_scene load_steps=16 format=3 uid="uid://btuxpl01"]
 
 [ext_resource type="PackedScene" uid="uid://b7tuxrig01" path="res://assets/characters/tux_rig.tscn" id="1_rig"]
 [ext_resource type="Script" path="res://scripts/tux_player.gd" id="2_player"]
@@ -32,6 +32,24 @@ size = Vector3(0.10, 0.55, 0.10)
 [sub_resource type="CylinderShape3D" id="spin_cyl"]
 radius = 1.6
 height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="shield_wood_mat"]
+albedo_color = Color(0.45, 0.30, 0.15, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="shield_metal_mat"]
+albedo_color = Color(0.75, 0.78, 0.82, 1)
+metallic = 0.7
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="shield_board"]
+size = Vector3(0.42, 0.50, 0.05)
+
+[sub_resource type="SphereMesh" id="shield_boss"]
+radius = 0.07
+height = 0.06
+radial_segments = 10
+rings = 5
 
 [node name="Tux" type="CharacterBody3D"]
 collision_layer = 2
@@ -83,3 +101,16 @@ damage = 2
 
 [node name="Shape" type="CollisionShape3D" parent="SpinHitbox"]
 shape = SubResource("spin_cyl")
+
+[node name="Shield" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, 0.36, 0)
+
+[node name="Board" type="MeshInstance3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
+mesh = SubResource("shield_board")
+surface_material_override/0 = SubResource("shield_wood_mat")
+
+[node name="Boss" type="MeshInstance3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+mesh = SubResource("shield_boss")
+surface_material_override/0 = SubResource("shield_metal_mat")
