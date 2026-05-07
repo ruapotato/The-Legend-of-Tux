@@ -1,0 +1,123 @@
+[gd_scene load_steps=18 format=3 uid="uid://btuxbnk01"]
+
+[ext_resource type="PackedScene" uid="uid://b7tuxrig01" path="res://assets/characters/tux_rig.tscn" id="1_rig"]
+[ext_resource type="Script" path="res://scripts/enemy_bone_knight.gd" id="2_knight"]
+[ext_resource type="Script" path="res://scripts/sword_hitbox.gd" id="3_hitbox"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.40
+height = 1.40
+
+[sub_resource type="StandardMaterial3D" id="bone_blade_mat"]
+albedo_color = Color(0.88, 0.86, 0.78, 1)
+metallic = 0.35
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="bone_hilt_mat"]
+albedo_color = Color(0.40, 0.36, 0.30, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="blade_mesh"]
+size = Vector3(0.07, 0.62, 0.025)
+
+[sub_resource type="BoxMesh" id="guard_mesh"]
+size = Vector3(0.22, 0.05, 0.05)
+
+[sub_resource type="BoxMesh" id="handle_mesh"]
+size = Vector3(0.05, 0.13, 0.05)
+
+[sub_resource type="BoxShape3D" id="sword_box"]
+size = Vector3(0.12, 0.68, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="shield_wood_mat"]
+albedo_color = Color(0.28, 0.20, 0.13, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="shield_metal_mat"]
+albedo_color = Color(0.55, 0.52, 0.46, 1)
+metallic = 0.6
+roughness = 0.50
+
+[sub_resource type="BoxMesh" id="shield_board"]
+size = Vector3(0.50, 0.60, 0.06)
+
+[sub_resource type="SphereMesh" id="shield_boss"]
+radius = 0.09
+height = 0.07
+radial_segments = 10
+rings = 5
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.95, 1.50, 0.95)
+
+[sub_resource type="StandardMaterial3D" id="bone_blade_emit"]
+albedo_color = Color(0.88, 0.86, 0.78, 1)
+metallic = 0.35
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.40, 0.10, 0.05, 1)
+emission_energy_multiplier = 0.15
+
+[node name="BoneKnight" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("2_knight")
+max_hp = 8
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("body_shape")
+
+[node name="Rig" parent="." instance=ExtResource("1_rig")]
+transform = Transform3D(-1.4, 0, 0, 0, 1.4, 0, 0, 0, -1.4, 0, 0, 0)
+
+[node name="Sword" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40, 0.70, 0)
+
+[node name="Blade" type="MeshInstance3D" parent="Sword"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31, 0)
+mesh = SubResource("blade_mesh")
+surface_material_override/0 = SubResource("bone_blade_emit")
+
+[node name="Guard" type="MeshInstance3D" parent="Sword"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("guard_mesh")
+surface_material_override/0 = SubResource("bone_hilt_mat")
+
+[node name="Handle" type="MeshInstance3D" parent="Sword"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.085, 0)
+mesh = SubResource("handle_mesh")
+surface_material_override/0 = SubResource("bone_hilt_mat")
+
+[node name="SwordHitbox" type="Area3D" parent="Sword"]
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+script = ExtResource("3_hitbox")
+damage = 2
+
+[node name="Shape" type="CollisionShape3D" parent="Sword/SwordHitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, 0)
+shape = SubResource("sword_box")
+
+[node name="Shield" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40, 0.70, 0)
+
+[node name="Board" type="MeshInstance3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+mesh = SubResource("shield_board")
+surface_material_override/0 = SubResource("shield_wood_mat")
+
+[node name="Boss" type="MeshInstance3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.10)
+mesh = SubResource("shield_boss")
+surface_material_override/0 = SubResource("shield_metal_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("hit_shape")
