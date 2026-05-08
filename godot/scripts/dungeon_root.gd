@@ -9,6 +9,7 @@ extends Node3D
 # having to opt in.
 
 const MINI_MAP_SCENE: String = "res://scenes/mini_map.tscn"
+const EnemyCuller = preload("res://scripts/enemy_culler.gd")
 
 # Per-dungeon key group. Keys collected here can only be spent on doors
 # tagged with the same group (or doors that inherit the scene's group
@@ -21,6 +22,7 @@ const MINI_MAP_SCENE: String = "res://scenes/mini_map.tscn"
 func _ready() -> void:
     _attach_mini_map()
     _apply_key_group()
+    _attach_enemy_culler()
 
     var spawn_id: String = GameState.next_spawn_id
     if spawn_id == "":
@@ -54,6 +56,15 @@ func _ready() -> void:
     var camera_node: Node = get_node_or_null("Camera")
     if camera_node and camera_node.has_method("set_yaw"):
         camera_node.set_yaw(marker.rotation.y + PI)
+
+
+func _attach_enemy_culler() -> void:
+    var culler := EnemyCuller.new()
+    culler.name = "EnemyCuller"
+    add_child(culler)
+    var ps := get_tree().get_nodes_in_group("player")
+    if ps.size() > 0:
+        culler.bind(ps[0])
 
 
 func _apply_key_group() -> void:

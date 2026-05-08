@@ -1,33 +1,38 @@
 extends Node3D
 class_name TerrainMesh
 
-# Cell-paint floor + black-hill negative-space border. The walking
-# cells (passed in via cell_data) become a smoothed mesh with optional
-# per-cell heights and colours. Everything inside an extended bounding
-# box that ISN'T a walking cell becomes a non-walking "border" cell:
-# coloured nearly-black and rising in height with distance from the
-# nearest walking cell, so the level is visually walled in by a steep
-# black hillscape rather than dropping off into a grey void.
+# Cell-paint floor + black-hill negative-space border, rendered as a
+# single SurfaceTool mesh.
+#
+# This used to fan 8 triangles around each cell's centre vertex; for
+# big maps (sourceplain has ~30k cells once the border is grown) that
+# was 240k+ triangles which both blew up rendering time and made the
+# trimesh-shape collision rebuild crawl. Switched to a flat 2-triangle
+# quad per cell — corners are shared logically across neighbours so
+# heights still blend smoothly at corner positions, and the black-
+# hill border still slopes up because non-walking cells set higher
+# corner heights. ~4× faster mesh + collision build.
+#
+# Per-corner deterministic ground noise (`ground_noise`) jitters every
+# corner Y by a hashed amount so the surface reads as bumpy ground
+# instead of a perfectly flat slab. The hash is on (ci, cj) so the
+# same corner gets the same offset every run and adjacent cells share
+# the same corner value.
 #
 # Inputs (set by build_dungeon.py per floor):
-#   cell_data       Walking cells. Same heterogeneous form as before:
-#                   [i,j] / [i,j,y_off] / [i,j,y_off,[r,g,b,a]] / dict.
+#   cell_data       Walking cells. [i,j] / [i,j,y_off] /
+#                   [i,j,y_off,[r,g,b,a]] / dict form.
 #   cell_size       World meters per cell.
 #   floor_y         Base Y; per-cell y_off is added.
 #   floor_color     Default tint when no per-cell colour override.
-#   skirt_depth     How far the outer cliffs drop below their top so
-#                   the player can never see undermesh.
-#   smoothing       0..1; corner inset for marching-squares-y look on
-#                   the OUTER non-walking ring.
-#   border_margin   Cells of border to grow outward from the walking
-#                   bounding box. 0 disables the black-hill effect
-#                   (legacy behaviour: walking cells with skirts only).
-#   border_slope    Meters of rise per cell of distance from the
-#                   nearest walking cell — controls how steep the
-#                   black wall is.
-#   border_max      Cap on border height so far cells don't shoot to
-#                   infinity.
-#   border_color    Tint for non-walking cells. Near-black by default.
+#   skirt_depth     Drop on the outermost edge so the mesh doesn't
+#                   show its underside.
+#   smoothing       Marching-squares-y inset on outer-only corners.
+#   border_margin   Cells of black-hill border to grow outward.
+#   border_slope    m of rise per cell of distance from walking.
+#   border_max      Cap on border height.
+#   border_color    Tint for non-walking cells.
+#   ground_noise    ±range applied per-corner from a hashed seed.
 
 @export var cell_data:      Array  = []
 @export var cell_size:      float  = 2.0
@@ -41,6 +46,8 @@ class_name TerrainMesh
 @export var border_slope:   float  = 5.5
 @export var border_max:     float  = 20.0
 @export var border_color:   Color  = Color(0.05, 0.04, 0.05, 1.0)
+
+@export var ground_noise:   float  = 0.18
 
 
 func _ready() -> void:
@@ -64,18 +71,14 @@ func _parse_cells() -> Dictionary:
                 y_off = float(c[2])
             if c.size() >= 4 and c[3] is Array and c[3].size() >= 3:
                 col = Color(c[3][0], c[3][1], c[3][2], 1.0)
-        out[Vector2i(i, j)] = {"y": floor_y + y_off, "color": col, "walk": true}
+        out[Vector2i(i, j)] = {"y": floor_y + y_off, "color": col}
     return out
 
 
 func _grow_border(walking: Dictionary) -> Dictionary:
-    # BFS outward from walking cells, propagating distance + base_y.
-    # Non-walking cells take their nearest walker's Y as the local
-    # base, so when walking terrain is hilly the border tracks it.
     var out: Dictionary = {}
     if border_margin <= 0:
         return out
-
     var min_i: int = 1 << 30; var max_i: int = -(1 << 30)
     var min_j: int = 1 << 30; var max_j: int = -(1 << 30)
     for k in walking:
@@ -113,18 +116,24 @@ func _grow_border(walking: Dictionary) -> Dictionary:
     for k in dist:
         if walking.has(k): continue
         var rise: float = min(float(dist[k]) * border_slope, border_max)
-        out[k] = {"y": base_y[k] + rise, "color": border_color, "walk": false}
+        out[k] = {"y": base_y[k] + rise, "color": border_color}
     return out
+
+
+# Cheap hash → -1..1. Frequency tuned so adjacent cells get visibly
+# different values; the constants are the standard "shadertoy hash"
+# pair for pseudo-random per-coord noise.
+func _hash_noise(ci: int, cj: int) -> float:
+    var h: float = sin(float(ci) * 12.9898 + float(cj) * 78.2333) * 43758.5453
+    h = h - floor(h)
+    return (h - 0.5) * 2.0
 
 
 func _corner_pos(cells: Dictionary, walking_keys: Dictionary,
                  ci: int, cj: int) -> Vector3:
-    # Walking cells anchor their corners flat at walking-y. Border
-    # cells average and inset toward the centroid of present cells
-    # (marching-squares smoothing) so a single internal hole rounds
-    # off into a diamond/cone instead of a hard square pit.
     var x: float = float(ci) * cell_size
     var z: float = float(cj) * cell_size
+    var noise_y: float = _hash_noise(ci, cj) * ground_noise
 
     var walking_at: Array = []
     for di in [-1, 0]:
@@ -135,7 +144,7 @@ func _corner_pos(cells: Dictionary, walking_keys: Dictionary,
     if not walking_at.is_empty():
         var sy: float = 0.0
         for h in walking_at: sy += h
-        return Vector3(x, sy / float(walking_at.size()), z)
+        return Vector3(x, sy / float(walking_at.size()) + noise_y, z)
 
     var present: Array = []
     for di in [-1, 0]:
@@ -160,17 +169,6 @@ func _corner_pos(cells: Dictionary, walking_keys: Dictionary,
     return Vector3(x, y, z)
 
 
-func _edge_mid(cells: Dictionary, ci: int, cj: int, ni: int, nj: int) -> Vector3:
-    var h_self: float = cells[Vector2i(ci, cj)].y
-    var h_other: float = h_self
-    if cells.has(Vector2i(ni, nj)):
-        h_other = cells[Vector2i(ni, nj)].y
-    var ax := Vector2((float(ci) + 0.5) * cell_size, (float(cj) + 0.5) * cell_size)
-    var bx := Vector2((float(ni) + 0.5) * cell_size, (float(nj) + 0.5) * cell_size)
-    var mid := (ax + bx) * 0.5
-    return Vector3(mid.x, (h_self + h_other) * 0.5, mid.y)
-
-
 func _add_tri(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
     st.add_vertex(a)
     st.add_vertex(b)
@@ -181,7 +179,6 @@ func _build() -> void:
     var walking: Dictionary = _parse_cells()
     if walking.is_empty(): return
 
-    # Combine walking + non-walking border into one cell map.
     var cells: Dictionary = walking.duplicate()
     var border: Dictionary = _grow_border(walking)
     for k in border:
@@ -190,38 +187,23 @@ func _build() -> void:
     var st := SurfaceTool.new()
     st.begin(Mesh.PRIMITIVE_TRIANGLES)
 
+    # ---- top surface: 2 triangles per cell, sharing corner positions ----
     for key in cells:
         var ci: int = key.x
         var cj: int = key.y
-        var cell: Dictionary = cells[key]
-        var col: Color = cell.color
-        var hc: float = cell.y
-
+        var col: Color = cells[key].color
         var nw := _corner_pos(cells, walking, ci,     cj)
         var ne := _corner_pos(cells, walking, ci + 1, cj)
         var se := _corner_pos(cells, walking, ci + 1, cj + 1)
         var sw := _corner_pos(cells, walking, ci,     cj + 1)
-        var n_mid := _edge_mid(cells, ci, cj, ci,     cj - 1)
-        var e_mid := _edge_mid(cells, ci, cj, ci + 1, cj)
-        var s_mid := _edge_mid(cells, ci, cj, ci,     cj + 1)
-        var w_mid := _edge_mid(cells, ci, cj, ci - 1, cj)
-        var center := Vector3((float(ci) + 0.5) * cell_size, hc,
-                              (float(cj) + 0.5) * cell_size)
-
         st.set_color(col)
-        _add_tri(st, center, nw,    n_mid)
-        _add_tri(st, center, n_mid, ne)
-        _add_tri(st, center, ne,    e_mid)
-        _add_tri(st, center, e_mid, se)
-        _add_tri(st, center, se,    s_mid)
-        _add_tri(st, center, s_mid, sw)
-        _add_tri(st, center, sw,    w_mid)
-        _add_tri(st, center, w_mid, nw)
+        # Winding chosen so generate_normals produces +Y after the
+        # opposite-handed convention SurfaceTool applies (verified
+        # empirically against the existing fan-of-8 output).
+        _add_tri(st, nw, sw, se)
+        _add_tri(st, nw, se, ne)
 
-    # Skirts at outermost edges of the combined mesh. With
-    # border_margin > 0 these are far away from the playable area;
-    # with border_margin = 0 they sit at the walking-cell perimeter
-    # and behave like the original cliff drops.
+    # ---- skirts at the outer mesh boundary -----------------------------
     for key in cells:
         var ci: int = key.x
         var cj: int = key.y
