@@ -63,6 +63,14 @@ var circle_remaining: float = 0.0
 var anim: RefCounted
 var bones: Dictionary = {}
 var _player_was_attacking: bool = false
+# Direct hit-check state. The Area3D-based sword_hitbox kept failing to
+# register the knight's slash hits despite obvious visual overlap with
+# the player. Backstop: explicitly check distance + facing-cone during
+# the active window and call player.take_damage directly. One-shot per
+# slash via _slash_landed.
+const ATTACK_REACH: float = 2.6
+const ATTACK_CONE_DOT: float = 0.35
+var _slash_landed: bool = false
 
 @onready var rig: Node3D = $Rig
 @onready var sword: Node3D = $Sword
@@ -215,11 +223,26 @@ func _do_telegraph(delta: float, to_player: Vector3, dist: float) -> void:
 
 
 func _do_slash(delta: float) -> void:
+    var fwd: Vector3 = Vector3(-sin(rotation.y), 0, -cos(rotation.y))
     if state_time >= SLASH_HIT_WINDOW.x and state_time <= SLASH_HIT_WINDOW.y:
         sword_hitbox.arm()
-        var fwd: Vector3 = Vector3(-sin(rotation.y), 0, -cos(rotation.y))
         velocity.x = fwd.x * lunge_speed
         velocity.z = fwd.z * lunge_speed
+        # Direct hit backstop. The Area3D path was unreliable during
+        # the rig's scaled fast-swing transforms; this tests "is the
+        # player in front of me and within sword range?" each tick.
+        if not _slash_landed and player and is_instance_valid(player):
+            var to_p: Vector3 = player.global_position - global_position
+            to_p.y = 0
+            var d: float = to_p.length()
+            if d > 0.05 and d < ATTACK_REACH:
+                var to_p_n: Vector3 = to_p / d
+                if fwd.dot(to_p_n) > ATTACK_CONE_DOT:
+                    _slash_landed = true
+                    if player.has_method("take_damage"):
+                        SoundBank.play_3d("sword_hit", global_position)
+                        player.take_damage(attack_damage, global_position, self)
+                        print("[Knight %s] DIRECT HIT dist=%.2f" % [name, d])
     else:
         sword_hitbox.set_deferred("monitoring", false)
         velocity.x = move_toward(velocity.x, 0, 18.0 * delta)
@@ -352,6 +375,9 @@ func _set_state(new_state: int) -> void:
     state_time = 0.0
     if state != State.SLASH:
         sword_hitbox.set_deferred("monitoring", false)
+        # Re-arm direct-hit gate when leaving SLASH; cleared so the
+        # next slash can land.
+        _slash_landed = false
     # Audio cues.
     if state == State.APPROACH and prev == State.IDLE:
         SoundBank.play_3d("blob_alert", global_position)
