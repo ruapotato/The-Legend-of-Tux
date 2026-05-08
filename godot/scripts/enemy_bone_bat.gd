@@ -22,6 +22,10 @@ const KNOCKBACK_SPEED: float = 5.5
 const SWOOP_DURATION: float = 0.85
 const HURT_DURATION: float = 0.30
 const SWOOP_END_DIST: float = 0.8     # finish swoop when this close to target
+const SWOOP_COOLDOWN: float = 1.8     # min seconds in HOVER between swoops —
+                                      # without it, the bat returns to perch
+                                      # and immediately re-dives, giving the
+                                      # player no chance to recover
 
 enum State { HOVER, SWOOP, RECOVER, HURT, DEAD }
 
@@ -31,6 +35,7 @@ var state_time: float = 0.0
 var player: Node3D = null
 var swoop_target: Vector3 = Vector3.ZERO
 var perch_y: float = 2.8
+var _last_swoop_start: float = -100.0   # used by HOVER cooldown gate
 
 @onready var visual: Node3D = $Visual
 @onready var wing_l: Node3D = $Visual/WingL
@@ -102,11 +107,14 @@ func _do_hover(_delta: float, to_player: Vector3, dist: float) -> void:
         velocity.z = cos(state_time * 0.5) * 1.0
     var target_y: float = perch_y + sin(state_time * 1.5) * 0.2
     velocity.y = (target_y - global_position.y) * 4.0
-    if dist < DETECT_RANGE and player:
+    var now: float = Time.get_ticks_msec() / 1000.0
+    var cooldown_ok: bool = (now - _last_swoop_start) >= SWOOP_COOLDOWN
+    if cooldown_ok and dist < DETECT_RANGE and player:
         # Dive toward the player's feet, not their chest — the hitbox
         # hangs below the bat and we want it to sweep all the way down
         # through the player's vertical extent.
         swoop_target = player.global_position + Vector3(0, 0.0, 0)
+        _last_swoop_start = now
         _set_state(State.SWOOP)
         SoundBank.play_3d("blob_alert", global_position)
 

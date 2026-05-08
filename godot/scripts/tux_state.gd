@@ -595,6 +595,11 @@ func take_hit(source_pos: Vector3, _damage: int) -> bool:
         return false
     if action == ACT_FLIP and action_time <= FLIP_IFRAME_END:
         return false
+    # Already-hurt i-frames: the entire HURT state is invulnerable so a
+    # bat can't chain-stun by re-hitting on every swoop, and the
+    # player has time to recover position before the next blow.
+    if action == ACT_HURT:
+        return false
     # Parry: free deflect inside the parry window.
     if action == ACT_BLOCK and parry_active:
         return false
