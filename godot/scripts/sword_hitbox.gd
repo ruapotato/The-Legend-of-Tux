@@ -45,7 +45,16 @@ func arm() -> void:
     monitoring = true
     set_physics_process(true)
     if DEBUG:
-        print("[%s] ARM" % _label())
+        var p: Vector3 = global_position
+        var enemy_info: Array = []
+        for e in get_tree().get_nodes_in_group("enemy"):
+            if e is Node3D:
+                var ep: Vector3 = e.global_position
+                var d: float = p.distance_to(ep)
+                enemy_info.append("%s @ (%.2f,%.2f,%.2f) dist=%.2f"
+                                  % [e.name, ep.x, ep.y, ep.z, d])
+        print("[%s] ARM pos=(%.2f,%.2f,%.2f) | enemies: %s"
+              % [_label(), p.x, p.y, p.z, ", ".join(enemy_info) if enemy_info.size() > 0 else "(none)"])
 
 
 func disarm() -> void:
@@ -62,13 +71,17 @@ func _physics_process(_delta: float) -> void:
         return
     var areas := get_overlapping_areas()
     var bodies := get_overlapping_bodies()
-    if DEBUG and (areas.size() > 0 or bodies.size() > 0):
+    if DEBUG:
+        # Always print on poll so we can confirm polling is running and
+        # see what the hitbox sees each tick (even when nothing — that
+        # tells us whether it's a reach issue vs a dispatch issue).
         var anames: Array = []
         var bnames: Array = []
         for a in areas: anames.append(a.name)
         for b in bodies: bnames.append(b.name)
-        print("[%s] poll areas=%s bodies=%s already=%d"
-              % [_label(), anames, bnames, _already_hit.size()])
+        var p: Vector3 = global_position
+        print("[%s] tick pos=(%.2f,%.2f,%.2f) areas=%s bodies=%s already=%d"
+              % [_label(), p.x, p.y, p.z, anames, bnames, _already_hit.size()])
     for area in areas:
         if not monitoring:
             return
