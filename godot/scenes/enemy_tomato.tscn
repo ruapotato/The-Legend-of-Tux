@@ -160,22 +160,22 @@ shape = SubResource("weakpoint_shape")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 
 [node name="Blade1" type="MeshInstance3D" parent="Visual/Blades"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.50, 0, 0)
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 1.50, 0, 0)
 mesh = SubResource("blade_mesh")
 surface_material_override/0 = SubResource("blade_mat")
 
 [node name="Blade2" type="MeshInstance3D" parent="Visual/Blades"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1.50, 0, 0)
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.50, 0, 0)
 mesh = SubResource("blade_mesh")
 surface_material_override/0 = SubResource("blade_mat")
 
 [node name="Blade3" type="MeshInstance3D" parent="Visual/Blades"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.50)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 1.50)
 mesh = SubResource("blade_mesh")
 surface_material_override/0 = SubResource("blade_mat")
 
 [node name="Blade4" type="MeshInstance3D" parent="Visual/Blades"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.50)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -1.50)
 mesh = SubResource("blade_mesh")
 surface_material_override/0 = SubResource("blade_mat")
 

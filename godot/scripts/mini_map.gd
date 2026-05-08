@@ -44,26 +44,9 @@ func _ready() -> void:
     call_deferred("_rebuild_texture")
 
 
-# Rotate the map so "up" on the widget always matches whatever
-# direction the camera is currently looking. Without this the user
-# pressing "go right" while the camera is yawed 180° (e.g. the
-# default spawn-from-load-zone framing where the camera sits behind
-# Tux looking south) walks them in world -X, which the world-aligned
-# mini-map drew on the LEFT — perceived as "I went right and the
-# marker went left". Rotating the entire map with the camera makes
-# what's on screen above always match what's above on the map.
-func _camera_yaw() -> float:
-    var root := get_tree().current_scene
-    if root == null:
-        return 0.0
-    var cam := root.get_node_or_null("Camera")
-    if cam == null:
-        return 0.0
-    if cam.has_method("get_yaw"):
-        return cam.get_yaw()
-    if "_yaw" in cam:
-        return cam._yaw
-    return cam.rotation.y if cam is Node3D else 0.0
+# Map is fixed — north (world -Z) is always up. The player triangle
+# rotates with player facing so you can orient yourself by looking at
+# the marker direction. Standard OoT-style.
 
 
 func _process(_delta: float) -> void:
@@ -166,30 +149,17 @@ func _rebuild_texture() -> void:
 func _draw() -> void:
     var rect := Rect2(Vector2.ZERO, size)
     draw_rect(rect, BACKDROP_COLOR)
-
-    var center := size * 0.5
-    var yaw: float = _camera_yaw()
-
-    # Rotate the entire map so camera-forward = up on widget.
-    draw_set_transform(center, -yaw, Vector2.ONE)
     if _texture:
-        draw_texture(_texture, -center)
-
+        draw_texture(_texture, Vector2.ZERO)
     if _player and is_instance_valid(_player):
         var pp: Vector3 = _player.global_position
-        var raw_x: float = _origin_offset.x + (pp.x - _bbox_min.x) * _scale
-        var raw_y: float = _origin_offset.y + (pp.z - _bbox_min.y) * _scale
-        # In the rotated frame the texture's top-left sits at -center,
-        # so the same offset applies to the marker position.
-        var pos := Vector2(raw_x, raw_y) - center
-        # Triangle yaw needs to account for the canvas rotation: the
-        # underlying world rotation is `player.rotation.y`, the canvas
-        # has been turned by `-yaw`, so the triangle inside the rotated
-        # frame should point at -(player_yaw - camera_yaw).
-        _draw_player_triangle(pos, -_player.rotation.y + yaw)
-
-    # Reset transform for the border so it stays axis-aligned.
-    draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
+        var px: float = _origin_offset.x + (pp.x - _bbox_min.x) * _scale
+        var py: float = _origin_offset.y + (pp.z - _bbox_min.y) * _scale
+        # Player facing forward at rotation.y=0 points world -Z (north)
+        # which is UP on the screen-Y-down map. Pass +rotation.y so
+        # the triangle's `fwd = (-sin yaw, -cos yaw)` lands on the
+        # right direction (verified against the four cardinals).
+        _draw_player_triangle(Vector2(px, py), _player.rotation.y)
     draw_rect(rect, BORDER_COLOR, false, 2.0)
 
 

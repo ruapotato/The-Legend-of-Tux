@@ -40,23 +40,19 @@ signal died
 
 const HOVER_HEIGHT: float = 4.0
 const HOVER_AMP: float = 0.25
-# The body oscillates between these heights every 3 s so the rotor
-# isn't fixed at one altitude — gives the player a natural window
-# where it's drifting low or high.
-const HOVER_HEIGHT_MIN: float = 2.6
-const HOVER_HEIGHT_MAX: float = 5.4
-const HOVER_OSC_HZ:    float = 0.30
 # Orbit around the player while in HOVER, so the tomato doesn't
 # just hang above and dive — it actually flies AROUND you, deciding
 # when to commit to a charge.
 const ORBIT_RADIUS:    float = 7.0
 const ORBIT_TANGENT:   float = 2.4
 const ORBIT_RADIAL_K:  float = 1.5
-# Body tilt while orbiting. The tilt direction faces AWAY from the
-# player so the underside (weakpoint bulb) lifts toward the player —
-# which is the OoT-style "you can see the weak spot when it tilts
-# away" tell. While stunned the tilt resets to flat.
-const TILT_MAX:        float = 0.30
+# Slow tilt oscillation — the body cycles between leaning AWAY from
+# the player (underside exposed, blades sweep up; you can crawl under
+# and stab the bulb) and leaning TOWARD them (blades drop low,
+# block the underside; back off). Cycle ~16 s so each window is
+# long enough for the player to commit to an action.
+const TILT_OSC_HZ:     float = 0.06
+const TILT_MAX:        float = 0.55
 const BLADE_SPIN:      float = 18.0
 const BLADE_HIT_COOLDOWN: float = 0.8
 const BLADE_PUSH:      float = 5.5
@@ -154,11 +150,7 @@ func _physics_process(delta: float) -> void:
                 _set_state(State.HOVER)
         State.HOVER:
             _spin_speed = SPIN_SPEED_HOVER
-            # Vertical oscillation between MIN and MAX so the rotor's
-            # not pinned at one altitude.
-            var phase: float = sin(state_time * HOVER_OSC_HZ * TAU) * 0.5 + 0.5
-            var target_h: float = lerp(HOVER_HEIGHT_MIN, HOVER_HEIGHT_MAX, phase)
-            _hover_to(target_h, delta, 3.5)
+            _hover_to(HOVER_HEIGHT, delta, 3.5)
             # Orbit the player at ORBIT_RADIUS — tangent moves us
             # around them, radial term keeps us at the right distance.
             if dist > 0.3 and dist < aggro_range * 2.0:
@@ -167,11 +159,15 @@ func _physics_process(delta: float) -> void:
                 var radial_err: float = ORBIT_RADIUS - dist  # +ve if too close
                 velocity.x = tangent.x * ORBIT_TANGENT - n.x * radial_err * ORBIT_RADIAL_K
                 velocity.z = tangent.z * ORBIT_TANGENT - n.z * radial_err * ORBIT_RADIAL_K
-                # Tilt body AWAY from player so the underside lifts
-                # toward you — that's the "crawl under" tell. Tilt
-                # axis is perpendicular to the to-player vector.
-                visual.rotation.x = -n.z * TILT_MAX
-                visual.rotation.z =  n.x * TILT_MAX
+                # Tilt phase swings -1..+1 over the cycle. Positive =
+                # tilt AWAY from player (blades sweep up, underside
+                # exposed). Negative = tilt TOWARD (blades drop low
+                # in the player's path). The slow cadence is the
+                # punctuation — players read the tilt and pick their
+                # window.
+                var tilt_phase: float = sin(state_time * TILT_OSC_HZ * TAU)
+                visual.rotation.x = -n.z * TILT_MAX * tilt_phase
+                visual.rotation.z =  n.x * TILT_MAX * tilt_phase
             else:
                 velocity.x = move_toward(velocity.x, 0.0, 4.0 * delta)
                 velocity.z = move_toward(velocity.z, 0.0, 4.0 * delta)
@@ -180,7 +176,7 @@ func _physics_process(delta: float) -> void:
             # Commit to a charge after circling for a beat. Throw in a
             # 25% chance to flip orbit direction at each commit so the
             # next pass isn't predictable.
-            if state_time > 2.0 and dist < aggro_range:
+            if state_time > 4.0 and dist < aggro_range:
                 if randf() < 0.25:
                     _orbit_dir = -_orbit_dir
                 _set_state(State.CHARGE)
