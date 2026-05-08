@@ -28,3 +28,11 @@ func _ready() -> void:
     player.global_position = marker.global_position
     if player is CharacterBody3D:
         player.rotation.y = marker.rotation.y
+
+    # Snap the camera behind the player so they aren't staring at the
+    # wall of the load zone they just stepped through. _yaw + PI puts
+    # the camera behind, looking forward in the player's facing
+    # direction.
+    var camera_node: Node = get_node_or_null("Camera")
+    if camera_node and camera_node.has_method("set_yaw"):
+        camera_node.set_yaw(marker.rotation.y + PI)

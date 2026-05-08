@@ -165,9 +165,12 @@ func _hit_punch() -> void:
 func _die() -> void:
     state = State.DEAD
     state_time = 0.0
-    hitbox.monitoring = false
-    hitbox.monitorable = false
-    attack_hitbox.monitoring = false
+    # Deferred — _die reaches us from inside an area_entered signal
+    # (sword hits the blob's hitbox), and direct monitoring/monitorable
+    # writes are blocked while the signal is in flight.
+    hitbox.set_deferred("monitoring", false)
+    hitbox.set_deferred("monitorable", false)
+    attack_hitbox.set_deferred("monitoring", false)
     SoundBank.play_3d("blob_die", global_position)
     _drop_loot()
     died.emit()
@@ -183,12 +186,12 @@ func _drop_loot() -> void:
         return
     for i in range(pebble_reward):
         var p := PebblePickup.instantiate()
-        parent.add_child(p)
+        parent.call_deferred("add_child", p)
         var off := Vector3(randf_range(-0.5, 0.5), 0.0, randf_range(-0.5, 0.5))
         p.global_position = global_position + off
     if randf() < heart_drop_chance:
         var h := HeartPickup.instantiate()
-        parent.add_child(h)
+        parent.call_deferred("add_child", h)
         h.global_position = global_position + Vector3(0, 0.0, 0)
 
 

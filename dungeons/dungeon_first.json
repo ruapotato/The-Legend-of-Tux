@@ -97,8 +97,8 @@
 
   "load_zones": [
     {
-      "pos": [0, 1.0, 1.5],
-      "size": [4.0, 3.0, 1.0],
+      "pos": [0, 1.0, -1.0],
+      "size": [4.0, 3.0, 1.5],
       "target_scene": "wyrdwood",
       "target_spawn": "from_dungeon",
       "prompt": "[E] Back to the Wyrdwood"

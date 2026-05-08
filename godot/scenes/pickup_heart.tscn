@@ -19,7 +19,6 @@ roughness = 0.4
 script = ExtResource("1_p")
 kind = 1
 fish_amount = 1
-pickup_message = "A fish! HP restored."
 
 [node name="Shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)

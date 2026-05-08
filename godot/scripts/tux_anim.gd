@@ -7,9 +7,9 @@ extends RefCounted
 # with parry window, roll dodge, sprint).
 
 const ONE_SHOT_DURATION := {
-    "swing_1":         0.45,
-    "swing_2":         0.45,
-    "swing_3":         0.55,
+    "swing_1":         0.32,
+    "swing_2":         0.32,
+    "swing_3":         0.40,
     "jab":             0.30,
     "jump_attack":     0.70,
     "spin":            0.45,
@@ -188,9 +188,9 @@ func _pose_sprint(t: float) -> void:
 # horizontal, swing_2 = L→R, swing_3 = overhead chop. The right wing
 # does the cutting; left wing is held back for balance.
 func _pose_swing(t: float, variant: int) -> void:
-    var dur: float = 0.45
+    var dur: float = 0.32
     if variant == 3:
-        dur = 0.55
+        dur = 0.40
     var phase: float = clamp(t / dur, 0.0, 1.0)
     var s: float = ease(phase, 0.35)
     if variant == 1:

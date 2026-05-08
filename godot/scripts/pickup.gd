@@ -25,8 +25,10 @@ var _start_y: float = 0.0
 func _ready() -> void:
     collision_layer = 64    # Interactable
     collision_mask = 2      # Player
-    monitoring = true
-    monitorable = false
+    # Deferred sets in case _ready runs inside a signal callback (e.g.,
+    # when an enemy._die spawns this pickup via call_deferred).
+    set_deferred("monitoring", true)
+    set_deferred("monitorable", false)
     body_entered.connect(_on_body_entered)
     if visual:
         _start_y = visual.position.y

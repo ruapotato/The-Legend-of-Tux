@@ -549,7 +549,15 @@ def emit_load_zones(b, zones):
         # bright sky through the tree-wall gap. Sized to the trigger's
         # width × height; sits inside the trigger so it's flush with
         # the portal entrance.
-        veil_mesh = b.add_sub("BoxMesh", [("size", vstr([sx + 0.5, sy + 1.5, 0.1]))])
+        # Veil orientation auto-detected from trigger size: the wall
+        # is perpendicular to whichever horizontal dimension is
+        # smaller (that's the "thin" axis = wall normal). The veil's
+        # flat face must match.
+        if sx < sz:
+            veil_size_arr = [0.1, sy + 1.5, sz + 0.5]
+        else:
+            veil_size_arr = [sx + 0.5, sy + 1.5, 0.1]
+        veil_mesh = b.add_sub("BoxMesh", [("size", vstr(veil_size_arr))])
         veil_mat = b.add_sub("StandardMaterial3D", [
             ("albedo_color",  "Color(0.02, 0.02, 0.04, 1)"),
             ("shading_mode",  "0"),

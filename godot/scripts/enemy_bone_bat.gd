@@ -188,15 +188,20 @@ func get_knockback(direction: Vector3, force: float) -> void:
 func _die() -> void:
     state = State.DEAD
     state_time = 0.0
-    hitbox.monitoring = false
-    hitbox.monitorable = false
+    # All three must defer because _die is reached from inside an
+    # area_entered signal callback (sword_hitbox → take_damage → _die).
+    hitbox.set_deferred("monitoring", false)
+    hitbox.set_deferred("monitorable", false)
     attack_hitbox.set_deferred("monitoring", false)
     SoundBank.play_3d("blob_die", global_position)
     var parent: Node = get_parent()
     if parent:
         for i in range(pebble_reward):
             var p := PebblePickup.instantiate()
-            parent.add_child(p)
+            # call_deferred so pickup._ready runs AFTER the signal
+            # callback finishes — its monitoring/monitorable setters
+            # would otherwise also be blocked.
+            parent.call_deferred("add_child", p)
             p.global_position = global_position + Vector3(randf_range(-0.4, 0.4), -1.0, randf_range(-0.4, 0.4))
     died.emit()
     var t := create_tween()

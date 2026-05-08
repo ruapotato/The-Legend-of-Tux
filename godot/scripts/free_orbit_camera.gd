@@ -84,6 +84,13 @@ func get_yaw() -> float:
     return _yaw
 
 
+# Snap the camera to a specific yaw (used by DungeonRoot on scene load
+# so the camera lands behind the player instead of pointing at the
+# load-zone wall they just stepped through).
+func set_yaw(new_yaw: float) -> void:
+    _yaw = new_yaw
+
+
 # Apply a kick to the camera. Multiple calls stack — the larger
 # amplitude + longer duration win.
 func shake(amplitude: float, duration: float) -> void:

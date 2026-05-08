@@ -66,23 +66,26 @@ const RUN_MAX_VEL          := 6.5
 const SPRINT_MAX_VEL       := 9.5
 const RUN_ANIM_THRESHOLD   := 4.5
 const ACCEL                := 26.0
-const TURN_RATE            := 14.0
+# 24 rad/s = ~1370°/s — turning is essentially instant for human-sized
+# stick flicks. Combined with the snap-on-action-start in idle/move,
+# Tux pivots without the U-shaped arc the old slower rate produced.
+const TURN_RATE            := 24.0
 const GRAVITY              := 28.0
 const TERMINAL_VEL         := -22.0
 const JUMP_IMPULSE         := 9.0
 
-const SWING_DURATION       := 0.45
+const SWING_DURATION       := 0.32
 # Active hitbox window: starts a few frames into the swing, closes as the
 # arm passes through. Contact-time outside this is whiff/recovery.
-const SWING_HIT_WINDOW     := Vector2(0.10, 0.28)
+const SWING_HIT_WINDOW     := Vector2(0.07, 0.22)
 # Combo chain window: pressing attack inside this slice of the current
 # swing queues the next combo step. Outside it, the press is buffered
 # only briefly so spam doesn't auto-chain forever.
-const SWING_COMBO_WINDOW   := Vector2(0.20, SWING_DURATION)
+const SWING_COMBO_WINDOW   := Vector2(0.14, SWING_DURATION)
 # After the active hitbox closes, movement input cancels the recovery
 # tail so the player isn't stuck mid-anim. Combo press still wins if it
 # came earlier (combo_queued was set during SWING_COMBO_WINDOW).
-const SWING_MOVE_CANCEL    := 0.32
+const SWING_MOVE_CANCEL    := 0.22
 
 # Forward thrust ("jab") triggered by stick-forward + attack press. Quick,
 # narrow hit window, lower stamina cost than a full swing.
