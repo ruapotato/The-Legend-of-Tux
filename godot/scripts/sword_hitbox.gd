@@ -1,21 +1,28 @@
 extends Area3D
 
-# Sword hit volume. Pure signal-driven: no _physics_process, no calls
-# to get_overlapping_* anywhere — the script literally cannot trip
-# Godot's "monitoring is off" guard because it never queries physics
-# state directly.
+# Sword hit volume. Mostly signal-driven (area_entered + body_entered),
+# but with a one-shot deferred sweep on arm() to catch contacts that
+# were already inside the volume when monitoring turned on. Without
+# the sweep, horizontal slashes whiffed against any enemy you were
+# standing close enough to overlap on the very first tick of the
+# active window — they were already inside, no "enter" event ever
+# fired, and only the overhead chop (which moves into the enemy from
+# above) registered.
 #
-# Trade-off: if a body is ALREADY inside the volume when arm() flips
-# monitoring on, area_entered/body_entered won't fire (the contact
-# didn't "enter" — it was already there). For sword swings this is
-# almost never an issue because the blade is sweeping through space
-# during the active window, so each contact happens during arm.
+# arm()    : clear hit set, monitoring → true, queue a sweep
+# disarm() : monitoring → false (deferred)
+#
+# The sweep awaits one physics_frame so the area's overlap state is
+# accurate after we just toggled monitoring on, and re-checks
+# monitoring before each query so a disarm() in flight can't trip
+# Godot's "monitoring is off" guard.
 
 signal target_hit(target: Node)
 
 @export var damage: int = 1
 
 var _already_hit: Array = []
+var _arm_cycle: int = 0
 
 
 func _ready() -> void:
@@ -28,10 +35,28 @@ func _ready() -> void:
 func arm() -> void:
     _already_hit.clear()
     monitoring = true
+    _arm_cycle += 1
+    _initial_overlap_pass(_arm_cycle)
 
 
 func disarm() -> void:
     set_deferred("monitoring", false)
+
+
+func _initial_overlap_pass(cycle: int) -> void:
+    # One physics tick has to elapse before the engine's overlap data
+    # reflects the monitoring change.
+    await get_tree().physics_frame
+    if cycle != _arm_cycle:
+        return                # superseded by a newer arm()
+    if not is_inside_tree() or not monitoring:
+        return
+    for area in get_overlapping_areas():
+        _on_area_entered(area)
+    if not monitoring:
+        return
+    for body in get_overlapping_bodies():
+        _on_body_entered(body)
 
 
 func _on_area_entered(area: Area3D) -> void:
