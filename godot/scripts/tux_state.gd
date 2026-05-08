@@ -325,7 +325,7 @@ func _act_attack(_delta: float) -> bool:
         tag = ANIM_SWING_2
     elif swing_index == 2:
         tag = ANIM_SWING_3
-    _request_anim(tag, 1.0 / SWING_DURATION)
+    _request_anim(tag, 1.0)
 
     if action_time >= SWING_DURATION:
         if combo_queued and _can_swing():
@@ -354,7 +354,7 @@ func _act_jab(_delta: float) -> bool:
     vel.x = -sin(face_yaw) * lunge
     vel.z = -cos(face_yaw) * lunge
     vel.y = -1.0
-    _request_anim(ANIM_JAB, 1.0 / JAB_DURATION)
+    _request_anim(ANIM_JAB, 1.0)
     if action_time >= JAB_DURATION:
         if input_attack_held:
             charge_time = 0.0
@@ -445,7 +445,7 @@ func _act_spin(_delta: float) -> bool:
     vel.x = move_toward(vel.x, 0.0, 14.0 * _step_delta)
     vel.z = move_toward(vel.z, 0.0, 14.0 * _step_delta)
     vel.y = -1.0
-    _request_anim(ANIM_SPIN, 1.0 / SPIN_DURATION)
+    _request_anim(ANIM_SPIN, 1.0)
     if action_time >= SPIN_DURATION:
         return set_action(ACT_IDLE)
     return false
@@ -487,7 +487,7 @@ func _act_block(_delta: float) -> bool:
 
     var moving: bool = stick_dir.length() > 0.1
     if action_time < BLOCK_RAISE_DURATION:
-        _request_anim(ANIM_BLOCK_RAISE, 1.0 / BLOCK_RAISE_DURATION)
+        _request_anim(ANIM_BLOCK_RAISE, 1.0)
     elif parry_active:
         _request_anim(ANIM_PARRY, 1.0)
     elif moving:
@@ -508,7 +508,7 @@ func _act_flip(_delta: float) -> bool:
         FlipKind.BACK:       tag = ANIM_BACK_FLIP
         FlipKind.SIDE_LEFT:  tag = ANIM_SIDE_FLIP_L
         FlipKind.SIDE_RIGHT: tag = ANIM_SIDE_FLIP_R
-    _request_anim(tag, 1.0 / FLIP_DURATION)
+    _request_anim(tag, 1.0)
     if is_on_floor and action_time > 0.10:
         return set_action(ACT_LAND)
     if action_time >= FLIP_DURATION:
@@ -522,7 +522,7 @@ func _act_roll(_delta: float) -> bool:
     vel.x = -sin(face_yaw) * speed
     vel.z = -cos(face_yaw) * speed
     vel.y = -1.0
-    _request_anim(ANIM_ROLL, 1.0 / ROLL_DURATION)
+    _request_anim(ANIM_ROLL, 1.0)
     if action_time >= ROLL_DURATION:
         return set_action(ACT_IDLE)
     return false
