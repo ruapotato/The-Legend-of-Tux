@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxtree01"]
+
+[ext_resource type="Script" path="res://scripts/tree_prop.gd" id="1_t"]
+
+[sub_resource type="CylinderMesh" id="trunk_mesh"]
+height = 4.6
+top_radius = 0.26
+bottom_radius = 0.30
+
+[sub_resource type="SphereMesh" id="canopy_mesh"]
+radius = 1.7
+height = 2.7
+
+[sub_resource type="CylinderShape3D" id="trunk_shape"]
+height = 4.6
+radius = 0.32
+
+[sub_resource type="CylinderShape3D" id="roll_shape"]
+height = 1.6
+radius = 0.85
+
+[node name="Tree" type="Node3D"]
+script = ExtResource("1_t")
+
+[node name="TrunkBody" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="TrunkBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+shape = SubResource("trunk_shape")
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+mesh = SubResource("trunk_mesh")
+
+[node name="Canopy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.4, 0)
+mesh = SubResource("canopy_mesh")
+
+[node name="RollArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+monitoring = true
+
+[node name="Shape" type="CollisionShape3D" parent="RollArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("roll_shape")

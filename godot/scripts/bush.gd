@@ -19,10 +19,10 @@ var _destroyed: bool = false
 
 
 func _ready() -> void:
-    # Sit on layer 8 the same way enemies do, so sword_hitbox finds us.
-    # Deferred since some _ready paths reach here from inside an
-    # area-overlap signal callback.
-    hitbox.set_deferred("collision_layer", 8)
+    # Sit on layer 32 (same as enemies) so the sword's collision_mask=32
+    # picks us up. Deferred because some _ready paths reach here from
+    # inside an area-overlap signal callback.
+    hitbox.set_deferred("collision_layer", 32)
     hitbox.set_deferred("collision_mask", 0)
     hitbox.set_deferred("monitoring", false)
     hitbox.set_deferred("monitorable", true)

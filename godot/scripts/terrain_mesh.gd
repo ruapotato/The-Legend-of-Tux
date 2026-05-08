@@ -198,10 +198,12 @@ func _build() -> void:
         var sw := _corner_pos(cells, walking, ci,     cj + 1)
         st.set_color(col)
         # Winding chosen so generate_normals produces +Y after the
-        # opposite-handed convention SurfaceTool applies (verified
-        # empirically against the existing fan-of-8 output).
-        _add_tri(st, nw, sw, se)
-        _add_tri(st, nw, se, ne)
+        # opposite-handed convention SurfaceTool applies — the
+        # geometric cross product points +Y when wound clockwise from
+        # above, but Godot 4's SurfaceTool flips the sign, so we wind
+        # counter-clockwise (NW→SE→SW etc.) to actually face up.
+        _add_tri(st, nw, se, sw)
+        _add_tri(st, nw, ne, se)
 
     # ---- skirts at the outer mesh boundary -----------------------------
     for key in cells:

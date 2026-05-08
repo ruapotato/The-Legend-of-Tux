@@ -95,6 +95,8 @@ EXT_RESOURCES = {
     "skull_spider":     ("PackedScene", "uid://btuxsklsp01", "res://scenes/enemy_skull_spider.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
+    "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
+    "tree":             ("PackedScene", "uid://btuxtree01", "res://scenes/tree_prop.tscn"),
     "door":             ("PackedScene", "uid://btuxdoor01", "res://scenes/door.tscn"),
     "chest":            ("PackedScene", "uid://btuxchst01", "res://scenes/treasure_chest.tscn"),
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
@@ -884,6 +886,28 @@ def emit_props(b, props):
                 attrs.append('pebble_amount = %d' % int(p["pebble_amount"]))
             b.add_node(
                 '[node name="Bush%d" parent="." instance=ExtResource("bush")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "rock":
+            b.ext("rock")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "pebble_chance" in p:
+                attrs.append('pebble_chance = %g' % float(p["pebble_chance"]))
+            b.add_node(
+                '[node name="Rock%d" parent="." instance=ExtResource("rock")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "tree":
+            b.ext("tree")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "pebble_chance" in p:
+                attrs.append('pebble_chance = %g' % float(p["pebble_chance"]))
+            if "trunk_height" in p:
+                attrs.append('trunk_height = %g' % float(p["trunk_height"]))
+            if "canopy_radius" in p:
+                attrs.append('canopy_radius = %g' % float(p["canopy_radius"]))
+            b.add_node(
+                '[node name="Tree%d" parent="." instance=ExtResource("tree")]\n'
                 % i + "\n".join(attrs) + "\n"
             )
 

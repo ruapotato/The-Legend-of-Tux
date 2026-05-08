@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxrock01"]
+
+[ext_resource type="Script" path="res://scripts/rock.gd" id="1_rk"]
+
+[sub_resource type="StandardMaterial3D" id="rock_mat"]
+albedo_color = Color(0.55, 0.52, 0.48, 1)
+roughness = 0.92
+
+[sub_resource type="SphereMesh" id="rock_mesh"]
+radius = 0.42
+height = 0.74
+radial_segments = 8
+rings = 5
+
+[sub_resource type="SphereShape3D" id="rock_shape"]
+radius = 0.40
+
+[sub_resource type="SphereShape3D" id="hit_shape"]
+radius = 0.50
+
+[sub_resource type="SphereShape3D" id="prompt_shape"]
+radius = 1.4
+
+[node name="Rock" type="RigidBody3D"]
+mass = 6.0
+gravity_scale = 1.0
+script = ExtResource("1_rk")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("rock_mesh")
+surface_material_override/0 = SubResource("rock_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("rock_shape")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="HitShape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")
+
+[node name="PromptArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+monitoring = true
+
+[node name="PromptShape" type="CollisionShape3D" parent="PromptArea"]
+shape = SubResource("prompt_shape")
