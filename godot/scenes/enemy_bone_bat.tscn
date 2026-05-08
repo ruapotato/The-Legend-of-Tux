@@ -39,7 +39,7 @@ emission_energy_multiplier = 2.5
 size = Vector3(0.6, 0.5, 0.6)
 
 [sub_resource type="BoxShape3D" id="atk_shape"]
-size = Vector3(0.7, 0.5, 0.7)
+size = Vector3(1.0, 2.4, 1.0)
 
 [sub_resource type="StandardMaterial3D" id="dummy"]
 albedo_color = Color(1, 1, 1, 1)
@@ -93,7 +93,7 @@ monitorable = true
 shape = SubResource("hit_shape")
 
 [node name="AttackHitbox" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, -0.2)
 collision_layer = 16
 collision_mask = 2
 monitoring = false

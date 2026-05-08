@@ -94,17 +94,18 @@ func _do_hover(_delta: float, to_player: Vector3, dist: float) -> void:
     var target_y: float = perch_y + sin(state_time * 1.5) * 0.2
     velocity.y = (target_y - global_position.y) * 4.0
     if dist < DETECT_RANGE and player:
-        swoop_target = player.global_position + Vector3(0, 0.4, 0)
+        # Dive toward the player's feet, not their chest — the hitbox
+        # hangs below the bat and we want it to sweep all the way down
+        # through the player's vertical extent.
+        swoop_target = player.global_position + Vector3(0, 0.0, 0)
         _set_state(State.SWOOP)
         SoundBank.play_3d("blob_alert", global_position)
 
 
 func _do_swoop(_delta: float, dist: float) -> void:
     attack_hitbox.monitoring = true
-    # Re-target the player each tick so the dive actually tracks instead
-    # of flying toward a stale point captured at SWOOP entry.
     if player and is_instance_valid(player):
-        swoop_target = player.global_position + Vector3(0, 0.4, 0)
+        swoop_target = player.global_position + Vector3(0, 0.0, 0)
     var dir: Vector3 = swoop_target - global_position
     if dir.length_squared() > 1e-6:
         var n: Vector3 = dir.normalized()
@@ -187,12 +188,20 @@ func _die() -> void:
 
 
 func _set_state(new_state: int) -> void:
+    var prev: int = state
     state = new_state
     state_time = 0.0
     if state != State.SWOOP:
         attack_hitbox.set_deferred("monitoring", false)
+    var names := {State.HOVER:"HOVER", State.SWOOP:"SWOOP", State.RECOVER:"RECOVER",
+                  State.HURT:"HURT", State.DEAD:"DEAD"}
+    print("[Bat %s] %s -> %s pos=(%.1f,%.1f,%.1f)"
+          % [name, names.get(prev, "?"), names.get(new_state, "?"),
+             global_position.x, global_position.y, global_position.z])
 
 
 func _on_attack_overlap(body: Node) -> void:
+    print("[Bat %s] attack_overlap body=%s in_player_group=%s"
+          % [name, body.name, body.is_in_group("player")])
     if body.is_in_group("player") and body.has_method("take_damage"):
         body.take_damage(ATTACK_DAMAGE, global_position, self)
