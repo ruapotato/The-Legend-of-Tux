@@ -54,9 +54,9 @@
     {"type": "blob",   "pos": [ 5,   0, -10]},
     {"type": "blob",   "pos": [-5,   0, -10]},
     {"type": "blob",   "pos": [ 0,   0, -14]},
-    {"type": "bat",    "pos": [-8, 2.6,  -8]},
-    {"type": "bat",    "pos": [ 8, 2.8, -12]},
-    {"type": "bat",    "pos": [ 0, 2.6, -28]},
+    {"type": "bat",    "pos": [-8, 1.4,  -8]},
+    {"type": "bat",    "pos": [ 8, 1.6, -12]},
+    {"type": "bat",    "pos": [ 0, 1.4, -28]},
     {"type": "knight", "pos": [ 0,   0, -30]}
   ],
 

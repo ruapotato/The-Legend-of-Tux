@@ -83,7 +83,7 @@
   "enemies": [
     {"type": "blob", "pos": [-4, 0, -4]},
     {"type": "blob", "pos": [ 5, 0, -10]},
-    {"type": "bat",  "pos": [-6, 2.5, -18]}
+    {"type": "bat",  "pos": [-6, 1.4, -18]}
   ],
 
   "props": [

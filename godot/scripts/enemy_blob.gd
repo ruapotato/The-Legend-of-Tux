@@ -43,11 +43,19 @@ var player: Node3D = null
 func _ready() -> void:
     hp = max_hp
     add_to_group("enemy")
-    var ps := get_tree().get_nodes_in_group("player")
-    if ps.size() > 0:
-        player = ps[0]
     attack_hitbox.body_entered.connect(_on_attack_overlap)
     attack_hitbox.monitoring = false
+
+
+# Enemies are added to the tree before the player in our generated
+# dungeons, so _ready can't find Tux in the "player" group yet — Tux
+# adds himself there in HIS _ready, which runs later in the cascade.
+# Lazy-fetch each frame until we get a valid reference.
+func _ensure_player() -> void:
+    if player == null or not is_instance_valid(player):
+        var ps := get_tree().get_nodes_in_group("player")
+        if ps.size() > 0:
+            player = ps[0]
 
 
 func _physics_process(delta: float) -> void:
@@ -58,6 +66,7 @@ func _physics_process(delta: float) -> void:
             velocity.y -= GRAVITY * delta
             move_and_slide()
         return
+    _ensure_player()
 
     var to_player := Vector3.ZERO
     var dist: float = 1e9

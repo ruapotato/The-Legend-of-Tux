@@ -95,12 +95,18 @@ func _ready() -> void:
 
     _apply_bone_materials()
 
-    var ps := get_tree().get_nodes_in_group("player")
-    if ps.size() > 0:
-        player = ps[0]
-
     sword_hitbox.target_hit.connect(_on_sword_hit)
     sword_hitbox.disarm()
+
+
+# Enemies enter the tree before the player in our generated dungeons,
+# so _ready can't find Tux in the "player" group yet. Lazy-fetch each
+# frame until valid.
+func _ensure_player() -> void:
+    if player == null or not is_instance_valid(player):
+        var ps := get_tree().get_nodes_in_group("player")
+        if ps.size() > 0:
+            player = ps[0]
 
 
 func _physics_process(delta: float) -> void:
@@ -111,6 +117,7 @@ func _physics_process(delta: float) -> void:
             velocity.y -= GRAVITY * delta
             move_and_slide()
         return
+    _ensure_player()
 
     var to_player := Vector3.ZERO
     var dist: float = 1e9

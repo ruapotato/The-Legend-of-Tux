@@ -43,11 +43,19 @@ func _ready() -> void:
     hp = max_hp
     add_to_group("enemy")
     perch_y = global_position.y
-    var ps := get_tree().get_nodes_in_group("player")
-    if ps.size() > 0:
-        player = ps[0]
     attack_hitbox.body_entered.connect(_on_attack_overlap)
     attack_hitbox.monitoring = false
+
+
+func _ensure_player() -> bool:
+    # The scene tree adds enemies BEFORE the player in our generated
+    # dungeons, so when _ready runs, Tux isn't in the "player" group
+    # yet. Re-fetch lazily until we find them.
+    if player == null or not is_instance_valid(player):
+        var ps := get_tree().get_nodes_in_group("player")
+        if ps.size() > 0:
+            player = ps[0]
+    return player != null
 
 
 func _physics_process(delta: float) -> void:
@@ -56,6 +64,7 @@ func _physics_process(delta: float) -> void:
         velocity.y -= 24.0 * delta
         move_and_slide()
         return
+    _ensure_player()
 
     var to_player := Vector3.ZERO
     var dist: float = 1e9
