@@ -1,16 +1,19 @@
 extends Area3D
 
 # Scene-transition trigger. Walking the player into the volume fires
-# the change. The Hint label is a signpost, not a gate — players can
-# see where they're going without needing to fish for an interact key.
+# the change. The Hint label is a signpost; the prompt text is shown
+# above the portal so the player knows where it leads.
 #
-# Re-entry suppression: when a corresponding return-portal is placed
-# right next to the destination's spawn (so "back to wyrdwood" goes
-# right back to "from_wyrdwood" which spawns NEXT TO the back-to-glade
-# portal), the player materializes already-overlapping the trigger and
-# body_entered fires on the first tick — bouncing them right back.
-# Fix: on _ready check overlapping bodies; if the player is already
-# inside, suppress until they walk out and back in.
+# Spawn-overlap suppression: when the destination scene's "from_X"
+# spawn marker sits next to the back-to-X portal, the player's
+# capsule materializes already overlapping the trigger and
+# body_entered fires on the very next physics tick — bouncing the
+# player back to the source. The earlier "check overlapping_bodies on
+# _ready" approach was racy because physics hadn't run yet by the
+# time the deferred check ran. We just use a time-based grace window
+# instead: ignore body entries for SPAWN_GRACE seconds after _ready.
+
+const SPAWN_GRACE: float = 0.6
 
 @export_file("*.tscn") var target_scene: String = ""
 @export var target_spawn: String = "default"
@@ -20,7 +23,7 @@ extends Area3D
 @onready var hint: Label3D = $Hint if has_node("Hint") else null
 
 var _firing: bool = false
-var _suppressed: bool = false
+var _ready_at: float = 0.0
 
 
 func _ready() -> void:
@@ -28,37 +31,23 @@ func _ready() -> void:
     collision_mask = 2
     monitoring = true
     body_entered.connect(_on_enter)
-    body_exited.connect(_on_exit)
     if hint:
         hint.text = prompt if prompt != "" else "Travel"
         hint.visible = true
-    # Defer so DungeonRoot has had a chance to position the player at
-    # the named spawn before we check.
-    call_deferred("_check_initial_overlap")
-
-
-func _check_initial_overlap() -> void:
-    if not is_inside_tree():
-        return
-    # Bodies inside on first tick are spawn-overlap, not real "enter"
-    # events. Wait until they leave before counting future entries.
-    for body in get_overlapping_bodies():
-        if body.is_in_group("player"):
-            _suppressed = true
-            return
+    _ready_at = Time.get_ticks_msec() / 1000.0
 
 
 func _on_enter(body: Node) -> void:
-    if _firing or _suppressed or not auto_trigger:
+    if _firing or not auto_trigger:
         return
     if not body.is_in_group("player"):
         return
+    var elapsed: float = Time.get_ticks_msec() / 1000.0 - _ready_at
+    if elapsed < SPAWN_GRACE:
+        # Player materialized inside us at scene load — not a real
+        # crossing. Ignore.
+        return
     _fire(body)
-
-
-func _on_exit(body: Node) -> void:
-    if body.is_in_group("player"):
-        _suppressed = false
 
 
 func _fire(player: Node) -> void:
