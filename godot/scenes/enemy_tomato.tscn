@@ -1,0 +1,139 @@
+[gd_scene load_steps=14 format=3 uid="uid://btuxtmto01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_tomato.gd" id="1_tmto"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.95
+height = 2.0
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 1.0
+height = 1.9
+radial_segments = 16
+rings = 10
+
+[sub_resource type="StandardMaterial3D" id="tomato_mat"]
+albedo_color = Color(0.85, 0.18, 0.16, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.40, 0.06, 0.06, 1)
+emission_energy_multiplier = 0.20
+
+[sub_resource type="CylinderMesh" id="stem_mesh"]
+top_radius = 0.18
+bottom_radius = 0.30
+height = 0.40
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="stem_mat"]
+albedo_color = Color(0.20, 0.55, 0.18, 1)
+roughness = 0.7
+
+[sub_resource type="CylinderMesh" id="arm_mesh"]
+top_radius = 0.18
+bottom_radius = 0.22
+height = 1.10
+radial_segments = 8
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.11
+height = 0.22
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="eye_white_mat"]
+albedo_color = Color(0.95, 0.95, 0.92, 1)
+roughness = 0.4
+
+[sub_resource type="SphereMesh" id="pupil_mesh"]
+radius = 0.05
+height = 0.10
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="pupil_mat"]
+albedo_color = Color(0.05, 0.04, 0.06, 1)
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(1.9, 1.9, 1.9)
+
+[sub_resource type="BoxShape3D" id="atk_shape"]
+size = Vector3(2.6, 1.6, 2.4)
+
+[node name="EnemyTomato" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_tmto")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("tomato_mat")
+
+[node name="Stem" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+
+[node name="StemMesh" type="MeshInstance3D" parent="Visual/Stem"]
+mesh = SubResource("stem_mesh")
+surface_material_override/0 = SubResource("stem_mat")
+
+[node name="ArmL" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0.20, 0)
+
+[node name="ArmMesh" type="MeshInstance3D" parent="Visual/ArmL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10, -0.55, 0)
+mesh = SubResource("arm_mesh")
+surface_material_override/0 = SubResource("tomato_mat")
+
+[node name="ArmR" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0.20, 0)
+
+[node name="ArmMesh" type="MeshInstance3D" parent="Visual/ArmR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10, -0.55, 0)
+mesh = SubResource("arm_mesh")
+surface_material_override/0 = SubResource("tomato_mat")
+
+[node name="EyeL_White" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30, 0.15, -0.85)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_white_mat")
+
+[node name="EyeR_White" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30, 0.15, -0.85)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_white_mat")
+
+[node name="EyeL_Pupil" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30, 0.15, -0.95)
+mesh = SubResource("pupil_mesh")
+surface_material_override/0 = SubResource("pupil_mat")
+
+[node name="EyeR_Pupil" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30, 0.15, -0.95)
+mesh = SubResource("pupil_mesh")
+surface_material_override/0 = SubResource("pupil_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("hit_shape")
+
+[node name="AttackHitbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, -1.4)
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="AttackHitbox"]
+shape = SubResource("atk_shape")

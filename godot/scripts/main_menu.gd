@@ -7,6 +7,7 @@ extends Control
 @export var world_start_path: String = "res://scenes/wyrdkin_glade.tscn"
 @export var dungeon_path: String = "res://scenes/dungeon_first.tscn"
 @export var sandbox_path: String = "res://scenes/combat_arena.tscn"
+@export var editor_path: String = "res://scenes/editor.tscn"
 
 var _title: Label
 var _subtitle: Label
@@ -54,6 +55,7 @@ func _ready() -> void:
     box.add_child(_make_button("Begin in Wyrdkin Glade", _on_play))
     box.add_child(_make_button("Skip to the Hollow",     _on_dungeon))
     box.add_child(_make_button("Combat Sandbox",         _on_sandbox))
+    box.add_child(_make_button("Level Editor",           _on_editor))
     box.add_child(_make_button("Quit",                   _on_quit))
 
 
@@ -76,6 +78,10 @@ func _on_dungeon() -> void:
 
 func _on_sandbox() -> void:
     get_tree().change_scene_to_file(sandbox_path)
+
+
+func _on_editor() -> void:
+    get_tree().change_scene_to_file(editor_path)
 
 
 func _on_quit() -> void:

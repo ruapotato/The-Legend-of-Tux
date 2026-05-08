@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxwsph01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_wisp_hunter.gd" id="1_wsph"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.22
+height = 0.40
+
+[sub_resource type="SphereMesh" id="core_mesh"]
+radius = 0.20
+height = 0.36
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="core_mat"]
+albedo_color = Color(0.10, 0.18, 0.55, 1)
+emission_enabled = true
+emission = Color(0.30, 0.55, 1.0, 1)
+emission_energy_multiplier = 2.5
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="halo_mesh"]
+radius = 0.36
+height = 0.55
+radial_segments = 10
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="halo_mat"]
+albedo_color = Color(0.30, 0.50, 1.0, 0.30)
+transparency = 1
+emission_enabled = true
+emission = Color(0.40, 0.70, 1.0, 1)
+emission_energy_multiplier = 1.2
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="wisp_mesh"]
+size = Vector3(0.05, 0.05, 0.40)
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="atk_shape"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[node name="EnemyWispHunter" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_wsph")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Halo" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("halo_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+
+[node name="Core" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("core_mesh")
+surface_material_override/0 = SubResource("core_mat")
+
+[node name="Wisp1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.05, 0.20)
+mesh = SubResource("wisp_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+
+[node name="Wisp2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.05, 0.20)
+mesh = SubResource("wisp_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+
+[node name="Wisp3" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10, 0.22)
+mesh = SubResource("wisp_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+
+[node name="Light" type="OmniLight3D" parent="Visual"]
+light_color = Color(0.40, 0.65, 1.0, 1)
+light_energy = 0.8
+omni_range = 4.0
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")
+
+[node name="AttackHitbox" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="AttackHitbox"]
+shape = SubResource("atk_shape")

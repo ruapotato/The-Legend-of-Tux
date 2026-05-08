@@ -196,13 +196,14 @@ func _die() -> void:
     SoundBank.play_3d("blob_die", global_position)
     var parent: Node = get_parent()
     if parent:
+        var here: Vector3 = global_position
         for i in range(pebble_reward):
             var p := PebblePickup.instantiate()
-            # call_deferred so pickup._ready runs AFTER the signal
-            # callback finishes — its monitoring/monitorable setters
-            # would otherwise also be blocked.
+            # Set local position before deferring add — dungeon root is
+            # at origin so local == global, and reading our transform
+            # after we've left the tree (queue_free below) would warn.
+            p.position = here + Vector3(randf_range(-0.4, 0.4), -1.0, randf_range(-0.4, 0.4))
             parent.call_deferred("add_child", p)
-            p.global_position = global_position + Vector3(randf_range(-0.4, 0.4), -1.0, randf_range(-0.4, 0.4))
     died.emit()
     var t := create_tween()
     t.tween_property(visual, "scale", Vector3.ZERO, 0.30)

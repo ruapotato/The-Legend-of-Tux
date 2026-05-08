@@ -63,6 +63,16 @@ var circle_remaining: float = 0.0
 var anim: RefCounted
 var bones: Dictionary = {}
 var _player_was_attacking: bool = false
+# Player-pressure tracking. Each new player swing within the decay
+# window bumps the streak; if it climbs high the knight turtles up —
+# keeps the shield raised through subsequent swings instead of
+# counter-attacking after every block. Forces the player to PAUSE
+# their swings to find an opening rather than spamming attack.
+var _p_attack_streak:  int   = 0
+var _p_streak_decay:   float = 0.0
+const STREAK_DECAY_TIME:    float = 1.8
+const STREAK_TURTLE_AT:     int   = 2
+const DEFEND_TIME_TURTLE:   float = 1.6
 # Direct hit-check state. The Area3D-based sword_hitbox kept failing to
 # register the knight's slash hits despite obvious visual overlap with
 # the player. Backstop: explicitly check distance + facing-cone during
@@ -145,10 +155,24 @@ func _physics_process(delta: float) -> void:
     var p_attack: bool = _player_is_attacking()
     var p_attack_started: bool = p_attack and not _player_was_attacking
     _player_was_attacking = p_attack
+    if p_attack_started:
+        _p_attack_streak += 1
+        _p_streak_decay = 0.0
+    else:
+        _p_streak_decay += delta
+        if _p_streak_decay > STREAK_DECAY_TIME:
+            _p_attack_streak = 0
+            _p_streak_decay = 0.0
 
-    if p_attack_started and dist < attack_range * 1.6 and _facing_player(to_player) \
-            and state in [State.IDLE, State.APPROACH, State.CIRCLE, State.RECOVER]:
-        _set_state(State.DEFEND)
+    if p_attack_started and dist < attack_range * 1.6 and _facing_player(to_player):
+        if state == State.DEFEND:
+            # Player is still pressuring — refresh the defend timer so
+            # the knight rides out the swing chain instead of countering
+            # into the next swing. Forces the player to pause to bait
+            # the knight out of guard.
+            state_time = 0.0
+        elif state in [State.IDLE, State.APPROACH, State.CIRCLE, State.RECOVER]:
+            _set_state(State.DEFEND)
 
     match state:
         State.IDLE:           _do_idle(delta, to_player, dist)
@@ -271,7 +295,13 @@ func _do_defend(delta: float, to_player: Vector3, dist: float) -> void:
         var dir: Vector3 = to_player.normalized()
         rotation.y = atan2(-dir.x, -dir.z)
     anim.play("block_hold")
-    if state_time >= DEFEND_TIME:
+    # Once the player has chained 2+ swings, hold the shield much
+    # longer — only break out when they've stopped pressuring. The
+    # streak resets after STREAK_DECAY_TIME of no new attacks.
+    var hold_for: float = DEFEND_TIME
+    if _p_attack_streak >= STREAK_TURTLE_AT:
+        hold_for = DEFEND_TIME_TURTLE
+    if state_time >= hold_for:
         if dist < attack_range * 1.5:
             _set_state(State.TELEGRAPH)   # counter-attack after a successful guard
         elif dist < detect_range:
@@ -357,14 +387,14 @@ func _drop_loot() -> void:
     var parent: Node = get_parent()
     if parent == null:
         return
+    var here: Vector3 = global_position
     for i in range(pebble_reward):
         var p := PebblePickup.instantiate()
+        p.position = here + Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0))
         parent.call_deferred("add_child", p)
-        var off := Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0))
-        p.global_position = global_position + off
     var h := HeartPickup.instantiate()
+    h.position = here + Vector3(0, 0.0, 0.4)
     parent.call_deferred("add_child", h)
-    h.global_position = global_position + Vector3(0, 0.0, 0.4)
 
 
 # ---- Helpers -----------------------------------------------------------

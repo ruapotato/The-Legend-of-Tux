@@ -19,11 +19,14 @@ extends Node3D
 ])
 @export var closed: bool = true          # false = don't wrap last → first
                                          # (use to leave an exit gap in the wall)
-@export var spacing: float = 1.4         # meters between trunk centers
+@export var spacing: float = 0.7         # meters between trunk centers —
+                                         # tight packing hides the grey
+                                         # void behind the wall.
 @export var trunk_height: float = 4.5
-@export var trunk_radius: float = 0.35
-@export var canopy_height: float = 5.0
-@export var canopy_radius: float = 1.6
+@export var trunk_radius: float = 0.32
+@export var canopy_height: float = 5.5
+@export var canopy_radius: float = 1.9   # canopies overlap noticeably
+                                         # which seals gaps overhead.
 @export var size_jitter: float = 0.3     # 0–1, randomizes trunk + canopy
 @export var seed: int = 1337
 @export var wall_height: float = 8.0

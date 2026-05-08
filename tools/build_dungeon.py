@@ -80,10 +80,15 @@ EXT_RESOURCES = {
     "blob":             ("PackedScene", "uid://btuxblb01",  "res://scenes/enemy_blob.tscn"),
     "knight":           ("PackedScene", "uid://btuxbnk01",  "res://scenes/enemy_bone_knight.tscn"),
     "bat":              ("PackedScene", "uid://btuxbat01",  "res://scenes/enemy_bone_bat.tscn"),
+    "tomato":           ("PackedScene", "uid://btuxtmto01", "res://scenes/enemy_tomato.tscn"),
+    "spore":            ("PackedScene", "uid://btuxspr01",  "res://scenes/enemy_spore.tscn"),
+    "wisp_hunter":      ("PackedScene", "uid://btuxwsph01", "res://scenes/enemy_wisp_hunter.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "door":             ("PackedScene", "uid://btuxdoor01", "res://scenes/door.tscn"),
     "chest":            ("PackedScene", "uid://btuxchst01", "res://scenes/treasure_chest.tscn"),
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
+    "pebble_pickup":    ("PackedScene", "uid://btuxpkpb01", "res://scenes/pickup_pebble.tscn"),
+    "heart_pickup":     ("PackedScene", "uid://btuxpkht01", "res://scenes/pickup_heart.tscn"),
     "boomerang_pickup": ("PackedScene", "uid://btuxbmrg01", "res://scenes/boomerang.tscn"),
     "glim":             ("PackedScene", "uid://btuxglim01", "res://scenes/glim.tscn"),
     "camera_script":    ("Script",      None,               "res://scripts/free_orbit_camera.gd"),
@@ -92,17 +97,23 @@ EXT_RESOURCES = {
     "root_script":      ("Script",      None,               "res://scripts/dungeon_root.gd"),
     "load_zone_script": ("Script",      None,               "res://scripts/load_zone.gd"),
     "tree_wall_script": ("Script",      None,               "res://scripts/tree_wall.gd"),
+    "terrain_mesh_script": ("Script",   None,               "res://scripts/terrain_mesh.gd"),
 }
 
 CONTENTS_TO_EXT = {
     "key":       "key_pickup",
+    "pebble":    "pebble_pickup",
+    "heart":     "heart_pickup",
     "boomerang": "boomerang_pickup",
 }
 
 ENEMY_TO_EXT = {
-    "blob":   "blob",
-    "knight": "knight",
-    "bat":    "bat",
+    "blob":        "blob",
+    "knight":      "knight",
+    "bat":         "bat",
+    "tomato":      "tomato",
+    "spore":       "spore",
+    "wisp_hunter": "wisp_hunter",
 }
 
 WALL_THICKNESS = 0.5
@@ -371,6 +382,305 @@ def emit_doors(b, doorways):
         )
 
 
+def _cells_to_gd_array(raw_cells):
+    """Emit a Godot Array literal that round-trips a heterogeneous
+    cell list into the .tscn — TerrainMesh.gd parses each entry the
+    same way at runtime. Cells stay as `[i, j]` arrays in the simple
+    case; only y/color overrides force the longer form."""
+    parts = []
+    for c in raw_cells:
+        if isinstance(c, dict):
+            kv = []
+            if "i" in c:     kv.append('"i": %d' % int(c["i"]))
+            if "j" in c:     kv.append('"j": %d' % int(c["j"]))
+            if "y" in c:     kv.append('"y": %g' % float(c["y"]))
+            if "color" in c and isinstance(c["color"], list):
+                col = c["color"]
+                kv.append('"color": [%g, %g, %g, %g]'
+                          % (col[0], col[1], col[2],
+                             col[3] if len(col) >= 4 else 1.0))
+            parts.append("{%s}" % ", ".join(kv))
+        else:
+            elems = []
+            for idx, v in enumerate(c):
+                if idx < 2:
+                    elems.append("%d" % int(v))
+                elif idx == 2 and v is not None:
+                    elems.append("%g" % float(v))
+                elif idx == 3 and isinstance(v, list):
+                    elems.append("[%g, %g, %g, %g]"
+                                 % (v[0], v[1], v[2],
+                                    v[3] if len(v) >= 4 else 1.0))
+            parts.append("[%s]" % ", ".join(elems))
+    return "[%s]" % ", ".join(parts)
+
+
+def emit_doors_v2(b, doors):
+    """Render `data["doors"]` — doors are first-class level entities,
+    placed at world coords with optional `wall_extension` that emits
+    flanking solid walls so the door sits inside a contiguous barrier.
+
+    Schema per door:
+        {
+            "pos":            [x, y, z],
+            "rotation_y":     float,
+            "type":           "locked" | "unlocked",
+            "door_width":     float,    # gap reserved for the door (default 3)
+            "wall_extension": float,    # length of flanking wall on each side (default 0)
+            "wall_height":    float,    # default 4
+            "wall_color":     [r,g,b,a],
+            "locked_message": str,
+            "unlock_message": str,
+        }
+    """
+    if not doors:
+        return
+    counter = [0]
+
+    def add_box(prefix, cx, cy, cz, sx, sy, sz, mat, rot_y):
+        counter[0] += 1
+        n = counter[0]
+        shape = b.add_sub("BoxShape3D", [("size", vstr([sx, sy, sz]))])
+        mesh  = b.add_sub("BoxMesh",    [("size", vstr([sx, sy, sz]))])
+        b.add_node(
+            '[node name="%s%d" type="StaticBody3D" parent="."]\n'
+            'transform = %s\n'
+            'collision_layer = 1\n'
+            'collision_mask = 0\n\n'
+            '[node name="Shape" type="CollisionShape3D" parent="%s%d"]\n'
+            'shape = SubResource("%s")\n\n'
+            '[node name="Mesh" type="MeshInstance3D" parent="%s%d"]\n'
+            'mesh = SubResource("%s")\n'
+            'surface_material_override/0 = SubResource("%s")\n'
+            % (prefix, n, t3(cx, cy, cz, rot_y), prefix, n, shape,
+               prefix, n, mesh, mat)
+        )
+
+    for i, d in enumerate(doors):
+        x, y, z = d["pos"]
+        rot = float(d.get("rotation_y", 0.0))
+        kind = d.get("type", "locked")
+        requires_key = "true" if kind == "locked" else "false"
+        locked_msg = escape(d.get("locked_message",
+                                  "Locked. A small key would open this door."))
+        unlock_msg = escape(d.get("unlock_message",
+                                  "The lock turns. The door opens."))
+        door_width = float(d.get("door_width", 1.6))
+        b.ext("door")
+        b.add_node(
+            '[node name="Door%d" parent="." instance=ExtResource("door")]\n'
+            'transform = %s\n'
+            'requires_key = %s\n'
+            'door_width = %g\n'
+            'locked_message = "%s"\n'
+            'unlock_message = "%s"\n'
+            % (i, t3(x, y, z, rot), requires_key, door_width,
+               locked_msg, unlock_msg)
+        )
+
+        ext_len = float(d.get("wall_extension", 0.0))
+        if ext_len > 0:
+            wh = float(d.get("wall_height", 4.0))
+            wc = d.get("wall_color", [0.45, 0.45, 0.45, 1.0])
+            wt = float(d.get("wall_thickness", 0.2))
+            mat = b.color_mat(wc, roughness=0.92)
+            # Bleed the wall into the door body by `seam` on each side so
+            # there's no sub-pixel gap where the corner meets — both
+            # visually and for collision against the player capsule.
+            seam = 0.1
+            inner = door_width / 2.0 - seam
+            seg_len = ext_len + seam
+            offset = inner + seg_len / 2.0
+            cos_r = math.cos(rot)
+            sin_r = math.sin(rot)
+            wcy = y + wh / 2.0
+            for sign in (-1, 1):
+                local_x = sign * offset
+                wx = x + cos_r * local_x
+                wz = z - sin_r * local_x
+                add_box("DoorWall%d_%s" % (i, "L" if sign < 0 else "R"),
+                        wx, wcy, wz, seg_len, wh, wt, mat, rot)
+
+
+def emit_grid_floors(b, grid, load_zones=None, doors=None):
+    """Render the editor's cell-paint grid format. For each floor in
+    grid.floors, emit per-cell floor slabs and a wall segment along
+    every cell-edge that has no neighbor cell. Wall segments are
+    suppressed where they overlap a load_zone footprint, so the player
+    can walk through doorways without manual openings."""
+    if not grid:
+        return
+    cell_size = float(grid.get("cell_size", 2.0))
+    floors = grid.get("floors", [])
+    if not floors:
+        return
+    load_zones = load_zones or []
+    doors = doors or []
+
+    def in_load_zone(wx, wz):
+        for lz in load_zones:
+            pos = lz.get("pos", [0, 0, 0])
+            sz  = lz.get("size", [3, 3, 1])
+            if (abs(wx - pos[0]) < sz[0] / 2.0 + 0.1
+                and abs(wz - pos[2]) < sz[2] / 2.0 + 0.1):
+                return True
+        # Doors carry their own flanking walls via wall_extension; if
+        # they're embedded inside a grid floor's perimeter, suppress
+        # the auto-wall at the door footprint so the player can pass.
+        for d in doors:
+            dx, _dy, dz = d["pos"]
+            dw = float(d.get("door_width", 2.0))
+            if abs(wx - dx) < dw / 2.0 + 0.1 and abs(wz - dz) < dw / 2.0 + 0.1:
+                return True
+        return False
+
+    counter = [0]
+
+    def add_box_static(prefix, cx, cy, cz, sx, sy, sz, mat):
+        counter[0] += 1
+        n = counter[0]
+        shape = b.add_sub("BoxShape3D", [("size", vstr([sx, sy, sz]))])
+        mesh  = b.add_sub("BoxMesh",    [("size", vstr([sx, sy, sz]))])
+        b.add_node(
+            '[node name="%s%d" type="StaticBody3D" parent="."]\n'
+            'transform = %s\n'
+            'collision_layer = 1\n'
+            'collision_mask = 0\n\n'
+            '[node name="Shape" type="CollisionShape3D" parent="%s%d"]\n'
+            'shape = SubResource("%s")\n\n'
+            '[node name="Mesh" type="MeshInstance3D" parent="%s%d"]\n'
+            'mesh = SubResource("%s")\n'
+            'surface_material_override/0 = SubResource("%s")\n'
+            % (prefix, n, t3(cx, cy, cz), prefix, n, shape,
+               prefix, n, mesh, mat)
+        )
+
+    for floor in floors:
+        raw_cells = floor.get("cells", [])
+        # Each cell entry is one of:
+        #   [i, j]                       — flat default cell
+        #   [i, j, y_offset]             — raised/lowered cell
+        #   [i, j, y_offset, [r,g,b,a]]  — also recolored (path tint)
+        #   {"i": i, "j": j, "y": ..., "color": [...]}  — object form
+        cells = set()
+        cell_y_off  = {}
+        cell_col    = {}
+        for c in raw_cells:
+            if isinstance(c, dict):
+                ci, cj = int(c["i"]), int(c["j"])
+                if "y" in c:     cell_y_off[(ci, cj)] = float(c["y"])
+                if "color" in c: cell_col[(ci, cj)]   = c["color"]
+            else:
+                ci, cj = int(c[0]), int(c[1])
+                if len(c) >= 3 and c[2] is not None:
+                    cell_y_off[(ci, cj)] = float(c[2])
+                if len(c) >= 4 and c[3] is not None:
+                    cell_col[(ci, cj)] = c[3]
+            cells.add((ci, cj))
+        if not cells:
+            continue
+        y           = float(floor.get("y", 0.0))
+        wall_h      = float(floor.get("wall_height", 4.0))
+        floor_color = floor.get("floor_color", [0.30, 0.50, 0.30, 1.0])
+        wall_color  = floor.get("wall_color",  [0.45, 0.45, 0.45, 1.0])
+        wall_material = floor.get("wall_material", "stone")
+        has_floor   = bool(floor.get("has_floor", True))
+        has_walls   = bool(floor.get("has_walls", True))
+        has_roof    = bool(floor.get("has_roof", False))
+        floor_mat   = b.color_mat(floor_color, roughness=0.95)
+        wall_mat    = b.color_mat(wall_color,  roughness=0.92)
+
+        def cell_world_y(ci, cj):
+            return y + cell_y_off.get((ci, cj), 0.0)
+
+        if has_floor:
+            # Emit a single TerrainMesh node that builds a smoothed,
+            # marching-squares-ish surface from the cell data at scene
+            # ready time. This replaces the old grid of per-cell box
+            # slabs — neighbours' corners share heights so per-cell y
+            # offsets blend into hills, and boundary corners get inset
+            # so a single missing cell becomes a diamond hole instead
+            # of a hard square.
+            counter[0] += 1
+            n = counter[0]
+            b.ext("terrain_mesh_script")
+            cell_data_str = _cells_to_gd_array(raw_cells)
+            fc = floor_color
+            fc_str = "Color(%g, %g, %g, %g)" % (fc[0], fc[1], fc[2],
+                                                 fc[3] if len(fc) >= 4 else 1.0)
+            b.add_node(
+                '[node name="TerrainMesh%d" type="Node3D" parent="."]\n'
+                'script = ExtResource("terrain_mesh_script")\n'
+                'cell_data = %s\n'
+                'cell_size = %g\n'
+                'floor_y = %g\n'
+                'floor_color = %s\n'
+                'skirt_depth = 6.0\n'
+                'smoothing = 0.45\n'
+                % (n, cell_data_str, cell_size, y, fc_str)
+            )
+
+        if has_walls:
+            wall_thick = 0.2
+            tree_seed = [42]
+            if wall_material == "tree":
+                b.ext("tree_wall_script")
+
+            def emit_edge(p0, p1, mid_x, mid_z, sx, sz, ci, cj):
+                """Emit either a tree_wall.gd polyline along (p0,p1) or a
+                box wall at (mid_x, mid_z). p0/p1 in world XZ."""
+                cy = cell_world_y(ci, cj)
+                wcy_local = cy + wall_h / 2.0
+                if wall_material == "tree":
+                    tree_seed[0] += 1
+                    counter[0] += 1
+                    n = counter[0]
+                    b.add_node(
+                        '[node name="GridTree%d" type="Node3D" parent="."]\n'
+                        'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, %g, 0)\n'
+                        'script = ExtResource("tree_wall_script")\n'
+                        'boundary_points = PackedVector2Array(%g, %g, %g, %g)\n'
+                        'closed = false\n'
+                        'wall_height = %g\n'
+                        'spacing = 1.4\n'
+                        'seed = %d\n'
+                        % (n, cy, p0[0], p0[1], p1[0], p1[1], wall_h, tree_seed[0])
+                    )
+                else:
+                    add_box_static("GridWall", mid_x, wcy_local, mid_z,
+                                   sx, wall_h, sz, wall_mat)
+
+            for (i, j) in cells:
+                x_left  = i * cell_size
+                x_right = (i + 1) * cell_size
+                z_north = j * cell_size
+                z_south = (j + 1) * cell_size
+                cx_mid  = (x_left + x_right) / 2.0
+                cz_mid  = (z_north + z_south) / 2.0
+                if (i + 1, j) not in cells and not in_load_zone(x_right, cz_mid):
+                    emit_edge((x_right, z_north), (x_right, z_south),
+                              x_right, cz_mid, wall_thick, cell_size, i, j)
+                if (i - 1, j) not in cells and not in_load_zone(x_left, cz_mid):
+                    emit_edge((x_left, z_south), (x_left, z_north),
+                              x_left, cz_mid, wall_thick, cell_size, i, j)
+                if (i, j + 1) not in cells and not in_load_zone(cx_mid, z_south):
+                    emit_edge((x_left, z_south), (x_right, z_south),
+                              cx_mid, z_south, cell_size, wall_thick, i, j)
+                if (i, j - 1) not in cells and not in_load_zone(cx_mid, z_north):
+                    emit_edge((x_right, z_north), (x_left, z_north),
+                              cx_mid, z_north, cell_size, wall_thick, i, j)
+
+        if has_roof:
+            roof_thick = 0.2
+            for (i, j) in cells:
+                cx = (i + 0.5) * cell_size
+                cz = (j + 0.5) * cell_size
+                cy = cell_world_y(i, j)
+                add_box_static("GridRoof",
+                               cx, cy + wall_h + roof_thick / 2.0, cz,
+                               cell_size, roof_thick, cell_size, wall_mat)
+
+
 def emit_tree_walls(b, walls):
     for i, tw in enumerate(walls or []):
         b.ext("tree_wall_script")
@@ -518,7 +828,15 @@ def emit_props(b, props):
         elif kind == "chest":
             b.ext("chest")
             contents_key = p.get("contents", "")
-            ext_name = CONTENTS_TO_EXT.get(contents_key, "")
+            # `item` lets us drop an arbitrary unlockable through a
+            # generic item pickup. The build script doesn't ship a
+            # generic item scene yet, so for now `item` falls through
+            # to whatever ext is configured for the named item.
+            if contents_key == "item":
+                ext_name = CONTENTS_TO_EXT.get(
+                    p.get("item_name", ""), "boomerang_pickup")
+            else:
+                ext_name = CONTENTS_TO_EXT.get(contents_key, "")
             msg = escape(p.get("open_message", ""))
             attrs = ['transform = %s' % t3(x, y, z, rot)]
             if ext_name:
@@ -526,6 +844,10 @@ def emit_props(b, props):
                 attrs.append('contents_scene = ExtResource("%s")' % ext_name)
             if msg:
                 attrs.append('open_message = "%s"' % msg)
+            if "amount" in p:
+                attrs.append('contents_amount = %d' % int(p["amount"]))
+            if p.get("item_name"):
+                attrs.append('contents_item_name = "%s"' % escape(str(p["item_name"])))
             b.add_node(
                 '[node name="Chest%d" parent="." instance=ExtResource("chest")]\n'
                 % i + "\n".join(attrs) + "\n"
@@ -646,6 +968,9 @@ def convert(json_path):
     emit_walls(b, data.get("rooms", []), data.get("doorways", []))
     emit_doors(b, data.get("doorways", []))
     emit_tree_walls(b, data.get("tree_walls", []))
+    emit_grid_floors(b, data.get("grid"), data.get("load_zones", []),
+                     data.get("doors", []))
+    emit_doors_v2(b, data.get("doors", []))
     emit_lights(b, data.get("lights", []))
     emit_spawns(b, data.get("spawns", []))
     emit_enemies(b, data.get("enemies", []))
