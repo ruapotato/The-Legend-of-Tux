@@ -1,24 +1,26 @@
-[gd_scene load_steps=1207 format=3 uid="uid://btuxbrookhol01"]
+[gd_scene load_steps=1209 format=3 uid="uid://btuxbrookhol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.55, 0.7, 0.85, 1)
@@ -13814,6 +13816,82 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, 14.4)
 
 [node name="Bush33" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -44.6)
+
+[node name="Rock34" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 0.5, 7.5)
+pebble_chance = 0.3
+
+[node name="Rock35" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0.5, 14.5)
+pebble_chance = 0.55
+
+[node name="Rock36" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, -14.5)
+pebble_chance = 0.55
+
+[node name="Tree37" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.85453, 0, 0.519401, 0, 1, 0, -0.519401, 0, -0.85453, 3.5, 0, -30.5)
+pebble_chance = 0.45
+trunk_height = 4.44781
+canopy_radius = 1.78232
+
+[node name="Tree38" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.00752456, 0, 0.999972, 0, 1, 0, -0.999972, 0, 0.00752456, 15.5, 0, -22.5)
+pebble_chance = 0.3
+trunk_height = 5.24106
+canopy_radius = 1.53646
+
+[node name="Rock39" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, -28.5)
+pebble_chance = 0.3
+
+[node name="Tree40" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.982959, 0, 0.183827, 0, 1, 0, -0.183827, 0, -0.982959, 12.5, 0, 11.5)
+pebble_chance = 0.2
+trunk_height = 3.75518
+canopy_radius = 1.5075
+
+[node name="Tree41" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.748248, 0, -0.663419, 0, 1, 0, 0.663419, 0, -0.748248, 19.5, 0, 29.5)
+pebble_chance = 0.3
+trunk_height = 3.89688
+canopy_radius = 2.07041
+
+[node name="Tree42" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.419934, 0, 0.907555, 0, 1, 0, -0.907555, 0, 0.419934, -22.5, 0, 0.5)
+pebble_chance = 0.3
+trunk_height = 4.03478
+canopy_radius = 1.94157
+
+[node name="Tree43" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.60912, 0, 0.793078, 0, 1, 0, -0.793078, 0, -0.60912, -7.5, 0, 31.5)
+pebble_chance = 0.3
+trunk_height = 5.25655
+canopy_radius = 1.5231
+
+[node name="Tree44" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.504626, 0, 0.863338, 0, 1, 0, -0.863338, 0, 0.504626, -3.5, 0, -20.5)
+pebble_chance = 0.3
+trunk_height = 4.78933
+canopy_radius = 1.91655
+
+[node name="Tree45" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.133541, 0, -0.991043, 0, 1, 0, 0.991043, 0, -0.133541, 24.5, 0, -14.5)
+pebble_chance = 0.45
+trunk_height = 3.53728
+canopy_radius = 1.42751
+
+[node name="Tree46" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.591825, 0, -0.806067, 0, 1, 0, 0.806067, 0, 0.591825, -19.5, 0, 9.5)
+pebble_chance = 0.2
+trunk_height = 4.32291
+canopy_radius = 1.96742
+
+[node name="Tree47" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.664606, 0, 0.747194, 0, 1, 0, -0.747194, 0, -0.664606, -29.5, 0, -2.5)
+pebble_chance = 0.45
+trunk_height = 4.2164
+canopy_radius = 1.66797
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 1, 1)

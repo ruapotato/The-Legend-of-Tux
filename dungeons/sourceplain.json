@@ -87414,6 +87414,456 @@
         40.0
       ],
       "pebble_chance": 0.5
+    },
+    {
+      "type": "tree",
+      "pos": [
+        45.5,
+        0.0,
+        -10.5
+      ],
+      "rotation_y": -1.9834623169774805,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.5609548772851385,
+      "canopy_radius": 1.527528615967685
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4.5,
+        0.5,
+        -91.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "tree",
+      "pos": [
+        30.5,
+        0.0,
+        -49.5
+      ],
+      "rotation_y": 1.903489456624896,
+      "pebble_chance": 0.2,
+      "trunk_height": 3.9545195561836355,
+      "canopy_radius": 2.0699800989630956
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.5,
+        0.5,
+        39.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "tree",
+      "pos": [
+        16.5,
+        0.0,
+        -25.5
+      ],
+      "rotation_y": 0.46802254253327513,
+      "pebble_chance": 0.2,
+      "trunk_height": 3.869702129008889,
+      "canopy_radius": 1.6491960081850312
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.5,
+        0.0,
+        28.5
+      ],
+      "rotation_y": 0.9942579955551376,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.717969106688368,
+      "canopy_radius": 1.9154616238012863
+    },
+    {
+      "type": "tree",
+      "pos": [
+        24.5,
+        0.0,
+        35.5
+      ],
+      "rotation_y": -0.2384756385374187,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.665788602360262,
+      "canopy_radius": 2.0652476370636084
+    },
+    {
+      "type": "rock",
+      "pos": [
+        61.5,
+        0.5,
+        17.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.5,
+        0.0,
+        -86.5
+      ],
+      "rotation_y": 2.597797817007202,
+      "pebble_chance": 0.45,
+      "trunk_height": 4.29452489784329,
+      "canopy_radius": 2.001384144763982
+    },
+    {
+      "type": "tree",
+      "pos": [
+        50.5,
+        0.0,
+        -64.5
+      ],
+      "rotation_y": -3.005657696202821,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.60852342464143,
+      "canopy_radius": 1.6508429137252048
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.5,
+        0.0,
+        19.5
+      ],
+      "rotation_y": 0.2660663764572555,
+      "pebble_chance": 0.45,
+      "trunk_height": 4.288779539526436,
+      "canopy_radius": 1.4791935643885061
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -57.5,
+        0.5,
+        8.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.5,
+        0.0,
+        -56.5
+      ],
+      "rotation_y": 1.8395337933724298,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.833250320593006,
+      "canopy_radius": 1.6005292210658049
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.5,
+        0.0,
+        35.5
+      ],
+      "rotation_y": 1.7238390093480445,
+      "pebble_chance": 0.3,
+      "trunk_height": 5.209236689350332,
+      "canopy_radius": 1.788277711865684
+    },
+    {
+      "type": "tree",
+      "pos": [
+        33.5,
+        0.0,
+        -58.5
+      ],
+      "rotation_y": 2.5808472581750093,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.948938606740927,
+      "canopy_radius": 1.6186296205381852
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -57.5,
+        0.0,
+        14.5
+      ],
+      "rotation_y": 3.1382594997508364,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.352342937216847,
+      "canopy_radius": 1.6868659015601313
+    },
+    {
+      "type": "rock",
+      "pos": [
+        34.5,
+        0.5,
+        -2.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -31.5,
+        0.0,
+        30.5
+      ],
+      "rotation_y": 1.4337189463940603,
+      "pebble_chance": 0.45,
+      "trunk_height": 4.814050313437704,
+      "canopy_radius": 1.5962093893550684
+    },
+    {
+      "type": "tree",
+      "pos": [
+        62.5,
+        0.0,
+        14.5
+      ],
+      "rotation_y": -0.55881250378025,
+      "pebble_chance": 0.2,
+      "trunk_height": 3.9286746243055815,
+      "canopy_radius": 1.7435692351324004
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.5,
+        0.5,
+        8.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -37.5,
+        0.0,
+        -17.5
+      ],
+      "rotation_y": -2.744890855939216,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.980897150941275,
+      "canopy_radius": 1.425610815285181
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.5,
+        0.0,
+        -61.5
+      ],
+      "rotation_y": 0.7501450650970822,
+      "pebble_chance": 0.45,
+      "trunk_height": 5.446491737586054,
+      "canopy_radius": 1.4589448058931447
+    },
+    {
+      "type": "tree",
+      "pos": [
+        91.5,
+        0.0,
+        -8.5
+      ],
+      "rotation_y": 1.0724877061339426,
+      "pebble_chance": 0.45,
+      "trunk_height": 3.9191722388755097,
+      "canopy_radius": 1.6777755701822985
+    },
+    {
+      "type": "tree",
+      "pos": [
+        36.5,
+        0.0,
+        -54.5
+      ],
+      "rotation_y": -2.7147235821877596,
+      "pebble_chance": 0.45,
+      "trunk_height": 3.724617237225977,
+      "canopy_radius": 1.972476120539435
+    },
+    {
+      "type": "rock",
+      "pos": [
+        19.5,
+        0.5,
+        35.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -69.5,
+        0.0,
+        13.5
+      ],
+      "rotation_y": 1.7149408089493314,
+      "pebble_chance": 0.45,
+      "trunk_height": 4.270030568797771,
+      "canopy_radius": 1.72690012312326
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.5,
+        0.0,
+        -4.5
+      ],
+      "rotation_y": 3.139189709588836,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.961050778433103,
+      "canopy_radius": 1.9052241087556046
+    },
+    {
+      "type": "rock",
+      "pos": [
+        72.5,
+        0.5,
+        -26.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -58.5,
+        0.0,
+        57.5
+      ],
+      "rotation_y": -1.1131977417276078,
+      "pebble_chance": 0.45,
+      "trunk_height": 5.189592563809368,
+      "canopy_radius": 1.454753984765904
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -43.5,
+        0.5,
+        -65.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.5,
+        0.5,
+        77.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.5,
+        0.5,
+        41.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.5,
+        0.5,
+        26.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "tree",
+      "pos": [
+        63.5,
+        0.0,
+        24.5
+      ],
+      "rotation_y": -0.81072543721573,
+      "pebble_chance": 0.45,
+      "trunk_height": 5.219064652945788,
+      "canopy_radius": 1.9618863568536709
+    },
+    {
+      "type": "tree",
+      "pos": [
+        28.5,
+        0.0,
+        -62.5
+      ],
+      "rotation_y": -2.9007196118003713,
+      "pebble_chance": 0.45,
+      "trunk_height": 5.461678656924294,
+      "canopy_radius": 1.6827778555370543
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.5,
+        0.0,
+        21.5
+      ],
+      "rotation_y": -1.702801518100322,
+      "pebble_chance": 0.2,
+      "trunk_height": 5.37416929141292,
+      "canopy_radius": 2.017538006187303
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -26.5,
+        0.5,
+        39.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "rock",
+      "pos": [
+        70.5,
+        0.5,
+        21.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "rock",
+      "pos": [
+        76.5,
+        0.5,
+        -26.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -11.5,
+        0.5,
+        -3.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        61.5,
+        0.5,
+        -16.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -91.5,
+        0.5,
+        2.5
+      ],
+      "pebble_chance": 0.4
     }
   ],
   "load_zones": [

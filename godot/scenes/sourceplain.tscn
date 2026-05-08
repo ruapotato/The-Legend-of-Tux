@@ -1,28 +1,28 @@
 [gd_scene load_steps=47 format=3 uid="uid://btuxsourcepl01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.36, 0.55, 0.82, 1)
@@ -21263,6 +21263,222 @@ pebble_chance = 0.4
 [node name="Tree69" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 40)
 pebble_chance = 0.5
+
+[node name="Tree70" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.401053, 0, 0.916055, 0, 1, 0, -0.916055, 0, -0.401053, 45.5, 0, -10.5)
+pebble_chance = 0.2
+trunk_height = 4.56095
+canopy_radius = 1.52753
+
+[node name="Rock71" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, -91.5)
+pebble_chance = 0.3
+
+[node name="Tree72" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.32659, 0, -0.945166, 0, 1, 0, 0.945166, 0, -0.32659, 30.5, 0, -49.5)
+pebble_chance = 0.2
+trunk_height = 3.95452
+canopy_radius = 2.06998
+
+[node name="Rock73" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 39.5)
+pebble_chance = 0.3
+
+[node name="Tree74" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.892462, 0, -0.451122, 0, 1, 0, 0.451122, 0, 0.892462, 16.5, 0, -25.5)
+pebble_chance = 0.2
+trunk_height = 3.8697
+canopy_radius = 1.6492
+
+[node name="Tree75" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.545125, 0, -0.838355, 0, 1, 0, 0.838355, 0, 0.545125, -5.5, 0, 28.5)
+pebble_chance = 0.3
+trunk_height = 4.71797
+canopy_radius = 1.91546
+
+[node name="Tree76" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.971699, 0, 0.236222, 0, 1, 0, -0.236222, 0, 0.971699, 24.5, 0, 35.5)
+pebble_chance = 0.2
+trunk_height = 4.66579
+canopy_radius = 2.06525
+
+[node name="Rock77" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 0.5, 17.5)
+pebble_chance = 0.55
+
+[node name="Tree78" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.855751, 0, -0.517387, 0, 1, 0, 0.517387, 0, -0.855751, 1.5, 0, -86.5)
+pebble_chance = 0.45
+trunk_height = 4.29452
+canopy_radius = 2.00138
+
+[node name="Tree79" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.990775, 0, 0.135517, 0, 1, 0, -0.135517, 0, -0.990775, 50.5, 0, -64.5)
+pebble_chance = 0.3
+trunk_height = 4.60852
+canopy_radius = 1.65084
+
+[node name="Tree80" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.964813, 0, -0.262938, 0, 1, 0, 0.262938, 0, 0.964813, -16.5, 0, 19.5)
+pebble_chance = 0.45
+trunk_height = 4.28878
+canopy_radius = 1.47919
+
+[node name="Rock81" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5, 0.5, 8.5)
+pebble_chance = 0.55
+
+[node name="Tree82" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.265514, 0, -0.964107, 0, 1, 0, 0.964107, 0, -0.265514, 43.5, 0, -56.5)
+pebble_chance = 0.3
+trunk_height = 4.83325
+canopy_radius = 1.60053
+
+[node name="Tree83" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.152446, 0, -0.988312, 0, 1, 0, 0.988312, 0, -0.152446, 11.5, 0, 35.5)
+pebble_chance = 0.3
+trunk_height = 5.20924
+canopy_radius = 1.78828
+
+[node name="Tree84" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.846859, 0, -0.531818, 0, 1, 0, 0.531818, 0, -0.846859, 33.5, 0, -58.5)
+pebble_chance = 0.3
+trunk_height = 4.94894
+canopy_radius = 1.61863
+
+[node name="Tree85" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.999994, 0, -0.00333315, 0, 1, 0, 0.00333315, 0, -0.999994, -57.5, 0, 14.5)
+pebble_chance = 0.3
+trunk_height = 4.35234
+canopy_radius = 1.68687
+
+[node name="Rock86" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0.5, -2.5)
+pebble_chance = 0.4
+
+[node name="Tree87" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.136648, 0, -0.99062, 0, 1, 0, 0.99062, 0, 0.136648, -31.5, 0, 30.5)
+pebble_chance = 0.45
+trunk_height = 4.81405
+canopy_radius = 1.59621
+
+[node name="Tree88" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.847885, 0, 0.53018, 0, 1, 0, -0.53018, 0, 0.847885, 62.5, 0, 14.5)
+pebble_chance = 0.2
+trunk_height = 3.92867
+canopy_radius = 1.74357
+
+[node name="Rock89" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 8.5)
+pebble_chance = 0.4
+
+[node name="Tree90" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.92234, 0, 0.386378, 0, 1, 0, -0.386378, 0, -0.92234, -37.5, 0, -17.5)
+pebble_chance = 0.2
+trunk_height = 4.9809
+canopy_radius = 1.42561
+
+[node name="Tree91" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.73159, 0, -0.681745, 0, 1, 0, 0.681745, 0, 0.73159, -4.5, 0, -61.5)
+pebble_chance = 0.45
+trunk_height = 5.44649
+canopy_radius = 1.45894
+
+[node name="Tree92" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.477941, 0, -0.878392, 0, 1, 0, 0.878392, 0, 0.477941, 91.5, 0, -8.5)
+pebble_chance = 0.45
+trunk_height = 3.91917
+canopy_radius = 1.67778
+
+[node name="Tree93" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.910266, 0, 0.414023, 0, 1, 0, -0.414023, 0, -0.910266, 36.5, 0, -54.5)
+pebble_chance = 0.45
+trunk_height = 3.72462
+canopy_radius = 1.97248
+
+[node name="Rock94" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0.5, 35.5)
+pebble_chance = 0.3
+
+[node name="Tree95" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.143646, 0, -0.989629, 0, 1, 0, 0.989629, 0, -0.143646, -69.5, 0, 13.5)
+pebble_chance = 0.45
+trunk_height = 4.27003
+canopy_radius = 1.7269
+
+[node name="Tree96" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.999997, 0, -0.00240294, 0, 1, 0, 0.00240294, 0, -0.999997, -8.5, 0, -4.5)
+pebble_chance = 0.3
+trunk_height = 4.96105
+canopy_radius = 1.90522
+
+[node name="Rock97" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.5, 0.5, -26.5)
+pebble_chance = 0.55
+
+[node name="Tree98" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.441795, 0, 0.897116, 0, 1, 0, -0.897116, 0, 0.441795, -58.5, 0, 57.5)
+pebble_chance = 0.45
+trunk_height = 5.18959
+canopy_radius = 1.45475
+
+[node name="Rock99" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, -65.5)
+pebble_chance = 0.3
+
+[node name="Rock100" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 77.5)
+pebble_chance = 0.4
+
+[node name="Rock101" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0.5, 41.5)
+pebble_chance = 0.3
+
+[node name="Rock102" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.5, 26.5)
+pebble_chance = 0.4
+
+[node name="Tree103" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.688973, 0, 0.724787, 0, 1, 0, -0.724787, 0, 0.688973, 63.5, 0, 24.5)
+pebble_chance = 0.45
+trunk_height = 5.21906
+canopy_radius = 1.96189
+
+[node name="Tree104" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.97113, 0, 0.238551, 0, 1, 0, -0.238551, 0, -0.97113, 28.5, 0, -62.5)
+pebble_chance = 0.45
+trunk_height = 5.46168
+canopy_radius = 1.68278
+
+[node name="Tree105" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.131622, 0, 0.9913, 0, 1, 0, -0.9913, 0, -0.131622, -0.5, 0, 21.5)
+pebble_chance = 0.2
+trunk_height = 5.37417
+canopy_radius = 2.01754
+
+[node name="Rock106" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0.5, 39.5)
+pebble_chance = 0.55
+
+[node name="Rock107" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.5, 0.5, 21.5)
+pebble_chance = 0.55
+
+[node name="Rock108" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.5, 0.5, -26.5)
+pebble_chance = 0.4
+
+[node name="Rock109" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.5, -3.5)
+pebble_chance = 0.3
+
+[node name="Rock110" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 0.5, -16.5)
+pebble_chance = 0.3
+
+[node name="Rock111" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.5, 0.5, 2.5)
+pebble_chance = 0.4
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 98)

@@ -4121,6 +4121,24 @@
       "rotation_y": 0,
       "contents": "boomerang",
       "open_message": "A bone-and-wood boomerang. Press F to throw it; it returns on its own."
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.5,
+        0.5,
+        -30.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.5,
+        0.5,
+        -34.5
+      ],
+      "pebble_chance": 0.3
     }
   ],
   "load_zones": [

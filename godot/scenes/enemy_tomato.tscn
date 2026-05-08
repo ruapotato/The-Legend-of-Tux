@@ -57,6 +57,23 @@ radius = 1.50
 [sub_resource type="SphereShape3D" id="weakpoint_shape"]
 radius = 0.55
 
+[sub_resource type="CylinderShape3D" id="blade_shape"]
+height = 0.7
+radius = 3.2
+
+[sub_resource type="CylinderMesh" id="blade_mesh"]
+top_radius = 0.10
+bottom_radius = 0.10
+height = 3.0
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="blade_mat"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.50, 0.95, 0.40, 1)
+emission_energy_multiplier = 0.6
+
 [sub_resource type="SphereMesh" id="eye_mesh"]
 radius = 0.10
 height = 0.20
@@ -138,3 +155,36 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape3D" parent="WeakpointArea"]
 shape = SubResource("weakpoint_shape")
+
+[node name="Blades" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+
+[node name="Blade1" type="MeshInstance3D" parent="Visual/Blades"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.50, 0, 0)
+mesh = SubResource("blade_mesh")
+surface_material_override/0 = SubResource("blade_mat")
+
+[node name="Blade2" type="MeshInstance3D" parent="Visual/Blades"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1.50, 0, 0)
+mesh = SubResource("blade_mesh")
+surface_material_override/0 = SubResource("blade_mat")
+
+[node name="Blade3" type="MeshInstance3D" parent="Visual/Blades"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.50)
+mesh = SubResource("blade_mesh")
+surface_material_override/0 = SubResource("blade_mat")
+
+[node name="Blade4" type="MeshInstance3D" parent="Visual/Blades"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.50)
+mesh = SubResource("blade_mesh")
+surface_material_override/0 = SubResource("blade_mat")
+
+[node name="BladeHitArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="BladeHitArea"]
+shape = SubResource("blade_shape")

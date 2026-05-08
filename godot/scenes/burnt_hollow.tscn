@@ -1,27 +1,29 @@
-[gd_scene load_steps=2399 format=3 uid="uid://btuxburnthol01"]
+[gd_scene load_steps=2401 format=3 uid="uid://btuxburnthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxsklsp01" path="res://scenes/enemy_skull_spider.tscn" id="skull_spider"]
+[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxsklsp01" path="res://scenes/enemy_skull_spider.tscn" id="skull_spider"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.3, 1)
@@ -21666,6 +21668,84 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.4, 0, 47.3)
 
 [node name="Bush25" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9, 0, 48.2)
+
+[node name="Rock26" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.5, 0.5, 80.5)
+pebble_chance = 0.3
+
+[node name="Rock27" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 0.5, 62.5)
+pebble_chance = 0.4
+
+[node name="Rock28" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 0.5, 26.5)
+pebble_chance = 0.55
+
+[node name="Rock29" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5, 0.5, 87.5)
+pebble_chance = 0.3
+
+[node name="Rock30" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 0.5, 64.5)
+pebble_chance = 0.4
+
+[node name="Rock31" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 50.5)
+pebble_chance = 0.3
+
+[node name="Tree32" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.724346, 0, 0.689436, 0, 1, 0, -0.689436, 0, 0.724346, 83.5, 0, 74.5)
+pebble_chance = 0.2
+trunk_height = 3.8632
+canopy_radius = 1.89814
+
+[node name="Tree33" parent="." instance=ExtResource("tree")]
+transform = Transform3D(0.363189, 0, 0.931716, 0, 1, 0, -0.931716, 0, 0.363189, 98.5, 0, 80.5)
+pebble_chance = 0.3
+trunk_height = 4.81984
+canopy_radius = 1.99315
+
+[node name="Tree34" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.55615, 0, -0.831082, 0, 1, 0, 0.831082, 0, -0.55615, 97.5, 0, 70.5)
+pebble_chance = 0.3
+trunk_height = 3.8048
+canopy_radius = 1.92052
+
+[node name="Tree35" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.32541, 0, 0.945573, 0, 1, 0, -0.945573, 0, -0.32541, 81.5, 0, 87.5)
+pebble_chance = 0.2
+trunk_height = 4.34665
+canopy_radius = 1.71239
+
+[node name="Rock36" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0.5, 60.5)
+pebble_chance = 0.55
+
+[node name="Tree37" parent="." instance=ExtResource("tree")]
+transform = Transform3D(-0.99849, 0, -0.0549394, 0, 1, 0, 0.0549394, 0, -0.99849, 73.5, 0, 63.5)
+pebble_chance = 0.2
+trunk_height = 4.8671
+canopy_radius = 1.90012
+
+[node name="Rock38" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 65.5)
+pebble_chance = 0.3
+
+[node name="Rock39" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0.5, 39.5)
+pebble_chance = 0.3
+
+[node name="Rock40" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 0.5, 48.5)
+pebble_chance = 0.4
+
+[node name="Rock41" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 16.5)
+pebble_chance = 0.3
+
+[node name="Rock42" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.5, 43.5)
+pebble_chance = 0.4
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 1.4, 49)

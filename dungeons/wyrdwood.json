@@ -3295,6 +3295,162 @@
       "contents": "pebble",
       "amount": 5,
       "open_message": "A handful of river-pebbles, perfect for the sling."
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.5,
+        0.0,
+        -19.5
+      ],
+      "rotation_y": -0.16597280741815013,
+      "pebble_chance": 0.2,
+      "trunk_height": 3.7936671805751168,
+      "canopy_radius": 1.4200708662828763
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.5,
+        0.5,
+        14.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.5,
+        0.0,
+        -7.5
+      ],
+      "rotation_y": -0.9603244128185766,
+      "pebble_chance": 0.45,
+      "trunk_height": 3.7657683906395727,
+      "canopy_radius": 1.991384741352773
+    },
+    {
+      "type": "rock",
+      "pos": [
+        5.5,
+        0.5,
+        7.5
+      ],
+      "pebble_chance": 0.4
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.5,
+        0.5,
+        -27.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        5.5,
+        0.5,
+        -24.5
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.5,
+        0.0,
+        -29.5
+      ],
+      "rotation_y": -1.6124260302208615,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.509586158919383,
+      "canopy_radius": 1.5360464237456288
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.5,
+        0.0,
+        13.5
+      ],
+      "rotation_y": -0.3068598053139824,
+      "pebble_chance": 0.3,
+      "trunk_height": 4.985326347405444,
+      "canopy_radius": 2.0158898293056597
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.5,
+        0.0,
+        4.5
+      ],
+      "rotation_y": -0.07585749911412032,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.645826475843013,
+      "canopy_radius": 1.74297889964412
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.5,
+        0.0,
+        -12.5
+      ],
+      "rotation_y": -1.4751162247443312,
+      "pebble_chance": 0.3,
+      "trunk_height": 3.655746467777518,
+      "canopy_radius": 2.054543673569947
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.5,
+        0.0,
+        12.5
+      ],
+      "rotation_y": 2.115639625070091,
+      "pebble_chance": 0.45,
+      "trunk_height": 4.95618989442686,
+      "canopy_radius": 1.6122508417770303
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.5,
+        0.0,
+        -4.5
+      ],
+      "rotation_y": -3.0137149707870576,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.579237220016307,
+      "canopy_radius": 1.7497182304021592
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -2.5,
+        0.0,
+        5.5
+      ],
+      "rotation_y": -0.34830907267742717,
+      "pebble_chance": 0.45,
+      "trunk_height": 5.394627938844594,
+      "canopy_radius": 1.727423068842746
+    },
+    {
+      "type": "tree",
+      "pos": [
+        3.5,
+        0.0,
+        -2.5
+      ],
+      "rotation_y": -2.356580678357977,
+      "pebble_chance": 0.2,
+      "trunk_height": 4.4570745175684765,
+      "canopy_radius": 1.4297342630417709
     }
   ],
   "load_zones": [

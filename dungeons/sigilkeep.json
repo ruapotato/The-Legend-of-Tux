@@ -5926,6 +5926,24 @@
       ],
       "rotation_y": 0,
       "message": "A wardstone in the wall, fingers-of-the-Source carved deep:\n\n\"What is sealed here is not the Hoarder, but the shape of his hunger. The Sigilkeep waits for one who has learned not to want.\""
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.5,
+        0.5,
+        -10.5
+      ],
+      "pebble_chance": 0.55
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.5,
+        0.5,
+        -8.5
+      ],
+      "pebble_chance": 0.4
     }
   ],
   "load_zones": [
