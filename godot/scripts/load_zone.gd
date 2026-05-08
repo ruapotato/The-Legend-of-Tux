@@ -55,6 +55,22 @@ func _fire(player: Node) -> void:
         return
     _firing = true
     GameState.next_spawn_id = target_spawn
+    # Mirror the destination spawn into current_spawn_id ahead of the
+    # save so the snapshot we take here represents where Tux will be
+    # *after* the transition, not where he was.
+    GameState.current_spawn_id = target_spawn
+    # Pretend we're already on the target scene for the save snapshot
+    # so reloading from this autosave puts the player on the other
+    # side of the door, not back inside the load zone.
+    if GameState.last_slot >= 0:
+        var prior_scene_path: String = ""
+        var scene := get_tree().current_scene
+        if scene:
+            prior_scene_path = scene.scene_file_path
+            scene.scene_file_path = target_scene
+        GameState.save_game(GameState.last_slot)
+        if scene and prior_scene_path != "":
+            scene.scene_file_path = prior_scene_path
     if player and player is CharacterBody3D:
         player.set_physics_process(false)
     SceneFader.change_scene(target_scene)

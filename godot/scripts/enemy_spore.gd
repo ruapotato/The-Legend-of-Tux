@@ -28,8 +28,11 @@ signal died
 @export var spore_cooldown: float = 3.0
 @export var pebble_reward: int = 1
 
-const HOVER_HEIGHT: float = 1.6
+const HOVER_HEIGHT: float = 1.4
 const HOVER_AMP: float = 0.18
+const CHASE_SPEED: float = 1.2
+const CHASE_HOLD_DIST: float = 1.5   # stop closing at this range so the
+                                     # player can swat without it dancing
 const KNOCKBACK_SPEED: float = 5.0
 const HURT_TIME: float = 0.30
 const RETREAT_TIME: float = 2.0
@@ -44,7 +47,7 @@ var hp: int = 3
 var state: int = State.DRIFT
 var state_time: float = 0.0
 var player: Node3D = null
-var _spawn_y: float = 1.6
+var _spawn_y: float = 1.4
 var _spore_ready_at: float = 0.0   # absolute time (sec) when next spore allowed
 
 @onready var visual: Node3D = $Visual
@@ -85,9 +88,21 @@ func _physics_process(delta: float) -> void:
     match state:
         State.DRIFT:
             _bob_y()
-            velocity.x = sin(state_time * 0.6) * 0.5
-            velocity.z = cos(state_time * 0.5) * 0.5
             visual.rotation.y += delta * 1.5
+            # Chase toward the player when in aggro range, but stop
+            # closing once near so they can land a hit. Outside aggro
+            # range, fall back to gentle ambient drift.
+            if dist < aggro_range and player and is_instance_valid(player):
+                if dist > CHASE_HOLD_DIST:
+                    var n: Vector3 = to_player.normalized()
+                    velocity.x = n.x * CHASE_SPEED
+                    velocity.z = n.z * CHASE_SPEED
+                else:
+                    velocity.x = move_toward(velocity.x, 0.0, 6.0 * delta)
+                    velocity.z = move_toward(velocity.z, 0.0, 6.0 * delta)
+            else:
+                velocity.x = sin(state_time * 0.6) * 0.5
+                velocity.z = cos(state_time * 0.5) * 0.5
             if dist < aggro_range and now >= _spore_ready_at:
                 _set_state(State.APPROACH)
         State.APPROACH:

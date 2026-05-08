@@ -6,6 +6,11 @@ extends Node3D
 # with the scene).
 
 @export var contents_scene: PackedScene
+# When the chest's contents is a small-key pickup, this overrides which
+# dungeon key-group the spawned key counts toward. Empty = use the
+# scene's current group (set by dungeon_root.gd). Forwarded onto the
+# spawned pickup if it has a `key_group` property.
+@export var contents_key_group: String = ""
 @export var open_message: String = ""
 
 @onready var lid: MeshInstance3D = $Body/Lid
@@ -53,6 +58,11 @@ func _open() -> void:
     t.tween_property(lid, "rotation:x", _start_lid_rot.x - 1.4, 0.5)
     if contents_scene:
         var item: Node3D = contents_scene.instantiate()
+        # Forward the per-chest key-group override onto the spawned
+        # pickup if it carries that field. Pickups without it (pebble,
+        # heart, items) silently ignore this.
+        if contents_key_group != "" and "key_group" in item:
+            item.set("key_group", contents_key_group)
         get_parent().add_child(item)
         item.global_position = global_position + Vector3(0, 0.5, 0)
         # Tiny pop animation

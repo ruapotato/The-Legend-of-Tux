@@ -13,6 +13,12 @@ enum Kind { PEBBLE, FISH, KEY, ITEM }
 @export var item_name: String = ""    # used when kind == ITEM
 @export var pebble_amount: int = 1
 @export var fish_amount: int = 1      # = 4 HP units per fish
+# Used only when kind == KEY: which dungeon key-group this key counts
+# toward. Empty falls back to GameState.current_key_group (set by
+# dungeon_root.gd), so a key dropped in a level naturally tags itself
+# to that level. A chest can override this to hand out a key for a
+# different dungeon (antechamber → main dungeon, etc.).
+@export var key_group: String = ""
 @export var pickup_message: String = ""  # if non-empty, shows in dialog box on grab
 
 @onready var visual: Node3D = $Visual
@@ -54,7 +60,7 @@ func _on_body_entered(body: Node) -> void:
             GameState.heal(fish_amount * GameState.HP_PER_FISH)
             SoundBank.play_2d("pebble_get")
         Kind.KEY:
-            GameState.add_key()
+            GameState.add_key(key_group)
             SoundBank.play_2d("pebble_get")
         Kind.ITEM:
             if item_name != "":

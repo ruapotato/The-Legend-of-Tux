@@ -10,6 +10,11 @@ extends Node3D
 # Area3D the player walks into to expose the [E] open prompt.
 
 @export var requires_key: bool = true
+# Optional per-door override for which key group unlocks this door.
+# Empty = inherit the scene's current key group (set by dungeon_root.gd).
+# Useful when an antechamber's key should open a door in the main
+# dungeon — give the door the dungeon's group explicitly here.
+@export var key_group: String = ""
 @export var open_offset: Vector3 = Vector3(0, 2.6, 0)
 @export var open_duration: float = 0.55
 @export var locked_message: String = "Locked. A small key would open this door."
@@ -52,7 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("interact") and not Dialog.is_active():
         get_viewport().set_input_as_handled()
         if requires_key:
-            if GameState.consume_key():
+            if GameState.consume_key(key_group):
                 _open()
                 Dialog.show_message(unlock_message)
             else:

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxminimap01"]
+
+[ext_resource type="Script" path="res://scripts/mini_map.gd" id="1_mini_map"]
+
+[node name="MiniMap" type="Control"]
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -216.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 216.0
+mouse_filter = 2
+script = ExtResource("1_mini_map")

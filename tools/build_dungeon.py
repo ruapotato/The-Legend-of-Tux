@@ -9,6 +9,10 @@ Schema (rough; see dungeons/*.json for live examples):
     {
       "name":        str,
       "id":          str,           # output filename (and target_scene path)
+      "key_group":   str?,          # per-dungeon small-key bucket; defaults
+                                    # to `id`. Adjacent levels share a
+                                    # group (Ocarina-style multi-room
+                                    # dungeon) by setting the same value.
       "environment": {
         "sky_top":         [r,g,b,a]?,    # ProceduralSkyMaterial colors
         "sky_horizon":     [r,g,b,a]?,
@@ -35,6 +39,7 @@ Schema (rough; see dungeons/*.json for live examples):
         {"rooms": ["entry","boss"]?,      # optional; just a wall cutout otherwise
          "x", "z", "width",
          "door": {"type": "open|unlocked|locked",
+                  "key_group"?: str,      # override the dungeon's key bucket
                   "locked_message"?, "unlock_message"?} | null
         }
       ],
@@ -48,7 +53,11 @@ Schema (rough; see dungeons/*.json for live examples):
       "enemies": [{"type":"blob|knight|bat", "pos":[x,y,z]}],
       "props": [
         {"type":"sign", "pos":[x,y,z], "rotation_y"?, "message":str},
-        {"type":"chest", "pos":[x,y,z], "rotation_y"?, "contents":"key|boomerang|...", "open_message"?}
+        {"type":"chest", "pos":[x,y,z], "rotation_y"?, "contents":"key|boomerang|...",
+         "key_group"?: str,             # for contents=="key": override the
+                                        # dungeon's key bucket so the chest
+                                        # awards a key for a different group
+         "open_message"?}
       ],
       "load_zones": [
         {"pos":[x,y,z], "size":[w,h,d], "rotation_y"?,
@@ -83,7 +92,9 @@ EXT_RESOURCES = {
     "tomato":           ("PackedScene", "uid://btuxtmto01", "res://scenes/enemy_tomato.tscn"),
     "spore":            ("PackedScene", "uid://btuxspr01",  "res://scenes/enemy_spore.tscn"),
     "wisp_hunter":      ("PackedScene", "uid://btuxwsph01", "res://scenes/enemy_wisp_hunter.tscn"),
+    "skull_spider":     ("PackedScene", "uid://btuxsklsp01", "res://scenes/enemy_skull_spider.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
+    "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "door":             ("PackedScene", "uid://btuxdoor01", "res://scenes/door.tscn"),
     "chest":            ("PackedScene", "uid://btuxchst01", "res://scenes/treasure_chest.tscn"),
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
@@ -108,12 +119,13 @@ CONTENTS_TO_EXT = {
 }
 
 ENEMY_TO_EXT = {
-    "blob":        "blob",
-    "knight":      "knight",
-    "bat":         "bat",
-    "tomato":      "tomato",
-    "spore":       "spore",
-    "wisp_hunter": "wisp_hunter",
+    "blob":         "blob",
+    "knight":       "knight",
+    "bat":          "bat",
+    "tomato":       "tomato",
+    "spore":        "spore",
+    "wisp_hunter":  "wisp_hunter",
+    "skull_spider": "skull_spider",
 }
 
 WALL_THICKNESS = 0.5
@@ -372,13 +384,17 @@ def emit_doors(b, doorways):
         requires_key = "true" if kind == "locked" else "false"
         locked_msg = escape(door.get("locked_message", "Locked. A small key would open this door."))
         unlock_msg = escape(door.get("unlock_message", "The lock turns. The door slides open."))
+        attrs = [
+            'transform = %s' % t3(x, 0, z, rot),
+            'requires_key = %s' % requires_key,
+            'locked_message = "%s"' % locked_msg,
+            'unlock_message = "%s"' % unlock_msg,
+        ]
+        if "key_group" in door:
+            attrs.append('key_group = "%s"' % escape(str(door["key_group"])))
         b.add_node(
             '[node name="Door%d" parent="." instance=ExtResource("door")]\n'
-            'transform = %s\n'
-            'requires_key = %s\n'
-            'locked_message = "%s"\n'
-            'unlock_message = "%s"\n'
-            % (i, t3(x, 0, z, rot), requires_key, locked_msg, unlock_msg)
+            % i + "\n".join(attrs) + "\n"
         )
 
 
@@ -467,15 +483,18 @@ def emit_doors_v2(b, doors):
                                   "The lock turns. The door opens."))
         door_width = float(d.get("door_width", 1.6))
         b.ext("door")
+        attrs = [
+            'transform = %s' % t3(x, y, z, rot),
+            'requires_key = %s' % requires_key,
+            'door_width = %g' % door_width,
+            'locked_message = "%s"' % locked_msg,
+            'unlock_message = "%s"' % unlock_msg,
+        ]
+        if "key_group" in d:
+            attrs.append('key_group = "%s"' % escape(str(d["key_group"])))
         b.add_node(
             '[node name="Door%d" parent="." instance=ExtResource("door")]\n'
-            'transform = %s\n'
-            'requires_key = %s\n'
-            'door_width = %g\n'
-            'locked_message = "%s"\n'
-            'unlock_message = "%s"\n'
-            % (i, t3(x, y, z, rot), requires_key, door_width,
-               locked_msg, unlock_msg)
+            % i + "\n".join(attrs) + "\n"
         )
 
         ext_len = float(d.get("wall_extension", 0.0))
@@ -848,8 +867,23 @@ def emit_props(b, props):
                 attrs.append('contents_amount = %d' % int(p["amount"]))
             if p.get("item_name"):
                 attrs.append('contents_item_name = "%s"' % escape(str(p["item_name"])))
+            # When a chest dispenses a small key, allow the JSON to
+            # tag the spawned key with a different dungeon's group.
+            if "key_group" in p:
+                attrs.append('contents_key_group = "%s"' % escape(str(p["key_group"])))
             b.add_node(
                 '[node name="Chest%d" parent="." instance=ExtResource("chest")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "bush":
+            b.ext("bush")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "drop_chance" in p:
+                attrs.append('drop_chance = %g' % float(p["drop_chance"]))
+            if "pebble_amount" in p:
+                attrs.append('pebble_amount = %d' % int(p["pebble_amount"]))
+            b.add_node(
+                '[node name="Bush%d" parent="." instance=ExtResource("bush")]\n'
                 % i + "\n".join(attrs) + "\n"
             )
 
@@ -957,9 +991,13 @@ def convert(json_path):
         data = json.load(f)
     b = Builder(data)
     b.ext("root_script")
-    # Root node first (must precede everything)
+    # Root node first (must precede everything). The dungeon-wide
+    # key_group field rides on the root so dungeon_root.gd can read it
+    # at _ready and tell GameState which key bucket to use.
+    key_group = data.get("key_group", data["id"])
     root_attrs = [
         'script = ExtResource("root_script")',
+        'key_group = "%s"' % escape(str(key_group)),
     ]
     b.nodes.append('[node name="%s" type="Node3D"]\n%s\n'
                    % (data.get("name", data["id"]), "\n".join(root_attrs)))

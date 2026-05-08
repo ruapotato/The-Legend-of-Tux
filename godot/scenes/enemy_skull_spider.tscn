@@ -1,0 +1,118 @@
+[gd_scene load_steps=11 format=3 uid="uid://btuxsklsp01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_skull_spider.gd" id="1_sksp"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.30
+height = 0.45
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 0.32
+height = 0.50
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.20, 0.10, 0.32, 1)
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.30, 0.10, 0.45, 1)
+emission_energy_multiplier = 0.30
+
+[sub_resource type="CylinderMesh" id="leg_mesh"]
+top_radius = 0.025
+bottom_radius = 0.035
+height = 0.55
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="leg_mat"]
+albedo_color = Color(0.06, 0.05, 0.08, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="skull_mesh"]
+radius = 0.13
+height = 0.22
+radial_segments = 10
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="skull_mat"]
+albedo_color = Color(0.92, 0.92, 0.86, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.85, 0.85, 0.78, 1)
+emission_energy_multiplier = 0.40
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.7, 0.6, 0.7)
+
+[node name="SkullSpider" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_sksp")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+
+[node name="Skull" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20, -0.05)
+mesh = SubResource("skull_mesh")
+surface_material_override/0 = SubResource("skull_mat")
+
+[node name="Legs" type="Node3D" parent="Visual"]
+
+[node name="Leg1" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0.612, -0.350, 0.707, 0.500, 0.866, 0, -0.612, 0.354, 0.707, 0.30, -0.10, 0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg2" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(-0.612, 0.350, 0.707, 0.500, 0.866, 0, -0.612, 0.354, -0.707, -0.30, -0.10, 0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg3" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0.612, -0.350, -0.707, 0.500, 0.866, 0, 0.612, -0.354, 0.707, 0.30, -0.10, -0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg4" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(-0.612, 0.350, -0.707, 0.500, 0.866, 0, 0.612, -0.354, -0.707, -0.30, -0.10, -0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg5" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0, -0.500, 0.866, 0.500, 0.750, 0.433, -0.866, 0.433, 0.250, 0.40, -0.10, 0.0)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg6" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0, 0.500, -0.866, 0.500, 0.750, 0.433, 0.866, -0.433, -0.250, -0.40, -0.10, 0.0)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg7" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0.866, -0.433, 0, 0.500, 0.866, 0, 0, 0, 1, 0, -0.10, 0.40)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Leg8" type="MeshInstance3D" parent="Visual/Legs"]
+transform = Transform3D(0.866, 0.433, 0, -0.500, 0.866, 0, 0, 0, 1, 0, -0.10, -0.40)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("leg_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30, 0)
+shape = SubResource("hit_shape")

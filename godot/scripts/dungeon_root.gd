@@ -3,12 +3,30 @@ extends Node3D
 # Root of every JSON-built dungeon scene. Reads GameState.next_spawn_id
 # at _ready and repositions Tux at the matching Marker3D under
 # $Spawns/. Falls back to a marker named "default" if no match.
+#
+# Also auto-instances the mini-map widget under the scene's HUD
+# CanvasLayer so every built dungeon shows it without each scene file
+# having to opt in.
+
+const MINI_MAP_SCENE: String = "res://scenes/mini_map.tscn"
+
+# Per-dungeon key group. Keys collected here can only be spent on doors
+# tagged with the same group (or doors that inherit the scene's group
+# by leaving their own key_group empty). Defaults to the scene file's
+# basename if left blank — so adjacent levels intentionally share keys
+# only when authored to do so via the level JSON's `key_group` field.
+@export var key_group: String = ""
+
 
 func _ready() -> void:
+    _attach_mini_map()
+    _apply_key_group()
+
     var spawn_id: String = GameState.next_spawn_id
     if spawn_id == "":
         spawn_id = "default"
     GameState.next_spawn_id = ""    # consumed
+    GameState.current_spawn_id = spawn_id
 
     var spawns_root: Node = get_node_or_null("Spawns")
     if not spawns_root:
@@ -36,3 +54,35 @@ func _ready() -> void:
     var camera_node: Node = get_node_or_null("Camera")
     if camera_node and camera_node.has_method("set_yaw"):
         camera_node.set_yaw(marker.rotation.y + PI)
+
+
+func _apply_key_group() -> void:
+    var group := key_group
+    if group == "":
+        var p: String = scene_file_path
+        if p.begins_with("res://scenes/"):
+            p = p.substr("res://scenes/".length())
+        if p.ends_with(".tscn"):
+            p = p.substr(0, p.length() - ".tscn".length())
+        group = p
+    GameState.set_key_group(group)
+
+
+func _attach_mini_map() -> void:
+    # Find a HUD CanvasLayer already in the tree and parent the
+    # mini-map under it so it draws above the world but below pause UI.
+    var hud: Node = get_node_or_null("HUD")
+    if hud == null:
+        for child in get_children():
+            if child is CanvasLayer and child.name == "HUD":
+                hud = child
+                break
+    if hud == null:
+        return
+    if hud.get_node_or_null("MiniMap") != null:
+        return
+    var packed: PackedScene = load(MINI_MAP_SCENE)
+    if packed == null:
+        return
+    var instance: Node = packed.instantiate()
+    hud.add_child(instance)

@@ -29,7 +29,7 @@ func _ready() -> void:
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
     _on_pebbles_changed(GameState.pebbles)
-    _on_keys_changed(GameState.keys)
+    _on_keys_changed(GameState.current_key_group, GameState.get_keys())
     _on_active_item_changed(GameState.active_b_item)
 
 
@@ -46,7 +46,11 @@ func _on_pebbles_changed(amount: int) -> void:
     pebble_label.text = "Pebbles: %d" % amount
 
 
-func _on_keys_changed(amount: int) -> void:
+func _on_keys_changed(group: String, amount: int) -> void:
+    # Only refresh when the signal is for the dungeon Tux is currently
+    # in; other groups' counts are bookkeeping the HUD shouldn't show.
+    if group != GameState.current_key_group:
+        return
     if not keys_label:
         return
     if amount <= 0:
