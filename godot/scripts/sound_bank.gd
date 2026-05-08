@@ -38,9 +38,17 @@ var _idx_2d: int = 0
 func _ready() -> void:
     for sound_name in SOUND_NAMES:
         var path := "%s/%s.wav" % [SOUNDS_DIR, sound_name]
+        # Tolerant load — if Godot's .godot/imported cache is stale or
+        # missing (e.g., after deleting .godot/ to clear an unrelated
+        # cache), skip the file with a warning instead of throwing.
+        if not ResourceLoader.exists(path):
+            push_warning("SoundBank: skipping missing %s" % path)
+            continue
         var s: AudioStream = load(path)
         if s:
             _streams[sound_name] = s
+        else:
+            push_warning("SoundBank: failed to load %s" % path)
     for _i in range(VOICE_COUNT_3D):
         var p := AudioStreamPlayer3D.new()
         p.unit_size = 8.0

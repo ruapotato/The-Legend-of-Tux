@@ -1,17 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://btuxwyrdwood01"]
+[gd_scene load_steps=28 format=3 uid="uid://btuxwyrdwood01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.22, 0.28, 1)
@@ -46,11 +46,38 @@ size = Vector2(30, 45)
 [sub_resource type="BoxShape3D" id="s7"]
 size = Vector3(4, 3, 1.5)
 
-[sub_resource type="BoxShape3D" id="s8"]
+[sub_resource type="BoxMesh" id="s8"]
+size = Vector3(4.5, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s9"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="s10"]
 size = Vector3(1.5, 3, 4)
 
-[sub_resource type="BoxShape3D" id="s9"]
+[sub_resource type="BoxMesh" id="s11"]
+size = Vector3(2, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s12"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="s13"]
 size = Vector3(4, 3, 1.5)
+
+[sub_resource type="BoxMesh" id="s14"]
+size = Vector3(4.5, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s15"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
 
 [node name="Wyrdwood" type="Node3D"]
 script = ExtResource("root_script")
@@ -167,8 +194,12 @@ prompt = "[E] Back to the Glade"
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
 shape = SubResource("s7")
 
+[node name="Veil" type="MeshInstance3D" parent="LoadZone0"]
+mesh = SubResource("s8")
+surface_material_override/0 = SubResource("s9")
+
 [node name="Hint" type="Label3D" parent="LoadZone0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Back to the Glade"
 font_size = 32
 outline_size = 8
@@ -187,10 +218,14 @@ auto_trigger = true
 prompt = "[E] Enter the Hollow"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s8")
+shape = SubResource("s10")
+
+[node name="Veil" type="MeshInstance3D" parent="LoadZone1"]
+mesh = SubResource("s11")
+surface_material_override/0 = SubResource("s12")
 
 [node name="Hint" type="Label3D" parent="LoadZone1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Enter the Hollow"
 font_size = 32
 outline_size = 8
@@ -209,10 +244,14 @@ auto_trigger = true
 prompt = "[E] Onto the bridge"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s9")
+shape = SubResource("s13")
+
+[node name="Veil" type="MeshInstance3D" parent="LoadZone2"]
+mesh = SubResource("s14")
+surface_material_override/0 = SubResource("s15")
 
 [node name="Hint" type="Label3D" parent="LoadZone2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Onto the bridge"
 font_size = 32
 outline_size = 8

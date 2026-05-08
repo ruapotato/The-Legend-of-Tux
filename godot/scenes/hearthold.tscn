@@ -1,14 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://btuxhearthol01"]
+[gd_scene load_steps=35 format=3 uid="uid://btuxhearthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.55, 0.78, 1)
@@ -84,8 +84,26 @@ size = Vector3(0.5, 5, 40)
 [sub_resource type="BoxShape3D" id="s20"]
 size = Vector3(4, 3, 1)
 
-[sub_resource type="BoxShape3D" id="s21"]
+[sub_resource type="BoxMesh" id="s21"]
+size = Vector3(4.5, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s22"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="s23"]
 size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxMesh" id="s24"]
+size = Vector3(4.5, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s25"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
 
 [node name="Hearthold" type="Node3D"]
 script = ExtResource("root_script")
@@ -233,8 +251,12 @@ prompt = "[E] Out to the plain"
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
 shape = SubResource("s20")
 
+[node name="Veil" type="MeshInstance3D" parent="LoadZone0"]
+mesh = SubResource("s21")
+surface_material_override/0 = SubResource("s22")
+
 [node name="Hint" type="Label3D" parent="LoadZone0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Out to the plain"
 font_size = 32
 outline_size = 8
@@ -253,10 +275,14 @@ auto_trigger = true
 prompt = "[E] Toward the Sigilkeep"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s21")
+shape = SubResource("s23")
+
+[node name="Veil" type="MeshInstance3D" parent="LoadZone1"]
+mesh = SubResource("s24")
+surface_material_override/0 = SubResource("s25")
 
 [node name="Hint" type="Label3D" parent="LoadZone1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Toward the Sigilkeep"
 font_size = 32
 outline_size = 8

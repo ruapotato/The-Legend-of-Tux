@@ -545,6 +545,17 @@ def emit_load_zones(b, zones):
         auto = "true" if lz.get("auto", True) else "false"
         prompt = escape(lz.get("prompt", ""))
         shape = b.add_sub("BoxShape3D", [("size", vstr([sx, sy, sz]))])
+        # Dark "veil" plane behind the trigger so the player can't see
+        # bright sky through the tree-wall gap. Sized to the trigger's
+        # width × height; sits inside the trigger so it's flush with
+        # the portal entrance.
+        veil_mesh = b.add_sub("BoxMesh", [("size", vstr([sx + 0.5, sy + 1.5, 0.1]))])
+        veil_mat = b.add_sub("StandardMaterial3D", [
+            ("albedo_color",  "Color(0.02, 0.02, 0.04, 1)"),
+            ("shading_mode",  "0"),
+            ("emission_enabled", "true"),
+            ("emission",      "Color(0, 0, 0, 1)"),
+        ])
         attrs = [
             'transform = %s' % t3(x, y, z, rot),
             'collision_layer = 64',
@@ -562,6 +573,9 @@ def emit_load_zones(b, zones):
             % i + "\n".join(attrs) + '\n\n'
             '[node name="Shape" type="CollisionShape3D" parent="LoadZone%d"]\n'
             'shape = SubResource("%s")\n\n'
+            '[node name="Veil" type="MeshInstance3D" parent="LoadZone%d"]\n'
+            'mesh = SubResource("%s")\n'
+            'surface_material_override/0 = SubResource("%s")\n\n'
             '[node name="Hint" type="Label3D" parent="LoadZone%d"]\n'
             'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, %g, 0)\n'
             'text = "%s"\n'
@@ -569,7 +583,7 @@ def emit_load_zones(b, zones):
             'outline_size = 8\n'
             'billboard = 1\n'
             'no_depth_test = true\n'
-            % (i, shape, i, sy + 0.5, prompt or "Travel")
+            % (i, shape, i, veil_mesh, veil_mat, i, sy + 0.8, prompt or "Travel")
         )
 
 
