@@ -131,15 +131,16 @@ func _find_attacker() -> Node:
     return null
 
 
-# A reasonably descriptive identifier for log lines. Walks up the tree
-# until the scene root so you can tell which knight/player a hitbox
-# belongs to.
+# Identifier for log lines. Walks up to the owning CharacterBody3D so
+# you can tell whether a print is from the player's hitbox or one of
+# the knights' (otherwise both share the path arm_r/Sword/SwordHitbox
+# and the prints are indistinguishable).
 func _label() -> String:
-    var parts: Array = []
-    var n: Node = self
-    var depth: int = 0
-    while n and depth < 4:
-        parts.push_front(n.name)
+    var owner: String = "?"
+    var n: Node = get_parent()
+    while n:
+        if n is CharacterBody3D:
+            owner = n.name
+            break
         n = n.get_parent()
-        depth += 1
-    return "/".join(parts)
+    return "%s/SwordHitbox" % owner

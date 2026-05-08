@@ -38,8 +38,12 @@ signal died
 const KNOCKBACK_SPEED: float = 6.0
 const GRAVITY: float = 24.0
 const TELEGRAPH_TIME: float = 0.55
-const SLASH_DURATION: float = 0.45
-const SLASH_HIT_WINDOW: Vector2 = Vector2(0.10, 0.30)
+# Aligned with the new TuxAnim swing_1 duration (0.32s). Previously the
+# state held the slash for 0.45s while the anim finished in 0.32s —
+# the sword was frozen at the end pose for the back half of the
+# active window, so the hitbox sat motionless instead of sweeping.
+const SLASH_DURATION: float = 0.32
+const SLASH_HIT_WINDOW: Vector2 = Vector2(0.07, 0.22)
 const RECOVER_TIME: float = 0.55
 const DEFEND_TIME: float = 0.55
 const HURT_TIME: float = 0.32

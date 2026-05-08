@@ -27,7 +27,7 @@ size = Vector3(0.22, 0.05, 0.05)
 size = Vector3(0.05, 0.13, 0.05)
 
 [sub_resource type="BoxShape3D" id="sword_box"]
-size = Vector3(0.12, 0.68, 0.12)
+size = Vector3(0.5, 1.0, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="shield_wood_mat"]
 albedo_color = Color(0.28, 0.20, 0.13, 1)
