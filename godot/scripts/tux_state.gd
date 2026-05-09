@@ -127,6 +127,11 @@ const FLIP_IMPULSE         := 7.0
 # rotates to follow camera-forward so you can keep the shield pointed
 # at a circling enemy by aiming the camera.
 const BLOCK_WALK_SPEED     := 2.2
+# Slow shuffle once the spin is fully charged — same idea as
+# shield-walk, lets you reposition the spin's footprint without
+# dropping the charge. Speed is intentionally below BLOCK_WALK so
+# you can't sprint into a free 360.
+const CHARGE_WALK_SPEED    := 1.5
 const BLOCK_FACE_TURN      := 6.0     # rad/s — slower than free turn
 
 # Knockback applied to the attacker when their hit is parried/blocked.
@@ -412,8 +417,21 @@ func _act_jump_attack(_delta: float) -> bool:
 func _act_charging(delta: float) -> bool:
     charge_time += delta
     spend_stamina.call(int(CHARGE_DRAIN_PER_SEC * delta + 0.5))
-    vel.x = move_toward(vel.x, 0.0, 16.0 * _step_delta)
-    vel.z = move_toward(vel.z, 0.0, 16.0 * _step_delta)
+    # Wind-up: pinned in place while the charge builds, so the player
+    # has to commit. Once fully charged the spin "settles" and the
+    # stick lets you shuffle slowly to align the swing — picking which
+    # enemies you want to catch in the 360.
+    if charge_time >= CHARGE_TIME_FOR_SPIN:
+        var stick_dir := _stick_to_world_dir()
+        if stick_dir.length() > 0.1:
+            vel.x = stick_dir.x * CHARGE_WALK_SPEED * input_stick.length()
+            vel.z = stick_dir.z * CHARGE_WALK_SPEED * input_stick.length()
+        else:
+            vel.x = move_toward(vel.x, 0.0, 16.0 * _step_delta)
+            vel.z = move_toward(vel.z, 0.0, 16.0 * _step_delta)
+    else:
+        vel.x = move_toward(vel.x, 0.0, 16.0 * _step_delta)
+        vel.z = move_toward(vel.z, 0.0, 16.0 * _step_delta)
     vel.y = -1.0
 
     if charge_time < CHARGE_TIME_FOR_SPIN:
