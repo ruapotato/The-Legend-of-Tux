@@ -1,19 +1,20 @@
-[gd_scene load_steps=330 format=3 uid="uid://btuxhearthol01"]
+[gd_scene load_steps=331 format=3 uid="uid://btuxhearthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.55, 0.78, 1)
@@ -2854,36 +2855,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -18)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 16)
 message = "Hearthold.\n\nThe gate is thrown open. Smoke from the kilns rises to meet the rooks. North: the Sigilkeep. The wardstones still glow there, faintly."
 
-[node name="Sign1" parent="." instance=ExtResource("sign")]
+[node name="OwlStatue_owl_hearthold" parent="." instance=ExtResource("owl_statue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 8)
+warp_id = "owl_hearthold"
+warp_name = "Hearthold Yard"
+warp_target_scene = "hearthold"
+warp_target_spawn = "from_sourceplain"
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -12, 0, 4)
 message = "A hand-painted shingle: \"Takka the Pebbler. Trades stone for stone. Will not haggle.\"\n\nThe shop is shuttered."
 
-[node name="Sign2" parent="." instance=ExtResource("sign")]
+[node name="Sign3" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 12, 0, 4)
 message = "A wax-sealed notice on the smithy door:\n\n\"By order of the keepers of the Hold: no sword may be carried past the inner gate. Edge magic flares badly near the sealed wards.\""
 
-[node name="Sign3" parent="." instance=ExtResource("sign")]
+[node name="Sign4" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 12)
 message = "A wax-fresh proclamation:\n\n\"By the keepers of Hearthold: any traveler who has drawn breath in the Sourceplain shall be welcomed at the hearths within. Coin is not asked of the brave.\""
 
-[node name="Chest4" parent="." instance=ExtResource("chest")]
+[node name="Chest5" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 12)
 contents_scene = ExtResource("heart_pickup")
 open_message = "A bundle of warm bread and a heart-flower. The keepers' welcome."
 
-[node name="Rock5" parent="." instance=ExtResource("rock")]
+[node name="Rock6" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0.5, 12.5)
 pebble_chance = 0.4
 
-[node name="Rock6" parent="." instance=ExtResource("rock")]
+[node name="Rock7" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.5, -6.5)
 pebble_chance = 0.3
 
-[node name="Rock7" parent="." instance=ExtResource("rock")]
+[node name="Rock8" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.5, -7.5)
 pebble_chance = 0.3
 
-[node name="Npc8_Hearthold_Elder" parent="." instance=ExtResource("npc")]
+[node name="Npc9_Hearthold_Elder" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 4)
 npc_name = "Hearthold Elder"
 body_color = Color(0.55, 0.42, 0.3, 1)
@@ -2891,7 +2899,7 @@ hat_color = Color(0.3, 0.2, 0.12, 1)
 idle_hint = "[E] Speak with the Elder"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Hearthold Elder\", \"text\": \"Well met, little wanderer. The kilns burn warm tonight, and the rooks still keep their watch. Ask, if you would.\", \"choices\": [{\"label\": \"Tell me about the Source.\", \"next\": \"source\"}, {\"label\": \"What of Khorgaul?\", \"next\": \"khorgaul\"}, {\"label\": \"What is the Sigil?\", \"next\": \"sigil\"}, {\"label\": \"I should be going.\", \"next\": \"bye\"}]}, \"source\": {\"speaker\": \"Hearthold Elder\", \"text\": \"The Source is the spring of all green things — the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.\", \"choices\": [{\"label\": \"And the Sigil?\", \"next\": \"sigil\"}, {\"label\": \"And Khorgaul?\", \"next\": \"khorgaul\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"khorgaul\": {\"speaker\": \"Hearthold Elder\", \"text\": \"The Hoarder. He does not steal so much as he gathers — the light, the warmth, the names of things. The wardstones held him once. They thin now.\", \"choices\": [{\"label\": \"Tell me of the Source.\", \"next\": \"source\"}, {\"label\": \"And the Sigil?\", \"next\": \"sigil\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"sigil\": {\"speaker\": \"Hearthold Elder\", \"text\": \"The Triglyph — three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.\", \"choices\": [{\"label\": \"Tell me of the Source.\", \"next\": \"source\"}, {\"label\": \"And Khorgaul?\", \"next\": \"khorgaul\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Hearthold Elder\", \"text\": \"Walk under the wing of Lirien, friend.\"}}}"
 
-[node name="Npc9_Takka_the_Smith" parent="." instance=ExtResource("npc")]
+[node name="Npc10_Takka_the_Smith" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 10, 0, 4)
 npc_name = "Takka the Smith"
 body_color = Color(0.4, 0.35, 0.45, 1)
@@ -2899,13 +2907,29 @@ hat_color = Color(0.55, 0.3, 0.15, 1)
 idle_hint = "[E] Talk to Takka"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Takka the Smith\", \"text\": \"Eh? You look light in the pouch, traveler. Need any pebbles for the sling?\", \"choices\": [{\"label\": \"Yes — spare me a handful.\", \"next\": \"give\", \"requires_not\": \"took_takka_pebbles\"}, {\"label\": \"You already gave me some.\", \"next\": \"already_gave\", \"requires\": \"took_takka_pebbles\"}, {\"label\": \"No, I'm fine.\", \"next\": \"bye\"}]}, \"give\": {\"speaker\": \"Takka the Smith\", \"text\": \"Five pebbles. Good for one good throw and four bad ones. Don't tell the Pebbler.\", \"give_pebbles\": 5, \"next\": \"post_give\"}, \"post_give\": {\"speaker\": \"Takka the Smith\", \"text\": \"Mind the wardstones to the north. They sing when they're upset.\", \"choices\": [{\"label\": \"Thanks, Takka.\", \"next\": \"bye\", \"sets\": \"took_takka_pebbles\"}]}, \"already_gave\": {\"speaker\": \"Takka the Smith\", \"text\": \"Aye, and I'll not give again 'til the moon turns. Off with you, sling-arm.\"}, \"bye\": {\"speaker\": \"Takka the Smith\", \"text\": \"Hammer and hearth keep you.\"}}}"
 
-[node name="Npc10_Pim" parent="." instance=ExtResource("npc")]
+[node name="Npc11_Pim" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -3, 0, 8)
 npc_name = "Pim"
 body_color = Color(0.7, 0.8, 0.6, 1)
 hat_color = Color(0.95, 0.65, 0.3, 1)
 idle_hint = "[E] Talk to Pim"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Pim\", \"text\": \"Lambwisp! LAMBWISP! Did you see one? It went *floof* and then it went *poof*!\", \"next\": \"two\"}, \"two\": {\"speaker\": \"Pim\", \"text\": \"Mama says they're little pieces of Lirien's breath. I want to catch one and put it in a jar. Don't tell mama.\"}}}"
+
+[node name="Npc12_Father_Velis" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -7, 0, -6)
+npc_name = "Father Velis"
+body_color = Color(0.6, 0.4, 0.3, 1)
+hat_color = Color(0.85, 0.55, 0.3, 1)
+idle_hint = "[E] Speak with Father Velis"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Father Velis\", \"text\": \"Welcome to the Hearth-shrine, traveler. The kilns warm our bones; the Source warms our names. You bring questions. Speak them.\", \"choices\": [{\"label\": \"Tell me of the Source.\", \"next\": \"source\"}, {\"label\": \"Tell me of the Triglyph.\", \"next\": \"trig\"}, {\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"What is this shrine for?\", \"next\": \"shrine\"}, {\"label\": \"Bless me, then.\", \"next\": \"bless\"}]}, \"source\": {\"speaker\": \"Father Velis\", \"text\": \"The Source flows through every green thing — through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.\", \"choices\": [{\"label\": \"Tell me of the Triglyph.\", \"next\": \"trig\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"trig\": {\"speaker\": \"Father Velis\", \"text\": \"Three sigils, three vows. Sight — to see truly. Shaping — to make and unmake. Sharing — to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.\", \"choices\": [{\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"lirien\": {\"speaker\": \"Father Velis\", \"text\": \"Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving — the freedom of the green to grow and grow again.\", \"choices\": [{\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"khor\": {\"speaker\": \"Father Velis\", \"text\": \"Khorgaul the Hoarder, the Cold-hand, the Without-Sharing. He is what the Source becomes when nothing is given. We do not curse him at the shrine. We pity him. And we hold the wards.\", \"choices\": [{\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"shrine\": {\"speaker\": \"Father Velis\", \"text\": \"The hearth-shrine warms two flames — one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.\", \"choices\": [{\"label\": \"Bless me, then.\", \"next\": \"bless\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bless\": {\"speaker\": \"Father Velis\", \"text\": \"*marks your brow with ash*\\nGo with the wing of Lirien at your back. Go with the green underfoot. Go with the giving in your hand.\"}}}"
+
+[node name="Npc13_Tilly" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.801144, 0, 0.598472, 0, 1, 0, -0.598472, 0, -0.801144, 6, 0, -2)
+npc_name = "Tilly"
+body_color = Color(0.75, 0.5, 0.4, 1)
+hat_color = Color(0.9, 0.65, 0.3, 1)
+idle_hint = "[E] Talk to Tilly"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Tilly\", \"text\": \"HYAA! I am the bravest knight in Hearthold and I have THREE swords and they are ALL invisible except this one which is a stick.\", \"next\": \"two\"}, \"two\": {\"speaker\": \"Tilly\", \"text\": \"Wanna duel? *brandishes stick*\\nNo? Fine. I'll save the realm without you. Tell Father Velis if I don't come back by supper.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 19.5)

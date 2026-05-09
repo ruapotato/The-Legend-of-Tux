@@ -1,29 +1,33 @@
-[gd_scene load_steps=293 format=3 uid="uid://btuxdungeonf01"]
+[gd_scene load_steps=297 format=3 uid="uid://btuxdungeonf01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxeye01" path="res://scenes/eye_target.tscn" id="eye_target"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtrch01" path="res://scenes/torch.tscn" id="torch"]
-[ext_resource type="PackedScene" uid="uid://btuxblck01" path="res://scenes/movable_block.tscn" id="movable_block"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtgte01" path="res://scenes/triggered_gate.tscn" id="triggered_gate"]
 [ext_resource type="PackedScene" uid="uid://btuxplt01" path="res://scenes/pressure_plate.tscn" id="pressure_plate"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxeye01" path="res://scenes/eye_target.tscn" id="eye_target"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxdoor01" path="res://scenes/door.tscn" id="door"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxtrch01" path="res://scenes/torch.tscn" id="torch"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblck01" path="res://scenes/movable_block.tscn" id="movable_block"]
+[ext_resource type="PackedScene" uid="uid://btuxwyrk01" path="res://scenes/enemy_wyrdking.tscn" id="wyrdking"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxcrys01" path="res://scenes/crystal_switch.tscn" id="crystal_switch"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxtgte01" path="res://scenes/triggered_gate.tscn" id="triggered_gate"]
 [ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.08, 0.1, 0.18, 1)
@@ -2505,47 +2509,73 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33)
 message = "Etched in fresher stone:\n\n\"What you take from this place, share. The Sigil grows weak in stillness.\""
 
 [node name="Chest3" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+contents_scene = ExtResource("fairy_bottle")
+open_message = "A Fairy Bottle, tucked behind a loose stone. The fae hide a spark of life inside."
+
+[node name="Chest4" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -17)
 contents_scene = ExtResource("key_pickup")
 open_message = "A small key. The locked door ahead might match."
 
-[node name="Chest4" parent="." instance=ExtResource("chest")]
+[node name="Chest5" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37)
 contents_scene = ExtResource("boomerang_pickup")
 open_message = "A bone-and-wood boomerang. Press F to throw it; it returns on its own."
 
-[node name="Rock5" parent="." instance=ExtResource("rock")]
+[node name="Rock6" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.5, -30.5)
 pebble_chance = 0.55
 
-[node name="Rock6" parent="." instance=ExtResource("rock")]
+[node name="Rock7" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0.5, -34.5)
 pebble_chance = 0.3
 
-[node name="Torch7" parent="." instance=ExtResource("torch")]
+[node name="Torch8" parent="." instance=ExtResource("torch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -6)
 target_id = "boss_door"
 lit_on_spawn = false
 
-[node name="CrystalSwitch8" parent="." instance=ExtResource("crystal_switch")]
+[node name="CrystalSwitch9" parent="." instance=ExtResource("crystal_switch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10)
 target_id = "boss_door"
 
-[node name="PressurePlate9" parent="." instance=ExtResource("pressure_plate")]
+[node name="PressurePlate10" parent="." instance=ExtResource("pressure_plate")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -14)
 target_id = "boss_door"
 
-[node name="MovableBlock10" parent="." instance=ExtResource("movable_block")]
+[node name="MovableBlock11" parent="." instance=ExtResource("movable_block")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -12)
 cell_size = 1.5
 
-[node name="TriggeredGate11" parent="." instance=ExtResource("triggered_gate")]
+[node name="TriggeredGate12" parent="." instance=ExtResource("triggered_gate")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
 listen_id = "boss_door"
 
-[node name="EyeTarget12" parent="." instance=ExtResource("eye_target")]
+[node name="EyeTarget13" parent="." instance=ExtResource("eye_target")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 2.5, -39)
 target_id = "boss_door"
+
+[node name="Npc14_Trapped_Wisp" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.362358, 0, -0.932039, 0, 1, 0, 0.932039, 0, 0.362358, -3, 0, -7)
+npc_name = "Trapped Wisp"
+body_color = Color(0.95, 0.95, 0.55, 1)
+hat_color = Color(0.95, 0.85, 0.4, 1)
+idle_hint = "[E] Listen to the wisp"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Trapped Wisp\", \"text\": \"*a tiny voice, faint as a candle*\\nOh — traveler! You see me? You hear me? I — I am one of the small ones. They have my sister, deep below. In the boss-room. Please — please free her.\", \"choices\": [{\"label\": \"Tell me what happened.\", \"next\": \"what\"}, {\"label\": \"I will free her.\", \"next\": \"vow\", \"requires_not\": \"free_the_wisp\"}, {\"label\": \"I am already on the way.\", \"next\": \"ongoing\", \"requires\": \"free_the_wisp\"}, {\"label\": \"I cannot promise that.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"Trapped Wisp\", \"text\": \"We chose Tux-kin to carry our light, but the Hoarder's seed-things took her in the dark. They cage what they cannot understand. She glows still — I feel her. Find her. Free her.\", \"choices\": [{\"label\": \"I will free her.\", \"next\": \"vow\", \"requires_not\": \"free_the_wisp\"}, {\"label\": \"I am already on the way.\", \"next\": \"ongoing\", \"requires\": \"free_the_wisp\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"vow\": {\"speaker\": \"Trapped Wisp\", \"text\": \"Truly? Then carry this charge — find her, beyond the locked door, in the chamber where the Wyrd-keeper waits. I will burn brighter for the hoping.\", \"next\": \"vow_post\"}, \"vow_post\": {\"speaker\": \"Trapped Wisp\", \"text\": \"Go bright, little Tux. Go bright.\", \"choices\": [{\"label\": \"I will.\", \"next\": \"bye\", \"sets\": \"free_the_wisp\"}]}, \"ongoing\": {\"speaker\": \"Trapped Wisp\", \"text\": \"Bless you, bless you. She is below still. I feel her dim. Hurry.\"}, \"bye\": {\"speaker\": \"Trapped Wisp\", \"text\": \"*flickers*\\nGo gently, traveler.\"}}}"
+
+[node name="BossArena15" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+boss_name = "Wyrdking Bonelord"
+boss_scene = ExtResource("wyrdking")
+arena_radius = 7.5
+spawn_offset = Vector3(0, 0, 0)
+
+[node name="Chest16" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -36)
+contents_scene = ExtResource("key_pickup")
+open_message = "The Wyrdking's key. Behind it: the way out."
+contents_key_group = "hollow"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)

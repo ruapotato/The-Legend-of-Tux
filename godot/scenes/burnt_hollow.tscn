@@ -1,32 +1,34 @@
-[gd_scene load_steps=2404 format=3 uid="uid://btuxburnthol01"]
+[gd_scene load_steps=2406 format=3 uid="uid://btuxburnthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxdwall01" path="res://scenes/destructible_wall.tscn" id="destructible_wall"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxdwall01" path="res://scenes/destructible_wall.tscn" id="destructible_wall"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkbm01" path="res://scenes/pickup_bomb.tscn" id="bomb_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxsklsp01" path="res://scenes/enemy_skull_spider.tscn" id="skull_spider"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
-[ext_resource type="PackedScene" uid="uid://btuxsklsp01" path="res://scenes/enemy_skull_spider.tscn" id="skull_spider"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.3, 1)
@@ -21584,185 +21586,200 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 1.6, 80)
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 93, 0, 49)
 message = "BURNT HOLLOW.\n\nThe wood that grew here was old when the Source first sang. Khorgaul the Hoarder burned it to its roots and locked the ash in glass. Walk softly. The ground remembers."
 
-[node name="Sign1" parent="." instance=ExtResource("sign")]
+[node name="OwlStatue_owl_burnt_hollow" parent="." instance=ExtResource("owl_statue")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 91, 0, 51)
+warp_id = "owl_burnt_hollow"
+warp_name = "Burnt Hollow Rim"
+warp_target_scene = "burnt_hollow"
+warp_target_spawn = "from_sourceplain"
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 71, 0, 31)
 message = "Where the ridge narrows: keep your blade drawn. The bone-walkers know every crack of this stone."
 
-[node name="Sign2" parent="." instance=ExtResource("sign")]
+[node name="Sign3" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 57)
 message = "A Source-shrine, half-melted into glass slag.\n\nHere Lirien wept, and her tears boiled. The hoarder bled the Source dry into this hollow. Embers still bank in the cracks."
 
-[node name="Sign3" parent="." instance=ExtResource("sign")]
+[node name="Sign4" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 23, 0, 49)
 message = "Beyond: the dead-end shelf. The Hoarder's reliquary lies on the far stone — but the path narrows to a bone's-width."
 
-[node name="Sign4" parent="." instance=ExtResource("sign")]
+[node name="Sign5" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 61)
 message = "Knights of bone do not forget where their hoard lies. Take only what you can carry. Leave the rest to ash."
 
-[node name="Chest5" parent="." instance=ExtResource("chest")]
+[node name="Chest6" parent="." instance=ExtResource("chest")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 9, 0, 49)
 contents_scene = ExtResource("key_pickup")
 open_message = "A small iron key, scorched but whole. Khorgaul hoarded a thousand such keys; this one knows a lock somewhere far from here."
 
-[node name="Chest6" parent="." instance=ExtResource("chest")]
+[node name="Chest7" parent="." instance=ExtResource("chest")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 85, 0, 49)
 contents_scene = ExtResource("bomb_pickup")
 open_message = "A bundle of black-powder bombs. Press F to throw one. Cracked stone fears the spark."
 contents_amount = 5
 contents_item_name = "bomb"
 
-[node name="BombFlower7" parent="." instance=ExtResource("bomb_flower")]
+[node name="BombFlower8" parent="." instance=ExtResource("bomb_flower")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 0, 47)
 
-[node name="DestructibleWall8" parent="." instance=ExtResource("destructible_wall")]
+[node name="DestructibleWall9" parent="." instance=ExtResource("destructible_wall")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67, 0, 49)
 
-[node name="Chest9" parent="." instance=ExtResource("chest")]
+[node name="Chest10" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 49)
 contents_scene = ExtResource("heart_pickup")
 open_message = "A piece of the Source — a heart-ember, banked in cracked glass. It warms you back to life."
 
-[node name="Chest10" parent="." instance=ExtResource("chest")]
+[node name="Chest11" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 61)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "A scatter of pebbles — fifteen good throwing-stones. The bone-knights notice."
 contents_amount = 15
 
-[node name="Bush11" parent="." instance=ExtResource("bush")]
+[node name="Bush12" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.9, 0, 28)
 pebble_amount = 3
 
-[node name="Bush12" parent="." instance=ExtResource("bush")]
+[node name="Bush13" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6, 0, 47.9)
 pebble_amount = 3
 
-[node name="Bush13" parent="." instance=ExtResource("bush")]
+[node name="Bush14" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9, 0, 59.1)
 pebble_amount = 3
 
-[node name="Bush14" parent="." instance=ExtResource("bush")]
+[node name="Bush15" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.1, 0, 57.1)
 
-[node name="Bush15" parent="." instance=ExtResource("bush")]
+[node name="Bush16" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6, 0, 58.5)
 
-[node name="Bush16" parent="." instance=ExtResource("bush")]
+[node name="Bush17" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.3, 0, 51.4)
 
-[node name="Bush17" parent="." instance=ExtResource("bush")]
+[node name="Bush18" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.7, 0, 33)
 
-[node name="Bush18" parent="." instance=ExtResource("bush")]
+[node name="Bush19" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 54.7)
 
-[node name="Bush19" parent="." instance=ExtResource("bush")]
+[node name="Bush20" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.5, 0, 46.2)
 
-[node name="Bush20" parent="." instance=ExtResource("bush")]
+[node name="Bush21" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1, 0, 51.4)
 
-[node name="Bush21" parent="." instance=ExtResource("bush")]
+[node name="Bush22" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6, 0, 49.5)
 
-[node name="Bush22" parent="." instance=ExtResource("bush")]
+[node name="Bush23" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7, 0, 51.4)
 
-[node name="Bush23" parent="." instance=ExtResource("bush")]
+[node name="Bush24" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.1, 0, 46.2)
 
-[node name="Bush24" parent="." instance=ExtResource("bush")]
+[node name="Bush25" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.1, 0, 31.5)
 
-[node name="Bush25" parent="." instance=ExtResource("bush")]
+[node name="Bush26" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.2, 0, 58.7)
 
-[node name="Bush26" parent="." instance=ExtResource("bush")]
+[node name="Bush27" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, 49.6)
 
-[node name="Bush27" parent="." instance=ExtResource("bush")]
+[node name="Bush28" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.4, 0, 47.3)
 
-[node name="Bush28" parent="." instance=ExtResource("bush")]
+[node name="Bush29" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9, 0, 48.2)
 
-[node name="Rock29" parent="." instance=ExtResource("rock")]
+[node name="Rock30" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.5, 0.5, 80.5)
 pebble_chance = 0.3
 
-[node name="Rock30" parent="." instance=ExtResource("rock")]
+[node name="Rock31" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 0.5, 62.5)
 pebble_chance = 0.4
 
-[node name="Rock31" parent="." instance=ExtResource("rock")]
+[node name="Rock32" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 0.5, 26.5)
 pebble_chance = 0.55
 
-[node name="Rock32" parent="." instance=ExtResource("rock")]
+[node name="Rock33" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5, 0.5, 87.5)
 pebble_chance = 0.3
 
-[node name="Rock33" parent="." instance=ExtResource("rock")]
+[node name="Rock34" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 0.5, 64.5)
 pebble_chance = 0.4
 
-[node name="Rock34" parent="." instance=ExtResource("rock")]
+[node name="Rock35" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 50.5)
 pebble_chance = 0.3
 
-[node name="Tree35" parent="." instance=ExtResource("tree")]
+[node name="Tree36" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.724346, 0, 0.689436, 0, 1, 0, -0.689436, 0, 0.724346, 83.5, 0, 74.5)
 pebble_chance = 0.2
 trunk_height = 3.8632
 canopy_radius = 1.89814
 
-[node name="Tree36" parent="." instance=ExtResource("tree")]
+[node name="Tree37" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.363189, 0, 0.931716, 0, 1, 0, -0.931716, 0, 0.363189, 98.5, 0, 80.5)
 pebble_chance = 0.3
 trunk_height = 4.81984
 canopy_radius = 1.99315
 
-[node name="Tree37" parent="." instance=ExtResource("tree")]
+[node name="Tree38" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.55615, 0, -0.831082, 0, 1, 0, 0.831082, 0, -0.55615, 97.5, 0, 70.5)
 pebble_chance = 0.3
 trunk_height = 3.8048
 canopy_radius = 1.92052
 
-[node name="Tree38" parent="." instance=ExtResource("tree")]
+[node name="Tree39" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.32541, 0, 0.945573, 0, 1, 0, -0.945573, 0, -0.32541, 81.5, 0, 87.5)
 pebble_chance = 0.2
 trunk_height = 4.34665
 canopy_radius = 1.71239
 
-[node name="Rock39" parent="." instance=ExtResource("rock")]
+[node name="Rock40" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0.5, 60.5)
 pebble_chance = 0.55
 
-[node name="Tree40" parent="." instance=ExtResource("tree")]
+[node name="Tree41" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.99849, 0, -0.0549394, 0, 1, 0, 0.0549394, 0, -0.99849, 73.5, 0, 63.5)
 pebble_chance = 0.2
 trunk_height = 4.8671
 canopy_radius = 1.90012
 
-[node name="Rock41" parent="." instance=ExtResource("rock")]
+[node name="Rock42" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 65.5)
 pebble_chance = 0.3
 
-[node name="Rock42" parent="." instance=ExtResource("rock")]
+[node name="Rock43" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0.5, 39.5)
 pebble_chance = 0.3
 
-[node name="Rock43" parent="." instance=ExtResource("rock")]
+[node name="Rock44" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 0.5, 48.5)
 pebble_chance = 0.4
 
-[node name="Rock44" parent="." instance=ExtResource("rock")]
+[node name="Rock45" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.5, 16.5)
 pebble_chance = 0.3
 
-[node name="Rock45" parent="." instance=ExtResource("rock")]
+[node name="Rock46" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.5, 43.5)
 pebble_chance = 0.4
+
+[node name="Npc47_Soot_Helka" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 88, 0, 70)
+npc_name = "Soot Helka"
+body_color = Color(0.45, 0.42, 0.4, 1)
+hat_color = Color(0.3, 0.28, 0.28, 1)
+idle_hint = "[E] Approach the survivor"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Soot Helka\", \"text\": \"*coughs ash*\\nYou — you came in. Most don't, anymore. I can't go back. The fire ate the ridge behind me. Look — look how the Hollow weeps ash.\", \"choices\": [{\"label\": \"What happened here?\", \"next\": \"what\"}, {\"label\": \"Tell me of the Hoarder.\", \"next\": \"khor\"}, {\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Stay strong. Farewell.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"Soot Helka\", \"text\": \"The wood was old when the Source was young. Then Khorgaul gathered the green out of it — not at once, no, that would be merciful — gathered it slow, gathered it patient, gathered it gone. The Source bleeds. You can taste it on the air.\", \"choices\": [{\"label\": \"Tell me of the Hoarder.\", \"next\": \"khor\"}, {\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"khor\": {\"speaker\": \"Soot Helka\", \"text\": \"He does not show himself. He sends bone-things and ash-things and the cold beneath. But this — *gestures at the burnt land* — this is his hand. As clear as a print in clay.\", \"choices\": [{\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"deep\": {\"speaker\": \"Soot Helka\", \"text\": \"His reliquary. Where he hoards what he has gathered. The bone-knights guard it; the bats keep its sky. Go in only if you can come out. Few can. None alone, I think.\", \"choices\": [{\"label\": \"Stay strong. Farewell.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Soot Helka\", \"text\": \"Go bright. Go careful. Go and come back.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 1.4, 49)

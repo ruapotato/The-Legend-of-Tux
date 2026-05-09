@@ -5294,6 +5294,17 @@
     {
       "type": "chest",
       "pos": [
+        -2.5,
+        0,
+        4.5
+      ],
+      "rotation_y": 0,
+      "contents": "fairy",
+      "open_message": "A Fairy Bottle. The fae hide a spark of life inside \u2014 it'll catch you once if a blow would have laid you low."
+    },
+    {
+      "type": "chest",
+      "pos": [
         -3,
         0,
         -11
@@ -5489,6 +5500,161 @@
       "pebble_chance": 0.3,
       "trunk_height": 4.923621366197997,
       "canopy_radius": 1.8486306142951545
+    },
+    {
+      "type": "npc",
+      "pos": [
+        3.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": -2.0,
+      "name": "Old Hesper",
+      "body_color": [
+        0.5,
+        0.65,
+        0.7,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.45,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Hesper",
+            "text": "Welcome to the Glade, little one. I am Hesper, oldest of the keepers here. The wyrdkin sleep, and we tend their dreaming. You wake into a strange hour. Will you sit, and learn?",
+            "choices": [
+              {
+                "label": "Tell me of this realm.",
+                "next": "realm"
+              },
+              {
+                "label": "What is the Sigil of Sharing?",
+                "next": "sigil"
+              },
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Where should I go?",
+                "next": "go"
+              },
+              {
+                "label": "Farewell, keeper.",
+                "next": "bye"
+              }
+            ]
+          },
+          "realm": {
+            "speaker": "Old Hesper",
+            "text": "This is Lirien's weave. Forest, brook, kiln, and stone \u2014 all spun from the Source. The Maker gave; the Hoarder takes. The balance has tipped, and so the wardstones thin. That is why you are here.",
+            "choices": [
+              {
+                "label": "What is the Sigil of Sharing?",
+                "next": "sigil"
+              },
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "sigil": {
+            "speaker": "Old Hesper",
+            "text": "Three sigils mark the Triglyph \u2014 Sight, Shaping, Sharing. Yours is the third. To share is to refuse the hoard; to refuse the hoard is to be the answer to Khorgaul. Carry it gently. Carry it bright.",
+            "choices": [
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Tell me of this realm.",
+                "next": "realm"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "glim": {
+            "speaker": "Old Hesper",
+            "text": "A wisp \u2014 a fleck of the Source given a small, brave will. She has chosen you, and that is no small thing. Where you are dim, Glim brightens. Where you forget, Glim remembers.",
+            "choices": [
+              {
+                "label": "Where should I go?",
+                "next": "go"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "go": {
+            "speaker": "Old Hesper",
+            "text": "North, through the wyrdwood. Past the fork, past the ribbon, into the Hollow. You will know it when you see it. The road from there is yours to find.",
+            "choices": [
+              {
+                "label": "Thank you, keeper.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Old Hesper",
+            "text": "Walk in the green. Walk under the wing of Lirien."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -4.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 1.5,
+      "name": "Little Pip",
+      "body_color": [
+        0.65,
+        0.8,
+        0.75,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Pip",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Little Pip",
+            "text": "Are you the wanderer? Hesper said a wanderer would come. Are you going north? You should go north! The wyrdwood is north!",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Little Pip",
+            "text": "I'm not allowed to go past the marker stone. But you can! Go on! The trees there know secrets. I think they whisper them to wisps. Maybe Glim already knows!"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

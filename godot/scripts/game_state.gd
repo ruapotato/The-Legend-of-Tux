@@ -19,6 +19,17 @@ signal keys_changed(group: String, amount: int)
 signal item_acquired(item_name: String)
 signal active_item_changed(item_name: String)
 signal player_died()
+# Fairy-bottle revival: emitted whenever the carried-bottle count or
+# capacity changes (HUD redraws the readout). `fairy_revive_triggered`
+# fires only on the auto-consume path inside damage(): the player would
+# have died but a bottle popped instead. The HUD shows a sparkle
+# overlay; the death overlay is suppressed for that frame.
+signal fairy_bottles_changed(current: int, maximum: int)
+signal fairy_revive_triggered()
+# Emitted when the visited-scenes set or the unlocked-warps dict changes.
+# The world map listens so it can repaint without polling.
+signal visited_changed(scene_id: String)
+signal warps_changed()
 
 const HP_PER_FISH: int = 4
 const MAX_STAMINA: int = 100
@@ -41,6 +52,14 @@ var max_seeds: int = 30
 var bombs: int = 0
 var max_bombs: int = 10
 var heart_pieces: int = 0    # 0..3, then promotes to a heart container
+
+# Fairy bottles: consumable revives. Auto-pops on lethal damage if the
+# player carries at least one — restores HP to full and skips the death
+# overlay. Capacity tier (`max_fairy_bottles`) starts at 3; future
+# upgrades can raise it. Bottles are refilled at fairy fountains
+# (not implemented yet — for now they're only granted by chests/pickups).
+var fairy_bottles: int = 0
+var max_fairy_bottles: int = 3
 
 # Small keys are per-dungeon (Ocarina-style): keys you find in
 # Dungeon A only unlock doors in Dungeon A. `keys_by_group` maps a
@@ -77,6 +96,17 @@ var last_slot: int = -1
 var inventory: Dictionary = {}
 var active_b_item: String = ""
 
+# Scene-id → true. dungeon_root.gd writes here on every _ready so the
+# world map can colour-code which levels Tux has actually set foot in.
+var visited_scenes: Dictionary = {}
+
+# Owl-statue warp registry. Maps warp_id → {name, scene, spawn} so the
+# warp menu can list every shrine the player has activated regardless
+# of which scene they're standing in. Stored as a dict-of-dicts (rather
+# than warp_id→bool plus a separate registry) so save files round-trip
+# cleanly without needing a global static lookup.
+var unlocked_warps: Dictionary = {}
+
 
 func reset() -> void:
     max_fish = 3
@@ -85,9 +115,12 @@ func reset() -> void:
     _stamina_remainder = 0.0
     pebbles = 0
     arrows = 0; seeds = 0; bombs = 0; heart_pieces = 0
+    fairy_bottles = 0
     keys_by_group.clear()
     inventory.clear()
     active_b_item = ""
+    visited_scenes.clear()
+    unlocked_warps.clear()
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
@@ -95,6 +128,7 @@ func reset() -> void:
     seeds_changed.emit(seeds, max_seeds)
     bombs_changed.emit(bombs, max_bombs)
     heart_pieces_changed.emit(heart_pieces)
+    fairy_bottles_changed.emit(fairy_bottles, max_fairy_bottles)
     keys_changed.emit(current_key_group, get_keys())
     active_item_changed.emit(active_b_item)
 
@@ -161,12 +195,40 @@ func damage(amount: int) -> void:
     hp = max(hp - amount, 0)
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     if hp == 0:
-        player_died.emit()
+        # Last-chance fairy bottle: if the blow would have killed Tux
+        # but he's carrying a bottle, pop it. HP refills, the death
+        # overlay is suppressed, and the HUD plays a sparkle burst
+        # instead. Otherwise the death signal fires as normal.
+        if consume_fairy():
+            hp = max_fish * HP_PER_FISH
+            hp_changed.emit(hp, max_fish * HP_PER_FISH)
+            fairy_revive_triggered.emit()
+        else:
+            player_died.emit()
 
 
 func heal(amount: int) -> void:
     hp = min(hp + amount, max_fish * HP_PER_FISH)
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
+
+
+# ---- Fairy bottles ------------------------------------------------------
+
+func add_fairy(n: int = 1) -> void:
+    fairy_bottles = min(fairy_bottles + n, max_fairy_bottles)
+    # Sticky inventory marker so the HUD can keep its bottle counter
+    # visible even after the player burns their last bottle (you've
+    # seen the row, you should keep seeing it at "0 / 3").
+    inventory["bottle_seen"] = true
+    fairy_bottles_changed.emit(fairy_bottles, max_fairy_bottles)
+
+
+func consume_fairy() -> bool:
+    if fairy_bottles <= 0:
+        return false
+    fairy_bottles -= 1
+    fairy_bottles_changed.emit(fairy_bottles, max_fairy_bottles)
+    return true
 
 
 # ---- Stamina ------------------------------------------------------------
@@ -263,6 +325,63 @@ func set_active_b_item(item_name: String) -> void:
     active_item_changed.emit(active_b_item)
 
 
+# ---- Visited scenes / warps --------------------------------------------
+
+func mark_visited(scene_id: String) -> void:
+    if scene_id == "":
+        return
+    if visited_scenes.get(scene_id, false):
+        return
+    visited_scenes[scene_id] = true
+    visited_changed.emit(scene_id)
+
+
+func is_visited(scene_id: String) -> bool:
+    return bool(visited_scenes.get(scene_id, false))
+
+
+# Owl statues call this when activated. `info` is {name, scene, spawn};
+# stored under warp_id so the warp menu and world-map UI can rebuild the
+# button list from one dict.
+func unlock_warp(warp_id: String, info: Dictionary = {}) -> void:
+    if warp_id == "":
+        return
+    var existing: Variant = unlocked_warps.get(warp_id, null)
+    if typeof(existing) == TYPE_DICTIONARY and info.is_empty():
+        return
+    var entry: Dictionary = {}
+    if typeof(existing) == TYPE_DICTIONARY:
+        entry = (existing as Dictionary).duplicate(true)
+    for k in info.keys():
+        entry[k] = info[k]
+    unlocked_warps[warp_id] = entry
+    warps_changed.emit()
+
+
+func is_warp_unlocked(warp_id: String) -> bool:
+    var v: Variant = unlocked_warps.get(warp_id, null)
+    return v != null
+
+
+func get_unlocked_warps() -> Array:
+    # Returns an array of {id, name, scene, spawn} dicts, in insertion
+    # order — matches the order owls were activated, which is also a
+    # rough proxy for "first visited" ordering.
+    var out: Array = []
+    for warp_id in unlocked_warps.keys():
+        var info: Variant = unlocked_warps[warp_id]
+        if typeof(info) != TYPE_DICTIONARY:
+            continue
+        var d: Dictionary = info as Dictionary
+        out.append({
+            "id":    String(warp_id),
+            "name":  String(d.get("name",  warp_id)),
+            "scene": String(d.get("scene", "")),
+            "spawn": String(d.get("spawn", "default")),
+        })
+    return out
+
+
 # ---- Save / Load --------------------------------------------------------
 
 # Save files live at user://save_<slot>.json (slot 0..2). The schema is
@@ -302,6 +421,10 @@ func save_game(slot: int) -> bool:
         "active_b_item": active_b_item,
         "current_scene_id": _current_scene_id(),
         "current_spawn_id": current_spawn_id,
+        "visited_scenes":   visited_scenes.duplicate(true),
+        "unlocked_warps":   unlocked_warps.duplicate(true),
+        "fairy_bottles":     fairy_bottles,
+        "max_fairy_bottles": max_fairy_bottles,
     }
     var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
     if f == null:
@@ -349,13 +472,28 @@ func load_game(slot: int) -> bool:
     inventory = (data.get("inventory", {}) as Dictionary).duplicate(true)
     active_b_item = String(data.get("active_b_item", ""))
     current_spawn_id = String(data.get("current_spawn_id", "default"))
+    fairy_bottles     = int(data.get("fairy_bottles",     0))
+    max_fairy_bottles = int(data.get("max_fairy_bottles", 3))
     last_slot = slot
+
+    var saved_visited: Variant = data.get("visited_scenes", null)
+    if typeof(saved_visited) == TYPE_DICTIONARY:
+        visited_scenes = (saved_visited as Dictionary).duplicate(true)
+    else:
+        visited_scenes = {}
+    var saved_warps: Variant = data.get("unlocked_warps", null)
+    if typeof(saved_warps) == TYPE_DICTIONARY:
+        unlocked_warps = (saved_warps as Dictionary).duplicate(true)
+    else:
+        unlocked_warps = {}
+    warps_changed.emit()
 
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
     keys_changed.emit(current_key_group, get_keys())
     active_item_changed.emit(active_b_item)
+    fairy_bottles_changed.emit(fairy_bottles, max_fairy_bottles)
 
     var scene_id := String(data.get("current_scene_id", "wyrdkin_glade"))
     next_spawn_id = current_spawn_id

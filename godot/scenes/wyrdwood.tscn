@@ -1,24 +1,26 @@
-[gd_scene load_steps=34 format=3 uid="uid://btuxwyrdwood01"]
+[gd_scene load_steps=36 format=3 uid="uid://btuxwyrdwood01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.22, 0.28, 1)
@@ -1864,129 +1866,152 @@ message = "The path forks here.\n\nEast lies a hollow under a fallen elder. Nort
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -23)
 message = "Hollow of the Last Wyrd.\n\nA carved root frames the entrance. The dust inside is fresh."
 
-[node name="Bush2" parent="." instance=ExtResource("bush")]
+[node name="OwlStatue_owl_wyrdwood" parent="." instance=ExtResource("owl_statue")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 11, 0, -22)
+warp_id = "owl_wyrdwood"
+warp_name = "Wyrdwood Hollow"
+warp_target_scene = "wyrdwood"
+warp_target_spawn = "from_dungeon"
+
+[node name="Bush3" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 10.6)
 pebble_amount = 3
 
-[node name="Bush3" parent="." instance=ExtResource("bush")]
+[node name="Bush4" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -15.2)
 pebble_amount = 3
 
-[node name="Bush4" parent="." instance=ExtResource("bush")]
+[node name="Bush5" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -0.1)
 
-[node name="Bush5" parent="." instance=ExtResource("bush")]
+[node name="Bush6" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0, -10)
 
-[node name="Bush6" parent="." instance=ExtResource("bush")]
+[node name="Bush7" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, -9.6)
 
-[node name="Bush7" parent="." instance=ExtResource("bush")]
+[node name="Bush8" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 11.2)
 
-[node name="Bush8" parent="." instance=ExtResource("bush")]
+[node name="Bush9" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9, 0, -4.7)
 
-[node name="Bush9" parent="." instance=ExtResource("bush")]
+[node name="Bush10" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 0, -14.9)
 
-[node name="Bush10" parent="." instance=ExtResource("bush")]
+[node name="Bush11" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 0, -23.2)
 
-[node name="Bush11" parent="." instance=ExtResource("bush")]
+[node name="Bush12" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3, 0, -22.9)
 
-[node name="Bush12" parent="." instance=ExtResource("bush")]
+[node name="Bush13" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.5)
 
-[node name="Bush13" parent="." instance=ExtResource("bush")]
+[node name="Bush14" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0, -5.2)
 
-[node name="Sign14" parent="." instance=ExtResource("sign")]
+[node name="Sign15" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -8)
 message = "A frayed ribbon, knotted to a low branch.\n\nSomeone marked this place. You feel the Source listening more closely here."
 
-[node name="Chest15" parent="." instance=ExtResource("chest")]
+[node name="Chest16" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "A handful of river-pebbles, perfect for the sling."
 contents_amount = 5
 
-[node name="Tree16" parent="." instance=ExtResource("tree")]
+[node name="Tree17" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.986258, 0, 0.165212, 0, 1, 0, -0.165212, 0, 0.986258, 2.5, 0, -19.5)
 pebble_chance = 0.2
 trunk_height = 3.79367
 canopy_radius = 1.42007
 
-[node name="Rock17" parent="." instance=ExtResource("rock")]
+[node name="Rock18" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 14.5)
 pebble_chance = 0.3
 
-[node name="Tree18" parent="." instance=ExtResource("tree")]
+[node name="Tree19" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.573254, 0, 0.819378, 0, 1, 0, -0.819378, 0, 0.573254, -9.5, 0, -7.5)
 pebble_chance = 0.45
 trunk_height = 3.76577
 canopy_radius = 1.99138
 
-[node name="Rock19" parent="." instance=ExtResource("rock")]
+[node name="Rock20" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, 7.5)
 pebble_chance = 0.4
 
-[node name="Rock20" parent="." instance=ExtResource("rock")]
+[node name="Rock21" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, -27.5)
 pebble_chance = 0.3
 
-[node name="Rock21" parent="." instance=ExtResource("rock")]
+[node name="Rock22" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, -24.5)
 pebble_chance = 0.3
 
-[node name="Tree22" parent="." instance=ExtResource("tree")]
+[node name="Tree23" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.0416177, 0, 0.999134, 0, 1, 0, -0.999134, 0, -0.0416177, -5.5, 0, -29.5)
 pebble_chance = 0.2
 trunk_height = 4.50959
 canopy_radius = 1.53605
 
-[node name="Tree23" parent="." instance=ExtResource("tree")]
+[node name="Tree24" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.953287, 0, 0.302067, 0, 1, 0, -0.302067, 0, 0.953287, 4.5, 0, 13.5)
 pebble_chance = 0.3
 trunk_height = 4.98533
 canopy_radius = 2.01589
 
-[node name="Tree24" parent="." instance=ExtResource("tree")]
+[node name="Tree25" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.997124, 0, 0.0757848, 0, 1, 0, -0.0757848, 0, 0.997124, 4.5, 0, 4.5)
 pebble_chance = 0.2
 trunk_height = 4.64583
 canopy_radius = 1.74298
 
-[node name="Tree25" parent="." instance=ExtResource("tree")]
+[node name="Tree26" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.0955342, 0, 0.995426, 0, 1, 0, -0.995426, 0, 0.0955342, -1.5, 0, -12.5)
 pebble_chance = 0.3
 trunk_height = 3.65575
 canopy_radius = 2.05454
 
-[node name="Tree26" parent="." instance=ExtResource("tree")]
+[node name="Tree27" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.518284, 0, -0.855209, 0, 1, 0, 0.855209, 0, -0.518284, -7.5, 0, 12.5)
 pebble_chance = 0.45
 trunk_height = 4.95619
 canopy_radius = 1.61225
 
-[node name="Tree27" parent="." instance=ExtResource("tree")]
+[node name="Tree28" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.991835, 0, 0.127529, 0, 1, 0, -0.127529, 0, -0.991835, -1.5, 0, -4.5)
 pebble_chance = 0.2
 trunk_height = 4.57924
 canopy_radius = 1.74972
 
-[node name="Tree28" parent="." instance=ExtResource("tree")]
+[node name="Tree29" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.939951, 0, 0.341309, 0, 1, 0, -0.341309, 0, 0.939951, -2.5, 0, 5.5)
 pebble_chance = 0.45
 trunk_height = 5.39463
 canopy_radius = 1.72742
 
-[node name="Tree29" parent="." instance=ExtResource("tree")]
+[node name="Tree30" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.70738, 0, 0.706834, 0, 1, 0, -0.706834, 0, -0.70738, 3.5, 0, -2.5)
 pebble_chance = 0.2
 trunk_height = 4.45707
 canopy_radius = 1.42973
+
+[node name="Npc31_Hermit_Olber" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.764842, 0, -0.644218, 0, 1, 0, 0.644218, 0, 0.764842, -6, 0, -2)
+npc_name = "Hermit Olber"
+body_color = Color(0.45, 0.55, 0.45, 1)
+hat_color = Color(0.35, 0.3, 0.25, 1)
+idle_hint = "[E] Talk to the hermit"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Hermit Olber\", \"text\": \"Eh? Is it morning? Is it night? The wood does not say. I have walked in circles for — well. Some time. You look less lost than I am. Tell me, are you looking for the Hollow?\", \"choices\": [{\"label\": \"Where is the Hollow?\", \"next\": \"hollow\"}, {\"label\": \"How long have you wandered?\", \"next\": \"wander\"}, {\"label\": \"Stay safe, hermit.\", \"next\": \"bye\"}]}, \"hollow\": {\"speaker\": \"Hermit Olber\", \"text\": \"East. East, then south. There is a fallen elder-tree, its roots carved like a mouth. The mouth swallows the path. That is the entrance. I would go in, but the door has no handle, and I have no patience.\", \"choices\": [{\"label\": \"How long have you wandered?\", \"next\": \"wander\"}, {\"label\": \"Thank you. Farewell.\", \"next\": \"bye\"}]}, \"wander\": {\"speaker\": \"Hermit Olber\", \"text\": \"Long enough to forget my own name some mornings. The wood folds upon itself, you see. The ribbons others have tied — those are the only true compass.\", \"choices\": [{\"label\": \"Where is the Hollow?\", \"next\": \"hollow\"}, {\"label\": \"Farewell.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Hermit Olber\", \"text\": \"Mind the trees. They watch.\"}}}"
+
+[node name="Npc32_Wenna_the_Wisp_tender" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.696707, 0, 0.717356, 0, 1, 0, -0.717356, 0, 0.696707, 5, 0, -16)
+npc_name = "Wenna the Wisp-tender"
+body_color = Color(0.6, 0.7, 0.85, 1)
+hat_color = Color(0.45, 0.55, 0.75, 1)
+idle_hint = "[E] Talk to Wenna"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Hush — they are timid. *cups her hands gently*\\nGood. Good. I see your wisp at your shoulder, traveler. She is bright. She has chosen you.\", \"choices\": [{\"label\": \"What is Glim's role?\", \"next\": \"role\"}, {\"label\": \"Why do wisps choose?\", \"next\": \"choose\"}, {\"label\": \"Farewell.\", \"next\": \"bye\"}]}, \"role\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"A wisp is a fleck of the Source with a small, bright will. She lights what is dim. She remembers what you forget. She names what you cannot. Listen for her chime — it speaks where words will not.\", \"choices\": [{\"label\": \"Why do wisps choose?\", \"next\": \"choose\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"choose\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Because the Source likes a true heart, and a true heart never knows itself. Glim sees in you what you cannot. Trust her sight more than your own, when the green grows thick.\", \"choices\": [{\"label\": \"What is Glim's role?\", \"next\": \"role\"}, {\"label\": \"Farewell.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Walk lightly. The wisps sleep nearby.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 14)

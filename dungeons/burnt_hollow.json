@@ -16472,6 +16472,19 @@
       "message": "BURNT HOLLOW.\n\nThe wood that grew here was old when the Source first sang. Khorgaul the Hoarder burned it to its roots and locked the ash in glass. Walk softly. The ground remembers."
     },
     {
+      "type": "owl_statue",
+      "pos": [
+        91.0,
+        0.0,
+        51.0
+      ],
+      "rotation_y": 1.5708,
+      "warp_id": "owl_burnt_hollow",
+      "warp_name": "Burnt Hollow Rim",
+      "warp_target_scene": "burnt_hollow",
+      "warp_target_spawn": "from_sourceplain"
+    },
+    {
       "type": "sign",
       "pos": [
         71.0,
@@ -16889,6 +16902,102 @@
         43.5
       ],
       "pebble_chance": 0.4
+    },
+    {
+      "type": "npc",
+      "pos": [
+        88.0,
+        0.0,
+        70.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Soot Helka",
+      "body_color": [
+        0.45,
+        0.42,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.28,
+        0.28,
+        1.0
+      ],
+      "idle_hint": "[E] Approach the survivor",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Soot Helka",
+            "text": "*coughs ash*\nYou \u2014 you came in. Most don't, anymore. I can't go back. The fire ate the ridge behind me. Look \u2014 look how the Hollow weeps ash.",
+            "choices": [
+              {
+                "label": "What happened here?",
+                "next": "what"
+              },
+              {
+                "label": "Tell me of the Hoarder.",
+                "next": "khor"
+              },
+              {
+                "label": "What lies deeper in?",
+                "next": "deep"
+              },
+              {
+                "label": "Stay strong. Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "what": {
+            "speaker": "Soot Helka",
+            "text": "The wood was old when the Source was young. Then Khorgaul gathered the green out of it \u2014 not at once, no, that would be merciful \u2014 gathered it slow, gathered it patient, gathered it gone. The Source bleeds. You can taste it on the air.",
+            "choices": [
+              {
+                "label": "Tell me of the Hoarder.",
+                "next": "khor"
+              },
+              {
+                "label": "What lies deeper in?",
+                "next": "deep"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "khor": {
+            "speaker": "Soot Helka",
+            "text": "He does not show himself. He sends bone-things and ash-things and the cold beneath. But this \u2014 *gestures at the burnt land* \u2014 this is his hand. As clear as a print in clay.",
+            "choices": [
+              {
+                "label": "What lies deeper in?",
+                "next": "deep"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "deep": {
+            "speaker": "Soot Helka",
+            "text": "His reliquary. Where he hoards what he has gathered. The bone-knights guard it; the bats keep its sky. Go in only if you can come out. Few can. None alone, I think.",
+            "choices": [
+              {
+                "label": "Stay strong. Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Soot Helka",
+            "text": "Go bright. Go careful. Go and come back."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

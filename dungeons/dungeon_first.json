@@ -4103,6 +4103,17 @@
     {
       "type": "chest",
       "pos": [
+        -6,
+        0,
+        -6
+      ],
+      "rotation_y": 0,
+      "contents": "fairy",
+      "open_message": "A Fairy Bottle, tucked behind a loose stone. The fae hide a spark of life inside."
+    },
+    {
+      "type": "chest",
+      "pos": [
         8,
         0,
         -17
@@ -4196,6 +4207,126 @@
       ],
       "rotation_y": 3.14159,
       "target_id": "boss_door"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        -7.0
+      ],
+      "rotation_y": 1.2,
+      "name": "Trapped Wisp",
+      "body_color": [
+        0.95,
+        0.95,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.85,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to the wisp",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Trapped Wisp",
+            "text": "*a tiny voice, faint as a candle*\nOh \u2014 traveler! You see me? You hear me? I \u2014 I am one of the small ones. They have my sister, deep below. In the boss-room. Please \u2014 please free her.",
+            "choices": [
+              {
+                "label": "Tell me what happened.",
+                "next": "what"
+              },
+              {
+                "label": "I will free her.",
+                "next": "vow",
+                "requires_not": "free_the_wisp"
+              },
+              {
+                "label": "I am already on the way.",
+                "next": "ongoing",
+                "requires": "free_the_wisp"
+              },
+              {
+                "label": "I cannot promise that.",
+                "next": "bye"
+              }
+            ]
+          },
+          "what": {
+            "speaker": "Trapped Wisp",
+            "text": "We chose Tux-kin to carry our light, but the Hoarder's seed-things took her in the dark. They cage what they cannot understand. She glows still \u2014 I feel her. Find her. Free her.",
+            "choices": [
+              {
+                "label": "I will free her.",
+                "next": "vow",
+                "requires_not": "free_the_wisp"
+              },
+              {
+                "label": "I am already on the way.",
+                "next": "ongoing",
+                "requires": "free_the_wisp"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "vow": {
+            "speaker": "Trapped Wisp",
+            "text": "Truly? Then carry this charge \u2014 find her, beyond the locked door, in the chamber where the Wyrd-keeper waits. I will burn brighter for the hoping.",
+            "next": "vow_post"
+          },
+          "vow_post": {
+            "speaker": "Trapped Wisp",
+            "text": "Go bright, little Tux. Go bright.",
+            "choices": [
+              {
+                "label": "I will.",
+                "next": "bye",
+                "sets": "free_the_wisp"
+              }
+            ]
+          },
+          "ongoing": {
+            "speaker": "Trapped Wisp",
+            "text": "Bless you, bless you. She is below still. I feel her dim. Hurry."
+          },
+          "bye": {
+            "speaker": "Trapped Wisp",
+            "text": "*flickers*\nGo gently, traveler."
+          }
+        }
+      }
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        0,
+        0,
+        -32
+      ],
+      "boss_scene_id": "wyrdking",
+      "boss_name": "Wyrdking Bonelord",
+      "arena_radius": 7.5,
+      "spawn_offset": [0.0, 0.0, 0.0]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -3,
+        0,
+        -36
+      ],
+      "rotation_y": 0,
+      "contents": "key",
+      "key_group": "hollow",
+      "open_message": "The Wyrdking's key. Behind it: the way out."
     }
   ],
   "load_zones": [

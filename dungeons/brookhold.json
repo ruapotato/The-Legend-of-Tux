@@ -19323,11 +19323,25 @@
     },
     {
       "type": "npc",
-      "pos": [-3.0, 0.0, -10.0],
+      "pos": [
+        -3.0,
+        0.0,
+        -10.0
+      ],
       "rotation_y": 0.0,
       "name": "Farmer Brook",
-      "body_color": [0.45, 0.55, 0.35, 1.0],
-      "hat_color": [0.70, 0.55, 0.25, 1.0],
+      "body_color": [
+        0.45,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.7,
+        0.55,
+        0.25,
+        1.0
+      ],
       "idle_hint": "[E] Speak to the Farmer",
       "dialog_tree": {
         "start": "root",
@@ -19336,16 +19350,25 @@
             "speaker": "Farmer Brook",
             "text": "Bah! Three lambwisps gone in a fortnight. They drift off chasing their own glimmers and never come back. You wouldn't be one of those wandering sorts, would you?",
             "choices": [
-              {"label": "Maybe I can help.",        "next": "offer",
-               "requires_not": "lambwisp_charm"},
-              {"label": "I have your charm in hand.", "next": "have_charm",
-               "requires": "lambwisp_charm"},
-              {"label": "Sorry to hear it.",        "next": "bye"}
+              {
+                "label": "Maybe I can help.",
+                "next": "offer",
+                "requires_not": "lambwisp_charm"
+              },
+              {
+                "label": "I have your charm in hand.",
+                "next": "have_charm",
+                "requires": "lambwisp_charm"
+              },
+              {
+                "label": "Sorry to hear it.",
+                "next": "bye"
+              }
             ]
           },
           "offer": {
             "speaker": "Farmer Brook",
-            "text": "Take this — a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
+            "text": "Take this \u2014 a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
             "give_item": "lambwisp_charm",
             "next": "post_offer"
           },
@@ -19353,7 +19376,10 @@
             "speaker": "Farmer Brook",
             "text": "Mind the brook stones near the south paddock. Slippery as a fish in butter.",
             "choices": [
-              {"label": "I'll keep watch.", "next": "bye"}
+              {
+                "label": "I'll keep watch.",
+                "next": "bye"
+              }
             ]
           },
           "have_charm": {
@@ -19363,6 +19389,209 @@
           "bye": {
             "speaker": "Farmer Brook",
             "text": "Mind the lambwisps. Mind the kin."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -30.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Matriarch Brook",
+      "body_color": [
+        0.4,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.45,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Speak to the Matriarch",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Matriarch Brook",
+            "text": "Well, well. A traveler at our gate. The kin keep the kettle warm \u2014 sit a moment, if you've news. Or even if you haven't.",
+            "choices": [
+              {
+                "label": "I have a letter from Tova.",
+                "next": "letter",
+                "requires": "brookhold_letter",
+                "requires_not": "delivered_brookhold_letter"
+              },
+              {
+                "label": "Tova's letter \u2014 already delivered.",
+                "next": "after",
+                "requires": "delivered_brookhold_letter"
+              },
+              {
+                "label": "Tell me of the holding.",
+                "next": "holding"
+              },
+              {
+                "label": "Just stopping through.",
+                "next": "bye"
+              }
+            ]
+          },
+          "letter": {
+            "speaker": "Matriarch Brook",
+            "text": "From Tova? Truly?! *unfolds it, reads silently \u2014 eyes wet*\nYou good soul. You stubborn, lovely soul. She lives \u2014 she lives. Take this \u2014 eight pebbles for a sling-arm who carried what mattered.",
+            "give_pebbles": 8,
+            "next": "letter_post"
+          },
+          "letter_post": {
+            "speaker": "Matriarch Brook",
+            "text": "May the green hold you on every road, traveler. Tell her, if you pass her again, that the gate is always open.",
+            "choices": [
+              {
+                "label": "I will. Farewell.",
+                "next": "bye",
+                "sets": "delivered_brookhold_letter"
+              }
+            ]
+          },
+          "after": {
+            "speaker": "Matriarch Brook",
+            "text": "Bless you again for that letter, wanderer. The kettle is yours whenever you pass."
+          },
+          "holding": {
+            "speaker": "Matriarch Brook",
+            "text": "We tend the lambwisps and we tend the gate. The brookwater runs sweet here; we keep our share and let the rest go. The Sigil of Sharing is in the very ground.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Matriarch Brook",
+            "text": "Safe roads. The kin keep watch."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        14.0,
+        0.0,
+        -8.0
+      ],
+      "rotation_y": -1.0,
+      "name": "Barn-keeper Hod",
+      "body_color": [
+        0.5,
+        0.55,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.65,
+        0.5,
+        0.2,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Hod",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Barn-keeper Hod",
+            "text": "Mind the gate, mind the latch, mind the little ones in the paddock. Lambwisps don't know fences. They just bump into them and look surprised.",
+            "choices": [
+              {
+                "label": "Tell me of the lambwisps.",
+                "next": "wisps"
+              },
+              {
+                "label": "Tell me of the paddocks.",
+                "next": "padd"
+              },
+              {
+                "label": "I'll be off.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wisps": {
+            "speaker": "Barn-keeper Hod",
+            "text": "Little drifting things. Half wool, half wisp. They eat root-greens and chime when they're happy. Lose 'em to the wind if you don't ring the charm at sundown.",
+            "choices": [
+              {
+                "label": "Tell me of the paddocks.",
+                "next": "padd"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "padd": {
+            "speaker": "Barn-keeper Hod",
+            "text": "North paddock for grazing, east for the older flock, south for the lambs. The east gate sticks. I keep meaning to plane it.",
+            "choices": [
+              {
+                "label": "Tell me of the lambwisps.",
+                "next": "wisps"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Barn-keeper Hod",
+            "text": "Mind the latch on your way."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -7.0,
+        0.0,
+        11.0
+      ],
+      "rotation_y": 2.0,
+      "name": "Little Wren",
+      "body_color": [
+        0.55,
+        0.7,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.75,
+        0.35,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Wren",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Little Wren",
+            "text": "*chases an invisible thing*\nCome BACK, Tuffins! Tuffins is my favorite lambwisp and she is REALLY FAST and also INVISIBLE because she is hiding which is RUDE.",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Little Wren",
+            "text": "Have you seen her? She has \u2014 well, she has wool. And a chime. And a tiny attitude. ...You haven't, have you. Sigh. *runs off*"
           }
         }
       }

@@ -93,6 +93,7 @@ EXT_RESOURCES = {
     "spore":            ("PackedScene", "uid://btuxspr01",  "res://scenes/enemy_spore.tscn"),
     "wisp_hunter":      ("PackedScene", "uid://btuxwsph01", "res://scenes/enemy_wisp_hunter.tscn"),
     "skull_spider":     ("PackedScene", "uid://btuxsklsp01", "res://scenes/enemy_skull_spider.tscn"),
+    "wyrdking":         ("PackedScene", "uid://btuxwyrk01", "res://scenes/enemy_wyrdking.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
@@ -118,8 +119,10 @@ EXT_RESOURCES = {
     "bomb_flower":      ("PackedScene", "uid://btuxbflw01",  "res://scenes/bomb_flower.tscn"),
     "destructible_wall":("PackedScene", "uid://btuxdwall01", "res://scenes/destructible_wall.tscn"),
     "hookshot_target":  ("PackedScene", "uid://btuxhshot01", "res://scenes/hookshot_target.tscn"),
+    "owl_statue":       ("PackedScene", "uid://btuxowl01",   "res://scenes/owl_statue.tscn"),
     "bomb_pickup":      ("PackedScene", "uid://btuxpkbm01",  "res://scenes/pickup_bomb.tscn"),
     "hookshot_pickup":  ("PackedScene", "uid://btuxpkhs01",  "res://scenes/pickup_hookshot.tscn"),
+    "fairy_bottle":     ("PackedScene", "uid://btuxfair01",  "res://scenes/fairy_bottle_pickup.tscn"),
     "glim":             ("PackedScene", "uid://btuxglim01", "res://scenes/glim.tscn"),
     "boss_arena":       ("PackedScene", "uid://btuxbarn01", "res://scenes/boss_arena.tscn"),
     "camera_script":    ("Script",      None,               "res://scripts/free_orbit_camera.gd"),
@@ -142,6 +145,7 @@ CONTENTS_TO_EXT = {
     "slingshot": "slingshot_pickup",
     "bomb":      "bomb_pickup",
     "hookshot":  "hookshot_pickup",
+    "fairy":     "fairy_bottle",
 }
 
 ENEMY_TO_EXT = {
@@ -152,6 +156,7 @@ ENEMY_TO_EXT = {
     "spore":        "spore",
     "wisp_hunter":  "wisp_hunter",
     "skull_spider": "skull_spider",
+    "wyrdking":     "wyrdking",
 }
 
 WALL_THICKNESS = 0.5
@@ -1077,6 +1082,27 @@ def emit_props(b, props):
             b.add_node(
                 '[node name="HookshotTarget%d" parent="." instance=ExtResource("hookshot_target")]\n'
                 % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "owl_statue":
+            b.ext("owl_statue")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "warp_id" in p:
+                attrs.append('warp_id = "%s"' % escape(str(p["warp_id"])))
+            if "warp_name" in p:
+                attrs.append('warp_name = "%s"' % escape(str(p["warp_name"])))
+            if "warp_target_scene" in p:
+                attrs.append('warp_target_scene = "%s"'
+                             % escape(str(p["warp_target_scene"])))
+            if "warp_target_spawn" in p:
+                attrs.append('warp_target_spawn = "%s"'
+                             % escape(str(p["warp_target_spawn"])))
+            # Sanitise the warp id into a node-safe suffix so two owls
+            # in the same scene don't clash on default name "OwlStatue%d".
+            wid_safe = "".join(ch if ch.isalnum() else "_"
+                               for ch in str(p.get("warp_id", str(i))))
+            b.add_node(
+                '[node name="OwlStatue_%s" parent="." instance=ExtResource("owl_statue")]\n'
+                % wid_safe + "\n".join(attrs) + "\n"
             )
 
 

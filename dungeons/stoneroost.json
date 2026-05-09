@@ -11407,6 +11407,230 @@
         17.5
       ],
       "pebble_chance": 0.4
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        -32.0
+      ],
+      "rotation_y": 1.5708,
+      "name": "Hermit Cael",
+      "body_color": [
+        0.55,
+        0.5,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.3,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the hermit",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Hermit Cael",
+            "text": "You climbed. Few do. Sit a moment. Breathe the thinness. The Source thins here \u2014 but what thins also clarifies. Speak.",
+            "choices": [
+              {
+                "label": "Tell me of this peak.",
+                "next": "peak"
+              },
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Tell me of yourself.",
+                "next": "self"
+              },
+              {
+                "label": "Tell me of the wind.",
+                "next": "wind"
+              },
+              {
+                "label": "Farewell, hermit.",
+                "next": "bye"
+              }
+            ]
+          },
+          "peak": {
+            "speaker": "Hermit Cael",
+            "text": "Stoneroost. The crow-stones perch here, and so do I. From this height the realm reads like a single page \u2014 Hearthold's smoke, the Brookhold green, the dark over the Hollow. Look long enough, and you can read the wound.",
+            "choices": [
+              {
+                "label": "Tell me of the wind.",
+                "next": "wind"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "source": {
+            "speaker": "Hermit Cael",
+            "text": "Below, it sings; here, it whispers; in the Hollow, it screams. All three voices are the Source. Few learn to hear all three in one ear.",
+            "choices": [
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "khor": {
+            "speaker": "Hermit Cael",
+            "text": "Khorgaul does not destroy. He gathers. He hoards. He keeps. The Source thinned at Stoneroost not by Khorgaul's malice but by his patience. Patience is a slow and terrible weapon.",
+            "choices": [
+              {
+                "label": "Tell me of yourself.",
+                "next": "self"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "self": {
+            "speaker": "Hermit Cael",
+            "text": "I came here young, and the wind has worn me to a quiet thing. I taught the wind to speak, some say. The wind taught me to listen, I would answer.",
+            "choices": [
+              {
+                "label": "Tell me of the wind.",
+                "next": "wind"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "wind": {
+            "speaker": "Hermit Cael",
+            "text": "Listen \u2014 *holds up a finger*\nThe wind moves over the stone. It carries the names the Hoarder forgets. If you ever lose your own name, climb. The wind keeps a copy.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Hermit Cael",
+            "text": "Down is faster than up. Mind the loose stones."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        38.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Warden Briga",
+      "body_color": [
+        0.45,
+        0.4,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.35,
+        0.3,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the warden",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Warden Briga",
+            "text": "Halt \u2014 or rather, mind your step. I keep the south trail. There are bone-knights in the gullies and bats in the high cuts. You'll want to know which is which before you meet either.",
+            "choices": [
+              {
+                "label": "Tell me of the bats.",
+                "next": "bats"
+              },
+              {
+                "label": "Tell me of the knights.",
+                "next": "knights"
+              },
+              {
+                "label": "Any other warning?",
+                "next": "other"
+              },
+              {
+                "label": "I'll be careful. Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bats": {
+            "speaker": "Warden Briga",
+            "text": "Bone-bats \u2014 small, fast, drop on you from above. A pebble or an arrow takes them down before they bite. Don't bother with the sword unless they grounded.",
+            "choices": [
+              {
+                "label": "Tell me of the knights.",
+                "next": "knights"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "knights": {
+            "speaker": "Warden Briga",
+            "text": "Bone-knights \u2014 heavy, patient, will not yield. Strike when their guard drops, then back away. They are not living, but they are not careless. Treat them like a moving wall with a sword.",
+            "choices": [
+              {
+                "label": "Tell me of the bats.",
+                "next": "bats"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "other": {
+            "speaker": "Warden Briga",
+            "text": "The hermit at the summit knows things he won't say plain. If he gives you a riddle, write it down. If he gives you silence, that's an answer too.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Warden Briga",
+            "text": "Up the trail, then. Mind the gullies."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

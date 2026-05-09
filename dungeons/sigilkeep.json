@@ -5944,6 +5944,198 @@
         -8.5
       ],
       "pebble_chance": 0.4
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -4.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": 1.2,
+      "name": "Keeper Maren",
+      "body_color": [
+        0.45,
+        0.4,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.75,
+        0.45,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Keeper Maren",
+            "text": "Welcome to the Sigilkeep, traveler. The wards here have held a thousand seasons. They thin now, but they hold. Speak \u2014 what would you ask of the keep?",
+            "choices": [
+              {
+                "label": "Tell me of the Triglyph.",
+                "next": "trig"
+              },
+              {
+                "label": "Tell me of the great door.",
+                "next": "door"
+              },
+              {
+                "label": "Tell me of the wardstones.",
+                "next": "ward"
+              },
+              {
+                "label": "Tell me of Lirien's covenant.",
+                "next": "cov"
+              },
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              }
+            ]
+          },
+          "trig": {
+            "speaker": "Keeper Maren",
+            "text": "Three sigils, three vows, one design. Sight, Shaping, Sharing. The Triglyph is the keep's heart and the realm's lock. Bring all three to the door, and the keep opens. Bring two, and the keep weeps. Bring one, and the keep waits.",
+            "choices": [
+              {
+                "label": "Tell me of the great door.",
+                "next": "door"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "door": {
+            "speaker": "Keeper Maren",
+            "text": "The great door is the wound and the seal. It opens for one who bears the full Triglyph. None has passed it in living memory. But the wards thin, and one will come. I think one is here.",
+            "choices": [
+              {
+                "label": "Tell me of the wardstones.",
+                "next": "ward"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "ward": {
+            "speaker": "Keeper Maren",
+            "text": "Wardstones drink the Source and breathe it as light. When the realm is bright, they hum. When the Hoarder gathers, they go silent. Listen at one and you will know the season.",
+            "choices": [
+              {
+                "label": "Tell me of Lirien's covenant.",
+                "next": "cov"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "cov": {
+            "speaker": "Keeper Maren",
+            "text": "Lirien made the realm and gave it freely. The covenant is that we receive freely and give freely. The keep is built upon that vow. When the giving stops, the keep falls.",
+            "choices": [
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bless": {
+            "speaker": "Keeper Maren",
+            "text": "*touches your brow with a Source-cool finger*\nGo with sight. Go with shaping. Go with sharing. Bring back the third sigil, traveler. Bring it home."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        4.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": -1.2,
+      "name": "Acolyte Pyl",
+      "body_color": [
+        0.55,
+        0.5,
+        0.7,
+        1.0
+      ],
+      "hat_color": [
+        0.75,
+        0.65,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Speak softly to the acolyte",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Acolyte Pyl",
+            "text": "*kneeling, eyes closed*\nForgive me \u2014 I am at prayer. ...One moment.\n\n*opens eyes*\nThere. The vow is renewed. Were you wishing something of me?",
+            "choices": [
+              {
+                "label": "What were you praying for?",
+                "next": "pray"
+              },
+              {
+                "label": "Why come so far to pray?",
+                "next": "far"
+              },
+              {
+                "label": "Forgive me \u2014 go on.",
+                "next": "bye"
+              }
+            ]
+          },
+          "pray": {
+            "speaker": "Acolyte Pyl",
+            "text": "For the third sigil to be carried truly. For a small one to do a great thing. For the Hoarder's hand to be lifted, even one finger. Small prayers; but the Source listens to small things.",
+            "choices": [
+              {
+                "label": "Why come so far to pray?",
+                "next": "far"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "far": {
+            "speaker": "Acolyte Pyl",
+            "text": "The keep is the loudest place to pray. The wardstones carry it on. A prayer spoken here travels every wardstone in the realm by morning. Or so my teacher said. I have not asked the wardstones to confirm.",
+            "choices": [
+              {
+                "label": "What were you praying for?",
+                "next": "pray"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Acolyte Pyl",
+            "text": "May the green hold you, traveler."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

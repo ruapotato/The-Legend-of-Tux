@@ -17778,6 +17778,162 @@
       "pebble_chance": 0.3,
       "trunk_height": 5.320256888814894,
       "canopy_radius": 2.072960256819086
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2.0,
+        0.0,
+        -36.0
+      ],
+      "rotation_y": 2.5,
+      "name": "Fisher Aelis",
+      "body_color": [
+        0.45,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.4,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the fisher",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Fisher Aelis",
+            "text": "Quiet, quiet \u2014 the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?",
+            "choices": [
+              {
+                "label": "What shrine?",
+                "next": "shrine"
+              },
+              {
+                "label": "Tell me of the lake.",
+                "next": "lake"
+              },
+              {
+                "label": "Just passing.",
+                "next": "bye"
+              }
+            ]
+          },
+          "shrine": {
+            "speaker": "Fisher Aelis",
+            "text": "South of here, beneath the water. A sunken sigil-shrine. The keepers warded a thing inside; the lake has been finishing the job for a hundred summers. Bring a bright heart and a held breath.",
+            "choices": [
+              {
+                "label": "Tell me of the lake.",
+                "next": "lake"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "lake": {
+            "speaker": "Fisher Aelis",
+            "text": "The Source slows here. What flows fast in the brook turns thick in the mire. It's why the wards held so long; it's why the things below are waking so slow. Slow waking is still waking.",
+            "choices": [
+              {
+                "label": "What shrine?",
+                "next": "shrine"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Fisher Aelis",
+            "text": "Tread the boards, not the peat. The peat takes."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        28.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": -1.2,
+      "name": "Reedweaver Pell",
+      "body_color": [
+        0.55,
+        0.65,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.5,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Pell",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Reedweaver Pell",
+            "text": "*braids a long reed without looking up*\nOh \u2014 visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?",
+            "choices": [
+              {
+                "label": "What are you weaving?",
+                "next": "weave"
+              },
+              {
+                "label": "What lives in the mire?",
+                "next": "mire"
+              },
+              {
+                "label": "Just passing through.",
+                "next": "bye"
+              }
+            ]
+          },
+          "weave": {
+            "speaker": "Reedweaver Pell",
+            "text": "A wardmat. The reeds remember the old patterns when you set them right. Lay one in your doorway and the dim things turn aside. Of course, I have not had a customer in two seasons. *smiles*",
+            "choices": [
+              {
+                "label": "What lives in the mire?",
+                "next": "mire"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "mire": {
+            "speaker": "Reedweaver Pell",
+            "text": "Spores, mostly. Things that bloom and burst. And the great quiet beneath the water \u2014 but we don't speak of that one, not on a still day.",
+            "choices": [
+              {
+                "label": "What are you weaving?",
+                "next": "weave"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Reedweaver Pell",
+            "text": "Tread softly off my island, traveler. The reeds remember footfalls."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

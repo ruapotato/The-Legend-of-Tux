@@ -3177,6 +3177,19 @@
       "message": "Hollow of the Last Wyrd.\n\nA carved root frames the entrance. The dust inside is fresh."
     },
     {
+      "type": "owl_statue",
+      "pos": [
+        11,
+        0,
+        -22
+      ],
+      "rotation_y": -1.5708,
+      "warp_id": "owl_wyrdwood",
+      "warp_name": "Wyrdwood Hollow",
+      "warp_target_scene": "wyrdwood",
+      "warp_target_spawn": "from_dungeon"
+    },
+    {
       "type": "bush",
       "pos": [
         -2.0,
@@ -3451,6 +3464,162 @@
       "pebble_chance": 0.2,
       "trunk_height": 4.4570745175684765,
       "canopy_radius": 1.4297342630417709
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -6.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.7,
+      "name": "Hermit Olber",
+      "body_color": [
+        0.45,
+        0.55,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.35,
+        0.3,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the hermit",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Hermit Olber",
+            "text": "Eh? Is it morning? Is it night? The wood does not say. I have walked in circles for \u2014 well. Some time. You look less lost than I am. Tell me, are you looking for the Hollow?",
+            "choices": [
+              {
+                "label": "Where is the Hollow?",
+                "next": "hollow"
+              },
+              {
+                "label": "How long have you wandered?",
+                "next": "wander"
+              },
+              {
+                "label": "Stay safe, hermit.",
+                "next": "bye"
+              }
+            ]
+          },
+          "hollow": {
+            "speaker": "Hermit Olber",
+            "text": "East. East, then south. There is a fallen elder-tree, its roots carved like a mouth. The mouth swallows the path. That is the entrance. I would go in, but the door has no handle, and I have no patience.",
+            "choices": [
+              {
+                "label": "How long have you wandered?",
+                "next": "wander"
+              },
+              {
+                "label": "Thank you. Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wander": {
+            "speaker": "Hermit Olber",
+            "text": "Long enough to forget my own name some mornings. The wood folds upon itself, you see. The ribbons others have tied \u2014 those are the only true compass.",
+            "choices": [
+              {
+                "label": "Where is the Hollow?",
+                "next": "hollow"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Hermit Olber",
+            "text": "Mind the trees. They watch."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        5.0,
+        0.0,
+        -16.0
+      ],
+      "rotation_y": -0.8,
+      "name": "Wenna the Wisp-tender",
+      "body_color": [
+        0.6,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.55,
+        0.75,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Wenna",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Wenna the Wisp-tender",
+            "text": "Hush \u2014 they are timid. *cups her hands gently*\nGood. Good. I see your wisp at your shoulder, traveler. She is bright. She has chosen you.",
+            "choices": [
+              {
+                "label": "What is Glim's role?",
+                "next": "role"
+              },
+              {
+                "label": "Why do wisps choose?",
+                "next": "choose"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "role": {
+            "speaker": "Wenna the Wisp-tender",
+            "text": "A wisp is a fleck of the Source with a small, bright will. She lights what is dim. She remembers what you forget. She names what you cannot. Listen for her chime \u2014 it speaks where words will not.",
+            "choices": [
+              {
+                "label": "Why do wisps choose?",
+                "next": "choose"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "choose": {
+            "speaker": "Wenna the Wisp-tender",
+            "text": "Because the Source likes a true heart, and a true heart never knows itself. Glim sees in you what you cannot. Trust her sight more than your own, when the green grows thick.",
+            "choices": [
+              {
+                "label": "What is Glim's role?",
+                "next": "role"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Wenna the Wisp-tender",
+            "text": "Walk lightly. The wisps sleep nearby."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

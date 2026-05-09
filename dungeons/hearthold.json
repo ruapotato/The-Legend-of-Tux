@@ -6554,6 +6554,19 @@
       "message": "Hearthold.\n\nThe gate is thrown open. Smoke from the kilns rises to meet the rooks. North: the Sigilkeep. The wardstones still glow there, faintly."
     },
     {
+      "type": "owl_statue",
+      "pos": [
+        4,
+        0,
+        8
+      ],
+      "rotation_y": 0,
+      "warp_id": "owl_hearthold",
+      "warp_name": "Hearthold Yard",
+      "warp_target_scene": "hearthold",
+      "warp_target_spawn": "from_sourceplain"
+    },
+    {
       "type": "sign",
       "pos": [
         -12,
@@ -6623,11 +6636,25 @@
     },
     {
       "type": "npc",
-      "pos": [0.0, 0.0, 4.0],
+      "pos": [
+        0.0,
+        0.0,
+        4.0
+      ],
       "rotation_y": 3.14159,
       "name": "Hearthold Elder",
-      "body_color": [0.55, 0.42, 0.30, 1.0],
-      "hat_color": [0.30, 0.20, 0.12, 1.0],
+      "body_color": [
+        0.55,
+        0.42,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.2,
+        0.12,
+        1.0
+      ],
       "idle_hint": "[E] Speak with the Elder",
       "dialog_tree": {
         "start": "root",
@@ -6636,37 +6663,76 @@
             "speaker": "Hearthold Elder",
             "text": "Well met, little wanderer. The kilns burn warm tonight, and the rooks still keep their watch. Ask, if you would.",
             "choices": [
-              {"label": "Tell me about the Source.", "next": "source"},
-              {"label": "What of Khorgaul?",         "next": "khorgaul"},
-              {"label": "What is the Sigil?",        "next": "sigil"},
-              {"label": "I should be going.",        "next": "bye"}
+              {
+                "label": "Tell me about the Source.",
+                "next": "source"
+              },
+              {
+                "label": "What of Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "What is the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "I should be going.",
+                "next": "bye"
+              }
             ]
           },
           "source": {
             "speaker": "Hearthold Elder",
-            "text": "The Source is the spring of all green things — the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
+            "text": "The Source is the spring of all green things \u2014 the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
             "choices": [
-              {"label": "And the Sigil?",     "next": "sigil"},
-              {"label": "And Khorgaul?",      "next": "khorgaul"},
-              {"label": "Back.",              "next": "root"}
+              {
+                "label": "And the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "And Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "khorgaul": {
             "speaker": "Hearthold Elder",
-            "text": "The Hoarder. He does not steal so much as he gathers — the light, the warmth, the names of things. The wardstones held him once. They thin now.",
+            "text": "The Hoarder. He does not steal so much as he gathers \u2014 the light, the warmth, the names of things. The wardstones held him once. They thin now.",
             "choices": [
-              {"label": "Tell me of the Source.", "next": "source"},
-              {"label": "And the Sigil?",         "next": "sigil"},
-              {"label": "Back.",                  "next": "root"}
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "And the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "sigil": {
             "speaker": "Hearthold Elder",
-            "text": "The Triglyph — three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
+            "text": "The Triglyph \u2014 three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
             "choices": [
-              {"label": "Tell me of the Source.", "next": "source"},
-              {"label": "And Khorgaul?",          "next": "khorgaul"},
-              {"label": "Back.",                  "next": "root"}
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "And Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bye": {
@@ -6678,11 +6744,25 @@
     },
     {
       "type": "npc",
-      "pos": [10.0, 0.0, 4.0],
+      "pos": [
+        10.0,
+        0.0,
+        4.0
+      ],
       "rotation_y": -1.5708,
       "name": "Takka the Smith",
-      "body_color": [0.40, 0.35, 0.45, 1.0],
-      "hat_color": [0.55, 0.30, 0.15, 1.0],
+      "body_color": [
+        0.4,
+        0.35,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.3,
+        0.15,
+        1.0
+      ],
       "idle_hint": "[E] Talk to Takka",
       "dialog_tree": {
         "start": "root",
@@ -6691,13 +6771,20 @@
             "speaker": "Takka the Smith",
             "text": "Eh? You look light in the pouch, traveler. Need any pebbles for the sling?",
             "choices": [
-              {"label": "Yes — spare me a handful.",
-               "next": "give",
-               "requires_not": "took_takka_pebbles"},
-              {"label": "You already gave me some.",
-               "next": "already_gave",
-               "requires": "took_takka_pebbles"},
-              {"label": "No, I'm fine.", "next": "bye"}
+              {
+                "label": "Yes \u2014 spare me a handful.",
+                "next": "give",
+                "requires_not": "took_takka_pebbles"
+              },
+              {
+                "label": "You already gave me some.",
+                "next": "already_gave",
+                "requires": "took_takka_pebbles"
+              },
+              {
+                "label": "No, I'm fine.",
+                "next": "bye"
+              }
             ]
           },
           "give": {
@@ -6710,7 +6797,11 @@
             "speaker": "Takka the Smith",
             "text": "Mind the wardstones to the north. They sing when they're upset.",
             "choices": [
-              {"label": "Thanks, Takka.", "next": "bye", "sets": "took_takka_pebbles"}
+              {
+                "label": "Thanks, Takka.",
+                "next": "bye",
+                "sets": "took_takka_pebbles"
+              }
             ]
           },
           "already_gave": {
@@ -6726,11 +6817,25 @@
     },
     {
       "type": "npc",
-      "pos": [-3.0, 0.0, 8.0],
+      "pos": [
+        -3.0,
+        0.0,
+        8.0
+      ],
       "rotation_y": 0.5,
       "name": "Pim",
-      "body_color": [0.70, 0.80, 0.60, 1.0],
-      "hat_color": [0.95, 0.65, 0.30, 1.0],
+      "body_color": [
+        0.7,
+        0.8,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.65,
+        0.3,
+        1.0
+      ],
       "idle_hint": "[E] Talk to Pim",
       "dialog_tree": {
         "start": "root",
@@ -6743,6 +6848,179 @@
           "two": {
             "speaker": "Pim",
             "text": "Mama says they're little pieces of Lirien's breath. I want to catch one and put it in a jar. Don't tell mama."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -7.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 1.0,
+      "name": "Father Velis",
+      "body_color": [
+        0.6,
+        0.4,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.55,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Father Velis",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Father Velis",
+            "text": "Welcome to the Hearth-shrine, traveler. The kilns warm our bones; the Source warms our names. You bring questions. Speak them.",
+            "choices": [
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "Tell me of the Triglyph.",
+                "next": "trig"
+              },
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "What is this shrine for?",
+                "next": "shrine"
+              },
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              }
+            ]
+          },
+          "source": {
+            "speaker": "Father Velis",
+            "text": "The Source flows through every green thing \u2014 through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.",
+            "choices": [
+              {
+                "label": "Tell me of the Triglyph.",
+                "next": "trig"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "trig": {
+            "speaker": "Father Velis",
+            "text": "Three sigils, three vows. Sight \u2014 to see truly. Shaping \u2014 to make and unmake. Sharing \u2014 to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.",
+            "choices": [
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "lirien": {
+            "speaker": "Father Velis",
+            "text": "Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving \u2014 the freedom of the green to grow and grow again.",
+            "choices": [
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "khor": {
+            "speaker": "Father Velis",
+            "text": "Khorgaul the Hoarder, the Cold-hand, the Without-Sharing. He is what the Source becomes when nothing is given. We do not curse him at the shrine. We pity him. And we hold the wards.",
+            "choices": [
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "shrine": {
+            "speaker": "Father Velis",
+            "text": "The hearth-shrine warms two flames \u2014 one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.",
+            "choices": [
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bless": {
+            "speaker": "Father Velis",
+            "text": "*marks your brow with ash*\nGo with the wing of Lirien at your back. Go with the green underfoot. Go with the giving in your hand."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        6.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": -2.5,
+      "name": "Tilly",
+      "body_color": [
+        0.75,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.9,
+        0.65,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Tilly",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Tilly",
+            "text": "HYAA! I am the bravest knight in Hearthold and I have THREE swords and they are ALL invisible except this one which is a stick.",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Tilly",
+            "text": "Wanna duel? *brandishes stick*\nNo? Fine. I'll save the realm without you. Tell Father Velis if I don't come back by supper."
           }
         }
       }

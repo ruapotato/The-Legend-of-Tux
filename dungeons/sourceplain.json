@@ -86796,7 +86796,11 @@
       "boss_scene_id": "tomato",
       "boss_name": "Wyrd Tomato",
       "arena_radius": 8.0,
-      "spawn_offset": [0.0, 4.0, 0.0]
+      "spawn_offset": [
+        0.0,
+        4.0,
+        0.0
+      ]
     },
     {
       "type": "sign",
@@ -86807,6 +86811,19 @@
       ],
       "rotation_y": 0.0,
       "message": "THE SOURCEPLAIN MONOLITH\n\nLirien shaped this stone before the first dawn,\nand into it pressed the song of every river.\n\nKhorgaul came and took the Sigil.\nThe Source still hums, but only Glim hears it now.\n\n\"What is given freely runs without end.\n What is hoarded, stagnates.\""
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        6.0,
+        0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_sourceplain",
+      "warp_name": "Sourceplain Hub",
+      "warp_target_scene": "sourceplain",
+      "warp_target_spawn": "from_wyrdwood"
     },
     {
       "type": "sign",
@@ -87868,6 +87885,729 @@
         2.5
       ],
       "pebble_chance": 0.4
+    },
+    {
+      "type": "npc",
+      "pos": [
+        13.0,
+        0.0,
+        9.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Vaella the Wyrdkin",
+      "body_color": [
+        0.55,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.25,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the scholar",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "Ah \u2014 a traveler at the monolith. I am Vaella, of the wyrdkin who keep the old reckoning. The Source flows here in deeper currents. Ask, and I will share what I have learned.",
+            "choices": [
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "What are the Sigils?",
+                "next": "sigils"
+              },
+              {
+                "label": "Tell me of the war.",
+                "next": "war"
+              },
+              {
+                "label": "What of Lirien and Khorgaul?",
+                "next": "makers"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "source": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "The Source is the green weave. Every leaf, every wisp, every drop of brookwater \u2014 a single bright thread, knotted differently. To break a thing is to fray the weave; to mend it is to listen for where the thread wants to go.",
+            "choices": [
+              {
+                "label": "And the Sigils?",
+                "next": "sigils"
+              },
+              {
+                "label": "Tell me of the war.",
+                "next": "war"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "sigils": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "Three marks, three vows. The Sigil of Sight, given by Lirien \u2014 to see truly. The Sigil of Shaping, taken by Khorgaul \u2014 to bend and to bind. And the Sigil of Sharing, the gift you bear in your name, little Tux \u2014 the vow that nothing be hoarded.",
+            "choices": [
+              {
+                "label": "Tell me of the war.",
+                "next": "war"
+              },
+              {
+                "label": "And the Source?",
+                "next": "source"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "war": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "Long before the kilns of Hearthold were laid, Khorgaul gathered the bright things into his hold. Lirien wove the wards to hold him. The wards thin. The Hollow burns. The lake-shrine sinks. The roost grows cold with crows. The signs are clear.",
+            "choices": [
+              {
+                "label": "What of Lirien and Khorgaul?",
+                "next": "makers"
+              },
+              {
+                "label": "And the Sigils?",
+                "next": "sigils"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "makers": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "Lirien is the Maker \u2014 the one who gives. Khorgaul is the Hoarder \u2014 the one who keeps. Both are old as the weave; neither greater. But where the Hoarder treads, the Maker's gifts thin to ash. Carry your sigil bright, Tux. Carry it bright.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Vaella the Wyrdkin",
+            "text": "Walk where the weave is bright, traveler."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -25.0,
+        0.0,
+        -25.0
+      ],
+      "rotation_y": 1.0,
+      "name": "Olbrik the Pebbler",
+      "body_color": [
+        0.5,
+        0.45,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.65,
+        0.55,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Olbrik",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Olbrik the Pebbler",
+            "text": "Ho there! Olbrik's the name, pebbles are the trade. Pretty ones, weighted ones, ones that whistle when you sling 'em. Care to hear a tale of the old throwing arts?",
+            "choices": [
+              {
+                "label": "Tell me about pebbles.",
+                "next": "pebbles"
+              },
+              {
+                "label": "Whistling pebbles?",
+                "next": "whistle"
+              },
+              {
+                "label": "I should be off.",
+                "next": "bye"
+              }
+            ]
+          },
+          "pebbles": {
+            "speaker": "Olbrik the Pebbler",
+            "text": "A good pebble's heavier than it looks \u2014 that's the Source still humming inside it. Bushes hide 'em; rocks crack open with 'em. A wise wanderer never walks past a likely shrub.",
+            "choices": [
+              {
+                "label": "Whistling pebbles?",
+                "next": "whistle"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "whistle": {
+            "speaker": "Olbrik the Pebbler",
+            "text": "Hollowed by a wisp's breath, they say. Sling one and it sings the whole way to its mark. I've never sold one \u2014 I've never found one. But I'll keep looking 'til my pouch runs dry.",
+            "choices": [
+              {
+                "label": "Tell me about pebbles.",
+                "next": "pebbles"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Olbrik the Pebbler",
+            "text": "Mind the bushes! Mind the rocks!"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        60.0,
+        0.0,
+        30.0
+      ],
+      "rotation_y": -2.0,
+      "name": "Mirabel the Rumour-keeper",
+      "body_color": [
+        0.7,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.35,
+        0.5,
+        1.0
+      ],
+      "idle_hint": "[E] Trade rumours with Mirabel",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "A fresh face! And fresh feet, I'd wager. I trade in rumours \u2014 what folk whisper from the far roads. Which way's your eye drawn?",
+            "choices": [
+              {
+                "label": "Eastward \u2014 Brookhold.",
+                "next": "brook"
+              },
+              {
+                "label": "Westward \u2014 the Burnt Hollow.",
+                "next": "hollow"
+              },
+              {
+                "label": "South \u2014 the Wyrdwood.",
+                "next": "wood"
+              },
+              {
+                "label": "North \u2014 Hearthold and the Keep.",
+                "next": "north"
+              },
+              {
+                "label": "Up \u2014 Stoneroost.",
+                "next": "roost"
+              },
+              {
+                "label": "And the Mirelake?",
+                "next": "mire"
+              },
+              {
+                "label": "I've heard enough.",
+                "next": "bye"
+              }
+            ]
+          },
+          "brook": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "The Brook family lost three lambwisps to the wind. The matriarch keeps a pouch of pebbles for any kind soul who runs her errands.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "hollow": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "Khorgaul's hand presses hard there. Bone-knights walk the shelf, and the Source bleeds black. A scout staggered out last week. Half a man. Half words.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "wood": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "The wyrdwood swallows the unwary. They say there's a hollow under a fallen elder where the last wyrd still sleeps. Don't ask me how I know.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "north": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "Hearthold's kilns burn day and night. The Sigilkeep beyond is sealed; only one bearing all three marks may pass. The Elder there knows more than he says.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "roost": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "Bats in the gullies. Bone-knights at the switchbacks. And a hermit at the summit who claims he taught the wind to speak. He may even be right.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "mire": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "A shrine sinks beneath the south water. Whatever the keepers warded down there, the lake is doing their work for them. For now.",
+            "choices": [
+              {
+                "label": "Another rumour.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Mirabel the Rumour-keeper",
+            "text": "Bring me back a tale, and we'll trade again."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -80.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Eltha the Scout",
+      "body_color": [
+        0.5,
+        0.45,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.2,
+        0.2,
+        1.0
+      ],
+      "idle_hint": "[E] Tend to the wounded scout",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Eltha the Scout",
+            "text": "*coughs* Don't go west. Don't... don't go without a blade and a bright heart. The Hollow eats both, but you'll need them.",
+            "choices": [
+              {
+                "label": "What did you see?",
+                "next": "saw"
+              },
+              {
+                "label": "Are you hurt?",
+                "next": "hurt"
+              },
+              {
+                "label": "I'll go carefully.",
+                "next": "bye"
+              }
+            ]
+          },
+          "saw": {
+            "speaker": "Eltha the Scout",
+            "text": "Khorgaul's blight. The Source bleeds out of the rocks like sap from a wound. Bone-things stand in the ash-paths. They do not breathe, and they do not stop.",
+            "choices": [
+              {
+                "label": "Are you hurt?",
+                "next": "hurt"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "hurt": {
+            "speaker": "Eltha the Scout",
+            "text": "Aye, but it'll mend. The breath of Lirien is in the wind out here. Save your help for those who can't walk back. There were others. They didn't.",
+            "choices": [
+              {
+                "label": "What did you see?",
+                "next": "saw"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Eltha the Scout",
+            "text": "Go bright, traveler. Go bright."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        110.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Tova the Hopeful",
+      "body_color": [
+        0.6,
+        0.7,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Tova",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Tova",
+            "text": "Oh \u2014 oh! You look like a wanderer who actually wanders! Listen \u2014 I write to my cousin in the Brook holding every season, and the messenger never arrived, and... could you?",
+            "choices": [
+              {
+                "label": "Give me the letter.",
+                "next": "give",
+                "requires_not": "brookhold_letter"
+              },
+              {
+                "label": "I have your letter already.",
+                "next": "have",
+                "requires": "brookhold_letter"
+              },
+              {
+                "label": "Sorry, I can't.",
+                "next": "bye"
+              }
+            ]
+          },
+          "give": {
+            "speaker": "Tova",
+            "text": "Truly? Bless you! Take it \u2014 it's only a folded thing, but the words inside are big. Find the matriarch of the Brook family, in their holding to the east. Tell her it's from Tova.",
+            "give_item": "brookhold_letter",
+            "next": "post"
+          },
+          "post": {
+            "speaker": "Tova",
+            "text": "Eastward through the field, past the great signpost. She'll thank you, I hope \u2014 she's a generous soul.",
+            "choices": [
+              {
+                "label": "I'll deliver it.",
+                "next": "bye"
+              }
+            ]
+          },
+          "have": {
+            "speaker": "Tova",
+            "text": "Oh \u2014 yes, please go! Eastward! Before the season turns!"
+          },
+          "bye": {
+            "speaker": "Tova",
+            "text": "Safe roads, then."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        8.0,
+        0.0,
+        12.0
+      ],
+      "rotation_y": -2.5,
+      "name": "Old Garrun",
+      "body_color": [
+        0.45,
+        0.4,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.25,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Hear the old knight",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Garrun",
+            "text": "I tried, lad. I tried, and I failed. The Wyrd Tomato \u2014 yes, you can laugh, but stop laughing once you see the leaves. They are sharp as any knight's blade.",
+            "choices": [
+              {
+                "label": "How did you fight it?",
+                "next": "fight"
+              },
+              {
+                "label": "Why a tomato?",
+                "next": "why"
+              },
+              {
+                "label": "Tell me a way through.",
+                "next": "hint"
+              },
+              {
+                "label": "Rest well, knight.",
+                "next": "bye"
+              }
+            ]
+          },
+          "fight": {
+            "speaker": "Old Garrun",
+            "text": "Straight on, like a fool. The leaves clipped my helm, my arm, my pride. Strike its body, not its leaves \u2014 but you must reach it first.",
+            "choices": [
+              {
+                "label": "Tell me a way through.",
+                "next": "hint"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "why": {
+            "speaker": "Old Garrun",
+            "text": "Khorgaul's gardener seeded it long ago. Some say the Hoarder finds amusement in growing terrible things from harmless seeds. The bigger the joke, the longer he laughs.",
+            "choices": [
+              {
+                "label": "Tell me a way through.",
+                "next": "hint"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "hint": {
+            "speaker": "Old Garrun",
+            "text": "Tilt your camera away from the beast \u2014 drop low, crawl under the leaves. They sweep over an empty space. Then strike up at the body. Tilt away to crawl under. I wish I had known.",
+            "choices": [
+              {
+                "label": "Thank you.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Old Garrun",
+            "text": "May Lirien's wing shade you, little one."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -12.0,
+        0.0,
+        -10.0
+      ],
+      "rotation_y": 0.5,
+      "name": "Peddler Bram",
+      "body_color": [
+        0.55,
+        0.5,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.35,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Bram",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Peddler Bram",
+            "text": "Pssst. Friend. You look like a sling-arm with light pockets. I owe a debt to the road. Take some pebbles \u2014 Bram pays his debts.",
+            "choices": [
+              {
+                "label": "Gladly.",
+                "next": "give",
+                "requires_not": "took_bram_pebbles"
+              },
+              {
+                "label": "You already paid me.",
+                "next": "already",
+                "requires": "took_bram_pebbles"
+              },
+              {
+                "label": "No, thank you.",
+                "next": "bye"
+              }
+            ]
+          },
+          "give": {
+            "speaker": "Peddler Bram",
+            "text": "Five \u2014 count them. May they fly true and never come back to me.",
+            "give_pebbles": 5,
+            "next": "post"
+          },
+          "post": {
+            "speaker": "Peddler Bram",
+            "text": "Now leave me to my road, friend. Even peddlers must rest.",
+            "choices": [
+              {
+                "label": "Thanks, Bram.",
+                "next": "bye",
+                "sets": "took_bram_pebbles"
+              }
+            ]
+          },
+          "already": {
+            "speaker": "Peddler Bram",
+            "text": "Aye, and the debt's paid. A peddler doesn't pay twice."
+          },
+          "bye": {
+            "speaker": "Peddler Bram",
+            "text": "Mind the road, friend."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        15.0,
+        0.0,
+        -22.0
+      ],
+      "rotation_y": 2.5,
+      "name": "Halen the Lutist",
+      "body_color": [
+        0.55,
+        0.45,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.75,
+        0.55,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to Halen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Halen the Lutist",
+            "text": "*hums softly*\nOh \u2014 pardon. I was working on a song. About the Lost Hollow, where the wyrd-sleeper waits. Will you hear it?",
+            "choices": [
+              {
+                "label": "Sing it.",
+                "next": "song"
+              },
+              {
+                "label": "Tell me of the Hollow.",
+                "next": "hollow"
+              },
+              {
+                "label": "Another time.",
+                "next": "bye"
+              }
+            ]
+          },
+          "song": {
+            "speaker": "Halen the Lutist",
+            "text": "*sings*\n  Three lights, three locks, three stones to wake,\n  Three triggers must answer the door.\n  Press one and the green will tremble;\n  Press all, and it sleeps no more.",
+            "choices": [
+              {
+                "label": "Three triggers?",
+                "next": "hollow"
+              },
+              {
+                "label": "Lovely. Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "hollow": {
+            "speaker": "Halen the Lutist",
+            "text": "Three triggers must answer the door \u2014 that's the riddle. Pressure-stones, switches, plates \u2014 find the three, hold them all, and the way opens. So the old verses say.",
+            "choices": [
+              {
+                "label": "Sing it again.",
+                "next": "song"
+              },
+              {
+                "label": "Farewell.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Halen the Lutist",
+            "text": "May your steps find good chords, traveler."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

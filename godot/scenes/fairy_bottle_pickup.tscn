@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://btuxfair01"]
+
+[ext_resource type="Script" path="res://scripts/fairy_bottle_pickup.gd" id="1_fb"]
+
+[sub_resource type="SphereShape3D" id="trig_shape"]
+radius = 0.55
+
+[sub_resource type="CylinderMesh" id="bottle_body_mesh"]
+top_radius = 0.18
+bottom_radius = 0.20
+height = 0.42
+radial_segments = 14
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="bottle_glass_mat"]
+albedo_color = Color(0.55, 0.85, 0.95, 0.55)
+roughness = 0.10
+metallic = 0.0
+transparency = 1
+shading_mode = 1
+
+[sub_resource type="SphereMesh" id="bottle_top_mesh"]
+radius = 0.16
+height = 0.22
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="bottle_cork_mesh"]
+top_radius = 0.10
+bottom_radius = 0.10
+height = 0.10
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="bottle_cork_mat"]
+albedo_color = Color(0.55, 0.40, 0.25, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="mote_mesh"]
+radius = 0.07
+height = 0.14
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="mote_mat"]
+albedo_color = Color(1.0, 0.85, 0.95, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(1.0, 0.75, 0.95, 1)
+emission_energy_multiplier = 2.2
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="halo_mesh"]
+radius = 0.34
+height = 0.62
+radial_segments = 12
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="halo_mat"]
+albedo_color = Color(0.85, 0.95, 1.0, 0.30)
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.80, 0.92, 1.0, 1)
+emission_energy_multiplier = 0.7
+transparency = 1
+shading_mode = 0
+
+[node name="FairyBottle" type="Area3D"]
+script = ExtResource("1_fb")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("trig_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+
+[node name="Halo" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("halo_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("bottle_body_mesh")
+surface_material_override/0 = SubResource("bottle_glass_mat")
+
+[node name="Shoulder" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+mesh = SubResource("bottle_top_mesh")
+surface_material_override/0 = SubResource("bottle_glass_mat")
+
+[node name="Cork" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)
+mesh = SubResource("bottle_cork_mesh")
+surface_material_override/0 = SubResource("bottle_cork_mat")
+
+[node name="Mote" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("mote_mesh")
+surface_material_override/0 = SubResource("mote_mat")

@@ -1,27 +1,28 @@
-[gd_scene load_steps=1927 format=3 uid="uid://btuxmirelake01"]
+[gd_scene load_steps=1928 format=3 uid="uid://btuxmirelake01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.55, 0.65, 0.7, 1)
@@ -17510,6 +17511,22 @@ transform = Transform3D(-0.0778534, 0, -0.996965, 0, 1, 0, 0.996965, 0, -0.07785
 pebble_chance = 0.3
 trunk_height = 5.32026
 canopy_radius = 2.07296
+
+[node name="Npc48_Fisher_Aelis" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.801144, 0, -0.598472, 0, 1, 0, 0.598472, 0, -0.801144, -2, 0, -36)
+npc_name = "Fisher Aelis"
+body_color = Color(0.45, 0.55, 0.55, 1)
+hat_color = Color(0.4, 0.4, 0.55, 1)
+idle_hint = "[E] Talk to the fisher"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Fisher Aelis\", \"text\": \"Quiet, quiet — the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?\", \"choices\": [{\"label\": \"What shrine?\", \"next\": \"shrine\"}, {\"label\": \"Tell me of the lake.\", \"next\": \"lake\"}, {\"label\": \"Just passing.\", \"next\": \"bye\"}]}, \"shrine\": {\"speaker\": \"Fisher Aelis\", \"text\": \"South of here, beneath the water. A sunken sigil-shrine. The keepers warded a thing inside; the lake has been finishing the job for a hundred summers. Bring a bright heart and a held breath.\", \"choices\": [{\"label\": \"Tell me of the lake.\", \"next\": \"lake\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"lake\": {\"speaker\": \"Fisher Aelis\", \"text\": \"The Source slows here. What flows fast in the brook turns thick in the mire. It's why the wards held so long; it's why the things below are waking so slow. Slow waking is still waking.\", \"choices\": [{\"label\": \"What shrine?\", \"next\": \"shrine\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Fisher Aelis\", \"text\": \"Tread the boards, not the peat. The peat takes.\"}}}"
+
+[node name="Npc49_Reedweaver_Pell" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.362358, 0, 0.932039, 0, 1, 0, -0.932039, 0, 0.362358, 28, 0, 4)
+npc_name = "Reedweaver Pell"
+body_color = Color(0.55, 0.65, 0.4, 1)
+hat_color = Color(0.4, 0.5, 0.3, 1)
+idle_hint = "[E] Talk to Pell"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Reedweaver Pell\", \"text\": \"*braids a long reed without looking up*\\nOh — visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?\", \"choices\": [{\"label\": \"What are you weaving?\", \"next\": \"weave\"}, {\"label\": \"What lives in the mire?\", \"next\": \"mire\"}, {\"label\": \"Just passing through.\", \"next\": \"bye\"}]}, \"weave\": {\"speaker\": \"Reedweaver Pell\", \"text\": \"A wardmat. The reeds remember the old patterns when you set them right. Lay one in your doorway and the dim things turn aside. Of course, I have not had a customer in two seasons. *smiles*\", \"choices\": [{\"label\": \"What lives in the mire?\", \"next\": \"mire\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"mire\": {\"speaker\": \"Reedweaver Pell\", \"text\": \"Spores, mostly. Things that bloom and burst. And the great quiet beneath the water — but we don't speak of that one, not on a still day.\", \"choices\": [{\"label\": \"What are you weaving?\", \"next\": \"weave\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Reedweaver Pell\", \"text\": \"Tread softly off my island, traveler. The reeds remember footfalls.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -48.5)

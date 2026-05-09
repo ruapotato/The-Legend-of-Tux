@@ -349,6 +349,22 @@ func _build_map_tab() -> void:
     heading.add_theme_font_size_override("font_size", 20)
     _content_holder.add_child(heading)
 
+    # World-map sub-button: opens the cross-level overview + warp list
+    # in place of the level mini-map. Sits to the right of the heading
+    # so the local mini-map is the default at-a-glance view.
+    var world_btn := Button.new()
+    world_btn.text = "World"
+    world_btn.custom_minimum_size = Vector2(110, 28)
+    world_btn.add_theme_font_size_override("font_size", 14)
+    world_btn.anchor_left  = 1.0
+    world_btn.anchor_right = 1.0
+    world_btn.offset_left  = -120.0
+    world_btn.offset_right = -8.0
+    world_btn.offset_top   = 0.0
+    world_btn.offset_bottom = 28.0
+    world_btn.pressed.connect(_show_world_map)
+    _content_holder.add_child(world_btn)
+
     var map_packed: PackedScene = load("res://scenes/mini_map.tscn")
     if map_packed == null:
         var err := Label.new()
@@ -401,6 +417,53 @@ func _build_map_tab() -> void:
             lbl.add_theme_color_override("font_color", LABEL_COLOR)
             zone_box.add_child(lbl)
         _content_holder.add_child(zone_box)
+
+
+func _show_world_map() -> void:
+    # Replace the Map tab's contents with the WorldMap widget. We
+    # don't change tabs; the user came here through Map, and the World
+    # view is conceptually a Map sub-mode. _refresh_current_tab() rebuilds
+    # the local view if they leave and return.
+    for child in _content_holder.get_children():
+        child.queue_free()
+    _map_widget = null
+
+    var heading := Label.new()
+    heading.text = "World Map"
+    heading.add_theme_color_override("font_color", TITLE_COLOR)
+    heading.add_theme_font_size_override("font_size", 20)
+    _content_holder.add_child(heading)
+
+    var back_btn := Button.new()
+    back_btn.text = "Back"
+    back_btn.custom_minimum_size = Vector2(110, 28)
+    back_btn.add_theme_font_size_override("font_size", 14)
+    back_btn.anchor_left  = 1.0
+    back_btn.anchor_right = 1.0
+    back_btn.offset_left  = -120.0
+    back_btn.offset_right = -8.0
+    back_btn.offset_top   = 0.0
+    back_btn.offset_bottom = 28.0
+    back_btn.pressed.connect(_refresh_current_tab)
+    _content_holder.add_child(back_btn)
+
+    var packed: PackedScene = load("res://scenes/world_map.tscn")
+    if packed == null:
+        var err := Label.new()
+        err.text = "(world map unavailable)"
+        err.offset_top = 36.0
+        _content_holder.add_child(err)
+        return
+    var widget: Control = packed.instantiate()
+    widget.anchor_left  = 0.0
+    widget.anchor_right = 1.0
+    widget.anchor_top    = 0.0
+    widget.anchor_bottom = 1.0
+    widget.offset_left   = 0.0
+    widget.offset_right  = 0.0
+    widget.offset_top    = 36.0
+    widget.offset_bottom = 0.0
+    _content_holder.add_child(widget)
 
 
 func _find_load_zones() -> Array:

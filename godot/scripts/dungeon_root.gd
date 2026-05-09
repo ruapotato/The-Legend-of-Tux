@@ -30,6 +30,7 @@ func _ready() -> void:
     _apply_key_group()
     _attach_enemy_culler()
     _start_music()
+    _mark_visited()
     # Clear any puzzle latch state from the previous dungeon so a
     # crystal switch on "boss_door" in level A doesn't auto-open the
     # gate of the same name in level B.
@@ -68,6 +69,21 @@ func _ready() -> void:
     var camera_node: Node = get_node_or_null("Camera")
     if camera_node and camera_node.has_method("set_yaw"):
         camera_node.set_yaw(marker.rotation.y + PI)
+
+
+func _scene_id() -> String:
+    var p: String = scene_file_path
+    if p.begins_with("res://scenes/"):
+        p = p.substr("res://scenes/".length())
+    if p.ends_with(".tscn"):
+        p = p.substr(0, p.length() - ".tscn".length())
+    return p
+
+
+func _mark_visited() -> void:
+    var sid := _scene_id()
+    if sid != "" and GameState.has_method("mark_visited"):
+        GameState.mark_visited(sid)
 
 
 func _attach_enemy_culler() -> void:

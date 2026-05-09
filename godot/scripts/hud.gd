@@ -15,6 +15,14 @@ extends CanvasLayer
 @onready var death_overlay: ColorRect = $DeathOverlay
 @onready var death_label: Label = $DeathOverlay/DeathLabel
 
+# Fairy-bottle counter — built in _ready (no .tscn churn) so it sits
+# inside the existing TopRight column with the other counters.
+var bottle_label: Label = null
+# Sparkle overlay drawn on revive. We construct both nodes lazily on
+# the first revive so a fresh scene never pays for them upfront.
+var _sparkle_rect: ColorRect = null
+var _sparkle_label: Label = null
+
 const FISH_COLOR_FULL := Color(0.30, 0.55, 0.95, 1.0)
 const FISH_COLOR_EMPTY := Color(0.10, 0.18, 0.28, 0.55)
 
@@ -29,7 +37,10 @@ func _ready() -> void:
     GameState.arrows_changed.connect(_on_arrows_changed)
     GameState.seeds_changed.connect(_on_seeds_changed)
     GameState.player_died.connect(_on_player_died)
+    GameState.fairy_bottles_changed.connect(_on_fairy_bottles_changed)
+    GameState.fairy_revive_triggered.connect(_on_fairy_revive_triggered)
     death_overlay.visible = false
+    _ensure_bottle_label()
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
     _on_pebbles_changed(GameState.pebbles)
@@ -37,6 +48,38 @@ func _ready() -> void:
     _on_active_item_changed(GameState.active_b_item)
     _on_arrows_changed(GameState.arrows, GameState.max_arrows)
     _on_seeds_changed(GameState.seeds, GameState.max_seeds)
+    _on_fairy_bottles_changed(GameState.fairy_bottles, GameState.max_fairy_bottles)
+
+
+func _ensure_bottle_label() -> void:
+    if bottle_label != null:
+        return
+    var top_right := get_node_or_null("TopRight")
+    if top_right == null:
+        return
+    bottle_label = Label.new()
+    bottle_label.name = "BottleLabel"
+    bottle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    bottle_label.text = ""
+    bottle_label.visible = false
+    top_right.add_child(bottle_label)
+
+
+func _on_fairy_bottles_changed(current: int, maximum: int) -> void:
+    _ensure_bottle_label()
+    if bottle_label == null:
+        return
+    # Stay hidden until the player has at any point owned a bottle —
+    # add_fairy() flips inventory["bottle_seen"] on first pickup, so
+    # the row appears the moment that first chest opens and lingers
+    # at "0 / N" thereafter as a reminder that bottles exist.
+    var seen: bool = bool(GameState.inventory.get("bottle_seen", false))
+    if current <= 0 and not seen:
+        bottle_label.text = ""
+        bottle_label.visible = false
+    else:
+        bottle_label.text = "Btl %d / %d" % [current, maximum]
+        bottle_label.visible = true
 
 
 func _on_hp_changed(current: int, maximum: int) -> void:
@@ -113,6 +156,68 @@ func _on_seeds_changed(current: int, maximum: int) -> void:
 func _on_player_died() -> void:
     death_overlay.visible = true
     _ensure_death_buttons()
+
+
+# ---- Fairy-bottle revive sparkle ---------------------------------------
+#
+# Fires when GameState.damage() catches a lethal hit and pops a bottle.
+# Death overlay should NOT appear (it's only triggered by player_died,
+# which damage() suppresses on the revive path) — we just flash a
+# half-transparent rect and a centered label for a beat.
+
+func _on_fairy_revive_triggered() -> void:
+    _ensure_sparkle_nodes()
+    if get_tree().root.has_node("SoundBank"):
+        SoundBank.play_2d("sword_charge_ready")
+    _sparkle_rect.color = Color(0.85, 0.95, 1.0, 0.85)
+    _sparkle_rect.visible = true
+    _sparkle_label.visible = true
+    # Two independent timers: the wash fades fast (0.4s) but the
+    # text lingers (1.5s) so the player has time to read it.
+    var rect_tween := create_tween()
+    rect_tween.tween_property(_sparkle_rect, "color:a", 0.0, 0.4)
+    rect_tween.tween_callback(_hide_sparkle_rect)
+    var label_timer := get_tree().create_timer(1.5)
+    label_timer.timeout.connect(_hide_sparkle_label)
+
+
+func _ensure_sparkle_nodes() -> void:
+    if _sparkle_rect != null:
+        return
+    _sparkle_rect = ColorRect.new()
+    _sparkle_rect.name = "FairySparkle"
+    _sparkle_rect.anchor_right = 1.0
+    _sparkle_rect.anchor_bottom = 1.0
+    _sparkle_rect.color = Color(0.85, 0.95, 1.0, 0.0)
+    _sparkle_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _sparkle_rect.visible = false
+    add_child(_sparkle_rect)
+    _sparkle_label = Label.new()
+    _sparkle_label.name = "FairySparkleLabel"
+    _sparkle_label.anchor_left = 0.5
+    _sparkle_label.anchor_top = 0.5
+    _sparkle_label.anchor_right = 0.5
+    _sparkle_label.anchor_bottom = 0.5
+    _sparkle_label.offset_left = -200
+    _sparkle_label.offset_top = -24
+    _sparkle_label.offset_right = 200
+    _sparkle_label.offset_bottom = 24
+    _sparkle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    _sparkle_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    _sparkle_label.text = "A fairy revives you!"
+    _sparkle_label.visible = false
+    _sparkle_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(_sparkle_label)
+
+
+func _hide_sparkle_rect() -> void:
+    if _sparkle_rect != null:
+        _sparkle_rect.visible = false
+
+
+func _hide_sparkle_label() -> void:
+    if _sparkle_label != null:
+        _sparkle_label.visible = false
 
 
 # Death overlay buttons. Built once on demand instead of authored in
