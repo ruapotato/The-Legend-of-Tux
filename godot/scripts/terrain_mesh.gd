@@ -51,6 +51,11 @@ class_name TerrainMesh
 
 
 func _ready() -> void:
+    # Lets the mini-map find us via get_nodes_in_group, instead of
+    # walking the whole scene tree and inspecting every node's
+    # property list looking for `cell_data` — which on sourceplain
+    # added a multi-second hitch every time the mini-map mounted.
+    add_to_group("terrain_mesh")
     _build()
 
 

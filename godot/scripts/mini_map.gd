@@ -33,6 +33,12 @@ var _bbox_max: Vector2 = Vector2.ZERO
 var _scale: float = 1.0          # px per world meter
 var _origin_offset: Vector2 = Vector2.ZERO
 
+# Per-(scene, widget-size) cache so the pause-menu Map tab and the
+# HUD mini-map don't each rebuild the full texture every time they
+# mount, and so a re-mount during the same level is free.
+static var _texture_cache: Dictionary = {}
+static var _layout_cache:  Dictionary = {}    # cache_key → {bbox_min, bbox_max, scale, origin_offset}
+
 
 func _ready() -> void:
     custom_minimum_size = widget_size
@@ -64,6 +70,21 @@ func _refresh_player() -> void:
 func _rebuild_texture() -> void:
     var root: Node = get_tree().current_scene
     if root == null:
+        return
+    var scene_path: String = root.scene_file_path if root else ""
+    var cache_key: String = "%s|%dx%d" % [scene_path,
+                                          int(widget_size.x),
+                                          int(widget_size.y)]
+    if _texture_cache.has(cache_key):
+        # Hot path: same scene, same widget size — reuse the texture
+        # we already baked. Saves the BFS / per-cell fill-rect cost.
+        _texture = _texture_cache[cache_key]
+        var lay: Dictionary = _layout_cache[cache_key]
+        _bbox_min      = lay.bbox_min
+        _bbox_max      = lay.bbox_max
+        _scale         = lay.scale
+        _origin_offset = lay.origin_offset
+        queue_redraw()
         return
     var entries: Array = []     # [{cells: dict<Vector2i,float>, size: float}]
     var min_x: float =  INF
@@ -144,6 +165,13 @@ func _rebuild_texture() -> void:
                 col)
 
     _texture = ImageTexture.create_from_image(img)
+    _texture_cache[cache_key] = _texture
+    _layout_cache[cache_key] = {
+        "bbox_min":      _bbox_min,
+        "bbox_max":      _bbox_max,
+        "scale":         _scale,
+        "origin_offset": _origin_offset,
+    }
 
 
 func _draw() -> void:
@@ -174,21 +202,10 @@ func _draw_player_triangle(at: Vector2, yaw: float) -> void:
                   PLAYER_COLOR.darkened(0.4), 1.5)
 
 
-func _find_terrain_meshes(root: Node) -> Array:
-    var out: Array = []
-    var stack: Array = [root]
-    while not stack.is_empty():
-        var n: Node = stack.pop_back()
-        if n == null:
-            continue
-        var props: Array = n.get_property_list()
-        var has_cell_data: bool = false
-        for p in props:
-            if p.name == "cell_data":
-                has_cell_data = true
-                break
-        if has_cell_data:
-            out.append(n)
-        for child in n.get_children():
-            stack.append(child)
-    return out
+func _find_terrain_meshes(_root: Node) -> Array:
+    # TerrainMesh adds itself to this group in _ready, so we look it up
+    # by group name instead of walking the whole scene tree calling
+    # get_property_list() on every single node — sourceplain has 60+
+    # enemies and 200+ props, each with dozens of properties; that
+    # iteration cost a noticeable hitch every time the mini-map mounted.
+    return get_tree().get_nodes_in_group("terrain_mesh")
