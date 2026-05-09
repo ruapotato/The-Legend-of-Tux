@@ -10,6 +10,8 @@ extends CanvasLayer
 @onready var keys_label: Label = $Margin/Layout/KeysLabel
 @onready var pebble_label: Label = $TopRight/PebbleLabel
 @onready var item_label: Label = $TopRight/ItemLabel
+@onready var arrow_label: Label = $TopRight/ArrowLabel
+@onready var seed_label: Label = $TopRight/SeedLabel
 @onready var death_overlay: ColorRect = $DeathOverlay
 @onready var death_label: Label = $DeathOverlay/DeathLabel
 
@@ -24,6 +26,8 @@ func _ready() -> void:
     GameState.keys_changed.connect(_on_keys_changed)
     GameState.active_item_changed.connect(_on_active_item_changed)
     GameState.item_acquired.connect(_on_item_acquired)
+    GameState.arrows_changed.connect(_on_arrows_changed)
+    GameState.seeds_changed.connect(_on_seeds_changed)
     GameState.player_died.connect(_on_player_died)
     death_overlay.visible = false
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
@@ -31,6 +35,8 @@ func _ready() -> void:
     _on_pebbles_changed(GameState.pebbles)
     _on_keys_changed(GameState.current_key_group, GameState.get_keys())
     _on_active_item_changed(GameState.active_b_item)
+    _on_arrows_changed(GameState.arrows, GameState.max_arrows)
+    _on_seeds_changed(GameState.seeds, GameState.max_seeds)
 
 
 func _on_hp_changed(current: int, maximum: int) -> void:
@@ -70,10 +76,85 @@ func _on_active_item_changed(item_name: String) -> void:
 
 func _on_item_acquired(_item_name: String) -> void:
     SoundBank.play_2d("sword_charge_ready")
+    # Refresh ammo rows: picking up the bow/slingshot for the first
+    # time should reveal the row even at 0 ammo so the player learns
+    # the readout exists.
+    _on_arrows_changed(GameState.arrows, GameState.max_arrows)
+    _on_seeds_changed(GameState.seeds, GameState.max_seeds)
+
+
+# Hide ammo readouts when both the count is zero AND the player has
+# never acquired the corresponding item — keeps the corner clean for
+# anyone who hasn't found a bow/slingshot yet.
+func _on_arrows_changed(current: int, maximum: int) -> void:
+    if not arrow_label:
+        return
+    var owns: bool = GameState.has_item("bow")
+    if current <= 0 and not owns:
+        arrow_label.text = ""
+        arrow_label.visible = false
+    else:
+        arrow_label.text = "Arr %d / %d" % [current, maximum]
+        arrow_label.visible = true
+
+
+func _on_seeds_changed(current: int, maximum: int) -> void:
+    if not seed_label:
+        return
+    var owns: bool = GameState.has_item("slingshot")
+    if current <= 0 and not owns:
+        seed_label.text = ""
+        seed_label.visible = false
+    else:
+        seed_label.text = "Sd %d / %d" % [current, maximum]
+        seed_label.visible = true
 
 
 func _on_player_died() -> void:
     death_overlay.visible = true
+    _ensure_death_buttons()
+
+
+# Death overlay buttons. Built once on demand instead of authored in
+# the .tscn so changing the choices doesn't require touching scene
+# files. CONTINUE re-loads the bound save slot if one's set, otherwise
+# falls back to a scene reload. QUIT bails to the title.
+var _death_continue_btn: Button = null
+var _death_quit_btn: Button = null
+
+func _ensure_death_buttons() -> void:
+    if _death_continue_btn != null:
+        return
+    var box := VBoxContainer.new()
+    box.add_theme_constant_override("separation", 8)
+    box.set_anchors_preset(Control.PRESET_CENTER)
+    box.position = Vector2(-110, 60)
+    box.custom_minimum_size = Vector2(220, 0)
+    death_overlay.add_child(box)
+    _death_continue_btn = Button.new()
+    _death_continue_btn.text = (
+        "Continue from save" if GameState.last_slot >= 0
+        else "Try again (R)")
+    _death_continue_btn.custom_minimum_size = Vector2(220, 36)
+    _death_continue_btn.pressed.connect(_on_death_continue)
+    box.add_child(_death_continue_btn)
+    _death_quit_btn = Button.new()
+    _death_quit_btn.text = "Quit to title"
+    _death_quit_btn.custom_minimum_size = Vector2(220, 36)
+    _death_quit_btn.pressed.connect(_on_death_quit)
+    box.add_child(_death_quit_btn)
+
+
+func _on_death_continue() -> void:
+    if GameState.last_slot >= 0 and GameState.has_method("load_game"):
+        if GameState.load_game(GameState.last_slot):
+            return
+    get_tree().reload_current_scene()
+
+
+func _on_death_quit() -> void:
+    GameState.last_slot = -1
+    get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
     death_label.text = "Tux fell.\nPress R to retry."
 
 

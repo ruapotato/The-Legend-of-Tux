@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxtgte01"]
+
+[ext_resource type="Script" path="res://scripts/triggered_gate.gd" id="1_g"]
+
+[sub_resource type="StandardMaterial3D" id="bar_mat"]
+albedo_color = Color(0.32, 0.30, 0.28, 1)
+roughness = 0.55
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="frame_mat"]
+albedo_color = Color(0.45, 0.42, 0.38, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="bars_mesh"]
+size = Vector3(2.0, 2.6, 0.20)
+
+[sub_resource type="BoxShape3D" id="bars_col"]
+size = Vector3(2.0, 2.6, 0.20)
+
+[sub_resource type="BoxMesh" id="lintel_mesh"]
+size = Vector3(2.4, 0.30, 0.30)
+
+[node name="TriggeredGate" type="Node3D"]
+script = ExtResource("1_g")
+
+[node name="Body" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+shape = SubResource("bars_col")
+
+[node name="Mesh" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+mesh = SubResource("bars_mesh")
+surface_material_override/0 = SubResource("bar_mat")
+
+[node name="Lintel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+mesh = SubResource("lintel_mesh")
+surface_material_override/0 = SubResource("frame_mat")

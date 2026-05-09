@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxhshtp01"]
+
+[ext_resource type="Script" path="res://scripts/hookshot_tip.gd" id="1_ht"]
+
+[sub_resource type="StandardMaterial3D" id="metal_mat"]
+albedo_color = Color(0.75, 0.75, 0.80, 1)
+metallic = 0.85
+roughness = 0.30
+emission_enabled = true
+emission = Color(0.55, 0.65, 0.85, 1)
+emission_energy_multiplier = 0.30
+
+[sub_resource type="StandardMaterial3D" id="chain_mat"]
+albedo_color = Color(0.55, 0.55, 0.60, 1)
+metallic = 0.7
+roughness = 0.45
+
+[sub_resource type="PrismMesh" id="tip_mesh"]
+size = Vector3(0.18, 0.45, 0.18)
+
+[sub_resource type="BoxShape3D" id="tip_shape"]
+size = Vector3(0.30, 0.30, 0.45)
+
+[sub_resource type="CylinderMesh" id="chain_mesh"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 1.0
+radial_segments = 6
+
+[node name="HookshotTip" type="Area3D"]
+script = ExtResource("1_ht")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+shape = SubResource("tip_shape")
+
+[node name="Spike" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("tip_mesh")
+surface_material_override/0 = SubResource("metal_mat")
+
+[node name="Line" type="MeshInstance3D" parent="."]
+mesh = SubResource("chain_mesh")
+surface_material_override/0 = SubResource("chain_mat")

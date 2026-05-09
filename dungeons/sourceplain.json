@@ -86305,14 +86305,6 @@
   ],
   "enemies": [
     {
-      "type": "tomato",
-      "pos": [
-        20.0,
-        4.0,
-        8.0
-      ]
-    },
-    {
       "type": "blob",
       "pos": [
         -55.0,
@@ -86794,6 +86786,18 @@
     }
   ],
   "props": [
+    {
+      "type": "boss_arena",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "boss_scene_id": "tomato",
+      "boss_name": "Wyrd Tomato",
+      "arena_radius": 8.0,
+      "spawn_offset": [0.0, 4.0, 0.0]
+    },
     {
       "type": "sign",
       "pos": [

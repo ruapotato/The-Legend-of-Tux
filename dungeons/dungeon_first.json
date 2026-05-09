@@ -4139,6 +4139,63 @@
         -34.5
       ],
       "pebble_chance": 0.3
+    },
+    {
+      "type": "torch",
+      "pos": [
+        -4,
+        0,
+        -6
+      ],
+      "target_id": "boss_door",
+      "lit_on_spawn": false
+    },
+    {
+      "type": "crystal_switch",
+      "pos": [
+        4,
+        0,
+        -10
+      ],
+      "target_id": "boss_door"
+    },
+    {
+      "type": "pressure_plate",
+      "pos": [
+        -4,
+        0,
+        -14
+      ],
+      "target_id": "boss_door"
+    },
+    {
+      "type": "movable_block",
+      "pos": [
+        -4,
+        0,
+        -12
+      ],
+      "cell_size": 1.5
+    },
+    {
+      "type": "triggered_gate",
+      "pos": [
+        0,
+        0,
+        -25
+      ],
+      "rotation_y": 0,
+      "listen_id": "boss_door"
+    },
+    {
+      "type": "eye_target",
+      "pos": [
+        0,
+        2.5,
+        -39
+      ],
+      "rotation_y": 3.14159,
+      "target_id": "boss_door"
     }
   ],
   "load_zones": [

@@ -1,26 +1,27 @@
-[gd_scene load_steps=1209 format=3 uid="uid://btuxbrookhol01"]
+[gd_scene load_steps=1210 format=3 uid="uid://btuxbrookhol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.55, 0.7, 0.85, 1)
@@ -3609,6 +3610,7 @@ emission = Color(0, 0, 0, 1)
 [node name="Brookhold" type="Node3D"]
 script = ExtResource("root_script")
 key_group = "brookhold"
+music_track = "brookhold"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -13892,6 +13894,14 @@ transform = Transform3D(-0.664606, 0, 0.747194, 0, 1, 0, -0.747194, 0, -0.664606
 pebble_chance = 0.45
 trunk_height = 4.2164
 canopy_radius = 1.66797
+
+[node name="Npc48_Farmer_Brook" parent="." instance=ExtResource("npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -10)
+npc_name = "Farmer Brook"
+body_color = Color(0.45, 0.55, 0.35, 1)
+hat_color = Color(0.7, 0.55, 0.25, 1)
+idle_hint = "[E] Speak to the Farmer"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Farmer Brook\", \"text\": \"Bah! Three lambwisps gone in a fortnight. They drift off chasing their own glimmers and never come back. You wouldn't be one of those wandering sorts, would you?\", \"choices\": [{\"label\": \"Maybe I can help.\", \"next\": \"offer\", \"requires_not\": \"lambwisp_charm\"}, {\"label\": \"I have your charm in hand.\", \"next\": \"have_charm\", \"requires\": \"lambwisp_charm\"}, {\"label\": \"Sorry to hear it.\", \"next\": \"bye\"}]}, \"offer\": {\"speaker\": \"Farmer Brook\", \"text\": \"Take this — a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.\", \"give_item\": \"lambwisp_charm\", \"next\": \"post_offer\"}, \"post_offer\": {\"speaker\": \"Farmer Brook\", \"text\": \"Mind the brook stones near the south paddock. Slippery as a fish in butter.\", \"choices\": [{\"label\": \"I'll keep watch.\", \"next\": \"bye\"}]}, \"have_charm\": {\"speaker\": \"Farmer Brook\", \"text\": \"Aye, that's the one. Ring it true and the wisps will come. Bless the kin, traveler.\"}, \"bye\": {\"speaker\": \"Farmer Brook\", \"text\": \"Mind the lambwisps. Mind the kin.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 1, 1)

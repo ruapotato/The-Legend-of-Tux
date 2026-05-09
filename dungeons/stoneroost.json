@@ -11107,6 +11107,26 @@
     {
       "type": "chest",
       "pos": [
+        0,
+        0,
+        38
+      ],
+      "rotation_y": 0.0,
+      "contents": "item",
+      "item_name": "hookshot",
+      "open_message": "A hookshot. The chain is cold; the spike is colder. It longs for high places."
+    },
+    {
+      "type": "hookshot_target",
+      "pos": [
+        0,
+        4.5,
+        20
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
         36,
         0,
         16

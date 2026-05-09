@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxpkbm01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="bomb_mat"]
+albedo_color = Color(0.10, 0.10, 0.12, 1)
+roughness = 0.65
+metallic = 0.15
+
+[sub_resource type="StandardMaterial3D" id="fuse_mat"]
+albedo_color = Color(0.55, 0.40, 0.25, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="bomb_mesh"]
+radius = 0.18
+height = 0.36
+radial_segments = 10
+rings = 5
+
+[sub_resource type="CylinderMesh" id="fuse_mesh"]
+top_radius = 0.025
+bottom_radius = 0.035
+height = 0.10
+radial_segments = 6
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 6
+bomb_amount = 1
+pickup_message = "A bundle of black-powder bombs."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("bomb_mesh")
+surface_material_override/0 = SubResource("bomb_mat")
+
+[node name="Fuse" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+mesh = SubResource("fuse_mesh")
+surface_material_override/0 = SubResource("fuse_mat")

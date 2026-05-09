@@ -7,6 +7,10 @@ extends Node
 signal hp_changed(current: int, maximum: int)
 signal stamina_changed(current: int, maximum: int)
 signal pebbles_changed(amount: int)
+signal arrows_changed(current: int, maximum: int)
+signal seeds_changed(current: int, maximum: int)
+signal bombs_changed(current: int, maximum: int)
+signal heart_pieces_changed(amount: int)
 # Per-dungeon small keys: emitted with the group whose count changed and
 # the new count for that group. The HUD listens and re-reads the
 # current group's count so the displayed total always matches the
@@ -26,6 +30,17 @@ var stamina: int = MAX_STAMINA
 var _stamina_remainder: float = 0.0
 
 var pebbles: int = 0
+
+# Ammo + consumable counts. Capacity tiers can be raised later via
+# pickup chests (quiver / seed-bag / bomb-bag upgrades). Heart pieces
+# accrue 0..3; on the 4th piece a heart container is granted instead.
+var arrows: int = 0
+var max_arrows: int = 30
+var seeds: int = 0
+var max_seeds: int = 30
+var bombs: int = 0
+var max_bombs: int = 10
+var heart_pieces: int = 0    # 0..3, then promotes to a heart container
 
 # Small keys are per-dungeon (Ocarina-style): keys you find in
 # Dungeon A only unlock doors in Dungeon A. `keys_by_group` maps a
@@ -69,14 +84,73 @@ func reset() -> void:
     stamina = MAX_STAMINA
     _stamina_remainder = 0.0
     pebbles = 0
+    arrows = 0; seeds = 0; bombs = 0; heart_pieces = 0
     keys_by_group.clear()
     inventory.clear()
     active_b_item = ""
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
+    arrows_changed.emit(arrows, max_arrows)
+    seeds_changed.emit(seeds, max_seeds)
+    bombs_changed.emit(bombs, max_bombs)
+    heart_pieces_changed.emit(heart_pieces)
     keys_changed.emit(current_key_group, get_keys())
     active_item_changed.emit(active_b_item)
+
+
+# ---- Ammo ---------------------------------------------------------------
+
+func add_arrows(n: int) -> void:
+    arrows = clamp(arrows + n, 0, max_arrows)
+    arrows_changed.emit(arrows, max_arrows)
+
+
+func use_arrow() -> bool:
+    if arrows <= 0: return false
+    arrows -= 1
+    arrows_changed.emit(arrows, max_arrows)
+    return true
+
+
+func add_seeds(n: int) -> void:
+    seeds = clamp(seeds + n, 0, max_seeds)
+    seeds_changed.emit(seeds, max_seeds)
+
+
+func use_seed() -> bool:
+    if seeds <= 0: return false
+    seeds -= 1
+    seeds_changed.emit(seeds, max_seeds)
+    return true
+
+
+func add_bombs(n: int) -> void:
+    bombs = clamp(bombs + n, 0, max_bombs)
+    bombs_changed.emit(bombs, max_bombs)
+
+
+func use_bomb() -> bool:
+    if bombs <= 0: return false
+    bombs -= 1
+    bombs_changed.emit(bombs, max_bombs)
+    return true
+
+
+# ---- Heart progression --------------------------------------------------
+
+func add_heart_container() -> void:
+    max_fish += 1
+    hp = max_fish * HP_PER_FISH
+    hp_changed.emit(hp, max_fish * HP_PER_FISH)
+
+
+func add_heart_piece() -> void:
+    heart_pieces += 1
+    if heart_pieces >= 4:
+        heart_pieces = 0
+        add_heart_container()
+    heart_pieces_changed.emit(heart_pieces)
 
 
 # ---- HP -----------------------------------------------------------------

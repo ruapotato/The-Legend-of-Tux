@@ -19320,6 +19320,52 @@
       "pebble_chance": 0.45,
       "trunk_height": 4.21639679105032,
       "canopy_radius": 1.6679737346169223
+    },
+    {
+      "type": "npc",
+      "pos": [-3.0, 0.0, -10.0],
+      "rotation_y": 0.0,
+      "name": "Farmer Brook",
+      "body_color": [0.45, 0.55, 0.35, 1.0],
+      "hat_color": [0.70, 0.55, 0.25, 1.0],
+      "idle_hint": "[E] Speak to the Farmer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Farmer Brook",
+            "text": "Bah! Three lambwisps gone in a fortnight. They drift off chasing their own glimmers and never come back. You wouldn't be one of those wandering sorts, would you?",
+            "choices": [
+              {"label": "Maybe I can help.",        "next": "offer",
+               "requires_not": "lambwisp_charm"},
+              {"label": "I have your charm in hand.", "next": "have_charm",
+               "requires": "lambwisp_charm"},
+              {"label": "Sorry to hear it.",        "next": "bye"}
+            ]
+          },
+          "offer": {
+            "speaker": "Farmer Brook",
+            "text": "Take this — a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
+            "give_item": "lambwisp_charm",
+            "next": "post_offer"
+          },
+          "post_offer": {
+            "speaker": "Farmer Brook",
+            "text": "Mind the brook stones near the south paddock. Slippery as a fish in butter.",
+            "choices": [
+              {"label": "I'll keep watch.", "next": "bye"}
+            ]
+          },
+          "have_charm": {
+            "speaker": "Farmer Brook",
+            "text": "Aye, that's the one. Ring it true and the wisps will come. Bless the kin, traveler."
+          },
+          "bye": {
+            "speaker": "Farmer Brook",
+            "text": "Mind the lambwisps. Mind the kin."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

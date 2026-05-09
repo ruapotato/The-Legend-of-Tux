@@ -5292,6 +5292,63 @@
       "open_message": "A heart-flower, pressed in oilcloth. The Source thanks you."
     },
     {
+      "type": "chest",
+      "pos": [
+        -3,
+        0,
+        -11
+      ],
+      "rotation_y": 0,
+      "contents": "item",
+      "item_name": "bow",
+      "open_message": "A yew longbow, oiled and strung. Press F to draw and loose. Find arrows in quivers along the path."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2.5,
+        0,
+        -10.5
+      ],
+      "rotation_y": 0,
+      "contents": "arrow",
+      "open_message": "A bundle of fletched arrows."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -7.5,
+        0,
+        -3.0
+      ],
+      "rotation_y": 0,
+      "contents": "arrow",
+      "open_message": "A bundle of fletched arrows."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        4.5,
+        0,
+        -1.5
+      ],
+      "rotation_y": 0,
+      "contents": "item",
+      "item_name": "slingshot",
+      "open_message": "A forked slingshot. Press F to fling a seed at speed."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        5.5,
+        0,
+        -2.5
+      ],
+      "rotation_y": 0,
+      "contents": "seed",
+      "open_message": "A small bag of dry deku-seeds."
+    },
+    {
       "type": "rock",
       "pos": [
         3.0,

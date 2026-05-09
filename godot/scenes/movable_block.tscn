@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxblck01"]
+
+[ext_resource type="Script" path="res://scripts/movable_block.gd" id="1_b"]
+
+[sub_resource type="StandardMaterial3D" id="block_mat"]
+albedo_color = Color(0.48, 0.46, 0.42, 1)
+roughness = 0.92
+metallic = 0.05
+
+[sub_resource type="StandardMaterial3D" id="trim_mat"]
+albedo_color = Color(0.32, 0.30, 0.27, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="block_mesh"]
+size = Vector3(1.4, 1.4, 1.4)
+
+[sub_resource type="BoxShape3D" id="block_shape"]
+size = Vector3(1.4, 1.4, 1.4)
+
+[sub_resource type="BoxMesh" id="trim_mesh"]
+size = Vector3(1.45, 0.10, 1.45)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.7, 1.4, 1.7)
+
+[node name="MovableBlock" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_b")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("block_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("block_mesh")
+surface_material_override/0 = SubResource("block_mat")
+
+[node name="TrimTop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+mesh = SubResource("trim_mesh")
+surface_material_override/0 = SubResource("trim_mat")
+
+[node name="TrimBot" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("trim_mesh")
+surface_material_override/0 = SubResource("trim_mat")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("contact_shape")

@@ -7,12 +7,15 @@ extends Area3D
 # the kind via the export and place the right visual mesh. The script
 # is shared.
 
-enum Kind { PEBBLE, FISH, KEY, ITEM }
+enum Kind { PEBBLE, FISH, KEY, ITEM, ARROW, SEED, BOMB }
 
 @export var kind: Kind = Kind.PEBBLE
 @export var item_name: String = ""    # used when kind == ITEM
 @export var pebble_amount: int = 1
 @export var fish_amount: int = 1      # = 4 HP units per fish
+@export var arrow_amount: int = 5     # ammo bundles for ARROW pickups
+@export var seed_amount: int = 5      # ammo bundles for SEED pickups
+@export var bomb_amount: int = 1      # used when kind == BOMB
 # Used only when kind == KEY: which dungeon key-group this key counts
 # toward. Empty falls back to GameState.current_key_group (set by
 # dungeon_root.gd), so a key dropped in a level naturally tags itself
@@ -66,6 +69,15 @@ func _on_body_entered(body: Node) -> void:
             if item_name != "":
                 GameState.acquire_item(item_name)
                 SoundBank.play_2d("sword_charge_ready")
+        Kind.ARROW:
+            GameState.add_arrows(arrow_amount)
+            SoundBank.play_2d("pebble_get")
+        Kind.SEED:
+            GameState.add_seeds(seed_amount)
+            SoundBank.play_2d("pebble_get")
+        Kind.BOMB:
+            GameState.add_bombs(bomb_amount)
+            SoundBank.play_2d("pebble_get")
     if pickup_message != "":
         Dialog.show_message(pickup_message)
     queue_free()

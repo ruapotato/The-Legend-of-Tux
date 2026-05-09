@@ -16525,6 +16525,36 @@
     {
       "type": "chest",
       "pos": [
+        85.0,
+        0.0,
+        49.0
+      ],
+      "rotation_y": 1.5708,
+      "contents": "item",
+      "item_name": "bomb",
+      "amount": 5,
+      "open_message": "A bundle of black-powder bombs. Press F to throw one. Cracked stone fears the spark."
+    },
+    {
+      "type": "bomb_flower",
+      "pos": [
+        77.0,
+        0.0,
+        47.0
+      ]
+    },
+    {
+      "type": "destructible_wall",
+      "pos": [
+        67.0,
+        0.0,
+        49.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "chest",
+      "pos": [
         41.0,
         0.0,
         49.0

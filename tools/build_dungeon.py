@@ -99,11 +99,29 @@ EXT_RESOURCES = {
     "tree":             ("PackedScene", "uid://btuxtree01", "res://scenes/tree_prop.tscn"),
     "door":             ("PackedScene", "uid://btuxdoor01", "res://scenes/door.tscn"),
     "chest":            ("PackedScene", "uid://btuxchst01", "res://scenes/treasure_chest.tscn"),
+    "crystal_switch":   ("PackedScene", "uid://btuxcrys01", "res://scenes/crystal_switch.tscn"),
+    "pressure_plate":   ("PackedScene", "uid://btuxplt01",  "res://scenes/pressure_plate.tscn"),
+    "movable_block":    ("PackedScene", "uid://btuxblck01", "res://scenes/movable_block.tscn"),
+    "torch":            ("PackedScene", "uid://btuxtrch01", "res://scenes/torch.tscn"),
+    "eye_target":       ("PackedScene", "uid://btuxeye01",  "res://scenes/eye_target.tscn"),
+    "triggered_gate":   ("PackedScene", "uid://btuxtgte01", "res://scenes/triggered_gate.tscn"),
+    "npc":              ("PackedScene", "uid://btuxnpc01",  "res://scenes/npc.tscn"),
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
     "pebble_pickup":    ("PackedScene", "uid://btuxpkpb01", "res://scenes/pickup_pebble.tscn"),
     "heart_pickup":     ("PackedScene", "uid://btuxpkht01", "res://scenes/pickup_heart.tscn"),
     "boomerang_pickup": ("PackedScene", "uid://btuxbmrg01", "res://scenes/boomerang.tscn"),
+    "arrow_pickup":     ("PackedScene", "uid://btuxpkar01", "res://scenes/pickup_arrow.tscn"),
+    "seed_pickup":      ("PackedScene", "uid://btuxpksd01", "res://scenes/pickup_seed.tscn"),
+    "bow_pickup":       ("PackedScene", "uid://btuxpkbow01", "res://scenes/pickup_bow.tscn"),
+    "slingshot_pickup": ("PackedScene", "uid://btuxpksl01", "res://scenes/pickup_slingshot.tscn"),
+    "bomb":             ("PackedScene", "uid://btuxbomb01",  "res://scenes/bomb.tscn"),
+    "bomb_flower":      ("PackedScene", "uid://btuxbflw01",  "res://scenes/bomb_flower.tscn"),
+    "destructible_wall":("PackedScene", "uid://btuxdwall01", "res://scenes/destructible_wall.tscn"),
+    "hookshot_target":  ("PackedScene", "uid://btuxhshot01", "res://scenes/hookshot_target.tscn"),
+    "bomb_pickup":      ("PackedScene", "uid://btuxpkbm01",  "res://scenes/pickup_bomb.tscn"),
+    "hookshot_pickup":  ("PackedScene", "uid://btuxpkhs01",  "res://scenes/pickup_hookshot.tscn"),
     "glim":             ("PackedScene", "uid://btuxglim01", "res://scenes/glim.tscn"),
+    "boss_arena":       ("PackedScene", "uid://btuxbarn01", "res://scenes/boss_arena.tscn"),
     "camera_script":    ("Script",      None,               "res://scripts/free_orbit_camera.gd"),
     "debug_script":     ("Script",      None,               "res://scripts/debug_overlay.gd"),
     "pause_script":     ("Script",      None,               "res://scripts/pause_menu.gd"),
@@ -118,6 +136,12 @@ CONTENTS_TO_EXT = {
     "pebble":    "pebble_pickup",
     "heart":     "heart_pickup",
     "boomerang": "boomerang_pickup",
+    "arrow":     "arrow_pickup",
+    "seed":      "seed_pickup",
+    "bow":       "bow_pickup",
+    "slingshot": "slingshot_pickup",
+    "bomb":      "bomb_pickup",
+    "hookshot":  "hookshot_pickup",
 }
 
 ENEMY_TO_EXT = {
@@ -910,6 +934,150 @@ def emit_props(b, props):
                 '[node name="Tree%d" parent="." instance=ExtResource("tree")]\n'
                 % i + "\n".join(attrs) + "\n"
             )
+        elif kind == "npc":
+            b.ext("npc")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            name = p.get("name", "")
+            if name:
+                attrs.append('npc_name = "%s"' % escape(str(name)))
+            if "body_color" in p:
+                attrs.append('body_color = %s' % cstr(p["body_color"]))
+            if "hat_color" in p:
+                attrs.append('hat_color = %s' % cstr(p["hat_color"]))
+            if "idle_hint" in p:
+                attrs.append('idle_hint = "%s"' % escape(str(p["idle_hint"])))
+            # Tree comes through as a Godot dict literal — emit the JSON
+            # text on the node and let npc.gd JSON-parse at scene-ready,
+            # which is dramatically simpler than translating Python dicts
+            # into GDScript syntax in raw text.
+            tree = p.get("dialog_tree")
+            if tree:
+                tree_json = json.dumps(tree, ensure_ascii=False)
+                attrs.append('dialog_tree_json = "%s"' % escape(tree_json))
+            node_name = "Npc%d" % i
+            if name:
+                # Sanitise to a node-safe id but keep it readable.
+                safe = "".join(ch if ch.isalnum() else "_" for ch in str(name))
+                node_name = "Npc%d_%s" % (i, safe)
+            b.add_node(
+                '[node name="%s" parent="." instance=ExtResource("npc")]\n'
+                % node_name + "\n".join(attrs) + "\n"
+            )
+        elif kind == "boss_arena":
+            # Boss arena instance. The boss enemy is referenced by id
+            # (e.g. "tomato"); we look up the matching ENEMY_TO_EXT
+            # entry, ensure both ext_resources are loaded, and let the
+            # arena script PackedScene-instantiate the boss at runtime.
+            b.ext("boss_arena")
+            boss_id = p.get("boss_scene_id", "")
+            boss_ext = ENEMY_TO_EXT.get(boss_id)
+            if not boss_ext:
+                # Unknown boss — emit the arena anyway so the level still
+                # converts; the runtime will warn and skip.
+                print("WARN: boss_arena[%d] has unknown boss_scene_id '%s'" %
+                      (i, boss_id))
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "boss_name" in p:
+                attrs.append('boss_name = "%s"' % escape(str(p["boss_name"])))
+            if boss_ext:
+                b.ext(boss_ext)
+                attrs.append('boss_scene = ExtResource("%s")' % boss_ext)
+            if "arena_radius" in p:
+                attrs.append('arena_radius = %g' % float(p["arena_radius"]))
+            if "spawn_offset" in p:
+                so = p["spawn_offset"]
+                attrs.append('spawn_offset = %s' % vstr(so))
+            if "region_track" in p:
+                attrs.append('region_track = "%s"' % escape(str(p["region_track"])))
+            b.add_node(
+                '[node name="BossArena%d" parent="." instance=ExtResource("boss_arena")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "crystal_switch":
+            b.ext("crystal_switch")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "target_id" in p:
+                attrs.append('target_id = "%s"' % escape(str(p["target_id"])))
+            if "stays_on" in p:
+                attrs.append('stays_on = %s' % ("true" if p["stays_on"] else "false"))
+            b.add_node(
+                '[node name="CrystalSwitch%d" parent="." instance=ExtResource("crystal_switch")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "pressure_plate":
+            b.ext("pressure_plate")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "target_id" in p:
+                attrs.append('target_id = "%s"' % escape(str(p["target_id"])))
+            if "holds" in p:
+                attrs.append('holds = %s' % ("true" if p["holds"] else "false"))
+            b.add_node(
+                '[node name="PressurePlate%d" parent="." instance=ExtResource("pressure_plate")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "movable_block":
+            b.ext("movable_block")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "cell_size" in p:
+                attrs.append('cell_size = %g' % float(p["cell_size"]))
+            b.add_node(
+                '[node name="MovableBlock%d" parent="." instance=ExtResource("movable_block")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "torch":
+            b.ext("torch")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "target_id" in p:
+                attrs.append('target_id = "%s"' % escape(str(p["target_id"])))
+            if "lit_on_spawn" in p:
+                attrs.append('lit_on_spawn = %s' % ("true" if p["lit_on_spawn"] else "false"))
+            b.add_node(
+                '[node name="Torch%d" parent="." instance=ExtResource("torch")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "eye_target":
+            b.ext("eye_target")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "target_id" in p:
+                attrs.append('target_id = "%s"' % escape(str(p["target_id"])))
+            b.add_node(
+                '[node name="EyeTarget%d" parent="." instance=ExtResource("eye_target")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "triggered_gate":
+            b.ext("triggered_gate")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "listen_id" in p:
+                attrs.append('listen_id = "%s"' % escape(str(p["listen_id"])))
+            if "open_offset" in p:
+                attrs.append('open_offset = %s' % vstr(p["open_offset"]))
+            if "open_duration" in p:
+                attrs.append('open_duration = %g' % float(p["open_duration"]))
+            b.add_node(
+                '[node name="TriggeredGate%d" parent="." instance=ExtResource("triggered_gate")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "bomb_flower":
+            b.ext("bomb_flower")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            b.add_node(
+                '[node name="BombFlower%d" parent="." instance=ExtResource("bomb_flower")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "destructible_wall":
+            b.ext("destructible_wall")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            b.add_node(
+                '[node name="DestructibleWall%d" parent="." instance=ExtResource("destructible_wall")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
+        elif kind == "hookshot_target":
+            b.ext("hookshot_target")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            b.add_node(
+                '[node name="HookshotTarget%d" parent="." instance=ExtResource("hookshot_target")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
 
 
 def emit_load_zones(b, zones):
@@ -1019,9 +1187,11 @@ def convert(json_path):
     # key_group field rides on the root so dungeon_root.gd can read it
     # at _ready and tell GameState which key bucket to use.
     key_group = data.get("key_group", data["id"])
+    music_track = data.get("music_track", data["id"])
     root_attrs = [
         'script = ExtResource("root_script")',
         'key_group = "%s"' % escape(str(key_group)),
+        'music_track = "%s"' % escape(str(music_track)),
     ]
     b.nodes.append('[node name="%s" type="Node3D"]\n%s\n'
                    % (data.get("name", data["id"]), "\n".join(root_attrs)))

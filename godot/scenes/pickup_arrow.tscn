@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxpkar01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="shaft_mat"]
+albedo_color = Color(0.55, 0.4, 0.22, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="tip_mat"]
+albedo_color = Color(0.78, 0.78, 0.82, 1)
+metallic = 0.6
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="fletch_mat"]
+albedo_color = Color(0.85, 0.32, 0.28, 1)
+roughness = 0.9
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="shaft_mesh"]
+top_radius = 0.022
+bottom_radius = 0.022
+height = 0.45
+radial_segments = 8
+rings = 1
+
+[sub_resource type="PrismMesh" id="tip_mesh"]
+size = Vector3(0.06, 0.10, 0.06)
+
+[sub_resource type="QuadMesh" id="fletch_mesh"]
+size = Vector2(0.10, 0.07)
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 4
+arrow_amount = 5
+pickup_message = ""
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Arrow1Shaft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0, 0)
+mesh = SubResource("shaft_mesh")
+surface_material_override/0 = SubResource("shaft_mat")
+
+[node name="Arrow1Tip" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0.27, 0)
+mesh = SubResource("tip_mesh")
+surface_material_override/0 = SubResource("tip_mat")
+
+[node name="Arrow1Fletch" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, -0.21, 0)
+mesh = SubResource("fletch_mesh")
+surface_material_override/0 = SubResource("fletch_mat")
+
+[node name="Arrow2Shaft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, 0.174, 0, -0.174, 0.985, 0, 0, 0, 1, 0.0, -0.01, 0)
+mesh = SubResource("shaft_mesh")
+surface_material_override/0 = SubResource("shaft_mat")
+
+[node name="Arrow2Tip" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, 0.174, 0, -0.174, 0.985, 0, 0, 0, 1, 0.047, 0.265, 0)
+mesh = SubResource("tip_mesh")
+surface_material_override/0 = SubResource("tip_mat")
+
+[node name="Arrow2Fletch" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, 0.174, 0, -0.174, 0.985, 0, 0, 0, 1, -0.037, -0.226, 0)
+mesh = SubResource("fletch_mesh")
+surface_material_override/0 = SubResource("fletch_mat")
+
+[node name="Arrow3Shaft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, -0.174, 0, 0.174, 0.985, 0, 0, 0, 1, 0.07, -0.01, 0)
+mesh = SubResource("shaft_mesh")
+surface_material_override/0 = SubResource("shaft_mat")
+
+[node name="Arrow3Tip" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, -0.174, 0, 0.174, 0.985, 0, 0, 0, 1, 0.023, 0.265, 0)
+mesh = SubResource("tip_mesh")
+surface_material_override/0 = SubResource("tip_mat")
+
+[node name="Arrow3Fletch" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.985, -0.174, 0, 0.174, 0.985, 0, 0, 0, 1, 0.107, -0.226, 0)
+mesh = SubResource("fletch_mesh")
+surface_material_override/0 = SubResource("fletch_mat")

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxeye01"]
+
+[ext_resource type="Script" path="res://scripts/eye_target.gd" id="1_e"]
+
+[sub_resource type="StandardMaterial3D" id="disk_mat"]
+albedo_color = Color(0.18, 0.16, 0.14, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="iris_mat"]
+albedo_color = Color(0.95, 0.75, 0.20, 1)
+emission_enabled = true
+emission = Color(1.0, 0.65, 0.10, 1)
+emission_energy_multiplier = 2.2
+roughness = 0.30
+
+[sub_resource type="StandardMaterial3D" id="lid_mat"]
+albedo_color = Color(0.30, 0.18, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="disk_mesh"]
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.10
+
+[sub_resource type="SphereMesh" id="iris_mesh"]
+radius = 0.30
+height = 0.40
+
+[sub_resource type="SphereMesh" id="lid_mesh"]
+radius = 0.40
+height = 0.50
+
+[sub_resource type="SphereShape3D" id="hit_shape"]
+radius = 0.45
+
+[node name="EyeTarget" type="Node3D"]
+script = ExtResource("1_e")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Disk" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("disk_mesh")
+surface_material_override/0 = SubResource("disk_mat")
+
+[node name="Iris" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.10)
+mesh = SubResource("iris_mesh")
+surface_material_override/0 = SubResource("iris_mat")
+
+[node name="Lid" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+mesh = SubResource("lid_mesh")
+surface_material_override/0 = SubResource("lid_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")

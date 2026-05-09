@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxcrys01"]
+
+[ext_resource type="Script" path="res://scripts/crystal_switch.gd" id="1_c"]
+
+[sub_resource type="StandardMaterial3D" id="stand_mat"]
+albedo_color = Color(0.32, 0.30, 0.28, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="stand_mesh"]
+top_radius = 0.45
+bottom_radius = 0.55
+height = 0.6
+
+[sub_resource type="CylinderShape3D" id="stand_shape"]
+radius = 0.55
+height = 0.6
+
+[sub_resource type="PrismMesh" id="crystal_mesh_top"]
+size = Vector3(0.5, 0.7, 0.5)
+
+[sub_resource type="PrismMesh" id="crystal_mesh_bot"]
+size = Vector3(0.5, 0.7, 0.5)
+
+[sub_resource type="SphereShape3D" id="hit_shape"]
+radius = 0.55
+
+[node name="CrystalSwitch" type="Node3D"]
+script = ExtResource("1_c")
+
+[node name="Stand" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Stand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30, 0)
+shape = SubResource("stand_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Stand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30, 0)
+mesh = SubResource("stand_mesh")
+surface_material_override/0 = SubResource("stand_mat")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Crystal" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10, 0)
+mesh = SubResource("crystal_mesh_top")
+
+[node name="CrystalLower" type="MeshInstance3D" parent="Visual/Crystal"]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, 1, 0, -0.70, 0)
+mesh = SubResource("crystal_mesh_bot")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10, 0)
+shape = SubResource("hit_shape")

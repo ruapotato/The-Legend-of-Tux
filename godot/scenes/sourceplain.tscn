@@ -1,28 +1,29 @@
-[gd_scene load_steps=47 format=3 uid="uid://btuxsourcepl01"]
+[gd_scene load_steps=48 format=3 uid="uid://btuxsourcepl01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxbmrg01" path="res://scenes/boomerang.tscn" id="boomerang_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.36, 0.55, 0.82, 1)
@@ -128,6 +129,7 @@ emission = Color(0, 0, 0, 1)
 [node name="Sourceplain" type="Node3D"]
 script = ExtResource("root_script")
 key_group = "sourceplain"
+music_track = "sourceplain"
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -20828,655 +20830,659 @@ transform = Transform3D(-0.707111, 0, 0.707103, 0, 1, 0, -0.707103, 0, -0.707111
 [node name="from_mirelake" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-0.707111, 0, -0.707103, 0, 1, 0, 0.707103, 0, -0.707111, 80, 0.5, 80)
 
-[node name="Tomato0" parent="." instance=ExtResource("tomato")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4, 8)
-
-[node name="Blob1" parent="." instance=ExtResource("blob")]
+[node name="Blob0" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, -3)
 
-[node name="Bat2" parent="." instance=ExtResource("bat")]
+[node name="Bat1" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 1.4, 7)
 
-[node name="Blob3" parent="." instance=ExtResource("blob")]
+[node name="Blob2" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 7)
 
-[node name="Blob4" parent="." instance=ExtResource("blob")]
+[node name="Blob3" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 7)
 
-[node name="Bat5" parent="." instance=ExtResource("bat")]
+[node name="Bat4" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 1.4, -53)
 
-[node name="Bat6" parent="." instance=ExtResource("bat")]
+[node name="Bat5" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 1.4, -55)
 
-[node name="Bat7" parent="." instance=ExtResource("bat")]
+[node name="Bat6" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1.4, -43)
 
-[node name="Blob8" parent="." instance=ExtResource("blob")]
+[node name="Blob7" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -53)
 
-[node name="Blob9" parent="." instance=ExtResource("blob")]
+[node name="Blob8" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 65)
 
-[node name="Blob10" parent="." instance=ExtResource("blob")]
+[node name="Blob9" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 61)
 
-[node name="Blob11" parent="." instance=ExtResource("blob")]
+[node name="Blob10" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 63)
 
-[node name="Bat12" parent="." instance=ExtResource("bat")]
+[node name="Bat11" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 1.4, 63)
 
-[node name="Blob13" parent="." instance=ExtResource("blob")]
+[node name="Blob12" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 59)
 
-[node name="Bat14" parent="." instance=ExtResource("bat")]
+[node name="Bat13" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 1.4, -25)
 
-[node name="Blob15" parent="." instance=ExtResource("blob")]
+[node name="Blob14" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67, 0, -35)
 
-[node name="Blob16" parent="." instance=ExtResource("blob")]
+[node name="Blob15" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 0, -25)
 
-[node name="Blob17" parent="." instance=ExtResource("blob")]
+[node name="Blob16" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 0, -23)
 
-[node name="Blob18" parent="." instance=ExtResource("blob")]
+[node name="Blob17" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 45)
 
-[node name="Blob19" parent="." instance=ExtResource("blob")]
+[node name="Blob18" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 47)
 
-[node name="Blob20" parent="." instance=ExtResource("blob")]
+[node name="Blob19" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 47)
 
-[node name="Blob21" parent="." instance=ExtResource("blob")]
+[node name="Blob20" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103, 0, 7)
 
-[node name="Blob22" parent="." instance=ExtResource("blob")]
+[node name="Blob21" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 0, 7)
 
-[node name="Blob23" parent="." instance=ExtResource("blob")]
+[node name="Blob22" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 0, 13)
 
-[node name="Bat24" parent="." instance=ExtResource("bat")]
+[node name="Bat23" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97, 1.4, 5)
 
-[node name="Bat25" parent="." instance=ExtResource("bat")]
+[node name="Bat24" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 1.4, -17)
 
-[node name="Bat26" parent="." instance=ExtResource("bat")]
+[node name="Bat25" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 1.4, -25)
 
-[node name="Bat27" parent="." instance=ExtResource("bat")]
+[node name="Bat26" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 1.4, -15)
 
-[node name="Bat28" parent="." instance=ExtResource("bat")]
+[node name="Bat27" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.4, -63)
 
-[node name="Bat29" parent="." instance=ExtResource("bat")]
+[node name="Bat28" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1.4, -65)
 
-[node name="Blob30" parent="." instance=ExtResource("blob")]
+[node name="Blob29" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, -63)
 
-[node name="Bat31" parent="." instance=ExtResource("bat")]
+[node name="Bat30" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.4, -65)
 
-[node name="Blob32" parent="." instance=ExtResource("blob")]
+[node name="Blob31" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 0, 61)
 
-[node name="Bat33" parent="." instance=ExtResource("bat")]
+[node name="Bat32" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 1.4, 67)
 
-[node name="Blob34" parent="." instance=ExtResource("blob")]
+[node name="Blob33" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 0, 57)
 
-[node name="Bat35" parent="." instance=ExtResource("bat")]
+[node name="Bat34" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 1.4, 67)
 
-[node name="Blob36" parent="." instance=ExtResource("blob")]
+[node name="Blob35" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 65)
 
-[node name="Bat37" parent="." instance=ExtResource("bat")]
+[node name="Bat36" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 1.4, 65)
 
-[node name="Blob38" parent="." instance=ExtResource("blob")]
+[node name="Blob37" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, 65)
 
-[node name="Blob39" parent="." instance=ExtResource("blob")]
+[node name="Blob38" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 0, 47)
 
-[node name="Bat40" parent="." instance=ExtResource("bat")]
+[node name="Bat39" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 1.4, 45)
 
-[node name="Bat41" parent="." instance=ExtResource("bat")]
+[node name="Bat40" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 1.4, 49)
 
-[node name="Bat42" parent="." instance=ExtResource("bat")]
+[node name="Bat41" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1.4, 9)
 
-[node name="Bat43" parent="." instance=ExtResource("bat")]
+[node name="Bat42" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 1.4, 15)
 
-[node name="Blob44" parent="." instance=ExtResource("blob")]
+[node name="Blob43" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 11)
 
-[node name="Bat45" parent="." instance=ExtResource("bat")]
+[node name="Bat44" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.4, -77)
 
-[node name="Bat46" parent="." instance=ExtResource("bat")]
+[node name="Bat45" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 1.4, -59)
 
-[node name="Bat47" parent="." instance=ExtResource("bat")]
+[node name="Bat46" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 1.4, -17)
 
-[node name="Bat48" parent="." instance=ExtResource("bat")]
+[node name="Bat47" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107, 1.4, 1)
 
-[node name="Bat49" parent="." instance=ExtResource("bat")]
+[node name="Bat48" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.4, -11)
 
-[node name="Bat50" parent="." instance=ExtResource("bat")]
+[node name="Bat49" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 1.4, -47)
 
-[node name="Blob51" parent="." instance=ExtResource("blob")]
+[node name="Blob50" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, -45)
 
-[node name="Bat52" parent="." instance=ExtResource("bat")]
+[node name="Bat51" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 1.4, 27)
 
-[node name="Bat53" parent="." instance=ExtResource("bat")]
+[node name="Bat52" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103, 1.4, 3)
 
-[node name="Blob54" parent="." instance=ExtResource("blob")]
+[node name="Blob53" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -11)
 
-[node name="Knight55" parent="." instance=ExtResource("knight")]
+[node name="Knight54" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, -7)
 
-[node name="Knight56" parent="." instance=ExtResource("knight")]
+[node name="Knight55" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 5)
 
-[node name="Knight57" parent="." instance=ExtResource("knight")]
+[node name="Knight56" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
 
-[node name="Blob58" parent="." instance=ExtResource("blob")]
+[node name="Blob57" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0, 7)
 
-[node name="Bat59" parent="." instance=ExtResource("bat")]
+[node name="Bat58" parent="." instance=ExtResource("bat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, 1.4, -3)
 
-[node name="Blob60" parent="." instance=ExtResource("blob")]
+[node name="Blob59" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -7)
 
-[node name="Sign0" parent="." instance=ExtResource("sign")]
+[node name="BossArena0" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+boss_name = "Wyrd Tomato"
+boss_scene = ExtResource("tomato")
+arena_radius = 8
+spawn_offset = Vector3(0, 4, 0)
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 7)
 message = "THE SOURCEPLAIN MONOLITH\n\nLirien shaped this stone before the first dawn,\nand into it pressed the song of every river.\n\nKhorgaul came and took the Sigil.\nThe Source still hums, but only Glim hears it now.\n\n\"What is given freely runs without end.\n What is hoarded, stagnates.\""
 
-[node name="Sign1" parent="." instance=ExtResource("sign")]
+[node name="Sign2" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 95)
 message = "SOUTHWARD: The bridge to the Wyrdwood.\n\nThe river beneath grows louder at dusk."
 
-[node name="Sign2" parent="." instance=ExtResource("sign")]
+[node name="Sign3" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, 3.4641e-07, 0, 1, 0, -3.4641e-07, 0, -1, 1, 0, -93)
 message = "NORTHWARD: Hearthold's gate.\n\nLast haven before the Hoarder's roads."
 
-[node name="Sign3" parent="." instance=ExtResource("sign")]
+[node name="Sign4" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 125, 0, 1)
 message = "EASTWARD: Brookhold of the Source-keepers.\n\nMind the lanterns; they listen."
 
-[node name="Sign4" parent="." instance=ExtResource("sign")]
+[node name="Sign5" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -91, 0, 1)
 message = "WESTWARD: The Burnt Hollow.\n\nWhat Khorgaul takes, he scorches.\nGo armed, and bring a key."
 
-[node name="Sign5" parent="." instance=ExtResource("sign")]
+[node name="Sign6" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-0.707111, 0, 0.707103, 0, 1, 0, -0.707103, 0, -0.707111, 85, 0, -83)
 message = "UP TO STONEROOST.\n\nThe stair climbs through wind.\nDo not look down at the carrion-crows."
 
-[node name="Sign6" parent="." instance=ExtResource("sign")]
+[node name="Sign7" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-0.707111, 0, -0.707103, 0, 1, 0, 0.707103, 0, -0.707111, 85, 0, 85)
 message = "SOUTHWARD AGAIN: The Mirelake.\n\nReed and pitch and slow water.\nThe Mire keeps its own counsel."
 
-[node name="Sign7" parent="." instance=ExtResource("sign")]
+[node name="Sign8" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53, 0, -47)
 message = "A cairn of stones, half-overgrown.\n\nA name has been chiseled out.\nSomeone tried to remember."
 
-[node name="Sign8" parent="." instance=ExtResource("sign")]
+[node name="Sign9" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 39)
 message = "Glim flickers brighter here.\n\n\"The Source remembers,\" the wisp says, \"even what you have forgotten.\""
 
-[node name="Sign9" parent="." instance=ExtResource("sign")]
+[node name="Sign10" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -63, 0, 29)
 message = "Old wagon-ruts, deep in the grass.\n\nThey lead nowhere now."
 
-[node name="Chest10" parent="." instance=ExtResource("chest")]
+[node name="Chest11" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, 21)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "A handful of smooth river-pebbles, weighed for the sling."
 contents_amount = 8
 
-[node name="Chest11" parent="." instance=ExtResource("chest")]
+[node name="Chest12" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, -15)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "Pebbles wrapped in a strip of oiled cloth."
 contents_amount = 5
 
-[node name="Chest12" parent="." instance=ExtResource("chest")]
+[node name="Chest13" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 61)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "Worn river-stones. Glim hums softly when you lift them."
 contents_amount = 12
 
-[node name="Chest13" parent="." instance=ExtResource("chest")]
+[node name="Chest14" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 0, 31)
 contents_scene = ExtResource("pebble_pickup")
 open_message = "Three pebbles and a scrap of tally-leather."
 contents_amount = 3
 
-[node name="Chest14" parent="." instance=ExtResource("chest")]
+[node name="Chest15" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, -5)
 contents_scene = ExtResource("heart_pickup")
 open_message = "A single white blossom, still warm. The Source mends what is broken."
 
-[node name="Chest15" parent="." instance=ExtResource("chest")]
+[node name="Chest16" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 0, 71)
 contents_scene = ExtResource("heart_pickup")
 open_message = "A pressed petal of starwort. Eat, and the heart steadies."
 
-[node name="Chest16" parent="." instance=ExtResource("chest")]
+[node name="Chest17" parent="." instance=ExtResource("chest")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 11)
 contents_scene = ExtResource("key_pickup")
 open_message = "A small iron key, etched with the Triglyph. Heavier than it looks."
 contents_amount = 1
 
-[node name="Chest17" parent="." instance=ExtResource("chest")]
+[node name="Chest18" parent="." instance=ExtResource("chest")]
 transform = Transform3D(-1, 0, 3.4641e-07, 0, 1, 0, -3.4641e-07, 0, -1, 77, 0, 49)
 contents_scene = ExtResource("boomerang_pickup")
 open_message = "An offering of the Source-keepers, preserved in pitch and reed. A curved Source-blade that returns to the hand that throws it."
 
-[node name="Bush18" parent="." instance=ExtResource("bush")]
+[node name="Bush19" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -86.9)
 pebble_amount = 3
 
-[node name="Bush19" parent="." instance=ExtResource("bush")]
+[node name="Bush20" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.7, 0, 22.9)
 pebble_amount = 3
 
-[node name="Bush20" parent="." instance=ExtResource("bush")]
+[node name="Bush21" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -94.3)
 pebble_amount = 3
 
-[node name="Bush21" parent="." instance=ExtResource("bush")]
+[node name="Bush22" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.1, 0, 78.5)
 pebble_amount = 3
 
-[node name="Bush22" parent="." instance=ExtResource("bush")]
+[node name="Bush23" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 86.3)
 pebble_amount = 3
 
-[node name="Bush23" parent="." instance=ExtResource("bush")]
+[node name="Bush24" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.1, 0, -46.1)
 pebble_amount = 3
 
-[node name="Bush24" parent="." instance=ExtResource("bush")]
+[node name="Bush25" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.4, 0, 73.5)
 pebble_amount = 3
 
-[node name="Bush25" parent="." instance=ExtResource("bush")]
+[node name="Bush26" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.3, 0, 70.1)
 pebble_amount = 3
 
-[node name="Bush26" parent="." instance=ExtResource("bush")]
+[node name="Bush27" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.1, 0, -43.2)
 pebble_amount = 3
 
-[node name="Bush27" parent="." instance=ExtResource("bush")]
+[node name="Bush28" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.8, 0, 28)
 
-[node name="Bush28" parent="." instance=ExtResource("bush")]
+[node name="Bush29" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.1, 0, 29.8)
 
-[node name="Bush29" parent="." instance=ExtResource("bush")]
+[node name="Bush30" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 90.9)
 
-[node name="Bush30" parent="." instance=ExtResource("bush")]
+[node name="Bush31" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, -88.9)
 
-[node name="Bush31" parent="." instance=ExtResource("bush")]
+[node name="Bush32" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.1, 0, -3.2)
 
-[node name="Bush32" parent="." instance=ExtResource("bush")]
+[node name="Bush33" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.8, 0, 75.1)
 
-[node name="Bush33" parent="." instance=ExtResource("bush")]
+[node name="Bush34" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.4, 0, -2.5)
 
-[node name="Bush34" parent="." instance=ExtResource("bush")]
+[node name="Bush35" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 36.2)
 
-[node name="Bush35" parent="." instance=ExtResource("bush")]
+[node name="Bush36" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.1, 0, -13.5)
 
-[node name="Bush36" parent="." instance=ExtResource("bush")]
+[node name="Bush37" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.4, 0, 26.1)
 
-[node name="Bush37" parent="." instance=ExtResource("bush")]
+[node name="Bush38" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.6, 0, 4.5)
 
-[node name="Bush38" parent="." instance=ExtResource("bush")]
+[node name="Bush39" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.1, 0, 39.4)
 
-[node name="Bush39" parent="." instance=ExtResource("bush")]
+[node name="Bush40" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, 23)
 
-[node name="Bush40" parent="." instance=ExtResource("bush")]
+[node name="Bush41" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.1, 0, 11.7)
 
-[node name="Bush41" parent="." instance=ExtResource("bush")]
+[node name="Bush42" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.8, 0, 49.8)
 
-[node name="Bush42" parent="." instance=ExtResource("bush")]
+[node name="Bush43" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.8, 0, 1.8)
 
-[node name="Bush43" parent="." instance=ExtResource("bush")]
+[node name="Bush44" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.4, 0, -78.4)
 
-[node name="Bush44" parent="." instance=ExtResource("bush")]
+[node name="Bush45" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.8, 0, 1.4)
 
-[node name="Bush45" parent="." instance=ExtResource("bush")]
+[node name="Bush46" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.7, 0, 29.1)
 
-[node name="Bush46" parent="." instance=ExtResource("bush")]
+[node name="Bush47" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 117.6, 0, 4.4)
 
-[node name="Bush47" parent="." instance=ExtResource("bush")]
+[node name="Bush48" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.6, 0, 31.6)
 
-[node name="Bush48" parent="." instance=ExtResource("bush")]
+[node name="Bush49" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.5, 0, 73.5)
 
-[node name="Bush49" parent="." instance=ExtResource("bush")]
+[node name="Bush50" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.3, 0, -5.8)
 
-[node name="Bush50" parent="." instance=ExtResource("bush")]
+[node name="Bush51" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.4, 0, 41.8)
 
-[node name="Bush51" parent="." instance=ExtResource("bush")]
+[node name="Bush52" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.7, 0, 39)
 
-[node name="Bush52" parent="." instance=ExtResource("bush")]
+[node name="Bush53" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.7, 0, 59.9)
 
-[node name="Bush53" parent="." instance=ExtResource("bush")]
+[node name="Bush54" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3, 0, -51.1)
 
-[node name="Bush54" parent="." instance=ExtResource("bush")]
+[node name="Bush55" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 117.6, 0, -3.3)
 
-[node name="Bush55" parent="." instance=ExtResource("bush")]
+[node name="Bush56" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0, -71.6)
 
-[node name="Bush56" parent="." instance=ExtResource("bush")]
+[node name="Bush57" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.9, 0, 58.9)
 
-[node name="Bush57" parent="." instance=ExtResource("bush")]
+[node name="Bush58" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.7, 0, -16.3)
 
-[node name="Bush58" parent="." instance=ExtResource("bush")]
+[node name="Bush59" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.6, 0, 50.5)
 
-[node name="Bush59" parent="." instance=ExtResource("bush")]
+[node name="Bush60" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.1, 0, -74.4)
 
-[node name="Bush60" parent="." instance=ExtResource("bush")]
+[node name="Bush61" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.2, 0, 9.6)
 
-[node name="Bush61" parent="." instance=ExtResource("bush")]
+[node name="Bush62" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.8, 0, -47.3)
 
-[node name="Bush62" parent="." instance=ExtResource("bush")]
+[node name="Bush63" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 93.4)
 
-[node name="Bush63" parent="." instance=ExtResource("bush")]
+[node name="Bush64" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.7, 0, 31.9)
 
-[node name="Rock64" parent="." instance=ExtResource("rock")]
+[node name="Rock65" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.5, 12)
 
-[node name="Rock65" parent="." instance=ExtResource("rock")]
+[node name="Rock66" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.5, -10)
 
-[node name="Rock66" parent="." instance=ExtResource("rock")]
+[node name="Rock67" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0.5, -30)
 
-[node name="Tree67" parent="." instance=ExtResource("tree")]
+[node name="Tree68" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 5)
 pebble_chance = 0.4
 
-[node name="Tree68" parent="." instance=ExtResource("tree")]
+[node name="Tree69" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -25)
 pebble_chance = 0.4
 
-[node name="Tree69" parent="." instance=ExtResource("tree")]
+[node name="Tree70" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 40)
 pebble_chance = 0.5
 
-[node name="Tree70" parent="." instance=ExtResource("tree")]
+[node name="Tree71" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.401053, 0, 0.916055, 0, 1, 0, -0.916055, 0, -0.401053, 45.5, 0, -10.5)
 pebble_chance = 0.2
 trunk_height = 4.56095
 canopy_radius = 1.52753
 
-[node name="Rock71" parent="." instance=ExtResource("rock")]
+[node name="Rock72" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, -91.5)
 pebble_chance = 0.3
 
-[node name="Tree72" parent="." instance=ExtResource("tree")]
+[node name="Tree73" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.32659, 0, -0.945166, 0, 1, 0, 0.945166, 0, -0.32659, 30.5, 0, -49.5)
 pebble_chance = 0.2
 trunk_height = 3.95452
 canopy_radius = 2.06998
 
-[node name="Rock73" parent="." instance=ExtResource("rock")]
+[node name="Rock74" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 39.5)
 pebble_chance = 0.3
 
-[node name="Tree74" parent="." instance=ExtResource("tree")]
+[node name="Tree75" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.892462, 0, -0.451122, 0, 1, 0, 0.451122, 0, 0.892462, 16.5, 0, -25.5)
 pebble_chance = 0.2
 trunk_height = 3.8697
 canopy_radius = 1.6492
 
-[node name="Tree75" parent="." instance=ExtResource("tree")]
+[node name="Tree76" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.545125, 0, -0.838355, 0, 1, 0, 0.838355, 0, 0.545125, -5.5, 0, 28.5)
 pebble_chance = 0.3
 trunk_height = 4.71797
 canopy_radius = 1.91546
 
-[node name="Tree76" parent="." instance=ExtResource("tree")]
+[node name="Tree77" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.971699, 0, 0.236222, 0, 1, 0, -0.236222, 0, 0.971699, 24.5, 0, 35.5)
 pebble_chance = 0.2
 trunk_height = 4.66579
 canopy_radius = 2.06525
 
-[node name="Rock77" parent="." instance=ExtResource("rock")]
+[node name="Rock78" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 0.5, 17.5)
 pebble_chance = 0.55
 
-[node name="Tree78" parent="." instance=ExtResource("tree")]
+[node name="Tree79" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.855751, 0, -0.517387, 0, 1, 0, 0.517387, 0, -0.855751, 1.5, 0, -86.5)
 pebble_chance = 0.45
 trunk_height = 4.29452
 canopy_radius = 2.00138
 
-[node name="Tree79" parent="." instance=ExtResource("tree")]
+[node name="Tree80" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.990775, 0, 0.135517, 0, 1, 0, -0.135517, 0, -0.990775, 50.5, 0, -64.5)
 pebble_chance = 0.3
 trunk_height = 4.60852
 canopy_radius = 1.65084
 
-[node name="Tree80" parent="." instance=ExtResource("tree")]
+[node name="Tree81" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.964813, 0, -0.262938, 0, 1, 0, 0.262938, 0, 0.964813, -16.5, 0, 19.5)
 pebble_chance = 0.45
 trunk_height = 4.28878
 canopy_radius = 1.47919
 
-[node name="Rock81" parent="." instance=ExtResource("rock")]
+[node name="Rock82" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5, 0.5, 8.5)
 pebble_chance = 0.55
 
-[node name="Tree82" parent="." instance=ExtResource("tree")]
+[node name="Tree83" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.265514, 0, -0.964107, 0, 1, 0, 0.964107, 0, -0.265514, 43.5, 0, -56.5)
 pebble_chance = 0.3
 trunk_height = 4.83325
 canopy_radius = 1.60053
 
-[node name="Tree83" parent="." instance=ExtResource("tree")]
+[node name="Tree84" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.152446, 0, -0.988312, 0, 1, 0, 0.988312, 0, -0.152446, 11.5, 0, 35.5)
 pebble_chance = 0.3
 trunk_height = 5.20924
 canopy_radius = 1.78828
 
-[node name="Tree84" parent="." instance=ExtResource("tree")]
+[node name="Tree85" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.846859, 0, -0.531818, 0, 1, 0, 0.531818, 0, -0.846859, 33.5, 0, -58.5)
 pebble_chance = 0.3
 trunk_height = 4.94894
 canopy_radius = 1.61863
 
-[node name="Tree85" parent="." instance=ExtResource("tree")]
+[node name="Tree86" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.999994, 0, -0.00333315, 0, 1, 0, 0.00333315, 0, -0.999994, -57.5, 0, 14.5)
 pebble_chance = 0.3
 trunk_height = 4.35234
 canopy_radius = 1.68687
 
-[node name="Rock86" parent="." instance=ExtResource("rock")]
+[node name="Rock87" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0.5, -2.5)
 pebble_chance = 0.4
 
-[node name="Tree87" parent="." instance=ExtResource("tree")]
+[node name="Tree88" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.136648, 0, -0.99062, 0, 1, 0, 0.99062, 0, 0.136648, -31.5, 0, 30.5)
 pebble_chance = 0.45
 trunk_height = 4.81405
 canopy_radius = 1.59621
 
-[node name="Tree88" parent="." instance=ExtResource("tree")]
+[node name="Tree89" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.847885, 0, 0.53018, 0, 1, 0, -0.53018, 0, 0.847885, 62.5, 0, 14.5)
 pebble_chance = 0.2
 trunk_height = 3.92867
 canopy_radius = 1.74357
 
-[node name="Rock89" parent="." instance=ExtResource("rock")]
+[node name="Rock90" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 8.5)
 pebble_chance = 0.4
 
-[node name="Tree90" parent="." instance=ExtResource("tree")]
+[node name="Tree91" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.92234, 0, 0.386378, 0, 1, 0, -0.386378, 0, -0.92234, -37.5, 0, -17.5)
 pebble_chance = 0.2
 trunk_height = 4.9809
 canopy_radius = 1.42561
 
-[node name="Tree91" parent="." instance=ExtResource("tree")]
+[node name="Tree92" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.73159, 0, -0.681745, 0, 1, 0, 0.681745, 0, 0.73159, -4.5, 0, -61.5)
 pebble_chance = 0.45
 trunk_height = 5.44649
 canopy_radius = 1.45894
 
-[node name="Tree92" parent="." instance=ExtResource("tree")]
+[node name="Tree93" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.477941, 0, -0.878392, 0, 1, 0, 0.878392, 0, 0.477941, 91.5, 0, -8.5)
 pebble_chance = 0.45
 trunk_height = 3.91917
 canopy_radius = 1.67778
 
-[node name="Tree93" parent="." instance=ExtResource("tree")]
+[node name="Tree94" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.910266, 0, 0.414023, 0, 1, 0, -0.414023, 0, -0.910266, 36.5, 0, -54.5)
 pebble_chance = 0.45
 trunk_height = 3.72462
 canopy_radius = 1.97248
 
-[node name="Rock94" parent="." instance=ExtResource("rock")]
+[node name="Rock95" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0.5, 35.5)
 pebble_chance = 0.3
 
-[node name="Tree95" parent="." instance=ExtResource("tree")]
+[node name="Tree96" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.143646, 0, -0.989629, 0, 1, 0, 0.989629, 0, -0.143646, -69.5, 0, 13.5)
 pebble_chance = 0.45
 trunk_height = 4.27003
 canopy_radius = 1.7269
 
-[node name="Tree96" parent="." instance=ExtResource("tree")]
+[node name="Tree97" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.999997, 0, -0.00240294, 0, 1, 0, 0.00240294, 0, -0.999997, -8.5, 0, -4.5)
 pebble_chance = 0.3
 trunk_height = 4.96105
 canopy_radius = 1.90522
 
-[node name="Rock97" parent="." instance=ExtResource("rock")]
+[node name="Rock98" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.5, 0.5, -26.5)
 pebble_chance = 0.55
 
-[node name="Tree98" parent="." instance=ExtResource("tree")]
+[node name="Tree99" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.441795, 0, 0.897116, 0, 1, 0, -0.897116, 0, 0.441795, -58.5, 0, 57.5)
 pebble_chance = 0.45
 trunk_height = 5.18959
 canopy_radius = 1.45475
 
-[node name="Rock99" parent="." instance=ExtResource("rock")]
+[node name="Rock100" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, -65.5)
 pebble_chance = 0.3
 
-[node name="Rock100" parent="." instance=ExtResource("rock")]
+[node name="Rock101" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 77.5)
 pebble_chance = 0.4
 
-[node name="Rock101" parent="." instance=ExtResource("rock")]
+[node name="Rock102" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0.5, 41.5)
 pebble_chance = 0.3
 
-[node name="Rock102" parent="." instance=ExtResource("rock")]
+[node name="Rock103" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.5, 26.5)
 pebble_chance = 0.4
 
-[node name="Tree103" parent="." instance=ExtResource("tree")]
+[node name="Tree104" parent="." instance=ExtResource("tree")]
 transform = Transform3D(0.688973, 0, 0.724787, 0, 1, 0, -0.724787, 0, 0.688973, 63.5, 0, 24.5)
 pebble_chance = 0.45
 trunk_height = 5.21906
 canopy_radius = 1.96189
 
-[node name="Tree104" parent="." instance=ExtResource("tree")]
+[node name="Tree105" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.97113, 0, 0.238551, 0, 1, 0, -0.238551, 0, -0.97113, 28.5, 0, -62.5)
 pebble_chance = 0.45
 trunk_height = 5.46168
 canopy_radius = 1.68278
 
-[node name="Tree105" parent="." instance=ExtResource("tree")]
+[node name="Tree106" parent="." instance=ExtResource("tree")]
 transform = Transform3D(-0.131622, 0, 0.9913, 0, 1, 0, -0.9913, 0, -0.131622, -0.5, 0, 21.5)
 pebble_chance = 0.2
 trunk_height = 5.37417
 canopy_radius = 2.01754
 
-[node name="Rock106" parent="." instance=ExtResource("rock")]
+[node name="Rock107" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0.5, 39.5)
 pebble_chance = 0.55
 
-[node name="Rock107" parent="." instance=ExtResource("rock")]
+[node name="Rock108" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.5, 0.5, 21.5)
 pebble_chance = 0.55
 
-[node name="Rock108" parent="." instance=ExtResource("rock")]
+[node name="Rock109" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.5, 0.5, -26.5)
 pebble_chance = 0.4
 
-[node name="Rock109" parent="." instance=ExtResource("rock")]
+[node name="Rock110" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.5, -3.5)
 pebble_chance = 0.3
 
-[node name="Rock110" parent="." instance=ExtResource("rock")]
+[node name="Rock111" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 0.5, -16.5)
 pebble_chance = 0.3
 
-[node name="Rock111" parent="." instance=ExtResource("rock")]
+[node name="Rock112" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.5, 0.5, 2.5)
 pebble_chance = 0.4
 

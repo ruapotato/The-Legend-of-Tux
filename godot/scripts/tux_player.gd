@@ -8,6 +8,10 @@ extends CharacterBody3D
 const TuxState = preload("res://scripts/tux_state.gd")
 const TuxAnim  = preload("res://scripts/tux_anim.gd")
 const BoomerangScene = preload("res://scenes/boomerang.tscn")
+const BombScene      = preload("res://scenes/bomb.tscn")
+const Bow       = preload("res://scripts/bow.gd")
+const Slingshot = preload("res://scripts/slingshot.gd")
+const Hookshot  = preload("res://scripts/hookshot.gd")
 
 @export var camera_path: NodePath
 
@@ -37,6 +41,20 @@ var _charge_ready_played: bool = false
 # Only one boomerang can be in flight at a time. Track via tree_exited
 # so the flag clears when the projectile despawns.
 var _boomerang_in_flight: bool = false
+
+# Hookshot has a small post-fire cooldown so the player can't carpet-
+# bomb the chain. Counts down in _physics_process.
+var _hookshot_cooldown: float = 0.0
+const HOOKSHOT_COOLDOWN: float = 1.0
+
+# A bomb the player picked from a bomb_flower (or any "live" bomb in
+# their hand). Mirrors the rock-carry pattern: while carried, we pin
+# the bomb above the player and ignore its physics; on item_use we
+# launch it with the standard throw arc.
+var _carried_bomb: RigidBody3D = null
+const BOMB_CARRY_OFFSET: Vector3 = Vector3(0, 1.6, -0.1)
+const BOMB_THROW_FWD: float = 6.0
+const BOMB_THROW_UP: float = 4.0
 
 
 func _ready() -> void:
@@ -128,6 +146,10 @@ func _physics_process(delta: float) -> void:
 	_emit_trail_if_active(delta)
 	_dispatch_action_sounds()
 
+	if _hookshot_cooldown > 0.0:
+		_hookshot_cooldown -= delta
+	_update_carried_bomb()
+
 
 func _read_inputs() -> void:
 	# Camera yaw still tracked (so the camera continues to follow even
@@ -174,9 +196,23 @@ func _try_use_active_item() -> void:
 			   TuxState.ACT_SPIN, TuxState.ACT_CHARGING, TuxState.ACT_ROLL,
 			   TuxState.ACT_FLIP, TuxState.ACT_HURT, TuxState.ACT_DEAD]:
 		return
+	var fwd: Vector3 = Vector3(-sin(state.face_yaw), 0, -cos(state.face_yaw))
+	# A live carried bomb (from a bomb_flower) consumes the use input —
+	# you can't throw a different item with a bomb in your hand.
+	if _carried_bomb and is_instance_valid(_carried_bomb):
+		_throw_carried_bomb(fwd)
+		return
 	match item:
 		"boomerang":
 			_throw_boomerang()
+		"bow":
+			Bow.try_fire(self, fwd)
+		"slingshot":
+			Slingshot.try_fire(self, fwd)
+		"bomb":
+			_throw_bomb_from_inventory(fwd)
+		"hookshot":
+			_fire_hookshot(fwd)
 
 
 func _throw_boomerang() -> void:
@@ -193,6 +229,71 @@ func _throw_boomerang() -> void:
 	b.set_owner_player(self)
 	_boomerang_in_flight = true
 	b.tree_exited.connect(func() -> void: _boomerang_in_flight = false)
+
+
+# ---- Bomb / hookshot ---------------------------------------------------
+
+# Spawn a fresh bomb in front of the player and launch it with the
+# standard throw arc. Decrements GameState.bombs; no-op if empty.
+func _throw_bomb_from_inventory(fwd: Vector3) -> void:
+	if GameState.bombs <= 0:
+		return
+	if not GameState.use_bomb():
+		return
+	var bomb: RigidBody3D = BombScene.instantiate()
+	var scene_root: Node = get_tree().current_scene
+	if scene_root == null:
+		return
+	scene_root.add_child(bomb)
+	bomb.global_position = global_position + Vector3(0, 1.0, 0) + fwd * 0.5
+	bomb.linear_velocity = fwd * BOMB_THROW_FWD + Vector3(0, BOMB_THROW_UP, 0)
+
+
+# Bomb-flower → player handoff. Pins the bomb to the carry slot and
+# blocks the body's collisions so it doesn't shove the player around.
+# Tux can throw it via item_use; if he hangs onto it past the fuse it
+# detonates in place (bomb.gd handles its own fuse).
+func attach_carried_bomb(bomb: RigidBody3D) -> void:
+	if not bomb or not is_instance_valid(bomb):
+		return
+	# Drop any prior carry; prefer the new one.
+	if _carried_bomb and is_instance_valid(_carried_bomb):
+		_carried_bomb.linear_velocity = Vector3.ZERO
+	_carried_bomb = bomb
+	bomb.freeze = true
+	bomb.collision_layer = 0
+	bomb.collision_mask = 0
+	bomb.tree_exited.connect(func() -> void:
+		if _carried_bomb == bomb:
+			_carried_bomb = null)
+
+
+func _update_carried_bomb() -> void:
+	if not _carried_bomb or not is_instance_valid(_carried_bomb):
+		return
+	var t: Transform3D = global_transform
+	_carried_bomb.global_position = t.origin + t.basis * BOMB_CARRY_OFFSET
+	_carried_bomb.linear_velocity = Vector3.ZERO
+	_carried_bomb.angular_velocity = Vector3.ZERO
+
+
+func _throw_carried_bomb(fwd: Vector3) -> void:
+	var bomb: RigidBody3D = _carried_bomb
+	if not bomb or not is_instance_valid(bomb):
+		_carried_bomb = null
+		return
+	_carried_bomb = null
+	bomb.freeze = false
+	bomb.collision_layer = 1
+	bomb.collision_mask = 1
+	bomb.linear_velocity = fwd * BOMB_THROW_FWD + Vector3(0, BOMB_THROW_UP, 0)
+
+
+func _fire_hookshot(fwd: Vector3) -> void:
+	if _hookshot_cooldown > 0.0:
+		return
+	_hookshot_cooldown = HOOKSHOT_COOLDOWN
+	Hookshot.try_fire(self, fwd)
 
 
 func get_face_yaw() -> float:

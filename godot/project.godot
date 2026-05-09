@@ -18,8 +18,11 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 GameState="*res://scripts/game_state.gd"
 SoundBank="*res://scripts/sound_bank.gd"
+MusicBank="*res://scripts/music_bank.gd"
 Dialog="*res://scripts/dialog.gd"
 SceneFader="*res://scripts/scene_fader.gd"
+WorldEvents="*res://scripts/world_events.gd"
+TimeOfDay="*res://scripts/time_of_day.gd"
 
 [display]
 

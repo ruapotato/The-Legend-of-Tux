@@ -18,11 +18,23 @@ const EnemyCuller = preload("res://scripts/enemy_culler.gd")
 # only when authored to do so via the level JSON's `key_group` field.
 @export var key_group: String = ""
 
+# Region music id passed to MusicBank.play(). Defaults to the scene
+# file's basename so authors don't have to repeat themselves on every
+# level — only override to share a track between scenes (or use
+# build_dungeon.py's emitted "music_track" line).
+@export var music_track: String = ""
+
 
 func _ready() -> void:
     _attach_mini_map()
     _apply_key_group()
     _attach_enemy_culler()
+    _start_music()
+    # Clear any puzzle latch state from the previous dungeon so a
+    # crystal switch on "boss_door" in level A doesn't auto-open the
+    # gate of the same name in level B.
+    if Engine.has_singleton("WorldEvents") or get_tree().root.has_node("WorldEvents"):
+        WorldEvents.reset()
 
     var spawn_id: String = GameState.next_spawn_id
     if spawn_id == "":
@@ -65,6 +77,24 @@ func _attach_enemy_culler() -> void:
     var ps := get_tree().get_nodes_in_group("player")
     if ps.size() > 0:
         culler.bind(ps[0])
+
+
+func _start_music() -> void:
+    var track := music_track
+    if track == "":
+        var p: String = scene_file_path
+        if p.begins_with("res://scenes/"):
+            p = p.substr("res://scenes/".length())
+        if p.ends_with(".tscn"):
+            p = p.substr(0, p.length() - ".tscn".length())
+        track = p
+    if track == "":
+        return
+    # MusicBank lives as an autoload; if it isn't registered yet (e.g.,
+    # running a scene in isolation from the editor), just skip.
+    var mb := get_node_or_null("/root/MusicBank")
+    if mb and mb.has_method("play"):
+        mb.play(track)
 
 
 func _apply_key_group() -> void:

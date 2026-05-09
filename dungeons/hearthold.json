@@ -6620,6 +6620,132 @@
         -7.5
       ],
       "pebble_chance": 0.3
+    },
+    {
+      "type": "npc",
+      "pos": [0.0, 0.0, 4.0],
+      "rotation_y": 3.14159,
+      "name": "Hearthold Elder",
+      "body_color": [0.55, 0.42, 0.30, 1.0],
+      "hat_color": [0.30, 0.20, 0.12, 1.0],
+      "idle_hint": "[E] Speak with the Elder",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Hearthold Elder",
+            "text": "Well met, little wanderer. The kilns burn warm tonight, and the rooks still keep their watch. Ask, if you would.",
+            "choices": [
+              {"label": "Tell me about the Source.", "next": "source"},
+              {"label": "What of Khorgaul?",         "next": "khorgaul"},
+              {"label": "What is the Sigil?",        "next": "sigil"},
+              {"label": "I should be going.",        "next": "bye"}
+            ]
+          },
+          "source": {
+            "speaker": "Hearthold Elder",
+            "text": "The Source is the spring of all green things — the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
+            "choices": [
+              {"label": "And the Sigil?",     "next": "sigil"},
+              {"label": "And Khorgaul?",      "next": "khorgaul"},
+              {"label": "Back.",              "next": "root"}
+            ]
+          },
+          "khorgaul": {
+            "speaker": "Hearthold Elder",
+            "text": "The Hoarder. He does not steal so much as he gathers — the light, the warmth, the names of things. The wardstones held him once. They thin now.",
+            "choices": [
+              {"label": "Tell me of the Source.", "next": "source"},
+              {"label": "And the Sigil?",         "next": "sigil"},
+              {"label": "Back.",                  "next": "root"}
+            ]
+          },
+          "sigil": {
+            "speaker": "Hearthold Elder",
+            "text": "The Triglyph — three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
+            "choices": [
+              {"label": "Tell me of the Source.", "next": "source"},
+              {"label": "And Khorgaul?",          "next": "khorgaul"},
+              {"label": "Back.",                  "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Hearthold Elder",
+            "text": "Walk under the wing of Lirien, friend."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [10.0, 0.0, 4.0],
+      "rotation_y": -1.5708,
+      "name": "Takka the Smith",
+      "body_color": [0.40, 0.35, 0.45, 1.0],
+      "hat_color": [0.55, 0.30, 0.15, 1.0],
+      "idle_hint": "[E] Talk to Takka",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Takka the Smith",
+            "text": "Eh? You look light in the pouch, traveler. Need any pebbles for the sling?",
+            "choices": [
+              {"label": "Yes — spare me a handful.",
+               "next": "give",
+               "requires_not": "took_takka_pebbles"},
+              {"label": "You already gave me some.",
+               "next": "already_gave",
+               "requires": "took_takka_pebbles"},
+              {"label": "No, I'm fine.", "next": "bye"}
+            ]
+          },
+          "give": {
+            "speaker": "Takka the Smith",
+            "text": "Five pebbles. Good for one good throw and four bad ones. Don't tell the Pebbler.",
+            "give_pebbles": 5,
+            "next": "post_give"
+          },
+          "post_give": {
+            "speaker": "Takka the Smith",
+            "text": "Mind the wardstones to the north. They sing when they're upset.",
+            "choices": [
+              {"label": "Thanks, Takka.", "next": "bye", "sets": "took_takka_pebbles"}
+            ]
+          },
+          "already_gave": {
+            "speaker": "Takka the Smith",
+            "text": "Aye, and I'll not give again 'til the moon turns. Off with you, sling-arm."
+          },
+          "bye": {
+            "speaker": "Takka the Smith",
+            "text": "Hammer and hearth keep you."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-3.0, 0.0, 8.0],
+      "rotation_y": 0.5,
+      "name": "Pim",
+      "body_color": [0.70, 0.80, 0.60, 1.0],
+      "hat_color": [0.95, 0.65, 0.30, 1.0],
+      "idle_hint": "[E] Talk to Pim",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Pim",
+            "text": "Lambwisp! LAMBWISP! Did you see one? It went *floof* and then it went *poof*!",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Pim",
+            "text": "Mama says they're little pieces of Lirien's breath. I want to catch one and put it in a jar. Don't tell mama."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxnpc01"]
+
+[ext_resource type="Script" path="res://scripts/npc.gd" id="1_n"]
+
+[sub_resource type="SphereShape3D" id="prompt_shape"]
+radius = 1.6
+
+[sub_resource type="CapsuleShape3D" id="body_col"]
+radius = 0.30
+height = 1.10
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 0.32
+height = 0.70
+radial_segments = 16
+rings = 10
+
+[sub_resource type="SphereMesh" id="head_mesh"]
+radius = 0.22
+height = 0.40
+radial_segments = 16
+rings = 10
+
+[sub_resource type="CylinderMesh" id="robe_mesh"]
+top_radius = 0.30
+bottom_radius = 0.55
+height = 0.55
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id="arm_mesh"]
+top_radius = 0.07
+bottom_radius = 0.09
+height = 0.40
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="placeholder_mat"]
+albedo_color = Color(0.50, 0.55, 0.75, 1)
+roughness = 0.85
+
+[node name="NPC" type="Node3D"]
+script = ExtResource("1_n")
+
+[node name="Body" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="BodyShape" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("body_col")
+
+[node name="BodyPivot" type="Node3D" parent="."]
+
+[node name="Robe" type="MeshInstance3D" parent="BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30, 0)
+mesh = SubResource("robe_mesh")
+material_override = SubResource("placeholder_mat")
+
+[node name="Body" type="MeshInstance3D" parent="BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("body_mesh")
+material_override = SubResource("placeholder_mat")
+
+[node name="Head" type="MeshInstance3D" parent="BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+mesh = SubResource("head_mesh")
+material_override = SubResource("placeholder_mat")
+
+[node name="ArmL" type="MeshInstance3D" parent="BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.85, 0)
+mesh = SubResource("arm_mesh")
+material_override = SubResource("placeholder_mat")
+
+[node name="ArmR" type="MeshInstance3D" parent="BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.85, 0)
+mesh = SubResource("arm_mesh")
+material_override = SubResource("placeholder_mat")
+
+[node name="PromptArea" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+
+[node name="PromptShape" type="CollisionShape3D" parent="PromptArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("prompt_shape")
+
+[node name="Hint" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+text = "[E] Talk"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true

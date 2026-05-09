@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxpkbow01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="wood_mat"]
+albedo_color = Color(0.45, 0.30, 0.18, 1)
+roughness = 0.65
+emission_enabled = true
+emission = Color(0.85, 0.55, 0.20, 1)
+emission_energy_multiplier = 0.18
+
+[sub_resource type="StandardMaterial3D" id="string_mat"]
+albedo_color = Color(0.92, 0.88, 0.78, 1)
+roughness = 0.7
+
+[sub_resource type="TorusMesh" id="bow_mesh"]
+inner_radius = 0.32
+outer_radius = 0.40
+rings = 18
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="string_mesh"]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.72
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "bow"
+pickup_message = "A yew longbow. Press F to draw and loose an arrow."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="BowArc" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("bow_mesh")
+surface_material_override/0 = SubResource("wood_mat")
+
+[node name="String" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("string_mesh")
+surface_material_override/0 = SubResource("string_mat")

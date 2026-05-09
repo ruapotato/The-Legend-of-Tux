@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxseed01"]
+
+[ext_resource type="Script" path="res://scripts/seed.gd" id="1_s"]
+
+[sub_resource type="SphereShape3D" id="hit_shape"]
+radius = 0.06
+
+[sub_resource type="StandardMaterial3D" id="seed_mat"]
+albedo_color = Color(0.92, 0.88, 0.55, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.55, 0.75, 0.32, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="SphereMesh" id="seed_mesh"]
+radius = 0.06
+height = 0.12
+radial_segments = 8
+rings = 4
+
+[node name="Seed" type="Area3D"]
+script = ExtResource("1_s")
+collision_layer = 0
+collision_mask = 33
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+shape = SubResource("hit_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("seed_mesh")
+surface_material_override/0 = SubResource("seed_mat")

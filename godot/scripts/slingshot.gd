@@ -1,0 +1,35 @@
+extends Node
+
+# Static utility wrapper for the slingshot. Same shape as bow.gd — fires
+# a seed projectile, consumes one seed of ammo. Faster muzzle velocity,
+# no arc, lower damage. The contrast with the bow is the design beat:
+# the bow is your "real" ranged weapon, the slingshot is the snappy
+# answer for the moments when something small and fast needs swatting.
+
+const SeedScene: PackedScene = preload("res://scenes/seed.tscn")
+
+const SPAWN_OFFSET: float = 0.6
+const SPAWN_HEIGHT: float = 1.0
+const SPEED: float = 24.0
+
+
+static func try_fire(owner: Node3D, direction: Vector3) -> bool:
+    if owner == null or not is_instance_valid(owner):
+        return false
+    if not GameState.use_seed():
+        return false
+    var dir: Vector3 = direction
+    dir.y = 0.0
+    if dir.length_squared() < 1e-6:
+        dir = Vector3(0, 0, -1)
+    dir = dir.normalized()
+    var pellet: Area3D = SeedScene.instantiate()
+    var scene_root: Node = owner.get_tree().current_scene
+    if scene_root == null:
+        pellet.queue_free()
+        return false
+    scene_root.add_child(pellet)
+    pellet.global_position = owner.global_position + dir * SPAWN_OFFSET + Vector3(0, SPAWN_HEIGHT, 0)
+    pellet.setup(dir * SPEED, owner)
+    SoundBank.play_3d("sword_swing", pellet.global_position)
+    return true

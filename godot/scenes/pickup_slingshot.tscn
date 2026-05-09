@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxpksl01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="wood_mat"]
+albedo_color = Color(0.40, 0.28, 0.16, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="band_mat"]
+albedo_color = Color(0.25, 0.18, 0.12, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="handle_mesh"]
+size = Vector3(0.06, 0.30, 0.06)
+
+[sub_resource type="BoxMesh" id="band_mesh"]
+size = Vector3(0.40, 0.02, 0.02)
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "slingshot"
+pickup_message = "A forked slingshot. Press F to fling a seed at speed."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Handle" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("handle_mesh")
+surface_material_override/0 = SubResource("wood_mat")
+
+[node name="ForkLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.866, -0.5, 0, 0.5, 0.866, 0, 0, 0, 1, -0.07, 0.20, 0)
+mesh = SubResource("handle_mesh")
+surface_material_override/0 = SubResource("wood_mat")
+
+[node name="ForkRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.866, 0.5, 0, -0.5, 0.866, 0, 0, 0, 1, 0.07, 0.20, 0)
+mesh = SubResource("handle_mesh")
+surface_material_override/0 = SubResource("wood_mat")
+
+[node name="Band" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40, 0)
+mesh = SubResource("band_mesh")
+surface_material_override/0 = SubResource("band_mat")

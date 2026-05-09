@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxdwall01"]
+
+[ext_resource type="Script" path="res://scripts/destructible_wall.gd" id="1_dw"]
+
+[sub_resource type="StandardMaterial3D" id="rock_mat"]
+albedo_color = Color(0.42, 0.40, 0.38, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="rock_dark_mat"]
+albedo_color = Color(0.30, 0.28, 0.26, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="block_mesh"]
+size = Vector3(2.0, 2.4, 1.2)
+
+[sub_resource type="SphereMesh" id="rock_a_mesh"]
+radius = 0.55
+height = 1.10
+radial_segments = 8
+rings = 5
+
+[sub_resource type="SphereMesh" id="rock_b_mesh"]
+radius = 0.45
+height = 0.90
+radial_segments = 8
+rings = 5
+
+[sub_resource type="BoxShape3D" id="block_shape"]
+size = Vector3(2.0, 2.4, 1.2)
+
+[node name="DestructibleWall" type="StaticBody3D"]
+script = ExtResource("1_dw")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("block_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Block" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+mesh = SubResource("block_mesh")
+surface_material_override/0 = SubResource("rock_mat")
+
+[node name="ChunkA" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.45, 0.4)
+mesh = SubResource("rock_a_mesh")
+surface_material_override/0 = SubResource("rock_dark_mat")
+
+[node name="ChunkB" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 0.50, -0.4)
+mesh = SubResource("rock_b_mesh")
+surface_material_override/0 = SubResource("rock_dark_mat")
+
+[node name="ChunkC" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10, 2.30, 0.20)
+mesh = SubResource("rock_a_mesh")
+surface_material_override/0 = SubResource("rock_dark_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="HitShape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("block_shape")

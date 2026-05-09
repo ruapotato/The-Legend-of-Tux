@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxarrw01"]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_a"]
+
+[sub_resource type="CapsuleShape3D" id="hit_shape"]
+radius = 0.05
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="shaft_mat"]
+albedo_color = Color(0.55, 0.4, 0.22, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="tip_mat"]
+albedo_color = Color(0.78, 0.78, 0.82, 1)
+metallic = 0.6
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="fletch_mat"]
+albedo_color = Color(0.85, 0.32, 0.28, 1)
+roughness = 0.9
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="shaft_mesh"]
+top_radius = 0.018
+bottom_radius = 0.018
+height = 0.55
+radial_segments = 8
+rings = 1
+
+[sub_resource type="PrismMesh" id="tip_mesh"]
+size = Vector3(0.06, 0.10, 0.06)
+
+[sub_resource type="QuadMesh" id="fletch_mesh"]
+size = Vector2(0.10, 0.08)
+
+[node name="Arrow" type="Area3D"]
+script = ExtResource("1_a")
+collision_layer = 0
+collision_mask = 33
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+shape = SubResource("hit_shape")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+mesh = SubResource("shaft_mesh")
+surface_material_override/0 = SubResource("shaft_mat")
+
+[node name="Tip" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.3, 0, 0)
+mesh = SubResource("tip_mesh")
+surface_material_override/0 = SubResource("tip_mat")
+
+[node name="FletchA" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -0.24, 0, 0)
+mesh = SubResource("fletch_mesh")
+surface_material_override/0 = SubResource("fletch_mat")
+
+[node name="FletchB" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 1, 0, 0, 0, 1, 0, -0.24, 0, 0)
+mesh = SubResource("fletch_mesh")
+surface_material_override/0 = SubResource("fletch_mat")
