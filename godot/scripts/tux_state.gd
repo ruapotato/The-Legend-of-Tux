@@ -593,8 +593,11 @@ func _act_dead(_delta: float) -> bool:
 func take_hit(source_pos: Vector3, _damage: int) -> bool:
     if action == ACT_DEAD:
         return false
-    # I-frames during the active part of a roll or flip.
-    if action == ACT_ROLL and action_time <= ROLL_IFRAME_END:
+    # Full-roll invulnerability — Tux is bowling-pin tight from the
+    # moment the roll starts until it resolves into IDLE/MOVE. (Was
+    # gated on ROLL_IFRAME_END; the user wanted the whole roll to be
+    # an escape move, not just a window.)
+    if action == ACT_ROLL:
         return false
     if action == ACT_FLIP and action_time <= FLIP_IFRAME_END:
         return false
@@ -603,12 +606,29 @@ func take_hit(source_pos: Vector3, _damage: int) -> bool:
     # player has time to recover position before the next blow.
     if action == ACT_HURT:
         return false
-    # Parry: free deflect inside the parry window.
-    if action == ACT_BLOCK and parry_active:
+
+    # Directional shield: only blocks hits that come from roughly in
+    # front of the player. Sources behind/to-the-side punch through
+    # the guard so an enemy that flanks you while you turtle gets
+    # rewarded. Cone is dot(forward, to_source) > 0 — anything in
+    # the front half-plane.
+    var shielded_front: bool = false
+    if action == ACT_BLOCK:
+        var fwd: Vector3 = Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
+        var to_src: Vector3 = source_pos - pos
+        to_src.y = 0.0
+        if to_src.length() > 0.001:
+            shielded_front = fwd.dot(to_src.normalized()) > 0.0
+        else:
+            shielded_front = true   # source-on-top edge case
+
+    # Parry: free deflect inside the parry window — but only if the
+    # attack came from in front. Side/back hits ignore parry too.
+    if action == ACT_BLOCK and parry_active and shielded_front:
         return false
-    # Regular block: absorb if there's stamina to pay the cost; otherwise
-    # the block breaks and damage goes through.
-    if action == ACT_BLOCK and get_stamina.call() >= COST_BLOCK_HIT:
+    # Regular block: absorb if facing the source AND have stamina.
+    if action == ACT_BLOCK and shielded_front \
+            and get_stamina.call() >= COST_BLOCK_HIT:
         spend_stamina.call(COST_BLOCK_HIT)
         # Light shove on a successful block.
         var away := pos - source_pos
@@ -618,7 +638,8 @@ func take_hit(source_pos: Vector3, _damage: int) -> bool:
             vel.x = away.x * 2.0
             vel.z = away.z * 2.0
         return false
-    # Hit landed.
+
+    # Hit landed (block missed direction or stamina ran out).
     var knock := pos - source_pos
     knock.y = 0.0
     if knock.length() > 0.001:
