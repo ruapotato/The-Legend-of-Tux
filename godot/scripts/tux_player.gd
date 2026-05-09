@@ -187,9 +187,6 @@ func _read_inputs() -> void:
 
 
 func _try_use_active_item() -> void:
-	var item: String = GameState.active_b_item
-	if item == "":
-		return
 	# Don't fire mid-attack/charge/spin/roll/flip — those need to finish.
 	var act: int = state.action
 	if act in [TuxState.ACT_ATTACK, TuxState.ACT_JAB, TuxState.ACT_JUMP_ATTACK,
@@ -198,9 +195,13 @@ func _try_use_active_item() -> void:
 		return
 	var fwd: Vector3 = Vector3(-sin(state.face_yaw), 0, -cos(state.face_yaw))
 	# A live carried bomb (from a bomb_flower) consumes the use input —
-	# you can't throw a different item with a bomb in your hand.
+	# checked BEFORE the active-item dispatch so the player can still
+	# throw a flower-bomb even with no inventory item equipped.
 	if _carried_bomb and is_instance_valid(_carried_bomb):
 		_throw_carried_bomb(fwd)
+		return
+	var item: String = GameState.active_b_item
+	if item == "":
 		return
 	match item:
 		"boomerang":

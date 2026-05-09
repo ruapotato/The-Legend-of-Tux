@@ -184,7 +184,11 @@ func _spawn_blast_visual(scene_root: Node, here: Vector3) -> void:
     fx.material_override = mat
     scene_root.add_child(fx)
     fx.global_position = here
-    var t := create_tween().set_parallel(true)
+    # Tweens MUST be bound to a node that outlives this bomb — `self`
+    # queue_frees one frame after the explosion, which would kill the
+    # tween mid-animation and leave the flash + sphere stuck in the
+    # scene as permanent props. Bind to the visual nodes themselves.
+    var t := fx.create_tween().set_parallel(true)
     var final_scale: float = EXPLOSION_RADIUS * 1.7
     t.tween_property(fx, "scale", Vector3(final_scale, final_scale, final_scale), 0.25)
     t.tween_property(mat, "albedo_color:a", 0.0, 0.25)
@@ -196,6 +200,6 @@ func _spawn_blast_visual(scene_root: Node, here: Vector3) -> void:
     flash.omni_range = EXPLOSION_RADIUS * 2.0
     scene_root.add_child(flash)
     flash.global_position = here + Vector3(0, 0.3, 0)
-    var ft := create_tween()
+    var ft := flash.create_tween()
     ft.tween_property(flash, "light_energy", 0.0, 0.30)
     ft.tween_callback(flash.queue_free)
