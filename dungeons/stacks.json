@@ -4200,18 +4200,590 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {
+      "pos": [
+        -12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        0
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        0
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        0
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        12
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -6,
+        3.0,
+        -6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        6,
+        3.0,
+        -6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -6,
+        3.0,
+        6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        6,
+        3.0,
+        6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        6
+      ],
+      "color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    }
+  ],
   "enemies": [],
   "props": [
     {
       "type": "sign",
       "pos": [
-        0.0,
-        0.0,
-        12.0
+        0,
+        0,
+        12
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Stacks\n\n/var/lib"
+      "rotation_y": 3.14159,
+      "message": "The Stacks.\n\nWhat the Library keeps forever. Speak softly. Read in order."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        10
+      ],
+      "rotation_y": 3.14159,
+      "message": "Sign 1 \u2014 \"The first reading is the eye that finds the page...\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        6,
+        0,
+        0
+      ],
+      "rotation_y": -1.5708,
+      "message": "Sign 2 \u2014 \"...the second reading is the breath that holds it open...\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2,
+        0,
+        -10
+      ],
+      "rotation_y": 0.0,
+      "message": "Sign 3 \u2014 \"...and the third reading is the hand that carries it home.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2,
+        0,
+        -10
+      ],
+      "rotation_y": 0.0,
+      "contents": "heart",
+      "open_message": "You have read in the right order. Lirien sees the readers."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -12,
+        0,
+        -4
+      ],
+      "rotation_y": 0.0,
+      "contents": "fairy",
+      "open_message": "A glass vessel. The Stacks keep one or two of these for the long readings."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        -8
+      ],
+      "rotation_y": -1.5708,
+      "message": "An inscription cut deep into the wall:\n\n\"Here is kept what the Wyrdmark agreed to remember. Forgetting these things would thin the Source itself.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        8
+      ],
+      "rotation_y": 1.5708,
+      "message": "A stone plaque, polished by centuries of touching:\n\n\"The names of the first walkers \u2014 Vael, Anth, and the third whose name is no longer spoken.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        6,
+        0,
+        -12
+      ],
+      "rotation_y": 3.14159,
+      "message": "A small wood plaque set into the floor:\n\n\"Master Archivist Tannen, who kept these stacks for sixty years and never raised her voice. Walk well.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation_y": 3.14159,
+      "message": "A folded cloth notice, weighted with a stone:\n\n\"Reading aloud is permitted in the Stacks if you are alone. If you are not alone, ask first. Most readings are gentle. Some are not.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        6
+      ],
+      "rotation_y": 3.14159,
+      "message": "A page set under glass:\n\n\"Lirien's eye is on the page when the page is opened. The reader is, briefly, also read.\""
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -8,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        8,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -2,
+        0,
+        6
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        2,
+        0,
+        -6
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3,
+        0.5,
+        4
+      ],
+      "rotation_y": 1.0,
+      "name": "Master Archivist Nanre",
+      "body_color": [
+        0.3,
+        0.3,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.15,
+        0.15,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Master Archivist",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Master Archivist Nanre",
+            "text": "Welcome to the Stacks, walker. Speak softly. What is here is here forever.",
+            "choices": [
+              {
+                "label": "What is kept here?",
+                "next": "kept"
+              },
+              {
+                "label": "Why permanent memory?",
+                "next": "why"
+              },
+              {
+                "label": "What of the Cache, then?",
+                "next": "cache"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "kept": {
+            "speaker": "Master Archivist Nanre",
+            "text": "What Lirien herself agreed should remain. Names of the founders. The shape of the Triglyph. The first inscriptions. Things that, if forgotten, would unmake the Wyrdmark.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "why": {
+            "speaker": "Master Archivist Nanre",
+            "text": "Because the Source remembers what is held. If the Wyrdkin forget, the Source thins where the memory used to be. The Stacks are the ballast under our walking.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "cache": {
+            "speaker": "Master Archivist Nanre",
+            "text": "The Cache holds what may be lost. The Stacks hold what may not. Curator Meld and I argue, gently, about which of us has the harder craft.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Master Archivist Nanre",
+            "text": "Walk well. Read in the right order. Lirien sees the readers."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        3,
+        0.5,
+        4
+      ],
+      "rotation_y": -1.0,
+      "name": "Younger Archivist Rilin",
+      "body_color": [
+        0.45,
+        0.5,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.22,
+        0.25,
+        0.32,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Rilin",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Younger Archivist Rilin",
+            "text": "Please \u2014 softer steps. I am minding the inscriptions on the east wall, and the dust here is centuries old.",
+            "choices": [
+              {
+                "label": "What are the three signs?",
+                "next": "signs"
+              },
+              {
+                "label": "How is it studying with Nanre?",
+                "next": "nanre"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "signs": {
+            "speaker": "Younger Archivist Rilin",
+            "text": "An old saying, broken into three pieces and laid in three places. A reader's test. Find them, read them in order, and the saying becomes whole. The first is at the front. The third is at the back.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "nanre": {
+            "speaker": "Younger Archivist Rilin",
+            "text": "Like studying with the wall itself. Nanre says nothing for a long time, and then a single thing that you remember for a year. I am two years in. I have remembered three things.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Younger Archivist Rilin",
+            "text": "Walk well. Read in order, if you would."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

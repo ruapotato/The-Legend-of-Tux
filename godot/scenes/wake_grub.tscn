@@ -1,21 +1,24 @@
-[gd_scene load_steps=115 format=3 uid="uid://btuxwakegrub01"]
+[gd_scene load_steps=118 format=3 uid="uid://btuxwakegrub01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
-sky_top_color = Color(0.4, 0.36, 0.55, 1)
-sky_horizon_color = Color(0.7, 0.55, 0.45, 1)
-ground_horizon_color = Color(0.45, 0.36, 0.32, 1)
-ground_bottom_color = Color(0.2, 0.18, 0.16, 1)
+sky_top_color = Color(0.32, 0.28, 0.45, 1)
+sky_horizon_color = Color(0.55, 0.42, 0.36, 1)
+ground_horizon_color = Color(0.4, 0.32, 0.28, 1)
+ground_bottom_color = Color(0.18, 0.16, 0.14, 1)
 
 [sub_resource type="Sky" id="s2"]
 sky_material = SubResource("s1")
@@ -24,11 +27,11 @@ sky_material = SubResource("s1")
 background_mode = 2
 sky = SubResource("s2")
 ambient_light_source = 3
-ambient_light_color = Color(0.7, 0.62, 0.55, 1)
-ambient_light_energy = 0.45
+ambient_light_color = Color(0.5, 0.45, 0.55, 1)
+ambient_light_energy = 0.28
 fog_enabled = true
-fog_density = 0.003
-fog_light_color = Color(0.55, 0.45, 0.4, 1)
+fog_density = 0.005
+fog_light_color = Color(0.45, 0.38, 0.34, 1)
 
 [sub_resource type="StandardMaterial3D" id="s4"]
 albedo_color = Color(0.42, 0.36, 0.3, 1)
@@ -36,7 +39,7 @@ roughness = 0.95
 metallic = 0
 
 [sub_resource type="StandardMaterial3D" id="s5"]
-albedo_color = Color(0.32, 0.28, 0.24, 1)
+albedo_color = Color(0.3, 0.26, 0.22, 1)
 roughness = 0.92
 metallic = 0
 
@@ -353,12 +356,12 @@ environment = SubResource("s3")
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -0, 0.707107, 0.408248, 0.816497, -0.408248, -0.57735, 0.57735, 0.57735, 0, 14, 0)
 light_color = Color(1, 0.78, 0.55, 1)
-light_energy = 1.2
+light_energy = 0.6
 shadow_enabled = true
 
 [node name="TerrainMesh1" type="Node3D" parent="."]
 script = ExtResource("terrain_mesh_script")
-cell_data = [[-6, -6], [-6, -5], [-6, -4], [-6, -3], [-6, -2], [-6, -1], [-6, 0], [-6, 1], [-6, 2], [-6, 3], [-6, 4], [-6, 5], [-5, -6], [-5, -5], [-5, -4], [-5, -3], [-5, -2], [-5, -1], [-5, 0], [-5, 1], [-5, 2], [-5, 3], [-5, 4], [-5, 5], [-4, -6], [-4, -5], [-4, -4], [-4, -3], [-4, -2], [-4, -1], [-4, 0], [-4, 1], [-4, 2], [-4, 3], [-4, 4], [-4, 5], [-3, -6], [-3, -5], [-3, -4], [-3, -3], [-3, -2], [-3, -1], [-3, 0], [-3, 1], [-3, 2], [-3, 3], [-3, 4], [-3, 5], [-2, -6], [-2, -5], [-2, -4], [-2, -3], [-2, -2], [-2, -1], [-2, 0], [-2, 1], [-2, 2], [-2, 3], [-2, 4], [-2, 5], [-1, -6], [-1, -5], [-1, -4], [-1, -3], [-1, -2], [-1, -1], [-1, 0], [-1, 1], [-1, 2], [-1, 3], [-1, 4], [-1, 5], [0, -6], [0, -5], [0, -4], [0, -3], [0, -2], [0, -1], [0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [1, -6], [1, -5], [1, -4], [1, -3], [1, -2], [1, -1], [1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [2, -6], [2, -5], [2, -4], [2, -3], [2, -2], [2, -1], [2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [3, -6], [3, -5], [3, -4], [3, -3], [3, -2], [3, -1], [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [4, -6], [4, -5], [4, -4], [4, -3], [4, -2], [4, -1], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [5, -6], [5, -5], [5, -4], [5, -3], [5, -2], [5, -1], [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5]]
+cell_data = [[-6, -6], [-6, -5], [-6, -4], [-6, -3], [-6, -2], [-6, -1], [-6, 0], [-6, 1], [-6, 2], [-6, 3], [-6, 4], [-6, 5], [-5, -6], [-5, -5], [-5, -4], [-5, -3], [-5, -2], [-5, -1], [-5, 0], [-5, 1], [-5, 2], [-5, 3], [-5, 4], [-5, 5], [-4, -6], [-4, -5], [-4, -4], [-4, -3], [-4, -2], [-4, -1], [-4, 0], [-4, 1], [-4, 2], [-4, 3], [-4, 4], [-4, 5], [-3, -6, 0.4], [-3, -5, 0.4], [-3, -4], [-3, -3], [-3, -2], [-3, -1], [-3, 0], [-3, 1], [-3, 2], [-3, 3], [-3, 4], [-3, 5], [-2, -6, 0.4], [-2, -5, 0.4], [-2, -4], [-2, -3], [-2, -2], [-2, -1], [-2, 0], [-2, 1], [-2, 2], [-2, 3], [-2, 4], [-2, 5], [-1, -6, 0.4], [-1, -5, 0.4], [-1, -4], [-1, -3], [-1, -2], [-1, -1], [-1, 0], [-1, 1], [-1, 2], [-1, 3], [-1, 4], [-1, 5], [0, -6, 0.4], [0, -5, 0.4], [0, -4], [0, -3], [0, -2], [0, -1], [0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [1, -6, 0.4], [1, -5, 0.4], [1, -4], [1, -3], [1, -2], [1, -1], [1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [2, -6, 0.4], [2, -5, 0.4], [2, -4], [2, -3], [2, -2], [2, -1], [2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [3, -6, 0.4], [3, -5, 0.4], [3, -4], [3, -3], [3, -2], [3, -1], [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [4, -6, 0.4], [4, -5, 0.4], [4, -4], [4, -3], [4, -2], [4, -1], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [5, -6], [5, -5], [5, -4], [5, -3], [5, -2], [5, -1], [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5]]
 cell_size = 1
 floor_y = 0
 floor_color = Color(0.42, 0.36, 0.3, 1)
@@ -390,7 +393,7 @@ mesh = SubResource("s9")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall4" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -594,7 +597,7 @@ mesh = SubResource("s43")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall21" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -618,7 +621,7 @@ mesh = SubResource("s47")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall23" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -822,7 +825,7 @@ mesh = SubResource("s81")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall40" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -834,7 +837,7 @@ mesh = SubResource("s83")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall41" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -894,7 +897,7 @@ mesh = SubResource("s93")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall46" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -906,7 +909,7 @@ mesh = SubResource("s95")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall47" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -918,7 +921,7 @@ mesh = SubResource("s97")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall48" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.4, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -941,6 +944,36 @@ shape = SubResource("s100")
 mesh = SubResource("s101")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.6, -4)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 1.6
+omni_range = 6
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.6, -4)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 1.6
+omni_range = 6
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 1.4
+omni_range = 7
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.4, 3)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 1.2
+omni_range = 5
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.4, 3)
+light_color = Color(1, 0.6, 0.25, 1)
+light_energy = 1.2
+omni_range = 5
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -950,8 +983,49 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 2)
-message = "Wake Sub-shrine\n\n/boot/grub"
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 4)
+message = "Wake Sub-shrine.\n\nA narrow alcove behind the eastern step. The walls hold the names of every thing the realm wakes through, in the order it wakes them."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -4, 0.4, -5.5)
+message = "FIRST INSCRIPTION\n\n\"First the captain reads the names of the realm — every kin who has stood the morning, in the order they came to it. The reading is short. The list is not.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2, 0.4, -5.5)
+message = "SECOND INSCRIPTION\n\n\"Then the bell sounds three times. Once for what was. Once for what is. Once for what will be — if we hold.\""
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.4, -5.5)
+message = "THIRD INSCRIPTION\n\n\"Then the sun is greeted at the eastern step. The greeting is small. The sun has heard it before. The sun does not require it. The sun receives it.\""
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 2, 0.4, -5.5)
+message = "FOURTH INSCRIPTION\n\n\"Then the veterans are saluted. Those who have stood and stand still. Those who stood and stand no longer. Both are present at the rite. Both are saluted.\""
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 4, 0.4, -5.5)
+message = "FIFTH INSCRIPTION\n\n\"Then the day is given to Lirien, and Lirien gives it back. This is the whole of the morning. It is a small thing. It is the only thing.\""
+
+[node name="Chest6" parent="." instance=ExtResource("chest")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, -3)
+contents_scene = ExtResource("heart_piece")
+open_message = "A small fragment of a heart, kept beneath the inscriptions. The Wake remembers every reader."
+
+[node name="Npc7_The_Reader" parent="." instance=ExtResource("npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -4.5)
+npc_name = "The Reader"
+body_color = Color(0.45, 0.4, 0.55, 1)
+hat_color = Color(0.25, 0.22, 0.3, 1)
+idle_hint = "[E] Speak with the Reader"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"The Reader\", \"text\": \"*she is bent over a long sheet of vellum, copying an inscription with a goose-quill* Hm. A traveler. Step softly — the ink is wet, and the stones are old.\", \"choices\": [{\"label\": \"What are you copying?\", \"next\": \"what\"}, {\"label\": \"Where are you from?\", \"next\": \"from\"}, {\"label\": \"May I read with you?\", \"next\": \"read\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"The Reader\", \"text\": \"The fifth inscription. The hardest one. So small a thing, the morning — and yet the words for it have to be exactly right, or the rite reads wrong. I have copied this one before. I will copy it again.\", \"choices\": [{\"label\": \"Where are you from?\", \"next\": \"from\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"from\": {\"speaker\": \"The Reader\", \"text\": \"From a place where readers go when they want to read. We had a quiet room, and lamps that did not flicker. — Hm. We have a quiet room, I should say. The lamps still do not flicker. Forgive me; I have been at this since dark.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"read\": {\"speaker\": \"The Reader\", \"text\": \"Read all five, in order, slowly. That is the whole of the puzzle, if you must call it one. The inscriptions tell you what the morning is. If you have read them — you already know.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"The Reader\", \"text\": \"Walk well. Mind the wet ink.\"}}}"
+
+[node name="Npc8_Hidden_Child" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.128844, 0, 0.991665, 0, 1, 0, -0.991665, 0, -0.128844, 4, 0, 2)
+npc_name = "Hidden Child"
+body_color = Color(0.85, 0.7, 0.55, 1)
+hat_color = Color(0.95, 0.55, 0.35, 1)
+idle_hint = "[E] Look behind the pillar"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Hidden Child\", \"text\": \"*a small kin pressed flat against the back of a stone pillar* shhh. shhh. you can't see me. i'm a stone too.\", \"choices\": [{\"label\": \"I won't tell anyone you're here.\", \"next\": \"kind\"}, {\"label\": \"What are you doing?\", \"next\": \"what\"}, {\"label\": \"Hello, stone.\", \"next\": \"stone\"}]}, \"kind\": {\"speaker\": \"Hidden Child\", \"text\": \"...okay. okay you're nice. i'll tell you a secret. the captain comes here at the second bell and she sits, and she puts her head on the wall, and she breathes for a long time. and then she goes and reads the names. don't tell.\", \"choices\": [{\"label\": \"I won't.\", \"next\": \"wont\"}]}, \"wont\": {\"speaker\": \"Hidden Child\", \"text\": \"good. you're a stone too now. stones don't tell.\"}, \"what\": {\"speaker\": \"Hidden Child\", \"text\": \"i'm hiding from the bell. it's so LOUD. but mama says if i listen all the way through, one day i'll hear what the cliffs say back. so i'm practicing. but quietly.\", \"choices\": [{\"label\": \"I won't tell anyone you're here.\", \"next\": \"kind\"}, {\"label\": \"Good luck, little one.\", \"next\": \"luck\"}]}, \"stone\": {\"speaker\": \"Hidden Child\", \"text\": \"...you can see me, can't you. *a long pause* the stones DON'T see you back. that's the rule. you're cheating.\"}, \"luck\": {\"speaker\": \"Hidden Child\", \"text\": \"thanks. walk well. quietly.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)

@@ -4245,7 +4245,50 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {
+      "pos": [0.0, 3.5, 0.0],
+      "color": [1.0, 0.95, 0.85, 1],
+      "energy": 1.4,
+      "range": 14.0
+    },
+    {
+      "pos": [-7.0, 3.0, -7.0],
+      "color": [0.85, 0.9, 1.0, 1],
+      "energy": 0.9,
+      "range": 9.0
+    },
+    {
+      "pos": [7.0, 3.0, -7.0],
+      "color": [1.0, 0.9, 0.75, 1],
+      "energy": 0.9,
+      "range": 9.0
+    },
+    {
+      "pos": [-7.0, 3.0, 7.0],
+      "color": [0.95, 0.95, 1.0, 1],
+      "energy": 0.9,
+      "range": 9.0
+    },
+    {
+      "pos": [7.0, 3.0, 7.0],
+      "color": [1.0, 0.92, 0.8, 1],
+      "energy": 0.9,
+      "range": 9.0
+    },
+    {
+      "pos": [0.0, 3.0, -10.0],
+      "color": [0.9, 0.9, 1.0, 1],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [0.0, 3.0, 10.0],
+      "color": [1.0, 0.92, 0.8, 1],
+      "energy": 0.7,
+      "range": 8.0
+    }
+  ],
   "enemies": [],
   "props": [
     {
@@ -4257,6 +4300,207 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Sprawl\n\n/usr"
+    },
+    {
+      "type": "rock",
+      "pos": [0.0, 0.0, 0.0],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "sign",
+      "pos": [1.6, 0.0, 0.0],
+      "rotation_y": -1.5708,
+      "message": "Here three peoples agreed not to fight.\n\nThe agreement is older than any of them remember; none can name what it was made over."
+    },
+    {
+      "type": "bush",
+      "pos": [-2.5, 0.0, 2.5],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [2.5, 0.0, -2.5],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [-3.0, 0.0, -3.0],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [3.2, 0.0, 3.0],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [-5.0, 0.0, 0.0],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [5.0, 0.0, 0.0],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [8.0, 0.0, -1.5],
+      "rotation_y": -1.5708,
+      "name": "Sela the Bind-rep",
+      "body_color": [0.55, 0.45, 0.35, 1.0],
+      "hat_color": [0.7, 0.55, 0.25, 1.0],
+      "idle_hint": "[E] Speak with Sela",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Sela",
+            "text": "Wanderer. If you've coin, head to the alleys yonder. If you've ears, mind which side of the plaza you bend them to.",
+            "choices": [
+              {"label": "What do the Binds trade?", "next": "trade"},
+              {"label": "What of the Sharers?", "next": "sharers"},
+              {"label": "And the Locals?", "next": "locals"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "trade": {
+            "speaker": "Sela",
+            "text": "Iron, salt, sweetwood, knot-rope. Whatever moves at a fair price. We don't sell air — leave that to the poets across the way.",
+            "choices": [
+              {"label": "About those poets...", "next": "sharers"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "sharers": {
+            "speaker": "Sela",
+            "text": "Insufferable, in the politest terms. They say they're the soul of the Sprawl. The soul does not weigh out grain at dusk. We do.",
+            "choices": [
+              {"label": "Tell me about trade.", "next": "trade"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "locals": {
+            "speaker": "Sela",
+            "text": "Honest folk. Suspicious folk. They keep their gate closed and their porch swept. I respect that, even when they snub our scales.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Sela",
+            "text": "Mind your purse. The plaza's quieter than it looks."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-8.0, 0.0, -1.5],
+      "rotation_y": 1.5708,
+      "name": "Vahn the Sharer",
+      "body_color": [0.55, 0.6, 0.8, 1.0],
+      "hat_color": [0.85, 0.8, 0.55, 1.0],
+      "idle_hint": "[E] Speak with Vahn",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Vahn",
+            "text": "Walk well, walker. You stand on the only patch of ground in the Sprawl that all three peoples agree is no one's. Beautiful, isn't it.",
+            "choices": [
+              {"label": "Tell me of the Sharers.", "next": "sharers"},
+              {"label": "Recite something.", "next": "verse"},
+              {"label": "Why this plaza?", "next": "plaza"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "sharers": {
+            "speaker": "Vahn",
+            "text": "We tend the verses, the plinths, the bell. The Binds say we sell nothing. We give. They cannot tell the difference — which, I suppose, is the difference.",
+            "choices": [
+              {"label": "Recite something.", "next": "verse"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "verse": {
+            "speaker": "Vahn",
+            "text": "*“Three roads, one breath.\nThe stones forget their cutters,\nthe bell forgets its hour,\nbut the air remembers we stood here.”*",
+            "choices": [
+              {"label": "Beautiful.", "next": "thanks"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "thanks": {
+            "speaker": "Vahn",
+            "text": "Lirien's breath. Few say so without a smirk these days.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "plaza": {
+            "speaker": "Vahn",
+            "text": "Older than any of us, the agreement. The pillar there is older than the agreement. The stones beneath the pillar — older yet. We are the youngest things here.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Vahn",
+            "text": "Walk well, and listen as you go."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-1.5, 0.0, 8.0],
+      "rotation_y": 3.141592653589793,
+      "name": "Garth the Local",
+      "body_color": [0.42, 0.36, 0.3, 1.0],
+      "hat_color": [0.35, 0.28, 0.2, 1.0],
+      "idle_hint": "[E] Speak with Garth",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Garth",
+            "text": "What.",
+            "choices": [
+              {"label": "I'm just passing through.", "next": "pass"},
+              {"label": "Tell me about the frontier.", "next": "frontier"},
+              {"label": "What's the standoff about?", "next": "standoff"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "pass": {
+            "speaker": "Garth",
+            "text": "Good. Pass through, then. ...You're not armed like a cutpurse. That's something.",
+            "choices": [
+              {"label": "Tell me about the frontier.", "next": "frontier"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "frontier": {
+            "speaker": "Garth",
+            "text": "Hard wood. Hard wind. The kind of quiet that makes a man hear his own thoughts and not like them. We build, we mend, we keep watch. It suits us.",
+            "choices": [
+              {"label": "What's the standoff about?", "next": "standoff"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "standoff": {
+            "speaker": "Garth",
+            "text": "Couldn't tell you. The Binds reckon coin. The Sharers reckon verses. We reckon neither and neither reckons us. The pillar reckons all three, and says nothing.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Garth",
+            "text": "Mind the road."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

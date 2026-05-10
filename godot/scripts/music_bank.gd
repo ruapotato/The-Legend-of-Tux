@@ -37,6 +37,12 @@ const TRACKS := {
     "boss":           "boss.ogg",
     "combat":         "combat.ogg",
     "title":          "title.ogg",
+    # New region ids from the filesystem-world rewrite. Audio files do
+    # not exist yet — _load() will warn once and clear the voice
+    # instead of the unknown-id branch firing every load.
+    "drift":          "drift.ogg",
+    "wake":           "wake.ogg",
+    "crown":          "crown.ogg",
 }
 
 const MIN_DB := -60.0

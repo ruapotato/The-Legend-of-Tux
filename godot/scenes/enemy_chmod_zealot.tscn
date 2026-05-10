@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://btuxchmd01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_chmod_zealot.gd" id="1_chm"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.40
+height = 1.5
+
+[sub_resource type="CylinderMesh" id="body_mesh"]
+top_radius = 0.42
+bottom_radius = 0.50
+height = 1.4
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="robe_mat"]
+albedo_color = Color(0.18, 0.16, 0.22, 1)
+roughness = 0.85
+metallic = 0.0
+
+[sub_resource type="CylinderMesh" id="hood_mesh"]
+top_radius = 0.0
+bottom_radius = 0.45
+height = 0.55
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="hood_mat"]
+albedo_color = Color(0.10, 0.09, 0.14, 1)
+roughness = 0.9
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.04
+height = 0.08
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="eye_mat"]
+albedo_color = Color(1.0, 0.55, 0.20, 1)
+emission_enabled = true
+emission = Color(1.0, 0.45, 0.15, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.9, 1.7, 0.9)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.1, 1.7, 1.1)
+
+[node name="EnemyChmodZealot" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_chm")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("robe_mat")
+
+[node name="Hood" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+mesh = SubResource("hood_mesh")
+surface_material_override/0 = SubResource("hood_mat")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10, 1.45, -0.32)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10, 1.45, -0.32)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("contact_shape")

@@ -680,18 +680,186 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {
+      "pos": [
+        0.0,
+        1.5,
+        -2.0
+      ],
+      "color": [
+        0.45,
+        0.3,
+        0.55,
+        1
+      ],
+      "energy": 0.4,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        -3.0,
+        1.5,
+        0.0
+      ],
+      "color": [
+        0.45,
+        0.3,
+        0.55,
+        1
+      ],
+      "energy": 0.4,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        3.0,
+        1.5,
+        0.0
+      ],
+      "color": [
+        0.45,
+        0.3,
+        0.55,
+        1
+      ],
+      "energy": 0.4,
+      "range": 6.0
+    }
+  ],
+  "enemies": [
+    {
+      "type": "init_shade",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
       "pos": [
         0.0,
         0.0,
-        2.0
+        -2.5
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Null Door\n\n/dev/null"
+      "rotation_y": 3.14159,
+      "message": "The Null Door stands closed.\n\nYour eyes find nothing past it. The breath of Lirien stops a few paces from the threshold and resumes a few paces past it on this side. There is no past it on its side."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "WARNING\n\nDo not approach within three paces of the door.\nThe rule is older than the warden.\nThe rule is older than the warning."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "Carved into the stone frame:\n\n\"DO NOT KNOCK.\nNO ONE WILL ANSWER\nIN A WAY YOU CAN HEAR.\""
+    },
+    {
+      "type": "npc",
+      "pos": [
+        3.5,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Watcher Velm",
+      "body_color": [
+        0.45,
+        0.45,
+        0.5,
+        1.0
+      ],
+      "hat_color": [
+        0.2,
+        0.2,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Velm",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Watcher Velm",
+            "text": "Step no closer than three paces. That is the rule. I do not write it; I only keep it. What would you ask of an old Wyrdkin who watches a door?",
+            "choices": [
+              {
+                "label": "Who built it?",
+                "next": "built"
+              },
+              {
+                "label": "What is on the other side?",
+                "next": "other"
+              },
+              {
+                "label": "Has anyone passed through?",
+                "next": "passed"
+              },
+              {
+                "label": "I will go.",
+                "next": "bye"
+              }
+            ]
+          },
+          "built": {
+            "speaker": "Watcher Velm",
+            "text": "I do not know. I will not guess. The asking is not improved by my answer. The door was here before my watch. It will be here after. That is enough for me to be sure of.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "other": {
+            "speaker": "Watcher Velm",
+            "text": "I do not know. I will not guess. Do not ask the door, either. It will not answer in a way you can hear.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "passed": {
+            "speaker": "Watcher Velm",
+            "text": "Last cycle, a small grey-cloaked figure walked here. Not from the Forge — from somewhere I did not see. She passed the threshold. The door was unchanged after. She paid me in nothing and I felt paid. That is all.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Watcher Velm",
+            "text": "Walk well. Walk wide of it."
+          }
+        }
+      }
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.5,
+        0.5,
+        -4.5
+      ],
+      "pebble_chance": 0.0
     }
   ],
   "load_zones": [

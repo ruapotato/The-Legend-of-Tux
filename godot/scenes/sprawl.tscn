@@ -1,15 +1,18 @@
-[gd_scene load_steps=290 format=3 uid="uid://btuxsprawl01"]
+[gd_scene load_steps=293 format=3 uid="uid://btuxsprawl01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.55, 0.7, 1)
@@ -2441,6 +2444,48 @@ shape = SubResource("s260")
 mesh = SubResource("s261")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 1.4
+omni_range = 14
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, -7)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 0.9
+omni_range = 9
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, -7)
+light_color = Color(1, 0.9, 0.75, 1)
+light_energy = 0.9
+omni_range = 9
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 7)
+light_color = Color(0.95, 0.95, 1, 1)
+light_energy = 0.9
+omni_range = 9
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, 7)
+light_color = Color(1, 0.92, 0.8, 1)
+light_energy = 0.9
+omni_range = 9
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -10)
+light_color = Color(0.9, 0.9, 1, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
+light_color = Color(1, 0.92, 0.8, 1)
+light_energy = 0.7
+omni_range = 8
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -2467,6 +2512,55 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 12)
 message = "The Sprawl\n\n/usr"
+
+[node name="Rock1" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 1.6, 0, 0)
+message = "Here three peoples agreed not to fight.\n\nThe agreement is older than any of them remember; none can name what it was made over."
+
+[node name="Bush3" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 2.5)
+
+[node name="Bush4" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -2.5)
+
+[node name="Bush5" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="Bush6" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0, 3)
+
+[node name="Rock7" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Rock8" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="Npc9_Sela_the_Bind_rep" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 8, 0, -1.5)
+npc_name = "Sela the Bind-rep"
+body_color = Color(0.55, 0.45, 0.35, 1)
+hat_color = Color(0.7, 0.55, 0.25, 1)
+idle_hint = "[E] Speak with Sela"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Sela\", \"text\": \"Wanderer. If you've coin, head to the alleys yonder. If you've ears, mind which side of the plaza you bend them to.\", \"choices\": [{\"label\": \"What do the Binds trade?\", \"next\": \"trade\"}, {\"label\": \"What of the Sharers?\", \"next\": \"sharers\"}, {\"label\": \"And the Locals?\", \"next\": \"locals\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"trade\": {\"speaker\": \"Sela\", \"text\": \"Iron, salt, sweetwood, knot-rope. Whatever moves at a fair price. We don't sell air — leave that to the poets across the way.\", \"choices\": [{\"label\": \"About those poets...\", \"next\": \"sharers\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"sharers\": {\"speaker\": \"Sela\", \"text\": \"Insufferable, in the politest terms. They say they're the soul of the Sprawl. The soul does not weigh out grain at dusk. We do.\", \"choices\": [{\"label\": \"Tell me about trade.\", \"next\": \"trade\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"locals\": {\"speaker\": \"Sela\", \"text\": \"Honest folk. Suspicious folk. They keep their gate closed and their porch swept. I respect that, even when they snub our scales.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Sela\", \"text\": \"Mind your purse. The plaza's quieter than it looks.\"}}}"
+
+[node name="Npc10_Vahn_the_Sharer" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -8, 0, -1.5)
+npc_name = "Vahn the Sharer"
+body_color = Color(0.55, 0.6, 0.8, 1)
+hat_color = Color(0.85, 0.8, 0.55, 1)
+idle_hint = "[E] Speak with Vahn"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Vahn\", \"text\": \"Walk well, walker. You stand on the only patch of ground in the Sprawl that all three peoples agree is no one's. Beautiful, isn't it.\", \"choices\": [{\"label\": \"Tell me of the Sharers.\", \"next\": \"sharers\"}, {\"label\": \"Recite something.\", \"next\": \"verse\"}, {\"label\": \"Why this plaza?\", \"next\": \"plaza\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"sharers\": {\"speaker\": \"Vahn\", \"text\": \"We tend the verses, the plinths, the bell. The Binds say we sell nothing. We give. They cannot tell the difference — which, I suppose, is the difference.\", \"choices\": [{\"label\": \"Recite something.\", \"next\": \"verse\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"verse\": {\"speaker\": \"Vahn\", \"text\": \"*“Three roads, one breath.\\nThe stones forget their cutters,\\nthe bell forgets its hour,\\nbut the air remembers we stood here.”*\", \"choices\": [{\"label\": \"Beautiful.\", \"next\": \"thanks\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"thanks\": {\"speaker\": \"Vahn\", \"text\": \"Lirien's breath. Few say so without a smirk these days.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"plaza\": {\"speaker\": \"Vahn\", \"text\": \"Older than any of us, the agreement. The pillar there is older than the agreement. The stones beneath the pillar — older yet. We are the youngest things here.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Vahn\", \"text\": \"Walk well, and listen as you go.\"}}}"
+
+[node name="Npc11_Garth_the_Local" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -1.5, 0, 8)
+npc_name = "Garth the Local"
+body_color = Color(0.42, 0.36, 0.3, 1)
+hat_color = Color(0.35, 0.28, 0.2, 1)
+idle_hint = "[E] Speak with Garth"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Garth\", \"text\": \"What.\", \"choices\": [{\"label\": \"I'm just passing through.\", \"next\": \"pass\"}, {\"label\": \"Tell me about the frontier.\", \"next\": \"frontier\"}, {\"label\": \"What's the standoff about?\", \"next\": \"standoff\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"pass\": {\"speaker\": \"Garth\", \"text\": \"Good. Pass through, then. ...You're not armed like a cutpurse. That's something.\", \"choices\": [{\"label\": \"Tell me about the frontier.\", \"next\": \"frontier\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"frontier\": {\"speaker\": \"Garth\", \"text\": \"Hard wood. Hard wind. The kind of quiet that makes a man hear his own thoughts and not like them. We build, we mend, we keep watch. It suits us.\", \"choices\": [{\"label\": \"What's the standoff about?\", \"next\": \"standoff\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"standoff\": {\"speaker\": \"Garth\", \"text\": \"Couldn't tell you. The Binds reckon coin. The Sharers reckon verses. We reckon neither and neither reckons us. The pillar reckons all three, and says nothing.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Garth\", \"text\": \"Mind the road.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)

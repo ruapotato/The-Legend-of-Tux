@@ -689,18 +689,322 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {
+      "pos": [
+        -4,
+        3.0,
+        -4
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        4,
+        3.0,
+        -4
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        -4,
+        3.0,
+        4
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        4,
+        3.0,
+        4
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        0
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        -3
+      ],
+      "color": [
+        0.6,
+        0.75,
+        0.85,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    }
+  ],
+  "enemies": [
+    {
+      "type": "spore",
+      "pos": [
+        -3,
+        0.5,
+        -1
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        3,
+        0.5,
+        1
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        0,
+        0.5,
+        3
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
       "pos": [
-        0.0,
-        0.0,
-        2.0
+        0,
+        0,
+        2
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Backwater\n\n/var/spool"
+      "rotation_y": 3.14159,
+      "message": "The Backwater.\n\nWhere the buffer overflows. Wet feet. The stream runs on toward Mirelake."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4,
+        0,
+        -2
+      ],
+      "rotation_y": 1.5708,
+      "message": "A weather-stained warning, half-legible:\n\n\"OVERFLOW. The buffer is not a path. Step where it is dry, or do not step at all.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4,
+        0,
+        -2
+      ],
+      "rotation_y": -1.5708,
+      "message": "A small wood marker driven into the bank:\n\n\"In memory of those who walked downstream and did not walk back. We do not list them. They were known.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        3
+      ],
+      "rotation_y": 3.14159,
+      "message": "A loose hand-painted board, leaning against a reed:\n\n\"Mirelake lies down the stream. The water gets darker. The names of things get fewer. Mind yourself, walker.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2,
+        0,
+        3
+      ],
+      "rotation_y": 0.0,
+      "contents": "fairy",
+      "open_message": "A glass vessel. Sluice-keeper Wenn left a small note: \"For the wet road.\""
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -4,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -2,
+        0,
+        2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        2,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3,
+        0,
+        1
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3,
+        0,
+        -1
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0,
+        0,
+        1
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2,
+        0.5,
+        -1
+      ],
+      "rotation_y": 1.0,
+      "name": "Sluice-keeper Wenn",
+      "body_color": [
+        0.35,
+        0.45,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.18,
+        0.22,
+        0.2,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Sluice-keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Sluice-keeper Wenn",
+            "text": "Mind your boots, walker. The buffer's full again. I dredged it yesterday. It does not stay clean. It never has.",
+            "choices": [
+              {
+                "label": "What flows here?",
+                "next": "flows"
+              },
+              {
+                "label": "Why doesn't it stay clean?",
+                "next": "clean"
+              },
+              {
+                "label": "Where does the stream go?",
+                "next": "downstream"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "flows": {
+            "speaker": "Sluice-keeper Wenn",
+            "text": "What the Library could not file fast enough. What the Cache forgot. What the Ledger ran out of scroll for. It all comes here, and from here it goes downstream. Down to the Mire.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "clean": {
+            "speaker": "Sluice-keeper Wenn",
+            "text": "The realm makes more than the realm can keep. That is the whole of it. The buffer overflows. I dredge. The Source sighs. The Mire downstream gets worse every year.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "downstream": {
+            "speaker": "Sluice-keeper Wenn",
+            "text": "Mirelake. A brackish lake. People walk down there and sometimes they do not walk back. Khorgaul's grip is stronger in the wet places. Mind yourself if you go.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Sluice-keeper Wenn",
+            "text": "Walk well. Dry feet, if you can manage it. I never can."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

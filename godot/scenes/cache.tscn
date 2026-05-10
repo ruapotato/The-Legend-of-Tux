@@ -1,15 +1,22 @@
-[gd_scene load_steps=278 format=3 uid="uid://btuxcache01"]
+[gd_scene load_steps=285 format=3 uid="uid://btuxcache01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.18, 0.25, 1)
@@ -2393,6 +2400,54 @@ shape = SubResource("s260")
 mesh = SubResource("s261")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -12)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -12)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 12)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 12)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -8)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, 0)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 0)
+light_color = Color(0.95, 0.7, 0.4, 1)
+light_energy = 0.5
+omni_range = 7
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -2404,9 +2459,107 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="from_cache_wyrdmark" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 15)
 
+[node name="Spore0" parent="." instance=ExtResource("spore")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -4)
+
+[node name="Spore1" parent="." instance=ExtResource("spore")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, -4)
+
+[node name="Spore2" parent="." instance=ExtResource("spore")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
+
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 12)
-message = "The Cache\n\n/var/cache"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 12)
+message = "The Cache.\n\nWhat the Library above could not bear to throw away. The dust is older than the catalog."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -12, 0, -10)
+message = "A catalog card pinned crookedly to the shelf:\n\n\"Aisle three, shelves one through four — contents recovered after the second thinning. Twenty-two volumes. Fourteen partial. Six titled.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 12, 0, -10)
+message = "A weathered notice pasted to a beam:\n\n\"THIS SHELF: empty since the Drawing-In began. Do not refill. Do not dust. The empty place is itself the record.\""
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -12, 0, 8)
+message = "A folded courtesy:\n\n\"Visitors are kindly asked not to disturb the dust. The dust is filed.\""
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 12, 0, 8)
+message = "A small wooden tag:\n\n\"In memory of the volumes that thinned in the year of the long quiet. Their pages went elsewhere. We do not know where.\""
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, -10)
+message = "A loose page, slipped under glass:\n\n\"...and the lamp at the end of the aisle, when it flickered, named us each in turn — and we who heard it have never named ourselves the same way since.\""
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -6, 0, 4)
+message = "A faded label hanging from a hook with no shelf beneath it:\n\n\"This shelf has been gone longer than I have been a curator. — Meld\""
+
+[node name="Chest7" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 6)
+contents_scene = ExtResource("heart_pickup")
+open_message = "A small heart-flower wrapped in tissue. Whoever set this here did not write a note."
+
+[node name="Chest8" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 6)
+contents_scene = ExtResource("key_pickup")
+open_message = "A small dark key. The Cache keeps these for its dustier corners."
+contents_key_group = "cache"
+
+[node name="Bush9" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -14)
+
+[node name="Bush10" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14)
+
+[node name="Bush11" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 14)
+
+[node name="Bush12" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 14)
+
+[node name="Bush13" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Bush14" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Rock15" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -2)
+
+[node name="Rock16" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2)
+
+[node name="Rock17" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 10)
+
+[node name="Rock18" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+
+[node name="Npc19_Curator_Meld" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -3, 0.5, -2)
+npc_name = "Curator Meld"
+body_color = Color(0.45, 0.4, 0.42, 1)
+hat_color = Color(0.2, 0.18, 0.2, 1)
+idle_hint = "[E] Speak with the Curator"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Curator Meld\", \"text\": \"Mind the dust, walker. The Cache is older than its keepers, and we are not young.\", \"choices\": [{\"label\": \"What is kept here?\", \"next\": \"kept\"}, {\"label\": \"What is lost?\", \"next\": \"lost\"}, {\"label\": \"Why is it dim?\", \"next\": \"dim\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"kept\": {\"speaker\": \"Curator Meld\", \"text\": \"What the Library above could not bear to throw away, and could not bear to file. Half-pages. Half-thoughts. The almost-said.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"lost\": {\"speaker\": \"Curator Meld\", \"text\": \"More than I can say. Whole shelves used to hold the names of glades. The shelves are still here. The names are not. We do not say what we have lost. To say it would be to lose it again.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"dim\": {\"speaker\": \"Curator Meld\", \"text\": \"Pages do not love light. Memory does not love noise. The Cache loves neither. The lamps are kept low and the curators speak slowly. That is the whole rule of this room.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Curator Meld\", \"text\": \"Walk well. Step softly past the empty places.\"}}}"
+
+[node name="Npc20_Junior_Catalogger_Brael" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 3, 0.5, -2)
+npc_name = "Junior Catalogger Brael"
+body_color = Color(0.55, 0.5, 0.4, 1)
+hat_color = Color(0.3, 0.27, 0.22, 1)
+idle_hint = "[E] Speak with Brael"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Junior Catalogger Brael\", \"text\": \"Khorgaul's grip — every time I think I have a shelf catalogued, another book is gone. Or there's a gap where I'm sure a book used to be.\", \"choices\": [{\"label\": \"Surely you wrote it down?\", \"next\": \"wrote\"}, {\"label\": \"Why are there gaps?\", \"next\": \"gaps\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"wrote\": {\"speaker\": \"Junior Catalogger Brael\", \"text\": \"I wrote down what I could see. The catalog has gaps too. Curator Meld says the catalog is ALSO a memory, and memories thin. I am beginning to believe him. I would rather not.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"gaps\": {\"speaker\": \"Junior Catalogger Brael\", \"text\": \"The Drawing-In, they say. Khorgaul gathers, and what he gathers is here, sometimes. We dust the empty places. There is nothing else to do with them.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Junior Catalogger Brael\", \"text\": \"Walk well. Mind the third aisle. There used to be a step there.\"}}}"
+
+[node name="Npc21_A_faint_Reader" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.801144, 0, -0.598472, 0, 1, 0, 0.598472, 0, -0.801144, -8, 0.5, 8)
+npc_name = "A faint Reader"
+body_color = Color(0.7, 0.72, 0.78, 1)
+hat_color = Color(0.6, 0.62, 0.68, 1)
+idle_hint = "[E] Greet the faint Reader"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Ghost-Reader\", \"text\": \"(The faint Reader nods to you, slowly, and goes back to her shelf.)\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)

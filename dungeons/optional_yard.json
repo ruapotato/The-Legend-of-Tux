@@ -2045,15 +2045,18 @@
           ],
           [
             -1,
-            -1
+            -1,
+            0.5
           ],
           [
             -1,
-            0
+            0,
+            0.5
           ],
           [
             -1,
-            1
+            1,
+            0.5
           ],
           [
             -1,
@@ -2173,15 +2176,18 @@
           ],
           [
             0,
-            -1
+            -1,
+            0.5
           ],
           [
             0,
-            0
+            0,
+            0.5
           ],
           [
             0,
-            1
+            1,
+            0.5
           ],
           [
             0,
@@ -2301,15 +2307,18 @@
           ],
           [
             1,
-            -1
+            -1,
+            0.5
           ],
           [
             1,
-            0
+            0,
+            0.5
           ],
           [
             1,
-            1
+            1,
+            0.5
           ],
           [
             1,
@@ -4209,7 +4218,188 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {
+      "pos": [
+        -6.0,
+        2.5,
+        6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        6.0,
+        2.5,
+        6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        -6.0,
+        2.5,
+        -6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        6.0,
+        2.5,
+        -6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.5,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        -12.0,
+        2.5,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        12.0,
+        2.5,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.5,
+        10.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.5,
+        -10.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        -10.0,
+        2.5,
+        10.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        10.0,
+        2.5,
+        10.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.5,
+        -6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.65,
+        1
+      ],
+      "energy": 0.8,
+      "range": 10.0
+    }
+  ],
   "enemies": [],
   "props": [
     {
@@ -4217,10 +4407,528 @@
       "pos": [
         0.0,
         0.0,
-        12.0
+        11.0
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Optional Yard\n\n/opt"
+      "rotation_y": 3.14159,
+      "message": "AT THE GATEWAY\n\n\"Walk gently.\nThese were saved for you.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -8.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "Brass dedication on a bench:\n\n\"For those who sat here\nand for those who will.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        8.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "Brass dedication on a bench:\n\n\"In memory of Pell, who would not let the fountain be removed. The fountain is still here.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -8.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "Brass dedication on a bench:\n\n\"For all who came back tired.\nThe hedges keep your shape.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "A long inscription beside the central garden:\n\n\"Lirien sets her care on what was, even when no one asked her to keep it. The Yard is one such place. The bench where you are sitting is another.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        8.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 3.14159,
+      "message": "Inscription on the dry fountain:\n\n\"It ran for a thousand years.\nIt is resting.\nWalk well.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -10.0,
+        0.0,
+        -10.0
+      ],
+      "rotation_y": 0.0,
+      "contents": "pebble",
+      "open_message": "A small pouch of garden-pebbles.",
+      "amount": 8
+    },
+    {
+      "type": "chest",
+      "pos": [
+        10.0,
+        0.0,
+        -10.0
+      ],
+      "rotation_y": 0.0,
+      "contents": "heart",
+      "open_message": "A heart-flower from the Yard. It smells faintly of cedar."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": 0.0,
+      "contents": "fairy",
+      "open_message": "A fairy bottle, kept under the dedication-bench. The Yard is generous."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -6.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": -0.7854,
+      "name": "Groundskeeper Tess",
+      "body_color": [
+        0.4,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.4,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Tess",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Groundskeeper Tess",
+            "text": "Welcome to the Yard, traveler. Wipe your feet on nothing in particular — the path keeps itself. What can I tell you?",
+            "choices": [
+              {
+                "label": "Who tends this place?",
+                "next": "tend"
+              },
+              {
+                "label": "What is here?",
+                "next": "here"
+              },
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "tend": {
+            "speaker": "Groundskeeper Tess",
+            "text": "I do, mostly. The leaves help. The hedges have been here longer than my line. Sometimes I think they tend me.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "here": {
+            "speaker": "Groundskeeper Tess",
+            "text": "Old gardens. Older benches. A fountain that has not run in three winters but has not stopped being a fountain. We keep what was, even when no one asks.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "lirien": {
+            "speaker": "Groundskeeper Tess",
+            "text": "She has walked here. I have not seen her, but the leaves know. They turn a little when the wind is from a direction the wind is not from. It is a kind of unease, and a kind of welcome.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Groundskeeper Tess",
+            "text": "Walk gently. The Yard remembers walking."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        6.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": -2.3562,
+      "name": "Poet Nira",
+      "body_color": [
+        0.55,
+        0.45,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.2,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Greet Nira",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Poet Nira",
+            "text": "Hush — I'm almost there. Just a couplet, that's all I came for. Would you hear it?",
+            "choices": [
+              {
+                "label": "Please.",
+                "next": "couplet"
+              },
+              {
+                "label": "Another time.",
+                "next": "bye"
+              }
+            ]
+          },
+          "couplet": {
+            "speaker": "Poet Nira",
+            "text": "\"What was kept here was kept by no one's asking;\nthe leaves remembered, and the leaves were enough.\"",
+            "choices": [
+              {
+                "label": "That's good.",
+                "next": "thanks"
+              }
+            ]
+          },
+          "thanks": {
+            "speaker": "Poet Nira",
+            "text": "It came easy. They mostly don't. Walk well, traveler. Tell the leaves I said thank you."
+          },
+          "bye": {
+            "speaker": "Poet Nira",
+            "text": "Walk well. The couplet will keep."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "rotation_y": 3.14159,
+      "name": "Young Wyrdkin Jen",
+      "body_color": [
+        0.4,
+        0.45,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Jen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Young Wyrdkin Jen",
+            "text": "Oh — hello. Sorry. I was thinking. You're not interrupting, I just — I'm thinking. Did you need something?",
+            "choices": [
+              {
+                "label": "What are you thinking about?",
+                "next": "ask1"
+              },
+              {
+                "label": "Nothing. Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "ask1": {
+            "speaker": "Young Wyrdkin Jen",
+            "text": "Oh — nothing, really. I came here to think and I'd rather not say what about. Sorry. The Yard is good for not-saying.",
+            "choices": [
+              {
+                "label": "Are you sure?",
+                "next": "ask2"
+              },
+              {
+                "label": "Of course. Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "ask2": {
+            "speaker": "Young Wyrdkin Jen",
+            "text": "...all right. My brother went up the Stoneroost trail at the start of the spring and hasn't come back yet. He said he might not. I'm trying to decide if I'm allowed to be angry, or only sad. The hedges are helping me work it out.",
+            "choices": [
+              {
+                "label": "I'm sorry.",
+                "next": "thanks"
+              }
+            ]
+          },
+          "thanks": {
+            "speaker": "Young Wyrdkin Jen",
+            "text": "Thank you. Walk well. Tell anyone climbing toward Stoneroost that Jen's brother owes her a letter."
+          },
+          "bye": {
+            "speaker": "Young Wyrdkin Jen",
+            "text": "Walk well. Thank you for being kind."
+          }
+        }
+      }
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -12.0,
+        0.5,
+        0.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -12.0,
+        0.5,
+        2.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -12.0,
+        0.5,
+        -2.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -12.0,
+        0.5,
+        4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -12.0,
+        0.5,
+        -4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.0,
+        0.5,
+        0.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.0,
+        0.5,
+        2.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.0,
+        0.5,
+        -2.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.0,
+        0.5,
+        4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.0,
+        0.5,
+        -4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -4.0,
+        0.5,
+        4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4.0,
+        0.5,
+        4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -4.0,
+        0.5,
+        -4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4.0,
+        0.5,
+        -4.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -2.0,
+        0.5,
+        10.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "bush",
+      "pos": [
+        2.0,
+        0.5,
+        10.0
+      ],
+      "drop_chance": 0.35
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.0,
+        0.5,
+        0.0
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.0,
+        0.5,
+        0.0
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.0,
+        0.5,
+        4.0
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.0,
+        0.5,
+        -4.0
+      ],
+      "pebble_chance": 0.3
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -10.0,
+        0.5,
+        4.0
+      ],
+      "pebble_chance": 0.25
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.0,
+        0.5,
+        4.0
+      ],
+      "pebble_chance": 0.25
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -10.0,
+        0.5,
+        -4.0
+      ],
+      "pebble_chance": 0.25
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.0,
+        0.5,
+        -4.0
+      ],
+      "pebble_chance": 0.25
     }
   ],
   "load_zones": [

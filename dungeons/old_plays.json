@@ -680,7 +680,13 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {"pos": [0.0, 3.0, 0.0],   "color": [0.9, 0.65, 0.35, 1], "energy": 0.8, "range": 7.0},
+    {"pos": [-4.0, 3.0, -2.0], "color": [0.85, 0.6, 0.3, 1],  "energy": 0.7, "range": 5.0},
+    {"pos": [4.0, 3.0, -2.0],  "color": [0.85, 0.6, 0.3, 1],  "energy": 0.7, "range": 5.0},
+    {"pos": [-4.0, 3.0, 3.0],  "color": [0.85, 0.6, 0.3, 1],  "energy": 0.7, "range": 5.0},
+    {"pos": [4.0, 3.0, 3.0],   "color": [0.85, 0.6, 0.3, 1],  "energy": 0.7, "range": 5.0}
+  ],
   "enemies": [],
   "props": [
     {
@@ -692,6 +698,191 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Old Plays\n\n/usr/share/games"
+    },
+    {
+      "type": "sign",
+      "pos": [-3.0, 0.0, -3.0],
+      "rotation_y": 0.7854,
+      "message": "PAINTED BOARD (faded)\n\n— RING TOSS —\nThree rings, two chips.\nWinner takes a wooden trout.\n\n(boards weathered; a swing creaks somewhere)"
+    },
+    {
+      "type": "sign",
+      "pos": [3.0, 0.0, -3.0],
+      "rotation_y": -0.7854,
+      "message": "POSTED RULES\n\n1. No bringing your own pebbles.\n2. The barker's word is final.\n3. The barker has been final\n   for some time now."
+    },
+    {
+      "type": "sign",
+      "pos": [-3.0, 0.0, 3.0],
+      "rotation_y": 2.3562,
+      "message": "NOTICE\n\nThe annual festival has been postponed.\nIt has been postponed for seventeen years.\nThe banners go up anyway."
+    },
+    {
+      "type": "sign",
+      "pos": [3.0, 0.0, 3.0],
+      "rotation_y": -2.3562,
+      "message": "WYRDMARK ↗\n\n(arrow points at nothing — paint flaked away below)"
+    },
+    {
+      "type": "sign",
+      "pos": [-5.0, 0.0, 0.0],
+      "rotation_y": 1.5708,
+      "message": "TARGET ROW\n\nA painted board at the far end\nstill bears the scars of old arrows.\nThe Caretaker keeps the line clear,\nin case anyone with a bow comes by."
+    },
+    {
+      "type": "chest",
+      "pos": [-5.0, 0.0, -3.0],
+      "rotation_y": 0.7854,
+      "contents": "heart",
+      "open_message": "A Piece of Heart, tucked behind a painted board. Someone meant for it to be found, eventually."
+    },
+    {"type": "rock", "pos": [-4.0, 0.0, 4.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [4.0, 0.0, 4.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [4.0, 0.0, -4.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [-4.0, 0.0, -4.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-2.5, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [2.5, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-2.0, 0.0, 4.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [2.0, 0.0, 4.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-1.0, 0.0, -1.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [1.0, 0.0, -1.0], "rotation_y": 0.0},
+    {
+      "type": "npc",
+      "pos": [0.0, 0.0, -2.5],
+      "rotation_y": 3.141592653589793,
+      "name": "Carnival Barker",
+      "body_color": [0.55, 0.55, 0.6, 1.0],
+      "hat_color": [0.5, 0.5, 0.55, 1.0],
+      "idle_hint": "[E] Listen to the barker",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Carnival Barker",
+            "text": "STEP RIGHT UP! step right up... step... ...you came. Nobody comes any more. ...Step right up.",
+            "choices": [
+              {"label": "What was this place?", "next": "place"},
+              {"label": "Are you alright?", "next": "alright"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "place": {
+            "speaker": "Carnival Barker",
+            "text": "The Old Plays. Loud once. Bright. The painted boards were freshly painted, then. Children came. Their children stopped. Then so did everyone else.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "alright": {
+            "speaker": "Carnival Barker",
+            "text": "I am where I was. That is its own kind of alright. Step right up, walker. The line is clear. The line has always been clear.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Carnival Barker",
+            "text": "Step right out, then. Walk well. ...Step right up..."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-3.0, 0.0, 0.0],
+      "rotation_y": 1.5708,
+      "name": "Caretaker Tomm",
+      "body_color": [0.42, 0.36, 0.3, 1.0],
+      "hat_color": [0.55, 0.42, 0.25, 1.0],
+      "idle_hint": "[E] Talk to Tomm",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Caretaker Tomm",
+            "text": "Eh. A walker. Don't get many. You carry a bow, by chance? The target row's still good for a turn or two.",
+            "choices": [
+              {"label": "I have a bow — let's play.", "next": "play", "requires": "bow"},
+              {"label": "No bow on me.", "next": "no_bow", "requires_not": "bow"},
+              {"label": "Tell me about this place.", "next": "place"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "play": {
+            "speaker": "Caretaker Tomm",
+            "text": "*(creaks to his feet, gestures at the line)* Three boards. Hit them clean. The barker keeps no score, but I do. ...There. Good shooting. Take these — small thanks.",
+            "give_pebbles": 3,
+            "next": "after_play"
+          },
+          "after_play": {
+            "speaker": "Caretaker Tomm",
+            "text": "Ha. Like the old days, almost. The boards remember being shot at. Come back if your aim wants the practice.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "no_bow": {
+            "speaker": "Caretaker Tomm",
+            "text": "*(sighs)* Aye. Come back when you're armed, walker. The line keeps. The boards keep. We all keep.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "place": {
+            "speaker": "Caretaker Tomm",
+            "text": "The Old Plays. I keep them. There is not much keeping to do, and yet there is always more. The swing keeps creaking. The boards keep peeling. I keep painting them.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Caretaker Tomm",
+            "text": "Walk well, walker. Mind the swing."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [3.0, 0.0, 0.0],
+      "rotation_y": -1.5708,
+      "name": "Quiet Visitor",
+      "body_color": [0.4, 0.45, 0.55, 1.0],
+      "hat_color": [0.5, 0.55, 0.6, 1.0],
+      "idle_hint": "[E] Speak softly",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Quiet Visitor",
+            "text": "Walker.",
+            "choices": [
+              {"label": "Why come here?", "next": "why"},
+              {"label": "What do you remember?", "next": "remember"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "why": {
+            "speaker": "Quiet Visitor",
+            "text": "Every day. Have, for some time. The boards know me. The swing knows me. That is enough.",
+            "choices": [
+              {"label": "What do you remember?", "next": "remember"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "remember": {
+            "speaker": "Quiet Visitor",
+            "text": "*(does not answer for a long moment)*  ...You came in good time. The light is right today. Walk well, walker.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Quiet Visitor",
+            "text": "Walk well."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

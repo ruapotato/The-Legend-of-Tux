@@ -1,15 +1,21 @@
-[gd_scene load_steps=275 format=3 uid="uid://btuxstacks01"]
+[gd_scene load_steps=281 format=3 uid="uid://btuxstacks01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.22, 0.22, 0.3, 1)
@@ -2381,6 +2387,96 @@ shape = SubResource("s260")
 mesh = SubResource("s261")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 0)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 12)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, -6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light11" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light12" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light13" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light14" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 6)
+light_color = Color(0.85, 0.88, 0.95, 1)
+light_energy = 0.7
+omni_range = 8
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -2390,8 +2486,96 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 15)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 12)
-message = "The Stacks\n\n/var/lib"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 12)
+message = "The Stacks.\n\nWhat the Library keeps forever. Speak softly. Read in order."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -6, 0, 10)
+message = "Sign 1 — \"The first reading is the eye that finds the page...\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 6, 0, 0)
+message = "Sign 2 — \"...the second reading is the breath that holds it open...\""
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
+message = "Sign 3 — \"...and the third reading is the hand that carries it home.\""
+
+[node name="Chest4" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
+contents_scene = ExtResource("heart_pickup")
+open_message = "You have read in the right order. Lirien sees the readers."
+
+[node name="Chest5" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -4)
+contents_scene = ExtResource("fairy_bottle")
+open_message = "A glass vessel. The Stacks keep one or two of these for the long readings."
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 12, 0, -8)
+message = "An inscription cut deep into the wall:\n\n\"Here is kept what the Wyrdmark agreed to remember. Forgetting these things would thin the Source itself.\""
+
+[node name="Sign7" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -12, 0, 8)
+message = "A stone plaque, polished by centuries of touching:\n\n\"The names of the first walkers — Vael, Anth, and the third whose name is no longer spoken.\""
+
+[node name="Sign8" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 6, 0, -12)
+message = "A small wood plaque set into the floor:\n\n\"Master Archivist Tannen, who kept these stacks for sixty years and never raised her voice. Walk well.\""
+
+[node name="Sign9" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -6, 0, -12)
+message = "A folded cloth notice, weighted with a stone:\n\n\"Reading aloud is permitted in the Stacks if you are alone. If you are not alone, ask first. Most readings are gentle. Some are not.\""
+
+[node name="Sign10" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 6)
+message = "A page set under glass:\n\n\"Lirien's eye is on the page when the page is opened. The reader is, briefly, also read.\""
+
+[node name="Bush11" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -14)
+
+[node name="Bush12" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14)
+
+[node name="Bush13" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 14)
+
+[node name="Bush14" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 14)
+
+[node name="Bush15" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="Bush16" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="Rock17" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="Rock18" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="Rock19" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 6)
+
+[node name="Rock20" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="Npc21_Master_Archivist_Nanre" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -3, 0.5, 4)
+npc_name = "Master Archivist Nanre"
+body_color = Color(0.3, 0.3, 0.45, 1)
+hat_color = Color(0.15, 0.15, 0.25, 1)
+idle_hint = "[E] Speak with the Master Archivist"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Master Archivist Nanre\", \"text\": \"Welcome to the Stacks, walker. Speak softly. What is here is here forever.\", \"choices\": [{\"label\": \"What is kept here?\", \"next\": \"kept\"}, {\"label\": \"Why permanent memory?\", \"next\": \"why\"}, {\"label\": \"What of the Cache, then?\", \"next\": \"cache\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"kept\": {\"speaker\": \"Master Archivist Nanre\", \"text\": \"What Lirien herself agreed should remain. Names of the founders. The shape of the Triglyph. The first inscriptions. Things that, if forgotten, would unmake the Wyrdmark.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"why\": {\"speaker\": \"Master Archivist Nanre\", \"text\": \"Because the Source remembers what is held. If the Wyrdkin forget, the Source thins where the memory used to be. The Stacks are the ballast under our walking.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"cache\": {\"speaker\": \"Master Archivist Nanre\", \"text\": \"The Cache holds what may be lost. The Stacks hold what may not. Curator Meld and I argue, gently, about which of us has the harder craft.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Master Archivist Nanre\", \"text\": \"Walk well. Read in the right order. Lirien sees the readers.\"}}}"
+
+[node name="Npc22_Younger_Archivist_Rilin" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 3, 0.5, 4)
+npc_name = "Younger Archivist Rilin"
+body_color = Color(0.45, 0.5, 0.6, 1)
+hat_color = Color(0.22, 0.25, 0.32, 1)
+idle_hint = "[E] Speak with Rilin"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Younger Archivist Rilin\", \"text\": \"Please — softer steps. I am minding the inscriptions on the east wall, and the dust here is centuries old.\", \"choices\": [{\"label\": \"What are the three signs?\", \"next\": \"signs\"}, {\"label\": \"How is it studying with Nanre?\", \"next\": \"nanre\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"signs\": {\"speaker\": \"Younger Archivist Rilin\", \"text\": \"An old saying, broken into three pieces and laid in three places. A reader's test. Find them, read them in order, and the saying becomes whole. The first is at the front. The third is at the back.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"nanre\": {\"speaker\": \"Younger Archivist Rilin\", \"text\": \"Like studying with the wall itself. Nanre says nothing for a long time, and then a single thing that you remember for a year. I am two years in. I have remembered three things.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Younger Archivist Rilin\", \"text\": \"Walk well. Read in order, if you would.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)

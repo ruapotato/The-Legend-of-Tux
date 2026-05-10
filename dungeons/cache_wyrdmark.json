@@ -689,18 +689,174 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {
+      "pos": [
+        -3,
+        3.0,
+        -3
+      ],
+      "color": [
+        0.95,
+        0.78,
+        0.55,
+        1.0
+      ],
+      "energy": 0.6,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        3,
+        3.0,
+        3
+      ],
+      "color": [
+        0.95,
+        0.78,
+        0.55,
+        1.0
+      ],
+      "energy": 0.6,
+      "range": 7.0
+    }
+  ],
   "enemies": [],
   "props": [
     {
       "type": "sign",
       "pos": [
-        0.0,
-        0.0,
-        2.0
+        0,
+        0,
+        2
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "Wyrdmark Records\n\n/var/cache/wyrdmark"
+      "rotation_y": 3.14159,
+      "message": "Wyrdmark Records.\n\nA small alcove of the Cache. Older pages live here. The Hollow lies through the inner door."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4,
+        0,
+        -2
+      ],
+      "rotation_y": 1.5708,
+      "message": "A short genealogy, freshly copied:\n\n\"...Wyrdking the Eighth, son of the Seventh, who shaped his own bones; the Last Wyrd, of whom no name remains.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4,
+        0,
+        -2
+      ],
+      "rotation_y": -1.5708,
+      "message": "An old map of the Hollow, most of it faded. Only the entry chamber and a single inner room are still legible. The rest is a brown haze the ink could not hold."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        -3
+      ],
+      "rotation_y": 3.14159,
+      "message": "A pinned warning, lettered carefully:\n\n\"Do not enter the Hollow without a Sigil-bearer's blessing. Do not enter alone. Do not enter without first reading what is here. \u2014 Recorder Thav\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        0
+      ],
+      "rotation_y": 0.0,
+      "contents": "fairy",
+      "open_message": "A glass vessel with a small bright thing inside. Recorder Thav left a note: \"For what is coming.\""
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3,
+        0.5,
+        0
+      ],
+      "rotation_y": 1.5708,
+      "name": "Recorder Thav",
+      "body_color": [
+        0.4,
+        0.34,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.2,
+        0.16,
+        0.28,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Recorder",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Recorder Thav",
+            "text": "Welcome, walker. This alcove keeps the Wyrdmark's own records \u2014 small, but very old. The Hollow lies through that door.",
+            "choices": [
+              {
+                "label": "Tell me of the Wyrdking.",
+                "next": "wyrdking"
+              },
+              {
+                "label": "What is the Last Wyrd?",
+                "next": "wyrd"
+              },
+              {
+                "label": "Any hint for the Hollow?",
+                "next": "hint"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wyrdking": {
+            "speaker": "Recorder Thav",
+            "text": "The Wyrdking Bonelord. The last shaping Khorgaul put on the Wyrd's bones. He guards the inner door. He does not, in the deepest part of him, want to.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "wyrd": {
+            "speaker": "Recorder Thav",
+            "text": "An ancient creature. Old before the Wyrdkin walked. The Hollow is named for it because it hollowed the place out, slowly, by lying still in it for a long time. That is all the records say with certainty.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "hint": {
+            "speaker": "Recorder Thav",
+            "text": "A line from a faded page: \"Three triggers, three Sigils, all must answer the door.\" I do not know what it means in full. But I would mark it down, walker. The Hollow loves a thing said three times.",
+            "choices": [
+              {
+                "label": "Thank you.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Recorder Thav",
+            "text": "Walk well. And go in with a Sigil-bearer's blessing, or do not go in at all."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

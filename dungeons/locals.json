@@ -4200,8 +4200,22 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {"pos": [0.0, 3.5, 0.0],   "color": [1.0, 0.78, 0.5, 1], "energy": 1.3, "range": 10.0},
+    {"pos": [-8.0, 3.0, -8.0], "color": [1.0, 0.75, 0.45, 1], "energy": 1.0, "range": 7.0},
+    {"pos": [8.0, 3.0, -8.0],  "color": [1.0, 0.75, 0.45, 1], "energy": 1.0, "range": 7.0},
+    {"pos": [-8.0, 3.0, 8.0],  "color": [1.0, 0.75, 0.45, 1], "energy": 1.0, "range": 7.0},
+    {"pos": [8.0, 3.0, 8.0],   "color": [1.0, 0.75, 0.45, 1], "energy": 1.0, "range": 7.0},
+    {"pos": [-12.0, 3.0, 0.0], "color": [0.95, 0.7, 0.4, 1], "energy": 0.9, "range": 7.0},
+    {"pos": [12.0, 3.0, 0.0],  "color": [0.95, 0.7, 0.4, 1], "energy": 0.9, "range": 7.0},
+    {"pos": [0.0, 3.0, 8.0],   "color": [1.0, 0.78, 0.5, 1], "energy": 1.0, "range": 7.0},
+    {"pos": [0.0, 3.0, -10.0], "color": [0.95, 0.65, 0.35, 1], "energy": 0.9, "range": 7.0},
+    {"pos": [-4.0, 3.0, -3.0], "color": [1.0, 0.8, 0.5, 1],  "energy": 0.9, "range": 6.0}
+  ],
+  "enemies": [
+    {"type": "bat",    "pos": [-8.0, 2.5, -6.0]},
+    {"type": "knight", "pos": [11.0, 0.0, -11.0]}
+  ],
   "props": [
     {
       "type": "sign",
@@ -4212,6 +4226,275 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Locals\n\n/usr/local"
+    },
+    {
+      "type": "sign",
+      "pos": [-3.0, 0.0, 9.0],
+      "rotation_y": 1.5708,
+      "message": "POSTED LAW\n\n1. Visitors check in with the sheriff.\n2. No torches in the dry months.\n3. We mind our own. We expect the same."
+    },
+    {
+      "type": "sign",
+      "pos": [3.0, 0.0, 9.0],
+      "rotation_y": -1.5708,
+      "message": "WARNING\n\nA bone knight wanders the outer edge.\nThe sheriff hasn't dealt with it yet.\nKeep your distance and your wits."
+    },
+    {
+      "type": "sign",
+      "pos": [-9.0, 0.0, 4.0],
+      "rotation_y": 1.5708,
+      "message": "MEMORIAL\n\nFor those who came to the frontier\nand did not come back.\n\nNames carved here:\nKell. Mar. Old Bren. Two children\nwhose names are still painted on the\nporch beside their mother's door."
+    },
+    {
+      "type": "sign",
+      "pos": [9.0, 0.0, 4.0],
+      "rotation_y": -1.5708,
+      "message": "WARNING\n\nThe rafters of the lower hall\nhave a bat. We know.\nIt eats well. Leave it."
+    },
+    {
+      "type": "sign",
+      "pos": [-9.0, 0.0, -4.0],
+      "rotation_y": 1.5708,
+      "message": "POSTED\n\nWater from the south well only.\nThe north well has gone bitter.\nIt has been bitter since the\nDrawing-In passed by."
+    },
+    {
+      "type": "sign",
+      "pos": [9.0, 0.0, -4.0],
+      "rotation_y": -1.5708,
+      "message": "NOTICE\n\nNew arrivals from the Drift welcome.\nQuiet preferred. Most of us\ncame here to be left alone\nand we extend the courtesy."
+    },
+    {
+      "type": "sign",
+      "pos": [0.0, 0.0, -11.0],
+      "rotation_y": 0.0,
+      "message": "EDGE OF TOWN\n\nBeyond this point: scrub, wind,\nand whatever Khorgaul's grip has left.\nWalk armed. Walk back."
+    },
+    {
+      "type": "chest",
+      "pos": [-13.0, 0.0, -13.0],
+      "rotation_y": 0.7854,
+      "contents": "pebble",
+      "amount": 6,
+      "open_message": "Six pebbles. Frontier ration."
+    },
+    {
+      "type": "chest",
+      "pos": [13.0, 0.0, -13.0],
+      "rotation_y": -0.7854,
+      "contents": "key",
+      "key_group": "locals",
+      "open_message": "A small iron key. Heavier than it looks. The Locals don't lock much, but what they lock, they mean."
+    },
+    {
+      "type": "chest",
+      "pos": [-13.0, 0.0, 13.0],
+      "rotation_y": 2.3562,
+      "contents": "heart",
+      "open_message": "A Piece of Heart. Tucked in a settler's spare-room chest, kept for travelers."
+    },
+    {"type": "rock", "pos": [-10.0, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [10.0, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [-6.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [6.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [-6.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [6.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-4.0, 0.0, 5.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [4.0, 0.0, 5.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-4.0, 0.0, -5.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [4.0, 0.0, -5.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-2.0, 0.0, 7.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [2.0, 0.0, 7.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-2.0, 0.0, -7.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [2.0, 0.0, -7.0], "rotation_y": 0.0},
+    {
+      "type": "npc",
+      "pos": [0.0, 0.0, 7.0],
+      "rotation_y": 3.141592653589793,
+      "name": "Sheriff Brun",
+      "body_color": [0.42, 0.36, 0.3, 1.0],
+      "hat_color": [0.28, 0.22, 0.18, 1.0],
+      "idle_hint": "[E] Speak with Brun",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Sheriff Brun",
+            "text": "Hold a moment, walker. New face. State your business in the Locals.",
+            "choices": [
+              {"label": "I'm just passing through.", "next": "pass"},
+              {"label": "I'm here to help.", "next": "help"},
+              {"label": "What's the trouble in town?", "next": "trouble"},
+              {"label": "Tell me of the frontier.", "next": "frontier"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "pass": {
+            "speaker": "Sheriff Brun",
+            "text": "*(considers)* Fair enough. Pass through, then. Mind the outer edge — there's a bone knight wandering. We'll deal with it. Eventually.",
+            "choices": [
+              {"label": "What of the bone knight?", "next": "trouble"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "help": {
+            "speaker": "Sheriff Brun",
+            "text": "*(softens, just a little)* That's kindly said. Most don't. If you've a sword, the outer edge wants one. The knight there isn't kin to anything we know.",
+            "choices": [
+              {"label": "What of the bone knight?", "next": "trouble"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "trouble": {
+            "speaker": "Sheriff Brun",
+            "text": "Bone knight on the rim. Bat in the rafters of the lower hall — leave that one, it eats the moths. The knight, though. He paces. He doesn't sleep. Khorgaul's grip on him.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "frontier": {
+            "speaker": "Sheriff Brun",
+            "text": "Wood and stone. Wind and watch. We came out here because the Sprawl was too loud and the Burrows too many. We mind our own. We bury our own. Ask no more than that.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Sheriff Brun",
+            "text": "Walk well. Walk armed."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-6.0, 0.0, 2.0],
+      "rotation_y": 1.5708,
+      "name": "Settler Marn",
+      "body_color": [0.55, 0.42, 0.35, 1.0],
+      "hat_color": [0.45, 0.32, 0.22, 1.0],
+      "idle_hint": "[E] Talk to Marn",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Settler Marn",
+            "text": "Walker. Mind the porch — the boards are honest, the nails less so.",
+            "choices": [
+              {"label": "How is life out here?", "next": "life"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "life": {
+            "speaker": "Settler Marn",
+            "text": "Hard wood. Hard winter. Good wife, loud child. We mend, we mind, we make do. Wouldn't trade it for the Sprawl's racket.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Settler Marn",
+            "text": "Walk well, walker."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-4.0, 0.0, 2.0],
+      "rotation_y": 1.5708,
+      "name": "Settler Hess",
+      "body_color": [0.65, 0.55, 0.45, 1.0],
+      "hat_color": [0.85, 0.62, 0.3, 1.0],
+      "idle_hint": "[E] Talk to Hess",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Settler Hess",
+            "text": "Walker. Don't mind the small one. He's been at the knight talk all morning.",
+            "choices": [
+              {"label": "Knight talk?", "next": "knight"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "knight": {
+            "speaker": "Settler Hess",
+            "text": "Wants to be one. Wants the sword, the cloak, the lot. I tell him knights bury more than they save. He doesn't hear me. Children rarely do.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Settler Hess",
+            "text": "Walk well. Mind the rim."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-5.0, 0.0, 4.0],
+      "rotation_y": 3.141592653589793,
+      "name": "Little Tem",
+      "body_color": [0.7, 0.78, 0.6, 1.0],
+      "hat_color": [0.4, 0.55, 0.85, 1.0],
+      "idle_hint": "[E] Talk to Tem",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Little Tem",
+            "text": "ARE YOU A KNIGHT? You look like a knight. Sort of. Smaller. ARE YOU? I'm going to be a knight! I have a stick! Come SEE my stick!",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Little Tem",
+            "text": "Mama says knights bury more than they save and Papa says don't say that to the boy and I say I'm going to bury the BAD ones. The bone ones. With my STICK. Pew. Pew. PEW."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [6.0, 0.0, 2.0],
+      "rotation_y": -1.5708,
+      "name": "Refugee Ema",
+      "body_color": [0.5, 0.5, 0.6, 1.0],
+      "hat_color": [0.55, 0.5, 0.55, 1.0],
+      "idle_hint": "[E] Speak with Ema",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Refugee Ema",
+            "text": "Walker. You've a kind step. Ask, if you would.",
+            "choices": [
+              {"label": "Where did you come from?", "next": "drift"},
+              {"label": "Why come here?", "next": "why"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "drift": {
+            "speaker": "Refugee Ema",
+            "text": "The Drift. The festival town. Where every morning is a new morning, and the day before never quite happened. ...I lived there a long time. Longer than I knew.",
+            "choices": [
+              {"label": "Why leave?", "next": "why"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "why": {
+            "speaker": "Refugee Ema",
+            "text": "*(quiet)* I couldn't bear forgetting. The faces of those I'd known went pale at dawn. I came here because the Locals remember. Even the bitter things. *Especially* the bitter things.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Refugee Ema",
+            "text": "Walk well. Remember what you can."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

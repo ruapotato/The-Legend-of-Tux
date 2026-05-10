@@ -94,6 +94,10 @@ EXT_RESOURCES = {
     "wisp_hunter":      ("PackedScene", "uid://btuxwsph01", "res://scenes/enemy_wisp_hunter.tscn"),
     "skull_spider":     ("PackedScene", "uid://btuxsklsp01", "res://scenes/enemy_skull_spider.tscn"),
     "wyrdking":         ("PackedScene", "uid://btuxwyrk01", "res://scenes/enemy_wyrdking.tscn"),
+    "process_ghost":    ("PackedScene", "uid://btuxprgh01", "res://scenes/enemy_process_ghost.tscn"),
+    "chmod_zealot":     ("PackedScene", "uid://btuxchmd01", "res://scenes/enemy_chmod_zealot.tscn"),
+    "fork_hydra":       ("PackedScene", "uid://btuxfork01", "res://scenes/enemy_fork_hydra.tscn"),
+    "init_shade":       ("PackedScene", "uid://btuxinit01", "res://scenes/enemy_init_shade.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
@@ -123,6 +127,8 @@ EXT_RESOURCES = {
     "bomb_pickup":      ("PackedScene", "uid://btuxpkbm01",  "res://scenes/pickup_bomb.tscn"),
     "hookshot_pickup":  ("PackedScene", "uid://btuxpkhs01",  "res://scenes/pickup_hookshot.tscn"),
     "fairy_bottle":     ("PackedScene", "uid://btuxfair01",  "res://scenes/fairy_bottle_pickup.tscn"),
+    "heart_piece":      ("PackedScene", "uid://btuxhpie01",  "res://scenes/heart_piece.tscn"),
+    "heart_container":  ("PackedScene", "uid://btuxhcnt01",  "res://scenes/heart_container.tscn"),
     "glim":             ("PackedScene", "uid://btuxglim01", "res://scenes/glim.tscn"),
     "boss_arena":       ("PackedScene", "uid://btuxbarn01", "res://scenes/boss_arena.tscn"),
     "camera_script":    ("Script",      None,               "res://scripts/free_orbit_camera.gd"),
@@ -146,6 +152,8 @@ CONTENTS_TO_EXT = {
     "bomb":      "bomb_pickup",
     "hookshot":  "hookshot_pickup",
     "fairy":     "fairy_bottle",
+    "heart_piece":     "heart_piece",
+    "heart_container": "heart_container",
 }
 
 ENEMY_TO_EXT = {
@@ -157,6 +165,10 @@ ENEMY_TO_EXT = {
     "wisp_hunter":  "wisp_hunter",
     "skull_spider": "skull_spider",
     "wyrdking":     "wyrdking",
+    "process_ghost": "process_ghost",
+    "chmod_zealot":  "chmod_zealot",
+    "fork_hydra":    "fork_hydra",
+    "init_shade":    "init_shade",
 }
 
 WALL_THICKNESS = 0.5

@@ -4200,8 +4200,202 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {
+      "pos": [
+        -10.0,
+        1.0,
+        8.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -4.0,
+        1.0,
+        -2.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        6.0,
+        1.0,
+        4.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        10.0,
+        1.0,
+        -4.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12.0,
+        1.0,
+        -6.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        2.0,
+        1.0,
+        8.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -8.0,
+        1.0,
+        -12.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12.0,
+        1.0,
+        10.0
+      ],
+      "color": [
+        0.55,
+        0.65,
+        0.85,
+        1
+      ],
+      "energy": 0.5,
+      "range": 8.0
+    }
+  ],
+  "enemies": [
+    {
+      "type": "spore",
+      "pos": [
+        -10.0,
+        0.0,
+        2.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        -6.0,
+        0.0,
+        -4.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        3.0,
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        8.0,
+        0.0,
+        5.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        11.0,
+        0.0,
+        -6.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        -2.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        -12.0,
+        0.0,
+        -10.0
+      ]
+    },
+    {
+      "type": "process_ghost",
+      "pos": [
+        -4.0,
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "type": "process_ghost",
+      "pos": [
+        7.0,
+        0.0,
+        -2.0
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
@@ -4212,6 +4406,333 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Murk\n\n/proc"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -8.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": 0.6,
+      "name": "Pell",
+      "body_color": [
+        0.62,
+        0.72,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.52,
+        0.48,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the wanderer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Pell",
+            "text": "(half-turning) Mm. Mm. Was carrying it. Was almost done.",
+            "choices": [
+              {
+                "label": "What were you doing?",
+                "next": "task"
+              },
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "task": {
+            "speaker": "Pell",
+            "text": "Was bringing the lantern down. Down to the south gate. Was almost there. Mm.",
+            "choices": [
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "done": {
+            "speaker": "Pell",
+            "text": "(does not look up) The morning is long. The morning is long.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Pell",
+            "text": "(does not answer)"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        5.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": -1.2,
+      "name": "Aelis",
+      "body_color": [
+        0.62,
+        0.72,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.52,
+        0.48,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the wanderer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Aelis",
+            "text": "(half-turning) Mm. Mm. Was carrying it. Was almost done.",
+            "choices": [
+              {
+                "label": "What were you doing?",
+                "next": "task"
+              },
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "task": {
+            "speaker": "Aelis",
+            "text": "Was counting the reeds. Counted to a thousand. Was meant to count further. Mm.",
+            "choices": [
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "done": {
+            "speaker": "Aelis",
+            "text": "(does not look up) The morning is long. The morning is long.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Aelis",
+            "text": "(does not answer)"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        -7.0
+      ],
+      "rotation_y": 2.8,
+      "name": "Brennan",
+      "body_color": [
+        0.62,
+        0.72,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.52,
+        0.48,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the wanderer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Brennan",
+            "text": "(half-turning) Mm. Mm. Was carrying it. Was almost done.",
+            "choices": [
+              {
+                "label": "What were you doing?",
+                "next": "task"
+              },
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "task": {
+            "speaker": "Brennan",
+            "text": "Was holding the rope. The other end was held. Then it was not. Was still holding. Mm.",
+            "choices": [
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "done": {
+            "speaker": "Brennan",
+            "text": "(does not look up) The morning is long. The morning is long.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Brennan",
+            "text": "(does not answer)"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        9.0,
+        0.0,
+        -10.0
+      ],
+      "rotation_y": -0.4,
+      "name": "Olwy",
+      "body_color": [
+        0.62,
+        0.72,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.52,
+        0.48,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the wanderer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Olwy",
+            "text": "(half-turning) Mm. Mm. Was carrying it. Was almost done.",
+            "choices": [
+              {
+                "label": "What were you doing?",
+                "next": "task"
+              },
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "task": {
+            "speaker": "Olwy",
+            "text": "Was watching for the morning. Watched a long time. The morning is long. Mm.",
+            "choices": [
+              {
+                "label": "Are you done?",
+                "next": "done"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "done": {
+            "speaker": "Olwy",
+            "text": "(does not look up) The morning is long. The morning is long.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Olwy",
+            "text": "(does not answer)"
+          }
+        }
+      }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "This place is full of veterans.\n\nWalk softly."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "The Maker is a kind weaver,\nand her threads sometimes fray.\n\nWalk softly. Walk past."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -13.0,
+        0.0,
+        -13.0
+      ],
+      "rotation_y": 0.7,
+      "contents": "heart",
+      "open_message": "A small spark of warmth, kept dry inside the old wood. The fog seems thinner where you stand."
     }
   ],
   "load_zones": [

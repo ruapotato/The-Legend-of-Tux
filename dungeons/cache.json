@@ -4209,18 +4209,523 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {
+      "pos": [
+        -12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        -8
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        8
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        -8,
+        3.0,
+        0
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        8,
+        3.0,
+        0
+      ],
+      "color": [
+        0.95,
+        0.7,
+        0.4,
+        1.0
+      ],
+      "energy": 0.5,
+      "range": 7.0
+    }
+  ],
+  "enemies": [
+    {
+      "type": "spore",
+      "pos": [
+        -6,
+        0.5,
+        -4
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        6,
+        0.5,
+        -4
+      ]
+    },
+    {
+      "type": "spore",
+      "pos": [
+        0,
+        0.5,
+        6
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
       "pos": [
-        0.0,
-        0.0,
-        12.0
+        0,
+        0,
+        12
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Cache\n\n/var/cache"
+      "rotation_y": 3.14159,
+      "message": "The Cache.\n\nWhat the Library above could not bear to throw away. The dust is older than the catalog."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        -10
+      ],
+      "rotation_y": 3.14159,
+      "message": "A catalog card pinned crookedly to the shelf:\n\n\"Aisle three, shelves one through four \u2014 contents recovered after the second thinning. Twenty-two volumes. Fourteen partial. Six titled.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        -10
+      ],
+      "rotation_y": 3.14159,
+      "message": "A weathered notice pasted to a beam:\n\n\"THIS SHELF: empty since the Drawing-In began. Do not refill. Do not dust. The empty place is itself the record.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        8
+      ],
+      "rotation_y": 3.14159,
+      "message": "A folded courtesy:\n\n\"Visitors are kindly asked not to disturb the dust. The dust is filed.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        8
+      ],
+      "rotation_y": 3.14159,
+      "message": "A small wooden tag:\n\n\"In memory of the volumes that thinned in the year of the long quiet. Their pages went elsewhere. We do not know where.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        -10
+      ],
+      "rotation_y": 3.14159,
+      "message": "A loose page, slipped under glass:\n\n\"...and the lamp at the end of the aisle, when it flickered, named us each in turn \u2014 and we who heard it have never named ourselves the same way since.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        4
+      ],
+      "rotation_y": 3.14159,
+      "message": "A faded label hanging from a hook with no shelf beneath it:\n\n\"This shelf has been gone longer than I have been a curator. \u2014 Meld\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -10,
+        0,
+        6
+      ],
+      "rotation_y": 0.0,
+      "contents": "heart",
+      "open_message": "A small heart-flower wrapped in tissue. Whoever set this here did not write a note."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        10,
+        0,
+        6
+      ],
+      "rotation_y": 0.0,
+      "contents": "key",
+      "open_message": "A small dark key. The Cache keeps these for its dustier corners.",
+      "key_group": "cache"
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -4,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4,
+        0,
+        0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -10,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -2,
+        0,
+        10
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        2,
+        0,
+        -8
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3,
+        0.5,
+        -2
+      ],
+      "rotation_y": 1.0,
+      "name": "Curator Meld",
+      "body_color": [
+        0.45,
+        0.4,
+        0.42,
+        1.0
+      ],
+      "hat_color": [
+        0.2,
+        0.18,
+        0.2,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Curator",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Curator Meld",
+            "text": "Mind the dust, walker. The Cache is older than its keepers, and we are not young.",
+            "choices": [
+              {
+                "label": "What is kept here?",
+                "next": "kept"
+              },
+              {
+                "label": "What is lost?",
+                "next": "lost"
+              },
+              {
+                "label": "Why is it dim?",
+                "next": "dim"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "kept": {
+            "speaker": "Curator Meld",
+            "text": "What the Library above could not bear to throw away, and could not bear to file. Half-pages. Half-thoughts. The almost-said.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "lost": {
+            "speaker": "Curator Meld",
+            "text": "More than I can say. Whole shelves used to hold the names of glades. The shelves are still here. The names are not. We do not say what we have lost. To say it would be to lose it again.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "dim": {
+            "speaker": "Curator Meld",
+            "text": "Pages do not love light. Memory does not love noise. The Cache loves neither. The lamps are kept low and the curators speak slowly. That is the whole rule of this room.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Curator Meld",
+            "text": "Walk well. Step softly past the empty places."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        3,
+        0.5,
+        -2
+      ],
+      "rotation_y": -1.0,
+      "name": "Junior Catalogger Brael",
+      "body_color": [
+        0.55,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.27,
+        0.22,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Brael",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Junior Catalogger Brael",
+            "text": "Khorgaul's grip \u2014 every time I think I have a shelf catalogued, another book is gone. Or there's a gap where I'm sure a book used to be.",
+            "choices": [
+              {
+                "label": "Surely you wrote it down?",
+                "next": "wrote"
+              },
+              {
+                "label": "Why are there gaps?",
+                "next": "gaps"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wrote": {
+            "speaker": "Junior Catalogger Brael",
+            "text": "I wrote down what I could see. The catalog has gaps too. Curator Meld says the catalog is ALSO a memory, and memories thin. I am beginning to believe him. I would rather not.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "gaps": {
+            "speaker": "Junior Catalogger Brael",
+            "text": "The Drawing-In, they say. Khorgaul gathers, and what he gathers is here, sometimes. We dust the empty places. There is nothing else to do with them.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Junior Catalogger Brael",
+            "text": "Walk well. Mind the third aisle. There used to be a step there."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -8,
+        0.5,
+        8
+      ],
+      "rotation_y": 2.5,
+      "name": "A faint Reader",
+      "body_color": [
+        0.7,
+        0.72,
+        0.78,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.62,
+        0.68,
+        1.0
+      ],
+      "idle_hint": "[E] Greet the faint Reader",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Ghost-Reader",
+            "text": "(The faint Reader nods to you, slowly, and goes back to her shelf.)"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

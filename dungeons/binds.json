@@ -4200,7 +4200,23 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {"pos": [-10.0, 3.0, -10.0], "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [-5.0, 3.0, -10.0],  "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [0.0, 3.0, -10.0],   "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [5.0, 3.0, -10.0],   "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [10.0, 3.0, -10.0],  "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [-10.0, 3.0, -3.0],  "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [-5.0, 3.0, -3.0],   "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [0.0, 3.0, -3.0],    "color": [1.0, 0.78, 0.4, 1], "energy": 1.4, "range": 8.0},
+    {"pos": [5.0, 3.0, -3.0],    "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [10.0, 3.0, -3.0],   "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [-10.0, 3.0, 4.0],   "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [-5.0, 3.0, 4.0],    "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [5.0, 3.0, 4.0],     "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [10.0, 3.0, 4.0],    "color": [1.0, 0.78, 0.4, 1], "energy": 1.2, "range": 7.0},
+    {"pos": [0.0, 3.0, 10.0],    "color": [1.0, 0.82, 0.5, 1], "energy": 1.0, "range": 8.0}
+  ],
   "enemies": [],
   "props": [
     {
@@ -4212,6 +4228,325 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Binds\n\n/usr/bin"
+    },
+    {
+      "type": "sign",
+      "pos": [-3.0, 0.0, 9.0],
+      "rotation_y": 1.5708,
+      "message": "POSTED — Guild Bylaws\n\n1. Stalls open at first bell.\n2. Coins counted twice.\n3. No haggling on holy days.\n\n(no one observes #3)"
+    },
+    {
+      "type": "sign",
+      "pos": [3.0, 0.0, 9.0],
+      "rotation_y": -1.5708,
+      "message": "PRICES TODAY\n\nSalt — 2 chips a measure\nKnot-rope — 1 chip a fathom\nSweetwood — by the bundle\nPromises — free, expire at dusk"
+    },
+    {
+      "type": "sign",
+      "pos": [-9.0, 0.0, 4.0],
+      "rotation_y": 1.5708,
+      "message": "NOTICE\n\nLost: a small dog answering to “Crumb.”\nReward in chips. No questions asked.\n\n— Stallkeep Manda"
+    },
+    {
+      "type": "sign",
+      "pos": [9.0, 0.0, -3.0],
+      "rotation_y": -1.5708,
+      "message": "WARNING\n\nThe alley past the second lamp is uneven.\nThe Guild is not liable for sprains, twists,\nor things you tripped on while cursing the Guild."
+    },
+    {
+      "type": "sign",
+      "pos": [-9.0, 0.0, -10.0],
+      "rotation_y": 1.5708,
+      "message": "POSTED\n\nPickpockets shall be named on the bell-board\nfor a turn of seven days, then forgiven.\nThe board has names on it. So does the wall behind it."
+    },
+    {
+      "type": "sign",
+      "pos": [9.0, 0.0, -10.0],
+      "rotation_y": -1.5708,
+      "message": "INSCRIPTION (worn)\n\n“Trade is the smaller breath of Lirien —\nshorter, but it carries grain.”"
+    },
+    {
+      "type": "sign",
+      "pos": [0.0, 0.0, -12.0],
+      "rotation_y": 0.0,
+      "message": "ANNOUNCEMENT\n\nThe Old Quarter scales were re-cut at the spring forge.\nIf yours weighs short, that is between you and your conscience."
+    },
+    {
+      "type": "chest",
+      "pos": [-13.0, 0.0, -13.0],
+      "rotation_y": 0.7854,
+      "contents": "pebble",
+      "amount": 8,
+      "open_message": "Eight pebbles. Someone's slingshot supply, neatly stacked."
+    },
+    {
+      "type": "chest",
+      "pos": [13.0, 0.0, -13.0],
+      "rotation_y": -0.7854,
+      "contents": "key",
+      "key_group": "binds",
+      "open_message": "A small iron key. The Binds favour locks; this opens one of theirs."
+    },
+    {
+      "type": "chest",
+      "pos": [-13.0, 0.0, 13.0],
+      "rotation_y": 2.3562,
+      "contents": "heart",
+      "open_message": "A bright spark of heart. The kind merchants quietly tuck in for slow days."
+    },
+    {
+      "type": "chest",
+      "pos": [13.0, 0.0, 13.0],
+      "rotation_y": -2.3562,
+      "contents": "fairy",
+      "open_message": "A glass bottle, a small light inside. Sealed properly. Sold honest."
+    },
+    {"type": "rock", "pos": [-12.0, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [12.0, 0.0, 0.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [-7.0, 0.0, 7.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [7.0, 0.0, 7.0], "rotation_y": 0.0},
+    {"type": "rock", "pos": [0.0, 0.0, -8.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-11.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-8.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [11.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [8.0, 0.0, 6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-11.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [11.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-3.0, 0.0, 13.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [3.0, 0.0, 13.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [-2.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [2.0, 0.0, -6.0], "rotation_y": 0.0},
+    {"type": "bush", "pos": [0.0, 0.0, 6.0], "rotation_y": 0.0},
+    {
+      "type": "npc",
+      "pos": [-4.0, 0.0, 3.0],
+      "rotation_y": 0.7854,
+      "name": "Stallkeep Manda",
+      "body_color": [0.55, 0.4, 0.5, 1.0],
+      "hat_color": [0.85, 0.55, 0.3, 1.0],
+      "idle_hint": "[E] Talk to Manda",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Manda",
+            "text": "Look at you. Light pouch, heavy step. Tell me what you're after and I'll tell you what it costs.",
+            "choices": [
+              {"label": "What do you sell?", "next": "sell"},
+              {"label": "I'm just browsing.", "next": "brows"},
+              {"label": "I'm flattered, I think.", "next": "flirt"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "sell": {
+            "speaker": "Manda",
+            "text": "Today? Nothing. Tomorrow? Whatever you'd pay for. Come back tomorrow.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "brows": {
+            "speaker": "Manda",
+            "text": "Browse, then. The shelves are on me. The looking, half-price.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "flirt": {
+            "speaker": "Manda",
+            "text": "Don't be. I flirt with the till too. ...Mostly the till.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Manda",
+            "text": "Back tomorrow. Bring chips."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [4.0, 0.0, 3.0],
+      "rotation_y": -0.7854,
+      "name": "Bureaucrat Imon",
+      "body_color": [0.45, 0.45, 0.55, 1.0],
+      "hat_color": [0.25, 0.25, 0.35, 1.0],
+      "idle_hint": "[E] Listen to Imon",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Bureaucrat Imon",
+            "text": "*(unrolls a scroll)* Bylaw nine, subsection three: ‘No coin shall be cast in anger.’ ...And yet, every market-day...",
+            "choices": [
+              {"label": "Read me another.", "next": "another"},
+              {"label": "Does anyone follow these?", "next": "follow"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "another": {
+            "speaker": "Bureaucrat Imon",
+            "text": "Bylaw twelve: ‘All wagers shall be witnessed by a sober party.’ The Guild keeps no record of a sober party in the Binds.",
+            "choices": [
+              {"label": "Another.", "next": "another2"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "another2": {
+            "speaker": "Bureaucrat Imon",
+            "text": "Bylaw seventeen, omnibus: ‘Honesty is best. Where impractical, courtesy.’ My favourite, in the dignified sense.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "follow": {
+            "speaker": "Bureaucrat Imon",
+            "text": "Follow them? Dear walker, the bylaws are not for following. They are for *citing*.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Bureaucrat Imon",
+            "text": "Walk well. Cite kindly."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-7.0, 0.0, -2.0],
+      "rotation_y": 1.0,
+      "name": "Trader Joss",
+      "body_color": [0.5, 0.4, 0.32, 1.0],
+      "hat_color": [0.6, 0.4, 0.2, 1.0],
+      "idle_hint": "[E] Talk to Joss",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Trader Joss",
+            "text": "Walker. You've a foreign cut to your cloak. I knew a man with that cut once, down at the Forge.",
+            "choices": [
+              {"label": "The Forge?", "next": "forge"},
+              {"label": "What do you trade?", "next": "trade"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "forge": {
+            "speaker": "Trader Joss",
+            "text": "Aye. Been once. The hammers there don't sound like our hammers. That's all I'll say.",
+            "choices": [
+              {"label": "What was it like?", "next": "forge_more"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "forge_more": {
+            "speaker": "Trader Joss",
+            "text": "Hot. Loud. Old in a way our stones aren't old. I came back lighter than I went, and richer for it. ...Don't ask the way. I won't tell.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "trade": {
+            "speaker": "Trader Joss",
+            "text": "What I can carry. What folk will buy. The usual quiet wares. Nothing the Guild needs to fuss over.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Trader Joss",
+            "text": "Walk well, foreign-cut."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [7.0, 0.0, -2.0],
+      "rotation_y": -1.0,
+      "name": "Trader Kel",
+      "body_color": [0.7, 0.55, 0.3, 1.0],
+      "hat_color": [0.95, 0.7, 0.2, 1.0],
+      "idle_hint": "[E] Talk to Kel",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Trader Kel",
+            "text": "Step UP, walker, step UP! Bottled birdsong! Salt that remembers its sea! A coin polished by a passing breath of Lirien!",
+            "choices": [
+              {"label": "Bottled birdsong?", "next": "bird"},
+              {"label": "A polished coin?", "next": "coin"},
+              {"label": "I'll pass.", "next": "bye"}
+            ]
+          },
+          "bird": {
+            "speaker": "Trader Kel",
+            "text": "Genuine. Mostly. Caught fresh at dawn, bottled by mid-morning, marked down by lunch.",
+            "choices": [
+              {"label": "Anything else?", "next": "coin"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "coin": {
+            "speaker": "Trader Kel",
+            "text": "She passed by, didn't notice me — but the breath caught the coin as she went. You can FEEL the polish, walker. Three chips.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Trader Kel",
+            "text": "Your loss! Probably! Step well!"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [-12.0, 0.0, -8.0],
+      "rotation_y": 1.5708,
+      "name": "Rin",
+      "body_color": [0.3, 0.3, 0.35, 1.0],
+      "hat_color": [0.2, 0.2, 0.25, 1.0],
+      "idle_hint": "[E] Speak softly",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Rin",
+            "text": "...You spoke first. Most don't. Most cross the alley.",
+            "choices": [
+              {"label": "Are you alright?", "next": "alright"},
+              {"label": "Why are you here?", "next": "why"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "alright": {
+            "speaker": "Rin",
+            "text": "Better than I deserve. I lifted purses for a turn of years. I gave it up. The Guild doesn't know yet. I'll tell them. ...In the next breath.",
+            "choices": [
+              {"label": "Why give it up?", "next": "why"},
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "why": {
+            "speaker": "Rin",
+            "text": "I lifted from a Sharer once. He smiled when he found out. Said the loss was a poem he hadn't written yet. I haven't slept right since.",
+            "choices": [
+              {"label": "Back.", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "Rin",
+            "text": "Walk well. Mind your purse, all the same — habit's hard to lose."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

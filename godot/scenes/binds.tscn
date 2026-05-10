@@ -1,15 +1,23 @@
-[gd_scene load_steps=275 format=3 uid="uid://btuxbinds01"]
+[gd_scene load_steps=283 format=3 uid="uid://btuxbinds01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.5, 0.7, 1)
@@ -2381,6 +2389,96 @@ shape = SubResource("s260")
 mesh = SubResource("s261")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -10)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -10)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -10)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, -10)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -10)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -3)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -3)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.4
+omni_range = 8
+
+[node name="Light8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, -3)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -3)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 4)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light11" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 4)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light12" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, 4)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light13" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 4)
+light_color = Color(1, 0.78, 0.4, 1)
+light_energy = 1.2
+omni_range = 7
+
+[node name="Light14" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
+light_color = Color(1, 0.82, 0.5, 1)
+light_energy = 1
+omni_range = 8
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -2392,6 +2490,144 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 12)
 message = "The Binds\n\n/usr/bin"
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -3, 0, 9)
+message = "POSTED — Guild Bylaws\n\n1. Stalls open at first bell.\n2. Coins counted twice.\n3. No haggling on holy days.\n\n(no one observes #3)"
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 3, 0, 9)
+message = "PRICES TODAY\n\nSalt — 2 chips a measure\nKnot-rope — 1 chip a fathom\nSweetwood — by the bundle\nPromises — free, expire at dusk"
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -9, 0, 4)
+message = "NOTICE\n\nLost: a small dog answering to “Crumb.”\nReward in chips. No questions asked.\n\n— Stallkeep Manda"
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 9, 0, -3)
+message = "WARNING\n\nThe alley past the second lamp is uneven.\nThe Guild is not liable for sprains, twists,\nor things you tripped on while cursing the Guild."
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -9, 0, -10)
+message = "POSTED\n\nPickpockets shall be named on the bell-board\nfor a turn of seven days, then forgiven.\nThe board has names on it. So does the wall behind it."
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 9, 0, -10)
+message = "INSCRIPTION (worn)\n\n“Trade is the smaller breath of Lirien —\nshorter, but it carries grain.”"
+
+[node name="Sign7" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+message = "ANNOUNCEMENT\n\nThe Old Quarter scales were re-cut at the spring forge.\nIf yours weighs short, that is between you and your conscience."
+
+[node name="Chest8" parent="." instance=ExtResource("chest")]
+transform = Transform3D(0.707105, 0, -0.707108, 0, 1, 0, 0.707108, 0, 0.707105, -13, 0, -13)
+contents_scene = ExtResource("pebble_pickup")
+open_message = "Eight pebbles. Someone's slingshot supply, neatly stacked."
+contents_amount = 8
+
+[node name="Chest9" parent="." instance=ExtResource("chest")]
+transform = Transform3D(0.707105, 0, 0.707108, 0, 1, 0, -0.707108, 0, 0.707105, 13, 0, -13)
+contents_scene = ExtResource("key_pickup")
+open_message = "A small iron key. The Binds favour locks; this opens one of theirs."
+contents_key_group = "binds"
+
+[node name="Chest10" parent="." instance=ExtResource("chest")]
+transform = Transform3D(-0.707111, 0, -0.707103, 0, 1, 0, 0.707103, 0, -0.707111, -13, 0, 13)
+contents_scene = ExtResource("heart_pickup")
+open_message = "A bright spark of heart. The kind merchants quietly tuck in for slow days."
+
+[node name="Chest11" parent="." instance=ExtResource("chest")]
+transform = Transform3D(-0.707111, 0, 0.707103, 0, 1, 0, -0.707103, 0, -0.707111, 13, 0, 13)
+contents_scene = ExtResource("fairy_bottle")
+open_message = "A glass bottle, a small light inside. Sealed properly. Sold honest."
+
+[node name="Rock12" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+
+[node name="Rock13" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+
+[node name="Rock14" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 7)
+
+[node name="Rock15" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
+[node name="Rock16" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="Bush17" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 6)
+
+[node name="Bush18" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
+
+[node name="Bush19" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 6)
+
+[node name="Bush20" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 6)
+
+[node name="Bush21" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -6)
+
+[node name="Bush22" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -6)
+
+[node name="Bush23" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 13)
+
+[node name="Bush24" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 13)
+
+[node name="Bush25" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="Bush26" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="Bush27" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Npc28_Stallkeep_Manda" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.707105, 0, -0.707108, 0, 1, 0, 0.707108, 0, 0.707105, -4, 0, 3)
+npc_name = "Stallkeep Manda"
+body_color = Color(0.55, 0.4, 0.5, 1)
+hat_color = Color(0.85, 0.55, 0.3, 1)
+idle_hint = "[E] Talk to Manda"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Manda\", \"text\": \"Look at you. Light pouch, heavy step. Tell me what you're after and I'll tell you what it costs.\", \"choices\": [{\"label\": \"What do you sell?\", \"next\": \"sell\"}, {\"label\": \"I'm just browsing.\", \"next\": \"brows\"}, {\"label\": \"I'm flattered, I think.\", \"next\": \"flirt\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"sell\": {\"speaker\": \"Manda\", \"text\": \"Today? Nothing. Tomorrow? Whatever you'd pay for. Come back tomorrow.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"brows\": {\"speaker\": \"Manda\", \"text\": \"Browse, then. The shelves are on me. The looking, half-price.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"flirt\": {\"speaker\": \"Manda\", \"text\": \"Don't be. I flirt with the till too. ...Mostly the till.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Manda\", \"text\": \"Back tomorrow. Bring chips.\"}}}"
+
+[node name="Npc29_Bureaucrat_Imon" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.707105, 0, 0.707108, 0, 1, 0, -0.707108, 0, 0.707105, 4, 0, 3)
+npc_name = "Bureaucrat Imon"
+body_color = Color(0.45, 0.45, 0.55, 1)
+hat_color = Color(0.25, 0.25, 0.35, 1)
+idle_hint = "[E] Listen to Imon"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"*(unrolls a scroll)* Bylaw nine, subsection three: ‘No coin shall be cast in anger.’ ...And yet, every market-day...\", \"choices\": [{\"label\": \"Read me another.\", \"next\": \"another\"}, {\"label\": \"Does anyone follow these?\", \"next\": \"follow\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"another\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Bylaw twelve: ‘All wagers shall be witnessed by a sober party.’ The Guild keeps no record of a sober party in the Binds.\", \"choices\": [{\"label\": \"Another.\", \"next\": \"another2\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"another2\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Bylaw seventeen, omnibus: ‘Honesty is best. Where impractical, courtesy.’ My favourite, in the dignified sense.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"follow\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Follow them? Dear walker, the bylaws are not for following. They are for *citing*.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Walk well. Cite kindly.\"}}}"
+
+[node name="Npc30_Trader_Joss" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -7, 0, -2)
+npc_name = "Trader Joss"
+body_color = Color(0.5, 0.4, 0.32, 1)
+hat_color = Color(0.6, 0.4, 0.2, 1)
+idle_hint = "[E] Talk to Joss"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Trader Joss\", \"text\": \"Walker. You've a foreign cut to your cloak. I knew a man with that cut once, down at the Forge.\", \"choices\": [{\"label\": \"The Forge?\", \"next\": \"forge\"}, {\"label\": \"What do you trade?\", \"next\": \"trade\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"forge\": {\"speaker\": \"Trader Joss\", \"text\": \"Aye. Been once. The hammers there don't sound like our hammers. That's all I'll say.\", \"choices\": [{\"label\": \"What was it like?\", \"next\": \"forge_more\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"forge_more\": {\"speaker\": \"Trader Joss\", \"text\": \"Hot. Loud. Old in a way our stones aren't old. I came back lighter than I went, and richer for it. ...Don't ask the way. I won't tell.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"trade\": {\"speaker\": \"Trader Joss\", \"text\": \"What I can carry. What folk will buy. The usual quiet wares. Nothing the Guild needs to fuss over.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Trader Joss\", \"text\": \"Walk well, foreign-cut.\"}}}"
+
+[node name="Npc31_Trader_Kel" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 7, 0, -2)
+npc_name = "Trader Kel"
+body_color = Color(0.7, 0.55, 0.3, 1)
+hat_color = Color(0.95, 0.7, 0.2, 1)
+idle_hint = "[E] Talk to Kel"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Trader Kel\", \"text\": \"Step UP, walker, step UP! Bottled birdsong! Salt that remembers its sea! A coin polished by a passing breath of Lirien!\", \"choices\": [{\"label\": \"Bottled birdsong?\", \"next\": \"bird\"}, {\"label\": \"A polished coin?\", \"next\": \"coin\"}, {\"label\": \"I'll pass.\", \"next\": \"bye\"}]}, \"bird\": {\"speaker\": \"Trader Kel\", \"text\": \"Genuine. Mostly. Caught fresh at dawn, bottled by mid-morning, marked down by lunch.\", \"choices\": [{\"label\": \"Anything else?\", \"next\": \"coin\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"coin\": {\"speaker\": \"Trader Kel\", \"text\": \"She passed by, didn't notice me — but the breath caught the coin as she went. You can FEEL the polish, walker. Three chips.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Trader Kel\", \"text\": \"Your loss! Probably! Step well!\"}}}"
+
+[node name="Npc32_Rin" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -12, 0, -8)
+npc_name = "Rin"
+body_color = Color(0.3, 0.3, 0.35, 1)
+hat_color = Color(0.2, 0.2, 0.25, 1)
+idle_hint = "[E] Speak softly"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Rin\", \"text\": \"...You spoke first. Most don't. Most cross the alley.\", \"choices\": [{\"label\": \"Are you alright?\", \"next\": \"alright\"}, {\"label\": \"Why are you here?\", \"next\": \"why\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"alright\": {\"speaker\": \"Rin\", \"text\": \"Better than I deserve. I lifted purses for a turn of years. I gave it up. The Guild doesn't know yet. I'll tell them. ...In the next breath.\", \"choices\": [{\"label\": \"Why give it up?\", \"next\": \"why\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"why\": {\"speaker\": \"Rin\", \"text\": \"I lifted from a Sharer once. He smiled when he found out. Said the loss was a poem he hadn't written yet. I haven't slept right since.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Rin\", \"text\": \"Walk well. Mind your purse, all the same — habit's hard to lose.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)

@@ -1,15 +1,23 @@
-[gd_scene load_steps=479 format=3 uid="uid://btuxlibrary01"]
+[gd_scene load_steps=489 format=3 uid="uid://btuxlibrary01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.25, 0.22, 0.3, 1)
@@ -1384,61 +1392,71 @@ size = Vector3(1, 4, 0.2)
 [sub_resource type="BoxMesh" id="s453"]
 size = Vector3(1, 4, 0.2)
 
-[sub_resource type="BoxShape3D" id="s454"]
+[sub_resource type="StandardMaterial3D" id="s454"]
+albedo_color = Color(0.45, 0.38, 0.3, 1)
+roughness = 0.95
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="s455"]
+albedo_color = Color(0.36, 0.3, 0.24, 1)
+roughness = 0.92
+metallic = 0
+
+[sub_resource type="BoxShape3D" id="s456"]
 size = Vector3(4, 3, 1.5)
 
-[sub_resource type="BoxMesh" id="s455"]
+[sub_resource type="BoxMesh" id="s457"]
 size = Vector3(4.5, 4.5, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="s456"]
+[sub_resource type="StandardMaterial3D" id="s458"]
 albedo_color = Color(0.02, 0.02, 0.04, 1)
 shading_mode = 0
 emission_enabled = true
 emission = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="s457"]
+[sub_resource type="BoxShape3D" id="s459"]
 size = Vector3(1.5, 3, 4)
 
-[sub_resource type="BoxMesh" id="s458"]
+[sub_resource type="BoxMesh" id="s460"]
 size = Vector3(0.1, 4.5, 4.5)
 
-[sub_resource type="StandardMaterial3D" id="s459"]
+[sub_resource type="StandardMaterial3D" id="s461"]
 albedo_color = Color(0.02, 0.02, 0.04, 1)
 shading_mode = 0
 emission_enabled = true
 emission = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="s460"]
+[sub_resource type="BoxShape3D" id="s462"]
 size = Vector3(4, 3, 1.5)
 
-[sub_resource type="BoxMesh" id="s461"]
+[sub_resource type="BoxMesh" id="s463"]
 size = Vector3(4.5, 4.5, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="s462"]
+[sub_resource type="StandardMaterial3D" id="s464"]
 albedo_color = Color(0.02, 0.02, 0.04, 1)
 shading_mode = 0
 emission_enabled = true
 emission = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="s463"]
+[sub_resource type="BoxShape3D" id="s465"]
 size = Vector3(4, 3, 1.5)
 
-[sub_resource type="BoxMesh" id="s464"]
+[sub_resource type="BoxMesh" id="s466"]
 size = Vector3(4.5, 4.5, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="s465"]
+[sub_resource type="StandardMaterial3D" id="s467"]
 albedo_color = Color(0.02, 0.02, 0.04, 1)
 shading_mode = 0
 emission_enabled = true
 emission = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="s466"]
+[sub_resource type="BoxShape3D" id="s468"]
 size = Vector3(1.5, 3, 4)
 
-[sub_resource type="BoxMesh" id="s467"]
+[sub_resource type="BoxMesh" id="s469"]
 size = Vector3(0.1, 4.5, 4.5)
 
-[sub_resource type="StandardMaterial3D" id="s468"]
+[sub_resource type="StandardMaterial3D" id="s470"]
 albedo_color = Color(0.02, 0.02, 0.04, 1)
 shading_mode = 0
 emission_enabled = true
@@ -4157,6 +4175,171 @@ shape = SubResource("s452")
 mesh = SubResource("s453")
 surface_material_override/0 = SubResource("s5")
 
+[node name="TerrainMesh226" type="Node3D" parent="."]
+script = ExtResource("terrain_mesh_script")
+cell_data = [[-2, -2], [-2, -1], [-2, 0], [-2, 1], [-1, -2], [-1, -1], [-1, 0], [-1, 1], [0, -2], [0, -1], [0, 0], [0, 1], [1, -2], [1, -1], [1, 0], [1, 1]]
+cell_size = 1
+floor_y = 0.4
+floor_color = Color(0.45, 0.38, 0.3, 1)
+skirt_depth = 6.0
+smoothing = 0.45
+
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, -22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, -10)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, 0)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, 10)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, 22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, -22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, -10)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, 0)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, 10)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, 22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light11" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light12" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light13" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 22)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light14" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -8)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light15" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -8)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light16" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 8)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light17" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 8)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light18" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, -16)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light19" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -16)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light20" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 16)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light21" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 16)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light22" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.2, 0)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light23" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.2, 0)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light24" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -3)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light25" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 3)
+light_color = Color(1, 0.92, 0.65, 1)
+light_energy = 0.7
+omni_range = 8
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -4178,8 +4361,147 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 27)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 24)
-message = "The Library of Past Echoes\n\n/var"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 24)
+message = "The Library of Past Echoes.\n\nKeep your voice low. The pages remember footfalls."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -18, 0, -14)
+message = "Posted, in a careful hand:\n\n\"Silence is asked of every walker in the Stacks. The deepest reading is what looks back at you. Do not surprise it.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 18, 0, -14)
+message = "An older notice, the ink running:\n\n\"Three Readers were lost to a long inscription in the year of the second thinning. Their names are kept in the west aisle. Speak them only when alone.\""
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -18, 0, 14)
+message = "Roster of the Readers, freshly inked:\n\nMistress Yvenn (Head)\nApprentice Yawen\nPell (sabbatical)\nTheln (Wyrdmark records)\nOlm (the Drawing-In)\n— and one entry, scratched out long ago."
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 18, 0, 14)
+message = "A page-marker pinned to the shelf:\n\n\"What is forgotten was loved by something. The Library remembers on its behalf.\""
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -8, 0, -22)
+message = "An inscription carved into the lintel above the north stair:\n\n\"All who walk here walk in Lirien's breath. Walk softly. The breath is thin in the next room.\""
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 8, 0, -22)
+message = "A folded notice, weighted with a stone:\n\n\"Climbing of ladders by visitors is permitted. Climbing of shelves is not. The shelves were not built to be climbed and they remember.\""
+
+[node name="Sign7" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -22, 0, 0)
+message = "A small wood plaque:\n\n\"In memory of the year of the long quiet, when no Reader spoke for a season, that the pages might be heard.\""
+
+[node name="Sign8" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 22, 0, 0)
+message = "A reader's marginalia, framed and posted:\n\n\"The deepest reading is what looks back at you. I have read this line three times this week and it has read me twice. — Olm\""
+
+[node name="Sign9" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, -8)
+message = "A note tied to a lamp-post with a faded cord:\n\n\"To whomever oils these lamps: the third from the south flickers when something old is being read aloud. Please do not adjust it. It is doing its work.\""
+
+[node name="Chest10" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -10)
+contents_scene = ExtResource("pebble_pickup")
+open_message = "A handful of small smooth stones, kept for some reading-tally long forgotten."
+contents_amount = 10
+
+[node name="Chest11" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -10)
+contents_scene = ExtResource("fairy_bottle")
+open_message = "A glass vessel. Inside, a small bright thing turns once and looks at you."
+
+[node name="Chest12" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 12)
+contents_scene = ExtResource("heart_pickup")
+open_message = "A pressed heart-flower from the Sourceplain, dry as paper, still warm to the touch."
+
+[node name="Chest13" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
+contents_scene = ExtResource("key_pickup")
+open_message = "A small brass key. The Library keeps a few of these for its inner aisles."
+contents_key_group = "library"
+
+[node name="Bush14" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -20)
+
+[node name="Bush15" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -20)
+
+[node name="Bush16" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 20)
+
+[node name="Bush17" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+
+[node name="Bush18" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 0)
+
+[node name="Bush19" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+
+[node name="Bush20" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+
+[node name="Bush21" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="Rock22" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="Rock23" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="Rock24" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="Npc25_Mistress_Yvenn" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -4, 0.5, -2)
+npc_name = "Mistress Yvenn"
+body_color = Color(0.4, 0.32, 0.55, 1)
+hat_color = Color(0.18, 0.14, 0.28, 1)
+idle_hint = "[E] Speak with the Mistress"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Welcome to the Library of Past Echoes, little walker. Speak softly. The old voices listen here.\", \"choices\": [{\"label\": \"What is this place?\", \"next\": \"mission\"}, {\"label\": \"Who walks the aisles?\", \"next\": \"readers\"}, {\"label\": \"Have you read of the Sigils?\", \"next\": \"sigils\"}, {\"label\": \"How is the Wyrdmark faring?\", \"next\": \"slip\"}, {\"label\": \"What lies deeper?\", \"next\": \"deeper\"}, {\"label\": \"I should walk on.\", \"next\": \"bye\"}]}, \"mission\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"We keep what was, so what is can know it was real. That is the whole of our craft, said simply. Said well, it would take a longer life than mine.\", \"choices\": [{\"label\": \"Who walks the aisles?\", \"next\": \"readers\"}, {\"label\": \"Have you read of the Sigils?\", \"next\": \"sigils\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"readers\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Readers. We do not call ourselves scholars. A scholar adds. A Reader only listens. Apprentice Yawen is somewhere up a ladder. Pell is back from the field, though he will not say from where.\", \"choices\": [{\"label\": \"And the others?\", \"next\": \"others\"}, {\"label\": \"What is this place?\", \"next\": \"mission\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"others\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Theln tends the Wyrdmark records. Olm has bent his life around the Drawing-In, the poor soul. And there is one more, who comes and goes. We do not name her aloud.\", \"choices\": [{\"label\": \"Why not?\", \"next\": \"cat_unspoken\"}, {\"label\": \"Back.\", \"next\": \"readers\"}]}, \"cat_unspoken\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"She is a Reader who left, and came back. That is all I will say of her, and all you should ask.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"readers\"}]}, \"sigils\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Three marks of the Source. Lirien's Sight. Khorgaul's Shaping. And the third — Sharing — has not walked the realm in a long age. We keep the records, and we wait.\", \"choices\": [{\"label\": \"What of the Drawing-In?\", \"next\": \"drawing\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"drawing\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Khorgaul pulls. The Source thins. We catalogue the thinning here, page by page. By the Source, I had hoped to be retired before the shelves grew this heavy.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"sigils\"}, {\"label\": \"Back to the start.\", \"next\": \"root\"}]}, \"slip\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Faring? Oh — better, I think, than when the breath nearly stilled last week. We had three Readers in the south aisle holding hands when it happened. A bad hour. But the breath came back.\", \"choices\": [{\"label\": \"I should walk on.\", \"next\": \"bye\"}]}, \"deeper\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Down: the Cache, where memories fade. The Stacks east, where they are kept. The Ledger west, where each day is written. And the Backwater, beyond — the stream that overflows toward Mirelake.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Mistress Yvenn\", \"text\": \"Walk well, little walker. Tread softly. The pages remember footfalls.\"}}}"
+
+[node name="Npc26_Apprentice_Yawen" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.877583, 0, 0.479426, 0, 1, 0, -0.479426, 0, 0.877583, 4, 0.5, -2)
+npc_name = "Apprentice Yawen"
+body_color = Color(0.55, 0.7, 0.5, 1)
+hat_color = Color(0.3, 0.4, 0.25, 1)
+idle_hint = "[E] Speak with Yawen"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Apprentice Yawen\", \"text\": \"Oh — hello! Do you need a book? I can find a book. Probably. I'm still learning the aisles.\", \"choices\": [{\"label\": \"Tell me of the Mistress.\", \"next\": \"mistress\"}, {\"label\": \"What do apprentices do?\", \"next\": \"duties\"}, {\"label\": \"Have you read everything here?\", \"next\": \"joke\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"mistress\": {\"speaker\": \"Apprentice Yawen\", \"text\": \"Mistress Yvenn? Oh, she knows everything. I mean — everything that's been written. She remembers shelves the way I remember songs. I want to be like her one day. If I last that long.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"duties\": {\"speaker\": \"Apprentice Yawen\", \"text\": \"I dust. I copy out faded lines. I climb a lot of ladders. The Mistress says reading is mostly climbing, in the end.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"joke\": {\"speaker\": \"Apprentice Yawen\", \"text\": \"Lirien's breath, no! I'd be three hundred. Pell laughs at me when I try.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Apprentice Yawen\", \"text\": \"Walk well! Mind the third ladder, it wobbles.\"}}}"
+
+[node name="Npc27_Reader_on_Sabbatical_Pell" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.416147, 0, -0.909297, 0, 1, 0, 0.909297, 0, -0.416147, -15, 0.5, -18)
+npc_name = "Reader-on-Sabbatical Pell"
+body_color = Color(0.35, 0.3, 0.25, 1)
+hat_color = Color(0.2, 0.16, 0.12, 1)
+idle_hint = "[E] Speak with Pell"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Reader-on-Sabbatical Pell\", \"text\": \"Hm. A walker. Don't mind me. I'm not on duty. I'm — between things.\", \"choices\": [{\"label\": \"Where have you been?\", \"next\": \"field\"}, {\"label\": \"What's the book?\", \"next\": \"book\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"field\": {\"speaker\": \"Reader-on-Sabbatical Pell\", \"text\": \"Out. In the realm. Reading the kind of pages that aren't bound. I'd rather not say where, not yet. Some things you say aloud and they stop being true.\", \"choices\": [{\"label\": \"Fair enough.\", \"next\": \"root\"}]}, \"book\": {\"speaker\": \"Reader-on-Sabbatical Pell\", \"text\": \"(He keeps one hand flat on the cover, as if it might open if he stopped.) It's not for reading. Not by me. Not yet.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Reader-on-Sabbatical Pell\", \"text\": \"Walk well. And don't read in straight lines. Nothing useful is ever in a straight line.\"}}}"
+
+[node name="Npc28_Reader_Theln" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-0.416147, 0, 0.909297, 0, 1, 0, -0.909297, 0, -0.416147, 15, 0.5, -18)
+npc_name = "Reader Theln"
+body_color = Color(0.45, 0.4, 0.55, 1)
+hat_color = Color(0.25, 0.22, 0.32, 1)
+idle_hint = "[E] Speak with Theln"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Reader Theln\", \"text\": \"You smell of the outside. Good. Come, come — I work the Wyrdmark records, the small ones in the alcove down at the Cache. Have you been to the Hollow yet?\", \"choices\": [{\"label\": \"Tell me of the Hollow.\", \"next\": \"hollow\"}, {\"label\": \"What worries you?\", \"next\": \"worry\"}, {\"label\": \"Tell me of the Wyrdking.\", \"next\": \"wyrdking\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"hollow\": {\"speaker\": \"Reader Theln\", \"text\": \"The Hollow of the Last Wyrd. Old. Old past my reading. Down through the Cache and into the small alcove there — Recorder Thav can tell you more than I can. He keeps the closer pages.\", \"choices\": [{\"label\": \"What worries you?\", \"next\": \"worry\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"worry\": {\"speaker\": \"Reader Theln\", \"text\": \"The Hollow has been louder, of late. Pages move on the desk between morning and morning. Khorgaul's grip, I would rather it stayed quiet, the way old things should.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"wyrdking\": {\"speaker\": \"Reader Theln\", \"text\": \"The Wyrdking Bonelord. He sits at the bottom of the Hollow and does not want to. Khorgaul shaped him from the bones of the Last Wyrd, and the bones do not forget being a creature.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Reader Theln\", \"text\": \"Walk well. And if you go to the Hollow — go with a Sigil. Not without.\"}}}"
+
+[node name="Npc29_Reader_Olm" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -15, 0.5, 14)
+npc_name = "Reader Olm"
+body_color = Color(0.5, 0.48, 0.42, 1)
+hat_color = Color(0.28, 0.25, 0.22, 1)
+idle_hint = "[E] Speak with Olm"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Reader Olm\", \"text\": \"Sit, walk on, do as you like. I am reading. Always reading. The Drawing-In is my whole shelf and I have not finished a page in three years.\", \"choices\": [{\"label\": \"What is the Drawing-In?\", \"next\": \"what\"}, {\"label\": \"Tell me of Khorgaul.\", \"next\": \"khorgaul\"}, {\"label\": \"What can be done?\", \"next\": \"done\"}, {\"label\": \"Why does he do it?\", \"next\": \"why\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"Reader Olm\", \"text\": \"The slow loss. The Source pulled out of glades, out of doors, out of the names of streams. A thinning. You will not see it. You will only feel something missing, where something used to lean toward you.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"khorgaul\": {\"speaker\": \"Reader Olm\", \"text\": \"The Hoarder. Bearer of the Sigil of Shaping. He gathers. He has been gathering for a long age, and a long age is a long time to gather.\", \"choices\": [{\"label\": \"Why does he do it?\", \"next\": \"why\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"why\": {\"speaker\": \"Reader Olm\", \"text\": \"Because the Sigil of Shaping wants substance, and the substance is nearby, and he is hungry. He does not hate the Wyrdmark. That is the saddest part of any reading I have done.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"done\": {\"speaker\": \"Reader Olm\", \"text\": \"The Sigil of Sharing. Lirien's third mark. It returns what is held. It has not walked the realm in a hundred years. We wait. We have always waited.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Reader Olm\", \"text\": \"Walk well. Read what you can. Forget what you must.\"}}}"
+
+[node name="Npc30_Cat" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 10, 0.5, 18)
+npc_name = "Cat"
+body_color = Color(0.18, 0.15, 0.16, 1)
+hat_color = Color(0.1, 0.08, 0.1, 1)
+idle_hint = "[E] Speak with the Reader"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Cat\", \"text\": \"(She glances at you sideways. She touches the wall beside a sign. A single line of an old text comes out of her, without her wanting it to.) ...the lamp does not know it is a lamp.\", \"choices\": [{\"label\": \"Who are you?\", \"next\": \"who\"}, {\"label\": \"What did you just say?\", \"next\": \"said\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"who\": {\"speaker\": \"Cat\", \"text\": \"A Reader who left, and came back. That is all anyone says of me. They are right not to say more.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"said\": {\"speaker\": \"Cat\", \"text\": \"(She looks at her hand, surprised.) The wall said it. I only carried it the rest of the way out.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Cat\", \"text\": \"Walk well. The pages already know you walked.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -25)
@@ -4193,11 +4515,11 @@ auto_trigger = true
 prompt = "[E] Up to the Crown"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
-shape = SubResource("s454")
+shape = SubResource("s456")
 
 [node name="Veil" type="MeshInstance3D" parent="LoadZone0"]
-mesh = SubResource("s455")
-surface_material_override/0 = SubResource("s456")
+mesh = SubResource("s457")
+surface_material_override/0 = SubResource("s458")
 
 [node name="Hint" type="Label3D" parent="LoadZone0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -4219,11 +4541,11 @@ auto_trigger = true
 prompt = "[E] Down to the Cache"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s457")
+shape = SubResource("s459")
 
 [node name="Veil" type="MeshInstance3D" parent="LoadZone1"]
-mesh = SubResource("s458")
-surface_material_override/0 = SubResource("s459")
+mesh = SubResource("s460")
+surface_material_override/0 = SubResource("s461")
 
 [node name="Hint" type="Label3D" parent="LoadZone1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -4245,11 +4567,11 @@ auto_trigger = true
 prompt = "[E] To the Stacks"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s460")
+shape = SubResource("s462")
 
 [node name="Veil" type="MeshInstance3D" parent="LoadZone2"]
-mesh = SubResource("s461")
-surface_material_override/0 = SubResource("s462")
+mesh = SubResource("s463")
+surface_material_override/0 = SubResource("s464")
 
 [node name="Hint" type="Label3D" parent="LoadZone2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -4271,11 +4593,11 @@ auto_trigger = true
 prompt = "[E] To the Ledger"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
-shape = SubResource("s463")
+shape = SubResource("s465")
 
 [node name="Veil" type="MeshInstance3D" parent="LoadZone3"]
-mesh = SubResource("s464")
-surface_material_override/0 = SubResource("s465")
+mesh = SubResource("s466")
+surface_material_override/0 = SubResource("s467")
 
 [node name="Hint" type="Label3D" parent="LoadZone3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -4297,11 +4619,11 @@ auto_trigger = true
 prompt = "[E] To the Backwater"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
-shape = SubResource("s466")
+shape = SubResource("s468")
 
 [node name="Veil" type="MeshInstance3D" parent="LoadZone4"]
-mesh = SubResource("s467")
-surface_material_override/0 = SubResource("s468")
+mesh = SubResource("s469")
+surface_material_override/0 = SubResource("s470")
 
 [node name="Hint" type="Label3D" parent="LoadZone4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)

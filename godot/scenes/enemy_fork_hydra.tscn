@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxfork01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_fork_hydra.gd" id="1_frk"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.40
+height = 0.9
+
+[sub_resource type="CylinderMesh" id="stalk_mesh"]
+top_radius = 0.18
+bottom_radius = 0.30
+height = 0.85
+radial_segments = 10
+
+[sub_resource type="StandardMaterial3D" id="stalk_mat"]
+albedo_color = Color(0.18, 0.16, 0.20, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="cluster_mesh"]
+radius = 0.24
+height = 0.48
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="cluster_mat"]
+albedo_color = Color(0.22, 0.18, 0.22, 1)
+roughness = 0.7
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.9, 1.2, 0.9)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.1, 1.2, 1.1)
+
+[node name="EnemyForkHydra" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_frk")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Stalk" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("stalk_mesh")
+surface_material_override/0 = SubResource("stalk_mat")
+
+[node name="Cluster" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("cluster_mesh")
+surface_material_override/0 = SubResource("cluster_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("contact_shape")

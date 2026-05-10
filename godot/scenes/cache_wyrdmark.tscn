@@ -1,15 +1,18 @@
-[gd_scene load_steps=118 format=3 uid="uid://btuxcachewyr01"]
+[gd_scene load_steps=121 format=3 uid="uid://btuxcachewyr01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.18, 0.25, 1)
@@ -953,6 +956,18 @@ shape = SubResource("s100")
 mesh = SubResource("s101")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, -3)
+light_color = Color(0.95, 0.78, 0.55, 1)
+light_energy = 0.6
+omni_range = 7
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 3)
+light_color = Color(0.95, 0.78, 0.55, 1)
+light_energy = 0.6
+omni_range = 7
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -965,8 +980,33 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 2)
-message = "Wyrdmark Records\n\n/var/cache/wyrdmark"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 2)
+message = "Wyrdmark Records.\n\nA small alcove of the Cache. Older pages live here. The Hollow lies through the inner door."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -4, 0, -2)
+message = "A short genealogy, freshly copied:\n\n\"...Wyrdking the Eighth, son of the Seventh, who shaped his own bones; the Last Wyrd, of whom no name remains.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 4, 0, -2)
+message = "An old map of the Hollow, most of it faded. Only the entry chamber and a single inner room are still legible. The rest is a brown haze the ink could not hold."
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, -3)
+message = "A pinned warning, lettered carefully:\n\n\"Do not enter the Hollow without a Sigil-bearer's blessing. Do not enter alone. Do not enter without first reading what is here. — Recorder Thav\""
+
+[node name="Chest4" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+contents_scene = ExtResource("fairy_bottle")
+open_message = "A glass vessel with a small bright thing inside. Recorder Thav left a note: \"For what is coming.\""
+
+[node name="Npc5_Recorder_Thav" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -3, 0.5, 0)
+npc_name = "Recorder Thav"
+body_color = Color(0.4, 0.34, 0.55, 1)
+hat_color = Color(0.2, 0.16, 0.28, 1)
+idle_hint = "[E] Speak with the Recorder"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Recorder Thav\", \"text\": \"Welcome, walker. This alcove keeps the Wyrdmark's own records — small, but very old. The Hollow lies through that door.\", \"choices\": [{\"label\": \"Tell me of the Wyrdking.\", \"next\": \"wyrdking\"}, {\"label\": \"What is the Last Wyrd?\", \"next\": \"wyrd\"}, {\"label\": \"Any hint for the Hollow?\", \"next\": \"hint\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"wyrdking\": {\"speaker\": \"Recorder Thav\", \"text\": \"The Wyrdking Bonelord. The last shaping Khorgaul put on the Wyrd's bones. He guards the inner door. He does not, in the deepest part of him, want to.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"wyrd\": {\"speaker\": \"Recorder Thav\", \"text\": \"An ancient creature. Old before the Wyrdkin walked. The Hollow is named for it because it hollowed the place out, slowly, by lying still in it for a long time. That is all the records say with certainty.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"hint\": {\"speaker\": \"Recorder Thav\", \"text\": \"A line from a faded page: \\\"Three triggers, three Sigils, all must answer the door.\\\" I do not know what it means in full. But I would mark it down, walker. The Hollow loves a thing said three times.\", \"choices\": [{\"label\": \"Thank you.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Recorder Thav\", \"text\": \"Walk well. And go in with a Sigil-bearer's blessing, or do not go in at all.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)

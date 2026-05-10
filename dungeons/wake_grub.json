@@ -6,41 +6,41 @@
   "fs_path": "/boot/grub",
   "environment": {
     "sky_top": [
-      0.4,
-      0.36,
-      0.55,
+      0.32,
+      0.28,
+      0.45,
       1
     ],
     "sky_horizon": [
-      0.7,
       0.55,
-      0.45,
+      0.42,
+      0.36,
       1
     ],
     "ground_horizon": [
-      0.45,
-      0.36,
+      0.4,
       0.32,
+      0.28,
       1
     ],
     "ground_bottom": [
-      0.2,
       0.18,
       0.16,
+      0.14,
       1
     ],
     "ambient_color": [
-      0.7,
-      0.62,
+      0.5,
+      0.45,
       0.55,
       1
     ],
-    "ambient_energy": 0.45,
-    "fog_density": 0.003,
+    "ambient_energy": 0.28,
+    "fog_density": 0.005,
     "fog_color": [
-      0.55,
       0.45,
-      0.4,
+      0.38,
+      0.34,
       1
     ],
     "sun_dir": [
@@ -54,7 +54,7 @@
       0.55,
       1
     ],
-    "sun_energy": 1.2
+    "sun_energy": 0.6
   },
   "grid": {
     "cell_size": 1.0,
@@ -209,11 +209,13 @@
           ],
           [
             -3,
-            -6
+            -6,
+            0.4
           ],
           [
             -3,
-            -5
+            -5,
+            0.4
           ],
           [
             -3,
@@ -257,11 +259,13 @@
           ],
           [
             -2,
-            -6
+            -6,
+            0.4
           ],
           [
             -2,
-            -5
+            -5,
+            0.4
           ],
           [
             -2,
@@ -305,11 +309,13 @@
           ],
           [
             -1,
-            -6
+            -6,
+            0.4
           ],
           [
             -1,
-            -5
+            -5,
+            0.4
           ],
           [
             -1,
@@ -353,11 +359,13 @@
           ],
           [
             0,
-            -6
+            -6,
+            0.4
           ],
           [
             0,
-            -5
+            -5,
+            0.4
           ],
           [
             0,
@@ -401,11 +409,13 @@
           ],
           [
             1,
-            -6
+            -6,
+            0.4
           ],
           [
             1,
-            -5
+            -5,
+            0.4
           ],
           [
             1,
@@ -449,11 +459,13 @@
           ],
           [
             2,
-            -6
+            -6,
+            0.4
           ],
           [
             2,
-            -5
+            -5,
+            0.4
           ],
           [
             2,
@@ -497,11 +509,13 @@
           ],
           [
             3,
-            -6
+            -6,
+            0.4
           ],
           [
             3,
-            -5
+            -5,
+            0.4
           ],
           [
             3,
@@ -545,11 +559,13 @@
           ],
           [
             4,
-            -6
+            -6,
+            0.4
           ],
           [
             4,
-            -5
+            -5,
+            0.4
           ],
           [
             4,
@@ -642,9 +658,9 @@
         ],
         "wall_height": 4.0,
         "wall_color": [
-          0.32,
-          0.28,
-          0.24,
+          0.3,
+          0.26,
+          0.22,
           1
         ],
         "floor_color": [
@@ -680,7 +696,83 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
+  "lights": [
+    {
+      "pos": [
+        -4.5,
+        1.6,
+        -4.0
+      ],
+      "color": [
+        1.0,
+        0.6,
+        0.25,
+        1.0
+      ],
+      "energy": 1.6,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        4.5,
+        1.6,
+        -4.0
+      ],
+      "color": [
+        1.0,
+        0.6,
+        0.25,
+        1.0
+      ],
+      "energy": 1.6,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.6,
+        0.25,
+        1.0
+      ],
+      "energy": 1.4,
+      "range": 7.0
+    },
+    {
+      "pos": [
+        -4.5,
+        1.4,
+        3.0
+      ],
+      "color": [
+        1.0,
+        0.6,
+        0.25,
+        1.0
+      ],
+      "energy": 1.2,
+      "range": 5.0
+    },
+    {
+      "pos": [
+        4.5,
+        1.4,
+        3.0
+      ],
+      "color": [
+        1.0,
+        0.6,
+        0.25,
+        1.0
+      ],
+      "energy": 1.2,
+      "range": 5.0
+    }
+  ],
   "enemies": [],
   "props": [
     {
@@ -688,10 +780,241 @@
       "pos": [
         0.0,
         0.0,
-        2.0
+        4.0
       ],
       "rotation_y": 3.141592653589793,
-      "message": "Wake Sub-shrine\n\n/boot/grub"
+      "message": "Wake Sub-shrine.\n\nA narrow alcove behind the eastern step. The walls hold the names of every thing the realm wakes through, in the order it wakes them."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4.0,
+        0.4,
+        -5.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "FIRST INSCRIPTION\n\n\"First the captain reads the names of the realm \u2014 every kin who has stood the morning, in the order they came to it. The reading is short. The list is not.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.0,
+        0.4,
+        -5.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "SECOND INSCRIPTION\n\n\"Then the bell sounds three times. Once for what was. Once for what is. Once for what will be \u2014 if we hold.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.4,
+        -5.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THIRD INSCRIPTION\n\n\"Then the sun is greeted at the eastern step. The greeting is small. The sun has heard it before. The sun does not require it. The sun receives it.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.0,
+        0.4,
+        -5.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "FOURTH INSCRIPTION\n\n\"Then the veterans are saluted. Those who have stood and stand still. Those who stood and stand no longer. Both are present at the rite. Both are saluted.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4.0,
+        0.4,
+        -5.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "FIFTH INSCRIPTION\n\n\"Then the day is given to Lirien, and Lirien gives it back. This is the whole of the morning. It is a small thing. It is the only thing.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        -3.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "heart_piece",
+      "open_message": "A small fragment of a heart, kept beneath the inscriptions. The Wake remembers every reader."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.4,
+        -4.5
+      ],
+      "rotation_y": 0.0,
+      "name": "The Reader",
+      "body_color": [
+        0.45,
+        0.4,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.25,
+        0.22,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Reader",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Reader",
+            "text": "*she is bent over a long sheet of vellum, copying an inscription with a goose-quill* Hm. A traveler. Step softly \u2014 the ink is wet, and the stones are old.",
+            "choices": [
+              {
+                "label": "What are you copying?",
+                "next": "what"
+              },
+              {
+                "label": "Where are you from?",
+                "next": "from"
+              },
+              {
+                "label": "May I read with you?",
+                "next": "read"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "what": {
+            "speaker": "The Reader",
+            "text": "The fifth inscription. The hardest one. So small a thing, the morning \u2014 and yet the words for it have to be exactly right, or the rite reads wrong. I have copied this one before. I will copy it again.",
+            "choices": [
+              {
+                "label": "Where are you from?",
+                "next": "from"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "from": {
+            "speaker": "The Reader",
+            "text": "From a place where readers go when they want to read. We had a quiet room, and lamps that did not flicker. \u2014 Hm. We have a quiet room, I should say. The lamps still do not flicker. Forgive me; I have been at this since dark.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "read": {
+            "speaker": "The Reader",
+            "text": "Read all five, in order, slowly. That is the whole of the puzzle, if you must call it one. The inscriptions tell you what the morning is. If you have read them \u2014 you already know.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "The Reader",
+            "text": "Walk well. Mind the wet ink."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        4.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": -1.7,
+      "name": "Hidden Child",
+      "body_color": [
+        0.85,
+        0.7,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "idle_hint": "[E] Look behind the pillar",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Hidden Child",
+            "text": "*a small kin pressed flat against the back of a stone pillar* shhh. shhh. you can't see me. i'm a stone too.",
+            "choices": [
+              {
+                "label": "I won't tell anyone you're here.",
+                "next": "kind"
+              },
+              {
+                "label": "What are you doing?",
+                "next": "what"
+              },
+              {
+                "label": "Hello, stone.",
+                "next": "stone"
+              }
+            ]
+          },
+          "kind": {
+            "speaker": "Hidden Child",
+            "text": "...okay. okay you're nice. i'll tell you a secret. the captain comes here at the second bell and she sits, and she puts her head on the wall, and she breathes for a long time. and then she goes and reads the names. don't tell.",
+            "choices": [
+              {
+                "label": "I won't.",
+                "next": "wont"
+              }
+            ]
+          },
+          "wont": {
+            "speaker": "Hidden Child",
+            "text": "good. you're a stone too now. stones don't tell."
+          },
+          "what": {
+            "speaker": "Hidden Child",
+            "text": "i'm hiding from the bell. it's so LOUD. but mama says if i listen all the way through, one day i'll hear what the cliffs say back. so i'm practicing. but quietly.",
+            "choices": [
+              {
+                "label": "I won't tell anyone you're here.",
+                "next": "kind"
+              },
+              {
+                "label": "Good luck, little one.",
+                "next": "luck"
+              }
+            ]
+          },
+          "stone": {
+            "speaker": "Hidden Child",
+            "text": "...you can see me, can't you. *a long pause* the stones DON'T see you back. that's the rule. you're cheating."
+          },
+          "luck": {
+            "speaker": "Hidden Child",
+            "text": "thanks. walk well. quietly."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

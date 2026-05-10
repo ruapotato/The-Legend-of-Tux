@@ -4200,18 +4200,597 @@
       "rotation_y": 3.141592653589793
     }
   ],
-  "lights": [],
-  "enemies": [],
+  "lights": [
+    {
+      "pos": [
+        -12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12,
+        3.0,
+        0
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        12,
+        3.0,
+        0
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        -12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        0,
+        3.0,
+        12
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -4,
+        3.0,
+        0
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        4,
+        3.0,
+        0
+      ],
+      "color": [
+        0.78,
+        0.82,
+        0.92,
+        1.0
+      ],
+      "energy": 0.7,
+      "range": 8.0
+    }
+  ],
+  "enemies": [
+    {
+      "type": "wisp_hunter",
+      "pos": [
+        -8,
+        0.5,
+        -6
+      ]
+    },
+    {
+      "type": "wisp_hunter",
+      "pos": [
+        8,
+        0.5,
+        6
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
       "pos": [
-        0.0,
-        0.0,
-        12.0
+        0,
+        0,
+        12
       ],
-      "rotation_y": 3.141592653589793,
-      "message": "The Ledger\n\n/var/log"
+      "rotation_y": 3.14159,
+      "message": "The Ledger.\n\nThe running record of the realm. Speak softly \u2014 the scribes are listening for inscriptions."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        -8
+      ],
+      "rotation_y": -1.5708,
+      "message": "A pinned snippet, recently inked:\n\n\"...the seventh wardstone in Sigilkeep dimmed at the third hour of the morning, and brightened at the fourth, with no walker seen near it.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        -8
+      ],
+      "rotation_y": 1.5708,
+      "message": "A folded notice, weighted with a stone:\n\n\"NOTICE. An unusually large number of un-quieted appeared in the Murk last cycle. The Hidden Choir is consulted. Walkers are advised to keep to lit paths.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        6
+      ],
+      "rotation_y": -1.5708,
+      "message": "A wood plaque polished by hands:\n\n\"In memory of the Senior Scribes \u2014 Vael the elder, Anth the long-handed, Tarn who kept the longest scroll, and Pell the first.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        6
+      ],
+      "rotation_y": 1.5708,
+      "message": "A small inscription card:\n\n\"...and on the morning of the fourth thinning, the Source was held for the length of one breath, and three Readers fainted, and the realm continued.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        -10
+      ],
+      "rotation_y": 3.14159,
+      "message": "A loose page held under a stone weight:\n\n\"...a child in Hearthold asked where her grandfather was buried. The Senior Scribe noted the question. The answer was not given.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        6,
+        0,
+        -10
+      ],
+      "rotation_y": 3.14159,
+      "message": "A small marker pinned to a beam:\n\n\"Inscriptions from the Burnt Hollow have been arriving in a hand none of us writes. We copy them faithfully. We do not ask.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        0
+      ],
+      "rotation_y": 3.14159,
+      "message": "A weather-stained note:\n\n\"...the rooks of Hearthold sang at first light, and the Source was full in the air, and a small walker passed under the gate. We marked the line. Walk well.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        6,
+        0,
+        0
+      ],
+      "rotation_y": 3.14159,
+      "message": "An old proclamation, framed:\n\n\"By the keepers of the Ledger: the running scroll shall not be cut. What is begun is recorded entire. Brevity is for kinder rooms.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation_y": 0.0,
+      "contents": "pebble",
+      "open_message": "A handful of small pebbles, set aside for some scribe's tally.",
+      "amount": 10
+    },
+    {
+      "type": "chest",
+      "pos": [
+        10,
+        0,
+        -4
+      ],
+      "rotation_y": 0.0,
+      "contents": "heart",
+      "open_message": "A pressed heart-flower, the petals still soft. Whoever set this here did not write a note."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0,
+        0,
+        -8
+      ],
+      "rotation_y": 0.0,
+      "contents": "key",
+      "open_message": "A small dark key. The Ledger keeps these for its inner cabinets.",
+      "key_group": "ledger"
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        -14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14,
+        0,
+        14
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        0,
+        0,
+        8
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4,
+        0,
+        6
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4,
+        0,
+        6
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0,
+        0,
+        -2
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3,
+        0.5,
+        2
+      ],
+      "rotation_y": 0.5,
+      "name": "Senior Scribe Vonn",
+      "body_color": [
+        0.4,
+        0.38,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.22,
+        0.2,
+        0.18,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Senior Scribe",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senior Scribe Vonn",
+            "text": "(He looks up from a scroll that runs off the desk and onto the floor.) Mm. A walker. What can the Ledger do for you?",
+            "choices": [
+              {
+                "label": "What is the Ledger?",
+                "next": "ledger"
+              },
+              {
+                "label": "How much do you write?",
+                "next": "volume"
+              },
+              {
+                "label": "Who else maintains this?",
+                "next": "who"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "ledger": {
+            "speaker": "Senior Scribe Vonn",
+            "text": "The running record of the realm. Every birth, every door opened, every shrine renewed, every un-quieted in the Murk. We copy what arrives. We do not write what is not given to us.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "volume": {
+            "speaker": "Senior Scribe Vonn",
+            "text": "Lirien's breath, walker \u2014 they never stop arriving. Every breath of every Wyrdkin, every footfall, every cooking pot. We keep only the ones the Hidden Choir marks. Even that is too many.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "who": {
+            "speaker": "Senior Scribe Vonn",
+            "text": "We scribes copy. The marking, the choosing of what to copy \u2014 that is older work, done by older voices. We do not see them. They leave the inscriptions on the desk overnight, in a hand none of us writes.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Senior Scribe Vonn",
+            "text": "Walk well. If you do anything noteworthy, we will hear of it. Try not to make our scrolls any longer."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -12,
+        0.5,
+        -2
+      ],
+      "rotation_y": 1.5708,
+      "name": "A grey Reader",
+      "body_color": [
+        0.18,
+        0.18,
+        0.2,
+        1.0
+      ],
+      "hat_color": [
+        0.1,
+        0.1,
+        0.12,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the grey Reader",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "A grey Reader",
+            "text": "Walker. You are scheduled. I have logged you. Pleased to meet you.",
+            "choices": [
+              {
+                "label": "Scheduled?",
+                "next": "scheduled"
+              },
+              {
+                "label": "Logged?",
+                "next": "logged"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "scheduled": {
+            "speaker": "A grey Reader",
+            "text": "(She looks at you with a precise small smile. She does not answer the question. She tilts her head a little, as though listening to something.) The Wyrdmark walks. We attend.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "logged": {
+            "speaker": "A grey Reader",
+            "text": "An old habit of speech. Forgive it. Some of the older Readers had the habit too. They worked here a long time.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "A grey Reader",
+            "text": "Walk well, walker. We have your line."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        4,
+        0.5,
+        4
+      ],
+      "rotation_y": -1.0,
+      "name": "Scribe Penn",
+      "body_color": [
+        0.55,
+        0.5,
+        0.42,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.27,
+        0.22,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Penn",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Scribe Penn",
+            "text": "Hey \u2014 sorry, you startled me. Have you been in the realm lately? Have you noticed anything... I don't know. Strange?",
+            "choices": [
+              {
+                "label": "What do you mean?",
+                "next": "mean"
+              },
+              {
+                "label": "The breath, you said?",
+                "next": "breath"
+              },
+              {
+                "label": "I'll keep an eye out.",
+                "next": "bye"
+              }
+            ]
+          },
+          "mean": {
+            "speaker": "Scribe Penn",
+            "text": "The inscriptions arriving lately have been... uneven. Long days of nothing. Then a flood at once. The Senior Scribe says it's normal. I don't think it is.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "breath": {
+            "speaker": "Scribe Penn",
+            "text": "The breath has been odd. Walking out at dawn, sometimes the Source feels \u2014 held. As if Lirien were paying close attention to something else and not quite to us. Khorgaul's grip, maybe I'm imagining it.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Scribe Penn",
+            "text": "Walk well. If you do see anything \u2014 come back and tell us. We'll write it down."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

@@ -1,15 +1,18 @@
-[gd_scene load_steps=115 format=3 uid="uid://btuxnulldoor01"]
+[gd_scene load_steps=118 format=3 uid="uid://btuxnulldoor01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.05, 0.04, 0.06, 1)
@@ -941,6 +944,24 @@ shape = SubResource("s100")
 mesh = SubResource("s101")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2)
+light_color = Color(0.45, 0.3, 0.55, 1)
+light_energy = 0.4
+omni_range = 6
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
+light_color = Color(0.45, 0.3, 0.55, 1)
+light_energy = 0.4
+omni_range = 6
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
+light_color = Color(0.45, 0.3, 0.55, 1)
+light_energy = 0.4
+omni_range = 6
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -949,9 +970,32 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="from_forge" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 5)
 
+[node name="Init_shade0" parent="." instance=ExtResource("init_shade")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 2)
-message = "The Null Door\n\n/dev/null"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, -2.5)
+message = "The Null Door stands closed.\n\nYour eyes find nothing past it. The breath of Lirien stops a few paces from the threshold and resumes a few paces past it on this side. There is no past it on its side."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -2.5, 0, -1)
+message = "WARNING\n\nDo not approach within three paces of the door.\nThe rule is older than the warden.\nThe rule is older than the warning."
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 2.5, 0, -1)
+message = "Carved into the stone frame:\n\n\"DO NOT KNOCK.\nNO ONE WILL ANSWER\nIN A WAY YOU CAN HEAR.\""
+
+[node name="Npc3_Watcher_Velm" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 3.5, 0, 0)
+npc_name = "Watcher Velm"
+body_color = Color(0.45, 0.45, 0.5, 1)
+hat_color = Color(0.2, 0.2, 0.25, 1)
+idle_hint = "[E] Speak with Velm"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Watcher Velm\", \"text\": \"Step no closer than three paces. That is the rule. I do not write it; I only keep it. What would you ask of an old Wyrdkin who watches a door?\", \"choices\": [{\"label\": \"Who built it?\", \"next\": \"built\"}, {\"label\": \"What is on the other side?\", \"next\": \"other\"}, {\"label\": \"Has anyone passed through?\", \"next\": \"passed\"}, {\"label\": \"I will go.\", \"next\": \"bye\"}]}, \"built\": {\"speaker\": \"Watcher Velm\", \"text\": \"I do not know. I will not guess. The asking is not improved by my answer. The door was here before my watch. It will be here after. That is enough for me to be sure of.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"other\": {\"speaker\": \"Watcher Velm\", \"text\": \"I do not know. I will not guess. Do not ask the door, either. It will not answer in a way you can hear.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"passed\": {\"speaker\": \"Watcher Velm\", \"text\": \"Last cycle, a small grey-cloaked figure walked here. Not from the Forge — from somewhere I did not see. She passed the threshold. The door was unchanged after. She paid me in nothing and I felt paid. That is all.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Watcher Velm\", \"text\": \"Walk well. Walk wide of it.\"}}}"
+
+[node name="Rock4" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, -4.5)
+pebble_chance = 0
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)

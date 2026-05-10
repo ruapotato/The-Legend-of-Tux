@@ -1,15 +1,23 @@
-[gd_scene load_steps=275 format=3 uid="uid://btuxledger01"]
+[gd_scene load_steps=283 format=3 uid="uid://btuxledger01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.22, 0.28, 1)
@@ -2381,6 +2389,66 @@ shape = SubResource("s260")
 mesh = SubResource("s261")
 surface_material_override/0 = SubResource("s5")
 
+[node name="Light0" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light1" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 0)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 12)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
+[node name="Light9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+light_color = Color(0.78, 0.82, 0.92, 1)
+light_energy = 0.7
+omni_range = 8
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
@@ -2389,9 +2457,112 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="from_library" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 15)
 
+[node name="Wisp_hunter0" parent="." instance=ExtResource("wisp_hunter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -6)
+
+[node name="Wisp_hunter1" parent="." instance=ExtResource("wisp_hunter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, 6)
+
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 12)
-message = "The Ledger\n\n/var/log"
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 12)
+message = "The Ledger.\n\nThe running record of the realm. Speak softly — the scribes are listening for inscriptions."
+
+[node name="Sign1" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, -12, 0, -8)
+message = "A pinned snippet, recently inked:\n\n\"...the seventh wardstone in Sigilkeep dimmed at the third hour of the morning, and brightened at the fourth, with no walker seen near it.\""
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, 0, -8)
+message = "A folded notice, weighted with a stone:\n\n\"NOTICE. An unusually large number of un-quieted appeared in the Murk last cycle. The Hidden Choir is consulted. Walkers are advised to keep to lit paths.\""
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, -12, 0, 6)
+message = "A wood plaque polished by hands:\n\n\"In memory of the Senior Scribes — Vael the elder, Anth the long-handed, Tarn who kept the longest scroll, and Pell the first.\""
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, 0, 6)
+message = "A small inscription card:\n\n\"...and on the morning of the fourth thinning, the Source was held for the length of one breath, and three Readers fainted, and the realm continued.\""
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -6, 0, -10)
+message = "A loose page held under a stone weight:\n\n\"...a child in Hearthold asked where her grandfather was buried. The Senior Scribe noted the question. The answer was not given.\""
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 6, 0, -10)
+message = "A small marker pinned to a beam:\n\n\"Inscriptions from the Burnt Hollow have been arriving in a hand none of us writes. We copy them faithfully. We do not ask.\""
+
+[node name="Sign7" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -6, 0, 0)
+message = "A weather-stained note:\n\n\"...the rooks of Hearthold sang at first light, and the Source was full in the air, and a small walker passed under the gate. We marked the line. Walk well.\""
+
+[node name="Sign8" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 6, 0, 0)
+message = "An old proclamation, framed:\n\n\"By the keepers of the Ledger: the running scroll shall not be cut. What is begun is recorded entire. Brevity is for kinder rooms.\""
+
+[node name="Chest9" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -4)
+contents_scene = ExtResource("pebble_pickup")
+open_message = "A handful of small pebbles, set aside for some scribe's tally."
+contents_amount = 10
+
+[node name="Chest10" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -4)
+contents_scene = ExtResource("heart_pickup")
+open_message = "A pressed heart-flower, the petals still soft. Whoever set this here did not write a note."
+
+[node name="Chest11" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+contents_scene = ExtResource("key_pickup")
+open_message = "A small dark key. The Ledger keeps these for its inner cabinets."
+contents_key_group = "ledger"
+
+[node name="Bush12" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -14)
+
+[node name="Bush13" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14)
+
+[node name="Bush14" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 14)
+
+[node name="Bush15" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 14)
+
+[node name="Bush16" parent="." instance=ExtResource("bush")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="Rock17" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Rock18" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="Rock19" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Npc20_Senior_Scribe_Vonn" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -3, 0.5, 2)
+npc_name = "Senior Scribe Vonn"
+body_color = Color(0.4, 0.38, 0.35, 1)
+hat_color = Color(0.22, 0.2, 0.18, 1)
+idle_hint = "[E] Speak with the Senior Scribe"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Senior Scribe Vonn\", \"text\": \"(He looks up from a scroll that runs off the desk and onto the floor.) Mm. A walker. What can the Ledger do for you?\", \"choices\": [{\"label\": \"What is the Ledger?\", \"next\": \"ledger\"}, {\"label\": \"How much do you write?\", \"next\": \"volume\"}, {\"label\": \"Who else maintains this?\", \"next\": \"who\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"ledger\": {\"speaker\": \"Senior Scribe Vonn\", \"text\": \"The running record of the realm. Every birth, every door opened, every shrine renewed, every un-quieted in the Murk. We copy what arrives. We do not write what is not given to us.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"volume\": {\"speaker\": \"Senior Scribe Vonn\", \"text\": \"Lirien's breath, walker — they never stop arriving. Every breath of every Wyrdkin, every footfall, every cooking pot. We keep only the ones the Hidden Choir marks. Even that is too many.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"who\": {\"speaker\": \"Senior Scribe Vonn\", \"text\": \"We scribes copy. The marking, the choosing of what to copy — that is older work, done by older voices. We do not see them. They leave the inscriptions on the desk overnight, in a hand none of us writes.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Senior Scribe Vonn\", \"text\": \"Walk well. If you do anything noteworthy, we will hear of it. Try not to make our scrolls any longer.\"}}}"
+
+[node name="Npc21_A_grey_Reader" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -12, 0.5, -2)
+npc_name = "A grey Reader"
+body_color = Color(0.18, 0.18, 0.2, 1)
+hat_color = Color(0.1, 0.1, 0.12, 1)
+idle_hint = "[E] Speak with the grey Reader"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"A grey Reader\", \"text\": \"Walker. You are scheduled. I have logged you. Pleased to meet you.\", \"choices\": [{\"label\": \"Scheduled?\", \"next\": \"scheduled\"}, {\"label\": \"Logged?\", \"next\": \"logged\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"scheduled\": {\"speaker\": \"A grey Reader\", \"text\": \"(She looks at you with a precise small smile. She does not answer the question. She tilts her head a little, as though listening to something.) The Wyrdmark walks. We attend.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"logged\": {\"speaker\": \"A grey Reader\", \"text\": \"An old habit of speech. Forgive it. Some of the older Readers had the habit too. They worked here a long time.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"A grey Reader\", \"text\": \"Walk well, walker. We have your line.\"}}}"
+
+[node name="Npc22_Scribe_Penn" parent="." instance=ExtResource("npc")]
+transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 4, 0.5, 4)
+npc_name = "Scribe Penn"
+body_color = Color(0.55, 0.5, 0.42, 1)
+hat_color = Color(0.3, 0.27, 0.22, 1)
+idle_hint = "[E] Speak with Penn"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Scribe Penn\", \"text\": \"Hey — sorry, you startled me. Have you been in the realm lately? Have you noticed anything... I don't know. Strange?\", \"choices\": [{\"label\": \"What do you mean?\", \"next\": \"mean\"}, {\"label\": \"The breath, you said?\", \"next\": \"breath\"}, {\"label\": \"I'll keep an eye out.\", \"next\": \"bye\"}]}, \"mean\": {\"speaker\": \"Scribe Penn\", \"text\": \"The inscriptions arriving lately have been... uneven. Long days of nothing. Then a flood at once. The Senior Scribe says it's normal. I don't think it is.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"breath\": {\"speaker\": \"Scribe Penn\", \"text\": \"The breath has been odd. Walking out at dawn, sometimes the Source feels — held. As if Lirien were paying close attention to something else and not quite to us. Khorgaul's grip, maybe I'm imagining it.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Scribe Penn\", \"text\": \"Walk well. If you do see anything — come back and tell us. We'll write it down.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)
