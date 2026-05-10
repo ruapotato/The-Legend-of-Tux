@@ -5124,6 +5124,88 @@
     {
       "type": "npc",
       "pos": [
+        4.0,
+        0.0,
+        6.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "Captain Vael",
+      "body_color": [
+        0.28,
+        0.32,
+        0.50,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.68,
+        0.20,
+        1.0
+      ],
+      "idle_hint": "[E] Address Captain Vael",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Captain Vael",
+            "text": "I have been watching you cross the cliffs. Will you hear me out?",
+            "choices": [
+              {
+                "label": "Speak.",
+                "next": "offer",
+                "requires_flag": "gale_roost_defeated"
+              },
+              {
+                "label": "Speak.",
+                "next": "not_yet",
+                "requires_flag_not": "gale_roost_defeated"
+              },
+              {
+                "label": "Some other time, Captain.",
+                "next": "bye"
+              }
+            ]
+          },
+          "offer": {
+            "speaker": "Captain Vael",
+            "text": "You've broken three of the realm's locks. Take this — Glimblade. Forged for one who keeps showing up.",
+            "choices": [
+              {
+                "label": "I accept it. Walk well.",
+                "next": "given",
+                "upgrades_sword": 2,
+                "sets": "vael_glimblade_given",
+                "requires_not": "vael_glimblade_given"
+              },
+              {
+                "label": "About this blade…",
+                "next": "already",
+                "requires": "vael_glimblade_given"
+              }
+            ]
+          },
+          "given": {
+            "speaker": "Captain Vael",
+            "text": "It will keep its edge longer than my watch will. Use it well."
+          },
+          "already": {
+            "speaker": "Captain Vael",
+            "text": "Glimblade is yours. Wear it where the realm can see it."
+          },
+          "not_yet": {
+            "speaker": "Captain Vael",
+            "text": "Come back when you've broken a third lock. Then we can speak of forged things."
+          },
+          "bye": {
+            "speaker": "Captain Vael",
+            "text": "Walk well. The morning still holds."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
         -4.0,
         0.0,
         3.0

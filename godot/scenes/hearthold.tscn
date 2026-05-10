@@ -1,21 +1,21 @@
 [gd_scene load_steps=317 format=3 uid="uid://btuxhearthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.55, 0.78, 1)
@@ -2789,7 +2789,15 @@ hat_color = Color(0.55, 0.3, 0.15, 1)
 idle_hint = "[E] Talk to Takka"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Takka the Smith\", \"text\": \"Eh? You look light in the pouch, traveler. Need any pebbles for the sling?\", \"choices\": [{\"label\": \"Yes — spare me a handful.\", \"next\": \"give\", \"requires_not\": \"took_takka_pebbles\"}, {\"label\": \"You already gave me some.\", \"next\": \"already_gave\", \"requires\": \"took_takka_pebbles\"}, {\"label\": \"No, I'm fine.\", \"next\": \"bye\"}]}, \"give\": {\"speaker\": \"Takka the Smith\", \"text\": \"Five pebbles. Good for one good throw and four bad ones. Don't tell the Pebbler.\", \"give_pebbles\": 5, \"next\": \"post_give\"}, \"post_give\": {\"speaker\": \"Takka the Smith\", \"text\": \"Mind the wardstones to the north. They sing when they're upset.\", \"choices\": [{\"label\": \"Thanks, Takka.\", \"next\": \"bye\", \"sets\": \"took_takka_pebbles\"}]}, \"already_gave\": {\"speaker\": \"Takka the Smith\", \"text\": \"Aye, and I'll not give again 'til the moon turns. Off with you, sling-arm.\"}, \"bye\": {\"speaker\": \"Takka the Smith\", \"text\": \"Hammer and hearth keep you.\"}}}"
 
-[node name="Npc11_Pim" parent="." instance=ExtResource("npc")]
+[node name="Npc11_Smith_Brann" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 12, 0, 4)
+npc_name = "Smith Brann"
+body_color = Color(0.32, 0.3, 0.36, 1)
+hat_color = Color(0.62, 0.66, 0.72, 1)
+idle_hint = "[E] Talk to Smith Brann"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Smith Brann\", \"text\": \"I can shape you a brighter blade. 30 pebbles.\", \"choices\": [{\"label\": \"Buy the Brightsteel. (30 pebbles)\", \"next\": \"bought\", \"upgrades_sword\": 1, \"costs_pebbles\": 30, \"fails_to\": \"broke\", \"sets\": \"brann_brightsteel_bought\", \"requires_not\": \"brann_brightsteel_bought\"}, {\"label\": \"About your blade.\", \"next\": \"already\", \"requires\": \"brann_brightsteel_bought\"}, {\"label\": \"Maybe later.\", \"next\": \"bye\"}]}, \"bought\": {\"speaker\": \"Smith Brann\", \"text\": \"Hold it firm and let it sing. Brightsteel keeps an edge — mind it.\"}, \"already\": {\"speaker\": \"Smith Brann\", \"text\": \"Your blade is already brighter than mine. Carry it well.\"}, \"broke\": {\"speaker\": \"Smith Brann\", \"text\": \"Pebbles first, blade after. Come back when your pouch is heavier.\"}, \"bye\": {\"speaker\": \"Smith Brann\", \"text\": \"Hammer and hearth keep you, friend.\"}}}"
+
+[node name="Npc12_Pim" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -3, 0, 8)
 npc_name = "Pim"
 body_color = Color(0.7, 0.8, 0.6, 1)
@@ -2797,7 +2805,7 @@ hat_color = Color(0.95, 0.65, 0.3, 1)
 idle_hint = "[E] Talk to Pim"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Pim\", \"text\": \"Lambwisp! LAMBWISP! Did you see one? It went *floof* and then it went *poof*!\", \"next\": \"two\"}, \"two\": {\"speaker\": \"Pim\", \"text\": \"Mama says they're little pieces of Lirien's breath. I want to catch one and put it in a jar. Don't tell mama.\"}}}"
 
-[node name="Npc12_Father_Velis" parent="." instance=ExtResource("npc")]
+[node name="Npc13_Father_Velis" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -7, 0, -6)
 npc_name = "Father Velis"
 body_color = Color(0.6, 0.4, 0.3, 1)
@@ -2805,7 +2813,7 @@ hat_color = Color(0.85, 0.55, 0.3, 1)
 idle_hint = "[E] Speak with Father Velis"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Father Velis\", \"text\": \"Welcome to the Hearth-shrine, traveler. The kilns warm our bones; the Source warms our names. You bring questions. Speak them.\", \"choices\": [{\"label\": \"Tell me of the Source.\", \"next\": \"source\"}, {\"label\": \"Tell me of the Triglyph.\", \"next\": \"trig\"}, {\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"What is this shrine for?\", \"next\": \"shrine\"}, {\"label\": \"Bless me, then.\", \"next\": \"bless\"}]}, \"source\": {\"speaker\": \"Father Velis\", \"text\": \"The Source flows through every green thing — through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.\", \"choices\": [{\"label\": \"Tell me of the Triglyph.\", \"next\": \"trig\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"trig\": {\"speaker\": \"Father Velis\", \"text\": \"Three sigils, three vows. Sight — to see truly. Shaping — to make and unmake. Sharing — to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.\", \"choices\": [{\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"lirien\": {\"speaker\": \"Father Velis\", \"text\": \"Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving — the freedom of the green to grow and grow again.\", \"choices\": [{\"label\": \"Tell me of Khorgaul.\", \"next\": \"khor\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"khor\": {\"speaker\": \"Father Velis\", \"text\": \"Khorgaul the Hoarder, the Cold-hand, the Without-Sharing. He is what the Source becomes when nothing is given. We do not curse him at the shrine. We pity him. And we hold the wards.\", \"choices\": [{\"label\": \"Tell me of Lirien.\", \"next\": \"lirien\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"shrine\": {\"speaker\": \"Father Velis\", \"text\": \"The hearth-shrine warms two flames — one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.\", \"choices\": [{\"label\": \"Bless me, then.\", \"next\": \"bless\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bless\": {\"speaker\": \"Father Velis\", \"text\": \"*marks your brow with ash*\\nGo with the wing of Lirien at your back. Go with the green underfoot. Go with the giving in your hand.\"}}}"
 
-[node name="Npc13_Tilly" parent="." instance=ExtResource("npc")]
+[node name="Npc14_Tilly" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-0.801144, 0, 0.598472, 0, 1, 0, -0.598472, 0, -0.801144, 6, 0, -2)
 npc_name = "Tilly"
 body_color = Color(0.75, 0.5, 0.4, 1)
@@ -2813,16 +2821,16 @@ hat_color = Color(0.9, 0.65, 0.3, 1)
 idle_hint = "[E] Talk to Tilly"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Tilly\", \"text\": \"HYAA! I am the bravest knight in Hearthold and I have THREE swords and they are ALL invisible except this one which is a stick.\", \"next\": \"two\"}, \"two\": {\"speaker\": \"Tilly\", \"text\": \"Wanna duel? *brandishes stick*\\nNo? Fine. I'll save the realm without you. Tell Father Velis if I don't come back by supper.\"}}}"
 
-[node name="Chest14" parent="." instance=ExtResource("chest")]
+[node name="Chest15" parent="." instance=ExtResource("chest")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 3, 0, 17)
 contents_scene = ExtResource("heart_piece")
 open_message = "Tucked in the kitchen-yard behind the Elder's house. The keepers leave heart-pulses where children can find them first."
 
-[node name="Sign15" parent="." instance=ExtResource("sign")]
+[node name="Sign16" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 13)
 message = "Worn cellar steps disappear under the kitchen-yard. The Elder's pickles, perhaps."
 
-[node name="Npc16_Baker_Pell" parent="." instance=ExtResource("npc")]
+[node name="Npc17_Baker_Pell" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -3, 0, 0)
 npc_name = "Baker Pell"
 body_color = Color(0.85, 0.78, 0.55, 1)
@@ -2830,7 +2838,7 @@ hat_color = Color(0.95, 0.92, 0.8, 1)
 idle_hint = "[E] Talk to Pell"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Baker Pell\", \"text\": \"Smell that? First batch. Honey-loaf and salt-rusks — a heart's worth in every bite, near enough.\", \"choices\": [{\"label\": \"What are you selling?\", \"next\": \"wares\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"wares\": {\"speaker\": \"Baker Pell\", \"text\": \"Loaves to mend you, a few seeds for your sling-pouch. Nothing fancy. Hearthold prices.\", \"choices\": [{\"label\": \"Show me.\", \"opens_shop\": [\"heart\", \"heart\", \"seed\"]}, {\"label\": \"Not today.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Baker Pell\", \"text\": \"Mind the kilns on your way out. Walk well.\"}}}"
 
-[node name="Npc17_Old_Naya_the_Beekeeper" parent="." instance=ExtResource("npc")]
+[node name="Npc18_Old_Naya_the_Beekeeper" parent="." instance=ExtResource("npc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 14)
 npc_name = "Old Naya the Beekeeper"
 body_color = Color(0.62, 0.5, 0.32, 1)

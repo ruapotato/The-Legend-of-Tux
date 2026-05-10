@@ -23,12 +23,29 @@ const EQUIPPED_BORDER := Color(1.00, 0.85, 0.20, 1.0)
 # appears once Tux has learned at least one song. The static names list
 # below is the full possible set, in order; `_visible_tabs` is the
 # subset actually rendered this open.
-const TAB_NAMES: Array[String] = ["Items", "Equipment", "Songs", "Map", "Save"]
+const TAB_NAMES: Array[String] = ["Items", "Equipment", "Songs", "Map", "Save", "Trophies"]
 const TABS_ITEMS: int = 0
 const TABS_EQUIPMENT: int = 1
 const TABS_SONGS: int = 2
 const TABS_MAP: int = 3
 const TABS_SAVE: int = 4
+const TABS_TROPHIES: int = 5
+
+# OoT-parity trophy panel. The boss list is canonical (one entry per
+# major boss); names match the GameState.bosses_defeated keys produced
+# by the boss death paths (see DESIGN.md). Songs come from SongBook.
+# Sword tier names align with sword_tier (0..2).
+const TROPHY_BOSSES: Array[Dictionary] = [
+    {"id": "wyrdking",       "name": "Wyrdking Bonelord"},
+    {"id": "codex_knight",   "name": "Codex Knight"},
+    {"id": "gale_roost",     "name": "Gale Roost"},
+    {"id": "cinder_tomato",  "name": "Cinder Tomato"},
+    {"id": "forge_wyrm",     "name": "Forge Wyrm"},
+    {"id": "backwater_maw",  "name": "Backwater Maw"},
+    {"id": "censor",         "name": "Censor"},
+    {"id": "init",           "name": "Init the Sleeper"},
+]
+const SWORD_TIER_NAMES: Array[String] = ["Twigblade", "Brightsteel", "Glimblade"]
 
 const SONG_INPUT_SCENE := "res://scenes/song_input.tscn"
 
@@ -277,6 +294,7 @@ func _refresh_current_tab() -> void:
         TABS_SONGS: _build_songs_tab()
         TABS_MAP: _build_map_tab()
         TABS_SAVE: _build_save_tab()
+        TABS_TROPHIES: _build_trophies_tab()
 
 
 # ---- Items tab ----------------------------------------------------------
@@ -799,3 +817,187 @@ func _on_save_pressed() -> void:
     else:
         if status:
             status.text = "Save failed."
+
+
+# ---- Trophies tab -------------------------------------------------------
+#
+# OoT-style completion display: bosses defeated, hearts collected, songs
+# known, current sword tier. All four sections read straight from
+# GameState — no caching, since the menu rebuilds each time it opens.
+
+func _build_trophies_tab() -> void:
+    var heading := Label.new()
+    heading.text = "Trophies"
+    heading.add_theme_color_override("font_color", TITLE_COLOR)
+    heading.add_theme_font_size_override("font_size", 20)
+    _content_holder.add_child(heading)
+
+    var col := VBoxContainer.new()
+    col.add_theme_constant_override("separation", 14)
+    col.anchor_left = 0.0
+    col.anchor_right = 1.0
+    col.offset_top = 40.0
+    _content_holder.add_child(col)
+
+    # Section 1 — bosses defeated. Grid of icons (a coloured square per
+    # slot, dimmed when locked) with the boss's display name beneath.
+    var bosses_title := Label.new()
+    bosses_title.text = "Bosses defeated  (%d / %d)" % [
+        _count_bosses_defeated(), TROPHY_BOSSES.size()]
+    bosses_title.add_theme_color_override("font_color", TITLE_COLOR)
+    bosses_title.add_theme_font_size_override("font_size", 18)
+    col.add_child(bosses_title)
+
+    var boss_grid := GridContainer.new()
+    boss_grid.columns = 4
+    boss_grid.add_theme_constant_override("h_separation", 16)
+    boss_grid.add_theme_constant_override("v_separation", 10)
+    col.add_child(boss_grid)
+    for entry in TROPHY_BOSSES:
+        boss_grid.add_child(_make_boss_trophy(entry))
+
+    # Section 2 — hearts. Heart containers gained = max_fish - 3 starting
+    # (player begins with 3 fish per game_state.gd reset).
+    var starting_fish: int = 3
+    var containers: int = max(0, GameState.max_fish - starting_fish)
+    var hearts_label := Label.new()
+    hearts_label.add_theme_color_override("font_color", LABEL_COLOR)
+    hearts_label.add_theme_font_size_override("font_size", 16)
+    hearts_label.text = "Hearts  ·  containers gained: %d  ·  pieces: %d / 4" % [
+        containers, GameState.heart_pieces]
+    col.add_child(hearts_label)
+
+    # Section 3 — songs. Show every canonical song with a checkmark or
+    # dash; mirrors the Songs-tab order so the player sees the same list.
+    var songs_title := Label.new()
+    songs_title.text = "Songs  (%d / %d)" % [_count_songs_known(), SongBook.songs.size()]
+    songs_title.add_theme_color_override("font_color", TITLE_COLOR)
+    songs_title.add_theme_font_size_override("font_size", 18)
+    col.add_child(songs_title)
+
+    var songs_box := VBoxContainer.new()
+    songs_box.add_theme_constant_override("separation", 2)
+    col.add_child(songs_box)
+    for song in SongBook.songs:
+        var sid: String = String(song.get("id", ""))
+        var sname: String = String(song.get("name", sid))
+        var owned: bool = GameState.has_song(sid)
+        var row := Label.new()
+        row.add_theme_font_size_override("font_size", 15)
+        row.text = ("  [x] %s" % sname) if owned else ("  [ ] %s" % sname)
+        row.add_theme_color_override("font_color",
+            LABEL_COLOR if owned else LOCKED_COLOR)
+        songs_box.add_child(row)
+
+    # Section 4 — current sword tier. Three pill labels in a row; the
+    # active tier is highlighted in the title colour, the rest dim.
+    var sword_title := Label.new()
+    sword_title.text = "Sword: %s" % SWORD_TIER_NAMES[
+        clamp(GameState.sword_tier, 0, SWORD_TIER_NAMES.size() - 1)]
+    sword_title.add_theme_color_override("font_color", TITLE_COLOR)
+    sword_title.add_theme_font_size_override("font_size", 18)
+    col.add_child(sword_title)
+
+    var tier_row := HBoxContainer.new()
+    tier_row.add_theme_constant_override("separation", 12)
+    col.add_child(tier_row)
+    for i in SWORD_TIER_NAMES.size():
+        var pill := Label.new()
+        var active: bool = (i == GameState.sword_tier)
+        pill.text = "  %d. %s%s  " % [i, SWORD_TIER_NAMES[i],
+            "  *" if active else ""]
+        pill.add_theme_font_size_override("font_size", 15)
+        pill.add_theme_color_override("font_color",
+            TITLE_COLOR if active else (LABEL_COLOR if i < GameState.sword_tier
+                                                    else LOCKED_COLOR))
+        tier_row.add_child(pill)
+
+
+func _count_bosses_defeated() -> int:
+    var n: int = 0
+    for entry in TROPHY_BOSSES:
+        if GameState.has_defeated_boss(String(entry.get("id", ""))):
+            n += 1
+    return n
+
+
+func _count_songs_known() -> int:
+    var n: int = 0
+    for song in SongBook.songs:
+        if GameState.has_song(String(song.get("id", ""))):
+            n += 1
+    return n
+
+
+func _make_boss_trophy(entry: Dictionary) -> Control:
+    var bid: String = String(entry.get("id", ""))
+    var bname: String = String(entry.get("name", bid))
+    var defeated: bool = GameState.has_defeated_boss(bid)
+
+    var box := Control.new()
+    box.custom_minimum_size = Vector2(180, 56)
+
+    var icon := ColorRect.new()
+    icon.anchor_left = 0.0
+    icon.anchor_top = 0.0
+    icon.offset_left = 0.0
+    icon.offset_top = 0.0
+    icon.offset_right = 40.0
+    icon.offset_bottom = 40.0
+    # Coloured-square placeholder. Each boss gets a different hue so the
+    # row reads as a row of trophies rather than identical greyscale tiles.
+    var hue: Color = _boss_icon_color(bid)
+    if defeated:
+        icon.color = hue
+    else:
+        icon.color = Color(hue.r * 0.25 + 0.05, hue.g * 0.25 + 0.05,
+                           hue.b * 0.25 + 0.05, 1.0)
+    box.add_child(icon)
+
+    # Tiny check / dash overlay on the icon so a quick glance reveals
+    # progression even if the colour shift is subtle.
+    var mark := Label.new()
+    mark.text = "x" if defeated else "-"
+    mark.anchor_left = 0.0
+    mark.anchor_top = 0.0
+    mark.offset_left = 0.0
+    mark.offset_top = 0.0
+    mark.offset_right = 40.0
+    mark.offset_bottom = 40.0
+    mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    mark.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    mark.add_theme_font_size_override("font_size", 22)
+    mark.add_theme_color_override("font_color",
+        TITLE_COLOR if defeated else LOCKED_COLOR)
+    box.add_child(mark)
+
+    var name_label := Label.new()
+    name_label.text = bname
+    name_label.anchor_left = 0.0
+    name_label.anchor_right = 1.0
+    name_label.offset_left = 48.0
+    name_label.offset_right = 0.0
+    name_label.offset_top = 4.0
+    name_label.offset_bottom = 36.0
+    name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    name_label.add_theme_font_size_override("font_size", 14)
+    name_label.add_theme_color_override("font_color",
+        LABEL_COLOR if defeated else LOCKED_COLOR)
+    box.add_child(name_label)
+
+    return box
+
+
+func _boss_icon_color(boss_id: String) -> Color:
+    # One muted-but-distinct colour per boss, themed loosely to their
+    # element / arena. Falls back to grey if the id isn't recognised.
+    match boss_id:
+        "wyrdking":      return Color(0.85, 0.85, 0.78)    # bone white
+        "codex_knight":  return Color(0.65, 0.55, 0.85)    # arcane purple
+        "gale_roost":    return Color(0.55, 0.80, 0.92)    # sky blue
+        "cinder_tomato": return Color(0.92, 0.40, 0.30)    # ember red
+        "forge_wyrm":    return Color(0.95, 0.65, 0.20)    # forge orange
+        "backwater_maw": return Color(0.30, 0.55, 0.55)    # murk teal
+        "censor":        return Color(0.45, 0.45, 0.55)    # iron grey
+        "init":          return Color(0.95, 0.92, 0.55)    # final glim gold
+        _:               return Color(0.55, 0.55, 0.55)

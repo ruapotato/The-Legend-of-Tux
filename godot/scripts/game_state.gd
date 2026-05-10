@@ -36,6 +36,10 @@ signal warps_changed()
 signal flag_changed(flag_id: String, value)
 signal song_learned(song_id: String)
 signal boss_defeated(boss_id: String)
+# Sword tier upgrade. Emitted by upgrade_sword() whenever the tier
+# actually advances; sword.gd / tux_player listens to live-retint the
+# blade without having to poll the tier each frame.
+signal sword_upgraded(tier: int)
 
 const HP_PER_FISH: int = 4
 const MAX_STAMINA: int = 100
@@ -115,6 +119,12 @@ var active_b_item: String = ""
 # state survives a scene reload.
 var anchor_boots_active: bool = false
 
+# Sword tier: 0 = Twigblade (start), 1 = Brightsteel, 2 = Glimblade.
+# tux_player.gd multiplies hitbox damage by [1, 2, 3][sword_tier]; the
+# Sword visual retints per tier in response to `sword_upgraded`. Saved
+# + loaded; only ever increases via upgrade_sword().
+var sword_tier: int = 0
+
 # Scene-id → true. dungeon_root.gd writes here on every _ready so the
 # world map can colour-code which levels Tux has actually set foot in.
 var visited_scenes: Dictionary = {}
@@ -156,6 +166,7 @@ func reset() -> void:
     quest_flags.clear()
     songs_known.clear()
     bosses_defeated.clear()
+    sword_tier = 0
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
@@ -513,6 +524,21 @@ func has_defeated_boss(boss_id: String) -> bool:
     return bool(bosses_defeated.get(boss_id, false))
 
 
+# ---- Sword tier ---------------------------------------------------------
+#
+# Three tiers — Twigblade (0), Brightsteel (1), Glimblade (2). Damage
+# multiplier per tier is [1, 2, 3] (applied in tux_player.gd). The
+# upgrade gate only allows the tier to advance, never regress, so a
+# misfired dialog choice can't downgrade Tux's sword.
+
+func upgrade_sword(tier: int) -> bool:
+    if tier <= sword_tier:
+        return false
+    sword_tier = tier
+    sword_upgraded.emit(sword_tier)
+    return true
+
+
 # ---- Save / Load --------------------------------------------------------
 
 # Save files live at user://save_<slot>.json (slot 0..2). The schema is
@@ -560,6 +586,7 @@ func save_game(slot: int) -> bool:
         "songs_known":       songs_known.duplicate(true),
         "bosses_defeated":   bosses_defeated.duplicate(true),
         "anchor_boots_active": anchor_boots_active,
+        "sword_tier":          sword_tier,
     }
     var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
     if f == null:
@@ -638,6 +665,10 @@ func load_game(slot: int) -> bool:
     var saved_bosses: Variant = data.get("bosses_defeated", null)
     bosses_defeated = (saved_bosses as Dictionary).duplicate(true) \
         if typeof(saved_bosses) == TYPE_DICTIONARY else {}
+
+    # Sword tier — older saves predate the field, default to 0 (Twigblade).
+    sword_tier = int(data.get("sword_tier", 0))
+    sword_upgraded.emit(sword_tier)
 
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)

@@ -224,6 +224,10 @@ func _goto(node_id: String) -> void:
             var rf := String(c["requires_flag"])
             if rf != "" and not GameState.has_flag(rf):
                 continue
+        if c.has("requires_flag_not"):
+            var rfn := String(c["requires_flag_not"])
+            if rfn != "" and GameState.has_flag(rfn):
+                continue
         if c.has("requires_song"):
             var rs := String(c["requires_song"])
             if rs != "" and not GameState.has_song(rs):
@@ -255,6 +259,34 @@ func _clear_choices() -> void:
 
 
 func _take_choice(ch: Dictionary) -> void:
+    # Sword upgrade hook (run first so a failed cost check can short-
+    # circuit before any sets/sets_flag side-effects fire).
+    # `upgrades_sword: N` (with optional `costs_pebbles`) advances the
+    # sword tier exactly once per choice. Three gates apply:
+    #   1. The player must be at tier N-1 (otherwise the upgrade either
+    #      already happened or is being skipped over — both no-ops).
+    #   2. If `costs_pebbles` is set, the player must have enough; the
+    #      cost is deducted before the upgrade fires.
+    #   3. Optional `fails_to: <node_id>` reroutes the dialog when the
+    #      cost can't be paid (e.g. "you can't afford that"). If absent
+    #      the choice silently no-ops on failure and proceeds to `next`.
+    if ch.has("upgrades_sword"):
+        var want_tier := int(ch["upgrades_sword"])
+        var eligible: bool = (want_tier == GameState.sword_tier + 1)
+        if eligible and ch.has("costs_pebbles"):
+            var cost := int(ch["costs_pebbles"])
+            if not GameState.spend_pebbles(cost):
+                # Couldn't pay — abort the choice entirely. We do NOT
+                # apply sets / sets_flag / learns_song here; the player
+                # gets to try again.
+                var fail_to := String(ch.get("fails_to", ""))
+                if fail_to != "":
+                    _goto(fail_to)
+                else:
+                    _next_in_queue()
+                return
+        if eligible:
+            GameState.upgrade_sword(want_tier)
     if ch.has("sets"):
         var flag := String(ch["sets"])
         if flag != "":

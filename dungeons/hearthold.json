@@ -6865,6 +6865,74 @@
     {
       "type": "npc",
       "pos": [
+        12.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Smith Brann",
+      "body_color": [
+        0.32,
+        0.30,
+        0.36,
+        1.0
+      ],
+      "hat_color": [
+        0.62,
+        0.66,
+        0.72,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Smith Brann",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Smith Brann",
+            "text": "I can shape you a brighter blade. 30 pebbles.",
+            "choices": [
+              {
+                "label": "Buy the Brightsteel. (30 pebbles)",
+                "next": "bought",
+                "upgrades_sword": 1,
+                "costs_pebbles": 30,
+                "fails_to": "broke",
+                "sets": "brann_brightsteel_bought",
+                "requires_not": "brann_brightsteel_bought"
+              },
+              {
+                "label": "About your blade.",
+                "next": "already",
+                "requires": "brann_brightsteel_bought"
+              },
+              {
+                "label": "Maybe later.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bought": {
+            "speaker": "Smith Brann",
+            "text": "Hold it firm and let it sing. Brightsteel keeps an edge — mind it."
+          },
+          "already": {
+            "speaker": "Smith Brann",
+            "text": "Your blade is already brighter than mine. Carry it well."
+          },
+          "broke": {
+            "speaker": "Smith Brann",
+            "text": "Pebbles first, blade after. Come back when your pouch is heavier."
+          },
+          "bye": {
+            "speaker": "Smith Brann",
+            "text": "Hammer and hearth keep you, friend."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
         -3.0,
         0.0,
         8.0

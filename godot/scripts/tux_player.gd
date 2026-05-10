@@ -153,12 +153,17 @@ func _ready() -> void:
 
 	GameState.player_died.connect(_on_player_died)
 	GameState.item_acquired.connect(_on_item_acquired)
+	GameState.sword_upgraded.connect(_on_sword_upgraded)
 	GameState.reset()
 	# Apply the mirror skin if a save reload landed us with glim_mirror
 	# already owned (the connect-then-reset above wipes inventory; in
 	# practice load_game runs after _ready completes, so this catches a
 	# fresh-game-with-cheat-inventory path more than anything).
 	_refresh_shield_skin()
+	# Apply the current sword tier — covers the title→load path where
+	# load_game emits sword_upgraded before this scene is built. Also
+	# (re)applies tier 0 cleanly on reset.
+	_apply_sword_tier(GameState.sword_tier)
 
 
 func _physics_process(delta: float) -> void:
@@ -759,6 +764,90 @@ func _refresh_shield_skin() -> void:
 		bsm.metallic = 1.0
 		bsm.roughness = 0.05
 		boss.material_override = bsm
+
+
+# ---- Sword tier (visual + damage) -------------------------------------
+#
+# Three tiers — Twigblade (brown handle, base damage), Brightsteel
+# (silver handle, 2x damage), Glimblade (gold handle, glowing edge,
+# 3x damage). Damage is multiplied on the SwordHitbox + SpinHitbox
+# `damage` exports each time the tier changes; that way the per-swing
+# code in sword_hitbox.gd (which reads `damage` at hit time) doesn't
+# need to know about tiers.
+
+const SWORD_TIER_DAMAGE_MULT: Array[int] = [1, 2, 3]
+
+# Per-tier visual lookups. Blade colour leans cool→warm with the gold
+# tier picking up a little emission so it reads as "magical" against
+# a darker dungeon backdrop. Handle colour matches the tier's identity
+# (brown twig, silver steel, gold glim).
+const SWORD_BLADE_TINTS: Array[Color] = [
+	Color(0.78, 0.82, 0.88, 1.0),    # tier 0 — base steel-ish
+	Color(0.88, 0.92, 0.97, 1.0),    # tier 1 — bright steel
+	Color(1.00, 0.92, 0.55, 1.0),    # tier 2 — glim gold
+]
+const SWORD_HANDLE_TINTS: Array[Color] = [
+	Color(0.55, 0.32, 0.12, 1.0),    # tier 0 — brown twig
+	Color(0.62, 0.66, 0.72, 1.0),    # tier 1 — silver-grey
+	Color(0.85, 0.68, 0.20, 1.0),    # tier 2 — gold
+]
+# Per-tier base damage. Authored in tux.tscn the SwordHitbox starts at
+# damage = 1 and SpinHitbox at damage = 2. We re-derive the live damage
+# from these baselines * the multiplier, so the spin-attack stays at
+# its 2x ratio after upgrades.
+const SWORD_BASE_DAMAGE: int = 1
+const SPIN_BASE_DAMAGE: int = 2
+
+
+func _on_sword_upgraded(tier: int) -> void:
+	_apply_sword_tier(tier)
+	# Audible cue on actual upgrades. Using "pebble_get" as a stand-in
+	# pickup chime — there's no dedicated upgrade jingle yet and SoundBank
+	# silent-fallbacks if the name is missing.
+	if tier > 0:
+		SoundBank.play_2d("pebble_get")
+
+
+func _apply_sword_tier(tier: int) -> void:
+	var t: int = clamp(tier, 0, SWORD_TIER_DAMAGE_MULT.size() - 1)
+	var mult: int = SWORD_TIER_DAMAGE_MULT[t]
+	if sword_hitbox:
+		sword_hitbox.damage = SWORD_BASE_DAMAGE * mult
+	if spin_hitbox:
+		spin_hitbox.damage = SPIN_BASE_DAMAGE * mult
+	_retint_sword(t)
+
+
+func _retint_sword(tier: int) -> void:
+	if sword == null or not is_instance_valid(sword):
+		return
+	var t: int = clamp(tier, 0, SWORD_BLADE_TINTS.size() - 1)
+	var blade: MeshInstance3D = sword.get_node_or_null("Blade") as MeshInstance3D
+	var guard: MeshInstance3D = sword.get_node_or_null("Guard") as MeshInstance3D
+	var handle: MeshInstance3D = sword.get_node_or_null("Handle") as MeshInstance3D
+	if blade:
+		var bm := StandardMaterial3D.new()
+		bm.albedo_color = SWORD_BLADE_TINTS[t]
+		bm.metallic = 0.7
+		bm.roughness = 0.20
+		# Glimblade glows along the edge — emission is the cheapest way
+		# to fake "edge glow" with a primitive box mesh.
+		if t >= 2:
+			bm.emission_enabled = true
+			bm.emission = Color(1.0, 0.85, 0.45)
+			bm.emission_energy_multiplier = 0.8
+		blade.material_override = bm
+	# Tint the guard + handle together so the silhouette reads as one
+	# weapon rather than a tinted blade on a brown stick.
+	var hilt_mat := StandardMaterial3D.new()
+	hilt_mat.albedo_color = SWORD_HANDLE_TINTS[t]
+	hilt_mat.roughness = 0.7 if t == 0 else 0.45
+	if t >= 1:
+		hilt_mat.metallic = 0.6
+	if guard:
+		guard.material_override = hilt_mat
+	if handle:
+		handle.material_override = hilt_mat
 
 
 # ---- Sound dispatch ----------------------------------------------------

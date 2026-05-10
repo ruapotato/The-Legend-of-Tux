@@ -1,26 +1,26 @@
 [gd_scene load_steps=252 format=3 uid="uid://btuxwake01"]
 
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxtgte02" path="res://scenes/time_gate.tscn" id="time_gate"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
 [ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxtgte02" path="res://scenes/time_gate.tscn" id="time_gate"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.36, 0.55, 1)
@@ -2267,7 +2267,15 @@ hat_color = Color(0.18, 0.22, 0.34, 1)
 idle_hint = "[E] Address Captain Iren"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Captain Iren\", \"text\": \"Stand straight, traveler. You are at the Wake. We hold the cliffs and we hold the morning. State your business briefly.\", \"choices\": [{\"label\": \"What is this place for?\", \"next\": \"purpose\"}, {\"label\": \"Tell me of the morning ritual.\", \"next\": \"ritual\"}, {\"label\": \"You look tired.\", \"next\": \"tired\"}, {\"label\": \"Whom do you serve?\", \"next\": \"serve\"}, {\"label\": \"Walk well, Captain.\", \"next\": \"bye\"}]}, \"purpose\": {\"speaker\": \"Captain Iren\", \"text\": \"The Wake is where the realm begins again, every morning. Without us — without the rite — the day would not catch. I do not say this lightly. I say it because it is so.\", \"choices\": [{\"label\": \"Tell me of the ritual.\", \"next\": \"ritual\"}, {\"label\": \"Whom do you serve?\", \"next\": \"serve\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"ritual\": {\"speaker\": \"Captain Iren\", \"text\": \"The names are read. The bell is sounded thrice. The sun is greeted at the eastern step. Then the day is given to the realm. We have done it for as long as anyone has counted, and longer than that.\", \"choices\": [{\"label\": \"What if a morning is missed?\", \"next\": \"missed\"}, {\"label\": \"Whom do you serve?\", \"next\": \"serve\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"missed\": {\"speaker\": \"Captain Iren\", \"text\": \"It will not be missed. Not while I stand. Not while there is one recruit left to read a name. — Ask the veteran, if you must hear more. He was here for the morning that nearly did not catch.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"tired\": {\"speaker\": \"Captain Iren\", \"text\": \"I am... well-rested. Thank you for your concern. — *a pause* — The mornings are long. There is no other kind. By the Source, that is enough said.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"serve\": {\"speaker\": \"Captain Iren\", \"text\": \"I serve the Wake. The Wake serves the morning. The morning serves — *she straightens, looks past you* — it serves the realm. That is the answer the rite gives. Take it as given.\", \"choices\": [{\"label\": \"But who, truly?\", \"next\": \"serve_evade\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"serve_evade\": {\"speaker\": \"Captain Iren\", \"text\": \"*she looks at the stone under her boots* The names of the served are not for the asking. We hold the morning. That has always been enough.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Captain Iren\", \"text\": \"Walk well. Mind the western step — something has come down off the cliffs that should not be there.\"}}}"
 
-[node name="Npc23_Recruit_Pol" parent="." instance=ExtResource("npc")]
+[node name="Npc23_Captain_Vael" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 4, 0, 6)
+npc_name = "Captain Vael"
+body_color = Color(0.28, 0.32, 0.5, 1)
+hat_color = Color(0.85, 0.68, 0.2, 1)
+idle_hint = "[E] Address Captain Vael"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Captain Vael\", \"text\": \"I have been watching you cross the cliffs. Will you hear me out?\", \"choices\": [{\"label\": \"Speak.\", \"next\": \"offer\", \"requires_flag\": \"gale_roost_defeated\"}, {\"label\": \"Speak.\", \"next\": \"not_yet\", \"requires_flag_not\": \"gale_roost_defeated\"}, {\"label\": \"Some other time, Captain.\", \"next\": \"bye\"}]}, \"offer\": {\"speaker\": \"Captain Vael\", \"text\": \"You've broken three of the realm's locks. Take this — Glimblade. Forged for one who keeps showing up.\", \"choices\": [{\"label\": \"I accept it. Walk well.\", \"next\": \"given\", \"upgrades_sword\": 2, \"sets\": \"vael_glimblade_given\", \"requires_not\": \"vael_glimblade_given\"}, {\"label\": \"About this blade…\", \"next\": \"already\", \"requires\": \"vael_glimblade_given\"}]}, \"given\": {\"speaker\": \"Captain Vael\", \"text\": \"It will keep its edge longer than my watch will. Use it well.\"}, \"already\": {\"speaker\": \"Captain Vael\", \"text\": \"Glimblade is yours. Wear it where the realm can see it.\"}, \"not_yet\": {\"speaker\": \"Captain Vael\", \"text\": \"Come back when you've broken a third lock. Then we can speak of forged things.\"}, \"bye\": {\"speaker\": \"Captain Vael\", \"text\": \"Walk well. The morning still holds.\"}}}"
+
+[node name="Npc24_Recruit_Pol" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.362358, 0, -0.932039, 0, 1, 0, 0.932039, 0, 0.362358, -4, 0, 3)
 npc_name = "Recruit Pol"
 body_color = Color(0.55, 0.7, 0.85, 1)
@@ -2275,7 +2283,7 @@ hat_color = Color(0.85, 0.7, 0.35, 1)
 idle_hint = "[E] Talk to Recruit Pol"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Recruit Pol\", \"text\": \"Oh — hi! Hi. I'm Pol, I'm with the boot-soldiers now, did you know? I just joined three mornings ago and I have already heard the bell TWICE. Have you heard the morning ritual yet?\", \"choices\": [{\"label\": \"Not yet — tell me.\", \"next\": \"tellme\"}, {\"label\": \"I have, actually.\", \"next\": \"told\"}, {\"label\": \"Walk well, Pol.\", \"next\": \"bye\"}]}, \"tellme\": {\"speaker\": \"Recruit Pol\", \"text\": \"You have to hear it from inside the cliffs. That's the whole thing. The stones do something to the bell — it sounds like the cliffs are humming back at it. The captain says it's the Source answering. I think the captain is right but I don't tell her that.\", \"choices\": [{\"label\": \"Why don't you tell her?\", \"next\": \"shy\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"shy\": {\"speaker\": \"Recruit Pol\", \"text\": \"Because she's the CAPTAIN. You don't just walk up and tell the captain she was right. You wait until she asks. I'm waiting. I'll be waiting a while.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"told\": {\"speaker\": \"Recruit Pol\", \"text\": \"Lirien's breath, isn't it something? My grandmother told me about it but she never said it would feel like the cliffs were singing at you. The first time, I forgot to breathe. The second time, I did better.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Recruit Pol\", \"text\": \"Walk well! Come back at dawn if you can. The cliffs are nice but they are amazing in the morning.\"}}}"
 
-[node name="Npc24_Veteran_Hask" parent="." instance=ExtResource("npc")]
+[node name="Npc25_Veteran_Hask" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.764842, 0, 0.644218, 0, 1, 0, -0.644218, 0, 0.764842, 4, 0, -4)
 npc_name = "Veteran Hask"
 body_color = Color(0.4, 0.4, 0.45, 1)
@@ -2283,11 +2291,11 @@ hat_color = Color(0.2, 0.18, 0.18, 1)
 idle_hint = "[E] Speak with Veteran Hask"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Veteran Hask\", \"text\": \"*he is looking past you, at the cliff face, or perhaps at nothing* — Mm. A traveler. Speak if you wish. I will hear you well enough.\", \"choices\": [{\"label\": \"Tell me of the Wake.\", \"next\": \"wake\"}, {\"label\": \"How long have you served?\", \"next\": \"served\"}, {\"label\": \"What was the worst morning?\", \"next\": \"worst\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"wake\": {\"speaker\": \"Veteran Hask\", \"text\": \"*still not looking at you* The Wake holds the morning. Most days, the morning catches itself. Some days, the rite has to coax it. Most kin think it cannot fail. They think this because we have not let it fail.\", \"choices\": [{\"label\": \"And if it failed?\", \"next\": \"worst\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"served\": {\"speaker\": \"Veteran Hask\", \"text\": \"Long enough that the captain was a recruit when I had already grown tired. The names on the slab — I knew most of them. I read the third bell at Olber's last morning. He was not a quiet man. The bell was loud enough.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"worst\": {\"speaker\": \"Veteran Hask\", \"text\": \"*his voice is very even* There was a morning when the breath was thin and the Wake nearly didn't catch. The bell rang and the cliffs did not answer. We held the rite — we held it harder than we had ever held a thing — and after a long while the morning came. The realm runs on something fragile, traveler. We do not say so. But we know.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Veteran Hask\", \"text\": \"*he tilts his head, eyes still on the stone* Walk well. Mind the morning when next you cross it.\"}}}"
 
-[node name="TimeGate25" parent="." instance=ExtResource("time_gate")]
+[node name="TimeGate26" parent="." instance=ExtResource("time_gate")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
 time_phase = "dawn"
 
-[node name="Sign26" parent="." instance=ExtResource("sign")]
+[node name="Sign27" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -6)
 message = "Dawn-marked."
 
