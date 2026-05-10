@@ -19,19 +19,34 @@ const LABEL_COLOR := Color(0.92, 0.90, 0.85, 1.0)
 const LOCKED_COLOR := Color(0.55, 0.52, 0.48, 1.0)
 const EQUIPPED_BORDER := Color(1.00, 0.85, 0.20, 1.0)
 
-const TAB_NAMES: Array[String] = ["Items", "Equipment", "Map", "Save"]
+# Tab list is built lazily in _build_tab_strip(): the Songs tab only
+# appears once Tux has learned at least one song. The static names list
+# below is the full possible set, in order; `_visible_tabs` is the
+# subset actually rendered this open.
+const TAB_NAMES: Array[String] = ["Items", "Equipment", "Songs", "Map", "Save"]
 const TABS_ITEMS: int = 0
 const TABS_EQUIPMENT: int = 1
-const TABS_MAP: int = 2
-const TABS_SAVE: int = 3
+const TABS_SONGS: int = 2
+const TABS_MAP: int = 3
+const TABS_SAVE: int = 4
+
+const SONG_INPUT_SCENE := "res://scenes/song_input.tscn"
 
 const ITEM_TILE_SIZE: Vector2 = Vector2(96, 96)
 const ITEMS_PER_ROW: int = 6
 
 # Items the player can ever own (besides Sword which is always granted).
+# Anchor Boots and Glim Mirror are passive — they appear in the grid as
+# acquired-but-not-equippable tiles (Anchor Boots gets a separate ON/OFF
+# toggle row beneath the grid; Glim Mirror is always-on).
 const KNOWN_ITEMS: Array[String] = [
     "boomerang", "bombs", "bow", "lantern", "hookshot", "pebbles",
+    "hammer", "glim_sight", "anchor_boots", "glim_mirror",
 ]
+
+# Items in KNOWN_ITEMS that are passive (no B-button slot). Click is a
+# no-op for these — they live in the grid for visibility, not equip.
+const PASSIVE_ITEMS: Array[String] = ["anchor_boots", "glim_mirror"]
 
 const EQUIPMENT_SLOTS: Array[String] = ["sword", "shield", "boomerang"]
 
@@ -41,6 +56,9 @@ var _tab_strip: HBoxContainer
 var _tab_buttons: Array[Button] = []
 var _content_holder: Control
 var _current_tab: int = TABS_ITEMS
+# Indices (into TAB_NAMES) of the tabs actually shown right now. Songs
+# is filtered out until at least one song is known.
+var _visible_tabs: Array[int] = []
 
 # Map-tab mini-map (a child Control instance using mini_map.gd).
 var _map_widget: Control = null
@@ -68,14 +86,34 @@ func _input(event: InputEvent) -> void:
         else:
             _pause()
         return
+    # Global Z = open the song picker, regardless of pause state. We
+    # listen on raw KEY_Z (not via InputMap) to keep the action list in
+    # project.godot uncluttered for now; the picker handles its own
+    # pause/unpause and dismisses cleanly.
+    if event is InputEventKey and event.pressed and not event.echo \
+            and (event as InputEventKey).keycode == KEY_Z:
+        if not Dialog.is_active():
+            get_viewport().set_input_as_handled()
+            _open_song_input()
+            return
     if not _root.visible:
         return
     if event.is_action_pressed("ui_right"):
         get_viewport().set_input_as_handled()
-        _set_tab((_current_tab + 1) % TAB_NAMES.size())
+        _cycle_tab(1)
     elif event.is_action_pressed("ui_left"):
         get_viewport().set_input_as_handled()
-        _set_tab((_current_tab - 1 + TAB_NAMES.size()) % TAB_NAMES.size())
+        _cycle_tab(-1)
+
+
+func _cycle_tab(delta: int) -> void:
+    if _visible_tabs.is_empty():
+        return
+    var pos: int = _visible_tabs.find(_current_tab)
+    if pos < 0:
+        pos = 0
+    pos = (pos + delta + _visible_tabs.size()) % _visible_tabs.size()
+    _set_tab(_visible_tabs[pos])
 
 
 func _pause() -> void:
@@ -83,7 +121,14 @@ func _pause() -> void:
     get_tree().paused = true
     _was_mouse_captured = (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-    _refresh_current_tab()
+    # Rebuild the tab strip so the Songs tab appears the moment a song
+    # is learned mid-run (e.g. the player just spoke to Glim and immediately
+    # opened the menu). Cheap — five buttons.
+    _build_tab_strip()
+    if not _visible_tabs.has(_current_tab):
+        _current_tab = _visible_tabs[0] if not _visible_tabs.is_empty() \
+                                        else TABS_ITEMS
+    _set_tab(_current_tab)
 
 
 func _resume() -> void:
@@ -135,14 +180,7 @@ func _build_ui() -> void:
     _tab_strip.offset_top = 64.0
     _tab_strip.offset_bottom = 104.0
     _root.add_child(_tab_strip)
-    for i in TAB_NAMES.size():
-        var b := Button.new()
-        b.text = TAB_NAMES[i]
-        b.custom_minimum_size = Vector2(140, 36)
-        b.add_theme_font_size_override("font_size", 18)
-        b.pressed.connect(_set_tab.bind(i))
-        _tab_strip.add_child(b)
-        _tab_buttons.append(b)
+    _build_tab_strip()
 
     _content_holder = Control.new()
     _content_holder.anchor_left = 0.0
@@ -155,7 +193,7 @@ func _build_ui() -> void:
     _root.add_child(_content_holder)
 
     var hint := Label.new()
-    hint.text = "[A]/[D] tabs   [Esc] resume"
+    hint.text = "[A]/[D] tabs   [Z] hum a song   [Esc] resume"
     hint.anchor_left = 0.0
     hint.anchor_top = 1.0
     hint.anchor_right = 1.0
@@ -166,22 +204,60 @@ func _build_ui() -> void:
     hint.add_theme_color_override("font_color", LABEL_COLOR)
     _root.add_child(hint)
 
-    _set_tab(TABS_ITEMS)
+    _build_tab_strip()
+    _set_tab(_visible_tabs[0] if not _visible_tabs.is_empty() else TABS_ITEMS)
+
+
+func _build_tab_strip() -> void:
+    # Recompute which tabs to show. Songs is conditional; everything
+    # else is always present. Idempotent — wipes the strip first.
+    for child in _tab_strip.get_children():
+        child.queue_free()
+    _tab_buttons.clear()
+    _visible_tabs.clear()
+    for i in TAB_NAMES.size():
+        if i == TABS_SONGS and GameState.songs_known.is_empty():
+            continue
+        _visible_tabs.append(i)
+        var b := Button.new()
+        b.text = TAB_NAMES[i]
+        b.custom_minimum_size = Vector2(140, 36)
+        b.add_theme_font_size_override("font_size", 18)
+        b.pressed.connect(_set_tab.bind(i))
+        _tab_strip.add_child(b)
+        _tab_buttons.append(b)
 
 
 # ---- Tab switching ------------------------------------------------------
 
 func _set_tab(idx: int) -> void:
     _current_tab = idx
+    # Highlight only the currently-active tab. _tab_buttons aligns 1:1
+    # with _visible_tabs (they're built together in _build_tab_strip).
     for i in _tab_buttons.size():
+        var tab_idx: int = _visible_tabs[i] if i < _visible_tabs.size() else -1
         var btn: Button = _tab_buttons[i]
         var sb := StyleBoxFlat.new()
-        sb.bg_color = TAB_ACTIVE_COLOR if i == idx else TAB_COLOR
+        sb.bg_color = TAB_ACTIVE_COLOR if tab_idx == idx else TAB_COLOR
         sb.set_corner_radius_all(6)
         btn.add_theme_stylebox_override("normal", sb)
         btn.add_theme_stylebox_override("hover", sb)
         btn.add_theme_stylebox_override("pressed", sb)
     _refresh_current_tab()
+
+
+func _open_song_input() -> void:
+    # Spawn the picker into the active scene so it survives even if the
+    # pause-menu CanvasLayer were ever culled (it isn't today, but keep
+    # the lifetime decoupled). The picker pauses the tree itself.
+    var packed: PackedScene = load(SONG_INPUT_SCENE) as PackedScene
+    if packed == null:
+        push_warning("PauseMenu: cannot load %s" % SONG_INPUT_SCENE)
+        return
+    var holder: Node = get_tree().current_scene
+    if holder == null:
+        holder = self
+    holder.add_child(packed.instantiate())
 
 
 func _refresh_current_tab() -> void:
@@ -192,6 +268,7 @@ func _refresh_current_tab() -> void:
     match _current_tab:
         TABS_ITEMS: _build_items_tab()
         TABS_EQUIPMENT: _build_equipment_tab()
+        TABS_SONGS: _build_songs_tab()
         TABS_MAP: _build_map_tab()
         TABS_SAVE: _build_save_tab()
 
@@ -217,11 +294,28 @@ func _build_items_tab() -> void:
     # Sword: always known, always selected, can't unequip.
     grid.add_child(_make_item_tile("sword", true, true, false))
 
-    # Inventory items.
+    # Inventory items. Passive items render as owned-but-not-equippable
+    # so the player can see they exist without being able to bind them
+    # to the B-button (which would be meaningless for a passive).
     for name in KNOWN_ITEMS:
         var owned: bool = GameState.has_item(name)
         var equipped: bool = (GameState.active_b_item == name)
-        grid.add_child(_make_item_tile(name, owned, equipped, true))
+        var equippable: bool = not PASSIVE_ITEMS.has(name)
+        grid.add_child(_make_item_tile(name, owned, equipped, equippable))
+
+    # Anchor Boots toggle row — only appears once Tux owns the boots.
+    # Sits below the grid so it's discoverable without crowding the
+    # equipment tiles. Toggling fires the metal-step SFX (silent-fallback
+    # to step.wav today; see sound_bank.gd).
+    if GameState.has_item("anchor_boots"):
+        var boots_row := _make_anchor_boots_row()
+        # Place it directly below the items grid using anchor offsets;
+        # we live alongside the consumables row at offset_top ~ ITEM_TILE+72.
+        boots_row.offset_top = 36.0 + ITEM_TILE_SIZE.y * 2 + 56.0
+        boots_row.offset_bottom = boots_row.offset_top + 32.0
+        boots_row.anchor_left = 0.0
+        boots_row.anchor_right = 1.0
+        _content_holder.add_child(boots_row)
 
     # Consumable counts — separate row beneath the equip grid. Pulls
     # straight from GameState so the page reflects what's in the bag
@@ -313,6 +407,44 @@ func _on_item_clicked(name: String) -> void:
     GameState.set_active_b_item(name)
 
 
+# Anchor Boots ON/OFF toggle row. Built procedurally and parented under
+# _content_holder so refresh_current_tab() wipes it cleanly along with
+# the rest of the items page. Pressing the button flips the GameState
+# flag; tux_player.gd reads the flag every physics tick.
+func _make_anchor_boots_row() -> Control:
+    var row := HBoxContainer.new()
+    row.add_theme_constant_override("separation", 12)
+    var label := Label.new()
+    label.text = "Anchor Boots:"
+    label.custom_minimum_size = Vector2(180, 0)
+    label.add_theme_font_size_override("font_size", 18)
+    label.add_theme_color_override("font_color", LABEL_COLOR)
+    row.add_child(label)
+    var btn := Button.new()
+    var on: bool = GameState.anchor_boots_active
+    btn.text = ("ON" if on else "OFF")
+    btn.custom_minimum_size = Vector2(96, 32)
+    btn.add_theme_font_size_override("font_size", 16)
+    btn.pressed.connect(_on_anchor_boots_toggled)
+    row.add_child(btn)
+    var hint := Label.new()
+    hint.text = "  Heavy boots — sink in water, walk slow."
+    hint.add_theme_color_override("font_color", LABEL_COLOR)
+    hint.add_theme_font_size_override("font_size", 14)
+    row.add_child(hint)
+    return row
+
+
+func _on_anchor_boots_toggled() -> void:
+    GameState.anchor_boots_active = not GameState.anchor_boots_active
+    # No dedicated metal-step asset yet — use the generic step SFX as
+    # the fallback per spec. play_2d is silent-safe if either name is
+    # missing so this can't crash a playthrough.
+    SoundBank.play_2d("anchor_step")
+    SoundBank.play_2d("step")
+    _refresh_current_tab()
+
+
 func _on_active_item_changed(_name: String) -> void:
     if _current_tab == TABS_ITEMS and _root.visible:
         _refresh_current_tab()
@@ -361,6 +493,82 @@ func _build_equipment_tab() -> void:
         row.add_child(name_label)
         row.add_child(status_label)
         list.add_child(row)
+
+
+# ---- Songs tab ----------------------------------------------------------
+
+func _build_songs_tab() -> void:
+    var heading := Label.new()
+    heading.text = "Songs"
+    heading.add_theme_color_override("font_color", TITLE_COLOR)
+    heading.add_theme_font_size_override("font_size", 20)
+    _content_holder.add_child(heading)
+
+    var hum_btn := Button.new()
+    hum_btn.text = "Hum a song… [Z]"
+    hum_btn.custom_minimum_size = Vector2(220, 36)
+    hum_btn.add_theme_font_size_override("font_size", 16)
+    hum_btn.anchor_left  = 1.0
+    hum_btn.anchor_right = 1.0
+    hum_btn.offset_left  = -240.0
+    hum_btn.offset_right = -8.0
+    hum_btn.offset_top   = 0.0
+    hum_btn.offset_bottom = 36.0
+    hum_btn.pressed.connect(_on_hum_pressed)
+    _content_holder.add_child(hum_btn)
+
+    var list := VBoxContainer.new()
+    list.add_theme_constant_override("separation", 10)
+    list.anchor_left  = 0.0
+    list.anchor_right = 1.0
+    list.offset_top    = 48.0
+    list.offset_bottom = 0.0
+    _content_holder.add_child(list)
+
+    # Iterate the canonical SongBook order so the list reads "Glim,
+    # Sun, Moon, Triglyph" instead of in learn order. Unknown songs
+    # appear as "[locked]" placeholders so the player can see how many
+    # songs the world actually contains.
+    for song in SongBook.songs:
+        var song_id: String = String(song.get("id", ""))
+        var owned: bool = GameState.has_song(song_id)
+        var row := HBoxContainer.new()
+        row.add_theme_constant_override("separation", 16)
+        var name_label := Label.new()
+        name_label.custom_minimum_size = Vector2(220, 0)
+        name_label.add_theme_font_size_override("font_size", 18)
+        var glyph_label := Label.new()
+        glyph_label.custom_minimum_size = Vector2(180, 0)
+        glyph_label.add_theme_font_size_override("font_size", 22)
+        # Force a monospace-ish font name; Godot's default UI font isn't
+        # mono but the size override already keeps glyph spacing readable.
+        var sum_label := Label.new()
+        sum_label.add_theme_font_size_override("font_size", 14)
+        if owned:
+            name_label.text = String(song.get("name", song_id))
+            glyph_label.text = SongBook.format_glyphs(song.get("glyphs", []))
+            sum_label.text = String(song.get("summary", ""))
+            name_label.add_theme_color_override("font_color", LABEL_COLOR)
+            glyph_label.add_theme_color_override("font_color", TITLE_COLOR)
+            sum_label.add_theme_color_override("font_color", LABEL_COLOR)
+        else:
+            name_label.text = "[ ? ? ? ]"
+            glyph_label.text = "?  ?  ?  ?  ?"
+            sum_label.text = "(unknown — find someone to teach you)"
+            name_label.add_theme_color_override("font_color", LOCKED_COLOR)
+            glyph_label.add_theme_color_override("font_color", LOCKED_COLOR)
+            sum_label.add_theme_color_override("font_color", LOCKED_COLOR)
+        row.add_child(name_label)
+        row.add_child(glyph_label)
+        row.add_child(sum_label)
+        list.add_child(row)
+
+
+func _on_hum_pressed() -> void:
+    # Close the pause menu before the picker opens so the picker's own
+    # backdrop isn't sandwiched between two dim layers (cleaner visual).
+    _resume()
+    _open_song_input()
 
 
 # ---- Map tab ------------------------------------------------------------

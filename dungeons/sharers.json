@@ -1,6 +1,26 @@
 {
   "name": "The Sharers",
   "id": "sharers",
+  "sky_color": [
+    0.6,
+    0.65,
+    0.7
+  ],
+  "fog_color": [
+    0.7,
+    0.72,
+    0.7
+  ],
+  "ambient_color": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.9,
+    0.7
+  ],
   "key_group": "sharers",
   "music_track": "sigilkeep",
   "fs_path": "/usr/share",
@@ -4210,18 +4230,186 @@
     }
   ],
   "lights": [
-    {"pos": [0.0, 4.0, 0.0],     "color": [1.0, 0.92, 0.78, 1], "energy": 1.4, "range": 14.0},
-    {"pos": [-8.0, 3.0, -8.0],   "color": [1.0, 0.78, 0.45, 1], "energy": 1.3, "range": 8.0},
-    {"pos": [8.0, 3.0, -8.0],    "color": [1.0, 0.78, 0.45, 1], "energy": 1.3, "range": 8.0},
-    {"pos": [-8.0, 3.0, 8.0],    "color": [1.0, 0.78, 0.45, 1], "energy": 1.3, "range": 8.0},
-    {"pos": [8.0, 3.0, 8.0],     "color": [1.0, 0.78, 0.45, 1], "energy": 1.3, "range": 8.0},
-    {"pos": [-12.0, 5.0, 0.0],   "color": [0.65, 0.75, 1.0, 1], "energy": 0.9, "range": 12.0},
-    {"pos": [12.0, 5.0, 0.0],    "color": [0.65, 0.75, 1.0, 1], "energy": 0.9, "range": 12.0},
-    {"pos": [0.0, 5.0, -10.0],   "color": [0.7, 0.78, 1.0, 1],  "energy": 0.9, "range": 12.0},
-    {"pos": [0.0, 5.0, 10.0],    "color": [0.7, 0.78, 1.0, 1],  "energy": 0.9, "range": 12.0},
-    {"pos": [-4.0, 3.0, 0.0],    "color": [1.0, 0.85, 0.6, 1],  "energy": 1.0, "range": 6.0},
-    {"pos": [4.0, 3.0, 0.0],     "color": [1.0, 0.85, 0.6, 1],  "energy": 1.0, "range": 6.0},
-    {"pos": [0.0, 3.0, 6.0],     "color": [1.0, 0.85, 0.6, 1],  "energy": 1.0, "range": 6.0}
+    {
+      "pos": [
+        0.0,
+        4.0,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.92,
+        0.78,
+        1
+      ],
+      "energy": 1.4,
+      "range": 14.0
+    },
+    {
+      "pos": [
+        -8.0,
+        3.0,
+        -8.0
+      ],
+      "color": [
+        1.0,
+        0.78,
+        0.45,
+        1
+      ],
+      "energy": 1.3,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        8.0,
+        3.0,
+        -8.0
+      ],
+      "color": [
+        1.0,
+        0.78,
+        0.45,
+        1
+      ],
+      "energy": 1.3,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -8.0,
+        3.0,
+        8.0
+      ],
+      "color": [
+        1.0,
+        0.78,
+        0.45,
+        1
+      ],
+      "energy": 1.3,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        8.0,
+        3.0,
+        8.0
+      ],
+      "color": [
+        1.0,
+        0.78,
+        0.45,
+        1
+      ],
+      "energy": 1.3,
+      "range": 8.0
+    },
+    {
+      "pos": [
+        -12.0,
+        5.0,
+        0.0
+      ],
+      "color": [
+        0.65,
+        0.75,
+        1.0,
+        1
+      ],
+      "energy": 0.9,
+      "range": 12.0
+    },
+    {
+      "pos": [
+        12.0,
+        5.0,
+        0.0
+      ],
+      "color": [
+        0.65,
+        0.75,
+        1.0,
+        1
+      ],
+      "energy": 0.9,
+      "range": 12.0
+    },
+    {
+      "pos": [
+        0.0,
+        5.0,
+        -10.0
+      ],
+      "color": [
+        0.7,
+        0.78,
+        1.0,
+        1
+      ],
+      "energy": 0.9,
+      "range": 12.0
+    },
+    {
+      "pos": [
+        0.0,
+        5.0,
+        10.0
+      ],
+      "color": [
+        0.7,
+        0.78,
+        1.0,
+        1
+      ],
+      "energy": 0.9,
+      "range": 12.0
+    },
+    {
+      "pos": [
+        -4.0,
+        3.0,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.6,
+        1
+      ],
+      "energy": 1.0,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        4.0,
+        3.0,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.6,
+        1
+      ],
+      "energy": 1.0,
+      "range": 6.0
+    },
+    {
+      "pos": [
+        0.0,
+        3.0,
+        6.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.6,
+        1
+      ],
+      "energy": 1.0,
+      "range": 6.0
+    }
   ],
   "enemies": [],
   "props": [
@@ -4237,67 +4425,111 @@
     },
     {
       "type": "sign",
-      "pos": [-2.0, 0.0, -2.0],
+      "pos": [
+        -2.0,
+        0.0,
+        -2.0
+      ],
       "rotation_y": 0.7854,
-      "message": "PLINTH I\n\n\"The breath of Lirien moves\nthrough us all —\nthrough the merchant's tally,\nthrough the watchman's pace,\nthrough the long quiet\nof those who do not speak\nbut listen, and listen,\nand are made larger by listening.\""
+      "message": "PLINTH I\n\n\"The breath of Lirien moves\nthrough us all \u2014\nthrough the merchant's tally,\nthrough the watchman's pace,\nthrough the long quiet\nof those who do not speak\nbut listen, and listen,\nand are made larger by listening.\""
     },
     {
       "type": "sign",
-      "pos": [2.0, 0.0, -2.0],
+      "pos": [
+        2.0,
+        0.0,
+        -2.0
+      ],
       "rotation_y": -0.7854,
       "message": "PLINTH II\n\n\"What is given is not lost.\nWhat is hoarded thins\nin the hand that holds it.\""
     },
     {
       "type": "sign",
-      "pos": [-2.0, 0.0, 2.0],
+      "pos": [
+        -2.0,
+        0.0,
+        2.0
+      ],
       "rotation_y": 2.3562,
       "message": "PLINTH III\n\n\"Three roads, one breath.\nThree peoples, one ground.\nOlder than the agreement,\nthe agreement.\""
     },
     {
       "type": "sign",
-      "pos": [2.0, 0.0, 2.0],
+      "pos": [
+        2.0,
+        0.0,
+        2.0
+      ],
       "rotation_y": -2.3562,
       "message": "PLINTH IV\n\n\"The bell does not ring the hour.\nShe reminds the hour to ring itself.\""
     },
     {
       "type": "sign",
-      "pos": [-9.0, 0.0, -9.0],
+      "pos": [
+        -9.0,
+        0.0,
+        -9.0
+      ],
       "rotation_y": 0.7854,
       "message": "FRAGMENT (author lost)\n\n\"We were a people of the held breath.\nThen we learned to let it out.\nThe world did not end.\nIt became a song, briefly,\nand then a quieter thing,\nand then ours.\""
     },
     {
       "type": "sign",
-      "pos": [9.0, 0.0, -9.0],
+      "pos": [
+        9.0,
+        0.0,
+        -9.0
+      ],
       "rotation_y": -0.7854,
-      "message": "FRAGMENT\n\n\"Of the three Sigils,\nthe kindest is Sharing —\nthough the kindness wears\nthe shape of work.\""
+      "message": "FRAGMENT\n\n\"Of the three Sigils,\nthe kindest is Sharing \u2014\nthough the kindness wears\nthe shape of work.\""
     },
     {
       "type": "sign",
-      "pos": [-9.0, 0.0, 9.0],
+      "pos": [
+        -9.0,
+        0.0,
+        9.0
+      ],
       "rotation_y": 2.3562,
       "message": "POSTED\n\nThe bell rings on the hour, and one\nadditional time when nobody is watching.\nThis is tradition. Do not investigate."
     },
     {
       "type": "sign",
-      "pos": [9.0, 0.0, 9.0],
+      "pos": [
+        9.0,
+        0.0,
+        9.0
+      ],
       "rotation_y": -2.3562,
       "message": "INSCRIPTION\n\n\"The Maker walks the realm in many shapes.\nMost we will never recognise. Some\nwill leave the change of a coin\nand be gone before we count it.\""
     },
     {
       "type": "sign",
-      "pos": [-13.0, 0.0, 0.0],
+      "pos": [
+        -13.0,
+        0.0,
+        0.0
+      ],
       "rotation_y": 1.5708,
       "message": "ATTRIBUTED TO TELVA\n\n\"I have not seen Lirien.\nI have stood in places\nwhere she had recently been,\nand the stones were warmer.\""
     },
     {
       "type": "sign",
-      "pos": [13.0, 0.0, 0.0],
+      "pos": [
+        13.0,
+        0.0,
+        0.0
+      ],
       "rotation_y": -1.5708,
-      "message": "FROM A LONGER PIECE\n\n\"The Sprawl is contested ground.\nContested ground is shared ground.\nSharing is what we do here, even\nwhen we forget we are doing it,\neven when we are arguing about it,\neven — most of all — then.\""
+      "message": "FROM A LONGER PIECE\n\n\"The Sprawl is contested ground.\nContested ground is shared ground.\nSharing is what we do here, even\nwhen we forget we are doing it,\neven when we are arguing about it,\neven \u2014 most of all \u2014 then.\""
     },
     {
       "type": "chest",
-      "pos": [-13.0, 0.0, -13.0],
+      "pos": [
+        -13.0,
+        0.0,
+        -13.0
+      ],
       "rotation_y": 0.7854,
       "contents": "pebble",
       "amount": 10,
@@ -4305,36 +4537,146 @@
     },
     {
       "type": "chest",
-      "pos": [13.0, 0.0, -13.0],
+      "pos": [
+        13.0,
+        0.0,
+        -13.0
+      ],
       "rotation_y": -0.7854,
       "contents": "heart",
       "open_message": "A Piece of Heart. Tucked beside the plinth like a private offering."
     },
     {
       "type": "chest",
-      "pos": [-13.0, 0.0, 13.0],
+      "pos": [
+        -13.0,
+        0.0,
+        13.0
+      ],
       "rotation_y": 2.3562,
       "contents": "fairy",
       "open_message": "A bottled wisp. A small kindness, kept under glass."
     },
-    {"type": "rock", "pos": [-6.0, 0.0, -6.0], "rotation_y": 0.0},
-    {"type": "rock", "pos": [6.0, 0.0, -6.0], "rotation_y": 0.0},
-    {"type": "rock", "pos": [0.0, 0.0, -10.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [-5.0, 0.0, 4.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [5.0, 0.0, 4.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [-5.0, 0.0, -4.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [5.0, 0.0, -4.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [-10.0, 0.0, 5.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [10.0, 0.0, 5.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [-3.0, 0.0, 7.0], "rotation_y": 0.0},
-    {"type": "bush", "pos": [3.0, 0.0, 7.0], "rotation_y": 0.0},
+    {
+      "type": "rock",
+      "pos": [
+        -6.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.0,
+        0.0,
+        -10.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -5.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        5.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -5.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        5.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -10.0,
+        0.0,
+        5.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        10.0,
+        0.0,
+        5.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -3.0,
+        0.0,
+        7.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "type": "bush",
+      "pos": [
+        3.0,
+        0.0,
+        7.0
+      ],
+      "rotation_y": 0.0
+    },
     {
       "type": "npc",
-      "pos": [-3.0, 0.0, -5.0],
+      "pos": [
+        -3.0,
+        0.0,
+        -5.0
+      ],
       "rotation_y": 0.7854,
       "name": "Poet Telva",
-      "body_color": [0.55, 0.55, 0.7, 1.0],
-      "hat_color": [0.85, 0.78, 0.5, 1.0],
+      "body_color": [
+        0.55,
+        0.55,
+        0.7,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.78,
+        0.5,
+        1.0
+      ],
       "idle_hint": "[E] Listen to Telva",
       "dialog_tree": {
         "start": "root",
@@ -4343,16 +4685,28 @@
             "speaker": "Poet Telva",
             "text": "Walker. The plinths are warm tonight. Would you hear a verse?",
             "choices": [
-              {"label": "Please.", "next": "verse"},
-              {"label": "Another time.", "next": "bye"}
+              {
+                "label": "Please.",
+                "next": "verse"
+              },
+              {
+                "label": "Another time.",
+                "next": "bye"
+              }
             ]
           },
           "verse": {
             "speaker": "Poet Telva",
             "text": "\"The hand that holds nothing\nis the hand that is full of all things.\nThe hand that grasps\nis the hand that is empty\nof the air it once cupped\nwithout knowing it was holding it.\"",
             "choices": [
-              {"label": "Beautiful.", "next": "thanks"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Beautiful.",
+                "next": "thanks"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "thanks": {
@@ -4368,11 +4722,25 @@
     },
     {
       "type": "npc",
-      "pos": [3.0, 0.0, -5.0],
+      "pos": [
+        3.0,
+        0.0,
+        -5.0
+      ],
       "rotation_y": -0.7854,
       "name": "Historian Pren",
-      "body_color": [0.5, 0.42, 0.5, 1.0],
-      "hat_color": [0.4, 0.3, 0.35, 1.0],
+      "body_color": [
+        0.5,
+        0.42,
+        0.5,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.3,
+        0.35,
+        1.0
+      ],
       "idle_hint": "[E] Speak with Pren",
       "dialog_tree": {
         "start": "root",
@@ -4381,39 +4749,66 @@
             "speaker": "Historian Pren",
             "text": "A walker. Good. I have been talking to the plinths and they are not improving as listeners.",
             "choices": [
-              {"label": "Tell me of the Sprawl.", "next": "sprawl"},
-              {"label": "Tell me of the Sharers.", "next": "sharers"},
-              {"label": "Tell me of the bell.", "next": "bell"},
-              {"label": "Why does any of this matter?", "next": "matter"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Tell me of the Sprawl.",
+                "next": "sprawl"
+              },
+              {
+                "label": "Tell me of the Sharers.",
+                "next": "sharers"
+              },
+              {
+                "label": "Tell me of the bell.",
+                "next": "bell"
+              },
+              {
+                "label": "Why does any of this matter?",
+                "next": "matter"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "sprawl": {
             "speaker": "Historian Pren",
             "text": "Built in the third long-quiet, after the second forgetting, before the third. Three clans came together not because they liked one another but because the wind here was kinder than where they came from.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "sharers": {
             "speaker": "Historian Pren",
             "text": "We are the cultural ward. We tend verse, plinth, bell. The Binds find us insufferable. We find ourselves slightly insufferable. The Locals do not find us at all.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bell": {
             "speaker": "Historian Pren",
             "text": "Older than the courtyard. Possibly older than the Sprawl. Cael speaks of the bell as kin. I have stopped arguing. The bell does not seem to mind either way.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "matter": {
             "speaker": "Historian Pren",
             "text": "*(a small, real pause)*  ...That, walker, is the one thing I have never had a satisfying answer to. I keep teaching anyway. Make of it what you will.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bye": {
@@ -4425,11 +4820,25 @@
     },
     {
       "type": "npc",
-      "pos": [-7.0, 0.0, 3.0],
+      "pos": [
+        -7.0,
+        0.0,
+        3.0
+      ],
       "rotation_y": 0.7854,
       "name": "Olm",
-      "body_color": [0.5, 0.4, 0.32, 1.0],
-      "hat_color": [0.6, 0.42, 0.22, 1.0],
+      "body_color": [
+        0.5,
+        0.4,
+        0.32,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.42,
+        0.22,
+        1.0
+      ],
       "idle_hint": "[E] Talk to Olm",
       "dialog_tree": {
         "start": "root",
@@ -4438,24 +4847,42 @@
             "speaker": "Olm",
             "text": "*(in a Bind's clipped tone)* You're staring. Yes, I'm Bind. No, I'm not selling. I came here to mock the verses.",
             "choices": [
-              {"label": "And?", "next": "and"},
-              {"label": "Why are you still here?", "next": "still"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "And?",
+                "next": "and"
+              },
+              {
+                "label": "Why are you still here?",
+                "next": "still"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "and": {
             "speaker": "Olm",
             "text": "And the first one was awful. *Truly* awful. Then I read another. ...And another. Then I sat down. Then a turn of the moon went by.",
             "choices": [
-              {"label": "Why are you still here?", "next": "still"},
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Why are you still here?",
+                "next": "still"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "still": {
             "speaker": "Olm",
             "text": "*(quieter)* My ledger sits on its shelf. My stall is still open. My second-cousin keeps the chips. I keep coming back. I do not know why. ...That is not honest. I know exactly why.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bye": {
@@ -4467,11 +4894,25 @@
     },
     {
       "type": "npc",
-      "pos": [7.0, 0.0, 3.0],
+      "pos": [
+        7.0,
+        0.0,
+        3.0
+      ],
       "rotation_y": -0.7854,
       "name": "Bell-keeper Cael",
-      "body_color": [0.6, 0.6, 0.65, 1.0],
-      "hat_color": [0.78, 0.78, 0.85, 1.0],
+      "body_color": [
+        0.6,
+        0.6,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.78,
+        0.85,
+        1.0
+      ],
       "idle_hint": "[E] Speak with Cael",
       "dialog_tree": {
         "start": "root",
@@ -4480,23 +4921,38 @@
             "speaker": "Bell-keeper Cael",
             "text": "Walker. The bell is well today. She has been quiet a long time, and she is enjoying the quiet.",
             "choices": [
-              {"label": "Tell me about the bell.", "next": "bell"},
-              {"label": "How long have you tended her?", "next": "long"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Tell me about the bell.",
+                "next": "bell"
+              },
+              {
+                "label": "How long have you tended her?",
+                "next": "long"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bell": {
             "speaker": "Bell-keeper Cael",
             "text": "She is older than her tower, older than the courtyard, older than the agreement that brought the courtyard here. I do not know who first hung her. I do not need to.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "long": {
             "speaker": "Bell-keeper Cael",
             "text": "Long enough. My grandmother tended her. Her grandmother tended her. The line has been thin once or twice. We always come back to her. She is patient.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bye": {
@@ -4508,36 +4964,65 @@
     },
     {
       "type": "npc",
-      "pos": [0.0, 0.0, 6.0],
+      "pos": [
+        0.0,
+        0.0,
+        6.0
+      ],
       "rotation_y": 3.141592653589793,
       "name": "Apprentice Nye",
-      "body_color": [0.65, 0.7, 0.85, 1.0],
-      "hat_color": [0.9, 0.85, 0.6, 1.0],
+      "body_color": [
+        0.65,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "hat_color": [
+        0.9,
+        0.85,
+        0.6,
+        1.0
+      ],
       "idle_hint": "[E] Talk to Nye",
       "dialog_tree": {
         "start": "root",
         "nodes": {
           "root": {
             "speaker": "Apprentice Nye",
-            "text": "Oh — hello. I'm — I'm practicing. Telva says the plinth lines come easier if you say them aloud. They don't. Yet.",
+            "text": "Oh \u2014 hello. I'm \u2014 I'm practicing. Telva says the plinth lines come easier if you say them aloud. They don't. Yet.",
             "choices": [
-              {"label": "Try one on me.", "next": "try"},
-              {"label": "Don't be shy.", "next": "shy"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Try one on me.",
+                "next": "try"
+              },
+              {
+                "label": "Don't be shy.",
+                "next": "shy"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "try": {
             "speaker": "Apprentice Nye",
-            "text": "Um — \"The hand that holds — that holds —\" ...the hand that holds *something*. I forget the rest. Telva will know. She always knows.",
+            "text": "Um \u2014 \"The hand that holds \u2014 that holds \u2014\" ...the hand that holds *something*. I forget the rest. Telva will know. She always knows.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "shy": {
             "speaker": "Apprentice Nye",
-            "text": "I'm not — I'm just — quiet. Quiet is also Sharer work, Cael says. The bell is quiet most of the time too.",
+            "text": "I'm not \u2014 I'm just \u2014 quiet. Quiet is also Sharer work, Cael says. The bell is quiet most of the time too.",
             "choices": [
-              {"label": "Back.", "next": "root"}
+              {
+                "label": "Back.",
+                "next": "root"
+              }
             ]
           },
           "bye": {

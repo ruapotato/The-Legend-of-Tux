@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxsonginput01"]
+
+[ext_resource type="Script" path="res://scripts/song_input.gd" id="1_song_input"]
+
+[node name="SongInput" type="CanvasLayer"]
+script = ExtResource("1_song_input")

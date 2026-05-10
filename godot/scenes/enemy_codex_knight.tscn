@@ -1,0 +1,150 @@
+[gd_scene load_steps=18 format=3 uid="uid://btuxbosscdx01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_codex_knight.gd" id="1_cdx"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.55
+height = 2.10
+
+[sub_resource type="CylinderMesh" id="robe_mesh"]
+top_radius = 0.40
+bottom_radius = 0.75
+height = 1.95
+radial_segments = 14
+
+[sub_resource type="StandardMaterial3D" id="robe_mat"]
+albedo_color = Color(0.16, 0.13, 0.20, 1)
+roughness = 0.8
+
+[sub_resource type="CylinderMesh" id="hood_mesh"]
+top_radius = 0.0
+bottom_radius = 0.55
+height = 0.65
+radial_segments = 14
+
+[sub_resource type="StandardMaterial3D" id="hood_mat"]
+albedo_color = Color(0.10, 0.08, 0.13, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="armor_trim_mat"]
+albedo_color = Color(0.55, 0.45, 0.18, 1)
+metallic = 0.6
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="armor_band_mesh"]
+top_radius = 0.62
+bottom_radius = 0.68
+height = 0.18
+radial_segments = 14
+
+[sub_resource type="BoxMesh" id="quill_shaft_mesh"]
+size = Vector3(0.06, 0.06, 1.20)
+
+[sub_resource type="StandardMaterial3D" id="quill_mat"]
+albedo_color = Color(0.92, 0.86, 0.70, 1)
+roughness = 0.7
+
+[sub_resource type="PrismMesh" id="quill_tip_mesh"]
+size = Vector3(0.10, 0.10, 0.34)
+
+[sub_resource type="StandardMaterial3D" id="ink_mat"]
+albedo_color = Color(0.06, 0.04, 0.10, 1)
+metallic = 0.2
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.20, 0.10, 0.40, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="SphereMesh" id="inkpot_mesh"]
+radius = 0.16
+height = 0.30
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereShape3D" id="inkpot_shape"]
+radius = 0.20
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(1.10, 2.0, 1.10)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.30, 2.0, 1.30)
+
+[node name="EnemyCodexKnight" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_cdx")
+max_hp = 60
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Robe" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+mesh = SubResource("robe_mesh")
+surface_material_override/0 = SubResource("robe_mat")
+
+[node name="Hood" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.20, 0)
+mesh = SubResource("hood_mesh")
+surface_material_override/0 = SubResource("hood_mat")
+
+[node name="ArmorBand" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40, 0)
+mesh = SubResource("armor_band_mesh")
+surface_material_override/0 = SubResource("armor_trim_mat")
+
+[node name="Quill" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.45, 0)
+
+[node name="Shaft" type="MeshInstance3D" parent="Visual/Quill"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.60)
+mesh = SubResource("quill_shaft_mesh")
+surface_material_override/0 = SubResource("quill_mat")
+
+[node name="Tip" type="MeshInstance3D" parent="Visual/Quill"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.30)
+mesh = SubResource("quill_tip_mesh")
+surface_material_override/0 = SubResource("ink_mat")
+
+[node name="Aura" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+light_color = Color(0.55, 0.30, 0.95, 1)
+light_energy = 0.0
+omni_range = 3.5
+
+[node name="Inkpot" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0.95, 0.0)
+collision_layer = 32
+collision_mask = 0
+monitoring = true
+monitorable = true
+
+[node name="Pot" type="MeshInstance3D" parent="Inkpot"]
+mesh = SubResource("inkpot_mesh")
+surface_material_override/0 = SubResource("ink_mat")
+
+[node name="Shape" type="CollisionShape3D" parent="Inkpot"]
+shape = SubResource("inkpot_shape")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("contact_shape")

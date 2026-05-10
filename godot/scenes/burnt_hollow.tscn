@@ -1,35 +1,32 @@
-[gd_scene load_steps=2410 format=3 uid="uid://btuxburnthol01"]
+[gd_scene load_steps=2407 format=3 uid="uid://btuxburnthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsklsp01" path="res://scenes/enemy_skull_spider.tscn" id="skull_spider"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxchmd01" path="res://scenes/enemy_chmod_zealot.tscn" id="chmod_zealot"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxdwall01" path="res://scenes/destructible_wall.tscn" id="destructible_wall"]
-[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkbm01" path="res://scenes/pickup_bomb.tscn" id="bomb_pickup"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
-[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxprgh01" path="res://scenes/enemy_process_ghost.tscn" id="process_ghost"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxdwall01" path="res://scenes/destructible_wall.tscn" id="destructible_wall"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxbosscnt01" path="res://scenes/enemy_cinder_tomato.tscn" id="cinder_tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.3, 1)
@@ -7194,6 +7191,10 @@ key_group = "burnt_hollow"
 music_track = "burnt_hollow"
 display_name = "Burnt Hollow"
 fs_path = "/tmp/burnt"
+sky_color = Color(0.55, 0.45, 0.4, 1)
+fog_color = Color(0.5, 0.42, 0.38, 1)
+ambient_color = Color(0.5, 0.42, 0.38, 1)
+sun_color = Color(0.95, 0.7, 0.5, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -21492,115 +21493,115 @@ transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 95, 0.
 [node name="from_drift" type="Marker3D" parent="Spawns"]
 transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 50, 0.5, 7)
 
-[node name="Skull_spider0" parent="." instance=ExtResource("skull_spider")]
+[node name="Tomato0" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 0, 32)
 
-[node name="Wisp_hunter1" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Process_ghost1" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 1.4, 30)
 
-[node name="Blob2" parent="." instance=ExtResource("blob")]
+[node name="Knight2" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 0, 33)
 
-[node name="Bat3" parent="." instance=ExtResource("bat")]
+[node name="Tomato3" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87, 1.4, 51)
 
-[node name="Bat4" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost4" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 1.4, 77)
 
-[node name="Bat5" parent="." instance=ExtResource("bat")]
+[node name="Tomato5" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 1.4, 33)
 
-[node name="Bat6" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost6" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 1.4, 49)
 
-[node name="Bat7" parent="." instance=ExtResource("bat")]
+[node name="Knight7" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 1.4, 61)
 
-[node name="Bat8" parent="." instance=ExtResource("bat")]
+[node name="Tomato8" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 1.4, 49)
 
-[node name="Bat9" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost9" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 1.4, 45)
 
-[node name="Bat10" parent="." instance=ExtResource("bat")]
+[node name="Tomato10" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1.4, 53)
 
-[node name="Blob11" parent="." instance=ExtResource("blob")]
+[node name="Process_ghost11" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 49)
 
-[node name="Bat12" parent="." instance=ExtResource("bat")]
+[node name="Knight12" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1.4, 51)
 
-[node name="Bat13" parent="." instance=ExtResource("bat")]
+[node name="Tomato13" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.4, 35)
 
-[node name="Bat14" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost14" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.4, 65)
 
-[node name="Blob15" parent="." instance=ExtResource("blob")]
+[node name="Tomato15" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 51)
 
-[node name="Blob16" parent="." instance=ExtResource("blob")]
+[node name="Process_ghost16" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 61)
 
 [node name="Knight17" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 0, 61)
 
-[node name="Knight18" parent="." instance=ExtResource("knight")]
+[node name="Tomato18" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 0, 29)
 
-[node name="Knight19" parent="." instance=ExtResource("knight")]
+[node name="Process_ghost19" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 55)
 
-[node name="Knight20" parent="." instance=ExtResource("knight")]
+[node name="Tomato20" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 49)
 
-[node name="Knight21" parent="." instance=ExtResource("knight")]
+[node name="Process_ghost21" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59, 0, 61)
 
 [node name="Knight22" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 51)
 
-[node name="Blob23" parent="." instance=ExtResource("blob")]
+[node name="Tomato23" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 45)
 
-[node name="Bat24" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost24" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 1.4, 53)
 
-[node name="Blob25" parent="." instance=ExtResource("blob")]
+[node name="Tomato25" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 51)
 
-[node name="Bat26" parent="." instance=ExtResource("bat")]
+[node name="Process_ghost26" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 1.4, 61)
 
-[node name="Blob27" parent="." instance=ExtResource("blob")]
+[node name="Knight27" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 0, 41)
 
-[node name="Bat28" parent="." instance=ExtResource("bat")]
+[node name="Tomato28" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59, 1.4, 39)
 
-[node name="Blob29" parent="." instance=ExtResource("blob")]
+[node name="Process_ghost29" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, 61)
 
 [node name="Tomato30" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 51)
 
-[node name="Wisp_hunter31" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Process_ghost31" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 1.4, 45)
 
-[node name="Wisp_hunter32" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Knight32" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 1.4, 70)
 
-[node name="Wisp_hunter33" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Tomato33" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.4, 60)
 
-[node name="Spore34" parent="." instance=ExtResource("spore")]
+[node name="Process_ghost34" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.6, 30)
 
-[node name="Spore35" parent="." instance=ExtResource("spore")]
+[node name="Tomato35" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 1.6, 80)
 
-[node name="Chmod_zealot36" parent="." instance=ExtResource("chmod_zealot")]
+[node name="Process_ghost36" parent="." instance=ExtResource("process_ghost")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, 34)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
@@ -21801,6 +21802,14 @@ body_color = Color(0.45, 0.42, 0.4, 1)
 hat_color = Color(0.3, 0.28, 0.28, 1)
 idle_hint = "[E] Approach the survivor"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Soot Helka\", \"text\": \"*coughs ash*\\nYou — you came in. Most don't, anymore. I can't go back. The fire ate the ridge behind me. Look — look how the Hollow weeps ash.\", \"choices\": [{\"label\": \"What happened here?\", \"next\": \"what\"}, {\"label\": \"Tell me of the Hoarder.\", \"next\": \"khor\"}, {\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Stay strong. Farewell.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"Soot Helka\", \"text\": \"The wood was old when the Source was young. Then Khorgaul gathered the green out of it — not at once, no, that would be merciful — gathered it slow, gathered it patient, gathered it gone. The Source bleeds. You can taste it on the air.\", \"choices\": [{\"label\": \"Tell me of the Hoarder.\", \"next\": \"khor\"}, {\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"khor\": {\"speaker\": \"Soot Helka\", \"text\": \"He does not show himself. He sends bone-things and ash-things and the cold beneath. But this — *gestures at the burnt land* — this is his hand. As clear as a print in clay.\", \"choices\": [{\"label\": \"What lies deeper in?\", \"next\": \"deep\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"deep\": {\"speaker\": \"Soot Helka\", \"text\": \"His reliquary. Where he hoards what he has gathered. The bone-knights guard it; the bats keep its sky. Go in only if you can come out. Few can. None alone, I think.\", \"choices\": [{\"label\": \"Stay strong. Farewell.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Soot Helka\", \"text\": \"Go bright. Go careful. Go and come back.\"}}}"
+
+[node name="BossArena48" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
+boss_name = "Cinder Tomato"
+boss_scene = ExtResource("cinder_tomato")
+arena_radius = 8.5
+spawn_offset = Vector3(0, 0, 0)
+boss_id = "cinder_tomato"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 1.4, 49)

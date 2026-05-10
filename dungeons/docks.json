@@ -1,6 +1,26 @@
 {
   "name": "The Docks",
   "id": "docks",
+  "sky_color": [
+    0.55,
+    0.7,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.8,
+    0.85
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.65
+  ],
+  "sun_color": [
+    1.0,
+    0.92,
+    0.85
+  ],
   "key_group": "docks",
   "music_track": "stoneroost",
   "fs_path": "/mnt",
@@ -4219,7 +4239,32 @@
     }
   ],
   "lights": [],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "bat",
+      "pos": [
+        -11.5,
+        1.4,
+        2.5
+      ]
+    },
+    {
+      "type": "wisp_hunter",
+      "pos": [
+        -5.5,
+        0.0,
+        14.5
+      ]
+    },
+    {
+      "type": "bat",
+      "pos": [
+        -0.5,
+        1.4,
+        5.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
@@ -4230,6 +4275,17 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Docks\n\n/mnt"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0,
+        0,
+        14
+      ],
+      "rotation_y": 3.14159,
+      "contents": "heart_piece",
+      "open_message": "At the seaward tip of the long pier, lashed to a piling so the wind cannot take it. The Source pulses with the tide."
     }
   ],
   "load_zones": [

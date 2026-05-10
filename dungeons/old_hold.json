@@ -1,6 +1,26 @@
 {
   "name": "The Old Hold",
   "id": "old_hold",
+  "sky_color": [
+    0.5,
+    0.55,
+    0.6
+  ],
+  "fog_color": [
+    0.65,
+    0.62,
+    0.58
+  ],
+  "ambient_color": [
+    0.45,
+    0.45,
+    0.42
+  ],
+  "sun_color": [
+    0.85,
+    0.78,
+    0.7
+  ],
   "key_group": "old_hold",
   "music_track": "wyrdkin_glade",
   "fs_path": "/home/wyrdkin",
@@ -812,7 +832,7 @@
         2.0
       ],
       "rotation_y": 3.14159,
-      "message": "An old letter, folded into the wall:\n\n\"My own one — I will be back before the snow that we do not have. The road is long but the road is the road. Keep my chair warm. Walk well.\""
+      "message": "An old letter, folded into the wall:\n\n\"My own one \u2014 I will be back before the snow that we do not have. The road is long but the road is the road. Keep my chair warm. Walk well.\""
     },
     {
       "type": "sign",
@@ -843,7 +863,7 @@
       ],
       "rotation_y": 0.0,
       "contents": "heart",
-      "open_message": "A Heart Container — the line endures."
+      "open_message": "A Heart Container \u2014 the line endures."
     },
     {
       "type": "npc",
@@ -872,7 +892,7 @@
         "nodes": {
           "root": {
             "speaker": "Old Wyrdkin Grandmother",
-            "text": "Oh — oh, who is that? The light is wrong, child. Stand a little closer. My eyes are a memory of eyes.",
+            "text": "Oh \u2014 oh, who is that? The light is wrong, child. Stand a little closer. My eyes are a memory of eyes.",
             "choices": [
               {
                 "label": "It's me. Tux.",
@@ -882,7 +902,7 @@
           },
           "name": {
             "speaker": "Old Wyrdkin Grandmother",
-            "text": "Tux. Tux. The name is fond on the tongue. I knew a Tux once — small as a kettle, brave as a kettle on the boil. Are you that one?",
+            "text": "Tux. Tux. The name is fond on the tongue. I knew a Tux once \u2014 small as a kettle, brave as a kettle on the boil. Are you that one?",
             "choices": [
               {
                 "label": "I think I am.",
@@ -892,7 +912,7 @@
           },
           "warm": {
             "speaker": "Old Wyrdkin Grandmother",
-            "text": "Then come a little closer. The hearth is cold but the room remembers being warm. Sit a moment with an old ghost. Tell me — do you carry a sword?",
+            "text": "Then come a little closer. The hearth is cold but the room remembers being warm. Sit a moment with an old ghost. Tell me \u2014 do you carry a sword?",
             "choices": [
               {
                 "label": "Bone-and-wood.",
@@ -902,7 +922,7 @@
           },
           "look": {
             "speaker": "Old Wyrdkin Grandmother",
-            "text": "Bone-and-wood. He carried bone-and-wood, my own one did. Let me see your face properly, child. Lirien's breath —",
+            "text": "Bone-and-wood. He carried bone-and-wood, my own one did. Let me see your face properly, child. Lirien's breath \u2014",
             "choices": [
               {
                 "label": "...",
@@ -1016,6 +1036,17 @@
         5.0
       ],
       "pebble_chance": 0.3
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2,
+        0,
+        4
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Among the run-wild herbs of the back garden \u2014 the wyrdkin who lived here taught Tux the names of every leaf. He remembers them now."
     }
   ],
   "load_zones": [

@@ -192,6 +192,16 @@ func _goto(node_id: String) -> void:
             if n > 0 and GameState.has_method("add_pebbles"):
                 GameState.add_pebbles(n)
                 paid = true
+        if node.has("learns_song"):
+            var sid := String(node["learns_song"])
+            if sid != "" and GameState.has_method("learn_song"):
+                GameState.learn_song(sid)
+                paid = true
+        if node.has("sets_flag"):
+            var qf := String(node["sets_flag"])
+            if qf != "" and GameState.has_method("set_flag"):
+                GameState.set_flag(qf, true)
+                paid = true
         if paid:
             _given[node_id] = true
 
@@ -209,6 +219,14 @@ func _goto(node_id: String) -> void:
         if c.has("requires_not"):
             var nkey := String(c["requires_not"])
             if nkey != "" and GameState.inventory.has(nkey):
+                continue
+        if c.has("requires_flag"):
+            var rf := String(c["requires_flag"])
+            if rf != "" and not GameState.has_flag(rf):
+                continue
+        if c.has("requires_song"):
+            var rs := String(c["requires_song"])
+            if rs != "" and not GameState.has_song(rs):
                 continue
         visible_choices.append(c)
 
@@ -241,6 +259,14 @@ func _take_choice(ch: Dictionary) -> void:
         var flag := String(ch["sets"])
         if flag != "":
             GameState.inventory[flag] = true
+    if ch.has("sets_flag"):
+        var qf := String(ch["sets_flag"])
+        if qf != "":
+            GameState.set_flag(qf, true)
+    if ch.has("learns_song"):
+        var sid := String(ch["learns_song"])
+        if sid != "":
+            GameState.learn_song(sid)
     var nxt := String(ch.get("next", ""))
     if nxt == "":
         _next_in_queue()

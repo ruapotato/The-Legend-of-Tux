@@ -1,6 +1,26 @@
 {
   "name": "The Stacks",
   "id": "stacks",
+  "sky_color": [
+    0.5,
+    0.42,
+    0.35
+  ],
+  "fog_color": [
+    0.55,
+    0.48,
+    0.4
+  ],
+  "ambient_color": [
+    0.5,
+    0.45,
+    0.4
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "key_group": "stacks",
   "music_track": "sigilkeep",
   "fs_path": "/var/lib",
@@ -4427,7 +4447,24 @@
       "range": 8.0
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "spore",
+      "pos": [
+        -11.5,
+        1.6,
+        -13.5
+      ]
+    },
+    {
+      "type": "init_shade",
+      "pos": [
+        8.5,
+        0.0,
+        4.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",

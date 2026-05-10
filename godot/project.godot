@@ -23,6 +23,7 @@ Dialog="*res://scripts/dialog.gd"
 SceneFader="*res://scripts/scene_fader.gd"
 WorldEvents="*res://scripts/world_events.gd"
 TimeOfDay="*res://scripts/time_of_day.gd"
+SongBook="*res://scripts/song_book.gd"
 
 [display]
 

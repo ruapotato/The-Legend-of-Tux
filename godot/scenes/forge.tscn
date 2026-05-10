@@ -1,25 +1,28 @@
-[gd_scene load_steps=480 format=3 uid="uid://btuxforge01"]
+[gd_scene load_steps=486 format=3 uid="uid://btuxforge01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxfork01" path="res://scenes/enemy_fork_hydra.tscn" id="fork_hydra"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbossfwm01" path="res://scenes/enemy_forge_wyrm.tscn" id="forge_wyrm"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchmd01" path="res://scenes/enemy_chmod_zealot.tscn" id="chmod_zealot"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkhmr01" path="res://scenes/pickup_hammer.tscn" id="hammer_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.16, 0.2, 1)
@@ -1418,12 +1421,28 @@ shading_mode = 0
 emission_enabled = true
 emission = Color(0, 0, 0, 1)
 
+[sub_resource type="BoxShape3D" id="s460"]
+size = Vector3(2, 3, 2)
+
+[sub_resource type="BoxMesh" id="s461"]
+size = Vector3(2.5, 4.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="s462"]
+albedo_color = Color(0.02, 0.02, 0.04, 1)
+shading_mode = 0
+emission_enabled = true
+emission = Color(0, 0, 0, 1)
+
 [node name="The Forge" type="Node3D"]
 script = ExtResource("root_script")
 key_group = "forge"
 music_track = "burnt_hollow"
 display_name = "The Forge"
 fs_path = "/dev"
+sky_color = Color(0.18, 0.12, 0.1, 1)
+fog_color = Color(0.25, 0.15, 0.1, 1)
+ambient_color = Color(0.4, 0.25, 0.2, 1)
+sun_color = Color(1, 0.55, 0.3, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -4238,23 +4257,38 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5
 [node name="from_null_door" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.5, 27)
 
-[node name="Knight0" parent="." instance=ExtResource("knight")]
+[node name="from_grotto_forge" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Chmod_zealot0" parent="." instance=ExtResource("chmod_zealot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -18)
 
 [node name="Knight1" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 16)
 
-[node name="Wisp_hunter2" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Chmod_zealot2" parent="." instance=ExtResource("chmod_zealot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -2)
 
-[node name="Wisp_hunter3" parent="." instance=ExtResource("wisp_hunter")]
+[node name="Knight3" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 18)
 
-[node name="Knight4" parent="." instance=ExtResource("knight")]
+[node name="Fork_hydra4" parent="." instance=ExtResource("fork_hydra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 10)
 
-[node name="Fork_hydra5" parent="." instance=ExtResource("fork_hydra")]
+[node name="Knight5" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="Knight6" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0, 15.5)
+
+[node name="Chmod_zealot7" parent="." instance=ExtResource("chmod_zealot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0, -19.5)
+
+[node name="Fork_hydra8" parent="." instance=ExtResource("fork_hydra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, 18.5)
+
+[node name="Knight9" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 0, -14.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 22)
@@ -4310,7 +4344,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -22)
 contents_scene = ExtResource("heart_piece")
 open_message = "A fragment of a heart, deep in the Forge. The spirits made room for it."
 
-[node name="Npc12_Null" parent="." instance=ExtResource("npc")]
+[node name="Chest12" parent="." instance=ExtResource("chest")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 0)
+contents_scene = ExtResource("hammer_pickup")
+open_message = "The Striker's Maul, balanced on a stone anvil at the heart of the Forge. The haft fits as if shaped for your hands."
+requires_flag = "cinder_tomato_defeated"
+
+[node name="Npc13_Null" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -2, 0, -8)
 npc_name = "Null"
 body_color = Color(0.06, 0.06, 0.07, 1)
@@ -4318,7 +4358,7 @@ hat_color = Color(0.04, 0.04, 0.05, 1)
 idle_hint = "[E] Address Null"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Null\", \"text\": \"Make. Do not.\", \"choices\": [{\"label\": \"...\", \"next\": \"n1\"}]}, \"n1\": {\"speaker\": \"Null\", \"text\": \"It is. It was.\", \"choices\": [{\"label\": \"...\", \"next\": \"n2\"}]}, \"n2\": {\"speaker\": \"Null\", \"text\": \"Walk well.\"}}}"
 
-[node name="Npc13_Forge_master_Brann" parent="." instance=ExtResource("npc")]
+[node name="Npc14_Forge_master_Brann" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 4, 0, 6)
 npc_name = "Forge-master Brann"
 body_color = Color(0.4, 0.3, 0.22, 1)
@@ -4326,15 +4366,15 @@ hat_color = Color(0.55, 0.3, 0.15, 1)
 idle_hint = "[E] Speak with Brann"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Forge-master Brann\", \"text\": \"You came down. Few do. Be welcome, and step where the iron is cold. What would you ask of the Forge?\", \"choices\": [{\"label\": \"What is this place?\", \"next\": \"what\"}, {\"label\": \"Who is Null?\", \"next\": \"null\"}, {\"label\": \"Are the spirits safe?\", \"next\": \"safe\"}, {\"label\": \"I should walk on.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"Forge-master Brann\", \"text\": \"The Forge is older than the asking of questions. They predate wanting. The Wyrdkin came late; the spirits had already been at their work for an age before the first of us learned to listen.\", \"choices\": [{\"label\": \"Who is Null?\", \"next\": \"null\"}, {\"label\": \"Are the spirits safe?\", \"next\": \"safe\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"null\": {\"speaker\": \"Forge-master Brann\", \"text\": \"Null speaks short. Three words at a time, sometimes two. He has agreements with the spirits older than any of us. Do not stand between him and a hammer. Do not knock on his door.\", \"choices\": [{\"label\": \"What agreements?\", \"next\": \"agreements\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"agreements\": {\"speaker\": \"Forge-master Brann\", \"text\": \"The bargains are not written. They are kept. Heat for shape. Shape for heat. The spirits give what is asked, and ask what is owed. We have never been late.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"safe\": {\"speaker\": \"Forge-master Brann\", \"text\": \"Safe? Hot, mostly. Loud, always. The bone-things you saw at the edge — those are not the spirits. Those are something that tried to bend the spirits and failed. The Forge spat them back out, half-finished.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Forge-master Brann\", \"text\": \"Walk well, little wanderer. Mind the smelter pits.\"}}}"
 
-[node name="Npc14_Striker_Imm" parent="." instance=ExtResource("npc")]
+[node name="Npc15_Striker_Imm" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 8, 0, 2)
 npc_name = "Striker Imm"
 body_color = Color(0.45, 0.35, 0.28, 1)
 hat_color = Color(0.3, 0.18, 0.1, 1)
 idle_hint = "[E] Greet the Striker"
-dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Striker Imm\", \"text\": \"Oh — you're a small one. Hold still, let me look. That sword. Bone-and-wood, isn't it? Tidy. Does the edge need turning?\", \"choices\": [{\"label\": \"It holds.\", \"next\": \"holds\"}, {\"label\": \"How long have you trained?\", \"next\": \"train\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"holds\": {\"speaker\": \"Striker Imm\", \"text\": \"Good — good. Brann would have me reforge it just to feel the hammer in my hand. He says I strike too hard. He says I strike too proud. He says a lot of things.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"train\": {\"speaker\": \"Striker Imm\", \"text\": \"Two seasons under the device-spirits. My hands are rough. My ears ring. I love every loud minute of it.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Striker Imm\", \"text\": \"Walk well! Come back if the edge dulls!\"}}}"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Striker Imm\", \"text\": \"*Imm sets the hammer down. Wipes their brow.* Forge work is rhythm. You strike to a count, or you don't strike at all.\", \"choices\": [{\"label\": \"Teach me your rhythm.\", \"next\": \"teach\", \"requires_not\": \"sun_chord_learned\"}, {\"label\": \"(Hum the Sun Chord.)\", \"next\": \"remembered\", \"requires_song\": \"sun_chord\"}, {\"label\": \"What count do you keep?\", \"next\": \"count\"}, {\"label\": \"Back to your work.\", \"next\": \"bye\"}]}, \"count\": {\"speaker\": \"Striker Imm\", \"text\": \"Right, up, right, up, left. Five strikes. The Forge taught me. The Sun-marked gates remember the same five — older than my line, older than the village.\", \"next\": \"root\"}, \"teach\": {\"speaker\": \"Striker Imm\", \"text\": \"Then listen. *They tap it out on the anvil.* Right... up... right... up... left. Hum it at any sun-marked gate and it'll open. *[Z] to hum.*\", \"learns_song\": \"sun_chord\", \"next\": \"bye\"}, \"remembered\": {\"speaker\": \"Striker Imm\", \"text\": \"*Imm gives a single approving nod and goes back to the work.*\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Striker Imm\", \"text\": \"*Imm's hammer rings.*\"}}}"
 
-[node name="Npc15_Trader_Smith_Kern" parent="." instance=ExtResource("npc")]
+[node name="Npc16_Trader_Smith_Kern" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 14, 0, 14)
 npc_name = "Trader Smith Kern"
 body_color = Color(0.38, 0.4, 0.5, 1)
@@ -4342,7 +4382,7 @@ hat_color = Color(0.5, 0.35, 0.2, 1)
 idle_hint = "[E] Talk to Kern"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Trader Smith Kern\", \"text\": \"Down at the Forge — ah, you came the long way. I run goods between here and Hearthold. Takka up there sources her tongs from this very floor. Always has.\", \"choices\": [{\"label\": \"What do you trade?\", \"next\": \"trade\"}, {\"label\": \"What's it like, the road?\", \"next\": \"road\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"trade\": {\"speaker\": \"Trader Smith Kern\", \"text\": \"Iron up, salt down. Hinges, hooks, the odd pot. Nothing fancy. The fancy work stays here — the spirits don't part with their best, and Brann doesn't ask them to.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"road\": {\"speaker\": \"Trader Smith Kern\", \"text\": \"Long, mostly. Quiet, mostly. The climb out is the hard part — the air thins as you near the high places, and by the time you reach Hearthold's gate you can taste the kilns again.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Trader Smith Kern\", \"text\": \"Walk well. If you see Takka, tell her the new tongs are nearly done.\"}}}"
 
-[node name="Npc16_Device_Spirit" parent="." instance=ExtResource("npc")]
+[node name="Npc17_Device_Spirit" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -10, 0, 10)
 npc_name = "Device-Spirit"
 body_color = Color(0.95, 0.3, 0.1, 1)
@@ -4350,28 +4390,40 @@ hat_color = Color(0.1, 0.05, 0.05, 1)
 idle_hint = "[E] Address the spirit"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Device-Spirit\", \"text\": \"Hot.\", \"choices\": [{\"label\": \"...\", \"next\": \"n1\"}]}, \"n1\": {\"speaker\": \"Device-Spirit\", \"text\": \"Wait.\", \"choices\": [{\"label\": \"...\", \"next\": \"n2\"}]}, \"n2\": {\"speaker\": \"Device-Spirit\", \"text\": \"Ready.\"}}}"
 
-[node name="Npc17_Old_Device_Spirit" parent="." instance=ExtResource("npc")]
+[node name="Npc18_Old_Device_Spirit" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -16, 0, -2)
 npc_name = "Old Device-Spirit"
 body_color = Color(0.8, 0.25, 0.08, 1)
 hat_color = Color(0.05, 0.05, 0.05, 1)
 idle_hint = "[E] Approach"
 
-[node name="Rock18" parent="." instance=ExtResource("rock")]
+[node name="Rock19" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 4)
 pebble_chance = 0.4
 
-[node name="Rock19" parent="." instance=ExtResource("rock")]
+[node name="Rock20" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, -6)
 pebble_chance = 0.4
 
-[node name="Rock20" parent="." instance=ExtResource("rock")]
+[node name="Rock21" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.5, 8)
 pebble_chance = 0.35
 
-[node name="Rock21" parent="." instance=ExtResource("rock")]
+[node name="Rock22" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.5, -8)
 pebble_chance = 0.35
+
+[node name="BossArena23" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+boss_name = "Forge Wyrm"
+boss_scene = ExtResource("forge_wyrm")
+arena_radius = 9
+spawn_offset = Vector3(0, 0, 0)
+boss_id = "forge_wyrm"
+
+[node name="Sign24" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -13)
+message = "The first smelter pit — long cooled. Brann the Elder lit the first fire here."
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -25)
@@ -4420,6 +4472,32 @@ surface_material_override/0 = SubResource("s459")
 [node name="Hint" type="Label3D" parent="LoadZone1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] The Null Door"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true
+
+[node name="LoadZone2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.4, -14)
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+script = ExtResource("load_zone_script")
+target_scene = "res://scenes/grotto_forge.tscn"
+target_spawn = "from_forge"
+auto_trigger = false
+prompt = "[E] Down into the cooled smelter"
+
+[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
+shape = SubResource("s460")
+
+[node name="Veil" type="MeshInstance3D" parent="LoadZone2"]
+mesh = SubResource("s461")
+surface_material_override/0 = SubResource("s462")
+
+[node name="Hint" type="Label3D" parent="LoadZone2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
+text = "[E] Down into the cooled smelter"
 font_size = 32
 outline_size = 8
 billboard = 1

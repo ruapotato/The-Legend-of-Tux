@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxbosscns01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_censor.gd" id="1_cns"]
+
+[sub_resource type="BoxMesh" id="body_mesh"]
+size = Vector3(1.10, 1.40, 1.10)
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.05, 0.04, 0.07, 0)
+emission_enabled = true
+emission = Color(0.30, 0.05, 0.45, 1)
+emission_energy_multiplier = 0.0
+roughness = 0.7
+transparency = 1
+
+[sub_resource type="TorusMesh" id="halo_mesh"]
+inner_radius = 0.85
+outer_radius = 1.05
+rings = 24
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="halo_mat"]
+albedo_color = Color(0.40, 0.20, 0.55, 0)
+shading_mode = 2
+transparency = 1
+emission_enabled = true
+emission = Color(0.55, 0.25, 0.75, 1)
+emission_energy_multiplier = 1.0
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(1.50, 1.80, 1.50)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.70, 2.0, 1.70)
+
+[node name="EnemyCensor" type="Node3D"]
+script = ExtResource("1_cns")
+max_hp = 80
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+material_override = SubResource("body_mat")
+
+[node name="Halo" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+mesh = SubResource("halo_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+material_override = SubResource("halo_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+shape = SubResource("contact_shape")

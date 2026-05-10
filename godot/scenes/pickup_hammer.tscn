@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxpkhmr01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="head_mat"]
+albedo_color = Color(0.42, 0.40, 0.45, 1)
+metallic = 0.75
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.85, 0.55, 0.30, 1)
+emission_energy_multiplier = 0.30
+
+[sub_resource type="StandardMaterial3D" id="haft_mat"]
+albedo_color = Color(0.32, 0.20, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+size = Vector3(0.55, 0.34, 0.34)
+
+[sub_resource type="CylinderMesh" id="haft_mesh"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.75
+radial_segments = 8
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "hammer"
+pickup_message = "The Striker's Maul. Heavy in the hands. Equip it (Pause → Items) and press F to wind up and slam — it shatters crystal locks and the hardest of stone."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Haft" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("haft_mesh")
+surface_material_override/0 = SubResource("haft_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40, 0)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("head_mat")

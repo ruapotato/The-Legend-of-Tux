@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://btuxbossglr01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_gale_roost.gd" id="1_glr"]
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 1.20
+height = 2.00
+radial_segments = 14
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.34, 0.30, 0.26, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="under_mat"]
+albedo_color = Color(0.50, 0.45, 0.38, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="wing_mesh"]
+size = Vector3(2.40, 0.05, 1.10)
+
+[sub_resource type="StandardMaterial3D" id="wing_mat"]
+albedo_color = Color(0.28, 0.24, 0.22, 1)
+roughness = 0.85
+
+[sub_resource type="PrismMesh" id="head_mesh"]
+size = Vector3(0.45, 0.45, 0.95)
+
+[sub_resource type="StandardMaterial3D" id="head_mat"]
+albedo_color = Color(0.42, 0.36, 0.30, 1)
+roughness = 0.65
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.06
+height = 0.12
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="eye_mat"]
+albedo_color = Color(1.0, 0.65, 0.20, 1)
+emission_enabled = true
+emission = Color(1.0, 0.55, 0.15, 1)
+emission_energy_multiplier = 2.4
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(2.40, 1.40, 1.60)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(2.60, 1.60, 1.80)
+
+[node name="EnemyGaleRoost" type="Node3D"]
+script = ExtResource("1_glr")
+max_hp = 70
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+
+[node name="Belly" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.95, 0, 0, 0, 0.45, 0, 0, 0, 0.95, 0, -0.45, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("under_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20, -1.20)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.30, -1.50)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.30, -1.50)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="WingL" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20, 0.10, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual/WingL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20, 0, 0)
+mesh = SubResource("wing_mesh")
+surface_material_override/0 = SubResource("wing_mat")
+
+[node name="WingR" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20, 0.10, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual/WingR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20, 0, 0)
+mesh = SubResource("wing_mesh")
+surface_material_override/0 = SubResource("wing_mat")
+
+[node name="HookA" type="Node3D" parent="."]
+
+[node name="HookB" type="Node3D" parent="."]
+
+[node name="HookC" type="Node3D" parent="."]
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+shape = SubResource("contact_shape")

@@ -30,6 +30,19 @@ const EnemyCuller = preload("res://scripts/enemy_culler.gd")
 @export var display_name: String = ""    # "Wyrdkin Glade"
 @export var fs_path:      String = ""    # "/opt/wyrdmark/glade"
 
+# Per-directory aesthetic palette (DESIGN.md §8). The build script
+# writes these from the palette table keyed on each region. When the
+# scene has no authored WorldEnvironment / DirectionalLight3D, _ready()
+# constructs a procedural sky + sun from these four colors so every
+# directory looks visibly distinct on entry. Default Color() is
+# (0,0,0,1); a fully-zero palette is treated as "unset" and the
+# fallback is skipped (the existing static Environment node, if any,
+# wins regardless).
+@export var sky_color:     Color = Color(0, 0, 0, 1)
+@export var fog_color:     Color = Color(0, 0, 0, 1)
+@export var ambient_color: Color = Color(0, 0, 0, 1)
+@export var sun_color:     Color = Color(0, 0, 0, 1)
+
 
 func _ready() -> void:
     _attach_mini_map()
@@ -37,6 +50,7 @@ func _ready() -> void:
     _attach_enemy_culler()
     _start_music()
     _mark_visited()
+    _apply_environment()
     # Drop placed props onto the actual terrain surface — chests, signs,
     # bushes, NPCs etc. are authored at fixed pos.y in JSON but the
     # TerrainMesh's per-cell hills can put real ground a couple of
@@ -166,3 +180,72 @@ func _attach_mini_map() -> void:
         return
     var instance: Node = packed.instantiate()
     hud.add_child(instance)
+
+
+func _palette_set() -> bool:
+    # A four-zero palette means "no override authored" — leave the
+    # scene's existing lighting alone (or just use Godot's default).
+    return (sky_color != Color(0, 0, 0, 1)
+        or fog_color != Color(0, 0, 0, 1)
+        or ambient_color != Color(0, 0, 0, 1)
+        or sun_color != Color(0, 0, 0, 1))
+
+
+func _has_world_environment() -> bool:
+    for child in get_children():
+        if child is WorldEnvironment:
+            return true
+    return false
+
+
+func _has_directional_light() -> bool:
+    for child in get_children():
+        if child is DirectionalLight3D:
+            return true
+    return false
+
+
+func _apply_environment() -> void:
+    # Per-directory aesthetic fallback. Only runs when this node is the
+    # top-level scene (not loaded as a sub-scene), the palette is set,
+    # AND the scene file didn't already author a static WorldEnvironment
+    # / DirectionalLight3D — the existing rich environment block built
+    # by build_dungeon.py wins, so this only kicks in for scenes that
+    # were authored without one.
+    if get_tree() == null or get_tree().current_scene != self:
+        return
+    if not _palette_set():
+        return
+    if not _has_world_environment():
+        var env := Environment.new()
+        env.background_mode = Environment.BG_SKY
+        var sky_mat := ProceduralSkyMaterial.new()
+        # Pull the horizon a bit warmer/lighter than the dome so the
+        # palette reads as "sky color" without flattening the gradient.
+        sky_mat.sky_top_color = sky_color
+        sky_mat.sky_horizon_color = sky_color.lerp(Color(1, 1, 1, 1), 0.35)
+        sky_mat.ground_horizon_color = sky_color.lerp(Color(0, 0, 0, 1), 0.35)
+        sky_mat.ground_bottom_color = sky_color.lerp(Color(0, 0, 0, 1), 0.6)
+        var sky := Sky.new()
+        sky.sky_material = sky_mat
+        env.sky = sky
+        env.fog_enabled = true
+        env.fog_light_color = fog_color
+        env.fog_density = 0.005
+        env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+        env.ambient_light_color = ambient_color
+        env.ambient_light_energy = 0.45
+        var we := WorldEnvironment.new()
+        we.name = "WorldEnvironment"
+        we.environment = env
+        add_child(we)
+    if not _has_directional_light():
+        var sun := DirectionalLight3D.new()
+        sun.name = "Sun"
+        sun.light_color = sun_color
+        sun.light_energy = 1.0
+        sun.shadow_enabled = true
+        # Late-morning angle: high in the sky, slightly off to one side.
+        # Vector3(-0.85, -0.5, -0.2) per DESIGN.md hints.
+        sun.rotation = Vector3(-0.85, -0.5, -0.2)
+        add_child(sun)

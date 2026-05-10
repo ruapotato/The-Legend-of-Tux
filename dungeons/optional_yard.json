@@ -1,6 +1,26 @@
 {
   "name": "The Optional Yard",
   "id": "optional_yard",
+  "sky_color": [
+    0.6,
+    0.78,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.85,
+    0.75
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.95,
+    0.8
+  ],
   "key_group": "optional_yard",
   "music_track": "wyrdkin_glade",
   "fs_path": "/opt",
@@ -4523,7 +4543,7 @@
         "nodes": {
           "root": {
             "speaker": "Groundskeeper Tess",
-            "text": "Welcome to the Yard, traveler. Wipe your feet on nothing in particular — the path keeps itself. What can I tell you?",
+            "text": "Welcome to the Yard, traveler. Wipe your feet on nothing in particular \u2014 the path keeps itself. What can I tell you?",
             "choices": [
               {
                 "label": "Who tends this place?",
@@ -4607,7 +4627,7 @@
         "nodes": {
           "root": {
             "speaker": "Poet Nira",
-            "text": "Hush — I'm almost there. Just a couplet, that's all I came for. Would you hear it?",
+            "text": "Hush \u2014 I'm almost there. Just a couplet, that's all I came for. Would you hear it?",
             "choices": [
               {
                 "label": "Please.",
@@ -4667,7 +4687,7 @@
         "nodes": {
           "root": {
             "speaker": "Young Wyrdkin Jen",
-            "text": "Oh — hello. Sorry. I was thinking. You're not interrupting, I just — I'm thinking. Did you need something?",
+            "text": "Oh \u2014 hello. Sorry. I was thinking. You're not interrupting, I just \u2014 I'm thinking. Did you need something?",
             "choices": [
               {
                 "label": "What are you thinking about?",
@@ -4681,7 +4701,7 @@
           },
           "ask1": {
             "speaker": "Young Wyrdkin Jen",
-            "text": "Oh — nothing, really. I came here to think and I'd rather not say what about. Sorry. The Yard is good for not-saying.",
+            "text": "Oh \u2014 nothing, really. I came here to think and I'd rather not say what about. Sorry. The Yard is good for not-saying.",
             "choices": [
               {
                 "label": "Are you sure?",
@@ -4929,6 +4949,17 @@
         -4.0
       ],
       "pebble_chance": 0.25
+    },
+    {
+      "type": "chest",
+      "pos": [
+        8,
+        0,
+        -5
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Inside the basin of the long-dry fountain, half-buried under wind-blown leaves. A piece of heart. The Yard saved it for whoever sat longest."
     }
   ],
   "load_zones": [

@@ -1,6 +1,26 @@
 {
   "name": "Brookhold",
   "id": "brookhold",
+  "sky_color": [
+    0.65,
+    0.72,
+    0.78
+  ],
+  "fog_color": [
+    0.78,
+    0.75,
+    0.65
+  ],
+  "ambient_color": [
+    0.55,
+    0.5,
+    0.45
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "environment": {
     "sky_top": [
       0.55,
@@ -18781,96 +18801,7 @@
       "range": 9
     }
   ],
-  "enemies": [
-    {
-      "type": "blob",
-      "pos": [
-        -1.0,
-        0.0,
-        -18.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        2.0,
-        0.0,
-        -19.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        27.0,
-        0.0,
-        -8.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        -19.0,
-        0.0,
-        27.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        -15.0,
-        0.0,
-        30.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        -30.0,
-        0.0,
-        4.0
-      ]
-    },
-    {
-      "type": "blob",
-      "pos": [
-        10.0,
-        0.0,
-        -10.0
-      ]
-    },
-    {
-      "type": "bat",
-      "pos": [
-        22.0,
-        1.4,
-        22.0
-      ]
-    },
-    {
-      "type": "bat",
-      "pos": [
-        28.0,
-        1.4,
-        28.0
-      ]
-    },
-    {
-      "type": "bat",
-      "pos": [
-        25.0,
-        1.4,
-        24.0
-      ]
-    },
-    {
-      "type": "knight",
-      "pos": [
-        16.0,
-        0.0,
-        -10.0
-      ]
-    }
-  ],
+  "enemies": [],
   "props": [
     {
       "type": "sign",
@@ -19604,6 +19535,17 @@
           }
         }
       }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        10,
+        0,
+        33
+      ],
+      "rotation_y": 3.14159,
+      "contents": "heart_piece",
+      "open_message": "Where the brook empties into the lambwisp pen \u2014 a piece of heart, washed clean and waiting on a stone."
     }
   ],
   "load_zones": [

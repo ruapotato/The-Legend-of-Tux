@@ -30,6 +30,12 @@ signal fairy_revive_triggered()
 # The world map listens so it can repaint without polling.
 signal visited_changed(scene_id: String)
 signal warps_changed()
+# Cross-scene quest progression. `flag_changed` is the catch-all (any
+# entry in `quest_flags` was written). `song_learned` and `boss_defeated`
+# are the typed sub-signals so song_input.gd / HUD can listen narrowly.
+signal flag_changed(flag_id: String, value)
+signal song_learned(song_id: String)
+signal boss_defeated(boss_id: String)
 
 const HP_PER_FISH: int = 4
 const MAX_STAMINA: int = 100
@@ -96,6 +102,12 @@ var last_slot: int = -1
 var inventory: Dictionary = {}
 var active_b_item: String = ""
 
+# Anchor Boots: passive toggle, set from the pause menu's Items tab.
+# When true, tux_player.gd applies its slow-walk / heavy-gravity
+# modifiers and the player can sink under water. Saved + loaded so the
+# state survives a scene reload.
+var anchor_boots_active: bool = false
+
 # Scene-id → true. dungeon_root.gd writes here on every _ready so the
 # world map can colour-code which levels Tux has actually set foot in.
 var visited_scenes: Dictionary = {}
@@ -106,6 +118,18 @@ var visited_scenes: Dictionary = {}
 # than warp_id→bool plus a separate registry) so save files round-trip
 # cleanly without needing a global static lookup.
 var unlocked_warps: Dictionary = {}
+
+# ---- Cross-scene quest state -------------------------------------------
+#
+# `quest_flags` is the general-purpose write-once-or-toggle store for any
+# bit of progression that has to outlive the per-scene WorldEvents bus
+# (e.g. "wyrdking_defeated", "lirien_blessing", "trade_step_3"). Songs
+# and boss kills get their own typed dicts so listeners (HUD readout,
+# Songs tab, song_input matcher) don't have to know the flag-naming
+# convention. All three are saved + loaded; see save_game / load_game.
+var quest_flags: Dictionary = {}
+var songs_known: Dictionary = {}
+var bosses_defeated: Dictionary = {}
 
 
 func reset() -> void:
@@ -119,8 +143,12 @@ func reset() -> void:
     keys_by_group.clear()
     inventory.clear()
     active_b_item = ""
+    anchor_boots_active = false
     visited_scenes.clear()
     unlocked_warps.clear()
+    quest_flags.clear()
+    songs_known.clear()
+    bosses_defeated.clear()
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
@@ -318,6 +346,15 @@ func has_item(item_name: String) -> bool:
     return inventory.get(item_name, false)
 
 
+# Shorthand for the passive Glim Mirror upgrade (Dungeon 8). Used by the
+# HUD shield-icon swap and by tux_player's take_damage path to decide
+# whether an Init-laser hit gets reflected. Mirrors `has_item("glim_mirror")`
+# but reads cleaner at call sites where the intent is "are we shielded
+# by the mirror specifically?" rather than "do we own this item key?".
+func has_glim_mirror() -> bool:
+    return inventory.get("glim_mirror", false)
+
+
 func set_active_b_item(item_name: String) -> void:
     if item_name != "" and not has_item(item_name):
         return
@@ -382,6 +419,81 @@ func get_unlocked_warps() -> Array:
     return out
 
 
+# ---- Quest flags / songs / bosses --------------------------------------
+#
+# Three small dictionaries that track cross-scene progress. All three
+# round-trip through save_game/load_game so progression survives a quit.
+# `set_flag` / `learn_song` / `mark_boss_defeated` are idempotent — a
+# repeat call with the same id+value is a silent no-op (useful for NPCs
+# that re-grant a song the player already knows: nothing fires).
+
+func set_flag(id: String, value = true) -> void:
+    if id == "":
+        return
+    var prev: Variant = quest_flags.get(id, null)
+    if prev == value:
+        return
+    quest_flags[id] = value
+    flag_changed.emit(id, value)
+
+
+func has_flag(id: String) -> bool:
+    var v: Variant = quest_flags.get(id, null)
+    if v == null:
+        return false
+    if typeof(v) == TYPE_BOOL:
+        return bool(v)
+    return true
+
+
+func clear_flag(id: String) -> void:
+    if not quest_flags.has(id):
+        return
+    quest_flags.erase(id)
+    flag_changed.emit(id, null)
+
+
+func learn_song(song_id: String) -> bool:
+    if song_id == "":
+        return false
+    if songs_known.get(song_id, false):
+        return false
+    songs_known[song_id] = true
+    # Convenience flag mirror so dialog/`requires` checks can branch on
+    # `<id>_learned` without poking songs_known directly.
+    set_flag("%s_learned" % song_id, true)
+    song_learned.emit(song_id)
+    return true
+
+
+func has_song(song_id: String) -> bool:
+    return bool(songs_known.get(song_id, false))
+
+
+func get_known_songs() -> Array:
+    # Insertion order = order Tux learned them. Useful for the Songs tab.
+    var out: Array = []
+    for k in songs_known.keys():
+        if songs_known[k]:
+            out.append(String(k))
+    return out
+
+
+func mark_boss_defeated(boss_id: String) -> bool:
+    if boss_id == "":
+        return false
+    if bosses_defeated.get(boss_id, false):
+        return false
+    bosses_defeated[boss_id] = true
+    set_flag("%s_defeated" % boss_id, true)
+    boss_defeated.emit(boss_id)
+    return true
+
+
+func has_defeated_boss(boss_id: String) -> bool:
+    return bool(bosses_defeated.get(boss_id, false))
+
+
 # ---- Save / Load --------------------------------------------------------
 
 # Save files live at user://save_<slot>.json (slot 0..2). The schema is
@@ -425,6 +537,10 @@ func save_game(slot: int) -> bool:
         "unlocked_warps":   unlocked_warps.duplicate(true),
         "fairy_bottles":     fairy_bottles,
         "max_fairy_bottles": max_fairy_bottles,
+        "quest_flags":       quest_flags.duplicate(true),
+        "songs_known":       songs_known.duplicate(true),
+        "bosses_defeated":   bosses_defeated.duplicate(true),
+        "anchor_boots_active": anchor_boots_active,
     }
     var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
     if f == null:
@@ -471,6 +587,10 @@ func load_game(slot: int) -> bool:
         keys_by_group[current_key_group] = int(data.get("keys", 0))
     inventory = (data.get("inventory", {}) as Dictionary).duplicate(true)
     active_b_item = String(data.get("active_b_item", ""))
+    # Anchor Boots stay in whatever state Tux left them — they're a
+    # passive toggle, not an event flag, so a save mid-Mirelake comes
+    # back with the boots still on.
+    anchor_boots_active = bool(data.get("anchor_boots_active", false))
     current_spawn_id = String(data.get("current_spawn_id", "default"))
     fairy_bottles     = int(data.get("fairy_bottles",     0))
     max_fairy_bottles = int(data.get("max_fairy_bottles", 3))
@@ -487,6 +607,18 @@ func load_game(slot: int) -> bool:
     else:
         unlocked_warps = {}
     warps_changed.emit()
+
+    # Cross-scene quest progress. Tolerant of older saves that pre-date
+    # the field — they just come back with empty dicts.
+    var saved_flags: Variant = data.get("quest_flags", null)
+    quest_flags = (saved_flags as Dictionary).duplicate(true) \
+        if typeof(saved_flags) == TYPE_DICTIONARY else {}
+    var saved_songs: Variant = data.get("songs_known", null)
+    songs_known = (saved_songs as Dictionary).duplicate(true) \
+        if typeof(saved_songs) == TYPE_DICTIONARY else {}
+    var saved_bosses: Variant = data.get("bosses_defeated", null)
+    bosses_defeated = (saved_bosses as Dictionary).duplicate(true) \
+        if typeof(saved_bosses) == TYPE_DICTIONARY else {}
 
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)

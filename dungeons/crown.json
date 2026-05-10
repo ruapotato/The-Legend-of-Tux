@@ -1,6 +1,26 @@
 {
   "name": "The Crown",
   "id": "crown",
+  "sky_color": [
+    0.72,
+    0.78,
+    0.88
+  ],
+  "fog_color": [
+    0.85,
+    0.88,
+    0.92
+  ],
+  "ambient_color": [
+    0.65,
+    0.68,
+    0.72
+  ],
+  "sun_color": [
+    1.0,
+    0.98,
+    0.95
+  ],
   "key_group": "crown",
   "music_track": "crown",
   "fs_path": "/",
@@ -4691,7 +4711,7 @@
       ],
       "rotation_y": 0.0,
       "contents": "heart",
-      "open_message": "A Heart Container — the climb was long, but you arrived. The Crown has a quiet way of being generous."
+      "open_message": "A Heart Container \u2014 the climb was long, but you arrived. The Crown has a quiet way of being generous."
     },
     {
       "type": "npc",
@@ -4804,7 +4824,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "Pardon — I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
+            "text": "Pardon \u2014 I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
             "choices": [
               {
                 "label": "Where are you from?",
@@ -4822,7 +4842,7 @@
           },
           "from": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "The Library. Not Sigilkeep's — the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
+            "text": "The Library. Not Sigilkeep's \u2014 the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
             "choices": [
               {
                 "label": "Back.",
@@ -4959,6 +4979,85 @@
         3.0
       ],
       "pebble_chance": 0.25
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        1.5,
+        -8.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Lirien",
+      "body_color": [
+        0.85,
+        0.88,
+        0.95,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Approach Lirien",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Lirien",
+            "text": "*Lirien stands beside the Old Throne. Tall, hooded, looking past you to the cold horizon.* You climbed. Few do.",
+            "choices": [
+              {
+                "label": "I came to ask about the Door.",
+                "next": "door"
+              },
+              {
+                "label": "(Hum the songs you have learned.)",
+                "next": "weave",
+                "requires_song": "glim_theme",
+                "requires_flag": "sun_chord_learned"
+              },
+              {
+                "label": "(Hum the Triglyph Chord.)",
+                "next": "remembered",
+                "requires_song": "triglyph_chord"
+              },
+              {
+                "label": "I'll go.",
+                "next": "bye"
+              }
+            ]
+          },
+          "door": {
+            "speaker": "Lirien",
+            "text": "The Door at the end of the Forge. It is held by an older watch than any kingdom. To open it you need a chord no one alive can hum alone. *Lirien glances at you.* Bring me what you have learned, and I will teach you the rest.",
+            "next": "root"
+          },
+          "weave": {
+            "speaker": "Lirien",
+            "text": "*Lirien listens. Closes her eyes.* You have Glim's Theme. You have the Sun. You have the Moon. *She nods.* Then I will give you the chord that ties them.",
+            "next": "weave_check"
+          },
+          "weave_check": {
+            "speaker": "Lirien",
+            "text": "*She hums it once, slowly. Up... down... up... left... right. The wind carries it.* Now hum it back. The Door will hear.",
+            "learns_song": "triglyph_chord",
+            "sets_flag": "lirien_blessing",
+            "next": "bye"
+          },
+          "remembered": {
+            "speaker": "Lirien",
+            "text": "*Lirien tilts her head a fraction.* The Triglyph holds. The Door is yours to wake.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Lirien",
+            "text": "*The wind on the summit does not stop for anyone.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

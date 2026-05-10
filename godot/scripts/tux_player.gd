@@ -12,6 +12,8 @@ const BombScene      = preload("res://scenes/bomb.tscn")
 const Bow       = preload("res://scripts/bow.gd")
 const Slingshot = preload("res://scripts/slingshot.gd")
 const Hookshot  = preload("res://scripts/hookshot.gd")
+const ItemHammer    = preload("res://scripts/item_hammer.gd")
+const ItemGlimSight = preload("res://scripts/item_glim_sight.gd")
 
 @export var camera_path: NodePath
 
@@ -110,7 +112,13 @@ func _ready() -> void:
 	spin_hitbox.disarm()
 
 	GameState.player_died.connect(_on_player_died)
+	GameState.item_acquired.connect(_on_item_acquired)
 	GameState.reset()
+	# Apply the mirror skin if a save reload landed us with glim_mirror
+	# already owned (the connect-then-reset above wipes inventory; in
+	# practice load_game runs after _ready completes, so this catches a
+	# fresh-game-with-cheat-inventory path more than anything).
+	_refresh_shield_skin()
 
 
 func _physics_process(delta: float) -> void:
@@ -126,6 +134,7 @@ func _physics_process(delta: float) -> void:
 	if not is_blocking:
 		GameState.regen_stamina(30.0, delta)
 
+	_apply_passive_movement_mods(delta)
 	velocity = state.vel
 	move_and_slide()
 	rotation.y = state.face_yaw
@@ -184,6 +193,13 @@ func _read_inputs() -> void:
 
 	if Input.is_action_just_pressed("item_use"):
 		_try_use_active_item()
+	# Glim Sight is the one held-item — it stays open while B is held
+	# and dismisses the moment the button is released. The static helper
+	# tracks its own state, so a no-op release (sight wasn't open) is
+	# fine to call every release.
+	if Input.is_action_just_released("item_use"):
+		if GameState.active_b_item == "glim_sight":
+			ItemGlimSight.close(self)
 
 
 func _try_use_active_item() -> void:
@@ -214,6 +230,11 @@ func _try_use_active_item() -> void:
 			_throw_bomb_from_inventory(fwd)
 		"hookshot":
 			_fire_hookshot(fwd)
+		"hammer":
+			ItemHammer.try_swing(self, fwd)
+		"glim_sight":
+			# Held-item: opening on press, _read_inputs handles release.
+			ItemGlimSight.open(self)
 
 
 func _throw_boomerang() -> void:
@@ -297,6 +318,37 @@ func _fire_hookshot(fwd: Vector3) -> void:
 	Hookshot.try_fire(self, fwd)
 
 
+# ---- Passive movement modifiers ---------------------------------------
+#
+# Anchor Boots (passive toggle, GameState.anchor_boots_active): scale
+# horizontal velocity to 60% and add an extra +GRAVITY to vel.y this
+# frame so the effective gravity is ~2x. Lets Tux sink in water and
+# walk along the under-water floor.
+#
+# Glim Sight (held-item active): scale horizontal velocity to 30%.
+# We multiply state.vel directly because state.step() already wrote it
+# this tick — modifying state.vel here is read by `velocity = state.vel`
+# on the very next line of _physics_process.
+const ANCHOR_BOOTS_SPEED_MULT: float = 0.60
+const ANCHOR_BOOTS_GRAVITY_BONUS: float = 28.0    # = TuxState.GRAVITY (2x total)
+const GLIM_SIGHT_SPEED_MULT: float = 0.30
+
+func _apply_passive_movement_mods(delta: float) -> void:
+	var hmult: float = 1.0
+	if GameState.anchor_boots_active:
+		hmult *= ANCHOR_BOOTS_SPEED_MULT
+		# Add a flat extra gravity tick so the effective fall rate is
+		# ~2x and Tux sinks in water (or off ledges) noticeably faster.
+		# Skip if the state is doing a deliberate vertical impulse
+		# (jump/flip) — those should still feel like jumps, just heavier.
+		state.vel.y -= ANCHOR_BOOTS_GRAVITY_BONUS * delta
+	if ItemGlimSight.is_open_on(self):
+		hmult *= GLIM_SIGHT_SPEED_MULT
+	if hmult < 1.0:
+		state.vel.x *= hmult
+		state.vel.z *= hmult
+
+
 func get_face_yaw() -> float:
 	return state.face_yaw if state else rotation.y
 
@@ -304,6 +356,19 @@ func get_face_yaw() -> float:
 # ---- Damage in / out --------------------------------------------------
 
 func take_damage(amount: int, source_pos: Vector3, attacker: Node = null) -> void:
+	# Glim Mirror reflect: passive shield upgrade. If the incoming hit
+	# is from anything in the `final_laser` group AND Tux carries the
+	# Mirror, the laser is fully blocked and 25 damage is reflected to
+	# the source. The shield doesn't have to be raised — the Mirror is
+	# always-on by design (DESIGN.md §3 boss-8 hook).
+	if attacker and attacker.is_in_group("final_laser") \
+			and GameState.has_glim_mirror():
+		SoundBank.play_3d("mirror_reflect", global_position)
+		if attacker.has_method("take_damage"):
+			attacker.take_damage(25, global_position, self)
+		if camera and camera.has_method("shake"):
+			camera.shake(0.10, 0.18)
+		return
 	var was_blocking: bool = state.action == TuxState.ACT_BLOCK
 	var was_parry: bool = state.parry_active
 	if state.take_hit(source_pos, amount):
@@ -349,6 +414,43 @@ func _on_sword_hit(_target: Node) -> void:
 
 func _on_player_died() -> void:
 	state.kill()
+
+
+# ---- Shield skin (Wood / Iron / Glim Mirror) --------------------------
+#
+# The shield mesh is authored as the wood-and-boss starter shield. When
+# Tux acquires the Glim Mirror we retint the board and boss to mirror-
+# silver / mirror-blue; this is the only visual cue today (no separate
+# shield meshes). Called from _ready and on every item_acquired so
+# late-loads pick up the skin.
+
+func _on_item_acquired(item_name: String) -> void:
+	if item_name == "glim_mirror":
+		_refresh_shield_skin()
+
+
+func _refresh_shield_skin() -> void:
+	if shield == null or not is_instance_valid(shield):
+		return
+	if not GameState.has_glim_mirror():
+		return
+	var board: MeshInstance3D = shield.get_node_or_null("Board") as MeshInstance3D
+	var boss:  MeshInstance3D = shield.get_node_or_null("Boss")  as MeshInstance3D
+	if board:
+		var bm := StandardMaterial3D.new()
+		bm.albedo_color = Color(0.85, 0.92, 0.98, 1.0)
+		bm.metallic = 1.0
+		bm.roughness = 0.05
+		bm.emission_enabled = true
+		bm.emission = Color(0.85, 0.95, 1.0)
+		bm.emission_energy_multiplier = 0.45
+		board.material_override = bm
+	if boss:
+		var bsm := StandardMaterial3D.new()
+		bsm.albedo_color = Color(0.92, 0.95, 1.0, 1.0)
+		bsm.metallic = 1.0
+		bsm.roughness = 0.05
+		boss.material_override = bsm
 
 
 # ---- Sound dispatch ----------------------------------------------------

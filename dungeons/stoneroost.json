@@ -1,6 +1,26 @@
 {
   "name": "Stoneroost",
   "id": "stoneroost",
+  "sky_color": [
+    0.55,
+    0.7,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.8,
+    0.85
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.65
+  ],
+  "sun_color": [
+    1.0,
+    0.92,
+    0.85
+  ],
   "environment": {
     "sky_top": [
       0.4,
@@ -10902,7 +10922,7 @@
   ],
   "enemies": [
     {
-      "type": "skull_spider",
+      "type": "bat",
       "pos": [
         -4,
         0,
@@ -10910,7 +10930,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "wisp_hunter",
       "pos": [
         -6,
         0,
@@ -10918,7 +10938,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         4,
         0,
@@ -10926,7 +10946,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         10,
         0,
@@ -10934,7 +10954,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "wisp_hunter",
       "pos": [
         18,
         1.4,
@@ -10950,7 +10970,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "wisp_hunter",
       "pos": [
         -8,
         1.4,
@@ -10974,7 +10994,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "wisp_hunter",
       "pos": [
         0,
         1.4,
@@ -10982,7 +11002,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "bat",
       "pos": [
         36,
         0,
@@ -10990,7 +11010,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "wisp_hunter",
       "pos": [
         18,
         0,
@@ -10998,7 +11018,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "bat",
       "pos": [
         26,
         0,
@@ -11006,7 +11026,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "bat",
       "pos": [
         -22,
         0,
@@ -11014,7 +11034,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "wisp_hunter",
       "pos": [
         8,
         0,
@@ -11022,7 +11042,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -26,
         0.0,
@@ -11030,7 +11050,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "wisp_hunter",
       "pos": [
         -2,
         1.4,
@@ -11038,7 +11058,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -36,
         0.0,
@@ -11054,7 +11074,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "wisp_hunter",
       "pos": [
         18,
         0.0,
@@ -11640,6 +11660,23 @@
           }
         }
       }
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        0.0,
+        0,
+        6.0
+      ],
+      "boss_scene_id": "gale_roost",
+      "boss_id": "gale_roost",
+      "boss_name": "Gale Roost",
+      "arena_radius": 10.0,
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     }
   ],
   "load_zones": [

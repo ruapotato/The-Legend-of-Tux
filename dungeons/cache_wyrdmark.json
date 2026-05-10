@@ -1,6 +1,26 @@
 {
   "name": "Wyrdmark Records",
   "id": "cache_wyrdmark",
+  "sky_color": [
+    0.5,
+    0.42,
+    0.35
+  ],
+  "fog_color": [
+    0.55,
+    0.48,
+    0.4
+  ],
+  "ambient_color": [
+    0.5,
+    0.45,
+    0.4
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "key_group": "cache_wyrdmark",
   "music_track": "sigilkeep",
   "fs_path": "/var/cache/wyrdmark",
@@ -721,7 +741,16 @@
       "range": 7.0
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "init_shade",
+      "pos": [
+        -2.5,
+        0.0,
+        -2.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",

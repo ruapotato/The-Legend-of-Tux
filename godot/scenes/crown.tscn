@@ -1,21 +1,21 @@
 [gd_scene load_steps=308 format=3 uid="uid://btuxcrown01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.55, 0.78, 1)
@@ -940,6 +940,10 @@ key_group = "crown"
 music_track = "crown"
 display_name = "The Crown"
 fs_path = "/"
+sky_color = Color(0.72, 0.78, 0.88, 1)
+fog_color = Color(0.85, 0.88, 0.92, 1)
+ambient_color = Color(0.65, 0.68, 0.72, 1)
+sun_color = Color(1, 0.98, 0.95, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -2672,6 +2676,14 @@ pebble_chance = 0.25
 [node name="Rock19" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.5, 3)
 pebble_chance = 0.25
+
+[node name="Npc20_Lirien" parent="." instance=ExtResource("npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+npc_name = "Lirien"
+body_color = Color(0.85, 0.88, 0.95, 1)
+hat_color = Color(0.6, 0.7, 0.85, 1)
+idle_hint = "[E] Approach Lirien"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien stands beside the Old Throne. Tall, hooded, looking past you to the cold horizon.* You climbed. Few do.\", \"choices\": [{\"label\": \"I came to ask about the Door.\", \"next\": \"door\"}, {\"label\": \"(Hum the songs you have learned.)\", \"next\": \"weave\", \"requires_song\": \"glim_theme\", \"requires_flag\": \"sun_chord_learned\"}, {\"label\": \"(Hum the Triglyph Chord.)\", \"next\": \"remembered\", \"requires_song\": \"triglyph_chord\"}, {\"label\": \"I'll go.\", \"next\": \"bye\"}]}, \"door\": {\"speaker\": \"Lirien\", \"text\": \"The Door at the end of the Forge. It is held by an older watch than any kingdom. To open it you need a chord no one alive can hum alone. *Lirien glances at you.* Bring me what you have learned, and I will teach you the rest.\", \"next\": \"root\"}, \"weave\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien listens. Closes her eyes.* You have Glim's Theme. You have the Sun. You have the Moon. *She nods.* Then I will give you the chord that ties them.\", \"next\": \"weave_check\"}, \"weave_check\": {\"speaker\": \"Lirien\", \"text\": \"*She hums it once, slowly. Up... down... up... left... right. The wind carries it.* Now hum it back. The Door will hear.\", \"learns_song\": \"triglyph_chord\", \"sets_flag\": \"lirien_blessing\", \"next\": \"bye\"}, \"remembered\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien tilts her head a fraction.* The Triglyph holds. The Door is yours to wake.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Lirien\", \"text\": \"*The wind on the summit does not stop for anyone.*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -13)

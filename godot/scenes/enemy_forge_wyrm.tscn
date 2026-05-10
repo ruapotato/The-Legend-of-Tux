@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxbossfwm01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_forge_wyrm.gd" id="1_fwm"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.95
+height = 2.40
+
+[sub_resource type="CylinderMesh" id="trunk_mesh"]
+top_radius = 0.55
+bottom_radius = 0.95
+height = 1.80
+radial_segments = 14
+
+[sub_resource type="StandardMaterial3D" id="trunk_mat"]
+albedo_color = Color(0.18, 0.14, 0.12, 1)
+metallic = 0.7
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.85, 0.30, 0.05, 1)
+emission_energy_multiplier = 0.20
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(2.6, 2.4, 2.6)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(2.8, 2.6, 2.8)
+
+[node name="EnemyForgeWyrm" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_fwm")
+max_hp = 90
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("body_shape")
+
+[node name="Trunk" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Trunk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90, 0)
+mesh = SubResource("trunk_mesh")
+surface_material_override/0 = SubResource("trunk_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("contact_shape")

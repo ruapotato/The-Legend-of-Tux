@@ -1,6 +1,26 @@
 {
   "name": "Hearthold",
   "id": "hearthold",
+  "sky_color": [
+    0.65,
+    0.72,
+    0.78
+  ],
+  "fog_color": [
+    0.78,
+    0.75,
+    0.65
+  ],
+  "ambient_color": [
+    0.55,
+    0.5,
+    0.45
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "environment": {
     "sky_top": [
       0.4,
@@ -6517,6 +6537,15 @@
         -12.03
       ],
       "rotation_y": -2.356194490192345
+    },
+    {
+      "id": "from_grotto_burrows",
+      "pos": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -7033,6 +7062,27 @@
           }
         }
       }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        17
+      ],
+      "rotation_y": 3.14159,
+      "contents": "heart_piece",
+      "open_message": "Tucked in the kitchen-yard behind the Elder's house. The keepers leave heart-pulses where children can find them first."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -8,
+        0,
+        13
+      ],
+      "rotation_y": 0,
+      "message": "Worn cellar steps disappear under the kitchen-yard. The Elder's pickles, perhaps."
     }
   ],
   "load_zones": [
@@ -7081,6 +7131,24 @@
       "target_scene": "burrows",
       "target_spawn": "from_hearthold",
       "prompt": "[E] Up to the Burrows"
+    },
+    {
+      "pos": [
+        -8,
+        1.4,
+        14
+      ],
+      "size": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "grotto_burrows",
+      "target_spawn": "from_hearthold",
+      "auto": false,
+      "prompt": "[E] Down into the root cellar"
     }
-  ]
+  ],
+  "enemies": []
 }

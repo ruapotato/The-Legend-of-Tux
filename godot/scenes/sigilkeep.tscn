@@ -1,17 +1,23 @@
-[gd_scene load_steps=320 format=3 uid="uid://btuxsigilkee01"]
+[gd_scene load_steps=326 format=3 uid="uid://btuxsigilkee01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxchmd01" path="res://scenes/enemy_chmod_zealot.tscn" id="chmod_zealot"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxbosscdx01" path="res://scenes/enemy_codex_knight.tscn" id="codex_knight"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.1, 0.1, 0.15, 1)
@@ -960,6 +966,10 @@ key_group = "sigilkeep"
 music_track = "sigilkeep"
 display_name = "Sigilkeep"
 fs_path = "/etc/wyrdmark"
+sky_color = Color(0.45, 0.42, 0.48, 1)
+fog_color = Color(0.5, 0.48, 0.55, 1)
+ambient_color = Color(0.4, 0.4, 0.45, 1)
+sun_color = Color(0.85, 0.8, 0.75, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -2778,6 +2788,30 @@ transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0.5
 [node name="from_scriptorium" type="Marker3D" parent="Spawns"]
 transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, -0, 0.5, -17)
 
+[node name="Knight0" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -6.5)
+
+[node name="Chmod_zealot1" parent="." instance=ExtResource("chmod_zealot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 2.5)
+
+[node name="Knight2" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 14.5)
+
+[node name="Chmod_zealot3" parent="." instance=ExtResource("chmod_zealot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -0.5)
+
+[node name="Knight4" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -13.5)
+
+[node name="Chmod_zealot5" parent="." instance=ExtResource("chmod_zealot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -1.5)
+
+[node name="Knight6" parent="." instance=ExtResource("knight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -3.5)
+
+[node name="Chmod_zealot7" parent="." instance=ExtResource("chmod_zealot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, -6.5)
+
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 message = "The Sigilkeep.\n\nThe great door is sealed. A line of wardstones glows across the threshold, dim. Khorgaul's hoard pulses behind them."
@@ -2813,6 +2847,20 @@ body_color = Color(0.55, 0.5, 0.7, 1)
 hat_color = Color(0.75, 0.65, 0.85, 1)
 idle_hint = "[E] Speak softly to the acolyte"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Acolyte Pyl\", \"text\": \"*kneeling, eyes closed*\\nForgive me — I am at prayer. ...One moment.\\n\\n*opens eyes*\\nThere. The vow is renewed. Were you wishing something of me?\", \"choices\": [{\"label\": \"What were you praying for?\", \"next\": \"pray\"}, {\"label\": \"Why come so far to pray?\", \"next\": \"far\"}, {\"label\": \"Forgive me — go on.\", \"next\": \"bye\"}]}, \"pray\": {\"speaker\": \"Acolyte Pyl\", \"text\": \"For the third sigil to be carried truly. For a small one to do a great thing. For the Hoarder's hand to be lifted, even one finger. Small prayers; but the Source listens to small things.\", \"choices\": [{\"label\": \"Why come so far to pray?\", \"next\": \"far\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"far\": {\"speaker\": \"Acolyte Pyl\", \"text\": \"The keep is the loudest place to pray. The wardstones carry it on. A prayer spoken here travels every wardstone in the realm by morning. Or so my teacher said. I have not asked the wardstones to confirm.\", \"choices\": [{\"label\": \"What were you praying for?\", \"next\": \"pray\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Acolyte Pyl\", \"text\": \"May the green hold you, traveler.\"}}}"
+
+[node name="BossArena7" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+boss_name = "Codex Knight"
+boss_scene = ExtResource("codex_knight")
+arena_radius = 8
+spawn_offset = Vector3(0, 0, 0)
+boss_id = "codex_knight"
+
+[node name="Chest8" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -10)
+contents_scene = ExtResource("heart_piece")
+open_message = "Behind a section of wall that crumbles to a sharp blow — bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file."
+requires_flag = "wyrdking_defeated"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 17.5)

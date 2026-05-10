@@ -18,6 +18,10 @@ extends CanvasLayer
 # Fairy-bottle counter — built in _ready (no .tscn churn) so it sits
 # inside the existing TopRight column with the other counters.
 var bottle_label: Label = null
+# Shield-tier readout. Hidden until Tux owns the Glim Mirror; on swap
+# it surfaces as a small "Mirror" tag in the TopRight column so the
+# player has a glance-confirmation that the upgrade landed.
+var shield_label: Label = null
 # Sparkle overlay drawn on revive. We construct both nodes lazily on
 # the first revive so a fresh scene never pays for them upfront.
 var _sparkle_rect: ColorRect = null
@@ -41,6 +45,8 @@ func _ready() -> void:
     GameState.fairy_revive_triggered.connect(_on_fairy_revive_triggered)
     death_overlay.visible = false
     _ensure_bottle_label()
+    _ensure_shield_label()
+    _refresh_shield_label()
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
     _on_pebbles_changed(GameState.pebbles)
@@ -124,6 +130,33 @@ func _on_item_acquired(_item_name: String) -> void:
     # the readout exists.
     _on_arrows_changed(GameState.arrows, GameState.max_arrows)
     _on_seeds_changed(GameState.seeds, GameState.max_seeds)
+    _refresh_shield_label()
+
+
+func _ensure_shield_label() -> void:
+    if shield_label != null:
+        return
+    var top_right := get_node_or_null("TopRight")
+    if top_right == null:
+        return
+    shield_label = Label.new()
+    shield_label.name = "ShieldLabel"
+    shield_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    shield_label.text = ""
+    shield_label.visible = false
+    top_right.add_child(shield_label)
+
+
+func _refresh_shield_label() -> void:
+    _ensure_shield_label()
+    if shield_label == null:
+        return
+    if GameState.has_glim_mirror():
+        shield_label.text = "Shld: Mirror"
+        shield_label.visible = true
+    else:
+        shield_label.text = ""
+        shield_label.visible = false
 
 
 # Hide ammo readouts when both the count is zero AND the player has

@@ -1,6 +1,26 @@
 {
   "name": "The Burrows",
   "id": "burrows",
+  "sky_color": [
+    0.65,
+    0.72,
+    0.78
+  ],
+  "fog_color": [
+    0.78,
+    0.75,
+    0.65
+  ],
+  "ambient_color": [
+    0.55,
+    0.5,
+    0.45
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "key_group": "burrows",
   "music_track": "hearthold",
   "fs_path": "/home",
@@ -4266,6 +4286,17 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Burrows\n\n/home"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        3
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Where six paths meet, in the herb-circle the Burrowers planted to mark the crossroads. A heart-pulse, kept warm by the noon sun."
     }
   ],
   "load_zones": [

@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxbossini01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_init.gd" id="1_ini"]
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 0.95
+height = 1.90
+radial_segments = 16
+rings = 10
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.85, 0.80, 0.95, 1)
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.85, 0.80, 0.95, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="TorusMesh" id="halo_mesh"]
+inner_radius = 0.95
+outer_radius = 1.30
+rings = 24
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="halo_mat"]
+albedo_color = Color(1.0, 0.95, 0.55, 0.85)
+shading_mode = 2
+emission_enabled = true
+emission = Color(0.85, 0.80, 0.95, 1)
+emission_energy_multiplier = 1.0
+transparency = 1
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(2.0, 2.0, 2.0)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(2.4, 2.4, 2.4)
+
+[node name="EnemyInitSleeper" type="Node3D"]
+script = ExtResource("1_ini")
+max_hp = 60
+hp = 60
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+material_override = SubResource("body_mat")
+
+[node name="Halo" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.30, 0, 0, 0, 1, 0, 0.55, 0)
+mesh = SubResource("halo_mesh")
+surface_material_override/0 = SubResource("halo_mat")
+material_override = SubResource("halo_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+shape = SubResource("contact_shape")

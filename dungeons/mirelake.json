@@ -1,6 +1,26 @@
 {
   "name": "Mirelake",
   "id": "mirelake",
+  "sky_color": [
+    0.4,
+    0.55,
+    0.55
+  ],
+  "fog_color": [
+    0.55,
+    0.65,
+    0.6
+  ],
+  "ambient_color": [
+    0.4,
+    0.5,
+    0.5
+  ],
+  "sun_color": [
+    0.7,
+    0.85,
+    0.85
+  ],
   "environment": {
     "sky_top": [
       0.55,
@@ -17134,7 +17154,7 @@
   ],
   "enemies": [
     {
-      "type": "blob",
+      "type": "spore",
       "pos": [
         -22.0,
         0.0,
@@ -17142,7 +17162,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         18.0,
         0.0,
@@ -17158,7 +17178,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "spore",
       "pos": [
         22.0,
         0.0,
@@ -17174,7 +17194,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         0.0,
         0.0,
@@ -17182,7 +17202,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "spore",
       "pos": [
         0.0,
         0.0,
@@ -17190,7 +17210,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -44.0,
         0.0,
@@ -17206,7 +17226,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "spore",
       "pos": [
         44.0,
         0.0,
@@ -17222,7 +17242,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         48.0,
         0.0,
@@ -17230,7 +17250,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "spore",
       "pos": [
         -48.0,
         0.0,
@@ -17238,7 +17258,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -2.0,
         0.0,
@@ -17254,7 +17274,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "spore",
       "pos": [
         -30.0,
         1.4,
@@ -17262,7 +17282,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         30.0,
         1.4,
@@ -17278,7 +17298,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "spore",
       "pos": [
         16.0,
         1.4,
@@ -17294,7 +17314,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "blob",
       "pos": [
         -4.0,
         0.0,
@@ -17302,7 +17322,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "spore",
       "pos": [
         4.0,
         0.0,
@@ -17310,7 +17330,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "blob",
       "pos": [
         0.0,
         0.0,
@@ -17318,7 +17338,7 @@
       ]
     },
     {
-      "type": "tomato",
+      "type": "bat",
       "pos": [
         0.0,
         0.0,
@@ -17334,7 +17354,7 @@
       ]
     },
     {
-      "type": "spore",
+      "type": "bat",
       "pos": [
         30.0,
         1.6,
@@ -17416,6 +17436,18 @@
       "rotation_y": 3.141592653589793,
       "contents": "heart",
       "open_message": "A pulse of the Source, gathered into a small warm thing. It steadies your breathing."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "anchor_boots",
+      "requires": "gale_roost_defeated",
+      "open_message": "Anchor Boots \u2014 iron-shod, drowned-keeper boots. They will pull you down where the wisps fear to follow."
     },
     {
       "type": "bush",
@@ -17943,6 +17975,35 @@
           }
         }
       }
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        1.0,
+        0,
+        15.0
+      ],
+      "boss_scene_id": "backwater_maw",
+      "boss_id": "backwater_maw",
+      "boss_name": "Backwater Maw",
+      "arena_radius": 10.0,
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -50,
+        0,
+        20
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "On the far reed-island \u2014 only those who can walk the lakebed reach it. The drowned keepers left it for whoever could.",
+      "requires": "gale_roost_defeated"
     }
   ],
   "load_zones": [

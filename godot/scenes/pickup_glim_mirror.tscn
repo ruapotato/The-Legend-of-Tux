@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxpkgmr01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="rim_mat"]
+albedo_color = Color(0.78, 0.78, 0.85, 1)
+metallic = 0.85
+roughness = 0.30
+
+[sub_resource type="StandardMaterial3D" id="face_mat"]
+albedo_color = Color(0.85, 0.92, 0.98, 1)
+metallic = 1.0
+roughness = 0.05
+emission_enabled = true
+emission = Color(0.85, 0.95, 1.0, 1)
+emission_energy_multiplier = 0.45
+
+[sub_resource type="BoxMesh" id="board_mesh"]
+size = Vector3(0.55, 0.65, 0.04)
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "glim_mirror"
+pickup_message = "The Glim Mirror. Your shield, remade in cool, true silver. It will catch what Init throws."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Rim" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1.10, 0, 0, 0, 1.10, 0, 0, 0, 1, 0, 0, -0.02)
+mesh = SubResource("board_mesh")
+surface_material_override/0 = SubResource("rim_mat")
+
+[node name="Face" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
+mesh = SubResource("board_mesh")
+surface_material_override/0 = SubResource("face_mat")

@@ -12,6 +12,17 @@ extends Node3D
 # spawned pickup if it has a `key_group` property.
 @export var contents_key_group: String = ""
 @export var open_message: String = ""
+# Cross-scene gating. If non-empty, the chest hides itself (visible +
+# collisions disabled) on _ready unless GameState.has_flag(requires_flag)
+# returns true. Used by Dungeon 5–8 item chests to keep the dungeon
+# item locked behind the previous dungeon's boss kill (DESIGN §2).
+@export var requires_flag: String = ""
+# Cosmetic / pass-through fields the build script forwards from chest
+# JSON. The pickup wires them; the chest itself never reads them. Kept
+# as exports so Godot doesn't warn on the .tscn lines (and so the
+# editor surfaces them if someone hand-tunes a chest).
+@export var contents_amount: int = 0
+@export var contents_item_name: String = ""
 
 @onready var lid: MeshInstance3D = $Body/Lid
 @onready var trigger: Area3D = $Trigger
@@ -28,6 +39,15 @@ func _ready() -> void:
     trigger.body_entered.connect(_on_enter)
     trigger.body_exited.connect(_on_exit)
     hint.visible = false
+    # Quest-flag gate: if a `requires_flag` was wired in the dungeon JSON
+    # (e.g. "cinder_tomato_defeated" for the Forge's hammer chest), keep
+    # the chest hidden + non-interactive until the flag is set. We watch
+    # GameState.flag_changed so the chest pops in the moment the player
+    # earns it (handy if the boss is in the same scene).
+    if requires_flag != "":
+        if not GameState.has_flag(requires_flag):
+            _set_gated(true)
+            GameState.flag_changed.connect(_on_flag_changed)
 
 
 func _on_enter(b: Node) -> void:
@@ -72,3 +92,19 @@ func _open() -> void:
         pop.chain().tween_property(item, "global_position:y", global_position.y + 0.4, 0.25)
     if open_message != "":
         Dialog.show_message(open_message)
+
+
+# ---- Quest-flag gating ------------------------------------------------
+
+func _set_gated(gated: bool) -> void:
+    visible = not gated
+    set_process_unhandled_input(not gated)
+    if trigger != null:
+        trigger.set_deferred("monitoring", not gated)
+
+
+func _on_flag_changed(flag_id: String, value) -> void:
+    if flag_id != requires_flag:
+        return
+    if value:
+        _set_gated(false)

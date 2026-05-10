@@ -1,6 +1,26 @@
 {
   "name": "Wyrdmark Gateway",
   "id": "wyrdmark_gateway",
+  "sky_color": [
+    0.7,
+    0.82,
+    0.9
+  ],
+  "fog_color": [
+    0.85,
+    0.9,
+    0.85
+  ],
+  "ambient_color": [
+    0.6,
+    0.62,
+    0.55
+  ],
+  "sun_color": [
+    1.0,
+    0.94,
+    0.78
+  ],
   "key_group": "wyrdmark_gateway",
   "music_track": "wyrdkin_glade",
   "fs_path": "/opt/wyrdmark",
@@ -708,7 +728,32 @@
     }
   ],
   "lights": [],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "knight",
+      "pos": [
+        -0.5,
+        0.0,
+        -2.5
+      ]
+    },
+    {
+      "type": "blob",
+      "pos": [
+        -0.5,
+        0.0,
+        1.5
+      ]
+    },
+    {
+      "type": "bat",
+      "pos": [
+        3.5,
+        1.4,
+        -4.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
@@ -719,6 +764,17 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "Wyrdmark Gateway\n\n/opt/wyrdmark"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        2
+      ],
+      "rotation_y": -1.5708,
+      "contents": "heart_piece",
+      "open_message": "A small offering, tucked against the inside curve of the arch. Whoever passes is invited to take it. Most do not look down."
     }
   ],
   "load_zones": [

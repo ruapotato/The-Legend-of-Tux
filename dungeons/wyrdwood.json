@@ -1,6 +1,26 @@
 {
   "name": "Wyrdwood",
   "id": "wyrdwood",
+  "sky_color": [
+    0.6,
+    0.78,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.85,
+    0.75
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.95,
+    0.8
+  ],
   "environment": {
     "sky_top": [
       0.18,
@@ -3132,7 +3152,7 @@
   ],
   "enemies": [
     {
-      "type": "spore",
+      "type": "tomato",
       "pos": [
         -2,
         1.6,
@@ -3148,7 +3168,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "tomato",
       "pos": [
         5,
         0,
@@ -3156,7 +3176,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -6,
         1.4,
@@ -3629,6 +3649,17 @@
           }
         }
       }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -8,
+        0,
+        11
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Beneath the eldest pine \u2014 its roots had grown around a Source-pulse so old it had nearly forgotten itself. Press on."
     }
   ],
   "load_zones": [

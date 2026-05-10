@@ -35,6 +35,10 @@ const HEART_CONTAINER_SCENE: String = "res://scenes/pickup_heart_container.tscn"
 # Optional region music id to restore after the fight (empty = re-read
 # the dungeon root's music_track).
 @export var region_track: String = ""
+# Boss id — recorded in GameState.bosses_defeated on victory so chest
+# `requires` checks (e.g. anchor-boots gated by gale_roost_defeated)
+# can resolve. If left empty, derived from the boss_scene basename.
+@export var boss_id: String = ""
 
 enum State { IDLE, FIGHT, CLEARED }
 
@@ -178,6 +182,17 @@ func _on_boss_died() -> void:
     if state == State.CLEARED:
         return
     state = State.CLEARED
+    var bid: String = boss_id
+    if bid == "" and boss_scene:
+        var p: String = boss_scene.resource_path
+        if p.begins_with("res://scenes/enemy_"):
+            bid = p.substr("res://scenes/enemy_".length())
+            if bid.ends_with(".tscn"):
+                bid = bid.substr(0, bid.length() - ".tscn".length())
+    if bid != "":
+        var gs := get_node_or_null("/root/GameState")
+        if gs and gs.has_method("mark_boss_defeated"):
+            gs.mark_boss_defeated(bid)
     _drop_barrier()
     SoundBank.play_2d("gate_open")
     _drop_reward()

@@ -1,6 +1,26 @@
 {
   "name": "The Null Door",
   "id": "null_door",
+  "sky_color": [
+    0.18,
+    0.12,
+    0.1
+  ],
+  "fog_color": [
+    0.25,
+    0.15,
+    0.1
+  ],
+  "ambient_color": [
+    0.4,
+    0.25,
+    0.2
+  ],
+  "sun_color": [
+    1.0,
+    0.55,
+    0.3
+  ],
   "key_group": "null_door",
   "music_track": "dungeon_first",
   "fs_path": "/dev/null",
@@ -769,6 +789,18 @@
       "message": "Carved into the stone frame:\n\n\"DO NOT KNOCK.\nNO ONE WILL ANSWER\nIN A WAY YOU CAN HEAR.\""
     },
     {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "glim_mirror",
+      "requires": "censor_defeated",
+      "open_message": "The Glim Mirror. Lirien's true silver, beaten thin and blessed cool. It will catch what Init throws \u2014 and throw it back."
+    },
+    {
       "type": "npc",
       "pos": [
         3.5,
@@ -795,59 +827,47 @@
         "nodes": {
           "root": {
             "speaker": "Watcher Velm",
-            "text": "Step no closer than three paces. That is the rule. I do not write it; I only keep it. What would you ask of an old Wyrdkin who watches a door?",
+            "text": "*Velm does not turn from the door.* Three paces back, traveller. The door is not for knocking. It is for listening.",
             "choices": [
               {
-                "label": "Who built it?",
-                "next": "built"
+                "label": "Teach me how to listen.",
+                "next": "teach",
+                "requires_not": "moon_chord_learned"
               },
               {
-                "label": "What is on the other side?",
-                "next": "other"
+                "label": "(Hum the Moon Chord.)",
+                "next": "remembered",
+                "requires_song": "moon_chord"
               },
               {
-                "label": "Has anyone passed through?",
-                "next": "passed"
+                "label": "Have others come?",
+                "next": "others"
               },
               {
-                "label": "I will go.",
+                "label": "I'll keep my distance.",
                 "next": "bye"
               }
             ]
           },
-          "built": {
+          "others": {
             "speaker": "Watcher Velm",
-            "text": "I do not know. I will not guess. The asking is not improved by my answer. The door was here before my watch. It will be here after. That is enough for me to be sure of.",
-            "choices": [
-              {
-                "label": "Back.",
-                "next": "root"
-              }
-            ]
+            "text": "A small grey-cloaked figure, recent. Did not knock. Stayed three paces back. Listened. Walked back the way they came. *Velm seems to approve.*",
+            "next": "root"
           },
-          "other": {
+          "teach": {
             "speaker": "Watcher Velm",
-            "text": "I do not know. I will not guess. Do not ask the door, either. It will not answer in a way you can hear.",
-            "choices": [
-              {
-                "label": "Back.",
-                "next": "root"
-              }
-            ]
+            "text": "Then listen now. *Velm hums, low and slow.* Left... down... left... down... right. The moon-marked gates open to it. So do certain other things. Be careful which.",
+            "learns_song": "moon_chord",
+            "next": "bye"
           },
-          "passed": {
+          "remembered": {
             "speaker": "Watcher Velm",
-            "text": "Last cycle, a small grey-cloaked figure walked here. Not from the Forge — from somewhere I did not see. She passed the threshold. The door was unchanged after. She paid me in nothing and I felt paid. That is all.",
-            "choices": [
-              {
-                "label": "Back.",
-                "next": "root"
-              }
-            ]
+            "text": "*Velm nods once and resumes their watch.*",
+            "next": "bye"
           },
           "bye": {
             "speaker": "Watcher Velm",
-            "text": "Walk well. Walk wide of it."
+            "text": "*Velm watches the door.*"
           }
         }
       }
@@ -860,6 +880,23 @@
         -4.5
       ],
       "pebble_chance": 0.0
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        0.0,
+        0,
+        12.0
+      ],
+      "boss_scene_id": "init",
+      "boss_id": "init",
+      "boss_name": "Init the Sleeper",
+      "arena_radius": 10.0,
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     }
   ],
   "load_zones": [

@@ -1,6 +1,26 @@
 {
   "name": "The Drift",
   "id": "drift",
+  "sky_color": [
+    0.55,
+    0.45,
+    0.4
+  ],
+  "fog_color": [
+    0.5,
+    0.42,
+    0.38
+  ],
+  "ambient_color": [
+    0.5,
+    0.42,
+    0.38
+  ],
+  "sun_color": [
+    0.95,
+    0.7,
+    0.5
+  ],
   "key_group": "drift",
   "music_track": "drift",
   "fs_path": "/tmp",
@@ -14168,7 +14188,48 @@
       "range": 8.0
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "tomato",
+      "pos": [
+        -20.5,
+        0.0,
+        -6.5
+      ]
+    },
+    {
+      "type": "process_ghost",
+      "pos": [
+        -0.5,
+        0.0,
+        16.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        -7.5,
+        0.0,
+        -9.5
+      ]
+    },
+    {
+      "type": "tomato",
+      "pos": [
+        5.5,
+        0.0,
+        -18.5
+      ]
+    },
+    {
+      "type": "process_ghost",
+      "pos": [
+        18.5,
+        0.0,
+        -0.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",

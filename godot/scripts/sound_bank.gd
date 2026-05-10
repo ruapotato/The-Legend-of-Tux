@@ -40,8 +40,21 @@ const SOUND_NAMES := [
     "heart_get", "heart_container_get", "fairy_revive",
     # Bosses + warp.
     "boss_horn", "boss_clear", "warp_song",
+    # Songs (Triglyph Chord system). One blip per glyph slot — letting
+    # us pitch-jitter individually so a long chord doesn't feel flat.
+    # `song_learned` is the "you got a new song!" sting; `song_play`
+    # is the brief shimmer when an already-known song is re-played.
+    # All five are silent-fallback: SoundBank skips missing WAVs with
+    # a push_warning, so the gameplay never blocks on the audio.
+    "song_glyph_1", "song_glyph_2", "song_glyph_3", "song_glyph_4",
+    "song_learned", "song_play",
     # Ambient loops (3D positional players use them too).
     "amb_day_wind", "amb_night_crickets", "amb_water_lap",
+    # Dungeon-item SFX (hammer wind-up + impact, anchor-boot footstep,
+    # glim-sight whoosh, mirror reflect ping). Silent-fallback safe —
+    # SoundBank skips any name without a matching .wav at startup.
+    "hammer_swing", "hammer_strike", "anchor_step",
+    "glim_sight_open", "mirror_reflect",
 ]
 
 var _streams: Dictionary = {}

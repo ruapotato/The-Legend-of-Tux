@@ -1,6 +1,26 @@
 {
   "name": "Hollow of the Last Wyrd",
   "id": "dungeon_first",
+  "sky_color": [
+    0.5,
+    0.42,
+    0.35
+  ],
+  "fog_color": [
+    0.55,
+    0.48,
+    0.4
+  ],
+  "ambient_color": [
+    0.5,
+    0.45,
+    0.4
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "key_group": "hollow",
   "environment": {
     "sky_top": [
@@ -4340,6 +4360,17 @@
       "contents": "key",
       "key_group": "hollow",
       "open_message": "The Wyrdking's key. Behind it: the way out."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        8,
+        0,
+        -22
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "In a side alcove off the boss path \u2014 Glim glints at a loose flagstone. Beneath: a Wyrdking-era chest, untouched since."
     }
   ],
   "load_zones": [

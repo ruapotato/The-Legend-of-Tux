@@ -1,6 +1,26 @@
 {
   "name": "The Cache",
   "id": "cache",
+  "sky_color": [
+    0.5,
+    0.42,
+    0.35
+  ],
+  "fog_color": [
+    0.55,
+    0.48,
+    0.4
+  ],
+  "ambient_color": [
+    0.5,
+    0.45,
+    0.4
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
   "key_group": "cache",
   "music_track": "sigilkeep",
   "fs_path": "/var/cache",
@@ -4333,7 +4353,7 @@
   ],
   "enemies": [
     {
-      "type": "spore",
+      "type": "init_shade",
       "pos": [
         -6,
         0.5,
@@ -4346,14 +4366,6 @@
         6,
         0.5,
         -4
-      ]
-    },
-    {
-      "type": "spore",
-      "pos": [
-        0,
-        0.5,
-        6
       ]
     }
   ],

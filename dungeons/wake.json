@@ -1,6 +1,26 @@
 {
   "name": "The Wake",
   "id": "wake",
+  "sky_color": [
+    0.85,
+    0.7,
+    0.55
+  ],
+  "fog_color": [
+    0.9,
+    0.78,
+    0.65
+  ],
+  "ambient_color": [
+    0.7,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.78,
+    0.5
+  ],
   "key_group": "wake",
   "music_track": "wake",
   "fs_path": "/boot",
@@ -4712,7 +4732,7 @@
   ],
   "enemies": [
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         -12.0,
         0.5,
@@ -4720,7 +4740,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "wisp_hunter",
       "pos": [
         -10.0,
         0.5,

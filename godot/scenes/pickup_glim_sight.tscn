@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxpkgsi01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="rim_mat"]
+albedo_color = Color(0.85, 0.72, 0.30, 1)
+metallic = 0.65
+roughness = 0.45
+emission_enabled = true
+emission = Color(1.0, 0.85, 0.40, 1)
+emission_energy_multiplier = 0.30
+
+[sub_resource type="StandardMaterial3D" id="lens_mat"]
+albedo_color = Color(0.95, 0.85, 0.50, 0.55)
+metallic = 0.0
+roughness = 0.10
+transparency = 1
+emission_enabled = true
+emission = Color(1.0, 0.92, 0.55, 1)
+emission_energy_multiplier = 0.60
+
+[sub_resource type="TorusMesh" id="rim_mesh"]
+inner_radius = 0.14
+outer_radius = 0.18
+ring_segments = 24
+rings = 12
+
+[sub_resource type="SphereMesh" id="lens_mesh"]
+radius = 0.13
+height = 0.06
+radial_segments = 16
+rings = 6
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "glim_sight"
+pickup_message = "The Glim Sight. A lens of bottle-yellow Source. Equip it (Pause → Items) and hold F — what was hidden becomes visible, but you'll walk slow while looking through it."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+
+[node name="Rim" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("rim_mesh")
+surface_material_override/0 = SubResource("rim_mat")
+
+[node name="Lens" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("lens_mesh")
+surface_material_override/0 = SubResource("lens_mat")

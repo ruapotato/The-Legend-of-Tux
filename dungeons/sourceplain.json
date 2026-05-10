@@ -1,6 +1,26 @@
 {
   "name": "Sourceplain",
   "id": "sourceplain",
+  "sky_color": [
+    0.7,
+    0.82,
+    0.9
+  ],
+  "fog_color": [
+    0.85,
+    0.9,
+    0.85
+  ],
+  "ambient_color": [
+    0.6,
+    0.62,
+    0.55
+  ],
+  "sun_color": [
+    1.0,
+    0.94,
+    0.78
+  ],
   "environment": {
     "sky_top": [
       0.36,
@@ -85963,6 +85983,15 @@
         -99.0
       ],
       "rotation_y": -1.5707963267948966
+    },
+    {
+      "id": "from_grotto_sourceplain",
+      "pos": [
+        17.0,
+        0.5,
+        1.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -86314,7 +86343,7 @@
   ],
   "enemies": [
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         -55.0,
         0,
@@ -86322,7 +86351,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -51.0,
         1.4,
@@ -86330,7 +86359,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -47.0,
         0,
@@ -86354,7 +86383,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         -29.0,
         1.4,
@@ -86378,7 +86407,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         31.0,
         0,
@@ -86394,7 +86423,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         27.0,
         0,
@@ -86402,7 +86431,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         35.0,
         1.4,
@@ -86410,7 +86439,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         25.0,
         0,
@@ -86418,7 +86447,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         71.0,
         1.4,
@@ -86426,7 +86455,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         67.0,
         0,
@@ -86442,7 +86471,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         69.0,
         0,
@@ -86458,7 +86487,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -3.0,
         0,
@@ -86474,7 +86503,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         103.0,
         0,
@@ -86482,7 +86511,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         95.0,
         0,
@@ -86490,7 +86519,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         95.0,
         0,
@@ -86498,7 +86527,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         97.0,
         1.4,
@@ -86506,7 +86535,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         -63.0,
         1.4,
@@ -86514,7 +86543,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -65.0,
         1.4,
@@ -86530,7 +86559,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         15.0,
         1.4,
@@ -86546,7 +86575,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         23.0,
         0,
@@ -86570,7 +86599,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         85.0,
         1.4,
@@ -86610,7 +86639,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         -41.0,
         0,
@@ -86618,7 +86647,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -73.0,
         0,
@@ -86626,7 +86655,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -73.0,
         1.4,
@@ -86634,7 +86663,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         -73.0,
         1.4,
@@ -86642,7 +86671,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         37.0,
         1.4,
@@ -86674,7 +86703,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         -29.0,
         1.4,
@@ -86690,7 +86719,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         107.0,
         1.4,
@@ -86698,7 +86727,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "knight",
       "pos": [
         -9.0,
         1.4,
@@ -86706,7 +86735,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -73.0,
         1.4,
@@ -86714,7 +86743,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "bat",
       "pos": [
         -65.0,
         0,
@@ -86722,7 +86751,7 @@
       ]
     },
     {
-      "type": "bat",
+      "type": "blob",
       "pos": [
         -33.0,
         1.4,
@@ -86738,7 +86767,7 @@
       ]
     },
     {
-      "type": "blob",
+      "type": "knight",
       "pos": [
         -31.0,
         0,
@@ -86746,7 +86775,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "bat",
       "pos": [
         -79.0,
         0,
@@ -86754,7 +86783,7 @@
       ]
     },
     {
-      "type": "knight",
+      "type": "blob",
       "pos": [
         17.0,
         0,
@@ -88617,6 +88646,27 @@
           }
         }
       }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        35,
+        0,
+        -55
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Out in the long grass with nothing for a marker. Glim hums and the wind hums back."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -45,
+        0,
+        54
+      ],
+      "rotation_y": 0,
+      "message": "A wind-carved bowl, sunk into the plain. The wagon-ruts run past it."
     }
   ],
   "load_zones": [
@@ -88731,6 +88781,23 @@
       "target_scene": "wyrdmark_gateway",
       "target_spawn": "from_sourceplain",
       "prompt": "[E] Up to Wyrdmark Gateway"
+    },
+    {
+      "pos": [
+        -45,
+        1.4,
+        55
+      ],
+      "size": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "grotto_sourceplain",
+      "target_spawn": "from_sourceplain",
+      "auto": false,
+      "prompt": "[E] Climb down into the wind-carved bowl"
     }
   ]
 }

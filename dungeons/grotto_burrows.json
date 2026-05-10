@@ -1,0 +1,330 @@
+{
+  "name": "Burrows Root Cellar",
+  "id": "grotto_burrows",
+  "key_group": "grotto_burrows",
+  "music_track": "hearthold",
+  "fs_path": "/var/spool/grotto/burrows",
+  "sky_color": [
+    0.3,
+    0.26,
+    0.22
+  ],
+  "fog_color": [
+    0.32,
+    0.28,
+    0.22
+  ],
+  "ambient_color": [
+    0.4,
+    0.32,
+    0.25
+  ],
+  "sun_color": [
+    1.0,
+    0.7,
+    0.45
+  ],
+  "environment": {
+    "sky_top": [
+      0.16,
+      0.13,
+      0.1,
+      1
+    ],
+    "sky_horizon": [
+      0.32,
+      0.22,
+      0.16,
+      1
+    ],
+    "ground_horizon": [
+      0.28,
+      0.22,
+      0.16,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.08,
+      0.06,
+      1
+    ],
+    "ambient_color": [
+      0.45,
+      0.36,
+      0.28,
+      1
+    ],
+    "ambient_energy": 0.32,
+    "fog_density": 0.018,
+    "fog_color": [
+      0.3,
+      0.22,
+      0.16,
+      1
+    ],
+    "sun_dir": [
+      0.4,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      1.0,
+      0.7,
+      0.45,
+      1
+    ],
+    "sun_energy": 0.35
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "wall_height": 2.8,
+        "wall_color": [
+          0.18,
+          0.14,
+          0.1,
+          1
+        ],
+        "floor_color": [
+          0.3,
+          0.22,
+          0.16,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": true
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_hearthold",
+      "pos": [
+        0.0,
+        0.5,
+        1.5
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -1.0
+      ],
+      "color": [
+        1.0,
+        0.55,
+        0.25,
+        1.0
+      ],
+      "energy": 1.6,
+      "range": 6.0
+    }
+  ],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "message": "Chalked on the cellar wall in a tidy hand:\n\n\"Brann's pickles. Do NOT touch. \u2014 In memory of Mirta of the long arm, who could open any jar in the Burrows.\""
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "heart_piece",
+      "open_message": "A piece of heart, set in a clay jar between the pickles. The Burrows hides its kindnesses among the pantry."
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        2.5
+      ],
+      "size": [
+        3.0,
+        3.0,
+        1.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "hearthold",
+      "target_spawn": "from_grotto_burrows",
+      "prompt": "[E] Up the cellar steps"
+    }
+  ]
+}

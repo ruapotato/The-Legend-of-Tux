@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxhmrv01"]
+
+[sub_resource type="StandardMaterial3D" id="head_mat"]
+albedo_color = Color(0.42, 0.40, 0.45, 1)
+metallic = 0.7
+roughness = 0.5
+emission_enabled = true
+emission = Color(0.55, 0.45, 0.35, 1)
+emission_energy_multiplier = 0.10
+
+[sub_resource type="StandardMaterial3D" id="haft_mat"]
+albedo_color = Color(0.32, 0.20, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+size = Vector3(0.55, 0.34, 0.34)
+
+[sub_resource type="CylinderMesh" id="haft_mesh"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.85
+radial_segments = 8
+
+[node name="Hammer" type="Node3D"]
+
+[node name="Haft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("haft_mesh")
+surface_material_override/0 = SubResource("haft_mat")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("head_mat")

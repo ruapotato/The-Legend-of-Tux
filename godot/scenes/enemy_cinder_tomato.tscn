@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://btuxbosscnt01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_cinder_tomato.gd" id="1_cnt"]
+
+[sub_resource type="SphereShape3D" id="body_shape"]
+radius = 1.20
+
+[sub_resource type="SphereMesh" id="rind_c_mesh"]
+radius = 1.50
+height = 3.00
+radial_segments = 16
+rings = 10
+
+[sub_resource type="StandardMaterial3D" id="rind_c_mat"]
+albedo_color = Color(0.18, 0.10, 0.06, 1)
+roughness = 0.95
+
+[sub_resource type="SphereMesh" id="rind_b_mesh"]
+radius = 1.30
+height = 2.60
+radial_segments = 16
+rings = 10
+
+[sub_resource type="StandardMaterial3D" id="rind_b_mat"]
+albedo_color = Color(0.36, 0.12, 0.08, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="rind_a_mesh"]
+radius = 1.10
+height = 2.20
+radial_segments = 16
+rings = 10
+
+[sub_resource type="StandardMaterial3D" id="rind_a_mat"]
+albedo_color = Color(0.65, 0.18, 0.10, 1)
+roughness = 0.6
+emission_enabled = true
+emission = Color(0.45, 0.10, 0.05, 1)
+emission_energy_multiplier = 0.20
+
+[sub_resource type="SphereMesh" id="core_mesh"]
+radius = 0.92
+height = 1.84
+radial_segments = 14
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="core_mat"]
+albedo_color = Color(1.0, 0.45, 0.20, 1)
+roughness = 0.40
+emission_enabled = true
+emission = Color(1.0, 0.40, 0.15, 1)
+emission_energy_multiplier = 0.30
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(2.6, 2.6, 2.6)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(2.9, 2.6, 2.9)
+
+[node name="EnemyCinderTomato" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_cnt")
+max_hp = 80
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+
+[node name="Core" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("core_mesh")
+surface_material_override/0 = SubResource("core_mat")
+
+[node name="RindA" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("rind_a_mesh")
+surface_material_override/0 = SubResource("rind_a_mat")
+
+[node name="RindB" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("rind_b_mesh")
+surface_material_override/0 = SubResource("rind_b_mat")
+
+[node name="RindC" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("rind_c_mesh")
+surface_material_override/0 = SubResource("rind_c_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+shape = SubResource("contact_shape")

@@ -1,26 +1,26 @@
 [gd_scene load_steps=39 format=3 uid="uid://btuxwyrdwood01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.22, 0.28, 1)
@@ -105,6 +105,10 @@ key_group = "wyrdwood"
 music_track = "wyrdwood"
 display_name = "Wyrdwood"
 fs_path = "/opt/wyrdmark/woods"
+sky_color = Color(0.6, 0.78, 0.85, 1)
+fog_color = Color(0.7, 0.85, 0.75, 1)
+ambient_color = Color(0.55, 0.6, 0.5, 1)
+sun_color = Color(1, 0.95, 0.8, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -1863,16 +1867,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -28)
 [node name="from_wyrdmark_gateway" type="Marker3D" parent="Spawns"]
 transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 3, 0.5, -17)
 
-[node name="Spore0" parent="." instance=ExtResource("spore")]
+[node name="Tomato0" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.6, -6)
 
 [node name="Blob1" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
 
-[node name="Blob2" parent="." instance=ExtResource("blob")]
+[node name="Tomato2" parent="." instance=ExtResource("tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -10)
 
-[node name="Bat3" parent="." instance=ExtResource("bat")]
+[node name="Blob3" parent="." instance=ExtResource("blob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.4, -18)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
@@ -2029,6 +2033,11 @@ body_color = Color(0.6, 0.7, 0.85, 1)
 hat_color = Color(0.45, 0.55, 0.75, 1)
 idle_hint = "[E] Talk to Wenna"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Hush — they are timid. *cups her hands gently*\\nGood. Good. I see your wisp at your shoulder, traveler. She is bright. She has chosen you.\", \"choices\": [{\"label\": \"What is Glim's role?\", \"next\": \"role\"}, {\"label\": \"Why do wisps choose?\", \"next\": \"choose\"}, {\"label\": \"Farewell.\", \"next\": \"bye\"}]}, \"role\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"A wisp is a fleck of the Source with a small, bright will. She lights what is dim. She remembers what you forget. She names what you cannot. Listen for her chime — it speaks where words will not.\", \"choices\": [{\"label\": \"Why do wisps choose?\", \"next\": \"choose\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"choose\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Because the Source likes a true heart, and a true heart never knows itself. Glim sees in you what you cannot. Trust her sight more than your own, when the green grows thick.\", \"choices\": [{\"label\": \"What is Glim's role?\", \"next\": \"role\"}, {\"label\": \"Farewell.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Wenna the Wisp-tender\", \"text\": \"Walk lightly. The wisps sleep nearby.\"}}}"
+
+[node name="Chest33" parent="." instance=ExtResource("chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 11)
+contents_scene = ExtResource("heart_piece")
+open_message = "Beneath the eldest pine — its roots had grown around a Source-pulse so old it had nearly forgotten itself. Press on."
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 14)

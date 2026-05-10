@@ -45,6 +45,19 @@ last 4 seconds so the loop point is invisible.
 | `boss.ogg` | urgent, dramatic | "Cinematic boss-battle music, 130 BPM, driving timpani + low brass ostinato, frantic strings, choral 'fff' shouts on the off-beat, dissonant horn calls, builds tension throughout, with a brief intro 'sting' (4 bars) before the loop body. 2:30 instrumental, fantasy boss fight." |
 | `combat.ogg` | rising tension overlay | "Combat tension layer, 100 BPM, percussive only — driving low toms, off-beat hi-hat clicks, occasional bass pulse, NO melodic content. Designed to layer ON TOP of any region track to add urgency when enemies are aggro'd. 2:30 instrumental loop." |
 
+### NEW region tracks — added in the filesystem-world rewrite
+
+| name | mood | Suno prompt |
+|---|---|---|
+| `wake.ogg` | military shrine, sunrise | "Sacred-military hymn, 70 BPM, low solo french horn over slow string pads with intermittent single bass-drum strikes, distant brass-band echo, builds and softens. 2:30 instrumental, sunrise ceremony at a stone shrine." |
+| `crown.ogg` | thin altitude, hushed reverence | "Hushed cinematic ambient, 55 BPM, sustained string sul ponticello drones, occasional faint chime, breath-like wind layer. NO percussion. 3:00 instrumental loop, the feel of standing alone on a wind-cold summit." |
+| `drift.ogg` | washed-out, half-forgotten | "Dream-pop ambient, 80 BPM, hazy reverb-soaked piano playing a fragmentary melody (notes that don't quite resolve), low pad, distant bell, no percussion. 3:00 instrumental, the feel of a city that forgets itself every day." |
+| `forge.ogg` | ember-warm, percussive | "Industrial fantasy theme, 90 BPM, anvil-strike percussion as the backbeat, low brass drone, occasional bellows-breath, hammered dulcimer melody fragments. 2:30 instrumental loop, ancient device-spirits and forgework." |
+| `library.ogg` | warm lamp-lit study | "Warm acoustic ambient, 75 BPM, soft acoustic guitar arpeggios, harp pluck overlay, sustained warm string pad, occasional turning-page texture, single low cello note every 16 beats. 3:00 instrumental loop, the feel of an old library at night." |
+| `murk.ogg` | cold green fog | "Cold ambient piece, 65 BPM, low warbly synth pad, distant bowed metal, breath, no melody, occasional wooden-block hit. 3:00 instrumental loop, fog-swamp and process-ghosts." |
+| `sprawl.ogg` | mid-day urban bustle | "Folk-festival music, 105 BPM, hurdy-gurdy + recorder + light hand-drum carrying a pentatonic melody, multiple counter-melodies layering in, market-day energy. 2:30 instrumental loop, contested merchant city." |
+| `null_door.ogg` | dread without violence | "Cinematic dread, 50 BPM, sustained low cello drone, occasional far-away choral 'aah', single deep bell every 32 beats, NO percussion. 3:00 instrumental loop, an unopened door at the end of the world." |
+
 ---
 
 ## SOUND EFFECTS — drop into `TODO/sfx/`

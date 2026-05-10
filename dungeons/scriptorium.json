@@ -1,6 +1,26 @@
 {
   "name": "The Scriptorium",
   "id": "scriptorium",
+  "sky_color": [
+    0.45,
+    0.42,
+    0.48
+  ],
+  "fog_color": [
+    0.5,
+    0.48,
+    0.55
+  ],
+  "ambient_color": [
+    0.4,
+    0.4,
+    0.45
+  ],
+  "sun_color": [
+    0.85,
+    0.8,
+    0.75
+  ],
   "key_group": "scriptorium",
   "music_track": "sigilkeep",
   "fs_path": "/etc",
@@ -4228,7 +4248,72 @@
     }
   ],
   "lights": [],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        -10.5,
+        0.0,
+        2.5
+      ]
+    },
+    {
+      "type": "init_shade",
+      "pos": [
+        -13.5,
+        0.0,
+        -14.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        -14.5,
+        0.0,
+        13.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        -1.5,
+        0.0,
+        12.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        -14.5,
+        0.0,
+        6.5
+      ]
+    },
+    {
+      "type": "init_shade",
+      "pos": [
+        -3.5,
+        0.0,
+        7.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        10.5,
+        0.0,
+        11.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        -1.5,
+        0.0,
+        -12.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
@@ -4239,6 +4324,35 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "The Scriptorium\n\n/etc"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "glim_sight",
+      "requires": "backwater_maw_defeated",
+      "open_message": "The Glim Sight \u2014 a yellow lens cut from listening glass. Hold it up and the hidden things stop hiding."
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        0.0,
+        0,
+        12.0
+      ],
+      "boss_scene_id": "censor",
+      "boss_id": "censor",
+      "boss_name": "Censor",
+      "arena_radius": 9.5,
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     }
   ],
   "load_zones": [

@@ -1,6 +1,26 @@
 {
   "name": "Wake Sub-shrine",
   "id": "wake_grub",
+  "sky_color": [
+    0.85,
+    0.7,
+    0.55
+  ],
+  "fog_color": [
+    0.9,
+    0.78,
+    0.65
+  ],
+  "ambient_color": [
+    0.7,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.78,
+    0.5
+  ],
   "key_group": "wake_grub",
   "music_track": "wake",
   "fs_path": "/boot/grub",

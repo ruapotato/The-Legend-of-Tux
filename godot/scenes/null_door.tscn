@@ -1,18 +1,22 @@
-[gd_scene load_steps=118 format=3 uid="uid://btuxnulldoor01"]
+[gd_scene load_steps=122 format=3 uid="uid://btuxnulldoor01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxbossini01" path="res://scenes/enemy_init.tscn" id="init"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxpkgmr01" path="res://scenes/pickup_glim_mirror.tscn" id="glim_mirror_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.05, 0.04, 0.06, 1)
@@ -349,6 +353,10 @@ key_group = "null_door"
 music_track = "dungeon_first"
 display_name = "The Null Door"
 fs_path = "/dev/null"
+sky_color = Color(0.18, 0.12, 0.1, 1)
+fog_color = Color(0.25, 0.15, 0.1, 1)
+ambient_color = Color(0.4, 0.25, 0.2, 1)
+sun_color = Color(1, 0.55, 0.3, 1)
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("s3")
@@ -985,17 +993,31 @@ message = "WARNING\n\nDo not approach within three paces of the door.\nThe rule 
 transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 2.5, 0, -1)
 message = "Carved into the stone frame:\n\n\"DO NOT KNOCK.\nNO ONE WILL ANSWER\nIN A WAY YOU CAN HEAR.\""
 
-[node name="Npc3_Watcher_Velm" parent="." instance=ExtResource("npc")]
+[node name="Chest3" parent="." instance=ExtResource("chest")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0, 3)
+contents_scene = ExtResource("glim_mirror_pickup")
+open_message = "The Glim Mirror. Lirien's true silver, beaten thin and blessed cool. It will catch what Init throws — and throw it back."
+requires_flag = "censor_defeated"
+
+[node name="Npc4_Watcher_Velm" parent="." instance=ExtResource("npc")]
 transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 3.5, 0, 0)
 npc_name = "Watcher Velm"
 body_color = Color(0.45, 0.45, 0.5, 1)
 hat_color = Color(0.2, 0.2, 0.25, 1)
 idle_hint = "[E] Speak with Velm"
-dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Watcher Velm\", \"text\": \"Step no closer than three paces. That is the rule. I do not write it; I only keep it. What would you ask of an old Wyrdkin who watches a door?\", \"choices\": [{\"label\": \"Who built it?\", \"next\": \"built\"}, {\"label\": \"What is on the other side?\", \"next\": \"other\"}, {\"label\": \"Has anyone passed through?\", \"next\": \"passed\"}, {\"label\": \"I will go.\", \"next\": \"bye\"}]}, \"built\": {\"speaker\": \"Watcher Velm\", \"text\": \"I do not know. I will not guess. The asking is not improved by my answer. The door was here before my watch. It will be here after. That is enough for me to be sure of.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"other\": {\"speaker\": \"Watcher Velm\", \"text\": \"I do not know. I will not guess. Do not ask the door, either. It will not answer in a way you can hear.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"passed\": {\"speaker\": \"Watcher Velm\", \"text\": \"Last cycle, a small grey-cloaked figure walked here. Not from the Forge — from somewhere I did not see. She passed the threshold. The door was unchanged after. She paid me in nothing and I felt paid. That is all.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Watcher Velm\", \"text\": \"Walk well. Walk wide of it.\"}}}"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Watcher Velm\", \"text\": \"*Velm does not turn from the door.* Three paces back, traveller. The door is not for knocking. It is for listening.\", \"choices\": [{\"label\": \"Teach me how to listen.\", \"next\": \"teach\", \"requires_not\": \"moon_chord_learned\"}, {\"label\": \"(Hum the Moon Chord.)\", \"next\": \"remembered\", \"requires_song\": \"moon_chord\"}, {\"label\": \"Have others come?\", \"next\": \"others\"}, {\"label\": \"I'll keep my distance.\", \"next\": \"bye\"}]}, \"others\": {\"speaker\": \"Watcher Velm\", \"text\": \"A small grey-cloaked figure, recent. Did not knock. Stayed three paces back. Listened. Walked back the way they came. *Velm seems to approve.*\", \"next\": \"root\"}, \"teach\": {\"speaker\": \"Watcher Velm\", \"text\": \"Then listen now. *Velm hums, low and slow.* Left... down... left... down... right. The moon-marked gates open to it. So do certain other things. Be careful which.\", \"learns_song\": \"moon_chord\", \"next\": \"bye\"}, \"remembered\": {\"speaker\": \"Watcher Velm\", \"text\": \"*Velm nods once and resumes their watch.*\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Watcher Velm\", \"text\": \"*Velm watches the door.*\"}}}"
 
-[node name="Rock4" parent="." instance=ExtResource("rock")]
+[node name="Rock5" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, -4.5)
 pebble_chance = 0
+
+[node name="BossArena6" parent="." instance=ExtResource("boss_arena")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+boss_name = "Init the Sleeper"
+boss_scene = ExtResource("init")
+arena_radius = 10
+spawn_offset = Vector3(0, 0, 0)
+boss_id = "init"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)

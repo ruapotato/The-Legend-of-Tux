@@ -98,6 +98,13 @@ EXT_RESOURCES = {
     "chmod_zealot":     ("PackedScene", "uid://btuxchmd01", "res://scenes/enemy_chmod_zealot.tscn"),
     "fork_hydra":       ("PackedScene", "uid://btuxfork01", "res://scenes/enemy_fork_hydra.tscn"),
     "init_shade":       ("PackedScene", "uid://btuxinit01", "res://scenes/enemy_init_shade.tscn"),
+    "codex_knight":     ("PackedScene", "uid://btuxbosscdx01", "res://scenes/enemy_codex_knight.tscn"),
+    "gale_roost":       ("PackedScene", "uid://btuxbossglr01", "res://scenes/enemy_gale_roost.tscn"),
+    "cinder_tomato":    ("PackedScene", "uid://btuxbosscnt01", "res://scenes/enemy_cinder_tomato.tscn"),
+    "forge_wyrm":       ("PackedScene", "uid://btuxbossfwm01", "res://scenes/enemy_forge_wyrm.tscn"),
+    "backwater_maw":    ("PackedScene", "uid://btuxbossbwm01", "res://scenes/enemy_backwater_maw.tscn"),
+    "censor":           ("PackedScene", "uid://btuxbosscns01", "res://scenes/enemy_censor.tscn"),
+    "init":             ("PackedScene", "uid://btuxbossini01", "res://scenes/enemy_init.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
@@ -130,6 +137,13 @@ EXT_RESOURCES = {
     "heart_piece":      ("PackedScene", "uid://btuxhpie01",  "res://scenes/heart_piece.tscn"),
     "heart_container":  ("PackedScene", "uid://btuxhcnt01",  "res://scenes/heart_container.tscn"),
     "glim":             ("PackedScene", "uid://btuxglim01", "res://scenes/glim.tscn"),
+    # Dungeon 5–8 item pickups (DESIGN.md §3). All four use the generic
+    # pickup.gd dispatch (Kind.ITEM + item_name); each pickup scene just
+    # binds the right item_name + visual mesh.
+    "hammer_pickup":       ("PackedScene", "uid://btuxpkhmr01", "res://scenes/pickup_hammer.tscn"),
+    "anchor_boots_pickup": ("PackedScene", "uid://btuxpkanc01", "res://scenes/pickup_anchor_boots.tscn"),
+    "glim_sight_pickup":   ("PackedScene", "uid://btuxpkgsi01", "res://scenes/pickup_glim_sight.tscn"),
+    "glim_mirror_pickup":  ("PackedScene", "uid://btuxpkgmr01", "res://scenes/pickup_glim_mirror.tscn"),
     "boss_arena":       ("PackedScene", "uid://btuxbarn01", "res://scenes/boss_arena.tscn"),
     "camera_script":    ("Script",      None,               "res://scripts/free_orbit_camera.gd"),
     "debug_script":     ("Script",      None,               "res://scripts/debug_overlay.gd"),
@@ -154,6 +168,11 @@ CONTENTS_TO_EXT = {
     "fairy":     "fairy_bottle",
     "heart_piece":     "heart_piece",
     "heart_container": "heart_container",
+    # Dungeon 5–8 items (DESIGN.md §3).
+    "hammer":       "hammer_pickup",
+    "anchor_boots": "anchor_boots_pickup",
+    "glim_sight":   "glim_sight_pickup",
+    "glim_mirror":  "glim_mirror_pickup",
 }
 
 ENEMY_TO_EXT = {
@@ -169,6 +188,13 @@ ENEMY_TO_EXT = {
     "chmod_zealot":  "chmod_zealot",
     "fork_hydra":    "fork_hydra",
     "init_shade":    "init_shade",
+    "codex_knight":  "codex_knight",
+    "gale_roost":    "gale_roost",
+    "cinder_tomato": "cinder_tomato",
+    "forge_wyrm":    "forge_wyrm",
+    "backwater_maw": "backwater_maw",
+    "censor":        "censor",
+    "init":          "init",
 }
 
 WALL_THICKNESS = 0.5
@@ -957,6 +983,12 @@ def emit_props(b, props):
             # tag the spawned key with a different dungeon's group.
             if "key_group" in p:
                 attrs.append('contents_key_group = "%s"' % escape(str(p["key_group"])))
+            # Optional cross-scene gating: hide the chest until the
+            # named GameState quest_flag is set. The build script just
+            # forwards the string; treasure_chest.gd reads it on _ready
+            # and self-hides if GameState.has_flag(...) is false.
+            if "requires" in p:
+                attrs.append('requires_flag = "%s"' % escape(str(p["requires"])))
             b.add_node(
                 '[node name="Chest%d" parent="." instance=ExtResource("chest")]\n'
                 % i + "\n".join(attrs) + "\n"
@@ -1049,6 +1081,10 @@ def emit_props(b, props):
                 attrs.append('spawn_offset = %s' % vstr(so))
             if "region_track" in p:
                 attrs.append('region_track = "%s"' % escape(str(p["region_track"])))
+            if "boss_id" in p:
+                attrs.append('boss_id = "%s"' % escape(str(p["boss_id"])))
+            elif boss_id:
+                attrs.append('boss_id = "%s"' % escape(boss_id))
             b.add_node(
                 '[node name="BossArena%d" parent="." instance=ExtResource("boss_arena")]\n'
                 % i + "\n".join(attrs) + "\n"
@@ -1278,6 +1314,19 @@ def convert(json_path):
         'display_name = "%s"' % escape(str(display_name)),
         'fs_path = "%s"'      % escape(str(fs_path)),
     ]
+    # Per-directory aesthetic palette (DESIGN.md §8). Each is an
+    # optional 3-array of floats in [0,1]; written as Color exports on
+    # the root so dungeon_root.gd can build a procedural sky + sun at
+    # runtime if the scene has no static WorldEnvironment.
+    for key in ("sky_color", "fog_color", "ambient_color", "sun_color"):
+        val = data.get(key)
+        if val is None:
+            continue
+        # Accept 3- or 4-arrays; pad alpha to 1.0.
+        if len(val) == 3:
+            val = list(val) + [1.0]
+        root_attrs.append('%s = Color(%g, %g, %g, %g)' % (
+            key, val[0], val[1], val[2], val[3]))
     b.nodes.append('[node name="%s" type="Node3D"]\n%s\n'
                    % (data.get("name", data["id"]), "\n".join(root_attrs)))
     emit_environment(b, data.get("environment", {}))

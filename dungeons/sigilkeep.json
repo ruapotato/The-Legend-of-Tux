@@ -1,6 +1,26 @@
 {
   "name": "Sigilkeep",
   "id": "sigilkeep",
+  "sky_color": [
+    0.45,
+    0.42,
+    0.48
+  ],
+  "fog_color": [
+    0.5,
+    0.48,
+    0.55
+  ],
+  "ambient_color": [
+    0.4,
+    0.4,
+    0.45
+  ],
+  "sun_color": [
+    0.85,
+    0.8,
+    0.75
+  ],
   "environment": {
     "sky_top": [
       0.1,
@@ -6145,6 +6165,35 @@
           }
         }
       }
+    },
+    {
+      "type": "boss_arena",
+      "pos": [
+        0.0,
+        0,
+        -2.0
+      ],
+      "boss_scene_id": "codex_knight",
+      "boss_id": "codex_knight",
+      "boss_name": "Codex Knight",
+      "arena_radius": 8.0,
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -15,
+        0,
+        -10
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Behind a section of wall that crumbles to a sharp blow \u2014 bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file.",
+      "requires": "wyrdking_defeated"
     }
   ],
   "load_zones": [
@@ -6178,6 +6227,72 @@
       "target_scene": "scriptorium",
       "target_spawn": "from_sigilkeep",
       "prompt": "[E] Up to the Scriptorium"
+    }
+  ],
+  "enemies": [
+    {
+      "type": "knight",
+      "pos": [
+        0.5,
+        0.0,
+        -6.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        -0.5,
+        0.0,
+        2.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        12.5,
+        0.0,
+        14.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        -4.5,
+        0.0,
+        -0.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        -15.5,
+        0.0,
+        -13.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        5.5,
+        0.0,
+        -1.5
+      ]
+    },
+    {
+      "type": "knight",
+      "pos": [
+        9.5,
+        0.0,
+        -3.5
+      ]
+    },
+    {
+      "type": "chmod_zealot",
+      "pos": [
+        -11.5,
+        0.0,
+        -6.5
+      ]
     }
   ]
 }

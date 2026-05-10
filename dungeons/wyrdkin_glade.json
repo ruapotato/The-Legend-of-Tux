@@ -1,6 +1,26 @@
 {
   "name": "Wyrdkin Glade",
   "id": "wyrdkin_glade",
+  "sky_color": [
+    0.6,
+    0.78,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.85,
+    0.75
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.95,
+    0.8
+  ],
   "environment": {
     "sky_top": [
       0.45,
@@ -5108,6 +5128,15 @@
         -10.61
       ],
       "rotation_y": -2.356194490192345
+    },
+    {
+      "id": "from_grotto_glade",
+      "pos": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [],
@@ -5664,6 +5693,90 @@
           }
         }
       }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -9,
+        0,
+        -13
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "A piece of heart, pressed deep into a thicket of wyrdkin-bramble. Glim says the bushes were planted to hide it."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        7
+      ],
+      "rotation_y": 0,
+      "message": "A leaf-curtain stirs against the wall \u2014 there is a hollow behind it."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.5,
+        4.0
+      ],
+      "rotation_y": 3.14,
+      "name": "Glim",
+      "body_color": [
+        0.95,
+        0.92,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        1.0,
+        0.85,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to Glim",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Glim",
+            "text": "*The little wisp pulses, gentle and curious.* You hear me, don't you. The Source still moves through you. Good.",
+            "choices": [
+              {
+                "label": "Teach me a song.",
+                "next": "teach",
+                "requires_not": "glim_theme_learned"
+              },
+              {
+                "label": "(You hum the song to yourself.)",
+                "next": "remembered",
+                "requires_song": "glim_theme"
+              },
+              {
+                "label": "Goodbye.",
+                "next": "bye"
+              }
+            ]
+          },
+          "teach": {
+            "speaker": "Glim",
+            "text": "Listen \u2014 and remember. *up... right... down... left... up.* Carry it. Hum it at any owl-shrine and the keepers will tend you. *[Z] to hum.*",
+            "learns_song": "glim_theme",
+            "next": "bye"
+          },
+          "remembered": {
+            "speaker": "Glim",
+            "text": "Yes. The melody's in you now. The Source remembers what you remember.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Glim",
+            "text": "*Glim drifts a little higher and waits.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -5697,11 +5810,28 @@
       "target_scene": "wyrdmark_gateway",
       "target_spawn": "from_wyrdkin_glade",
       "prompt": "[E] Up to Wyrdmark Gateway"
+    },
+    {
+      "pos": [
+        -12,
+        1.4,
+        8
+      ],
+      "size": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "grotto_glade",
+      "target_spawn": "from_wyrdkin_glade",
+      "auto": false,
+      "prompt": "[E] Push through the leaf-curtain"
     }
   ],
   "enemies": [
     {
-      "type": "spore",
+      "type": "tomato",
       "pos": [
         -5.0,
         1.6,

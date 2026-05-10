@@ -182,6 +182,14 @@ func _activate() -> void:
             "spawn": warp_target_spawn,
         })
     _refresh_glow()
+    # Glim's Theme grants the OoT-style "owl heal": touching a statue
+    # with the song known refills HP to full alongside the warp UI. The
+    # heal silently no-ops when HP is already full (GameState.heal clamps).
+    if GameState.has_song("glim_theme"):
+        var maximum: int = GameState.max_fish * GameState.HP_PER_FISH
+        if GameState.hp < maximum:
+            GameState.heal(maximum - GameState.hp)
+            SoundBank.play_2d("heart_get")
     if first_time:
         var pretty: String = warp_name if warp_name != "" else warp_id
         Dialog.show_message(

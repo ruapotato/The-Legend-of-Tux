@@ -1,6 +1,26 @@
 {
   "name": "Wyrdmark Mounts",
   "id": "wyrdmark_mounts",
+  "sky_color": [
+    0.55,
+    0.7,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.8,
+    0.85
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.65
+  ],
+  "sun_color": [
+    1.0,
+    0.92,
+    0.85
+  ],
   "key_group": "wyrdmark_mounts",
   "music_track": "stoneroost",
   "fs_path": "/mnt/wyrdmark",
@@ -690,7 +710,32 @@
     }
   ],
   "lights": [],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "bat",
+      "pos": [
+        -4.5,
+        1.4,
+        -1.5
+      ]
+    },
+    {
+      "type": "wisp_hunter",
+      "pos": [
+        -1.5,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "type": "bat",
+      "pos": [
+        0.5,
+        1.4,
+        2.5
+      ]
+    }
+  ],
   "props": [
     {
       "type": "sign",
@@ -701,6 +746,17 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "Wyrdmark Mounts\n\n/mnt/wyrdmark"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        -3
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "Out on the wind-scoured ledge where only the kin who knew the climb would find it. A piece of heart, anchored under a flat stone."
     }
   ],
   "load_zones": [

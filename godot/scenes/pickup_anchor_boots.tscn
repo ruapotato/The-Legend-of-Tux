@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxpkanc01"]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_p"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="iron_mat"]
+albedo_color = Color(0.30, 0.30, 0.36, 1)
+metallic = 0.85
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.40, 0.55, 0.70, 1)
+emission_energy_multiplier = 0.20
+
+[sub_resource type="BoxMesh" id="boot_mesh"]
+size = Vector3(0.22, 0.20, 0.40)
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_p")
+kind = 3
+item_name = "anchor_boots"
+pickup_message = "Anchor Boots. They drag like wet stone. Toggle them on (Pause → Items) to sink — and to walk where the water hides the floor."
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30, 0)
+
+[node name="BootL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0)
+mesh = SubResource("boot_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="BootR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, 0)
+mesh = SubResource("boot_mesh")
+surface_material_override/0 = SubResource("iron_mat")
