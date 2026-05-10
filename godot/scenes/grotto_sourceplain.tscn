@@ -1,17 +1,17 @@
-[gd_scene load_steps=61 format=3 uid="uid://btuxgrottoso01"]
+[gd_scene load_steps=67 format=3 uid="uid://btuxgrottoso01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.6, 0.85, 1)
@@ -67,34 +67,34 @@ size = Vector3(1, 3.5, 0.2)
 size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s14"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxMesh" id="s15"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s16"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxMesh" id="s17"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxShape3D" id="s18"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxMesh" id="s19"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s20"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxMesh" id="s21"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxShape3D" id="s22"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxMesh" id="s23"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s24"]
 size = Vector3(0.2, 3.5, 1)
@@ -115,22 +115,22 @@ size = Vector3(1, 3.5, 0.2)
 size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s30"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxMesh" id="s31"]
-size = Vector3(1, 3.5, 0.2)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxShape3D" id="s32"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxMesh" id="s33"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s34"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxMesh" id="s35"]
-size = Vector3(0.2, 3.5, 1)
+size = Vector3(1, 3.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="s36"]
 size = Vector3(1, 3.5, 0.2)
@@ -163,16 +163,31 @@ size = Vector3(0.2, 3.5, 1)
 size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxShape3D" id="s46"]
-size = Vector3(3, 3, 1)
+size = Vector3(0.2, 3.5, 1)
 
 [sub_resource type="BoxMesh" id="s47"]
-size = Vector3(3.5, 4.5, 0.1)
+size = Vector3(0.2, 3.5, 1)
 
-[sub_resource type="StandardMaterial3D" id="s48"]
-albedo_color = Color(0.02, 0.02, 0.04, 1)
-shading_mode = 0
-emission_enabled = true
-emission = Color(0, 0, 0, 1)
+[sub_resource type="BoxShape3D" id="s48"]
+size = Vector3(1, 3.5, 0.2)
+
+[sub_resource type="BoxMesh" id="s49"]
+size = Vector3(1, 3.5, 0.2)
+
+[sub_resource type="BoxShape3D" id="s50"]
+size = Vector3(0.2, 3.5, 1)
+
+[sub_resource type="BoxMesh" id="s51"]
+size = Vector3(0.2, 3.5, 1)
+
+[sub_resource type="BoxShape3D" id="s52"]
+size = Vector3(1, 3.5, 0.2)
+
+[sub_resource type="BoxMesh" id="s53"]
+size = Vector3(1, 3.5, 0.2)
+
+[sub_resource type="BoxShape3D" id="s54"]
+size = Vector3(3, 3, 1)
 
 [node name="Wind-Carved Bowl" type="Node3D"]
 script = ExtResource("root_script")
@@ -202,6 +217,7 @@ floor_y = 0
 floor_color = Color(0.55, 0.48, 0.34, 1)
 skirt_depth = 6.0
 smoothing = 0.45
+path_cells = [Vector2i(0, 1), Vector2i(0, 0), Vector2i(0, -1)]
 
 [node name="GridWall2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, -2.5)
@@ -240,7 +256,7 @@ mesh = SubResource("s11")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall5" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.75, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -252,7 +268,7 @@ mesh = SubResource("s13")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall6" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.75, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -264,7 +280,7 @@ mesh = SubResource("s15")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall7" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.75, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -276,7 +292,7 @@ mesh = SubResource("s17")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall8" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.75, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -288,7 +304,7 @@ mesh = SubResource("s19")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall9" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -300,7 +316,7 @@ mesh = SubResource("s21")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall10" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -312,7 +328,7 @@ mesh = SubResource("s23")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall11" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -324,7 +340,7 @@ mesh = SubResource("s25")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall12" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -336,7 +352,7 @@ mesh = SubResource("s27")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall13" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.75, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -348,7 +364,7 @@ mesh = SubResource("s29")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall14" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -360,7 +376,7 @@ mesh = SubResource("s31")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall15" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.75, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -372,7 +388,7 @@ mesh = SubResource("s33")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall16" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.75, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -384,7 +400,7 @@ mesh = SubResource("s35")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall17" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.75, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -396,7 +412,7 @@ mesh = SubResource("s37")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall18" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -408,7 +424,7 @@ mesh = SubResource("s39")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall19" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -420,7 +436,7 @@ mesh = SubResource("s41")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall20" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.75, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -432,7 +448,7 @@ mesh = SubResource("s43")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall21" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.75, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -441,6 +457,54 @@ shape = SubResource("s44")
 
 [node name="Mesh" type="MeshInstance3D" parent="GridWall21"]
 mesh = SubResource("s45")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridWall22" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, -2.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridWall22"]
+shape = SubResource("s46")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridWall22"]
+mesh = SubResource("s47")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridWall23" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.75, -3)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridWall23"]
+shape = SubResource("s48")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridWall23"]
+mesh = SubResource("s49")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridWall24" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.75, 0.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridWall24"]
+shape = SubResource("s50")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridWall24"]
+mesh = SubResource("s51")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridWall25" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.75, 3)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridWall25"]
+shape = SubResource("s52")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridWall25"]
+mesh = SubResource("s53")
 surface_material_override/0 = SubResource("s5")
 
 [node name="Spawns" type="Node3D" parent="."]
@@ -461,7 +525,7 @@ contents_scene = ExtResource("heart_piece")
 open_message = "A piece of heart, tucked under the marker-stone. The wind-carved bowl preserved it the way the plain preserves everything it bothers to remember."
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 2)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -472,11 +536,7 @@ auto_trigger = true
 prompt = "[E] Out of the wind-carved bowl"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
-shape = SubResource("s46")
-
-[node name="Veil" type="MeshInstance3D" parent="LoadZone0"]
-mesh = SubResource("s47")
-surface_material_override/0 = SubResource("s48")
+shape = SubResource("s54")
 
 [node name="Hint" type="Label3D" parent="LoadZone0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)

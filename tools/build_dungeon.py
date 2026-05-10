@@ -105,6 +105,12 @@ EXT_RESOURCES = {
     "backwater_maw":    ("PackedScene", "uid://btuxbossbwm01", "res://scenes/enemy_backwater_maw.tscn"),
     "censor":           ("PackedScene", "uid://btuxbosscns01", "res://scenes/enemy_censor.tscn"),
     "init":             ("PackedScene", "uid://btuxbossini01", "res://scenes/enemy_init.tscn"),
+    # Mini-bosses (between regular enemies and the dungeon's final boss).
+    # Tougher than a tomato or knight, but no boss_arena requirement.
+    "armored_knight":   ("PackedScene", "uid://btuxmbarmkt01", "res://scenes/enemy_armored_knight.tscn"),
+    "wyrm_hatchling":   ("PackedScene", "uid://btuxmbwymh01", "res://scenes/enemy_wyrm_hatchling.tscn"),
+    "shade_archon":     ("PackedScene", "uid://btuxmbshrc01", "res://scenes/enemy_shade_archon.tscn"),
+    "bone_ogre":        ("PackedScene", "uid://btuxmbbnog01", "res://scenes/enemy_bone_ogre.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
@@ -117,6 +123,7 @@ EXT_RESOURCES = {
     "torch":            ("PackedScene", "uid://btuxtrch01", "res://scenes/torch.tscn"),
     "eye_target":       ("PackedScene", "uid://btuxeye01",  "res://scenes/eye_target.tscn"),
     "triggered_gate":   ("PackedScene", "uid://btuxtgte01", "res://scenes/triggered_gate.tscn"),
+    "time_gate":        ("PackedScene", "uid://btuxtgte02", "res://scenes/time_gate.tscn"),
     "npc":              ("PackedScene", "uid://btuxnpc01",  "res://scenes/npc.tscn"),
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
     "pebble_pickup":    ("PackedScene", "uid://btuxpkpb01", "res://scenes/pickup_pebble.tscn"),
@@ -195,9 +202,27 @@ ENEMY_TO_EXT = {
     "backwater_maw": "backwater_maw",
     "censor":        "censor",
     "init":          "init",
+    # Mini-bosses.
+    "armored_knight": "armored_knight",
+    "wyrm_hatchling": "wyrm_hatchling",
+    "shade_archon":   "shade_archon",
+    "bone_ogre":      "bone_ogre",
 }
 
 WALL_THICKNESS = 0.5
+
+# Minimum gap width (meters of opening at the boundary) carved through
+# the tree wall for every load_zone. Even a small load_zone gets at
+# least this much clearance so the player can walk through without
+# clipping branches. Translated into an arc-width (radians) per
+# tree_wall when emitting the gap.
+LOAD_ZONE_MIN_GAP_M = 4.0
+
+# How many cells of "cleared dirt path" to lay leading INWARD from
+# each load_zone toward the level centroid. The path is a visible
+# cue that "this is the way out" — tuned to 3 so the trail is
+# visible from a few meters away without dominating the level art.
+LOAD_ZONE_PATH_CELLS = 3
 
 # Filesystem path per level id (FILESYSTEM.md §2). Levels not in the
 # map fall back to "" — the build script still emits an empty fs_path
@@ -240,6 +265,41 @@ PATH_MAP = {
     "backwater":         "/var/spool",
     "forge":             "/dev",
     "null_door":         "/dev/null",
+    # v2 expansion — see FILESYSTEM.md §2.1.
+    # Top-level (7).
+    "bin":               "/bin",
+    "sbin":              "/sbin",
+    "lib":               "/lib",
+    "lost_found":        "/lost+found",
+    "root_hold":         "/root",
+    "srv":               "/srv",
+    "sys":               "/sys",
+    # Under /etc (2).
+    "etc_initd":         "/etc/init.d",
+    "etc_passwd":        "/etc/passwd",
+    # Under /home (2).
+    "home_lirien":       "/home/lirien",
+    "home_khorgaul":     "/home/khorgaul",
+    # Under /proc (3).
+    "proc_init":         "/proc/init",
+    "proc_sys":          "/proc/sys",
+    "proc_42":           "/proc/42",
+    # Under /usr (5 — including usr_share_man).
+    "usr_lib":           "/usr/lib",
+    "usr_sbin":          "/usr/sbin",
+    "usr_src":           "/usr/src",
+    "usr_include":       "/usr/include",
+    "usr_share_man":     "/usr/share/man",
+    # Under /var (4).
+    "var_mail":          "/var/mail",
+    "var_run":           "/var/run",
+    "var_tmp":           "/var/tmp",
+    "var_games":         "/var/games",
+    # Under /dev (4).
+    "dev_zero":          "/dev/zero",
+    "dev_random":        "/dev/random",
+    "dev_tty":           "/dev/tty",
+    "dev_loop":          "/dev/loop",
 }
 
 
@@ -633,7 +693,255 @@ def emit_doors_v2(b, doors):
                         wx, wcy, wz, seg_len, wh, wt, mat, rot)
 
 
-def emit_grid_floors(b, grid, load_zones=None, doors=None):
+def _grid_floor_centroid(floor, cell_size):
+    """World-XZ centroid of a grid floor's walking cells, weighted by
+    cell count. Used as the reference point for "outward direction"
+    when carving load_zone gaps."""
+    raw_cells = floor.get("cells", [])
+    if not raw_cells:
+        return (0.0, 0.0)
+    sx = 0.0; sz = 0.0; n = 0
+    for c in raw_cells:
+        if isinstance(c, dict):
+            ci, cj = int(c["i"]), int(c["j"])
+        else:
+            ci, cj = int(c[0]), int(c[1])
+        sx += (ci + 0.5) * cell_size
+        sz += (cj + 0.5) * cell_size
+        n += 1
+    return (sx / n, sz / n)
+
+
+def _grid_floor_bbox(floor, cell_size):
+    """World-XZ bbox (x_min, z_min, x_max, z_max) of a grid floor's
+    walking cells. Edge of the level for snapping load_zones."""
+    raw_cells = floor.get("cells", [])
+    if not raw_cells:
+        return (0.0, 0.0, 0.0, 0.0)
+    i_lo = i_hi = None
+    j_lo = j_hi = None
+    for c in raw_cells:
+        if isinstance(c, dict):
+            ci, cj = int(c["i"]), int(c["j"])
+        else:
+            ci, cj = int(c[0]), int(c[1])
+        if i_lo is None or ci < i_lo: i_lo = ci
+        if i_hi is None or ci > i_hi: i_hi = ci
+        if j_lo is None or cj < j_lo: j_lo = cj
+        if j_hi is None or cj > j_hi: j_hi = cj
+    return (i_lo * cell_size, j_lo * cell_size,
+            (i_hi + 1) * cell_size, (j_hi + 1) * cell_size)
+
+
+def _preprocess_load_zones(data):
+    """Mutate `data["load_zones"]` so each zone is snapped to the
+    outward edge of the level, and emit per-floor path_cells (cleared
+    corridor leading from the zone back toward the centroid).
+
+    Returns a dict floor_index -> list of (i, j) cells to add as
+    path_cells on that floor's TerrainMesh, plus a per-zone "expanded
+    footprint" used by the grid wall-suppression pass so the gap in
+    the tree wall is wide enough for the player to walk through (not
+    just the trigger box's literal width).
+
+    Skips zones that point at "grotto_*" scenes and have auto:false
+    — those are interior cellar entrances, NOT boundary portals, and
+    pulling them to the level edge would teleport them across the
+    map. We can detect this from the JSON shape: an `auto:false` zone
+    is always a "press E to enter" cellar trapdoor, not an outdoor
+    transition.
+    """
+    out = {"footprints": [], "path_cells_per_floor": {}}
+    grid = data.get("grid")
+    load_zones = data.get("load_zones", [])
+    if not grid or not load_zones:
+        # Even with no grid we still want to expose the footprints so
+        # the wall-suppression pass has uniform shape.
+        for lz in load_zones:
+            pos = lz.get("pos", [0, 0, 0])
+            sz  = lz.get("size", [3, 3, 1])
+            out["footprints"].append({
+                "pos":  pos,
+                "halfx": sz[0] / 2.0 + 0.1,
+                "halfz": sz[2] / 2.0 + 0.1,
+            })
+        return out
+
+    cell_size = float(grid.get("cell_size", 2.0))
+    floors = grid.get("floors", [])
+    if not floors:
+        for lz in load_zones:
+            pos = lz.get("pos", [0, 0, 0])
+            sz  = lz.get("size", [3, 3, 1])
+            out["footprints"].append({
+                "pos":  pos,
+                "halfx": sz[0] / 2.0 + 0.1,
+                "halfz": sz[2] / 2.0 + 0.1,
+            })
+        return out
+
+    # Use the first (only) floor for centroid + bbox. Multi-floor
+    # outdoor maps don't exist in the current dungeon set; if they
+    # ever do, an explicit per-zone "floor_index" override would be
+    # easy to add.
+    floor_idx = 0
+    floor = floors[floor_idx]
+    cells_set = set()
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            cells_set.add((int(c["i"]), int(c["j"])))
+        else:
+            cells_set.add((int(c[0]), int(c[1])))
+
+    cx, cz = _grid_floor_centroid(floor, cell_size)
+    bx0, bz0, bx1, bz1 = _grid_floor_bbox(floor, cell_size)
+    extra_path_cells = []
+
+    for lz in load_zones:
+        pos = list(lz.get("pos", [0, 0, 0]))
+        sz  = list(lz.get("size", [3.0, 3.0, 1.0]))
+        is_interior = (lz.get("auto", True) is False)
+
+        # Outward direction from level centroid → load zone position.
+        dx = pos[0] - cx
+        dz = pos[2] - cz
+        dlen = math.hypot(dx, dz)
+        if dlen < 1e-3 or is_interior:
+            # Either degenerate (zone on top of centroid) or it's an
+            # interior cellar trapdoor — leave the position alone, but
+            # still publish a footprint for wall suppression.
+            out["footprints"].append({
+                "pos":  pos,
+                "halfx": sz[0] / 2.0 + 0.1,
+                "halfz": sz[2] / 2.0 + 0.1,
+            })
+            continue
+        ux = dx / dlen
+        uz = dz / dlen
+
+        # Walk the outward ray from the original load_zone position
+        # OUTWARD until we leave the walking cell footprint. The last
+        # walking cell we crossed is the level edge along that ray —
+        # snap the trigger to its outer face. This is more robust
+        # than snapping to the bbox: irregular footprints (sourceplain
+        # is a wide cross, not a square) put the actual edge at a
+        # very different place from the bbox extreme.
+        edge_cell = None
+        # Step along the ray in half-cell increments in both
+        # directions: first inward to find SOME walking cell to seed
+        # with (the lz might already be outside the footprint), then
+        # outward to find the last walking cell.
+        step = cell_size * 0.5
+        seed_cell = (int(math.floor(pos[0] / cell_size)),
+                     int(math.floor(pos[2] / cell_size)))
+        if seed_cell not in cells_set:
+            # Walk inward up to the bbox span looking for a cell to
+            # start from. Cap the search so degenerate inputs don't
+            # spin forever.
+            span = math.hypot(bx1 - bx0, bz1 - bz0)
+            max_steps = int(span / step) + 4
+            found = None
+            for k in range(1, max_steps):
+                tx = pos[0] - ux * step * k
+                tz = pos[2] - uz * step * k
+                ck = (int(math.floor(tx / cell_size)),
+                      int(math.floor(tz / cell_size)))
+                if ck in cells_set:
+                    found = (tx, tz, ck)
+                    break
+            if found is None:
+                # Could not seed — leave the load_zone alone, just
+                # publish its footprint for wall suppression.
+                out["footprints"].append({
+                    "pos":  pos,
+                    "halfx": sz[0] / 2.0 + 0.1,
+                    "halfz": sz[2] / 2.0 + 0.1,
+                })
+                continue
+            seed_x, seed_z, seed_cell = found
+        else:
+            seed_x, seed_z = pos[0], pos[2]
+
+        # Walk outward from seed until we exit the footprint. The
+        # last (tx, tz) inside is the snap point.
+        last_in_x, last_in_z = seed_x, seed_z
+        span = math.hypot(bx1 - bx0, bz1 - bz0)
+        max_out_steps = int(span / step) + 4
+        for k in range(1, max_out_steps):
+            tx = seed_x + ux * step * k
+            tz = seed_z + uz * step * k
+            ck = (int(math.floor(tx / cell_size)),
+                  int(math.floor(tz / cell_size)))
+            if ck in cells_set:
+                last_in_x, last_in_z = tx, tz
+                edge_cell = ck
+            else:
+                break
+        # Snap pos to (last_in_x, last_in_z), then pull half a cell
+        # back inward so the trigger is clear of the wall edge —
+        # otherwise the box-collider in tree_wall.gd's gap-piece
+        # boundary would sometimes catch the player as they crossed.
+        # Pulling 0.5*cell_size keeps us inside the last walking cell.
+        new_x = last_in_x - ux * cell_size * 0.5
+        new_z = last_in_z - uz * cell_size * 0.5
+        # Apply the snap. Y is preserved.
+        pos[0] = new_x
+        pos[2] = new_z
+        lz["pos"] = pos
+
+        # Path cells: walk INWARD from the snapped trigger position
+        # toward the centroid, recording the closest LOAD_ZONE_PATH_CELLS
+        # cells inside the footprint. Step at half-cell increments so
+        # we don't skip past a cell on diagonal paths, and dedupe.
+        seen = set()
+        # Cap the walk to a generous distance — diagonal corridors
+        # through irregular footprints can take a few cells before
+        # the first hit.
+        max_path_steps = int(span / step) + 4
+        for step_idx in range(1, max_path_steps):
+            tx = new_x - ux * step * step_idx
+            tz = new_z - uz * step * step_idx
+            ci = int(math.floor(tx / cell_size))
+            cj = int(math.floor(tz / cell_size))
+            if (ci, cj) in cells_set and (ci, cj) not in seen:
+                seen.add((ci, cj))
+                extra_path_cells.append((ci, cj))
+                if len(seen) >= LOAD_ZONE_PATH_CELLS:
+                    break
+        # Expanded footprint: at least the gap arc width worth of
+        # opening centred at the snapped position, perpendicular to
+        # the outward direction. Translate "gap arc width" into a
+        # straight perpendicular distance: at radius dlen, an arc of
+        # width w (radians) spans approximately dlen*w meters.
+        # We just want the OPENING in the boundary to be at least
+        # LOAD_ZONE_MIN_GAP_M wide.
+        gap_m = max(LOAD_ZONE_MIN_GAP_M, sz[0], sz[2])
+        # The opening axis is perpendicular to the outward direction.
+        # If outward is mostly along x, the opening spans z (and vice
+        # versa). Snap axes for the wider footprint:
+        if abs(ux) >= abs(uz):
+            half_open = max(sz[2] * 0.5, gap_m * 0.5)
+            footprint = {
+                "pos":  list(pos),
+                "halfx": sz[0] / 2.0 + 0.1,
+                "halfz": half_open + 0.1,
+            }
+        else:
+            half_open = max(sz[0] * 0.5, gap_m * 0.5)
+            footprint = {
+                "pos":  list(pos),
+                "halfx": half_open + 0.1,
+                "halfz": sz[2] / 2.0 + 0.1,
+            }
+        out["footprints"].append(footprint)
+
+    if extra_path_cells:
+        out["path_cells_per_floor"][floor_idx] = extra_path_cells
+    return out
+
+
+def emit_grid_floors(b, grid, load_zones=None, doors=None,
+                     lz_footprints=None, path_cells_per_floor=None):
     """Render the editor's cell-paint grid format. For each floor in
     grid.floors, emit per-cell floor slabs and a wall segment along
     every cell-edge that has no neighbor cell. Wall segments are
@@ -647,13 +955,26 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None):
         return
     load_zones = load_zones or []
     doors = doors or []
-
-    def in_load_zone(wx, wz):
+    # Footprints from _preprocess_load_zones — wider than the raw
+    # zone boxes so we carve a real walkable gap, not a 1m slot in
+    # the wall the player has to thread through pixel-perfect.
+    if lz_footprints is None:
+        lz_footprints = []
         for lz in load_zones:
             pos = lz.get("pos", [0, 0, 0])
             sz  = lz.get("size", [3, 3, 1])
-            if (abs(wx - pos[0]) < sz[0] / 2.0 + 0.1
-                and abs(wz - pos[2]) < sz[2] / 2.0 + 0.1):
+            lz_footprints.append({
+                "pos":  pos,
+                "halfx": sz[0] / 2.0 + 0.1,
+                "halfz": sz[2] / 2.0 + 0.1,
+            })
+    path_cells_per_floor = path_cells_per_floor or {}
+
+    def in_load_zone(wx, wz):
+        for fp in lz_footprints:
+            pos = fp["pos"]
+            if (abs(wx - pos[0]) < fp["halfx"]
+                and abs(wz - pos[2]) < fp["halfz"]):
                 return True
         # Doors carry their own flanking walls via wall_extension; if
         # they're embedded inside a grid floor's perimeter, suppress
@@ -686,7 +1007,7 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None):
                prefix, n, mesh, mat)
         )
 
-    for floor in floors:
+    for floor_idx, floor in enumerate(floors):
         raw_cells = floor.get("cells", [])
         # Each cell entry is one of:
         #   [i, j]                       — flat default cell
@@ -739,6 +1060,13 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None):
             fc = floor_color
             fc_str = "Color(%g, %g, %g, %g)" % (fc[0], fc[1], fc[2],
                                                  fc[3] if len(fc) >= 4 else 1.0)
+            # path_cells: cleared corridor cells laid down by the
+            # load-zone preprocessor so each gap in the tree wall
+            # reads as a packed-dirt trail leading out of the level.
+            extra_paths = path_cells_per_floor.get(floor_idx, [])
+            path_cells_str = "[%s]" % ", ".join(
+                "Vector2i(%d, %d)" % (ci, cj) for (ci, cj) in extra_paths
+            )
             b.add_node(
                 '[node name="TerrainMesh%d" type="Node3D" parent="."]\n'
                 'script = ExtResource("terrain_mesh_script")\n'
@@ -748,7 +1076,8 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None):
                 'floor_color = %s\n'
                 'skirt_depth = 6.0\n'
                 'smoothing = 0.45\n'
-                % (n, cell_data_str, cell_size, y, fc_str)
+                'path_cells = %s\n'
+                % (n, cell_data_str, cell_size, y, fc_str, path_cells_str)
             )
 
         if has_walls:
@@ -812,7 +1141,49 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None):
                                cell_size, roof_thick, cell_size, wall_mat)
 
 
-def emit_tree_walls(b, walls):
+def _tree_wall_gaps_for_boundary(boundary, load_zones):
+    """For an explicit tree_walls polygon, compute the angle-based
+    `gaps` Array of {angle, width} dicts to carve out clearings for
+    every load_zone whose position is "outside" or "near the
+    perimeter of" the polygon. The angle is measured from the
+    polygon centroid in radians (0 = +x = east, +y screen-z = north,
+    matching tree_wall.gd's _in_gap)."""
+    if not boundary or not load_zones:
+        return []
+    cx = sum(p[0] for p in boundary) / float(len(boundary))
+    cz = sum(p[1] for p in boundary) / float(len(boundary))
+    # Approx polygon "radius" — average distance from centroid to
+    # each vertex. Used to convert the desired gap_metres into a gap
+    # arc width.
+    avg_r = sum(math.hypot(p[0] - cx, p[1] - cz) for p in boundary) / float(len(boundary))
+    if avg_r < 1e-3:
+        return []
+    out = []
+    for lz in load_zones:
+        if lz.get("auto", True) is False:
+            # Interior cellar trapdoors don't punch through outdoor
+            # tree walls — skip.
+            continue
+        pos = lz.get("pos", [0, 0, 0])
+        sz  = lz.get("size", [3.0, 3.0, 1.0])
+        dx = pos[0] - cx
+        dz = pos[2] - cz
+        if math.hypot(dx, dz) < 1e-3:
+            continue
+        ang = math.atan2(dz, dx)
+        gap_m = max(LOAD_ZONE_MIN_GAP_M, sz[0], sz[2])
+        # arc_width = gap_m / radius (small-angle approx is fine —
+        # gaps are typically a few-degree arcs).
+        width = gap_m / avg_r
+        # Floor at ~10° of arc so even huge polygons get a visible
+        # opening, ceiling at ~60° so we don't carve away the whole
+        # wall on tiny enclosures.
+        width = max(0.18, min(width, 1.05))
+        out.append({"angle": ang, "width": width})
+    return out
+
+
+def emit_tree_walls(b, walls, load_zones=None):
     for i, tw in enumerate(walls or []):
         b.ext("tree_wall_script")
         boundary = tw["boundary"]
@@ -831,6 +1202,20 @@ def emit_tree_walls(b, walls):
         for k in ("trunk_color", "canopy_color"):
             if k in tw:
                 props.append("%s = %s" % (k, cstr(tw[k])))
+
+        # Carve gaps for each load_zone whose outward direction
+        # punches through this polygon. Combines any author-supplied
+        # `gaps` (e.g. ornamental clearings) with the auto-computed
+        # ones; tree_wall.gd treats them as a flat list.
+        author_gaps = list(tw.get("gaps", []))
+        auto_gaps = _tree_wall_gaps_for_boundary(boundary, load_zones or [])
+        all_gaps = author_gaps + auto_gaps
+        if all_gaps:
+            gap_strs = [
+                '{"angle": %g, "width": %g}' % (float(g["angle"]), float(g["width"]))
+                for g in all_gaps
+            ]
+            props.append("gaps = [%s]" % ", ".join(gap_strs))
         b.add_node(
             '[node name="TreeWall%d" type="Node3D" parent="."]\n'
             % i + "\n".join(props) + "\n"
@@ -1153,6 +1538,18 @@ def emit_props(b, props):
                 '[node name="TriggeredGate%d" parent="." instance=ExtResource("triggered_gate")]\n'
                 % i + "\n".join(attrs) + "\n"
             )
+        elif kind == "time_gate":
+            # Phase-of-day gate. Solid until TimeOfDay.t enters its
+            # `time_phase` window (day/night/dawn/dusk/any), then
+            # collision drops + alpha tweens out. See time_gate.gd.
+            b.ext("time_gate")
+            attrs = ['transform = %s' % t3(x, y, z, rot)]
+            if "time_phase" in p:
+                attrs.append('time_phase = "%s"' % escape(str(p["time_phase"])))
+            b.add_node(
+                '[node name="TimeGate%d" parent="." instance=ExtResource("time_gate")]\n'
+                % i + "\n".join(attrs) + "\n"
+            )
         elif kind == "bomb_flower":
             b.ext("bomb_flower")
             attrs = ['transform = %s' % t3(x, y, z, rot)]
@@ -1198,6 +1595,14 @@ def emit_props(b, props):
 
 
 def emit_load_zones(b, zones):
+    # Load zones are INVISIBLE triggers now — they sit at the level
+    # boundary inside a deliberate gap in the tree wall (carved by
+    # _preprocess_load_zones + tree_wall.gd's `gaps` export). The
+    # player sees: a packed-dirt path leading to a clearing in the
+    # trees; no black veil, no visible box. The Hint label still
+    # floats above the gap as a "Travel — wyrdwood" wayfinding cue,
+    # and load_zone.gd grows a soft ground-glow ring when the player
+    # is within 6 m so there's still a visual confirmation.
     for i, lz in enumerate(zones or []):
         b.ext("load_zone_script")
         x, y, z = lz["pos"]
@@ -1210,25 +1615,6 @@ def emit_load_zones(b, zones):
         auto = "true" if lz.get("auto", True) else "false"
         prompt = escape(lz.get("prompt", ""))
         shape = b.add_sub("BoxShape3D", [("size", vstr([sx, sy, sz]))])
-        # Dark "veil" plane behind the trigger so the player can't see
-        # bright sky through the tree-wall gap. Sized to the trigger's
-        # width × height; sits inside the trigger so it's flush with
-        # the portal entrance.
-        # Veil orientation auto-detected from trigger size: the wall
-        # is perpendicular to whichever horizontal dimension is
-        # smaller (that's the "thin" axis = wall normal). The veil's
-        # flat face must match.
-        if sx < sz:
-            veil_size_arr = [0.1, sy + 1.5, sz + 0.5]
-        else:
-            veil_size_arr = [sx + 0.5, sy + 1.5, 0.1]
-        veil_mesh = b.add_sub("BoxMesh", [("size", vstr(veil_size_arr))])
-        veil_mat = b.add_sub("StandardMaterial3D", [
-            ("albedo_color",  "Color(0.02, 0.02, 0.04, 1)"),
-            ("shading_mode",  "0"),
-            ("emission_enabled", "true"),
-            ("emission",      "Color(0, 0, 0, 1)"),
-        ])
         attrs = [
             'transform = %s' % t3(x, y, z, rot),
             'collision_layer = 64',
@@ -1246,9 +1632,6 @@ def emit_load_zones(b, zones):
             % i + "\n".join(attrs) + '\n\n'
             '[node name="Shape" type="CollisionShape3D" parent="LoadZone%d"]\n'
             'shape = SubResource("%s")\n\n'
-            '[node name="Veil" type="MeshInstance3D" parent="LoadZone%d"]\n'
-            'mesh = SubResource("%s")\n'
-            'surface_material_override/0 = SubResource("%s")\n\n'
             '[node name="Hint" type="Label3D" parent="LoadZone%d"]\n'
             'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, %g, 0)\n'
             'text = "%s"\n'
@@ -1256,7 +1639,7 @@ def emit_load_zones(b, zones):
             'outline_size = 8\n'
             'billboard = 1\n'
             'no_depth_test = true\n'
-            % (i, shape, i, veil_mesh, veil_mat, i, sy + 0.8, prompt or "Travel")
+            % (i, shape, i, sy + 0.8, prompt or "Travel")
         )
 
 
@@ -1329,13 +1712,21 @@ def convert(json_path):
             key, val[0], val[1], val[2], val[3]))
     b.nodes.append('[node name="%s" type="Node3D"]\n%s\n'
                    % (data.get("name", data["id"]), "\n".join(root_attrs)))
+    # Snap load_zones to the level boundary, compute wider footprints
+    # for wall suppression, and lay path_cells leading inward from
+    # each gap. Done BEFORE any geometry emission so every consumer
+    # sees the snapped positions and the wider footprints.
+    lz_info = _preprocess_load_zones(data)
+
     emit_environment(b, data.get("environment", {}))
     emit_floor(b, data.get("floor"))
     emit_walls(b, data.get("rooms", []), data.get("doorways", []))
     emit_doors(b, data.get("doorways", []))
-    emit_tree_walls(b, data.get("tree_walls", []))
+    emit_tree_walls(b, data.get("tree_walls", []), data.get("load_zones", []))
     emit_grid_floors(b, data.get("grid"), data.get("load_zones", []),
-                     data.get("doors", []))
+                     data.get("doors", []),
+                     lz_footprints=lz_info["footprints"],
+                     path_cells_per_floor=lz_info["path_cells_per_floor"])
     emit_doors_v2(b, data.get("doors", []))
     emit_lights(b, data.get("lights", []))
     emit_spawns(b, data.get("spawns", []))

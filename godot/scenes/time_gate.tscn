@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://btuxtgte02"]
+
+[ext_resource type="Script" path="res://scripts/time_gate.gd" id="1_t"]
+
+[sub_resource type="BoxShape3D" id="slab_col"]
+size = Vector3(2.0, 2.6, 0.20)
+
+[node name="TimeGate" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_t")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+shape = SubResource("slab_col")
+
+[node name="Slab" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30, 0)
+size = Vector3(2.0, 2.6, 0.20)

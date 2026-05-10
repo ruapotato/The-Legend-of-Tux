@@ -144,6 +144,11 @@ func _play_sun_chord() -> void:
     # the WorldEvents bus pick this up; the per-id deduplication inside
     # WorldEvents.activate makes a repeat play a no-op.
     WorldEvents.activate("sun_gate")
+    # Force the global clock to noon so day-phase time_gates open and
+    # the lighting reads "the sun came out". TimeOfDay.advance_to tweens
+    # smoothly over ~1.5s and then resumes the natural cycle from noon.
+    if Engine.has_singleton("TimeOfDay") or typeof(TimeOfDay) == TYPE_OBJECT:
+        TimeOfDay.advance_to(0.5)
     # Light any extinguished torches in the current scene.
     var tree := Engine.get_main_loop() as SceneTree
     if tree == null:
@@ -155,6 +160,10 @@ func _play_sun_chord() -> void:
 
 func _play_moon_chord() -> void:
     WorldEvents.activate("moon_gate")
+    # Force the global clock to midnight so night-phase time_gates open
+    # and the lighting reads "night fell". Symmetric with Sun Chord.
+    if Engine.has_singleton("TimeOfDay") or typeof(TimeOfDay) == TYPE_OBJECT:
+        TimeOfDay.advance_to(0.0)
     # Reveal night-only platforms. The terrain pass will eventually mark
     # these with the "moon_platform" group; until then this is a no-op
     # but the WorldEvents.activate above already does the heavy lifting

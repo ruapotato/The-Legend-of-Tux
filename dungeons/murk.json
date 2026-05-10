@@ -4215,9 +4215,36 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_proc_42",
+      "pos": [
+        -14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_proc_init",
+      "pos": [
+        0.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_proc_sys",
+      "pos": [
+        14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -4760,7 +4787,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -4771,6 +4798,54 @@
       "target_scene": "crown",
       "target_spawn": "from_murk",
       "prompt": "[E] Up to the Crown"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "proc_init",
+      "target_spawn": "from_murk",
+      "prompt": "[E] To the First Process"
+    },
+    {
+      "pos": [
+        14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "proc_sys",
+      "target_spawn": "from_murk",
+      "prompt": "[E] Into the Murk Senate"
+    },
+    {
+      "pos": [
+        -14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "proc_42",
+      "target_spawn": "from_murk",
+      "prompt": "[E] To Process 42"
     }
   ]
 }

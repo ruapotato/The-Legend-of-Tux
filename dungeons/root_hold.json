@@ -1,0 +1,464 @@
+{
+  "name": "Root's Hold",
+  "id": "root_hold",
+  "key_group": "root_hold",
+  "music_track": "wyrdkin_glade",
+  "fs_path": "/root",
+  "environment": {
+    "sky_top": [
+      0.45,
+      0.55,
+      0.65,
+      1
+    ],
+    "sky_horizon": [
+      0.8,
+      0.78,
+      0.65,
+      1
+    ],
+    "ground_horizon": [
+      0.4,
+      0.42,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.18,
+      0.18,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.72,
+      0.78,
+      0.72,
+      1
+    ],
+    "ambient_energy": 0.42,
+    "fog_density": 0.003,
+    "fog_color": [
+      0.72,
+      0.75,
+      0.65,
+      1
+    ],
+    "sun_dir": [
+      -0.4,
+      -0.6,
+      -0.5
+    ],
+    "sun_color": [
+      0.95,
+      0.92,
+      0.78,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.3,
+          0.28,
+          0.2,
+          1
+        ],
+        "floor_color": [
+          0.4,
+          0.42,
+          0.28,
+          1
+        ],
+        "wall_material": "tree",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_crown",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.5
+      ],
+      "rotation_y": 0.0,
+      "message": "ROOT'S HOLD\n\nA small cottage at the highest spur. Plain rugs. A simple desk. A kettle that has been on a low boil since the realm was started.\n\nThe door is closed until the chord is assembled."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Tacked to the inside of the door:\n\n'If a walker reaches this room, the realm needs them more than it knows. Make tea. Speak true. Send them well.'\n\n— in a hand older than most stones."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "On the desk: a small ledger left open.\n\n'The Wyrdmark is in good hands today. The Wyrdmark was in good hands yesterday. The Wyrdmark will be in good hands tomorrow if the hands keep at it.'\n\nNo signature."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "The Sysadmin",
+      "body_color": [
+        0.55,
+        0.5,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.38,
+        0.32,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the elder",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Sysadmin",
+            "text": "*an older Wyrdkin pours tea without asking. The cup is the right temperature when it reaches your hand.*\n\nSit, walker. You came up the long way. Most do.\n\nWhat's still in front of you?",
+            "choices": [
+              {"label": "I don't know yet.", "next": "advice"},
+              {"label": "A locked dungeon.", "next": "advice"},
+              {"label": "A boss I can't beat.", "next": "advice"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "advice": {
+            "speaker": "The Sysadmin",
+            "text": "Then I will tell you the one thing I tell every walker who finds this room.\n\nThe realm runs because somebody, somewhere, kept showing up. Not because anyone was strong. Because they kept showing up.\n\nGo on. Show up.\n\n*the kettle starts to sing.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "The Sysadmin",
+            "text": "Walk well, walker. The kettle will be on when you come back."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "crown",
+      "target_spawn": "from_root_hold",
+      "prompt": "[E] Up to the Crown"
+    }
+  ]
+}

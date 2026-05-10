@@ -1,0 +1,437 @@
+{
+  "name": "The Speaker's Room",
+  "id": "dev_tty",
+  "key_group": "dev_tty",
+  "music_track": "sigilkeep",
+  "fs_path": "/dev/tty",
+  "environment": {
+    "sky_top": [
+      0.2,
+      0.2,
+      0.28,
+      1
+    ],
+    "sky_horizon": [
+      0.4,
+      0.38,
+      0.42,
+      1
+    ],
+    "ground_horizon": [
+      0.3,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.12,
+      0.1,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.62,
+      0.62,
+      0.68,
+      1
+    ],
+    "ambient_energy": 0.42,
+    "fog_density": 0.002,
+    "fog_color": [
+      0.32,
+      0.3,
+      0.36,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.85,
+      0.85,
+      0.95,
+      1
+    ],
+    "sun_energy": 0.9
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.24,
+          0.22,
+          0.26,
+          1
+        ],
+        "floor_color": [
+          0.36,
+          0.34,
+          0.38,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_forge",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE SPEAKER'S ROOM\n\nA small round room with a stone podium. Anyone who speaks here is heard everywhere in the realm.\n\nWalkers come, speak one line, and leave. The room remembers what was said. The realm remembers what mattered."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Carved at the base of the podium:\n\n'One line. The realm hears it. Make it true.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "A Walker at the Podium",
+      "body_color": [
+        0.7,
+        0.65,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.55,
+        0.5,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "A Walker",
+            "text": "*she steps to the podium. The room goes very still.*\n\n'I am all right. The road has been long, but I am all right. Walk well, all of you.'\n\n*she steps back. She does not look at you on the way out.*"
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "forge",
+      "target_spawn": "from_dev_tty",
+      "prompt": "[E] Back to the Forge"
+    }
+  ]
+}

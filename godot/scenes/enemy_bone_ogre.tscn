@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://btuxmbbnog01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_bone_ogre.gd" id="1_bog"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.65
+height = 2.2
+
+[sub_resource type="BoxMesh" id="body_mesh"]
+size = Vector3(1.2, 1.5, 1.0)
+
+[sub_resource type="StandardMaterial3D" id="hide_mat"]
+albedo_color = Color(0.42, 0.38, 0.32, 1)
+roughness = 0.85
+metallic = 0.0
+
+[sub_resource type="SphereMesh" id="head_mesh"]
+radius = 0.40
+height = 0.80
+radial_segments = 12
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="bone_mat"]
+albedo_color = Color(0.82, 0.78, 0.68, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="arm_mesh"]
+size = Vector3(0.30, 1.20, 0.30)
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.06
+height = 0.12
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="eye_mat"]
+albedo_color = Color(1.0, 0.30, 0.10, 1)
+emission_enabled = true
+emission = Color(1.0, 0.40, 0.18, 1)
+emission_energy_multiplier = 2.4
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(1.4, 2.2, 1.2)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.6, 2.2, 1.4)
+
+[node name="EnemyBoneOgre" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_bog")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10, 0)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("bone_mat")
+
+[node name="ArmL" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1.50, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual/ArmL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+mesh = SubResource("arm_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="ArmR" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.50, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual/ArmR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0)
+mesh = SubResource("arm_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 2.10, -0.36)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 2.10, -0.36)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20, 0)
+shape = SubResource("contact_shape")

@@ -13797,7 +13797,7 @@
       "pos": [
         0.0,
         0.5,
-        27.0
+        -25.0
       ],
       "rotation_y": 3.141592653589793
     },
@@ -13806,9 +13806,9 @@
       "pos": [
         0.0,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -15209,6 +15209,99 @@
         -10.0
       ],
       "rotation_y": 0.0
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2.0,
+        0.6,
+        -10.0
+      ],
+      "rotation_y": 1.5708,
+      "name": "Festival-Goer Ralo",
+      "body_color": [
+        0.95,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.35,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Greet Ralo",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "HO! HO ho ho! Walker! Look at THESE lanterns! Look at this one! It's painted to look like a moon-eyed rook! Hahaha — I love it, I LOVE it, who paints a rook on a lantern? Geniuses. Geniuses everywhere!",
+            "choices": [
+              {
+                "label": "(Offer the honey jar.)",
+                "next": "trade",
+                "requires_flag": "trade_step_1",
+                "requires_not": "trade_step_2"
+              },
+              {
+                "label": "(Show the painted mask.)",
+                "next": "already",
+                "requires_flag": "trade_step_2"
+              },
+              {
+                "label": "What's the festival for?",
+                "next": "festival"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "trade": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "WHAT — is that — by Lirien's bright breath, is that COMB-HONEY? In a JAR? Sealed in WAX?\n\n*he clutches his chest, theatrical.*\n\nWalker. Walker. I have been eating festival cakes for THREE DAYS. My tongue has forgotten what real sweetness is. I would trade my own NAME for that jar. — Wait, wait, I have something better. Here.\n\n*he presses a painted mask into your hands — fox-faced, lacquer still tacky.*\n\nMy cousin painted it. She'd want it loved. Take it on. Take it on!",
+            "sets_flag": "trade_step_2",
+            "next": "thanks"
+          },
+          "thanks": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "*already prying the wax seal with his teeth.*\n\nGo, go, walk well, the mask wants a road under it!",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "already": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "Ha! Still wearing my cousin's face? Good, GOOD! Show it the long road, walker, show it everything!",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "festival": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "What's it FOR? It's for itself! That's the BEST kind! No anniversary, no harvest, no naming — somebody just hung the first lantern and the rest of us showed up. That's how the good ones start.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Festival-Goer Ralo",
+            "text": "Walk WELL, walker! Walk loud! The road likes a noisy boot!"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -15216,7 +15309,7 @@
       "pos": [
         0.0,
         1.4,
-        -25.0
+        -27.0
       ],
       "size": [
         4.0,
@@ -15232,7 +15325,7 @@
       "pos": [
         0.0,
         1.4,
-        25.0
+        27.0
       ],
       "size": [
         4.0,

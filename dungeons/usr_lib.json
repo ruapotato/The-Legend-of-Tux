@@ -1,0 +1,514 @@
+{
+  "name": "Sprawl Library",
+  "id": "usr_lib",
+  "key_group": "usr_lib",
+  "music_track": "sigilkeep",
+  "fs_path": "/usr/lib",
+  "environment": {
+    "sky_top": [
+      0.22,
+      0.22,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.4,
+      0.38,
+      0.4,
+      1
+    ],
+    "ground_horizon": [
+      0.3,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.65,
+      0.62,
+      0.58,
+      1
+    ],
+    "ambient_energy": 0.45,
+    "fog_density": 0.002,
+    "fog_color": [
+      0.32,
+      0.3,
+      0.3,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.95,
+      0.85,
+      0.65,
+      1
+    ],
+    "sun_energy": 0.85
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.3,
+          0.26,
+          0.22,
+          1
+        ],
+        "floor_color": [
+          0.4,
+          0.36,
+          0.3,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_sprawl",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_lib",
+      "pos": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "SPRAWL LIBRARY\n\nA quieter wing of the Sprawl, where the merchants share the tools and the secrets. Quieter than the market. Just as busy.\n\nThe threads here run all the way back to the Loomhouse on the Crown."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Borrower's notice:\n\n'A thread borrowed here is a thread the Loomhouse will eventually want back. The Sprawl pays its debts in the next breath, or the breath after — but it pays them.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 0.6,
+      "name": "Bind Halor",
+      "body_color": [
+        0.5,
+        0.42,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.6,
+        0.35,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Bind",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Bind Halor",
+            "text": "*she's leaning on a workbench, passing a chisel handle-first to a Local who looks faintly suspicious about the whole transaction.*\n\nWalker. We share, here. The market's just up the way. The Library's just over my shoulder. The Sprawl runs on borrowing — and we keep good books.",
+            "choices": [
+              {"label": "What does the Local think?", "next": "loc"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "loc": {
+            "speaker": "Bind Halor",
+            "text": "She thinks I'm going to charge her for it. I'm not. I borrowed the chisel from the Loomhouse last spring; I'm not about to put a price on it.\n\nWhen the Sprawl forgets that, the Sprawl breaks down. By the Source, we know it.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Bind Halor",
+            "text": "Walk well, walker. Borrow what you need. The library is open."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": -0.6,
+      "name": "Local Vesh",
+      "body_color": [
+        0.6,
+        0.5,
+        0.42,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.55,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Local",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Local Vesh",
+            "text": "*she's holding the chisel like it might still ask her for pebbles.*\n\nMost Binds don't lend, walker. Halor's an exception. Most Binds want something for everything.\n\nThe Library — this Library, here — is the part of the Sprawl I trust.",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Local Vesh",
+            "text": "Walk well. And keep your pebbles in your pocket here."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sprawl",
+      "target_spawn": "from_usr_lib",
+      "prompt": "[E] Back to the Sprawl"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "lib",
+      "target_spawn": "from_usr_lib",
+      "prompt": "[E] Through to the Loomhouse"
+    }
+  ]
+}

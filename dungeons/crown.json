@@ -4418,92 +4418,155 @@
     {
       "id": "from_wake",
       "pos": [
-        0.0,
+        -12.25,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_scriptorium",
       "pos": [
-        0.0,
+        -8.75,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_burrows",
       "pos": [
-        0.0,
+        -7.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_docks",
       "pos": [
-        0.0,
+        -1.75,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_optional_yard",
       "pos": [
         0.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_murk",
       "pos": [
-        0.0,
+        1.75,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_drift",
       "pos": [
-        0.0,
+        10.5,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_sprawl",
       "pos": [
-        0.0,
+        12.25,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_library",
       "pos": [
-        0.0,
+        14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_forge",
       "pos": [
-        0.0,
+        -10.5,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_bin",
+      "pos": [
+        -14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_lib",
+      "pos": [
+        -5.25,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_lost_found",
+      "pos": [
+        -3.5,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_root_hold",
+      "pos": [
+        3.5,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_sbin",
+      "pos": [
+        5.25,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_srv",
+      "pos": [
+        7.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_sys",
+      "pos": [
+        8.75,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -4711,7 +4774,7 @@
       ],
       "rotation_y": 0.0,
       "contents": "heart",
-      "open_message": "A Heart Container \u2014 the climb was long, but you arrived. The Crown has a quiet way of being generous."
+      "open_message": "A Heart Container — the climb was long, but you arrived. The Crown has a quiet way of being generous."
     },
     {
       "type": "npc",
@@ -4824,7 +4887,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "Pardon \u2014 I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
+            "text": "Pardon — I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
             "choices": [
               {
                 "label": "Where are you from?",
@@ -4842,7 +4905,7 @@
           },
           "from": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "The Library. Not Sigilkeep's \u2014 the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
+            "text": "The Library. Not Sigilkeep's — the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
             "choices": [
               {
                 "label": "Back.",
@@ -5058,14 +5121,28 @@
           }
         }
       }
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        0.0,
+        0,
+        11.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_crown",
+      "warp_name": "Crown Owl",
+      "warp_message": "You stand at the height. The world is small below.",
+      "warp_target_scene": "crown",
+      "warp_target_spawn": "default"
     }
   ],
   "load_zones": [
     {
       "pos": [
-        0.0,
+        -12.25,
         1.4,
-        -13.0
+        15.0
       ],
       "size": [
         4.0,
@@ -5079,9 +5156,9 @@
     },
     {
       "pos": [
-        7.64,
+        -8.75,
         1.4,
-        -10.52
+        15.0
       ],
       "size": [
         4.0,
@@ -5095,14 +5172,14 @@
     },
     {
       "pos": [
-        12.36,
+        -7.0,
         1.4,
-        -4.02
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "burrows",
@@ -5111,14 +5188,14 @@
     },
     {
       "pos": [
-        12.36,
+        -1.75,
         1.4,
-        4.02
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "docks",
@@ -5127,9 +5204,9 @@
     },
     {
       "pos": [
-        7.64,
+        0.0,
         1.4,
-        10.52
+        15.0
       ],
       "size": [
         4.0,
@@ -5143,9 +5220,9 @@
     },
     {
       "pos": [
-        0.0,
+        1.75,
         1.4,
-        13.0
+        15.0
       ],
       "size": [
         4.0,
@@ -5159,9 +5236,9 @@
     },
     {
       "pos": [
-        -7.64,
+        10.5,
         1.4,
-        10.52
+        15.0
       ],
       "size": [
         4.0,
@@ -5175,14 +5252,14 @@
     },
     {
       "pos": [
-        -12.36,
+        12.25,
         1.4,
-        4.02
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "sprawl",
@@ -5191,14 +5268,14 @@
     },
     {
       "pos": [
-        -12.36,
+        14.0,
         1.4,
-        -4.02
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "library",
@@ -5207,9 +5284,9 @@
     },
     {
       "pos": [
-        -7.64,
+        -10.5,
         1.4,
-        -10.52
+        15.0
       ],
       "size": [
         4.0,
@@ -5220,6 +5297,118 @@
       "target_scene": "forge",
       "target_spawn": "from_crown",
       "prompt": "[E] To the Forge"
+    },
+    {
+      "pos": [
+        -14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "bin",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into the Toolshed"
+    },
+    {
+      "pos": [
+        5.25,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sbin",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into Sentinel Hall"
+    },
+    {
+      "pos": [
+        -5.25,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "lib",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into the Loomhouse"
+    },
+    {
+      "pos": [
+        -3.5,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "lost_found",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into the Hall of Lost Things"
+    },
+    {
+      "pos": [
+        3.5,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "root_hold",
+      "target_spawn": "from_crown",
+      "prompt": "[E] To Root's Hold"
+    },
+    {
+      "pos": [
+        7.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "srv",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into the Servery"
+    },
+    {
+      "pos": [
+        8.75,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sys",
+      "target_spawn": "from_crown",
+      "prompt": "[E] Into the Heartworks"
     }
   ]
 }

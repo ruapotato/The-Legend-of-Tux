@@ -32,6 +32,10 @@ extends Node3D
 var _player: Node3D = null
 var _player_inside: bool = false
 var _t: float = 0.0
+# Floating Label3D that fades in when the player is close. Built
+# procedurally in _ready (no .tscn churn) so each NPC gets one for
+# free without authoring it per-scene.
+var _nameplate: Label3D = null
 
 
 func _ready() -> void:
@@ -52,6 +56,26 @@ func _ready() -> void:
     hint.text = idle_hint
     prompt_area.body_entered.connect(_on_enter)
     prompt_area.body_exited.connect(_on_exit)
+    _ensure_nameplate()
+
+
+# Build the proximity-fade name label as a child Label3D. Sits 1.5m
+# above the NPC origin (just above the [E] Talk hint at 1.85m, so the
+# two stack cleanly without overlapping). Skipped silently if the NPC
+# has no name to show — anonymous NPCs stay anonymous.
+func _ensure_nameplate() -> void:
+    if _nameplate != null:
+        return
+    if npc_name == "":
+        return
+    _nameplate = Label3D.new()
+    _nameplate.set_script(load("res://scripts/npc_nameplate.gd"))
+    # set() the script's exported fields BEFORE add_child so _ready on
+    # the script runs with the correct values (height_offset, name).
+    _nameplate.set("display_name", npc_name)
+    _nameplate.set("height_offset", 2.25)    # above the [E] Talk hint
+    _nameplate.set("proximity", 4.0)
+    add_child(_nameplate)
 
 
 func _tint_mesh(mi: MeshInstance3D, c: Color) -> void:

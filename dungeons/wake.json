@@ -4537,45 +4537,45 @@
       "pos": [
         0.0,
         0.5,
-        -11.0
+        -13.0
       ],
-      "rotation_y": 0.0
+      "rotation_y": 3.141592653589793
     },
     {
       "id": "from_wake_grub",
       "pos": [
-        10.0,
+        0.0,
         0.5,
-        -4.0
+        13.0
       ],
-      "rotation_y": -1.5708
+      "rotation_y": 0.0
     },
     {
       "id": "from_scriptorium",
       "pos": [
-        7.64,
+        -13.0,
         0.5,
-        8.5
+        0.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 1.5707963267948966
     },
     {
       "id": "from_burrows",
       "pos": [
-        -7.64,
+        13.0,
         0.5,
-        8.5
+        -14.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": -1.5707963267948966
     },
     {
       "id": "from_sprawl",
       "pos": [
-        -10.0,
+        13.0,
         0.5,
-        -4.0
+        14.0
       ],
-      "rotation_y": 1.5708
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -4775,7 +4775,7 @@
         -8.0
       ],
       "rotation_y": 1.5708,
-      "message": "An inscription cut into the rock:\n\n\"At the first pale, we stand. At the first breath, we sing. At the first light, the realm wakes \u2014 and we have not slept.\""
+      "message": "An inscription cut into the rock:\n\n\"At the first pale, we stand. At the first breath, we sing. At the first light, the realm wakes — and we have not slept.\""
     },
     {
       "type": "sign",
@@ -4785,7 +4785,7 @@
         10.0
       ],
       "rotation_y": 3.141592653589793,
-      "message": "ORDER OF THE MORNING\n\n1. The captain reads the names.\n2. The bell sounds three times.\n3. The sun is greeted at the eastern step.\n4. The veterans are saluted.\n5. The day is given to Lirien.\n\n\u2014 By the hand of Captain Iren."
+      "message": "ORDER OF THE MORNING\n\n1. The captain reads the names.\n2. The bell sounds three times.\n3. The sun is greeted at the eastern step.\n4. The veterans are saluted.\n5. The day is given to Lirien.\n\n— By the hand of Captain Iren."
     },
     {
       "type": "sign",
@@ -4825,7 +4825,7 @@
         -10.0
       ],
       "rotation_y": 0.0,
-      "message": "A small stone, set apart:\n\n\"For the morning that almost did not come. \u2014 H.\""
+      "message": "A small stone, set apart:\n\n\"For the morning that almost did not come. — H.\""
     },
     {
       "type": "sign",
@@ -4858,7 +4858,7 @@
       ],
       "rotation_y": 0.0,
       "contents": "heart",
-      "open_message": "A heart-flower wrapped in linen \u2014 a recruit's first-day gift."
+      "open_message": "A heart-flower wrapped in linen — a recruit's first-day gift."
     },
     {
       "type": "chest",
@@ -5036,7 +5036,7 @@
           },
           "purpose": {
             "speaker": "Captain Iren",
-            "text": "The Wake is where the realm begins again, every morning. Without us \u2014 without the rite \u2014 the day would not catch. I do not say this lightly. I say it because it is so.",
+            "text": "The Wake is where the realm begins again, every morning. Without us — without the rite — the day would not catch. I do not say this lightly. I say it because it is so.",
             "choices": [
               {
                 "label": "Tell me of the ritual.",
@@ -5072,7 +5072,7 @@
           },
           "missed": {
             "speaker": "Captain Iren",
-            "text": "It will not be missed. Not while I stand. Not while there is one recruit left to read a name. \u2014 Ask the veteran, if you must hear more. He was here for the morning that nearly did not catch.",
+            "text": "It will not be missed. Not while I stand. Not while there is one recruit left to read a name. — Ask the veteran, if you must hear more. He was here for the morning that nearly did not catch.",
             "choices": [
               {
                 "label": "Back.",
@@ -5082,7 +5082,7 @@
           },
           "tired": {
             "speaker": "Captain Iren",
-            "text": "I am... well-rested. Thank you for your concern. \u2014 *a pause* \u2014 The mornings are long. There is no other kind. By the Source, that is enough said.",
+            "text": "I am... well-rested. Thank you for your concern. — *a pause* — The mornings are long. There is no other kind. By the Source, that is enough said.",
             "choices": [
               {
                 "label": "Back.",
@@ -5092,7 +5092,7 @@
           },
           "serve": {
             "speaker": "Captain Iren",
-            "text": "I serve the Wake. The Wake serves the morning. The morning serves \u2014 *she straightens, looks past you* \u2014 it serves the realm. That is the answer the rite gives. Take it as given.",
+            "text": "I serve the Wake. The Wake serves the morning. The morning serves — *she straightens, looks past you* — it serves the realm. That is the answer the rite gives. Take it as given.",
             "choices": [
               {
                 "label": "But who, truly?",
@@ -5116,7 +5116,7 @@
           },
           "bye": {
             "speaker": "Captain Iren",
-            "text": "Walk well. Mind the western step \u2014 something has come down off the cliffs that should not be there."
+            "text": "Walk well. Mind the western step — something has come down off the cliffs that should not be there."
           }
         }
       }
@@ -5148,10 +5148,10 @@
         "nodes": {
           "root": {
             "speaker": "Recruit Pol",
-            "text": "Oh \u2014 hi! Hi. I'm Pol, I'm with the boot-soldiers now, did you know? I just joined three mornings ago and I have already heard the bell TWICE. Have you heard the morning ritual yet?",
+            "text": "Oh — hi! Hi. I'm Pol, I'm with the boot-soldiers now, did you know? I just joined three mornings ago and I have already heard the bell TWICE. Have you heard the morning ritual yet?",
             "choices": [
               {
-                "label": "Not yet \u2014 tell me.",
+                "label": "Not yet — tell me.",
                 "next": "tellme"
               },
               {
@@ -5166,7 +5166,7 @@
           },
           "tellme": {
             "speaker": "Recruit Pol",
-            "text": "You have to hear it from inside the cliffs. That's the whole thing. The stones do something to the bell \u2014 it sounds like the cliffs are humming back at it. The captain says it's the Source answering. I think the captain is right but I don't tell her that.",
+            "text": "You have to hear it from inside the cliffs. That's the whole thing. The stones do something to the bell — it sounds like the cliffs are humming back at it. The captain says it's the Source answering. I think the captain is right but I don't tell her that.",
             "choices": [
               {
                 "label": "Why don't you tell her?",
@@ -5232,7 +5232,7 @@
         "nodes": {
           "root": {
             "speaker": "Veteran Hask",
-            "text": "*he is looking past you, at the cliff face, or perhaps at nothing* \u2014 Mm. A traveler. Speak if you wish. I will hear you well enough.",
+            "text": "*he is looking past you, at the cliff face, or perhaps at nothing* — Mm. A traveler. Speak if you wish. I will hear you well enough.",
             "choices": [
               {
                 "label": "Tell me of the Wake.",
@@ -5268,7 +5268,7 @@
           },
           "served": {
             "speaker": "Veteran Hask",
-            "text": "Long enough that the captain was a recruit when I had already grown tired. The names on the slab \u2014 I knew most of them. I read the third bell at Olber's last morning. He was not a quiet man. The bell was loud enough.",
+            "text": "Long enough that the captain was a recruit when I had already grown tired. The names on the slab — I knew most of them. I read the third bell at Olber's last morning. He was not a quiet man. The bell was loud enough.",
             "choices": [
               {
                 "label": "Back.",
@@ -5278,7 +5278,7 @@
           },
           "worst": {
             "speaker": "Veteran Hask",
-            "text": "*his voice is very even* There was a morning when the breath was thin and the Wake nearly didn't catch. The bell rang and the cliffs did not answer. We held the rite \u2014 we held it harder than we had ever held a thing \u2014 and after a long while the morning came. The realm runs on something fragile, traveler. We do not say so. But we know.",
+            "text": "*his voice is very even* There was a morning when the breath was thin and the Wake nearly didn't catch. The bell rang and the cliffs did not answer. We held the rite — we held it harder than we had ever held a thing — and after a long while the morning came. The realm runs on something fragile, traveler. We do not say so. But we know.",
             "choices": [
               {
                 "label": "Back.",
@@ -5292,6 +5292,26 @@
           }
         }
       }
+    },
+    {
+      "type": "time_gate",
+      "pos": [
+        -2.0,
+        0,
+        -6.0
+      ],
+      "rotation_y": 0.0,
+      "time_phase": "dawn"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.5,
+        0,
+        -6.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Dawn-marked."
     }
   ],
   "load_zones": [
@@ -5299,7 +5319,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -5313,14 +5333,14 @@
     },
     {
       "pos": [
-        12.36,
+        0.0,
         1.4,
-        -4.02
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "wake_grub",
@@ -5329,14 +5349,14 @@
     },
     {
       "pos": [
-        7.64,
+        -15.0,
         1.4,
-        10.52
+        0.0
       ],
       "size": [
-        4.0,
+        1.5,
         3.0,
-        1.5
+        4.0
       ],
       "rotation_y": 0.0,
       "target_scene": "scriptorium",
@@ -5345,14 +5365,14 @@
     },
     {
       "pos": [
-        -7.64,
+        15.0,
         1.4,
-        10.52
+        -14.0
       ],
       "size": [
-        4.0,
+        1.5,
         3.0,
-        1.5
+        4.0
       ],
       "rotation_y": 0.0,
       "target_scene": "burrows",
@@ -5361,9 +5381,9 @@
     },
     {
       "pos": [
-        -12.36,
+        15.0,
         1.4,
-        -4.02
+        14.0
       ],
       "size": [
         1.5,

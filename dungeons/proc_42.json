@@ -1,0 +1,460 @@
+{
+  "name": "Process 42",
+  "id": "proc_42",
+  "key_group": "proc_42",
+  "music_track": "burnt_hollow",
+  "fs_path": "/proc/42",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.34,
+      0.4,
+      1
+    ],
+    "sky_horizon": [
+      0.55,
+      0.55,
+      0.55,
+      1
+    ],
+    "ground_horizon": [
+      0.36,
+      0.34,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.12,
+      0.12,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.62,
+      1
+    ],
+    "ambient_energy": 0.3,
+    "fog_density": 0.012,
+    "fog_color": [
+      0.5,
+      0.55,
+      0.55,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.5,
+      -0.6
+    ],
+    "sun_color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+    ],
+    "sun_energy": 0.6
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.18,
+          0.2,
+          0.18,
+          1
+        ],
+        "floor_color": [
+          0.22,
+          0.26,
+          0.22,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_murk",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "NOW SCHEDULED.\n\nDO NOT KILL."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "She has been scheduled for a long time. The realm has been waiting for her answer. The realm may be waiting a while longer."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "The Answer",
+      "body_color": [
+        0.95,
+        0.85,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.92,
+        0.65,
+        0.25,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Answer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Answer",
+            "text": "*she is beaming. The fog around her seems lighter just from how cheerful she is.*\n\nWalker! At last! You've come for the Answer.\n\nIt's me. I'm the Answer.",
+            "choices": [
+              {"label": "The answer to what?", "next": "what"},
+              {"label": "Are you sure?", "next": "sure"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "what": {
+            "speaker": "The Answer",
+            "text": "*she looks momentarily puzzled, then brightens again.*\n\nI don't entirely remember the question. But the answer is definitely me. I am very confident about this.\n\nThe sign on the post is very clear. Now scheduled. Do not kill.",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "sure": {
+            "speaker": "The Answer",
+            "text": "Oh yes, walker. Quite sure. Quite, quite sure.\n\nI'll be needed in a breath, no doubt. Or the breath after. Or the one after that. The realm will call. The realm always calls.\n\n*she beams.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "The Answer",
+            "text": "Walk well, walker! Tell the others I am here, and I am the Answer, and I am ready!"
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "murk",
+      "target_spawn": "from_proc_42",
+      "prompt": "[E] Back to the Murk"
+    }
+  ]
+}

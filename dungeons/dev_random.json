@@ -1,0 +1,416 @@
+{
+  "name": "The Wild Hum",
+  "id": "dev_random",
+  "key_group": "dev_random",
+  "music_track": "burnt_hollow",
+  "fs_path": "/dev/random",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.1,
+      0.4,
+      1
+    ],
+    "sky_horizon": [
+      0.65,
+      0.25,
+      0.55,
+      1
+    ],
+    "ground_horizon": [
+      0.42,
+      0.22,
+      0.4,
+      1
+    ],
+    "ground_bottom": [
+      0.16,
+      0.08,
+      0.18,
+      1
+    ],
+    "ambient_color": [
+      0.75,
+      0.55,
+      0.85,
+      1
+    ],
+    "ambient_energy": 0.5,
+    "fog_density": 0.004,
+    "fog_color": [
+      0.5,
+      0.3,
+      0.55,
+      1
+    ],
+    "sun_dir": [
+      -0.4,
+      -0.6,
+      -0.5
+    ],
+    "sun_color": [
+      1.0,
+      0.55,
+      0.85,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.28,
+          0.16,
+          0.3,
+          1
+        ],
+        "floor_color": [
+          0.45,
+          0.25,
+          0.45,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_forge",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE WILD HUM\n\nA chaotic room. The floor pattern is different every visit. Wind from indeterminate directions.\n\nLirien's breath, the realm has rooms that just are like this. The Wyrdkin shrug and bring an extra cloak."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 1.5707963267948966,
+      "message": "Carved into a stone you swear was somewhere else last time:\n\n'The hum is the realm not knowing what it wants to be just now. Wait a breath. The hum will decide. By the Source, it always does.'"
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "heart_piece",
+      "open_message": "A piece of heart, half-buried in the shifting floor. The realm hummed it into being while you were looking the other way."
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "forge",
+      "target_spawn": "from_dev_random",
+      "prompt": "[E] Back to the Forge"
+    }
+  ]
+}

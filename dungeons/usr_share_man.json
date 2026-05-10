@@ -1,0 +1,435 @@
+{
+  "name": "The Manuscripts",
+  "id": "usr_share_man",
+  "key_group": "usr_share_man",
+  "music_track": "sigilkeep",
+  "fs_path": "/usr/share/man",
+  "environment": {
+    "sky_top": [
+      0.18,
+      0.18,
+      0.25,
+      1
+    ],
+    "sky_horizon": [
+      0.32,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_horizon": [
+      0.25,
+      0.22,
+      0.22,
+      1
+    ],
+    "ground_bottom": [
+      0.08,
+      0.08,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.5,
+      0.55,
+      1
+    ],
+    "ambient_energy": 0.35,
+    "fog_density": 0.003,
+    "fog_color": [
+      0.32,
+      0.28,
+      0.32,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.85,
+      0.78,
+      0.65,
+      1
+    ],
+    "sun_energy": 0.65
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.22,
+          0.2,
+          0.2,
+          1
+        ],
+        "floor_color": [
+          0.32,
+          0.28,
+          0.26,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_sharers",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE MANUSCRIPTS\n\nA quiet sub-room of the Sharers. Bound manuscripts arranged by section. Each section explains how some other place in the realm works.\n\nRead three and the realm shows you a kindness."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": 1.5707963267948966,
+      "message": "BOUND MANUSCRIPT — THE WAKE\n\n'The Wake is a military shrine, but its captains are kinder than they look. The morning ceremony is short. The recruits do most of the speaking. The veterans do most of the watching.\n\nIf you go at sunrise the light cues play only once. Listen.'\n\n*you set the manuscript back on the shelf. The realm seems to nod.*"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": -1.5707963267948966,
+      "message": "BOUND MANUSCRIPT — THE MURK\n\n'The Murk is a fog. Step into the wrong pocket and you lose which way you were facing. Step out of it and the realm hums where you stood.\n\nThere is a mound at its centre. The walker on the mound has been there since the realm started. He answers questions in the present tense. Ask him whatever you cannot ask anywhere else.'\n\n*you set the manuscript back. The realm seems to nod.*"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -1.5
+      ],
+      "rotation_y": 0.0,
+      "message": "BOUND MANUSCRIPT — THE FORGE\n\n'The Forge is hot, and old, and rules itself. Null sits in his doorway. Walking through that doorway returns you the way you came in.\n\nThe smaller rooms there are kinder. The Quietness gives. The Wild Hum changes. The Recursion Hall asks you to walk it seven times before it shows you a real door.\n\nGo seven times. The Forge respects walkers who do.'\n\n*you set the manuscript back. The realm seems to nod.*"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        1.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Pinned to the reading-desk:\n\n'A walker who has read three manuscripts has done more than half the work of any quest. The realm asks no fee for the reading. Walk well.'"
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sharers",
+      "target_spawn": "from_usr_share_man",
+      "prompt": "[E] Back to the Sharers"
+    }
+  ]
+}

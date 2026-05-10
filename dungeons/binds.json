@@ -4215,7 +4215,7 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     }
@@ -4467,7 +4467,7 @@
         9.0
       ],
       "rotation_y": 1.5708,
-      "message": "POSTED \u2014 Guild Bylaws\n\n1. Stalls open at first bell.\n2. Coins counted twice.\n3. No haggling on holy days.\n\n(no one observes #3)"
+      "message": "POSTED — Guild Bylaws\n\n1. Stalls open at first bell.\n2. Coins counted twice.\n3. No haggling on holy days.\n\n(no one observes #3)"
     },
     {
       "type": "sign",
@@ -4477,7 +4477,7 @@
         9.0
       ],
       "rotation_y": -1.5708,
-      "message": "PRICES TODAY\n\nSalt \u2014 2 chips a measure\nKnot-rope \u2014 1 chip a fathom\nSweetwood \u2014 by the bundle\nPromises \u2014 free, expire at dusk"
+      "message": "PRICES TODAY\n\nSalt — 2 chips a measure\nKnot-rope — 1 chip a fathom\nSweetwood — by the bundle\nPromises — free, expire at dusk"
     },
     {
       "type": "sign",
@@ -4487,7 +4487,7 @@
         4.0
       ],
       "rotation_y": 1.5708,
-      "message": "NOTICE\n\nLost: a small dog answering to \u201cCrumb.\u201d\nReward in chips. No questions asked.\n\n\u2014 Stallkeep Manda"
+      "message": "NOTICE\n\nLost: a small dog answering to “Crumb.”\nReward in chips. No questions asked.\n\n— Stallkeep Manda"
     },
     {
       "type": "sign",
@@ -4517,7 +4517,7 @@
         -10.0
       ],
       "rotation_y": -1.5708,
-      "message": "INSCRIPTION (worn)\n\n\u201cTrade is the smaller breath of Lirien \u2014\nshorter, but it carries grain.\u201d"
+      "message": "INSCRIPTION (worn)\n\n“Trade is the smaller breath of Lirien —\nshorter, but it carries grain.”"
     },
     {
       "type": "sign",
@@ -4830,7 +4830,7 @@
         "nodes": {
           "root": {
             "speaker": "Bureaucrat Imon",
-            "text": "*(unrolls a scroll)* Bylaw nine, subsection three: \u2018No coin shall be cast in anger.\u2019 ...And yet, every market-day...",
+            "text": "*(unrolls a scroll)* Bylaw nine, subsection three: ‘No coin shall be cast in anger.’ ...And yet, every market-day...",
             "choices": [
               {
                 "label": "Read me another.",
@@ -4848,7 +4848,7 @@
           },
           "another": {
             "speaker": "Bureaucrat Imon",
-            "text": "Bylaw twelve: \u2018All wagers shall be witnessed by a sober party.\u2019 The Guild keeps no record of a sober party in the Binds.",
+            "text": "Bylaw twelve: ‘All wagers shall be witnessed by a sober party.’ The Guild keeps no record of a sober party in the Binds.",
             "choices": [
               {
                 "label": "Another.",
@@ -4862,7 +4862,7 @@
           },
           "another2": {
             "speaker": "Bureaucrat Imon",
-            "text": "Bylaw seventeen, omnibus: \u2018Honesty is best. Where impractical, courtesy.\u2019 My favourite, in the dignified sense.",
+            "text": "Bylaw seventeen, omnibus: ‘Honesty is best. Where impractical, courtesy.’ My favourite, in the dignified sense.",
             "choices": [
               {
                 "label": "Back.",
@@ -4925,6 +4925,10 @@
                 "next": "trade"
               },
               {
+                "label": "Show me your wares.",
+                "next": "wares"
+              },
+              {
                 "label": "Walk well.",
                 "next": "bye"
               }
@@ -4959,7 +4963,29 @@
             "text": "What I can carry. What folk will buy. The usual quiet wares. Nothing the Guild needs to fuss over.",
             "choices": [
               {
+                "label": "Let's see them, then.",
+                "next": "wares"
+              },
+              {
                 "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "wares": {
+            "speaker": "Trader Joss",
+            "text": "Hearts when you bleed, arrows when you don't, seeds for the sling. Pebble-priced. Pick what you need.",
+            "choices": [
+              {
+                "label": "Show me.",
+                "opens_shop": [
+                  "heart",
+                  "arrow",
+                  "seed"
+                ]
+              },
+              {
+                "label": "Maybe later.",
                 "next": "root"
               }
             ]
@@ -5030,7 +5056,7 @@
           },
           "coin": {
             "speaker": "Trader Kel",
-            "text": "She passed by, didn't notice me \u2014 but the breath caught the coin as she went. You can FEEL the polish, walker. Three chips.",
+            "text": "She passed by, didn't notice me — but the breath caught the coin as she went. You can FEEL the polish, walker. Three chips.",
             "choices": [
               {
                 "label": "Back.",
@@ -5114,7 +5140,7 @@
           },
           "bye": {
             "speaker": "Rin",
-            "text": "Walk well. Mind your purse, all the same \u2014 habit's hard to lose."
+            "text": "Walk well. Mind your purse, all the same — habit's hard to lose."
           }
         }
       }
@@ -5125,7 +5151,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,

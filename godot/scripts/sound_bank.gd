@@ -55,6 +55,10 @@ const SOUND_NAMES := [
     # SoundBank skips any name without a matching .wav at startup.
     "hammer_swing", "hammer_strike", "anchor_step",
     "glim_sight_open", "mirror_reflect",
+    # Shop UI: open/close panel, successful purchase, "can't afford"
+    # buzz. Silent-fallback safe like everything above — SoundBank just
+    # skips ids without a matching .wav.
+    "shop_open", "shop_close", "shop_buy", "shop_no_money",
 ]
 
 var _streams: Dictionary = {}

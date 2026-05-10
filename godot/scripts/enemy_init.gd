@@ -244,6 +244,10 @@ func _player_has_glim_mirror() -> bool:
 
 
 func _throw_seed() -> void:
+    # Guard against firing during scene teardown — visual.global_position
+    # errors out if the boss has been removed from the tree by a fader.
+    if not is_inside_tree() or visual == null or not is_instance_valid(visual):
+        return
     var parent: Node = get_parent()
     if parent == null:
         return

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxcred01"]
+
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_credits"]
+
+[node name="Credits" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_credits")

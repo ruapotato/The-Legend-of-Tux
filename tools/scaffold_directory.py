@@ -250,6 +250,153 @@ SCAFFOLD = [
         "theme": "black-doorway", "music": "dungeon_first",
         "neighbours": [("forge", "[E] Back to the Forge")],
     },
+    # ---- v2 expansion (FILESYSTEM.md §2.2) — 27 new dirs --------------
+    # Every new dir is a leaf in the FHS tree, so each scaffolds as a
+    # small passthrough room with one outgoing zone back to its parent.
+    # Non-tree shortcuts (sbin↔usr_sbin, lib↔usr_lib, var_mail↔homes,
+    # proc_init↔sys, dev_loop loop) are deferred to a later content pass.
+    # Top-level (7).
+    {
+        "id": "bin", "name": "The Toolshed", "scope": "passthrough",
+        "theme": "tool-workshop", "music": "hearthold",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "sbin", "name": "Sentinel Hall", "scope": "passthrough",
+        "theme": "stone-vault", "music": "sigilkeep",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "lib", "name": "The Loomhouse", "scope": "passthrough",
+        "theme": "loomhouse", "music": "sigilkeep",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "lost_found", "name": "Hall of Lost Things",
+        "scope": "passthrough", "theme": "alcove", "music": "sigilkeep",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "root_hold", "name": "Root's Hold", "scope": "passthrough",
+        "theme": "overgrown-homestead", "music": "wyrdkin_glade",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "srv", "name": "The Servery", "scope": "passthrough",
+        "theme": "village-commons", "music": "hearthold",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    {
+        "id": "sys", "name": "The Heartworks", "scope": "passthrough",
+        "theme": "heartworks", "music": "crown",
+        "neighbours": [("crown", "[E] Up to the Crown")],
+    },
+    # Under /etc (2).
+    {
+        "id": "etc_initd", "name": "The Initiates", "scope": "passthrough",
+        "theme": "alcove", "music": "sigilkeep",
+        "neighbours": [("scriptorium", "[E] Back to the Scriptorium")],
+    },
+    {
+        "id": "etc_passwd", "name": "The Names Hall", "scope": "passthrough",
+        "theme": "stone-vault", "music": "sigilkeep",
+        "neighbours": [("scriptorium", "[E] Back to the Scriptorium")],
+    },
+    # Under /home (2).
+    {
+        "id": "home_lirien", "name": "Lirien's Chamber",
+        "scope": "passthrough", "theme": "tower-study", "music": "crown",
+        "neighbours": [("burrows", "[E] Back to the Burrows")],
+    },
+    {
+        "id": "home_khorgaul", "name": "The Khorgaul Roost",
+        "scope": "passthrough", "theme": "burned-hold", "music": "burnt_hollow",
+        "neighbours": [("burrows", "[E] Back to the Burrows")],
+    },
+    # Under /proc (3).
+    {
+        "id": "proc_init", "name": "The First Process",
+        "scope": "passthrough", "theme": "fog-swamp", "music": "burnt_hollow",
+        "neighbours": [("murk", "[E] Back to the Murk")],
+    },
+    {
+        "id": "proc_sys", "name": "The Murk Senate",
+        "scope": "passthrough", "theme": "fog-swamp", "music": "burnt_hollow",
+        "neighbours": [("murk", "[E] Back to the Murk")],
+    },
+    {
+        "id": "proc_42", "name": "Process 42",
+        "scope": "passthrough", "theme": "fog-swamp", "music": "burnt_hollow",
+        "neighbours": [("murk", "[E] Back to the Murk")],
+    },
+    # Under /usr (5).
+    {
+        "id": "usr_lib", "name": "Sprawl Library", "scope": "passthrough",
+        "theme": "labelled-shelves", "music": "sigilkeep",
+        "neighbours": [("sprawl", "[E] Back to the Sprawl")],
+    },
+    {
+        "id": "usr_sbin", "name": "Sprawl Outpost", "scope": "passthrough",
+        "theme": "stone-vault", "music": "sigilkeep",
+        "neighbours": [("sprawl", "[E] Back to the Sprawl")],
+    },
+    {
+        "id": "usr_src", "name": "The Sourcerooms", "scope": "passthrough",
+        "theme": "vast-archive", "music": "sigilkeep",
+        "neighbours": [("sprawl", "[E] Back to the Sprawl")],
+    },
+    {
+        "id": "usr_include", "name": "Sprawl Index Hall",
+        "scope": "passthrough", "theme": "labelled-shelves", "music": "sigilkeep",
+        "neighbours": [("sprawl", "[E] Back to the Sprawl")],
+    },
+    {
+        "id": "usr_share_man", "name": "The Manuscripts",
+        "scope": "passthrough", "theme": "alcove", "music": "sigilkeep",
+        "neighbours": [("sharers", "[E] Back to the Sharers")],
+    },
+    # Under /var (4).
+    {
+        "id": "var_mail", "name": "The Postmark", "scope": "passthrough",
+        "theme": "labelled-shelves", "music": "sigilkeep",
+        "neighbours": [("library", "[E] Back to the Library")],
+    },
+    {
+        "id": "var_run", "name": "The Pulse Room", "scope": "passthrough",
+        "theme": "running-scrolls", "music": "sigilkeep",
+        "neighbours": [("library", "[E] Back to the Library")],
+    },
+    {
+        "id": "var_tmp", "name": "The Long Drift", "scope": "passthrough",
+        "theme": "festival-town", "music": "drift",
+        "neighbours": [("library", "[E] Back to the Library")],
+    },
+    {
+        "id": "var_games", "name": "The Scoreroom", "scope": "passthrough",
+        "theme": "derelict-carnival", "music": "drift",
+        "neighbours": [("library", "[E] Back to the Library")],
+    },
+    # Under /dev (4).
+    {
+        "id": "dev_zero", "name": "The Quietness", "scope": "passthrough",
+        "theme": "quietness", "music": "dungeon_first",
+        "neighbours": [("forge", "[E] Back to the Forge")],
+    },
+    {
+        "id": "dev_random", "name": "The Wild Hum", "scope": "passthrough",
+        "theme": "wild-hum", "music": "burnt_hollow",
+        "neighbours": [("forge", "[E] Back to the Forge")],
+    },
+    {
+        "id": "dev_tty", "name": "The Speaker's Room",
+        "scope": "passthrough", "theme": "speakers-room", "music": "sigilkeep",
+        "neighbours": [("forge", "[E] Back to the Forge")],
+    },
+    {
+        "id": "dev_loop", "name": "The Recursion Hall",
+        "scope": "passthrough", "theme": "recursion-hall", "music": "burnt_hollow",
+        "neighbours": [("forge", "[E] Back to the Forge")],
+    },
 ]
 
 # ---- environment palettes per theme ---------------------------------------
@@ -280,6 +427,16 @@ PALETTES = {
     "shallow-stream":    {"sky_top":[0.50,0.62,0.65,1],"sky_horizon":[0.78,0.78,0.70,1],"ground_horizon":[0.40,0.42,0.36,1],"ground_bottom":[0.16,0.18,0.16,1],"ambient_color":[0.65,0.72,0.68,1],"ambient_energy":0.42,"fog_density":0.005,"fog_color":[0.62,0.68,0.65,1],"sun_dir":[-0.4,-0.6,-0.5],"sun_color":[0.95,0.92,0.78,1],"sun_energy":1.0,"floor_color":[0.30,0.38,0.32,1],"wall_color":[0.22,0.26,0.22,1]},
     "industrial":        {"sky_top":[0.20,0.16,0.20,1],"sky_horizon":[0.45,0.30,0.25,1],"ground_horizon":[0.30,0.22,0.18,1],"ground_bottom":[0.10,0.08,0.06,1],"ambient_color":[0.55,0.40,0.40,1],"ambient_energy":0.40,"fog_density":0.005,"fog_color":[0.30,0.22,0.20,1],"sun_dir":[-0.5,-0.6,-0.4],"sun_color":[1.0,0.55,0.30,1],"sun_energy":0.85,"floor_color":[0.25,0.20,0.18,1],"wall_color":[0.18,0.14,0.12,1]},
     "black-doorway":     {"sky_top":[0.05,0.04,0.06,1],"sky_horizon":[0.12,0.10,0.12,1],"ground_horizon":[0.10,0.08,0.10,1],"ground_bottom":[0.04,0.04,0.05,1],"ambient_color":[0.30,0.28,0.32,1],"ambient_energy":0.30,"fog_density":0.012,"fog_color":[0.10,0.08,0.10,1],"sun_dir":[-0.3,-0.7,-0.4],"sun_color":[0.40,0.35,0.45,1],"sun_energy":0.4,"floor_color":[0.12,0.10,0.12,1],"wall_color":[0.06,0.05,0.06,1]},
+    # ---- v2 expansion palettes ---------------------------------------
+    "tool-workshop":     {"sky_top":[0.30,0.28,0.30,1],"sky_horizon":[0.55,0.45,0.35,1],"ground_horizon":[0.42,0.34,0.28,1],"ground_bottom":[0.16,0.14,0.12,1],"ambient_color":[0.78,0.68,0.55,1],"ambient_energy":0.45,"fog_density":0.002,"fog_color":[0.50,0.42,0.34,1],"sun_dir":[-0.4,-0.6,-0.4],"sun_color":[1.0,0.82,0.55,1],"sun_energy":1.0,"floor_color":[0.45,0.36,0.28,1],"wall_color":[0.32,0.26,0.20,1]},
+    "loomhouse":         {"sky_top":[0.30,0.28,0.40,1],"sky_horizon":[0.65,0.55,0.55,1],"ground_horizon":[0.45,0.36,0.40,1],"ground_bottom":[0.18,0.14,0.18,1],"ambient_color":[0.75,0.65,0.72,1],"ambient_energy":0.45,"fog_density":0.0025,"fog_color":[0.55,0.45,0.55,1],"sun_dir":[-0.4,-0.7,-0.3],"sun_color":[0.95,0.78,0.85,1],"sun_energy":1.0,"floor_color":[0.42,0.32,0.36,1],"wall_color":[0.30,0.22,0.26,1]},
+    "tower-study":       {"sky_top":[0.18,0.20,0.40,1],"sky_horizon":[0.40,0.38,0.55,1],"ground_horizon":[0.25,0.25,0.35,1],"ground_bottom":[0.10,0.10,0.16,1],"ambient_color":[0.55,0.60,0.78,1],"ambient_energy":0.40,"fog_density":0.003,"fog_color":[0.30,0.32,0.45,1],"sun_dir":[-0.3,-0.6,-0.5],"sun_color":[0.78,0.82,1.0,1],"sun_energy":0.85,"floor_color":[0.25,0.28,0.36,1],"wall_color":[0.18,0.20,0.28,1]},
+    "burned-hold":       {"sky_top":[0.20,0.14,0.16,1],"sky_horizon":[0.42,0.22,0.18,1],"ground_horizon":[0.28,0.18,0.14,1],"ground_bottom":[0.10,0.06,0.05,1],"ambient_color":[0.55,0.40,0.36,1],"ambient_energy":0.40,"fog_density":0.005,"fog_color":[0.30,0.20,0.18,1],"sun_dir":[-0.5,-0.6,-0.4],"sun_color":[0.95,0.55,0.35,1],"sun_energy":0.85,"floor_color":[0.25,0.18,0.14,1],"wall_color":[0.16,0.12,0.10,1]},
+    "heartworks":        {"sky_top":[0.10,0.18,0.30,1],"sky_horizon":[0.30,0.45,0.65,1],"ground_horizon":[0.20,0.30,0.42,1],"ground_bottom":[0.08,0.10,0.16,1],"ambient_color":[0.55,0.72,0.92,1],"ambient_energy":0.55,"fog_density":0.0035,"fog_color":[0.30,0.45,0.65,1],"sun_dir":[-0.3,-0.7,-0.4],"sun_color":[0.62,0.85,1.0,1],"sun_energy":1.0,"floor_color":[0.20,0.30,0.42,1],"wall_color":[0.14,0.20,0.30,1]},
+    "quietness":         {"sky_top":[0.55,0.55,0.58,1],"sky_horizon":[0.75,0.75,0.75,1],"ground_horizon":[0.55,0.55,0.55,1],"ground_bottom":[0.30,0.30,0.30,1],"ambient_color":[0.85,0.85,0.85,1],"ambient_energy":0.50,"fog_density":0.001,"fog_color":[0.78,0.78,0.78,1],"sun_dir":[-0.4,-0.7,-0.3],"sun_color":[1.0,1.0,1.0,1],"sun_energy":1.1,"floor_color":[0.65,0.65,0.65,1],"wall_color":[0.50,0.50,0.50,1]},
+    "wild-hum":          {"sky_top":[0.30,0.10,0.40,1],"sky_horizon":[0.65,0.25,0.55,1],"ground_horizon":[0.42,0.22,0.40,1],"ground_bottom":[0.16,0.08,0.18,1],"ambient_color":[0.75,0.55,0.85,1],"ambient_energy":0.50,"fog_density":0.004,"fog_color":[0.50,0.30,0.55,1],"sun_dir":[-0.4,-0.6,-0.5],"sun_color":[1.0,0.55,0.85,1],"sun_energy":1.0,"floor_color":[0.45,0.25,0.45,1],"wall_color":[0.28,0.16,0.30,1]},
+    "speakers-room":     {"sky_top":[0.20,0.20,0.28,1],"sky_horizon":[0.40,0.38,0.42,1],"ground_horizon":[0.30,0.28,0.30,1],"ground_bottom":[0.12,0.10,0.12,1],"ambient_color":[0.62,0.62,0.68,1],"ambient_energy":0.42,"fog_density":0.002,"fog_color":[0.32,0.30,0.36,1],"sun_dir":[-0.3,-0.7,-0.4],"sun_color":[0.85,0.85,0.95,1],"sun_energy":0.9,"floor_color":[0.36,0.34,0.38,1],"wall_color":[0.24,0.22,0.26,1]},
+    "recursion-hall":    {"sky_top":[0.10,0.12,0.18,1],"sky_horizon":[0.25,0.22,0.30,1],"ground_horizon":[0.18,0.16,0.22,1],"ground_bottom":[0.06,0.06,0.10,1],"ambient_color":[0.42,0.42,0.55,1],"ambient_energy":0.35,"fog_density":0.008,"fog_color":[0.18,0.16,0.22,1],"sun_dir":[-0.3,-0.7,-0.4],"sun_color":[0.55,0.55,0.78,1],"sun_energy":0.5,"floor_color":[0.20,0.18,0.24,1],"wall_color":[0.12,0.10,0.16,1]},
 }
 
 

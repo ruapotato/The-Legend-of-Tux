@@ -18,8 +18,11 @@ static func try_fire(owner: Node3D, direction: Vector3) -> bool:
         return false
     if not GameState.use_seed():
         return false
+    # Preserve the caller's full 3D direction — first-person aim mode
+    # passes a pitched camera-forward so seeds can plink fliers above
+    # the player. Non-aim callers pass a flat facing vector, so the
+    # old behaviour is preserved by the caller, not the wrapper.
     var dir: Vector3 = direction
-    dir.y = 0.0
     if dir.length_squared() < 1e-6:
         dir = Vector3(0, 0, -1)
     dir = dir.normalized()

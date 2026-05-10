@@ -17381,7 +17381,7 @@
         -42.0
       ],
       "rotation_y": 0.0,
-      "message": "Step lightly, traveler. The peat will swallow what it can. The wisps know the path \u2014 if they don't mean you harm, follow them."
+      "message": "Step lightly, traveler. The peat will swallow what it can. The wisps know the path — if they don't mean you harm, follow them."
     },
     {
       "type": "sign",
@@ -17391,7 +17391,7 @@
         14.0
       ],
       "rotation_y": 3.141592653589793,
-      "message": "Half-sunken cairns of Source-stone, raised by older hands than ours. Lirien's name is carved on the lowest course \u2014 the rest is mud."
+      "message": "Half-sunken cairns of Source-stone, raised by older hands than ours. Lirien's name is carved on the lowest course — the rest is mud."
     },
     {
       "type": "sign",
@@ -17447,7 +17447,7 @@
       "rotation_y": 3.141592653589793,
       "contents": "anchor_boots",
       "requires": "gale_roost_defeated",
-      "open_message": "Anchor Boots \u2014 iron-shod, drowned-keeper boots. They will pull you down where the wisps fear to follow."
+      "open_message": "Anchor Boots — iron-shod, drowned-keeper boots. They will pull you down where the wisps fear to follow."
     },
     {
       "type": "bush",
@@ -17847,7 +17847,7 @@
         "nodes": {
           "root": {
             "speaker": "Fisher Aelis",
-            "text": "Quiet, quiet \u2014 the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?",
+            "text": "Quiet, quiet — the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?",
             "choices": [
               {
                 "label": "What shrine?",
@@ -17925,7 +17925,7 @@
         "nodes": {
           "root": {
             "speaker": "Reedweaver Pell",
-            "text": "*braids a long reed without looking up*\nOh \u2014 visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?",
+            "text": "*braids a long reed without looking up*\nOh — visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?",
             "choices": [
               {
                 "label": "What are you weaving?",
@@ -17957,7 +17957,7 @@
           },
           "mire": {
             "speaker": "Reedweaver Pell",
-            "text": "Spores, mostly. Things that bloom and burst. And the great quiet beneath the water \u2014 but we don't speak of that one, not on a still day.",
+            "text": "Spores, mostly. Things that bloom and burst. And the great quiet beneath the water — but we don't speak of that one, not on a still day.",
             "choices": [
               {
                 "label": "What are you weaving?",
@@ -18002,8 +18002,104 @@
       ],
       "rotation_y": 0,
       "contents": "heart_piece",
-      "open_message": "On the far reed-island \u2014 only those who can walk the lakebed reach it. The drowned keepers left it for whoever could.",
+      "open_message": "On the far reed-island — only those who can walk the lakebed reach it. The drowned keepers left it for whoever could.",
       "requires": "gale_roost_defeated"
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        -8.0,
+        0,
+        -36.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_mirelake",
+      "warp_name": "Mirelake Owl",
+      "warp_message": "The reeds bow. The lake will carry your weight.",
+      "warp_target_scene": "mirelake",
+      "warp_target_spawn": "default"
+    },
+    {
+      "type": "time_gate",
+      "pos": [
+        12.0,
+        0,
+        20.0
+      ],
+      "rotation_y": 0.0,
+      "time_phase": "night"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        10.5,
+        0,
+        20.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Night-marked."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        10.0,
+        0.0,
+        -38.0
+      ],
+      "rotation_y": 0,
+      "name": "Sunken Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Sunken Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires": "anchor_boots"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "anchor_boots"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Sunken Stone",
+            "text": "The Maw lives below the lake-floor. To reach it, you must walk down.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Sunken Stone",
+            "text": "The Boots will hold you down. The Maw will not flee.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Sunken Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

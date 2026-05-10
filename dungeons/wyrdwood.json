@@ -3086,36 +3086,54 @@
       "pos": [
         0,
         0.5,
-        13
+        14
       ],
-      "rotation_y": 3.14159
+      "rotation_y": 3.141592653589793
     },
     {
       "id": "from_dungeon",
       "pos": [
-        13,
+        14,
         0.5,
-        -26
+        -26.5
       ],
-      "rotation_y": -1.5708
+      "rotation_y": 3.141592653589793
     },
     {
       "id": "from_sourceplain",
       "pos": [
         0,
         0.5,
-        -28
+        -27.0
       ],
-      "rotation_y": 0
+      "rotation_y": 3.141592653589793
     },
     {
       "id": "from_wyrdmark_gateway",
       "pos": [
         3.0,
         0.5,
-        -17.0
+        -19.0
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_wyrdkin_glade",
+      "pos": [
+        0,
+        0.5,
+        14
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_dungeon_first",
+      "pos": [
+        14,
+        0.5,
+        -26.5
+      ],
+      "rotation_y": 3.141592653589793
     }
   ],
   "lights": [
@@ -3521,7 +3539,7 @@
         "nodes": {
           "root": {
             "speaker": "Hermit Olber",
-            "text": "Eh? Is it morning? Is it night? The wood does not say. I have walked in circles for \u2014 well. Some time. You look less lost than I am. Tell me, are you looking for the Hollow?",
+            "text": "Eh? Is it morning? Is it night? The wood does not say. I have walked in circles for — well. Some time. You look less lost than I am. Tell me, are you looking for the Hollow?",
             "choices": [
               {
                 "label": "Where is the Hollow?",
@@ -3553,7 +3571,7 @@
           },
           "wander": {
             "speaker": "Hermit Olber",
-            "text": "Long enough to forget my own name some mornings. The wood folds upon itself, you see. The ribbons others have tied \u2014 those are the only true compass.",
+            "text": "Long enough to forget my own name some mornings. The wood folds upon itself, you see. The ribbons others have tied — those are the only true compass.",
             "choices": [
               {
                 "label": "Where is the Hollow?",
@@ -3599,7 +3617,7 @@
         "nodes": {
           "root": {
             "speaker": "Wenna the Wisp-tender",
-            "text": "Hush \u2014 they are timid. *cups her hands gently*\nGood. Good. I see your wisp at your shoulder, traveler. She is bright. She has chosen you.",
+            "text": "Hush — they are timid. *cups her hands gently*\nGood. Good. I see your wisp at your shoulder, traveler. She is bright. She has chosen you.",
             "choices": [
               {
                 "label": "What is Glim's role?",
@@ -3617,7 +3635,7 @@
           },
           "role": {
             "speaker": "Wenna the Wisp-tender",
-            "text": "A wisp is a fleck of the Source with a small, bright will. She lights what is dim. She remembers what you forget. She names what you cannot. Listen for her chime \u2014 it speaks where words will not.",
+            "text": "A wisp is a fleck of the Source with a small, bright will. She lights what is dim. She remembers what you forget. She names what you cannot. Listen for her chime — it speaks where words will not.",
             "choices": [
               {
                 "label": "Why do wisps choose?",
@@ -3659,7 +3677,69 @@
       ],
       "rotation_y": 0,
       "contents": "heart_piece",
-      "open_message": "Beneath the eldest pine \u2014 its roots had grown around a Source-pulse so old it had nearly forgotten itself. Press on."
+      "open_message": "Beneath the eldest pine — its roots had grown around a Source-pulse so old it had nearly forgotten itself. Press on."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": 0,
+      "name": "Whispering Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Whispering Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires": "wyrdking_defeated"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "wyrdking_defeated"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Whispering Stone",
+            "text": "The cache holds a Wyrd-king's bones. It is not far through the woods.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Whispering Stone",
+            "text": "The Hollow rests now. Its dust has settled.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Whispering Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

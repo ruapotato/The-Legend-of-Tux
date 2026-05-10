@@ -18558,11 +18558,11 @@
     {
       "id": "from_sourceplain",
       "pos": [
-        -36.0,
+        -38.0,
         0.5,
         1.0
       ],
-      "rotation_y": -1.5708
+      "rotation_y": 3.141592653589793
     },
     {
       "id": "from_burrows",
@@ -18571,7 +18571,16 @@
         0.5,
         -25.0
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_var_mail",
+      "pos": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": 3.141592653589793
     }
   ],
   "lights": [
@@ -18831,7 +18840,7 @@
         -13.0
       ],
       "rotation_y": 0.0,
-      "message": "North Paddock\n\nGrazing \u2014 root-greens for the lambwisps.\nDo not climb the stones."
+      "message": "North Paddock\n\nGrazing — root-greens for the lambwisps.\nDo not climb the stones."
     },
     {
       "type": "sign",
@@ -18861,7 +18870,7 @@
         17.0
       ],
       "rotation_y": 0.0,
-      "message": "Lirien's Lambwisps may not pass these stones \u2014 bless the stones, bless the kin."
+      "message": "Lirien's Lambwisps may not pass these stones — bless the stones, bless the kin."
     },
     {
       "type": "chest",
@@ -19308,7 +19317,7 @@
           },
           "offer": {
             "speaker": "Farmer Brook",
-            "text": "Take this \u2014 a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
+            "text": "Take this — a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
             "give_item": "lambwisp_charm",
             "next": "post_offer"
           },
@@ -19360,7 +19369,7 @@
         "nodes": {
           "root": {
             "speaker": "Matriarch Brook",
-            "text": "Well, well. A traveler at our gate. The kin keep the kettle warm \u2014 sit a moment, if you've news. Or even if you haven't.",
+            "text": "Well, well. A traveler at our gate. The kin keep the kettle warm — sit a moment, if you've news. Or even if you haven't.",
             "choices": [
               {
                 "label": "I have a letter from Tova.",
@@ -19369,7 +19378,7 @@
                 "requires_not": "delivered_brookhold_letter"
               },
               {
-                "label": "Tova's letter \u2014 already delivered.",
+                "label": "Tova's letter — already delivered.",
                 "next": "after",
                 "requires": "delivered_brookhold_letter"
               },
@@ -19385,7 +19394,7 @@
           },
           "letter": {
             "speaker": "Matriarch Brook",
-            "text": "From Tova? Truly?! *unfolds it, reads silently \u2014 eyes wet*\nYou good soul. You stubborn, lovely soul. She lives \u2014 she lives. Take this \u2014 eight pebbles for a sling-arm who carried what mattered.",
+            "text": "From Tova? Truly?! *unfolds it, reads silently — eyes wet*\nYou good soul. You stubborn, lovely soul. She lives — she lives. Take this — eight pebbles for a sling-arm who carried what mattered.",
             "give_pebbles": 8,
             "next": "letter_post"
           },
@@ -19531,7 +19540,7 @@
           },
           "two": {
             "speaker": "Little Wren",
-            "text": "Have you seen her? She has \u2014 well, she has wool. And a chime. And a tiny attitude. ...You haven't, have you. Sigh. *runs off*"
+            "text": "Have you seen her? She has — well, she has wool. And a chime. And a tiny attitude. ...You haven't, have you. Sigh. *runs off*"
           }
         }
       }
@@ -19545,7 +19554,69 @@
       ],
       "rotation_y": 3.14159,
       "contents": "heart_piece",
-      "open_message": "Where the brook empties into the lambwisp pen \u2014 a piece of heart, washed clean and waiting on a stone."
+      "open_message": "Where the brook empties into the lambwisp pen — a piece of heart, washed clean and waiting on a stone."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -32.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 0,
+      "name": "Old Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires_flag": "glim_theme_learned"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "glim_theme_learned"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Old Stone",
+            "text": "Some kin hum the world open. Listen for a wisp; she carries the first note.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Old Stone",
+            "text": "You have learned to hum. Use the air at every owl-shrine.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Old Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -19580,6 +19651,23 @@
       "target_scene": "burrows",
       "target_spawn": "from_brookhold",
       "prompt": "[E] Up to the Burrows"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "var_mail",
+      "target_spawn": "from_brookhold",
+      "prompt": "[E] Check the mailbox",
+      "auto": false
     }
   ]
 }

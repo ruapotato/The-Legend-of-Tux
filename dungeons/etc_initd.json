@@ -1,0 +1,607 @@
+{
+  "name": "The Initiates",
+  "id": "etc_initd",
+  "key_group": "etc_initd",
+  "music_track": "sigilkeep",
+  "fs_path": "/etc/init.d",
+  "environment": {
+    "sky_top": [
+      0.18,
+      0.18,
+      0.25,
+      1
+    ],
+    "sky_horizon": [
+      0.32,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_horizon": [
+      0.25,
+      0.22,
+      0.22,
+      1
+    ],
+    "ground_bottom": [
+      0.08,
+      0.08,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.5,
+      0.55,
+      1
+    ],
+    "ambient_energy": 0.35,
+    "fog_density": 0.003,
+    "fog_color": [
+      0.32,
+      0.28,
+      0.32,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.85,
+      0.78,
+      0.65,
+      1
+    ],
+    "sun_energy": 0.65
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.22,
+          0.2,
+          0.2,
+          1
+        ],
+        "floor_color": [
+          0.32,
+          0.28,
+          0.26,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_scriptorium",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE INITIATES\n\nA candle-lit row of novices. Each is responsible for waking one of the realm's morning ceremonies. Twelve in all — five here today, the others at their posts."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2.5,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5707963267948966,
+      "name": "Initiate Olm",
+      "body_color": [
+        0.95,
+        0.92,
+        0.88,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.78,
+        0.6,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to the initiate",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Initiate Olm",
+            "text": "*kneeling, eyes closed*\n\n'By the breath of the Maker, the morning is opened. By the Source, the dawn-shrine wakes. Walk the realm, walk it well...'\n\n*she does not pause for you.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Initiate Olm",
+            "text": "*she does not stop reciting.*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.25,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5707963267948966,
+      "name": "Initiate Belth",
+      "body_color": [
+        0.92,
+        0.9,
+        0.85,
+        1.0
+      ],
+      "hat_color": [
+        0.8,
+        0.7,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to the initiate",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Initiate Belth",
+            "text": "*low, steady*\n\n'The wells are blessed at first light. The kettles are blessed at second. The ovens at third. The hearth at fourth, and so on, to the twelfth, which is the last...'\n\n*his voice is calm enough to fall asleep to.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Initiate Belth",
+            "text": "*he does not pause.*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Initiate Ress",
+      "body_color": [
+        0.95,
+        0.95,
+        0.92,
+        1.0
+      ],
+      "hat_color": [
+        0.7,
+        0.6,
+        0.45,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the initiate",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Initiate Ress",
+            "text": "*opens his eyes wide*\n\nWalker — please. I've forgotten my recantation. The seventh line. It opens the kettle-shrine for the noon-cooks and I cannot remember it.\n\nIs it 'by the breath of the Maker' or 'by the breath of the Source'?",
+            "choices": [
+              {"label": "By the breath of the Maker.", "next": "right"},
+              {"label": "By the breath of the Source.", "next": "wrong"},
+              {"label": "I'm not sure.", "next": "patience"}
+            ]
+          },
+          "right": {
+            "speaker": "Initiate Ress",
+            "text": "Yes! Yes — that's it. By the breath of the Maker the kettle-shrine wakes.\n\nLirien's breath, walker, you saved me a scolding. Walk well. Walk very well.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "wrong": {
+            "speaker": "Initiate Ress",
+            "text": "Hm. Maybe. I'll try it.\n\n*he doesn't look convinced.*",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "patience": {
+            "speaker": "Initiate Ress",
+            "text": "Fair. Fair. I'll keep at it.\n\nMaybe Belth will tell me. Belth never forgets a line.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Initiate Ress",
+            "text": "Walk well, walker. By the breath of the Maker."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.25,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966,
+      "name": "Initiate Maro",
+      "body_color": [
+        0.9,
+        0.88,
+        0.85,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.65,
+        0.5,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to the initiate",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Initiate Maro",
+            "text": "*humming a long, low note. Her hands are folded. Her eyes are open and not looking at anything.*\n\n*the tone shifts up half a step. Then back down.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Initiate Maro",
+            "text": "*the humming continues.*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.5,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966,
+      "name": "Initiate Quenn",
+      "body_color": [
+        0.93,
+        0.9,
+        0.88,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.7,
+        0.5,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to the initiate",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Initiate Quenn",
+            "text": "*reciting fast, almost under his breath*\n\n'...and the gardens, and the orchards, and the brooks, and the wells, and the smaller wells, and the unspoken wells, and the smaller unspoken wells, and—'\n\n*he doesn't notice you.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Initiate Quenn",
+            "text": "*he is already on the next line.*"
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "scriptorium",
+      "target_spawn": "from_etc_initd",
+      "prompt": "[E] Back to the Scriptorium"
+    }
+  ]
+}

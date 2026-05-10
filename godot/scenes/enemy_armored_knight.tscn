@@ -1,0 +1,132 @@
+[gd_scene load_steps=15 format=3 uid="uid://btuxmbarmkt01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_armored_knight.gd" id="1_amk"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.50
+height = 1.8
+
+[sub_resource type="CylinderMesh" id="body_mesh"]
+top_radius = 0.45
+bottom_radius = 0.55
+height = 1.6
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="plate_mat"]
+albedo_color = Color(0.78, 0.76, 0.70, 1)
+roughness = 0.5
+metallic = 0.45
+
+[sub_resource type="SphereMesh" id="head_mesh"]
+radius = 0.32
+height = 0.64
+radial_segments = 12
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="helm_mat"]
+albedo_color = Color(0.55, 0.53, 0.48, 1)
+roughness = 0.45
+metallic = 0.55
+
+[sub_resource type="BoxMesh" id="visor_mesh"]
+size = Vector3(0.30, 0.06, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="visor_mat"]
+albedo_color = Color(0.95, 0.20, 0.10, 1)
+emission_enabled = true
+emission = Color(1.0, 0.30, 0.15, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="shield_mesh"]
+size = Vector3(0.95, 1.30, 0.10)
+
+[sub_resource type="StandardMaterial3D" id="shield_mat"]
+albedo_color = Color(0.62, 0.60, 0.55, 1)
+roughness = 0.45
+metallic = 0.55
+
+[sub_resource type="BoxMesh" id="sword_mesh"]
+size = Vector3(0.10, 1.40, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="sword_mat"]
+albedo_color = Color(0.86, 0.86, 0.88, 1)
+roughness = 0.25
+metallic = 0.85
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(1.0, 1.8, 0.9)
+
+[sub_resource type="BoxShape3D" id="shield_hit_shape"]
+size = Vector3(1.0, 1.4, 0.18)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.2, 1.8, 1.2)
+
+[node name="EnemyArmoredKnight" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_amk")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("plate_mat")
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("helm_mat")
+
+[node name="VisorMesh" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88, -0.30)
+mesh = SubResource("visor_mesh")
+surface_material_override/0 = SubResource("visor_mat")
+
+[node name="ShieldPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, -0.55)
+
+[node name="ShieldMesh" type="MeshInstance3D" parent="Visual/ShieldPivot"]
+mesh = SubResource("shield_mesh")
+surface_material_override/0 = SubResource("shield_mat")
+
+[node name="SwordPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50, 1.30, -0.20)
+
+[node name="SwordMesh" type="MeshInstance3D" parent="Visual/SwordPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50, 0)
+mesh = SubResource("sword_mesh")
+surface_material_override/0 = SubResource("sword_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("hit_shape")
+
+[node name="ShieldArea" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="ShieldArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, -0.55)
+shape = SubResource("shield_hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("contact_shape")

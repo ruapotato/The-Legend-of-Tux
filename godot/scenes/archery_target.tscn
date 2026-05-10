@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxarc01"]
+
+[ext_resource type="Script" path="res://scripts/archery_target.gd" id="1_arc"]
+
+[sub_resource type="StandardMaterial3D" id="disc_face_mat"]
+albedo_color = Color(0.92, 0.32, 0.30, 1)
+emission_enabled = true
+emission = Color(0.95, 0.45, 0.30, 1)
+emission_energy_multiplier = 1.6
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="disc_ring_mat"]
+albedo_color = Color(0.98, 0.93, 0.55, 1)
+roughness = 0.50
+
+[sub_resource type="StandardMaterial3D" id="stake_mat"]
+albedo_color = Color(0.30, 0.22, 0.14, 1)
+roughness = 0.90
+
+[sub_resource type="CylinderMesh" id="disc_mesh"]
+top_radius = 0.45
+bottom_radius = 0.45
+height = 0.08
+
+[sub_resource type="CylinderMesh" id="ring_mesh"]
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.04
+
+[sub_resource type="CylinderMesh" id="stake_mesh"]
+top_radius = 0.06
+bottom_radius = 0.06
+height = 1.40
+
+[sub_resource type="SphereShape3D" id="hit_shape"]
+radius = 0.55
+
+[node name="ArcheryTarget" type="Node3D"]
+script = ExtResource("1_arc")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Stake" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70, 0)
+mesh = SubResource("stake_mesh")
+surface_material_override/0 = SubResource("stake_mat")
+
+[node name="Ring" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.04)
+mesh = SubResource("ring_mesh")
+surface_material_override/0 = SubResource("disc_ring_mat")
+
+[node name="Disc" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+mesh = SubResource("disc_mesh")
+surface_material_override/0 = SubResource("disc_face_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("hit_shape")

@@ -1,0 +1,486 @@
+{
+  "name": "Sentinel Hall",
+  "id": "sbin",
+  "key_group": "sbin",
+  "music_track": "sigilkeep",
+  "fs_path": "/sbin",
+  "environment": {
+    "sky_top": [
+      0.2,
+      0.22,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.4,
+      0.36,
+      0.36,
+      1
+    ],
+    "ground_horizon": [
+      0.3,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.1,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.65,
+      1
+    ],
+    "ambient_energy": 0.4,
+    "fog_density": 0.002,
+    "fog_color": [
+      0.3,
+      0.3,
+      0.4,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.85,
+      0.85,
+      1.0,
+      1
+    ],
+    "sun_energy": 0.85
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.22,
+          0.2,
+          0.26,
+          1
+        ],
+        "floor_color": [
+          0.32,
+          0.3,
+          0.36,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_crown",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_usr_sbin",
+      "pos": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "SENTINEL HALL\n\nThe quiet wardens stand here. They were set in stone before any Wyrdkin came north. They have not moved.\n\nThey are not asleep."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "A small carved line at the base of the floor:\n\n'Speak the right thing and the watch will answer. Speak the wrong thing and the watch will not.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "The Sentinel",
+      "body_color": [
+        0.42,
+        0.45,
+        0.5,
+        1.0
+      ],
+      "hat_color": [
+        0.32,
+        0.34,
+        0.38,
+        1.0
+      ],
+      "idle_hint": "[E] Address the Sentinel",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Sentinel",
+            "text": "*the Sentinel does not turn. The eyes are open. The eyes do not blink.*",
+            "choices": [
+              {"label": "Hello?", "next": "no_answer"},
+              {"label": "Who do you wait for?", "next": "no_answer"},
+              {"label": "(Hum the Moon Chord.)", "next": "answer", "requires_song": "moon_chord"},
+              {"label": "Walk away.", "next": "leave"}
+            ]
+          },
+          "no_answer": {
+            "speaker": "The Sentinel",
+            "text": "*no answer. The light on its shoulder does not flicker.*",
+            "choices": [
+              {"label": "...", "next": "root"}
+            ]
+          },
+          "answer": {
+            "speaker": "The Sentinel",
+            "text": "*the head turns. Slow. The voice is older than stone-cutting.*\n\nWalker. The watch is kept. The realm endures.\n\nGo well. Go quietly. The next door north is the Crown.",
+            "choices": [
+              {"label": "Walk well.", "next": "leave"}
+            ]
+          },
+          "leave": {
+            "speaker": "The Sentinel",
+            "text": "*the Sentinel is again as it was.*"
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "crown",
+      "target_spawn": "from_sbin",
+      "prompt": "[E] Up to the Crown"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_sbin",
+      "target_spawn": "from_sbin",
+      "prompt": "[E] Through to Sprawl Outpost"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxshop01"]
+
+[ext_resource type="Script" path="res://scripts/shop.gd" id="1_shop"]
+
+[node name="Shop" type="CanvasLayer"]
+script = ExtResource("1_shop")

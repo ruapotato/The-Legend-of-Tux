@@ -6001,7 +6001,7 @@
         "nodes": {
           "root": {
             "speaker": "Keeper Maren",
-            "text": "Welcome to the Sigilkeep, traveler. The wards here have held a thousand seasons. They thin now, but they hold. Speak \u2014 what would you ask of the keep?",
+            "text": "Welcome to the Sigilkeep, traveler. The wards here have held a thousand seasons. They thin now, but they hold. Speak — what would you ask of the keep?",
             "choices": [
               {
                 "label": "Tell me of the Triglyph.",
@@ -6115,7 +6115,7 @@
         "nodes": {
           "root": {
             "speaker": "Acolyte Pyl",
-            "text": "*kneeling, eyes closed*\nForgive me \u2014 I am at prayer. ...One moment.\n\n*opens eyes*\nThere. The vow is renewed. Were you wishing something of me?",
+            "text": "*kneeling, eyes closed*\nForgive me — I am at prayer. ...One moment.\n\n*opens eyes*\nThere. The vow is renewed. Were you wishing something of me?",
             "choices": [
               {
                 "label": "What were you praying for?",
@@ -6126,7 +6126,7 @@
                 "next": "far"
               },
               {
-                "label": "Forgive me \u2014 go on.",
+                "label": "Forgive me — go on.",
                 "next": "bye"
               }
             ]
@@ -6192,8 +6192,84 @@
       ],
       "rotation_y": 0,
       "contents": "heart_piece",
-      "open_message": "Behind a section of wall that crumbles to a sharp blow \u2014 bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file.",
+      "open_message": "Behind a section of wall that crumbles to a sharp blow — bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file.",
       "requires": "wyrdking_defeated"
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        6.0,
+        0,
+        8.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_sigilkeep",
+      "warp_name": "Sigilkeep Owl",
+      "warp_message": "The wardstones hum a welcome. The Keep is yours to enter again.",
+      "warp_target_scene": "sigilkeep",
+      "warp_target_spawn": "default"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -8.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": 0,
+      "name": "Inkwell Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Inkwell Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires_flag": "codex_knight_defeated"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "codex_knight_defeated"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Inkwell Stone",
+            "text": "Quill-spirits guard the Bow Hall. Strike the inkpot. The knight will follow.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Inkwell Stone",
+            "text": "The Codex sleeps. Its pages no longer turn against you.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Inkwell Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -6292,6 +6368,14 @@
         -11.5,
         0.0,
         -6.5
+      ]
+    },
+    {
+      "type": "armored_knight",
+      "pos": [
+        -2.0,
+        0,
+        4.0
       ]
     }
   ]

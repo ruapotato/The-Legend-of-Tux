@@ -1,0 +1,482 @@
+{
+  "name": "The Names Hall",
+  "id": "etc_passwd",
+  "key_group": "etc_passwd",
+  "music_track": "sigilkeep",
+  "fs_path": "/etc/passwd",
+  "environment": {
+    "sky_top": [
+      0.2,
+      0.22,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.4,
+      0.36,
+      0.36,
+      1
+    ],
+    "ground_horizon": [
+      0.3,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.1,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.65,
+      1
+    ],
+    "ambient_energy": 0.4,
+    "fog_density": 0.002,
+    "fog_color": [
+      0.3,
+      0.3,
+      0.4,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.85,
+      0.85,
+      1.0,
+      1
+    ],
+    "sun_energy": 0.85
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.22,
+          0.2,
+          0.26,
+          1
+        ],
+        "floor_color": [
+          0.32,
+          0.3,
+          0.36,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_scriptorium",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.5
+      ],
+      "rotation_y": 0.0,
+      "message": "THE NAMES HALL\n\nEvery name in the realm, carved into the long stone wall. Each one was once a stranger. Strangers are how the realm grows."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE WALL — west run\n\n  Belna of the Servery\n  Esweth, weaver of the Loomhouse\n  Marn the Toolwright\n  Pell, Marn's apprentice\n  Velis, Heart-Reader\n  Adra of the Hall of Lost Things\n  Maren of Sigilkeep\n  Pyl, acolyte\n\n...and many more, and many before them, and many to come."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE WALL — east run\n\n  Annette, who once paid for tea and left the change\n  Esh of nowhere-given, the long-necked listener\n  the Reader from a Library no Wyrdkin can name\n  the grey-cloaked walker, never seen turning\n  the Colonel of the bright watch (the priests would say: Lirien)\n\nThese names the Scribe writes in a finer hand. They have walked the realm and never asked to be marked, but the wall asked anyway."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Tacked to a small ledger:\n\n'Tux of the Wyrdkin Glade, son of the line that thinned, bearer of a mark not yet announced.'\n\n*the ink is still wet.*"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "Scribe Onel",
+      "body_color": [
+        0.55,
+        0.5,
+        0.62,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.7,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the scribe",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Scribe Onel",
+            "text": "*she does not look up from the stylus. The iron makes a small, careful scrape against stone.*\n\nWalker. Welcome to the Hall.\n\nNew name? Or just looking?",
+            "choices": [
+              {"label": "Just looking.", "next": "look"},
+              {"label": "What's the finer-hand list?", "next": "fine"},
+              {"label": "Will you write my name?", "next": "name"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "look": {
+            "speaker": "Scribe Onel",
+            "text": "Look as long as you like. Every name on this wall was once a stranger to the realm. Now they're all of them part of it.\n\nThat's how a realm grows.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "fine": {
+            "speaker": "Scribe Onel",
+            "text": "*she pauses, then quietly:*\n\nThe finer hand is for walkers who passed through but never stopped to be recorded. The wall remembers them anyway. The wall is patient.\n\nSome of those names I do not understand. The Scriptorium tells me to write them anyway. I write them anyway.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "name": {
+            "speaker": "Scribe Onel",
+            "text": "*she looks at you, properly, for the first time.*\n\n...I already wrote yours. The wall asked me to. The wall does sometimes.\n\nI did not understand the line about your mark. I wrote it anyway.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Scribe Onel",
+            "text": "Walk well, walker. The wall keeps."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "scriptorium",
+      "target_spawn": "from_etc_passwd",
+      "prompt": "[E] Back to the Scriptorium"
+    }
+  ]
+}

@@ -4215,7 +4215,7 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     }
@@ -4677,7 +4677,7 @@
           },
           "pass": {
             "speaker": "Sheriff Brun",
-            "text": "*(considers)* Fair enough. Pass through, then. Mind the outer edge \u2014 there's a bone knight wandering. We'll deal with it. Eventually.",
+            "text": "*(considers)* Fair enough. Pass through, then. Mind the outer edge — there's a bone knight wandering. We'll deal with it. Eventually.",
             "choices": [
               {
                 "label": "What of the bone knight?",
@@ -4705,7 +4705,7 @@
           },
           "trouble": {
             "speaker": "Sheriff Brun",
-            "text": "Bone knight on the rim. Bat in the rafters of the lower hall \u2014 leave that one, it eats the moths. The knight, though. He paces. He doesn't sleep. Khorgaul's grip on him.",
+            "text": "Bone knight on the rim. Bat in the rafters of the lower hall — leave that one, it eats the moths. The knight, though. He paces. He doesn't sleep. Khorgaul's grip on him.",
             "choices": [
               {
                 "label": "Back.",
@@ -4757,7 +4757,7 @@
         "nodes": {
           "root": {
             "speaker": "Settler Marn",
-            "text": "Walker. Mind the porch \u2014 the boards are honest, the nails less so.",
+            "text": "Walker. Mind the porch — the boards are honest, the nails less so.",
             "choices": [
               {
                 "label": "How is life out here?",
@@ -4952,6 +4952,85 @@
           }
         }
       }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Refugee Quartermaster",
+      "body_color": [
+        0.45,
+        0.42,
+        0.38,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.32,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the Quartermaster",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Refugee Quartermaster",
+            "text": "Walker. We pool what we carry, here — hearts, shafts, powder, and on a lucky week, a wisp in a jar. Pebbles take the place of coin.",
+            "choices": [
+              {
+                "label": "Show me what you have.",
+                "next": "wares"
+              },
+              {
+                "label": "How does the camp fare?",
+                "next": "fare"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "fare": {
+            "speaker": "Refugee Quartermaster",
+            "text": "Better than yesterday. Worse than the year before. The Sheriff keeps the watch; the Settlers keep the fire. We keep the kit. That's the bargain.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "wares": {
+            "speaker": "Refugee Quartermaster",
+            "text": "Full kit — hearts, arrows, bombs, and the rare bottled fairy. Ration them. We don't restock fast.",
+            "choices": [
+              {
+                "label": "Show me.",
+                "opens_shop": [
+                  "heart",
+                  "arrow",
+                  "bomb",
+                  "fairy_bottle"
+                ]
+              },
+              {
+                "label": "Maybe later.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Refugee Quartermaster",
+            "text": "Walk well. Come back lighter, if you can."
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -4959,7 +5038,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,

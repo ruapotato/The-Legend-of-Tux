@@ -1,0 +1,509 @@
+{
+  "name": "The First Process",
+  "id": "proc_init",
+  "key_group": "proc_init",
+  "music_track": "burnt_hollow",
+  "fs_path": "/proc/init",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.34,
+      0.4,
+      1
+    ],
+    "sky_horizon": [
+      0.55,
+      0.55,
+      0.55,
+      1
+    ],
+    "ground_horizon": [
+      0.36,
+      0.34,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.12,
+      0.12,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.62,
+      1
+    ],
+    "ambient_energy": 0.3,
+    "fog_density": 0.012,
+    "fog_color": [
+      0.5,
+      0.55,
+      0.55,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.5,
+      -0.6
+    ],
+    "sun_color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+    ],
+    "sun_energy": 0.6
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.18,
+          0.2,
+          0.18,
+          1
+        ],
+        "floor_color": [
+          0.22,
+          0.26,
+          0.22,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_murk",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_sys",
+      "pos": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE FIRST PROCESS\n\nA small earthen mound at the centre of the Murk. The first walker sits on it. He has been sitting on it since the realm was started.\n\nHe is patient. He is also still here."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Carved on a small post:\n\n'He speaks only in the present. The past is for those who can afford to look away from it; he cannot.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "The First Walker",
+      "body_color": [
+        0.78,
+        0.72,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.5,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the First Walker",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The First Walker",
+            "text": "*he is small, and old, and very still. The mound under him is warm. His eyes are kind.*\n\nA walker is here.\n\nThe walker is welcome.",
+            "choices": [
+              {"label": "Tell me of Lirien.", "next": "lir"},
+              {"label": "Tell me of Khorgaul.", "next": "kho"},
+              {"label": "Tell me of Glim.", "next": "glm"},
+              {"label": "Tell me of yourself.", "next": "self"},
+              {"label": "Tell me of the realm.", "next": "rea"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "lir": {
+            "speaker": "The First Walker",
+            "text": "Lirien is breathing. The realm is held by her breath.",
+            "choices": [
+              {"label": "(more)", "next": "root"}
+            ]
+          },
+          "kho": {
+            "speaker": "The First Walker",
+            "text": "Khorgaul is gathering. He is doing it gently. He does not know how loud the gathering has become.",
+            "choices": [
+              {"label": "(more)", "next": "root"}
+            ]
+          },
+          "glm": {
+            "speaker": "The First Walker",
+            "text": "Glim is almost-firing. Glim is finally near a condition that fits.",
+            "choices": [
+              {"label": "(more)", "next": "root"}
+            ]
+          },
+          "self": {
+            "speaker": "The First Walker",
+            "text": "I am sitting. The mound is warm. The realm is started.",
+            "choices": [
+              {"label": "(more)", "next": "root"}
+            ]
+          },
+          "rea": {
+            "speaker": "The First Walker",
+            "text": "The realm is here. The realm is enduring. The realm is not finished.",
+            "choices": [
+              {"label": "(more)", "next": "root"}
+            ]
+          },
+          "bye": {
+            "speaker": "The First Walker",
+            "text": "The walker walks well."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "murk",
+      "target_spawn": "from_proc_init",
+      "prompt": "[E] Back to the Murk"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sys",
+      "target_spawn": "from_proc_init",
+      "prompt": "[E] Through to the Heartworks"
+    }
+  ]
+}

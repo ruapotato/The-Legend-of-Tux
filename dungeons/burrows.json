@@ -4215,61 +4215,79 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_hearthold",
       "pos": [
-        0.0,
+        -7.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_brookhold",
       "pos": [
-        0.0,
+        -14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_old_hold",
       "pos": [
-        0.0,
+        14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_scriptorium",
       "pos": [
-        0.0,
+        13.0,
         0.5,
-        15.0
+        -14.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": -1.5707963267948966
     },
     {
       "id": "from_sprawl",
       "pos": [
-        0.0,
+        -13.0,
         0.5,
-        15.0
+        0.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 1.5707963267948966
     },
     {
       "id": "from_wake",
       "pos": [
+        13.0,
+        0.5,
+        14.0
+      ],
+      "rotation_y": -1.5707963267948966
+    },
+    {
+      "id": "from_home_khorgaul",
+      "pos": [
         0.0,
         0.5,
-        0.0
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_home_lirien",
+      "pos": [
+        7.0,
+        0.5,
+        13.0
       ],
       "rotation_y": 0.0
     }
@@ -4297,6 +4315,68 @@
       "rotation_y": 0,
       "contents": "heart_piece",
       "open_message": "Where six paths meet, in the herb-circle the Burrowers planted to mark the crossroads. A heart-pulse, kept warm by the noon sun."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        3.0
+      ],
+      "rotation_y": 0,
+      "name": "Wayfarer's Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Wayfarer's Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires_flag": "triglyph_assembled"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "triglyph_assembled"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Wayfarer's Stone",
+            "text": "Every village south of here climbs back to home. Climb far enough and you reach the Crown.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Wayfarer's Stone",
+            "text": "The chord is yours. The Door listens for it now.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Wayfarer's Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -4304,7 +4384,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -4318,14 +4398,14 @@
     },
     {
       "pos": [
-        11.26,
+        -7.0,
         1.4,
-        -6.5
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "hearthold",
@@ -4334,14 +4414,14 @@
     },
     {
       "pos": [
-        11.26,
+        -14.0,
         1.4,
-        6.5
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "brookhold",
@@ -4350,9 +4430,9 @@
     },
     {
       "pos": [
-        0.0,
+        14.0,
         1.4,
-        13.0
+        15.0
       ],
       "size": [
         4.0,
@@ -4366,9 +4446,9 @@
     },
     {
       "pos": [
-        -11.26,
+        15.0,
         1.4,
-        6.5
+        -14.0
       ],
       "size": [
         1.5,
@@ -4382,9 +4462,9 @@
     },
     {
       "pos": [
-        -11.26,
+        -15.0,
         1.4,
-        -6.5
+        0.0
       ],
       "size": [
         1.5,
@@ -4395,6 +4475,54 @@
       "target_scene": "sprawl",
       "target_spawn": "from_burrows",
       "prompt": "[E] To the Sprawl"
+    },
+    {
+      "pos": [
+        7.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "home_lirien",
+      "target_spawn": "from_burrows",
+      "prompt": "[E] To Lirien's Chamber"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "home_khorgaul",
+      "target_spawn": "from_burrows",
+      "prompt": "[E] To the Khorgaul Roost"
+    },
+    {
+      "pos": [
+        15.0,
+        1.4,
+        14.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "wake",
+      "target_spawn": "from_burrows",
+      "prompt": "[E] To the Wake"
     }
   ]
 }

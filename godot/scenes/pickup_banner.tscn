@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxbnnr01"]
+
+[ext_resource type="Script" path="res://scripts/pickup_banner.gd" id="1_banner"]
+
+[node name="PickupBanner" type="CanvasLayer"]
+layer = 90
+script = ExtResource("1_banner")

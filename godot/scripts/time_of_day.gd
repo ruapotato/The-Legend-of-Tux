@@ -77,6 +77,42 @@ func resume() -> void:
     paused = false
 
 
+# Smoothly tween `t` to `target_t` over ~1.5s so the lighting transition
+# reads on-screen (rather than snapping). Pauses regular advancement for
+# the duration of the tween — `_apply_to_scene` keeps running each frame
+# (it just reads `t`), so the sun/ambient slide along with us. Resumes
+# normal advancement when the tween finishes; the day cycle then ticks
+# forward from `target_t`.
+#
+# Called by SongBook for the Sun Chord (target 0.5 = noon) and Moon
+# Chord (target 0.0 = midnight). Picks the shorter of the two arcs
+# around the 0..1 wrap so a midnight call from 0.95 nudges forward
+# rather than rewinding through a full day.
+const ADVANCE_TWEEN_SEC: float = 1.5
+
+func advance_to(target_t: float) -> void:
+    var clamped: float = clamp(target_t, 0.0, 1.0)
+    # Pick the shorter direction around the cyclic [0,1) day so the
+    # tween crosses midnight when that's actually the short way round.
+    var delta: float = clamped - t
+    if delta > 0.5:
+        delta -= 1.0
+    elif delta < -0.5:
+        delta += 1.0
+    var dest: float = t + delta
+    paused = true
+    var tw := create_tween()
+    tw.tween_property(self, "t", dest, ADVANCE_TWEEN_SEC)
+    tw.tween_callback(Callable(self, "_on_advance_tween_done").bind(clamped))
+
+
+func _on_advance_tween_done(target_t: float) -> void:
+    # Snap into the canonical [0,1) range and let normal advancement
+    # resume from there.
+    t = fposmod(target_t, 1.0)
+    paused = false
+
+
 # Returns the sun's direction vector (the direction sunlight is
 # shining INTO — i.e. pointing from the sun toward the ground).
 # At noon this is (0, -1, ~0); at sunrise/sunset it's near horizontal.

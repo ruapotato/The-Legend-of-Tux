@@ -12756,25 +12756,61 @@
       "pos": [
         0.0,
         0.5,
-        27.0
+        -25.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_null_door",
       "pos": [
-        0.0,
+        -13.0,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_grotto_forge",
       "pos": [
+        16,
+        0.5,
+        -14
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_dev_loop",
+      "pos": [
+        -26.0,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_dev_random",
+      "pos": [
         0.0,
         0.5,
-        0.0
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_dev_tty",
+      "pos": [
+        13.0,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_dev_zero",
+      "pos": [
+        26.0,
+        0.5,
+        25.0
       ],
       "rotation_y": 0.0
     }
@@ -13101,6 +13137,14 @@
         0.0,
         -14.5
       ]
+    },
+    {
+      "type": "wyrm_hatchling",
+      "pos": [
+        0.0,
+        0,
+        -4.0
+      ]
     }
   ],
   "props": [
@@ -13385,7 +13429,7 @@
           },
           "safe": {
             "speaker": "Forge-master Brann",
-            "text": "Safe? Hot, mostly. Loud, always. The bone-things you saw at the edge \u2014 those are not the spirits. Those are something that tried to bend the spirits and failed. The Forge spat them back out, half-finished.",
+            "text": "Safe? Hot, mostly. Loud, always. The bone-things you saw at the edge — those are not the spirits. Those are something that tried to bend the spirits and failed. The Forge spat them back out, half-finished.",
             "choices": [
               {
                 "label": "Back.",
@@ -13451,7 +13495,7 @@
           },
           "count": {
             "speaker": "Striker Imm",
-            "text": "Right, up, right, up, left. Five strikes. The Forge taught me. The Sun-marked gates remember the same five \u2014 older than my line, older than the village.",
+            "text": "Right, up, right, up, left. Five strikes. The Forge taught me. The Sun-marked gates remember the same five — older than my line, older than the village.",
             "next": "root"
           },
           "teach": {
@@ -13499,7 +13543,7 @@
         "nodes": {
           "root": {
             "speaker": "Trader Smith Kern",
-            "text": "Down at the Forge \u2014 ah, you came the long way. I run goods between here and Hearthold. Takka up there sources her tongs from this very floor. Always has.",
+            "text": "Down at the Forge — ah, you came the long way. I run goods between here and Hearthold. Takka up there sources her tongs from this very floor. Always has.",
             "choices": [
               {
                 "label": "What do you trade?",
@@ -13510,6 +13554,10 @@
                 "next": "road"
               },
               {
+                "label": "Show me your wares.",
+                "next": "wares"
+              },
+              {
                 "label": "Walk well.",
                 "next": "bye"
               }
@@ -13517,8 +13565,12 @@
           },
           "trade": {
             "speaker": "Trader Smith Kern",
-            "text": "Iron up, salt down. Hinges, hooks, the odd pot. Nothing fancy. The fancy work stays here \u2014 the spirits don't part with their best, and Brann doesn't ask them to.",
+            "text": "Iron up, salt down. Hinges, hooks, the odd pot. Nothing fancy. The fancy work stays here — the spirits don't part with their best, and Brann doesn't ask them to.",
             "choices": [
+              {
+                "label": "What about the traveller's kit?",
+                "next": "wares"
+              },
               {
                 "label": "Back.",
                 "next": "root"
@@ -13527,10 +13579,27 @@
           },
           "road": {
             "speaker": "Trader Smith Kern",
-            "text": "Long, mostly. Quiet, mostly. The climb out is the hard part \u2014 the air thins as you near the high places, and by the time you reach Hearthold's gate you can taste the kilns again.",
+            "text": "Long, mostly. Quiet, mostly. The climb out is the hard part — the air thins as you near the high places, and by the time you reach Hearthold's gate you can taste the kilns again.",
             "choices": [
               {
                 "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "wares": {
+            "speaker": "Trader Smith Kern",
+            "text": "I keep a small kit for them as walks the deeps — bombs for the doors that don't want opening, arrows for the things that bite. Pebbles only. The Forge doesn't take coin.",
+            "choices": [
+              {
+                "label": "Show me.",
+                "opens_shop": [
+                  "bomb",
+                  "arrow"
+                ]
+              },
+              {
+                "label": "Maybe later.",
                 "next": "root"
               }
             ]
@@ -13679,7 +13748,103 @@
         -13
       ],
       "rotation_y": 0,
-      "message": "The first smelter pit \u2014 long cooled. Brann the Elder lit the first fire here."
+      "message": "The first smelter pit — long cooled. Brann the Elder lit the first fire here."
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        -6.0,
+        0,
+        22.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_forge",
+      "warp_name": "Forge Owl",
+      "warp_message": "Smoke parts. The hammers know the foreign cut now.",
+      "warp_target_scene": "forge",
+      "warp_target_spawn": "default"
+    },
+    {
+      "type": "time_gate",
+      "pos": [
+        10.0,
+        0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "time_phase": "day"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        11.5,
+        0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Day-marked."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -4.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0,
+      "name": "Anvil Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Anvil Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires": "hammer"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "hammer"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Anvil Stone",
+            "text": "The Wyrm splits when struck — but the Maul ends a head outright.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Anvil Stone",
+            "text": "The Maul is in your hand. The Wyrm will fall.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Anvil Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -13687,7 +13852,7 @@
       "pos": [
         0.0,
         1.4,
-        -25.0
+        -27.0
       ],
       "size": [
         4.0,
@@ -13701,9 +13866,9 @@
     },
     {
       "pos": [
-        0.0,
+        -13.0,
         1.4,
-        25.0
+        27.0
       ],
       "size": [
         4.0,
@@ -13731,6 +13896,70 @@
       "target_spawn": "from_forge",
       "auto": false,
       "prompt": "[E] Down into the cooled smelter"
+    },
+    {
+      "pos": [
+        26.0,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "dev_zero",
+      "target_spawn": "from_forge",
+      "prompt": "[E] Into the Quietness"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "dev_random",
+      "target_spawn": "from_forge",
+      "prompt": "[E] Into the Wild Hum"
+    },
+    {
+      "pos": [
+        13.0,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "dev_tty",
+      "target_spawn": "from_forge",
+      "prompt": "[E] Into the Speaker's Room"
+    },
+    {
+      "pos": [
+        -26.0,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "dev_loop",
+      "target_spawn": "from_forge",
+      "prompt": "[E] Into the Recursion Hall"
     }
   ]
 }

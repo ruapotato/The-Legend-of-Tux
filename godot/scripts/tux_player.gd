@@ -58,6 +58,46 @@ const BOMB_CARRY_OFFSET: Vector3 = Vector3(0, 1.6, -0.1)
 const BOMB_THROW_FWD: float = 6.0
 const BOMB_THROW_UP: float = 4.0
 
+# ---- Z-targeting / lock-on -------------------------------------------
+#
+# Tap `target_lock` (Q or RMB) to grab the nearest in-front-of-camera
+# enemy. While locked: movement remaps to strafe-around-target, the
+# capsule faces the target each tick, and the camera tracks the
+# midpoint. The lock auto-releases when the target dies, despawns, or
+# drifts past UNLOCK_RANGE.
+const LOCK_ACQUIRE_RANGE: float = 12.0
+const UNLOCK_RANGE: float = 15.0
+# Dot threshold against camera-forward (XZ) for the front-of-camera
+# filter. 0.4 ≈ 66° half-cone — wide enough to grab a flanking enemy
+# you're already looking toward, narrow enough that an off-screen one
+# behind you doesn't get picked.
+const LOCK_FRONT_DOT: float = 0.4
+# Acquisition score weights: small dist from screen center wins, but
+# tie-breaks by world distance so two enemies overlapping the reticle
+# are disambiguated by who's closer. Lower is better.
+const LOCK_SCORE_SCREEN_W: float = 1.0
+const LOCK_SCORE_WORLD_W: float = 0.3
+var _lock_target: Node3D = null
+var _locked: bool = false
+
+# ---- First-person aim (OoT bow/slingshot) -----------------------------
+#
+# When the active B-item is the bow or slingshot AND the `aim` action is
+# held, the camera shifts to first-person and the player's rig is
+# hidden so the camera isn't framed by the back of Tux's head. Other
+# code (arrow.gd, seed.gd, the HUD crosshair) reads `aim_mode` to know
+# whether to use the camera-forward for projectile direction or to
+# render the crosshair.
+#
+# The body's own facing yaw is realigned to the camera yaw each tick
+# while aiming, so when aim is released and the player throws (or just
+# moves), the capsule is already pointing where they were looking. The
+# arrow/seed direction itself is taken from the camera 3D forward (with
+# pitch), so high targets are reachable without needing the body to
+# tilt up.
+const AIM_HEAD_OFFSET: Vector3 = Vector3(0, 1.6, 0)
+var aim_mode: bool = false
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -122,11 +162,33 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Lock maintenance runs BEFORE input read so the strafe-remap and
+	# face-yaw override see this tick's lock state. Drops the lock if
+	# the target died/despawned/wandered out of range.
+	_update_lock_target()
 	_read_inputs()
 
 	state.is_on_floor = is_on_floor()
 	state.pos = global_position
 	state.step(delta)
+
+	# While locked, override face_yaw to point at the target so the
+	# capsule (and the sword + shield rigged to it) tracks the enemy
+	# regardless of stick direction. The state machine still owns yaw
+	# during attacks/jabs (it snaps face_yaw on action start), so this
+	# only takes effect for free movement / blocking.
+	if _locked and _lock_target and is_instance_valid(_lock_target):
+		var to_t: Vector3 = _lock_target.global_position - global_position
+		to_t.y = 0.0
+		if to_t.length() > 0.001:
+			state.face_yaw = atan2(-to_t.x, -to_t.z)
+
+	# While aiming (FP), the body faces wherever the camera is looking.
+	# Even though the rig is hidden, the capsule's facing matters for
+	# the carry slot (held bomb above the head) and so the player is
+	# left pointed in the right spot when aim releases.
+	if aim_mode and camera and camera.has_method("get_yaw"):
+		state.face_yaw = camera.get_yaw()
 
 	# Stamina regen — paused while blocking so big blocks read as a
 	# serious cost.
@@ -175,12 +237,44 @@ func _read_inputs() -> void:
 		state.input_camera_yaw     = cam_yaw
 		return
 
+	# Aim handling — bow/slingshot only. While aim is held the camera
+	# pops into first-person (handled by free_orbit_camera) and the rig
+	# is hidden so the camera isn't looking at the back of Tux's head.
+	# Any active lock is dropped on aim entry so the FP framing isn't
+	# fighting the lock framing. Releasing aim restores the rig and
+	# pulls the camera back to third-person.
+	_update_aim_mode()
+
+	# Lock toggle. Press = acquire if free, release if locked. Suppressed
+	# during dialog (handled above) so a textbox press doesn't grab. Also
+	# suppressed while aiming — the AIM action and target_lock could share
+	# a binding (RMB) historically; aim wins when bow/slingshot is up.
+	if not aim_mode and Input.is_action_just_pressed("target_lock"):
+		if _locked:
+			_unlock()
+		else:
+			_try_acquire_lock()
+
 	var stick := Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_back")  - Input.get_action_strength("move_forward")
 	)
 	if stick.length() > 1.0:
 		stick = stick.normalized()
+
+	# Strafe remap. While locked, the world-direction the stick produces
+	# is built from the player→target axis instead of camera-forward,
+	# so "forward" closes distance and "right" orbits clockwise around
+	# the target. We achieve this by feeding state.input_camera_yaw the
+	# yaw OF THAT AXIS — _stick_to_world_dir() then builds the same
+	# vector it always builds, just rotated to lock-relative.
+	var lock_yaw: float = cam_yaw
+	if _locked and _lock_target and is_instance_valid(_lock_target):
+		var to_t: Vector3 = _lock_target.global_position - global_position
+		to_t.y = 0.0
+		if to_t.length() > 0.001:
+			# Same convention as face_yaw: atan2(-x, -z) so forward = -Z.
+			lock_yaw = atan2(-to_t.x, -to_t.z)
 
 	state.input_stick = stick
 	state.input_attack_pressed = Input.is_action_just_pressed("attack")
@@ -189,7 +283,7 @@ func _read_inputs() -> void:
 	state.input_jump_pressed   = Input.is_action_just_pressed("jump")
 	state.input_roll_pressed   = Input.is_action_just_pressed("roll")
 	state.input_sprint_held    = Input.is_action_pressed("sprint")
-	state.input_camera_yaw     = cam_yaw
+	state.input_camera_yaw     = lock_yaw
 
 	if Input.is_action_just_pressed("item_use"):
 		_try_use_active_item()
@@ -200,6 +294,55 @@ func _read_inputs() -> void:
 	if Input.is_action_just_released("item_use"):
 		if GameState.active_b_item == "glim_sight":
 			ItemGlimSight.close(self)
+
+
+func _update_aim_mode() -> void:
+	# AIM is held + bow/slingshot equipped → first-person.
+	# Released or item swapped → third-person. Suppressed during dialog
+	# (the early-return in _read_inputs catches that path).
+	var item: String = GameState.active_b_item
+	var weapon_ok: bool = (item == "bow" or item == "slingshot")
+	# Don't allow entering aim mid-attack/charge/spin/roll/flip — those
+	# are committed actions; let them finish first. Same suppress list
+	# as item-use to keep behaviour consistent.
+	var act: int = state.action
+	var act_blocks_aim: bool = act in [TuxState.ACT_ATTACK, TuxState.ACT_JAB,
+			TuxState.ACT_JUMP_ATTACK, TuxState.ACT_SPIN, TuxState.ACT_CHARGING,
+			TuxState.ACT_ROLL, TuxState.ACT_FLIP, TuxState.ACT_HURT,
+			TuxState.ACT_DEAD]
+	var want_aim: bool = weapon_ok and not act_blocks_aim \
+			and Input.is_action_pressed("aim")
+	if want_aim and not aim_mode:
+		_enter_aim_mode()
+	elif not want_aim and aim_mode:
+		_exit_aim_mode()
+	# While aiming, keep refreshing the head position so a moving /
+	# jumping player's camera tracks the body.
+	if aim_mode and camera and camera.has_method("enter_first_person"):
+		camera.enter_first_person(global_position + AIM_HEAD_OFFSET)
+
+
+func _enter_aim_mode() -> void:
+	aim_mode = true
+	# Drop any active lock — FP framing wins.
+	if _locked:
+		_unlock()
+	if camera and camera.has_method("enter_first_person"):
+		camera.enter_first_person(global_position + AIM_HEAD_OFFSET)
+	# Hide the rig so the camera isn't framed by the back of Tux's
+	# head. Sword + shield are reparented under the rig's wing nodes
+	# (see _ready), so hiding the rig hides them too — which is what
+	# we want; the bow/slingshot is what's "active".
+	if rig and is_instance_valid(rig):
+		rig.visible = false
+
+
+func _exit_aim_mode() -> void:
+	aim_mode = false
+	if camera and camera.has_method("exit_first_person"):
+		camera.exit_first_person()
+	if rig and is_instance_valid(rig):
+		rig.visible = true
 
 
 func _try_use_active_item() -> void:
@@ -219,13 +362,21 @@ func _try_use_active_item() -> void:
 	var item: String = GameState.active_b_item
 	if item == "":
 		return
+	# In aim mode, the bow/slingshot fire along the camera 3D forward
+	# (which includes pitch) rather than the player's flat facing. This
+	# is the whole reason FP aim exists — angled shots at high archery
+	# targets, plinking at fliers, etc. The camera-forward already
+	# matches what the player sees through the crosshair.
+	var aim_dir: Vector3 = fwd
+	if aim_mode and camera and camera.has_method("get_aim_forward"):
+		aim_dir = camera.get_aim_forward()
 	match item:
 		"boomerang":
 			_throw_boomerang()
 		"bow":
-			Bow.try_fire(self, fwd)
+			Bow.try_fire(self, aim_dir)
 		"slingshot":
-			Slingshot.try_fire(self, fwd)
+			Slingshot.try_fire(self, aim_dir)
 		"bomb":
 			_throw_bomb_from_inventory(fwd)
 		"hookshot":
@@ -351,6 +502,163 @@ func _apply_passive_movement_mods(delta: float) -> void:
 
 func get_face_yaw() -> float:
 	return state.face_yaw if state else rotation.y
+
+
+# ---- Lock-on (Z-targeting) --------------------------------------------
+#
+# Acquisition rules:
+#   * candidate must be in the "enemy" group
+#   * within LOCK_ACQUIRE_RANGE on the XZ plane
+#   * in front of the camera (dot(camera_fwd, to_enemy) > LOCK_FRONT_DOT)
+#   * minimises (screen_dist_from_center * 1.0 + world_dist * 0.3) so the
+#     enemy nearest the reticle wins, with world distance as tie-break
+#
+# Maintenance (each tick): drop the lock if the target was freed, fell
+# out of the tree, drifted past UNLOCK_RANGE, or entered a `dead`/`DEAD`
+# state. Enemies don't share a base class, so we duck-type — first try
+# `state` against the enemy's `State.DEAD` enum (most enemies use this
+# pattern), then fall back to checking `hp <= 0` if `state` isn't set.
+
+func _try_acquire_lock() -> void:
+	if camera == null:
+		return
+	var cam_node: Camera3D = _get_camera3d()
+	if cam_node == null:
+		return
+	var cam_fwd: Vector3 = -cam_node.global_transform.basis.z
+	cam_fwd.y = 0.0
+	if cam_fwd.length() < 0.001:
+		return
+	cam_fwd = cam_fwd.normalized()
+
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	var screen_center: Vector2 = viewport_size * 0.5
+
+	var best: Node3D = null
+	var best_score: float = INF
+	for n in get_tree().get_nodes_in_group("enemy"):
+		if not (n is Node3D) or not is_instance_valid(n):
+			continue
+		var enemy: Node3D = n
+		# Skip already-dead enemies so a tap doesn't grab a corpse.
+		if _is_target_dead(enemy):
+			continue
+		var to_e: Vector3 = enemy.global_position - global_position
+		to_e.y = 0.0
+		var dist: float = to_e.length()
+		if dist > LOCK_ACQUIRE_RANGE or dist < 0.001:
+			continue
+		var to_e_dir: Vector3 = to_e.normalized()
+		if cam_fwd.dot(to_e_dir) < LOCK_FRONT_DOT:
+			continue
+		# `unproject_position` returns NaN/garbage when the point is
+		# behind the camera; the dot-product gate above already filters
+		# those out (enemy is in the front half-plane of camera-yaw).
+		var screen_pos: Vector2 = cam_node.unproject_position(enemy.global_position)
+		var screen_dist: float = screen_pos.distance_to(screen_center)
+		var score: float = screen_dist * LOCK_SCORE_SCREEN_W + dist * LOCK_SCORE_WORLD_W
+		if score < best_score:
+			best_score = score
+			best = enemy
+
+	if best:
+		_lock_target = best
+		_locked = true
+		if camera and camera.has_method("lock_to"):
+			camera.lock_to(best)
+
+
+func _unlock() -> void:
+	_locked = false
+	_lock_target = null
+	if camera and camera.has_method("unlock"):
+		camera.unlock()
+
+
+func _update_lock_target() -> void:
+	if not _locked:
+		return
+	if _lock_target == null or not is_instance_valid(_lock_target) \
+			or not _lock_target.is_inside_tree():
+		_unlock()
+		return
+	if _is_target_dead(_lock_target):
+		_unlock()
+		return
+	var to_t: Vector3 = _lock_target.global_position - global_position
+	to_t.y = 0.0
+	if to_t.length() > UNLOCK_RANGE:
+		_unlock()
+		return
+	# Keep the camera fed every frame in case its lerp target needs to
+	# track a moving enemy (also lets a fresh free_orbit_camera pick up
+	# the lock if it was reloaded mid-scene).
+	if camera and camera.has_method("lock_to"):
+		camera.lock_to(_lock_target)
+
+
+# Duck-typed death check: many enemies expose a `state` int compared
+# against an enum-style DEAD value. We can't import every enemy's enum,
+# so check the integer state against the value Enemy.State.DEAD would
+# resolve to via `get(...)`. Falls back to `hp <= 0` for enemies that
+# don't expose `state`.
+func _is_target_dead(target: Node) -> bool:
+	if target == null or not is_instance_valid(target):
+		return true
+	# Try `state` first — most enemies expose an int state with an enum
+	# whose DEAD entry is the LAST member. Comparing against the literal
+	# integer would couple us to enum order, so we read the script's
+	# constant_map for "DEAD" via duck-typing.
+	if "state" in target:
+		var st = target.get("state")
+		# Most enemy scripts have an enum exposed as a const dict via
+		# their script constants. Try to find a "DEAD" value to compare.
+		var dead_val = _enum_dead_value(target)
+		if dead_val != null and st == dead_val:
+			return true
+	if "hp" in target:
+		var hp = target.get("hp")
+		if hp != null and hp <= 0:
+			return true
+	return false
+
+
+func _enum_dead_value(target: Node) -> Variant:
+	# Walk script constants for an enum-style dictionary containing a
+	# "DEAD" key (e.g. State, AIState). Returns the int or null if none.
+	var scr: Script = target.get_script() as Script
+	if scr == null:
+		return null
+	var consts: Dictionary = scr.get_script_constant_map()
+	for key in consts.keys():
+		var val = consts[key]
+		if typeof(val) == TYPE_DICTIONARY and val.has("DEAD"):
+			return val["DEAD"]
+	return null
+
+
+func _get_camera3d() -> Camera3D:
+	if camera == null:
+		return null
+	# free_orbit_camera scene shape: Camera (Node3D) → SpringArm → Camera (Camera3D).
+	var cam3d: Node = camera.get_node_or_null("SpringArm/Camera")
+	if cam3d is Camera3D:
+		return cam3d
+	# Fallback: pick the active viewport camera.
+	var vp := get_viewport()
+	if vp:
+		return vp.get_camera_3d()
+	return null
+
+
+func get_lock_target() -> Node3D:
+	if _locked and _lock_target and is_instance_valid(_lock_target):
+		return _lock_target
+	return null
+
+
+func is_locked() -> bool:
+	return _locked and _lock_target != null and is_instance_valid(_lock_target)
 
 
 # ---- Damage in / out --------------------------------------------------

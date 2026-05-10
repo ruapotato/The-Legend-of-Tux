@@ -12750,45 +12750,81 @@
       "pos": [
         0.0,
         0.5,
-        27.0
+        -25.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_cache",
       "pos": [
-        0.0,
+        -26.0,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_stacks",
       "pos": [
-        0.0,
+        -11.14,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_ledger",
       "pos": [
-        0.0,
+        -3.71,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_backwater",
       "pos": [
-        0.0,
+        18.57,
         0.5,
-        27.0
+        25.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_var_games",
+      "pos": [
+        -18.57,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_var_mail",
+      "pos": [
+        3.71,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_var_run",
+      "pos": [
+        11.14,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_var_tmp",
+      "pos": [
+        26.0,
+        0.5,
+        25.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -13240,7 +13276,7 @@
         14
       ],
       "rotation_y": 1.5708,
-      "message": "Roster of the Readers, freshly inked:\n\nMistress Yvenn (Head)\nApprentice Yawen\nPell (sabbatical)\nTheln (Wyrdmark records)\nOlm (the Drawing-In)\n\u2014 and one entry, scratched out long ago."
+      "message": "Roster of the Readers, freshly inked:\n\nMistress Yvenn (Head)\nApprentice Yawen\nPell (sabbatical)\nTheln (Wyrdmark records)\nOlm (the Drawing-In)\n— and one entry, scratched out long ago."
     },
     {
       "type": "sign",
@@ -13290,7 +13326,7 @@
         0
       ],
       "rotation_y": -1.5708,
-      "message": "A reader's marginalia, framed and posted:\n\n\"The deepest reading is what looks back at you. I have read this line three times this week and it has read me twice. \u2014 Olm\""
+      "message": "A reader's marginalia, framed and posted:\n\n\"The deepest reading is what looks back at you. I have read this line three times this week and it has read me twice. — Olm\""
     },
     {
       "type": "sign",
@@ -13564,7 +13600,7 @@
           },
           "sigils": {
             "speaker": "Mistress Yvenn",
-            "text": "Three marks of the Source. Lirien's Sight. Khorgaul's Shaping. And the third \u2014 Sharing \u2014 has not walked the realm in a long age. We keep the records, and we wait.",
+            "text": "Three marks of the Source. Lirien's Sight. Khorgaul's Shaping. And the third — Sharing — has not walked the realm in a long age. We keep the records, and we wait.",
             "choices": [
               {
                 "label": "What of the Drawing-In?",
@@ -13592,7 +13628,7 @@
           },
           "slip": {
             "speaker": "Mistress Yvenn",
-            "text": "Faring? Oh \u2014 better, I think, than when the breath nearly stilled last week. We had three Readers in the south aisle holding hands when it happened. A bad hour. But the breath came back.",
+            "text": "Faring? Oh — better, I think, than when the breath nearly stilled last week. We had three Readers in the south aisle holding hands when it happened. A bad hour. But the breath came back.",
             "choices": [
               {
                 "label": "I should walk on.",
@@ -13602,7 +13638,7 @@
           },
           "deeper": {
             "speaker": "Mistress Yvenn",
-            "text": "Down: the Cache, where memories fade. The Stacks east, where they are kept. The Ledger west, where each day is written. And the Backwater, beyond \u2014 the stream that overflows toward Mirelake.",
+            "text": "Down: the Cache, where memories fade. The Stacks east, where they are kept. The Ledger west, where each day is written. And the Backwater, beyond — the stream that overflows toward Mirelake.",
             "choices": [
               {
                 "label": "Back.",
@@ -13644,7 +13680,7 @@
         "nodes": {
           "root": {
             "speaker": "Apprentice Yawen",
-            "text": "Oh \u2014 hello! Do you need a book? I can find a book. Probably. I'm still learning the aisles.",
+            "text": "Oh — hello! Do you need a book? I can find a book. Probably. I'm still learning the aisles.",
             "choices": [
               {
                 "label": "Tell me of the Mistress.",
@@ -13666,7 +13702,7 @@
           },
           "mistress": {
             "speaker": "Apprentice Yawen",
-            "text": "Mistress Yvenn? Oh, she knows everything. I mean \u2014 everything that's been written. She remembers shelves the way I remember songs. I want to be like her one day. If I last that long.",
+            "text": "Mistress Yvenn? Oh, she knows everything. I mean — everything that's been written. She remembers shelves the way I remember songs. I want to be like her one day. If I last that long.",
             "choices": [
               {
                 "label": "Back.",
@@ -13728,7 +13764,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader-on-Sabbatical Pell",
-            "text": "Hm. A walker. Don't mind me. I'm not on duty. I'm \u2014 between things.",
+            "text": "Hm. A walker. Don't mind me. I'm not on duty. I'm — between things.",
             "choices": [
               {
                 "label": "Where have you been?",
@@ -13798,7 +13834,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader Theln",
-            "text": "You smell of the outside. Good. Come, come \u2014 I work the Wyrdmark records, the small ones in the alcove down at the Cache. Have you been to the Hollow yet?",
+            "text": "You smell of the outside. Good. Come, come — I work the Wyrdmark records, the small ones in the alcove down at the Cache. Have you been to the Hollow yet?",
             "choices": [
               {
                 "label": "Tell me of the Hollow.",
@@ -13820,7 +13856,7 @@
           },
           "hollow": {
             "speaker": "Reader Theln",
-            "text": "The Hollow of the Last Wyrd. Old. Old past my reading. Down through the Cache and into the small alcove there \u2014 Recorder Thav can tell you more than I can. He keeps the closer pages.",
+            "text": "The Hollow of the Last Wyrd. Old. Old past my reading. Down through the Cache and into the small alcove there — Recorder Thav can tell you more than I can. He keeps the closer pages.",
             "choices": [
               {
                 "label": "What worries you?",
@@ -13854,7 +13890,7 @@
           },
           "bye": {
             "speaker": "Reader Theln",
-            "text": "Walk well. And if you go to the Hollow \u2014 go with a Sigil. Not without."
+            "text": "Walk well. And if you go to the Hollow — go with a Sigil. Not without."
           }
         }
       }
@@ -14030,6 +14066,113 @@
           }
         }
       }
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        0.0,
+        0,
+        6.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_library",
+      "warp_name": "Library Owl",
+      "warp_message": "The dust stirs. The Echoes have catalogued your passage.",
+      "warp_target_scene": "library",
+      "warp_target_spawn": "default"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        10.0,
+        0.5,
+        8.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Apprentice Ted",
+      "body_color": [
+        0.5,
+        0.55,
+        0.7,
+        1.0
+      ],
+      "hat_color": [
+        0.22,
+        0.25,
+        0.35,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Ted",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Apprentice Ted",
+            "text": "Oh — oh, hello. Hello! I'm — I'm cataloguing. I'm meant to be cataloguing. Mistress Yvenn said one shelf a day and I've done — *(he glances at the shelf)* — about half a shelf. In two days. Please don't tell her.",
+            "choices": [
+              {
+                "label": "(Offer the folded scroll.)",
+                "next": "trade",
+                "requires_flag": "trade_step_3",
+                "requires_not": "trade_step_4"
+              },
+              {
+                "label": "(Show the dyed ribbon.)",
+                "next": "already",
+                "requires_flag": "trade_step_4"
+              },
+              {
+                "label": "Why so slow?",
+                "next": "slow"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "trade": {
+            "speaker": "Apprentice Ted",
+            "text": "*he reaches for the scroll, then stops himself, then reaches again.*\n\nMay I — may I see — oh. OH. This is — the hand is — this is from the Reader-on-Sabbatical's circuit, I'd swear it. Look, look, the way the loops carry through. This is a FIND, walker, this is a — a real one.\n\n*he scrambles in a drawer, pulls out a length of pale-dyed ribbon, presses it into your hand with both of his.*\n\nTake this. Please. It's not — it's only a ribbon, but it's a good one, the dye's true, my sister made it before — before. Take it. Walk it somewhere. The scroll stays here where it belongs and I'll — I'll catalogue it FIRST, I promise, before the shelf, even.",
+            "sets_flag": "trade_step_4",
+            "next": "thanks"
+          },
+          "thanks": {
+            "speaker": "Apprentice Ted",
+            "text": "*he is already unrolling the scroll on the desk, very carefully, with both hands.*\n\nWalk well, walker. Walk well. Oh, this is a GOOD day.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "already": {
+            "speaker": "Apprentice Ted",
+            "text": "Still carrying the ribbon? Good. Good! It wants — it wants to be given properly. You'll know who. I think you'll know.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "slow": {
+            "speaker": "Apprentice Ted",
+            "text": "Every book makes me read three more. I open a thing meant for the catalogue and the catalogue waits and the THING — the thing pulls me in. The Mistress says that's the trade. The Mistress says nobody good at this is fast.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Apprentice Ted",
+            "text": "Walk well! Mind the — the third ladder, Yawen says it wobbles. I haven't tried it yet."
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -14037,7 +14180,7 @@
       "pos": [
         0.0,
         1.4,
-        -25.0
+        -27.0
       ],
       "size": [
         4.0,
@@ -14051,14 +14194,14 @@
     },
     {
       "pos": [
-        23.78,
+        -26.0,
         1.4,
-        -7.73
+        27.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "cache",
@@ -14067,9 +14210,9 @@
     },
     {
       "pos": [
-        14.69,
+        -11.14,
         1.4,
-        20.23
+        27.0
       ],
       "size": [
         4.0,
@@ -14083,9 +14226,9 @@
     },
     {
       "pos": [
-        -14.69,
+        -3.71,
         1.4,
-        20.23
+        27.0
       ],
       "size": [
         4.0,
@@ -14099,19 +14242,83 @@
     },
     {
       "pos": [
-        -23.78,
+        18.57,
         1.4,
-        -7.73
+        27.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "backwater",
       "target_spawn": "from_library",
       "prompt": "[E] To the Backwater"
+    },
+    {
+      "pos": [
+        3.71,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "var_mail",
+      "target_spawn": "from_library",
+      "prompt": "[E] To the Postmark"
+    },
+    {
+      "pos": [
+        11.14,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "var_run",
+      "target_spawn": "from_library",
+      "prompt": "[E] Into the Pulse Room"
+    },
+    {
+      "pos": [
+        26.0,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "var_tmp",
+      "target_spawn": "from_library",
+      "prompt": "[E] Into the Long Drift"
+    },
+    {
+      "pos": [
+        -18.57,
+        1.4,
+        27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "var_games",
+      "target_spawn": "from_library",
+      "prompt": "[E] To the Scoreroom"
     }
   ]
 }

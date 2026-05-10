@@ -1,0 +1,619 @@
+{
+  "name": "The Murk Senate",
+  "id": "proc_sys",
+  "key_group": "proc_sys",
+  "music_track": "burnt_hollow",
+  "fs_path": "/proc/sys",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.34,
+      0.4,
+      1
+    ],
+    "sky_horizon": [
+      0.55,
+      0.55,
+      0.55,
+      1
+    ],
+    "ground_horizon": [
+      0.36,
+      0.34,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.12,
+      0.12,
+      0.1,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.62,
+      1
+    ],
+    "ambient_energy": 0.3,
+    "fog_density": 0.012,
+    "fog_color": [
+      0.5,
+      0.55,
+      0.55,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.5,
+      -0.6
+    ],
+    "sun_color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+    ],
+    "sun_energy": 0.6
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.18,
+          0.2,
+          0.18,
+          1
+        ],
+        "floor_color": [
+          0.22,
+          0.26,
+          0.22,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_murk",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE MURK SENATE\n\nA roundtable of seven walkers in the fog. They are arguing about settings nobody set, on a thing nobody can name, with consequences nobody can describe.\n\nThey have been at it for some time."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -1.5
+      ],
+      "rotation_y": 0.0,
+      "name": "Senator Olm",
+      "body_color": [
+        0.55,
+        0.55,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.42,
+        0.45,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Olm",
+            "text": "The number wants to be lower. I have always said the number wants to be lower."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.3,
+        0.0,
+        -0.6
+      ],
+      "rotation_y": -0.6,
+      "name": "Senator Bethel",
+      "body_color": [
+        0.5,
+        0.55,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.42,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Bethel",
+            "text": "The number cannot be lower. Olm has been wrong about the number for a long time."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.5,
+        0.0,
+        0.7
+      ],
+      "rotation_y": -1.2,
+      "name": "Senator Reska",
+      "body_color": [
+        0.6,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.42,
+        0.4,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Reska",
+            "text": "The number must be considered carefully. We have been considering it carefully for some time."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.7,
+        0.0,
+        1.6
+      ],
+      "rotation_y": -2.0,
+      "name": "Senator Pell",
+      "body_color": [
+        0.55,
+        0.6,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.42,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Pell",
+            "text": "Friends, friends — perhaps the number is not the right question. Perhaps the right question is which of us last knew the question."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -0.7,
+        0.0,
+        1.6
+      ],
+      "rotation_y": 2.0,
+      "name": "Senator Ulor",
+      "body_color": [
+        0.5,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.4,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Ulor",
+            "text": "Pell is changing the subject again. Pell is always changing the subject. Khorgaul's grip, Pell."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.5,
+        0.0,
+        0.7
+      ],
+      "rotation_y": 1.2,
+      "name": "Senator Velna",
+      "body_color": [
+        0.55,
+        0.55,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.42,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Velna",
+            "text": "Move that we adjourn. ...Move that we have always adjourned. ...Move that we begin to consider a motion to perhaps adjourn."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.3,
+        0.0,
+        -0.6
+      ],
+      "rotation_y": 0.6,
+      "name": "Senator Marn",
+      "body_color": [
+        0.6,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.42,
+        0.4,
+        0.42,
+        1.0
+      ],
+      "idle_hint": "[E] Listen",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Senator Marn",
+            "text": "Walker — would you cast the deciding voice? ...No, I see, the question has shifted again. Never mind. Walk well."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "murk",
+      "target_spawn": "from_proc_sys",
+      "prompt": "[E] Back to the Murk"
+    }
+  ]
+}

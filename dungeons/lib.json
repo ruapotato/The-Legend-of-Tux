@@ -1,0 +1,544 @@
+{
+  "name": "The Loomhouse",
+  "id": "lib",
+  "key_group": "lib",
+  "music_track": "sigilkeep",
+  "fs_path": "/lib",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.28,
+      0.4,
+      1
+    ],
+    "sky_horizon": [
+      0.65,
+      0.55,
+      0.55,
+      1
+    ],
+    "ground_horizon": [
+      0.45,
+      0.36,
+      0.4,
+      1
+    ],
+    "ground_bottom": [
+      0.18,
+      0.14,
+      0.18,
+      1
+    ],
+    "ambient_color": [
+      0.75,
+      0.65,
+      0.72,
+      1
+    ],
+    "ambient_energy": 0.45,
+    "fog_density": 0.0025,
+    "fog_color": [
+      0.55,
+      0.45,
+      0.55,
+      1
+    ],
+    "sun_dir": [
+      -0.4,
+      -0.7,
+      -0.3
+    ],
+    "sun_color": [
+      0.95,
+      0.78,
+      0.85,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.3,
+          0.22,
+          0.26,
+          1
+        ],
+        "floor_color": [
+          0.42,
+          0.32,
+          0.36,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_crown",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_usr_lib",
+      "pos": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE LOOMHOUSE\n\nThe shared looms run themselves. A thread you start at one bench is finished at another. Borrow what you need, leave what you can.\n\n'A loom kept private is a loom that forgets its purpose.'"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE GREAT TAPESTRY\n\nWoven across the back wall — every room of the realm in shared thread. The Crown above. The Burrows in the warm middle. The Forge at the bottom in deep iron-greys.\n\nIf you look at any one room long enough you can see the threads that run between it and every other room. Nothing is alone."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "A small notice pinned to a loom-frame:\n\n'A thread returned is a thread shared. The Loomhouse keeps no debts. Walk well.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": 0.6,
+      "name": "Master Weaver Esweth",
+      "body_color": [
+        0.55,
+        0.45,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.65,
+        0.45,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the weaver",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Master Weaver Esweth",
+            "text": "*she does not look up from the shuttle.*\n\nWalk softly. The threads pick up footfall.\n\nWhat brings a sword-bearer to a loomhouse?",
+            "choices": [
+              {"label": "What is woven here?", "next": "weave"},
+              {"label": "May I look at the great tapestry?", "next": "tap"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "weave": {
+            "speaker": "Master Weaver Esweth",
+            "text": "Whatever the realm needs that day. Cloth. Cordage. Sometimes a song the loom remembered.\n\nThe looms are shared. Every weaver here borrows from every other. By the Source, that is how a Loomhouse stays a Loomhouse.",
+            "choices": [
+              {"label": "And if a weaver hoards?", "next": "hoard"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "hoard": {
+            "speaker": "Master Weaver Esweth",
+            "text": "*the shuttle slows.*\n\nThen the loom forgets her. The thread will not run. The cloth comes off uneven.\n\nA loom is a polite thing. It asks only that you give back what you borrow. Most of us can manage that.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "tap": {
+            "speaker": "Master Weaver Esweth",
+            "text": "Look as long as you like. Every room you have ever stood in is on that wall. Some you have not stood in yet are also there.\n\nThe Loomhouse is patient.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Master Weaver Esweth",
+            "text": "Walk well. Mind the threads on the floor."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": -0.6,
+      "name": "Borrower Tem",
+      "body_color": [
+        0.7,
+        0.55,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.55,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the borrower",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Borrower Tem",
+            "text": "Just returning a thread, walker. I borrowed a length of green for a cloak last winter — finished now, and the spool comes home.\n\nThat's all the Loomhouse asks.",
+            "choices": [
+              {"label": "And it's that simple?", "next": "simple"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "simple": {
+            "speaker": "Borrower Tem",
+            "text": "It's that simple. Take what you need. Give back what you borrowed. The loom keeps no other ledger.\n\nMy mother used to say it kept us a people.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Borrower Tem",
+            "text": "Walk well, walker. Mind the threads."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "crown",
+      "target_spawn": "from_lib",
+      "prompt": "[E] Up to the Crown"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_lib",
+      "target_spawn": "from_lib",
+      "prompt": "[E] Through to Sprawl Library"
+    }
+  ]
+}

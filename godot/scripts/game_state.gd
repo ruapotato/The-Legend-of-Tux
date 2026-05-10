@@ -97,6 +97,13 @@ var current_spawn_id: String = "default"
 # transitions. -1 means "unbound; do not autosave."
 var last_slot: int = -1
 
+# One-shot opening-cutscene flag. Set by main_menu.gd when the player
+# picks "New Game" so the intro scene knows to actually run; the intro
+# clears it on completion. Deliberately NOT serialized — it's a per-
+# session ride along the main_menu → intro → wyrdkin_glade hop, never
+# saved or loaded.
+var show_intro: bool = false
+
 # Inventory: name → true (owned). Active item is the one bound to the
 # B-button (item_use input).
 var inventory: Dictionary = {}
@@ -285,6 +292,18 @@ func add_pebbles(amount: int) -> void:
     pebbles += amount
     pebbles_changed.emit(pebbles)
     SoundBank.play_2d("pebble_get")
+
+
+# Returns true if the player can pay; deducts and emits in that case.
+# Shop UI calls this so the "buy" button can short-circuit cleanly.
+func spend_pebbles(amount: int) -> bool:
+    if amount <= 0:
+        return true
+    if pebbles < amount:
+        return false
+    pebbles -= amount
+    pebbles_changed.emit(pebbles)
+    return true
 
 
 # ---- Keys ---------------------------------------------------------------

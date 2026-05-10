@@ -4215,54 +4215,90 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_binds",
       "pos": [
-        0.0,
+        -14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_sharers",
       "pos": [
-        0.0,
+        9.33,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_locals",
       "pos": [
         0.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_burrows",
       "pos": [
-        0.0,
+        13.0,
         0.5,
-        15.0
+        0.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": -1.5707963267948966
     },
     {
       "id": "from_wake",
       "pos": [
-        0.0,
+        -13.0,
         0.5,
-        15.0
+        0.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 1.5707963267948966
+    },
+    {
+      "id": "from_usr_include",
+      "pos": [
+        -9.33,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_usr_lib",
+      "pos": [
+        -4.67,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_usr_sbin",
+      "pos": [
+        4.67,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_usr_src",
+      "pos": [
+        14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -4749,7 +4785,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -4763,14 +4799,14 @@
     },
     {
       "pos": [
-        11.26,
+        -14.0,
         1.4,
-        -6.5
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "binds",
@@ -4779,14 +4815,14 @@
     },
     {
       "pos": [
-        11.26,
+        9.33,
         1.4,
-        6.5
+        15.0
       ],
       "size": [
-        1.5,
+        4.0,
         3.0,
-        4.0
+        1.5
       ],
       "rotation_y": 0.0,
       "target_scene": "sharers",
@@ -4797,7 +4833,7 @@
       "pos": [
         0.0,
         1.4,
-        13.0
+        15.0
       ],
       "size": [
         4.0,
@@ -4811,9 +4847,9 @@
     },
     {
       "pos": [
-        -11.26,
+        15.0,
         1.4,
-        6.5
+        0.0
       ],
       "size": [
         1.5,
@@ -4827,9 +4863,9 @@
     },
     {
       "pos": [
-        -11.26,
+        -15.0,
         1.4,
-        -6.5
+        0.0
       ],
       "size": [
         1.5,
@@ -4840,6 +4876,70 @@
       "target_scene": "wake",
       "target_spawn": "from_sprawl",
       "prompt": "[E] To the Wake"
+    },
+    {
+      "pos": [
+        -4.67,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_lib",
+      "target_spawn": "from_sprawl",
+      "prompt": "[E] Into the Sprawl Library"
+    },
+    {
+      "pos": [
+        4.67,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_sbin",
+      "target_spawn": "from_sprawl",
+      "prompt": "[E] To the Sprawl Outpost"
+    },
+    {
+      "pos": [
+        14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_src",
+      "target_spawn": "from_sprawl",
+      "prompt": "[E] Into the Sourcerooms"
+    },
+    {
+      "pos": [
+        -9.33,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_include",
+      "target_spawn": "from_sprawl",
+      "prompt": "[E] Into the Sprawl Index Hall"
     }
   ]
 }

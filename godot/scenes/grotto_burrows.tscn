@@ -1,17 +1,17 @@
-[gd_scene load_steps=133 format=3 uid="uid://btuxgrottobu01"]
+[gd_scene load_steps=139 format=3 uid="uid://btuxgrottobu01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.16, 0.13, 0.1, 1)
@@ -67,34 +67,34 @@ size = Vector3(1, 2.8, 0.2)
 size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s14"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s15"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s16"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxMesh" id="s17"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s18"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s19"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s20"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxMesh" id="s21"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s22"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s23"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s24"]
 size = Vector3(0.2, 2.8, 1)
@@ -115,22 +115,22 @@ size = Vector3(1, 2.8, 0.2)
 size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s30"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxMesh" id="s31"]
-size = Vector3(1, 2.8, 0.2)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s32"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s33"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s34"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s35"]
-size = Vector3(0.2, 2.8, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s36"]
 size = Vector3(1, 2.8, 0.2)
@@ -163,28 +163,28 @@ size = Vector3(0.2, 2.8, 1)
 size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s46"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxMesh" id="s47"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s48"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s49"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s50"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxMesh" id="s51"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(0.2, 2.8, 1)
 
 [sub_resource type="BoxShape3D" id="s52"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxMesh" id="s53"]
-size = Vector3(1, 0.2, 1)
+size = Vector3(1, 2.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="s54"]
 size = Vector3(1, 0.2, 1)
@@ -379,16 +379,31 @@ size = Vector3(1, 0.2, 1)
 size = Vector3(1, 0.2, 1)
 
 [sub_resource type="BoxShape3D" id="s118"]
-size = Vector3(3, 3, 1)
+size = Vector3(1, 0.2, 1)
 
 [sub_resource type="BoxMesh" id="s119"]
-size = Vector3(3.5, 4.5, 0.1)
+size = Vector3(1, 0.2, 1)
 
-[sub_resource type="StandardMaterial3D" id="s120"]
-albedo_color = Color(0.02, 0.02, 0.04, 1)
-shading_mode = 0
-emission_enabled = true
-emission = Color(0, 0, 0, 1)
+[sub_resource type="BoxShape3D" id="s120"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="s121"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="s122"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="s123"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="s124"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="s125"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="s126"]
+size = Vector3(3, 3, 1)
 
 [node name="Burrows Root Cellar" type="Node3D"]
 script = ExtResource("root_script")
@@ -418,6 +433,7 @@ floor_y = 0
 floor_color = Color(0.3, 0.22, 0.16, 1)
 skirt_depth = 6.0
 smoothing = 0.45
+path_cells = [Vector2i(0, 1), Vector2i(0, 0), Vector2i(0, -1)]
 
 [node name="GridWall2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, -2.5)
@@ -456,7 +472,7 @@ mesh = SubResource("s11")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall5" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.4, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -468,7 +484,7 @@ mesh = SubResource("s13")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall6" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.4, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -480,7 +496,7 @@ mesh = SubResource("s15")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall7" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.4, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -492,7 +508,7 @@ mesh = SubResource("s17")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall8" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -504,7 +520,7 @@ mesh = SubResource("s19")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall9" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.4, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -516,7 +532,7 @@ mesh = SubResource("s21")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall10" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -528,7 +544,7 @@ mesh = SubResource("s23")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall11" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -540,7 +556,7 @@ mesh = SubResource("s25")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall12" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -552,7 +568,7 @@ mesh = SubResource("s27")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall13" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.4, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -564,7 +580,7 @@ mesh = SubResource("s29")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall14" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.4, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -576,7 +592,7 @@ mesh = SubResource("s31")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall15" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.4, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -588,7 +604,7 @@ mesh = SubResource("s33")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall16" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.4, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -600,7 +616,7 @@ mesh = SubResource("s35")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall17" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.4, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -612,7 +628,7 @@ mesh = SubResource("s37")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall18" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -624,7 +640,7 @@ mesh = SubResource("s39")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall19" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -636,7 +652,7 @@ mesh = SubResource("s41")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall20" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.4, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.4, -3)
 collision_layer = 1
 collision_mask = 0
 
@@ -648,7 +664,7 @@ mesh = SubResource("s43")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall21" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.4, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -659,56 +675,56 @@ shape = SubResource("s44")
 mesh = SubResource("s45")
 surface_material_override/0 = SubResource("s5")
 
-[node name="GridRoof22" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -2.5)
+[node name="GridWall22" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, -2.5)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="GridRoof22"]
+[node name="Shape" type="CollisionShape3D" parent="GridWall22"]
 shape = SubResource("s46")
 
-[node name="Mesh" type="MeshInstance3D" parent="GridRoof22"]
+[node name="Mesh" type="MeshInstance3D" parent="GridWall22"]
 mesh = SubResource("s47")
 surface_material_override/0 = SubResource("s5")
 
-[node name="GridRoof23" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 0.5)
+[node name="GridWall23" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.4, -3)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="GridRoof23"]
+[node name="Shape" type="CollisionShape3D" parent="GridWall23"]
 shape = SubResource("s48")
 
-[node name="Mesh" type="MeshInstance3D" parent="GridRoof23"]
+[node name="Mesh" type="MeshInstance3D" parent="GridWall23"]
 mesh = SubResource("s49")
 surface_material_override/0 = SubResource("s5")
 
-[node name="GridRoof24" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 2.5)
+[node name="GridWall24" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.4, 0.5)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="GridRoof24"]
+[node name="Shape" type="CollisionShape3D" parent="GridWall24"]
 shape = SubResource("s50")
 
-[node name="Mesh" type="MeshInstance3D" parent="GridRoof24"]
+[node name="Mesh" type="MeshInstance3D" parent="GridWall24"]
 mesh = SubResource("s51")
 surface_material_override/0 = SubResource("s5")
 
-[node name="GridRoof25" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -2.5)
+[node name="GridWall25" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.4, 3)
 collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape3D" parent="GridRoof25"]
+[node name="Shape" type="CollisionShape3D" parent="GridWall25"]
 shape = SubResource("s52")
 
-[node name="Mesh" type="MeshInstance3D" parent="GridRoof25"]
+[node name="Mesh" type="MeshInstance3D" parent="GridWall25"]
 mesh = SubResource("s53")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof26" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -720,7 +736,7 @@ mesh = SubResource("s55")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof27" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -732,7 +748,7 @@ mesh = SubResource("s57")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof28" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -744,7 +760,7 @@ mesh = SubResource("s59")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof29" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -756,7 +772,7 @@ mesh = SubResource("s61")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof30" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -768,7 +784,7 @@ mesh = SubResource("s63")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof31" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -780,7 +796,7 @@ mesh = SubResource("s65")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof32" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -792,7 +808,7 @@ mesh = SubResource("s67")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof33" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -804,7 +820,7 @@ mesh = SubResource("s69")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof34" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -816,7 +832,7 @@ mesh = SubResource("s71")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof35" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -828,7 +844,7 @@ mesh = SubResource("s73")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof36" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -840,7 +856,7 @@ mesh = SubResource("s75")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof37" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -852,7 +868,7 @@ mesh = SubResource("s77")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof38" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -864,7 +880,7 @@ mesh = SubResource("s79")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof39" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -876,7 +892,7 @@ mesh = SubResource("s81")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof40" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -888,7 +904,7 @@ mesh = SubResource("s83")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof41" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -900,7 +916,7 @@ mesh = SubResource("s85")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof42" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -912,7 +928,7 @@ mesh = SubResource("s87")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof43" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -924,7 +940,7 @@ mesh = SubResource("s89")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof44" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -936,7 +952,7 @@ mesh = SubResource("s91")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof45" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -948,7 +964,7 @@ mesh = SubResource("s93")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof46" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -960,7 +976,7 @@ mesh = SubResource("s95")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof47" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -972,7 +988,7 @@ mesh = SubResource("s97")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof48" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -984,7 +1000,7 @@ mesh = SubResource("s99")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof49" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -996,7 +1012,7 @@ mesh = SubResource("s101")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof50" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.9, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1008,7 +1024,7 @@ mesh = SubResource("s103")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof51" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1020,7 +1036,7 @@ mesh = SubResource("s105")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof52" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1032,7 +1048,7 @@ mesh = SubResource("s107")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof53" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1044,7 +1060,7 @@ mesh = SubResource("s109")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof54" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1056,7 +1072,7 @@ mesh = SubResource("s111")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof55" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.9, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1068,7 +1084,7 @@ mesh = SubResource("s113")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof56" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1080,7 +1096,7 @@ mesh = SubResource("s115")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridRoof57" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1089,6 +1105,54 @@ shape = SubResource("s116")
 
 [node name="Mesh" type="MeshInstance3D" parent="GridRoof57"]
 mesh = SubResource("s117")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridRoof58" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridRoof58"]
+shape = SubResource("s118")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridRoof58"]
+mesh = SubResource("s119")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridRoof59" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -1.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridRoof59"]
+shape = SubResource("s120")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridRoof59"]
+mesh = SubResource("s121")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridRoof60" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, -0.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridRoof60"]
+shape = SubResource("s122")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridRoof60"]
+mesh = SubResource("s123")
+surface_material_override/0 = SubResource("s5")
+
+[node name="GridRoof61" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.9, 2.5)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="GridRoof61"]
+shape = SubResource("s124")
+
+[node name="Mesh" type="MeshInstance3D" parent="GridRoof61"]
+mesh = SubResource("s125")
 surface_material_override/0 = SubResource("s5")
 
 [node name="Light0" type="OmniLight3D" parent="."]
@@ -1115,7 +1179,7 @@ contents_scene = ExtResource("heart_piece")
 open_message = "A piece of heart, set in a clay jar between the pickles. The Burrows hides its kindnesses among the pantry."
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 2)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -1126,11 +1190,7 @@ auto_trigger = true
 prompt = "[E] Up the cellar steps"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
-shape = SubResource("s118")
-
-[node name="Veil" type="MeshInstance3D" parent="LoadZone0"]
-mesh = SubResource("s119")
-surface_material_override/0 = SubResource("s120")
+shape = SubResource("s126")
 
 [node name="Hint" type="Label3D" parent="LoadZone0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)

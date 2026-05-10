@@ -1,0 +1,508 @@
+{
+  "name": "The Sourcerooms",
+  "id": "usr_src",
+  "key_group": "usr_src",
+  "music_track": "sigilkeep",
+  "fs_path": "/usr/src",
+  "environment": {
+    "sky_top": [
+      0.25,
+      0.22,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.45,
+      0.4,
+      0.4,
+      1
+    ],
+    "ground_horizon": [
+      0.32,
+      0.28,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.1,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.65,
+      0.55,
+      0.55,
+      1
+    ],
+    "ambient_energy": 0.4,
+    "fog_density": 0.0025,
+    "fog_color": [
+      0.32,
+      0.28,
+      0.32,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.95,
+      0.85,
+      0.65,
+      1
+    ],
+    "sun_energy": 0.85
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.28,
+          0.25,
+          0.22,
+          1
+        ],
+        "floor_color": [
+          0.4,
+          0.35,
+          0.3,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_sprawl",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE SOURCEROOMS\n\nA vast hall of bound scrolls. Each scroll is the source-text for one shared loom in the Loomhouse. Half the scrolls are missing pages.\n\nWhat the realm was first told to be is written here. So is what it has become."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Carved into a reading-desk:\n\n'The realm was written. The realm is being written. The realm will be written.\n\nWalker — if you find a missing page, return it to the shelf. The Sourcerooms keep no other tax.'"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": 0.6,
+      "name": "Indexer Mor",
+      "body_color": [
+        0.5,
+        0.55,
+        0.62,
+        1.0
+      ],
+      "hat_color": [
+        0.78,
+        0.7,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the indexer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Indexer Mor",
+            "text": "*he is up a ladder, sliding scrolls. He doesn't look down.*\n\nWalker — careful with the floor scrolls. They look like rugs. They are not rugs.\n\nWhat are you after?",
+            "choices": [
+              {"label": "What's in here?", "next": "what"},
+              {"label": "Have you seen anything unusual?", "next": "weird"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "what": {
+            "speaker": "Indexer Mor",
+            "text": "Source-text. The first writings of the realm. Each scroll says what one thing in the Wyrdmark was supposed to be.\n\nA lot of them are wrong now. The realm is older than the writings. That's how it should be.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "weird": {
+            "speaker": "Indexer Mor",
+            "text": "*he pauses on the ladder.*\n\nThere's a scroll behind the back-shelf nobody pulls. The Indexer before me said it had a key in it. I never went looking — too tall, too tired, too busy.\n\nIf you're a walker who finishes things, walker — go find it. The realm might thank you.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Indexer Mor",
+            "text": "Walk well. Mind the floor scrolls."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.5,
+        0.0,
+        0.5
+      ],
+      "rotation_y": -0.6,
+      "name": "Scribe Tella",
+      "body_color": [
+        0.6,
+        0.5,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.42,
+        0.65,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the scribe",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Scribe Tella",
+            "text": "*she's copying a scroll by hand. Her ink is the colour of deep water.*\n\nMor sends me to find the missing pages. I find some of them. The rest the realm is keeping for a reason.\n\nWalk softly, walker. The shelves are listening.",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Scribe Tella",
+            "text": "Walk well. Walk softly."
+          }
+        }
+      }
+    },
+    {
+      "type": "chest",
+      "pos": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "contents": "key",
+      "key_group": "final_dungeon",
+      "open_message": "A small dark key, tucked behind a back-shelf scroll nobody reads. The Indexer before Mor must have left it for the walker who would finish things. The realm thanks you.",
+      "requires": "triglyph_assembled"
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sprawl",
+      "target_spawn": "from_usr_src",
+      "prompt": "[E] Back to the Sprawl"
+    }
+  ]
+}

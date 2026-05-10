@@ -25,8 +25,9 @@ extends Node3D
 #     the orbit-camera scripting.
 
 const HeartPickup = preload("res://scenes/pickup_heart.tscn")
-# TODO: replace with a real heart-container pickup once it exists.
-const HEART_CONTAINER_SCENE: String = "res://scenes/pickup_heart_container.tscn"
+# Real Heart Container pickup — adds a max-HP slot (handled inside the
+# pickup script via GameState.add_heart_container).
+const HEART_CONTAINER_SCENE: String = "res://scenes/heart_container.tscn"
 
 @export var boss_name: String = "Boss"
 @export var boss_scene: PackedScene = null
@@ -211,12 +212,52 @@ func _intro_cinematic() -> void:
             if is_instance_valid(sf):
                 sf.fade_to(0.0, 0.4))
     SoundBank.play_2d("sword_charge_ready")
+    # Boss-name reveal banner. Drops in from above, holds 1.4 s, fades.
+    # Mirrors OoT's "Volvagia" / "Phantom Ganon" splash card.
+    _spawn_name_reveal()
+
+
+func _spawn_name_reveal() -> void:
+    var layer := CanvasLayer.new()
+    layer.layer = 88
+    var name_label := Label.new()
+    name_label.text = boss_name
+    name_label.add_theme_font_size_override("font_size", 44)
+    name_label.add_theme_color_override("font_color", Color(1.0, 0.86, 0.36, 1.0))
+    name_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.85))
+    name_label.add_theme_constant_override("shadow_offset_x", 2)
+    name_label.add_theme_constant_override("shadow_offset_y", 2)
+    name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    name_label.anchor_left = 0.0; name_label.anchor_right = 1.0
+    name_label.anchor_top = 0.32; name_label.anchor_bottom = 0.40
+    name_label.modulate.a = 0.0
+    layer.add_child(name_label)
+    var sub := Label.new()
+    sub.text = "BOSS"
+    sub.add_theme_font_size_override("font_size", 14)
+    sub.add_theme_color_override("font_color", Color(0.85, 0.55, 0.35, 1.0))
+    sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    sub.anchor_left = 0.0; sub.anchor_right = 1.0
+    sub.anchor_top = 0.42; sub.anchor_bottom = 0.46
+    sub.modulate.a = 0.0
+    layer.add_child(sub)
+    add_child(layer)
+    var tw := create_tween().set_parallel(false)
+    tw.tween_property(name_label, "modulate:a", 1.0, 0.45)
+    tw.parallel().tween_property(sub, "modulate:a", 1.0, 0.45)
+    tw.tween_interval(1.4)
+    tw.tween_property(name_label, "modulate:a", 0.0, 0.5)
+    tw.parallel().tween_property(sub, "modulate:a", 0.0, 0.5)
+    tw.tween_callback(layer.queue_free)
 
 
 func _on_boss_died() -> void:
     if state == State.CLEARED:
         return
     state = State.CLEARED
+
+    # 1. Mark the boss defeated in the persistent registry so chest
+    # `requires` checks resolve on the very next frame.
     var bid: String = boss_id
     if bid == "" and boss_scene:
         var p: String = boss_scene.resource_path
@@ -228,32 +269,142 @@ func _on_boss_died() -> void:
         var gs := get_node_or_null("/root/GameState")
         if gs and gs.has_method("mark_boss_defeated"):
             gs.mark_boss_defeated(bid)
-    _drop_barrier()
+
+    # Capture where the boss was — we anchor the heart-container ceremony
+    # there even after the boss node sinks and frees itself.
+    var ceremony_origin: Vector3 = global_position + spawn_offset
+    if _boss and is_instance_valid(_boss):
+        ceremony_origin = _boss.global_position
+
+    # 2. Slow-mo. Restore via a timer that explicitly ignores time_scale
+    # so the restore actually fires after 0.6s of WALL-clock time
+    # (otherwise 0.6 / 0.4 = 1.5s of real time, awkward).
+    Engine.time_scale = 0.4
+    _schedule_time_scale_restore(0.6)
+
+    # 3. Camera flash — full-screen white CanvasLayer ColorRect, fades in
+    # 0.2s then out 0.6s. Self-frees after the fade-out.
+    _spawn_camera_flash()
+
+    # 4. Music sting. Silent-fallback safe (SoundBank skips missing wavs).
+    SoundBank.play_2d("boss_clear")
+    # Keep gate_open as a secondary "barrier dissolves" cue — it's the
+    # original SFX and lines up nicely under boss_clear.
     SoundBank.play_2d("gate_open")
-    _drop_reward()
+
+    # 5+6+7+8 in sequence — kicked off in a deferred coroutine so this
+    # handler returns immediately (the boss script is in the middle of
+    # emitting `died` and we don't want to await mid-emission).
+    _run_completion_sequence(ceremony_origin)
+
+
+# Restore Engine.time_scale to 1.0 after `wall_seconds` of real time.
+# The 4th arg to create_timer (ignore_time_scale) lets the timer tick at
+# wall-clock speed even though Engine.time_scale is 0.4 right now.
+func _schedule_time_scale_restore(wall_seconds: float) -> void:
+    var t := get_tree().create_timer(wall_seconds, true, false, true)
+    t.timeout.connect(func() -> void:
+        Engine.time_scale = 1.0)
+
+
+# Build a CanvasLayer with a white ColorRect that fades in then out.
+func _spawn_camera_flash() -> void:
+    var cl := CanvasLayer.new()
+    cl.layer = 90    # below pause_menu (80? — pause uses 80; flash should
+                    # appear over gameplay but can sit beneath pause).
+    var rect := ColorRect.new()
+    rect.color = Color(1.0, 1.0, 1.0, 0.0)
+    rect.anchor_right = 1.0
+    rect.anchor_bottom = 1.0
+    rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    cl.add_child(rect)
+    # Parent to the current_scene so the layer survives even if this
+    # boss arena is freed mid-fade (defensive — shouldn't happen).
+    var holder: Node = get_tree().current_scene
+    if holder == null:
+        holder = self
+    holder.add_child(cl)
+    # Tween runs in real time (the tween's callbacks here are
+    # short-lived and benefit from feeling crisp regardless of slow-mo).
+    var tw := cl.create_tween()
+    tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+    tw.set_ignore_time_scale(true)
+    tw.tween_property(rect, "color:a", 0.85, 0.20)
+    tw.tween_property(rect, "color:a", 0.0, 0.60)
+    tw.tween_callback(cl.queue_free)
+
+
+# Top-level orchestrator coroutine. Plays the boss-sink, the heart-
+# container reveal, then the save prompt, then the music swap.
+func _run_completion_sequence(ceremony_origin: Vector3) -> void:
+    # 5. Boss sink — 1s tween down 1m and scale → 0. Use real-time tween
+    # so the visual lands on its 1s budget regardless of slow-mo.
+    if _boss and is_instance_valid(_boss):
+        var sink_target: Vector3 = _boss.position + Vector3(0, -1.0, 0)
+        var tw := _boss.create_tween()
+        tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+        tw.set_ignore_time_scale(true)
+        tw.set_parallel(true)
+        tw.tween_property(_boss, "position", sink_target, 1.0)
+        tw.tween_property(_boss, "scale", Vector3.ZERO, 1.0)
+        tw.chain().tween_callback(func() -> void:
+            if _boss and is_instance_valid(_boss):
+                _boss.queue_free()
+                _boss = null)
+    # Wait through the slow-mo window (~0.6s real-time) AND let the boss
+    # sink occupy most of its 1s before the heart container appears.
+    await get_tree().create_timer(0.8, true, false, true).timeout
+
+    # 6. Heart container ceremony — instantiate at ground beneath the
+    # boss, lift it 2m up over 1.5s, surround with a yellow light beam
+    # that fades in then out around it.
+    _drop_reward(ceremony_origin)
+
+    # 7. Save prompt — wait a beat so the heart visual reads first.
+    await get_tree().create_timer(1.6, true, false, true).timeout
+    _show_save_prompt()
+
+    # 8. Drop barrier + detach HUD bar + resume region music.
+    # (The barrier was previously dropped immediately; defer it so the
+    # player can't bolt mid-cinematic.)
+    _drop_barrier()
     _detach_hud_bar()
+    _resume_region_music()
+
+
+func _resume_region_music() -> void:
     var mb := get_node_or_null("/root/MusicBank")
-    if mb and mb.has_method("play"):
-        var track := region_track
-        if track == "":
-            # Re-derive from the owning dungeon root if it's labeled.
-            var root := get_tree().current_scene
-            if root and "music_track" in root:
-                track = root.music_track
-                if track == "":
-                    var p: String = root.scene_file_path
-                    if p.begins_with("res://scenes/"):
-                        p = p.substr("res://scenes/".length())
-                    if p.ends_with(".tscn"):
-                        p = p.substr(0, p.length() - ".tscn".length())
-                    track = p
-        if track != "":
-            mb.play(track, 1.0)
+    if mb == null or not mb.has_method("play"):
+        return
+    var track: String = region_track
+    if track == "":
+        var root := get_tree().current_scene
+        if root and "music_track" in root:
+            track = root.music_track
+            if track == "":
+                var p: String = root.scene_file_path
+                if p.begins_with("res://scenes/"):
+                    p = p.substr("res://scenes/".length())
+                if p.ends_with(".tscn"):
+                    p = p.substr(0, p.length() - ".tscn".length())
+                track = p
+    if track != "":
+        mb.play(track, 1.0)
 
 
-func _drop_reward() -> void:
-    var here: Vector3 = global_position + spawn_offset
-    here.y = 0.5    # snap to the ground so the pickup floats correctly
+# Spawn the heart container pickup at the boss's last position, then
+# tween it 2m up over ~1.5s. Wrap it in a CSGCylinder3D light beam with
+# a tween that fades emission + alpha in for the first half, holds, then
+# fades out.
+func _drop_reward(ceremony_origin: Vector3 = Vector3.INF) -> void:
+    # Backwards-compat: the previous _drop_reward took no args. If the
+    # caller didn't supply an origin (legacy call paths) fall back to
+    # the historical "snap to y=0.5 above spawn_offset" behaviour.
+    var here: Vector3 = ceremony_origin
+    if here == Vector3.INF:
+        here = global_position + spawn_offset
+        here.y = 0.5
+
     var pickup: Node3D = null
     if ResourceLoader.exists(HEART_CONTAINER_SCENE):
         var p := load(HEART_CONTAINER_SCENE)
@@ -262,10 +413,197 @@ func _drop_reward() -> void:
     if pickup == null:
         # Fallback: drop a regular heart pickup so the player gets SOMETHING.
         pickup = HeartPickup.instantiate()
-    pickup.position = here
+
+    # Spawn at ground beneath the boss; lift will move it to ~2m up.
+    var ground: Vector3 = here
+    ground.y = max(0.5, here.y * 0.0 + 0.5)
+    pickup.position = ground
     var parent := get_parent()
-    if parent:
-        parent.call_deferred("add_child", pickup)
+    if parent == null:
+        return
+    parent.add_child(pickup)
+
+    # Tween the pickup upward 2m over 1.5s.
+    var lift_target: Vector3 = ground + Vector3(0, 2.0, 0)
+    var lift_tw := pickup.create_tween()
+    lift_tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+    lift_tw.set_ignore_time_scale(true)
+    lift_tw.set_trans(Tween.TRANS_SINE)
+    lift_tw.set_ease(Tween.EASE_OUT)
+    lift_tw.tween_property(pickup, "position", lift_target, 1.5)
+
+    # Light beam — CSGCylinder3D, emissive yellow, alpha+emission tweened
+    # in then out over ~3s total. Centered on the lift trajectory.
+    var beam := CSGCylinder3D.new()
+    beam.radius = 0.5
+    beam.height = 6.0
+    beam.sides = 24
+    var mat := StandardMaterial3D.new()
+    mat.albedo_color = Color(1.0, 0.92, 0.55, 0.0)
+    mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+    mat.emission_enabled = true
+    mat.emission = Color(1.0, 0.92, 0.55)
+    mat.emission_energy_multiplier = 0.0
+    mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+    beam.material = mat
+    # Beam stands so its bottom is at ground level — sits behind/around
+    # the pickup as it rises.
+    beam.position = ground + Vector3(0, beam.height * 0.5, 0)
+    parent.add_child(beam)
+
+    var beam_tw := beam.create_tween()
+    beam_tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+    beam_tw.set_ignore_time_scale(true)
+    beam_tw.set_parallel(true)
+    # Fade in over 0.4s.
+    beam_tw.tween_property(mat, "albedo_color:a", 0.55, 0.4)
+    beam_tw.tween_property(mat, "emission_energy_multiplier", 4.0, 0.4)
+    # Hold (1.6s) then fade out (1.0s) — sequence after the parallel-in.
+    beam_tw.chain().tween_interval(1.6)
+    beam_tw.chain().tween_property(mat, "albedo_color:a", 0.0, 1.0)
+    beam_tw.parallel().tween_property(mat, "emission_energy_multiplier", 0.0, 1.0)
+    beam_tw.chain().tween_callback(beam.queue_free)
+
+
+# ---- Save prompt overlay -----------------------------------------------
+
+# Build a simple Control with a "Save your progress?" prompt and two
+# buttons. Auto-dismisses after 8 seconds if untouched. Built in style
+# consistent with pause_menu.gd (golden #FBE988 title on dark backdrop).
+func _show_save_prompt() -> void:
+    if state != State.CLEARED:
+        return
+    var cl := CanvasLayer.new()
+    cl.layer = 85    # above the camera flash, below the pause menu (80
+                    # uses lower numbers; we sit slightly above HUD).
+    cl.process_mode = Node.PROCESS_MODE_ALWAYS
+
+    var root := Control.new()
+    root.anchor_right = 1.0
+    root.anchor_bottom = 1.0
+    root.mouse_filter = Control.MOUSE_FILTER_STOP
+    cl.add_child(root)
+
+    # Dim backdrop covering the screen (subtle — we want the player to
+    # still see the heart container glowing in the world behind).
+    var backdrop := ColorRect.new()
+    backdrop.color = Color(0.05, 0.04, 0.08, 0.55)
+    backdrop.anchor_right = 1.0
+    backdrop.anchor_bottom = 1.0
+    backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(backdrop)
+
+    # Centre panel.
+    var panel := PanelContainer.new()
+    panel.anchor_left = 0.5
+    panel.anchor_right = 0.5
+    panel.anchor_top = 0.5
+    panel.anchor_bottom = 0.5
+    panel.offset_left = -240
+    panel.offset_right = 240
+    panel.offset_top = -90
+    panel.offset_bottom = 90
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = Color(0.08, 0.07, 0.12, 0.96)
+    sb.border_color = Color(0.98, 0.91, 0.53, 1.0)
+    sb.set_border_width_all(2)
+    sb.set_corner_radius_all(8)
+    panel.add_theme_stylebox_override("panel", sb)
+    root.add_child(panel)
+
+    var vb := VBoxContainer.new()
+    vb.add_theme_constant_override("separation", 16)
+    panel.add_child(vb)
+
+    var heading := Label.new()
+    heading.text = "Boss defeated! Save your progress?"
+    heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    heading.add_theme_font_size_override("font_size", 22)
+    heading.add_theme_color_override("font_color", Color(0.98, 0.91, 0.53, 1.0))
+    vb.add_child(heading)
+
+    var btn_row := HBoxContainer.new()
+    btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
+    btn_row.add_theme_constant_override("separation", 24)
+    vb.add_child(btn_row)
+
+    var save_btn := Button.new()
+    save_btn.text = "Save"
+    save_btn.custom_minimum_size = Vector2(140, 40)
+    save_btn.add_theme_font_size_override("font_size", 18)
+    btn_row.add_child(save_btn)
+
+    var cont_btn := Button.new()
+    cont_btn.text = "Continue"
+    cont_btn.custom_minimum_size = Vector2(140, 40)
+    cont_btn.add_theme_font_size_override("font_size", 18)
+    btn_row.add_child(cont_btn)
+
+    var holder: Node = get_tree().current_scene
+    if holder == null:
+        holder = self
+    holder.add_child(cl)
+
+    # Capture a closure over the layer + holder so both buttons + the
+    # auto-dismiss timer dispose of the same overlay exactly once.
+    var dismissed := [false]
+    var dismiss := func() -> void:
+        if dismissed[0]:
+            return
+        dismissed[0] = true
+        if is_instance_valid(cl):
+            cl.queue_free()
+
+    save_btn.pressed.connect(func() -> void:
+        var gs := get_node_or_null("/root/GameState")
+        var ok: bool = false
+        if gs and gs.has_method("save_game") and "last_slot" in gs and gs.last_slot >= 0:
+            ok = bool(gs.save_game(gs.last_slot))
+        SoundBank.play_2d("menu_confirm")
+        dismiss.call()
+        _show_saved_toast(ok))
+
+    cont_btn.pressed.connect(func() -> void:
+        SoundBank.play_2d("menu_back")
+        dismiss.call())
+
+    # Auto-dismiss after 8s of real time (ignore_time_scale=true).
+    var t := get_tree().create_timer(8.0, true, false, true)
+    t.timeout.connect(func() -> void: dismiss.call())
+
+
+# Brief "Saved." toast at the top of the screen. 2s lifetime: 0.25s
+# fade-in, 1.5s hold, 0.25s fade-out.
+func _show_saved_toast(success: bool) -> void:
+    var cl := CanvasLayer.new()
+    cl.layer = 95    # over everything else for the brief notification.
+    var label := Label.new()
+    label.text = ("Saved." if success else "Save failed.")
+    label.anchor_left = 0.5
+    label.anchor_right = 0.5
+    label.offset_left = -120
+    label.offset_right = 120
+    label.offset_top = 24
+    label.offset_bottom = 64
+    label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    label.add_theme_font_size_override("font_size", 22)
+    label.add_theme_color_override("font_color", Color(0.98, 0.91, 0.53, 0.0))
+    # Drop shadow for readability against bright scenes.
+    label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
+    label.add_theme_constant_override("shadow_outline_size", 2)
+    cl.add_child(label)
+    var holder: Node = get_tree().current_scene
+    if holder == null:
+        holder = self
+    holder.add_child(cl)
+    var tw := cl.create_tween()
+    tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+    tw.set_ignore_time_scale(true)
+    tw.tween_property(label, "modulate:a", 1.0, 0.25)
+    tw.tween_interval(1.5)
+    tw.tween_property(label, "modulate:a", 0.0, 0.25)
+    tw.tween_callback(cl.queue_free)
 
 
 # ---- HUD bar -----------------------------------------------------------

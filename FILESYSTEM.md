@@ -465,3 +465,392 @@ order:
 ---
 
 *The Wyrdmark Filesystem v1*
+
+---
+
+# v2 — THE FULL UNIX SHAPE
+
+> *"Capture the early-Unix and early-Linux filesystem as faithfully
+> as game-pacing allows. Reuse what we have. Add what's missing.
+> Reshape what doesn't read as a filesystem."*
+
+The v1 tree above sketched the bridge from the existing 10
+hand-authored levels into FHS-shaped territory. v2 finishes the
+job — adds the directories any reader of a 1993 Slackware install
+would expect, and codifies the **shape rules** so the world reads as
+a filesystem when you walk it, not just when you stop and read the
+HUD path.
+
+## v2.1 The directory tree, complete
+
+Existing paths kept. **Bold** entries are NEW in v2.
+
+```
+/                                    The Crown
+├── boot/                            The Wake
+│   └── grub/                        sub-shrine
+├── **bin/**                         The Toolshed
+├── **sbin/**                        Sentinel Hall
+├── **lib/**                         The Loomhouse
+├── **lost+found/**                  Hall of Lost Things
+├── **root/**                        Root's Hold
+├── **srv/**                         The Servery
+├── **sys/**                         The Heartworks
+├── etc/                             The Scriptorium
+│   ├── wyrdmark/                    [sigilkeep]
+│   ├── **init.d/**                  The Initiates
+│   └── **passwd/**                  The Names Hall
+├── home/                            The Burrows
+│   ├── hearthold/                   [hearthold]
+│   ├── brookhold/                   [brookhold]
+│   ├── wyrdkin/                     [old_hold]
+│   ├── **lirien/**                  Lirien's Chamber
+│   └── **khorgaul/**                The Khorgaul Roost (ruined)
+├── mnt/                             The Docks
+│   ├── wyrdmark/                    [wyrdmark_mounts]
+│   │   └── stoneroost/              [stoneroost]
+│   └── foreign/                     [docks_foreign]
+├── opt/                             The Optional Yard
+│   └── wyrdmark/                    [wyrdmark_gateway]
+│       ├── glade/                   [wyrdkin_glade]
+│       ├── woods/                   [wyrdwood]
+│       └── plain/                   [sourceplain]
+├── proc/                            The Murk
+│   ├── **init/**                    The First Process
+│   ├── **sys/**                     The Murk Senate
+│   └── **42/**                      Process 42
+├── tmp/                             The Drift
+│   └── burnt/                       [burnt_hollow]
+├── usr/                             The Sprawl
+│   ├── bin/                         [binds]
+│   ├── share/                       [sharers]
+│   │   ├── games/                   [old_plays]
+│   │   └── **man/**                 The Manuscripts
+│   ├── local/                       [locals]
+│   ├── **lib/**                     Sprawl Library (paired)
+│   ├── **sbin/**                    Sprawl Outpost
+│   ├── **src/**                     The Sourcerooms
+│   └── **include/**                 Sprawl Index Hall
+├── var/                             The Library of Past Echoes
+│   ├── cache/                       [cache]
+│   │   └── wyrdmark/                [cache_wyrdmark]
+│   │       └── hollow/              [dungeon_first]
+│   ├── lib/                         [stacks]
+│   ├── log/                         [ledger]
+│   ├── spool/                       [backwater]
+│   │   └── mire/                    [mirelake]
+│   ├── **mail/**                    The Postmark
+│   ├── **run/**                     The Pulse Room
+│   ├── **tmp/**                     The Long Drift
+│   └── **games/**                   The Scoreroom
+└── dev/                             The Forge
+    ├── null/                        [null_door]
+    ├── **zero/**                    The Quietness
+    ├── **random/**                  The Wild Hum
+    ├── **tty/**                     The Speaker's Room
+    └── **loop/**                    The Recursion Hall
+```
+
+**67 directories total** = 40 existing + **27 new**. The 4 grottoes
+(`grotto_glade`, `grotto_burrows`, `grotto_forge`,
+`grotto_sourceplain`) remain as cul-de-sacs off their parents.
+
+## v2.2 The 27 new directories — what each one IS
+
+Each entry: theme · scope · parent · 1-line gameplay note.
+
+### Top-level (7)
+
+#### `/bin` — **The Toolshed**
+- Theme: a long workshop wall hung with the realm's essential tools.
+  Hammers, chisels, looms, kettles. Worn handles. Things that work.
+- Scope: medium passthrough hub. **East exit to `/sbin`** (sister
+  workshop). No combat.
+- NPCs: an old toolwright; a young apprentice arguing about which
+  hammer is canonical.
+- Easter egg: a row of 27 tool silhouettes painted on the wall — the
+  exact roster of `/bin` in 4.4BSD.
+
+#### `/sbin` — **Sentinel Hall**
+- Theme: spare stone hall of the realm's caretakers. Tall, austere.
+  Quiet but watchful. Lit with steady cool light.
+- Scope: medium. Single Sentinel NPC who does not move and does not
+  initiate conversation; speaks if asked the right thing.
+- Mount-canon: where the realm's automated wardens live.
+
+#### `/lib` — **The Loomhouse**
+- Theme: long tapestry-weaving hall. Looms running themselves — a
+  shared loom is a shared library. Threads cross between booths.
+- Scope: medium. A weaver who explains how everything else borrows
+  from here. NPCs: 1 master weaver, 1 borrower returning a thread.
+- Easter egg: a tapestry depicting every other room in the realm,
+  woven in shared thread.
+
+#### `/lost+found` — **Hall of Lost Things**
+- Theme: a small overlit room where things rescued from broken
+  storage are catalogued: orphaned scrolls, half-melted candles, a
+  lone shoe. Everything labelled with a number that's lost its file.
+- Scope: small. A keeper who knows every piece. Talks slowly.
+- Reward: bring her three "claim tokens" (small items found in the
+  world after fsck-style "you broke a chest"); get a heart piece.
+
+#### `/root` — **Root's Hold**
+- Theme: a single small cottage at the highest spur reachable from
+  `/`. Plain. Modest. Rugs. A simple desk. **Locked at start** —
+  opens once Tux carries the Triglyph Chord.
+- Scope: small. One NPC: the **Sysadmin** (older Wyrdkin who tends
+  the realm). Gives the player one piece of unique advice tied to
+  whichever dungeon they have left.
+- Mount-canon: this is The Root in The Mount lore — implied, not
+  named.
+
+#### `/srv` — **The Servery**
+- Theme: a kitchen-and-pantry that serves the rest of the realm
+  whatever it needs. Always cooking. Always feeding visitors.
+- Scope: medium hub. NPCs: a head cook, two runners, a customer
+  from `/usr/bin` complaining about portion size.
+- Mechanic: 5 pebbles → full HP heal. Cheaper than fairies.
+
+#### `/sys` — **The Heartworks**
+- Theme: a glassed-in observatory lower than `/proc` — you can see
+  the Source's heartbeats here. Each pulse is a kernel-thread.
+- Scope: medium. No combat. NPCs: a Heart-Reader keeping count of
+  the pulses; she gives the player a song-glyph hint.
+- Mount-canon: the inner mirror of The Murk; where The Source is
+  exposed to view.
+
+### Under `/etc` (2)
+
+#### `/etc/init.d` — **The Initiates**
+- Theme: a candle-lit row of 12 priests-in-training, each
+  responsible for starting one process at dawn. Reverent. Never
+  silent — someone's always reciting an incantation.
+- Scope: small. A novice asks for help with a forgotten recantation.
+
+#### `/etc/passwd` — **The Names Hall**
+- Theme: a long stone wall carved with every name in the realm. A
+  scribe stands by with an iron stylus, adding new ones.
+- Scope: tiny. Sign: *"Every name here was once a stranger.
+  Strangers are how the realm grows."*
+- Mount-canon: the "world.passwd" doc from The Mount lives here.
+
+### Under `/home` (2)
+
+#### `/home/lirien` — **Lirien's Chamber**
+- Theme: a hooded blue-curtained study high in a stone tower. Books
+  on stars. A telescope. Empty when Tux first visits — Lirien is at
+  the Crown.
+- Scope: small. Becomes meaningful late game: a journal entry the
+  player can read after Lirien teaches the Triglyph Chord.
+
+#### `/home/khorgaul` — **The Khorgaul Roost** (ruined)
+- Theme: a burned-out hilltop hold. Charred furniture. Wind through
+  broken stone. Some things are still warm.
+- Scope: small. One NPC: a Khorgaul-cultist trying to clean up; he
+  doesn't recognise the cult is dead.
+- Mount-canon: where Khorgaul stayed before his absence.
+
+### Under `/mnt` (already complete in v1) — none
+
+### Under `/opt` (already complete in v1) — none
+
+### Under `/proc` (3)
+
+#### `/proc/init` — **The First Process**
+- Theme: a small earthen mound in the centre of the Murk where the
+  first process lives — an ancient Wyrdkin who has been sitting since
+  the realm was started. Patient. Speaks in the present tense only.
+- Scope: small. NPCs: just him.
+- Easter egg: he'll answer one question about any other character in
+  the realm with a single-line summary.
+
+#### `/proc/sys` — **The Murk Senate**
+- Theme: a roundtable of 7 process-ghosts arguing about kernel
+  parameters they no longer remember setting. Never resolves.
+- Scope: small. Combat-free. Comedy.
+
+#### `/proc/42` — **Process 42**
+- Theme: a single Wyrdkin who is utterly convinced she's the answer
+  to something. Cheerful. Wrong.
+- Scope: tiny. One sign: *"NOW SCHEDULED. DO NOT KILL."*
+
+### Under `/usr` (4)
+
+#### `/usr/share/man` — **The Manuscripts**
+- Theme: a quiet sub-room of the Sharers, full of bound manuscripts
+  arranged by section. Each section explains how some other place in
+  the realm works.
+- Scope: small. Combat-free. **Reading any 3 manuscripts unlocks a
+  flagged hint** for that region.
+
+#### `/usr/lib` — **Sprawl Library** (paired)
+- Theme: a wing of `/usr/bin` where the merchants share their
+  best tools (and their best secrets). Quieter than the market.
+- Scope: small. NPCs: a Bind sharing a borrowed tool with a Local.
+
+#### `/usr/sbin` — **Sprawl Outpost**
+- Theme: a single guardpost at the edge of the Sprawl. The merchant
+  faction's own hired sentinels.
+- Scope: small. One Sentinel-NPC.
+
+#### `/usr/src` — **The Sourcerooms**
+- Theme: a vast hall of bound scrolls — the source-text for every
+  shared loom in `/lib`. Half the scrolls are missing pages.
+- Scope: medium. **The dungeon-key item for the final puzzle is
+  hidden here**, not in a Dungeon — Mount-canon: this is where the
+  realm was first written.
+
+#### `/usr/include` — **Sprawl Index Hall**
+- Theme: an alphabetised hall of header-scrolls. Each scroll declares
+  the shape of one thing in `/usr`.
+- Scope: small. Combat-free. Single NPC: a tired Indexer.
+
+### Under `/var` (4)
+
+#### `/var/mail` — **The Postmark**
+- Theme: a small post-station with five named pigeon-cotes (one per
+  village). Letters arrive. Letters depart.
+- Scope: small. NPCs: a postmaster. **Tux can leave letters**: a
+  side-quest where reading a letter at one village affects an NPC
+  in another.
+
+#### `/var/run` — **The Pulse Room**
+- Theme: a chamber of beating drums — one per currently-living
+  process in the realm. A drum stops if its process dies.
+- Scope: small. Combat-free. NPCs: 1 drumkeeper.
+- Easter egg: defeat a boss; come back; that boss's drum is silent.
+
+#### `/var/tmp` — **The Long Drift**
+- Theme: a quieter sister-festival to The Drift. Things here are
+  forgotten across more than one day, but eventually still go.
+- Scope: small. One festival-goer who's been here a year.
+
+#### `/var/games` — **The Scoreroom**
+- Theme: a wall of high-scores from games in The Old Plays.
+- Scope: tiny. A keeper who'll add Tux to the wall if he wins
+  any game.
+
+### Under `/dev` (4)
+
+#### `/dev/zero` — **The Quietness**
+- Theme: a perfectly silent stone room. Even Tux's footsteps don't
+  echo. No NPCs. A single chest in the centre.
+- Scope: tiny. Chest gives the player **30 pebbles** (a pile of
+  zeros). Sign: *"Take what you need. There is always more."*
+
+#### `/dev/random` — **The Wild Hum**
+- Theme: a chaotic room where the floor pattern changes every time
+  the player enters. Wind from indeterminate directions.
+- Scope: small. Combat: a single random-tier `fork_hydra` spawns
+  per visit — different tier each time.
+- Easter egg: chest contents are randomised per save (heart, fairy,
+  pebbles, key — pick at random on first open).
+
+#### `/dev/tty` — **The Speaker's Room**
+- Theme: a small round room with a stone podium. Anyone who speaks
+  here is heard everywhere in the realm. NPCs occasionally appear,
+  speak one line, and leave.
+- Scope: small. Combat-free.
+
+#### `/dev/loop` — **The Recursion Hall**
+- Theme: a corridor whose far door always brings the player back to
+  its near door, no matter how many times they walk through. Until
+  they walk it 7 times. Then a third door appears.
+- Scope: tiny. Reward: a heart piece.
+
+## v2.3 Shape rules (the compass + child-count system)
+
+The world is a filesystem. **Walking should feel like navigating
+one.** Two rules govern level shape and exit placement:
+
+### Compass rule
+- **North** (the level's `+Z` edge in scene space, cosmetically the
+  top of the player's mini-map) leads to a **child** directory.
+- **South** (`-Z` edge) leads to the **parent**.
+- **East / West** (`+X` / `-X`) lead to **siblings or shortcuts**.
+
+If you walk south, then south, then south, you eventually reach
+`/`. (At least one south-bound exit per non-root level.)
+
+### Child-count rule
+
+| Children | Shape | Notes |
+|---|---|---|
+| 0 (leaf) | small dead-end room (~5×5 to ~8×8 cells) | one NPC or one chest is the destination |
+| 1 | long thin corridor (~6×24 to ~8×40 cells) | the child exit is at the far north end |
+| 2 | T-junction (~16×16) or two corridors meeting | one north + one east/west exit |
+| 3 | Y or triangle (~20×20 to ~24×24) | three distinct edges |
+| 4+ | large hub (~28×28 or bigger) | one exit per child + one south exit; each on a distinct edge |
+
+Exception: **Dungeon-grade levels** (the 8 capital-D Dungeons in
+DESIGN.md §2) keep their hand-authored shape regardless of child
+count. The compass rule still applies to their load-zones.
+
+### Combined: how it reads
+
+- A long path in the filesystem (`/var/cache/wyrdmark/hollow`) is a
+  long walk: corridor, corridor, corridor, dungeon. Each step
+  visibly narrower, more enclosed.
+- A wide directory (`/`, `/usr`, `/var`) is a hub with multiple
+  visible exits at the compass points its children sit on.
+- A cul-de-sac directory (`/lost+found`) is a small room you stop
+  in, not pass through.
+
+## v2.4 Connection diagram (v2 — adds 27 new edges + handful of shortcuts)
+
+Adjacency list for the v2 expansion (only NEW edges shown — v1
+edges still apply):
+
+```
+/              ↔ /bin, /sbin, /lib, /lost+found, /root, /srv, /sys
+/etc           ↔ /etc/init.d, /etc/passwd
+/home          ↔ /home/lirien, /home/khorgaul
+/proc          ↔ /proc/init, /proc/sys, /proc/42
+/usr           ↔ /usr/lib, /usr/sbin, /usr/src, /usr/include
+/usr/share     ↔ /usr/share/man
+/var           ↔ /var/mail, /var/run, /var/tmp, /var/games
+/dev           ↔ /dev/zero, /dev/random, /dev/tty, /dev/loop
+```
+
+**v2 non-tree shortcuts** (revealed mid-game):
+
+- `/sbin` ↔ `/usr/sbin` — sister-rooms; sentinels keep an open path.
+- `/lib`  ↔ `/usr/lib`  — the Loomhouse and the Sprawl Library
+  share threads.
+- `/proc/init` ↔ `/sys` — the First Process can see the
+  Heartworks (he's been watching since the start).
+- `/var/mail` ↔ `/home/hearthold`, `/home/brookhold`, `/home/wyrdkin`,
+  `/home/lirien` — mail loops.
+- `/dev/loop` ↔ `/dev/loop` — the seventh traversal opens a third
+  door (no other shortcut needed; the loop is its own).
+
+## v2.5 Build sequence (Unix-shape pass)
+
+1. **Scaffold the 27 new directories** — JSON skeletons with the
+   shape rule applied (one corridor per single-child, one dead-end
+   per leaf, one hub per multi-child).
+2. **Reshape existing 40 levels** to match the compass + child-count
+   rule. Big content levels keep their hand-authored interior;
+   only their **load-zone positions** move to compass-correct edges.
+3. **Re-emit `PATH_MAP`** in `tools/build_dungeon.py` to include
+   all 67 directories.
+4. **Wire load zones** — every new directory connects to its parent
+   + its children + any v2.4 shortcut. Run
+   `tools/ensure_back_spawns.py` after.
+5. **Apply seamless-load-zone visuals** (gap-in-tree-wall + cleared
+   path) to all new and reshaped levels. The seamless treatment is
+   already coded — this is just propagating it.
+6. **Per-directory aesthetic** — extend the palette table in
+   DESIGN.md §8 with palettes for the 27 new directories.
+7. **Per-directory enemy roster** — extend DESIGN.md §9 with rosters
+   for the 27 new directories.
+8. **Author NPCs and signs** — populate the 27 new directories with
+   the NPCs hinted above. Tone per LORE.md.
+9. **Heart-piece + grotto pass** — distribute additional heart pieces
+   in the new dirs (target one per ~4 dirs).
+10. **Final integration** — full build + boot + load-zone graph
+    integrity check. Commit.
+
+---
+
+*The Wyrdmark Filesystem v2 — Unix-shape canonisation*

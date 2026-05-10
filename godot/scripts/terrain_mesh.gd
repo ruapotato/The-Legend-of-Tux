@@ -33,6 +33,16 @@ class_name TerrainMesh
 #   border_max      Cap on border height.
 #   border_color    Tint for non-walking cells.
 #   ground_noise    ±range applied per-corner from a hashed seed.
+#   path_cells      Optional [[i,j], ...] list of cell coords painted
+#                   with `path_color` and given a flat (non-noisy)
+#                   surface. Used by the build script to draw a
+#                   "cleared dirt path" leading to each load_zone gap
+#                   so the player visually reads the opening as a
+#                   walked-down trail through the grass, not just a
+#                   missing wall.
+#   path_color      Tint for path cells (slightly different shade —
+#                   packed dirt). Defaults to a darker version of the
+#                   floor_color if left unset.
 
 @export var cell_data:      Array  = []
 @export var cell_size:      float  = 2.0
@@ -49,6 +59,9 @@ class_name TerrainMesh
 
 @export var ground_noise:   float  = 0.18
 
+@export var path_cells:     Array  = []
+@export var path_color:     Color  = Color(0, 0, 0, 0)   # 0-alpha = "auto-derive from floor"
+
 
 func _ready() -> void:
     # Lets the mini-map find us via get_nodes_in_group, instead of
@@ -60,6 +73,8 @@ func _ready() -> void:
 
 
 func _parse_cells() -> Dictionary:
+    var path_set: Dictionary = _path_cell_set()
+    var pc: Color = _effective_path_color()
     var out: Dictionary = {}
     for c in cell_data:
         var i: int = 0; var j: int = 0
@@ -76,8 +91,36 @@ func _parse_cells() -> Dictionary:
                 y_off = float(c[2])
             if c.size() >= 4 and c[3] is Array and c[3].size() >= 3:
                 col = Color(c[3][0], c[3][1], c[3][2], 1.0)
-        out[Vector2i(i, j)] = {"y": floor_y + y_off, "color": col}
+        var key := Vector2i(i, j)
+        # Path cells override the per-cell colour — the build script
+        # uses this to paint a packed-dirt corridor leading to each
+        # load-zone gap. The y-offset is preserved so a path crossing
+        # raised terrain still drapes over the bumps.
+        if path_set.has(key):
+            col = pc
+        out[key] = {"y": floor_y + y_off, "color": col, "path": path_set.has(key)}
     return out
+
+
+func _path_cell_set() -> Dictionary:
+    var out: Dictionary = {}
+    for c in path_cells:
+        if c is Vector2i:
+            out[c] = true
+        elif c is Array and c.size() >= 2:
+            out[Vector2i(int(c[0]), int(c[1]))] = true
+        elif c is Dictionary and c.has("i") and c.has("j"):
+            out[Vector2i(int(c["i"]), int(c["j"]))] = true
+    return out
+
+
+func _effective_path_color() -> Color:
+    # Alpha == 0 sentinel means "no override given — derive". We darken
+    # the floor colour ~25% for a "packed dirt vs. grass" feel without
+    # forcing every level to ship its own colour.
+    if path_color.a <= 0.0:
+        return floor_color.darkened(0.25)
+    return path_color
 
 
 func _grow_border(walking: Dictionary) -> Dictionary:
@@ -141,11 +184,20 @@ func _corner_pos(cells: Dictionary, walking_keys: Dictionary,
     var noise_y: float = _hash_noise(ci, cj) * ground_noise
 
     var walking_at: Array = []
+    var on_path: bool = false
     for di in [-1, 0]:
         for dj in [-1, 0]:
             var k := Vector2i(ci + di, cj + dj)
             if walking_keys.has(k):
                 walking_at.append(cells[k].y)
+                if cells[k].get("path", false):
+                    on_path = true
+    if on_path:
+        # Path corners get NO noise — a packed-dirt corridor reads as
+        # smooth, flattened ground, not the bumpy untracked grass
+        # around it. Doing this only on path-touching corners keeps
+        # the boundary between path and grass visible.
+        noise_y = 0.0
     if not walking_at.is_empty():
         var sy: float = 0.0
         for h in walking_at: sy += h

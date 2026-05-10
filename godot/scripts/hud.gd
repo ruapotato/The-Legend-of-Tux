@@ -18,6 +18,10 @@ extends CanvasLayer
 # Fairy-bottle counter — built in _ready (no .tscn churn) so it sits
 # inside the existing TopRight column with the other counters.
 var bottle_label: Label = null
+# Quest-objective hint label — small "Next: ..." string under the
+# consumable readouts in TopRight. Built procedurally, so adding/
+# moving the row doesn't churn hud.tscn.
+var objective_label: Label = null
 # Shield-tier readout. Hidden until Tux owns the Glim Mirror; on swap
 # it surfaces as a small "Mirror" tag in the TopRight column so the
 # player has a glance-confirmation that the upgrade landed.
@@ -46,6 +50,9 @@ func _ready() -> void:
     death_overlay.visible = false
     _ensure_bottle_label()
     _ensure_shield_label()
+    _ensure_objective_label()
+    _ensure_lock_reticle()
+    _ensure_aim_crosshair()
     _refresh_shield_label()
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
@@ -147,6 +154,58 @@ func _ensure_shield_label() -> void:
     top_right.add_child(shield_label)
 
 
+func _ensure_objective_label() -> void:
+    if objective_label != null:
+        return
+    var top_right := get_node_or_null("TopRight")
+    if top_right == null:
+        return
+    # Defer to objective_hud.gd for all the cascade logic + signal
+    # plumbing — we just instantiate the script-as-Label and parent it
+    # under the existing TopRight column so it sits beneath the
+    # consumable rows. A small top spacer keeps it visually separated
+    # from the ammo readouts.
+    # A small top spacer keeps the objective row visually separated
+    # from the consumable readouts above. TopRight is a VBoxContainer
+    # so a thin Control with custom_minimum_size is the cheap way in.
+    var spacer := Control.new()
+    spacer.name = "ObjectiveSpacer"
+    spacer.custom_minimum_size = Vector2(0, 8)
+    spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    top_right.add_child(spacer)
+    var lbl := Label.new()
+    lbl.name = "ObjectiveLabel"
+    lbl.set_script(load("res://scripts/objective_hud.gd"))
+    lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    top_right.add_child(lbl)
+    objective_label = lbl
+
+
+func _ensure_lock_reticle() -> void:
+    # The Z-targeting reticle paints over the entire HUD layer so it can
+    # follow the target anywhere on screen. Built procedurally instead of
+    # authored in hud.tscn so adding/moving it doesn't churn the scene
+    # file (matches the bottle/shield/objective pattern above).
+    if get_node_or_null("LockReticle") != null:
+        return
+    var reticle := Control.new()
+    reticle.name = "LockReticle"
+    reticle.set_script(load("res://scripts/lock_reticle.gd"))
+    add_child(reticle)
+
+
+func _ensure_aim_crosshair() -> void:
+    # First-person aim crosshair — visible only while the player is in
+    # aim_mode (held AIM with bow/slingshot equipped). Built procedurally
+    # for the same reason as the lock reticle: avoids hud.tscn churn.
+    if get_node_or_null("AimCrosshair") != null:
+        return
+    var crosshair := Control.new()
+    crosshair.name = "AimCrosshair"
+    crosshair.set_script(load("res://scripts/aim_crosshair.gd"))
+    add_child(crosshair)
+
+
 func _refresh_shield_label() -> void:
     _ensure_shield_label()
     if shield_label == null:
@@ -186,7 +245,68 @@ func _on_seeds_changed(current: int, maximum: int) -> void:
         seed_label.visible = true
 
 
+# Quotes shown beneath the death banner — picked at random per death
+# so repeat deaths in the same dungeon don't feel mechanical. All
+# lines are tonally consistent with LORE.md: the Source still moves,
+# Glim is still nearby, kin remember, the realm holds. No grimdark.
+const DEATH_QUOTES: Array[String] = [
+    "The Source has not finished with you.",
+    "Glim hovers, watching.",
+    "The kin will remember.",
+    "Lirien's breath does not rush.",
+    "Walk well — the Wyrdmark waits.",
+]
+
+# Built once on first death. Held as members so we can re-use them on
+# subsequent deaths without rebuilding the node tree (and without
+# duplicating buttons).
+var _death_red_tint: ColorRect = null
+var _death_banner: Label = null
+var _death_quote: Label = null
+var _death_slowmo_active: bool = false
+
+
 func _on_player_died() -> void:
+    _ensure_death_polish_nodes()
+    # 1) Slow-mo. 0.4s of wall time at 0.5x speed. Restored via a
+    #    create_timer with ignore_time_scale=true so the restore fires
+    #    after 0.4s of WALL time (otherwise the scaling pushes it out
+    #    to 0.8s of real time). Don't double-up if a previous death
+    #    sequence is still in flight (defensive — shouldn't normally
+    #    happen since dying disables the player).
+    if not _death_slowmo_active:
+        _death_slowmo_active = true
+        Engine.time_scale = 0.5
+        var t := get_tree().create_timer(0.4, true, false, true)
+        t.timeout.connect(_restore_death_slowmo)
+
+    # 2) Red-tint fade. Tween the alpha from 0 to its target over 0.6s
+    #    of WALL time so the wash lands during the slow-mo and lingers
+    #    after it. set_ignore_time_scale on the tween for the same
+    #    reason as the slow-mo restore timer.
+    _death_red_tint.color = Color(0.55, 0.05, 0.08, 0.0)
+    _death_red_tint.visible = true
+    var rt := create_tween()
+    rt.set_ignore_time_scale(true)
+    rt.tween_property(_death_red_tint, "color:a", 0.50, 0.6)
+
+    # 3) "The realm waits." big text + a randomised quote. Banner +
+    #    quote fade in just behind the red wash.
+    _death_banner.text = "The realm waits."
+    _death_quote.text = DEATH_QUOTES[randi() % DEATH_QUOTES.size()]
+    _death_banner.modulate.a = 0.0
+    _death_quote.modulate.a  = 0.0
+    var bt := create_tween()
+    bt.set_ignore_time_scale(true)
+    bt.tween_interval(0.25)
+    bt.tween_property(_death_banner, "modulate:a", 1.0, 0.5)
+    var qt := create_tween()
+    qt.set_ignore_time_scale(true)
+    qt.tween_interval(0.55)
+    qt.tween_property(_death_quote, "modulate:a", 1.0, 0.5)
+
+    # 4) The original overlay + buttons. Built / shown last so they
+    #    sit in front of the red wash + banner.
     death_overlay.visible = true
     _ensure_death_buttons()
     # Free the mouse so the player can actually click Continue / Quit —
@@ -194,6 +314,77 @@ func _on_player_died() -> void:
     # it for the death overlay before. New scenes recapture in their
     # own _ready when load_game / reload_current_scene fires.
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
+func _restore_death_slowmo() -> void:
+    Engine.time_scale = 1.0
+    _death_slowmo_active = false
+
+
+# Lazy build of the death-polish overlay nodes — a red ColorRect that
+# sits BEHIND the existing DeathOverlay (so the dark scrim still wins
+# the contrast for the buttons) plus two labels above the overlay's
+# default "Tux fell." text. Built once and kept hidden between deaths.
+func _ensure_death_polish_nodes() -> void:
+    if _death_red_tint != null:
+        return
+    # Red wash. Sits BEFORE death_overlay in the CanvasLayer's child
+    # list so it draws underneath the dark scrim — that scrim still
+    # wins the contrast for the Continue/Quit buttons. Anchored full
+    # screen.
+    _death_red_tint = ColorRect.new()
+    _death_red_tint.name = "DeathRedTint"
+    _death_red_tint.color = Color(0.55, 0.05, 0.08, 0.0)
+    _death_red_tint.anchor_right = 1.0
+    _death_red_tint.anchor_bottom = 1.0
+    _death_red_tint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _death_red_tint.visible = false
+    add_child(_death_red_tint)
+    move_child(_death_red_tint, death_overlay.get_index())
+
+    # Big banner — "The realm waits." Centered above the existing
+    # "Tux fell." label so it doesn't fight the buttons for space.
+    _death_banner = Label.new()
+    _death_banner.name = "DeathBanner"
+    _death_banner.anchor_left = 0.5
+    _death_banner.anchor_top = 0.5
+    _death_banner.anchor_right = 0.5
+    _death_banner.anchor_bottom = 0.5
+    _death_banner.offset_left = -260.0
+    _death_banner.offset_top = -120.0
+    _death_banner.offset_right = 260.0
+    _death_banner.offset_bottom = -72.0
+    _death_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    _death_banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    _death_banner.add_theme_font_size_override("font_size", 40)
+    _death_banner.add_theme_color_override("font_color",
+            Color(0.98, 0.93, 0.78, 1.0))
+    _death_banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _death_banner.modulate.a = 0.0
+    _death_banner.text = "The realm waits."
+    death_overlay.add_child(_death_banner)
+
+    # Lore quote — smaller, sits between the banner and the default
+    # "Tux fell." DeathLabel. Tone matches LORE.md.
+    _death_quote = Label.new()
+    _death_quote.name = "DeathQuote"
+    _death_quote.anchor_left = 0.5
+    _death_quote.anchor_top = 0.5
+    _death_quote.anchor_right = 0.5
+    _death_quote.anchor_bottom = 0.5
+    _death_quote.offset_left = -300.0
+    _death_quote.offset_top = -68.0
+    _death_quote.offset_right = 300.0
+    _death_quote.offset_bottom = -36.0
+    _death_quote.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    _death_quote.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    _death_quote.add_theme_font_size_override("font_size", 18)
+    _death_quote.add_theme_color_override("font_color",
+            Color(0.85, 0.80, 0.70, 1.0))
+    _death_quote.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _death_quote.modulate.a = 0.0
+    _death_quote.text = ""
+    death_overlay.add_child(_death_quote)
 
 
 # ---- Fairy-bottle revive sparkle ---------------------------------------
@@ -289,6 +480,11 @@ func _ensure_death_buttons() -> void:
 
 
 func _on_death_continue() -> void:
+    # Defensive — the slow-mo timer normally restores us within 0.4s,
+    # but if the player clicks Continue inside that window we'd carry
+    # the 0.5x scale into the reloaded scene. Snap back to 1.0 first.
+    Engine.time_scale = 1.0
+    _death_slowmo_active = false
     if GameState.last_slot >= 0 and GameState.has_method("load_game"):
         if GameState.load_game(GameState.last_slot):
             return
@@ -296,6 +492,8 @@ func _on_death_continue() -> void:
 
 
 func _on_death_quit() -> void:
+    Engine.time_scale = 1.0
+    _death_slowmo_active = false
     GameState.last_slot = -1
     get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
     death_label.text = "Tux fell.\nPress R to retry."

@@ -65,10 +65,12 @@ func _on_body_entered(body: Node) -> void:
         Kind.KEY:
             GameState.add_key(key_group)
             SoundBank.play_2d("pebble_get")
+            _banner_show("key")
         Kind.ITEM:
             if item_name != "":
                 GameState.acquire_item(item_name)
                 SoundBank.play_2d("sword_charge_ready")
+                _banner_show(item_name)
         Kind.ARROW:
             GameState.add_arrows(arrow_amount)
             SoundBank.play_2d("pebble_get")
@@ -81,3 +83,16 @@ func _on_body_entered(body: Node) -> void:
     if pickup_message != "":
         Dialog.show_message(pickup_message)
     queue_free()
+
+
+# Defer to the PickupBanner autoload if it's registered. The banner
+# script also listens to GameState signals as a fallback so this
+# explicit call is mostly a "first-frame timing guarantee" — and
+# perfectly safe to skip in builds that haven't autoloaded the banner
+# yet (mid-merge, quick tests, etc.).
+func _banner_show(item_id: String) -> void:
+    if item_id == "":
+        return
+    var banner := get_node_or_null("/root/PickupBanner")
+    if banner and banner.has_method("show_item"):
+        banner.show_item(item_id)

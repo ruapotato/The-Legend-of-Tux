@@ -4215,36 +4215,54 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_sigilkeep",
       "pos": [
-        0.0,
+        14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     },
     {
       "id": "from_wake",
       "pos": [
-        0.0,
+        -13.0,
         0.5,
-        15.0
+        0.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 1.5707963267948966
     },
     {
       "id": "from_burrows",
       "pos": [
+        13.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    },
+    {
+      "id": "from_etc_initd",
+      "pos": [
+        -14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_etc_passwd",
+      "pos": [
         0.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
     }
   ],
   "lights": [],
@@ -4312,6 +4330,14 @@
         0.0,
         -12.5
       ]
+    },
+    {
+      "type": "shade_archon",
+      "pos": [
+        -2.0,
+        0,
+        -4.0
+      ]
     }
   ],
   "props": [
@@ -4335,7 +4361,7 @@
       "rotation_y": 3.141592653589793,
       "contents": "glim_sight",
       "requires": "backwater_maw_defeated",
-      "open_message": "The Glim Sight \u2014 a yellow lens cut from listening glass. Hold it up and the hidden things stop hiding."
+      "open_message": "The Glim Sight — a yellow lens cut from listening glass. Hold it up and the hidden things stop hiding."
     },
     {
       "type": "boss_arena",
@@ -4353,6 +4379,88 @@
         0.0,
         0.0
       ]
+    },
+    {
+      "type": "time_gate",
+      "pos": [
+        6.0,
+        0,
+        -6.0
+      ],
+      "rotation_y": 0.0,
+      "time_phase": "night"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4.5,
+        0,
+        -6.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Night-marked."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -6.0,
+        0.0,
+        5.0
+      ],
+      "rotation_y": 0,
+      "name": "Veiled Stone",
+      "body_color": [
+        0.32,
+        0.28,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.45,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Touch the stone",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Veiled Stone",
+            "text": "*A faint hum, like wind through stone…*",
+            "choices": [
+              {
+                "label": "Listen.",
+                "next": "hint_post",
+                "requires": "glim_sight"
+              },
+              {
+                "label": "Listen.",
+                "next": "hint_pre",
+                "requires_not": "glim_sight"
+              },
+              {
+                "label": "(Walk on.)",
+                "next": "bye"
+              }
+            ]
+          },
+          "hint_pre": {
+            "speaker": "Veiled Stone",
+            "text": "What you cannot see is still there. The Lens shows what hides between the lines.",
+            "next": "bye"
+          },
+          "hint_post": {
+            "speaker": "Veiled Stone",
+            "text": "Now you may face the Censor. Walk where ink dares not.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Veiled Stone",
+            "text": "*The hum fades.*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
@@ -4360,7 +4468,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -4374,7 +4482,23 @@
     },
     {
       "pos": [
-        13.0,
+        14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "sigilkeep",
+      "target_spawn": "from_scriptorium",
+      "prompt": "[E] To Sigilkeep"
+    },
+    {
+      "pos": [
+        -15.0,
         1.4,
         0.0
       ],
@@ -4384,29 +4508,13 @@
         4.0
       ],
       "rotation_y": 0.0,
-      "target_scene": "sigilkeep",
-      "target_spawn": "from_scriptorium",
-      "prompt": "[E] To Sigilkeep"
-    },
-    {
-      "pos": [
-        0.0,
-        1.4,
-        13.0
-      ],
-      "size": [
-        4.0,
-        3.0,
-        1.5
-      ],
-      "rotation_y": 0.0,
       "target_scene": "wake",
       "target_spawn": "from_scriptorium",
       "prompt": "[E] To the Wake"
     },
     {
       "pos": [
-        -13.0,
+        15.0,
         1.4,
         0.0
       ],
@@ -4419,6 +4527,38 @@
       "target_scene": "burrows",
       "target_spawn": "from_scriptorium",
       "prompt": "[E] To the Burrows"
+    },
+    {
+      "pos": [
+        -14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "etc_initd",
+      "target_spawn": "from_scriptorium",
+      "prompt": "[E] To the Initiates"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "etc_passwd",
+      "target_spawn": "from_scriptorium",
+      "prompt": "[E] To the Names Hall"
     }
   ]
 }

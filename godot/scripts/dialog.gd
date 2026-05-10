@@ -267,6 +267,46 @@ func _take_choice(ch: Dictionary) -> void:
         var sid := String(ch["learns_song"])
         if sid != "":
             GameState.learn_song(sid)
+    # `opens_shop`: end the conversation and hand off to Shop.open. The
+    # ware list is taken straight from the choice; the speaker is looked
+    # up on the current node (so the shop heading reads "Shop — <NPC>").
+    # Either form is allowed:
+    #   {"opens_shop": ["heart","arrow","bomb"]}            # ids only
+    #   {"opens_shop": [{"label":"Cake","price":99,         # inline
+    #                    "effect":"heart"}]}
+    if ch.has("opens_shop"):
+        var wares: Variant = ch["opens_shop"]
+        if typeof(wares) == TYPE_ARRAY:
+            var nodes_dict: Dictionary = _tree.get("nodes", {})
+            var cur_node: Dictionary = nodes_dict.get(_current_node, {})
+            var speaker: String = String(ch.get("shop_speaker",
+                cur_node.get("speaker", "")))
+            # Drain this conversation before opening the shop so the
+            # dialog box doesn't sit underneath the shop overlay.
+            _next_in_queue()
+            if get_tree().root.has_node("Shop"):
+                Shop.open(speaker, wares as Array)
+        return
+    # `opens_minigame`: drain the conversation, then dispatch into the
+    # named minigame autoload. Currently the only supported value is
+    # "target_practice" (the Old Plays Sharpshooter range). The optional
+    # `minigame_radius` choice field overrides the default ring size;
+    # the start position falls back to the player position via the
+    # `player` group lookup so the targets ring around the shooter.
+    if ch.has("opens_minigame"):
+        var game: String = String(ch["opens_minigame"])
+        var radius: float = float(ch.get("minigame_radius", 12.0))
+        _next_in_queue()
+        if game == "target_practice":
+            if get_tree().root.has_node("TargetPractice"):
+                var origin: Vector3 = Vector3.ZERO
+                var p: Node = get_tree().get_first_node_in_group("player")
+                if p is Node3D:
+                    origin = (p as Node3D).global_position
+                TargetPractice.start(origin, radius)
+        else:
+            push_warning("dialog: unknown opens_minigame value '%s'" % game)
+        return
     var nxt := String(ch.get("next", ""))
     if nxt == "":
         _next_in_queue()

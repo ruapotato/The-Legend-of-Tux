@@ -695,7 +695,7 @@
       "pos": [
         0.0,
         0.5,
-        5.0
+        -3.0
       ],
       "rotation_y": 3.141592653589793
     }
@@ -970,6 +970,17 @@
             "text": "STEP RIGHT UP! step right up... step... ...you came. Nobody comes any more. ...Step right up.",
             "choices": [
               {
+                "label": "Try the Sharpshooter (5 pebbles).",
+                "requires": "bow",
+                "opens_minigame": "target_practice",
+                "minigame_radius": 12.0
+              },
+              {
+                "label": "What's the Sharpshooter?",
+                "next": "what_game",
+                "requires_not": "bow"
+              },
+              {
                 "label": "What was this place?",
                 "next": "place"
               },
@@ -980,6 +991,16 @@
               {
                 "label": "Walk well.",
                 "next": "bye"
+              }
+            ]
+          },
+          "what_game": {
+            "speaker": "Carnival Barker",
+            "text": "Painted boards on a line. You shoot them. You used to shoot them. The boards are still there. The bows... the bows have walked off, walker. Find one and step right back up.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
               }
             ]
           },
@@ -1193,7 +1214,7 @@
       "pos": [
         0.0,
         1.4,
-        -4.0
+        -5.0
       ],
       "size": [
         4.0,

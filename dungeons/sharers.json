@@ -4215,18 +4215,27 @@
       "pos": [
         0.0,
         0.5,
-        15.0
+        -13.0
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_old_plays",
       "pos": [
-        0.0,
+        -14.0,
         0.5,
-        15.0
+        13.0
       ],
-      "rotation_y": 3.141592653589793
+      "rotation_y": 0.0
+    },
+    {
+      "id": "from_usr_share_man",
+      "pos": [
+        14.0,
+        0.5,
+        13.0
+      ],
+      "rotation_y": 0.0
     }
   ],
   "lights": [
@@ -5038,7 +5047,7 @@
       "pos": [
         0.0,
         1.4,
-        -13.0
+        -15.0
       ],
       "size": [
         4.0,
@@ -5052,9 +5061,9 @@
     },
     {
       "pos": [
-        0.0,
+        -14.0,
         1.4,
-        13.0
+        15.0
       ],
       "size": [
         4.0,
@@ -5065,6 +5074,22 @@
       "target_scene": "old_plays",
       "target_spawn": "from_sharers",
       "prompt": "[E] To the Old Plays"
+    },
+    {
+      "pos": [
+        14.0,
+        1.4,
+        15.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "usr_share_man",
+      "target_spawn": "from_sharers",
+      "prompt": "[E] Into the Manuscripts"
     }
   ]
 }

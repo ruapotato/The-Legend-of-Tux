@@ -1,0 +1,535 @@
+{
+  "name": "The Toolshed",
+  "id": "bin",
+  "key_group": "bin",
+  "music_track": "hearthold",
+  "fs_path": "/bin",
+  "environment": {
+    "sky_top": [
+      0.3,
+      0.28,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.55,
+      0.45,
+      0.35,
+      1
+    ],
+    "ground_horizon": [
+      0.42,
+      0.34,
+      0.28,
+      1
+    ],
+    "ground_bottom": [
+      0.16,
+      0.14,
+      0.12,
+      1
+    ],
+    "ambient_color": [
+      0.78,
+      0.68,
+      0.55,
+      1
+    ],
+    "ambient_energy": 0.45,
+    "fog_density": 0.002,
+    "fog_color": [
+      0.5,
+      0.42,
+      0.34,
+      1
+    ],
+    "sun_dir": [
+      -0.4,
+      -0.6,
+      -0.4
+    ],
+    "sun_color": [
+      1.0,
+      0.82,
+      0.55,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.32,
+          0.26,
+          0.2,
+          1
+        ],
+        "floor_color": [
+          0.45,
+          0.36,
+          0.28,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_crown",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE TOOLSHED\n\nA wall of twenty-seven tools. Each handle smoothed by hands that worked. Hammers, chisels, looms, kettles, knives, files, awls, rasps, gimlets, planes, mallets, drawknives, augers, gouges, burins, scribes, dividers, calipers, shears, snips, tongs, pincers, pliers, prybars, pickers, pokers, prods.\n\nTwenty-seven things that work."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 1.5707963267948966,
+      "message": "Tool wall, west run.\n\nWorn handles. Bright edges. Each hung in its own peg. The Wyrdkin who set this wall said: 'A tool that lives on a peg is a tool that knows where to go home.'"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        3.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": -1.5707963267948966,
+      "message": "Tool wall, east run.\n\nThe smaller things — awls, scribes, gimlets. The kind of tool you reach for when you've already tried the bigger one and a quieter answer is needed."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.5,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 0.6,
+      "name": "Old Toolwright Marn",
+      "body_color": [
+        0.55,
+        0.42,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.4,
+        0.32,
+        0.22,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the toolwright",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Toolwright Marn",
+            "text": "Well met, walker. Mind the floor — there's a chisel somewhere I haven't found yet.\n\nYou after a tool, or after a story?",
+            "choices": [
+              {"label": "A story.", "next": "story"},
+              {"label": "Tell me of these tools.", "next": "tools"},
+              {"label": "What's the apprentice arguing about?", "next": "appr"}
+            ]
+          },
+          "tools": {
+            "speaker": "Old Toolwright Marn",
+            "text": "Twenty-seven on the wall. Each one shaped for a thing the realm needs every day.\n\nA hammer is a hammer. A scribe is a scribe. There's no nobler tool than the one you can name without thinking.",
+            "choices": [
+              {"label": "And the unnamed ones?", "next": "unnamed"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "unnamed": {
+            "speaker": "Old Toolwright Marn",
+            "text": "Then it's not a tool yet. It's a thing that happens to be in your hand.\n\nBy the Source — name it and it'll start working.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "appr": {
+            "speaker": "Old Toolwright Marn",
+            "text": "Pell thinks the third hammer from the left is the canonical one. I think it's the seventh. We've been at this since spring.\n\nThe truth is they're both right. There's no canonical hammer. But don't tell Pell.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "story": {
+            "speaker": "Old Toolwright Marn",
+            "text": "My grandmother strung this wall. She said the Wyrdmark would never be lost so long as someone could pick a tool off it and remember what to do.\n\nSo far, so good.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Old Toolwright Marn",
+            "text": "Walk well. And mind the chisel."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.5,
+        0.0,
+        1.0
+      ],
+      "rotation_y": -0.6,
+      "name": "Apprentice Pell",
+      "body_color": [
+        0.78,
+        0.65,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.5,
+        0.4,
+        0.28,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the apprentice",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Apprentice Pell",
+            "text": "You! Settle this. Third hammer from the left, or seventh? Marn says seventh. Marn is wrong.",
+            "choices": [
+              {"label": "Third.", "next": "third"},
+              {"label": "Seventh.", "next": "seventh"},
+              {"label": "They're both fine.", "next": "fine"}
+            ]
+          },
+          "third": {
+            "speaker": "Apprentice Pell",
+            "text": "Thank you. Finally. A walker with eyes.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "seventh": {
+            "speaker": "Apprentice Pell",
+            "text": "Hmph. Marn's got to you.\n\nLook again next time, all right? Third. It's third.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "fine": {
+            "speaker": "Apprentice Pell",
+            "text": "Don't say that. Don't ever say that here.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Apprentice Pell",
+            "text": "Walk well. Don't trust Marn on hammers."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "crown",
+      "target_spawn": "from_bin",
+      "prompt": "[E] Up to the Crown"
+    }
+  ]
+}

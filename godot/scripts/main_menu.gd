@@ -160,7 +160,12 @@ func _on_new(slot: int) -> void:
     if f != null:
         f.store_string(JSON.stringify(data, "  "))
         f.close()
-    get_tree().change_scene_to_file("res://scenes/%s.tscn" % START_SCENE_ID)
+    # New-game only: route through the opening cutscene. The intro scene
+    # reads `show_intro`, plays its storyboard, then hops to the start
+    # scene. Loaded saves bypass this entirely (they go through
+    # _on_load → GameState.load_game → change_scene_to_file).
+    GameState.show_intro = true
+    get_tree().change_scene_to_file("res://scenes/intro.tscn")
 
 
 func _on_load(slot: int) -> void:

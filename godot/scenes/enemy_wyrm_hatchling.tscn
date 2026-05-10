@@ -1,0 +1,109 @@
+[gd_scene load_steps=12 format=3 uid="uid://btuxmbwymh01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_wyrm_hatchling.gd" id="1_wyh"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.40
+height = 0.85
+
+[sub_resource type="SphereMesh" id="body_mesh"]
+radius = 0.45
+height = 0.80
+radial_segments = 12
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="scale_mat"]
+albedo_color = Color(0.18, 0.32, 0.20, 1)
+roughness = 0.55
+metallic = 0.10
+
+[sub_resource type="SphereMesh" id="snout_mesh"]
+radius = 0.22
+height = 0.42
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="belly_mat"]
+albedo_color = Color(0.42, 0.55, 0.30, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="wing_mesh"]
+size = Vector3(0.55, 0.04, 0.30)
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.06
+height = 0.12
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="eye_mat"]
+albedo_color = Color(1.0, 0.85, 0.20, 1)
+emission_enabled = true
+emission = Color(1.0, 0.75, 0.15, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.9, 0.9, 1.1)
+
+[sub_resource type="BoxShape3D" id="contact_shape"]
+size = Vector3(1.0, 0.9, 1.2)
+
+[node name="EnemyWyrmHatchling" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_wyh")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("scale_mat")
+
+[node name="Snout" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.45)
+mesh = SubResource("snout_mesh")
+surface_material_override/0 = SubResource("belly_mat")
+
+[node name="WingL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.94, 0, 0.34, 0, 1, 0, -0.34, 0, 0.94, -0.50, 0.20, 0.10)
+mesh = SubResource("wing_mesh")
+surface_material_override/0 = SubResource("scale_mat")
+
+[node name="WingR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.94, 0, -0.34, 0, 1, 0, 0.34, 0, 0.94, 0.50, 0.20, 0.10)
+mesh = SubResource("wing_mesh")
+surface_material_override/0 = SubResource("scale_mat")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 0.16, -0.36)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.16, -0.36)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("contact_shape")

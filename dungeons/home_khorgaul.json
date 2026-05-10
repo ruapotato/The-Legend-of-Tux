@@ -1,0 +1,470 @@
+{
+  "name": "The Khorgaul Roost",
+  "id": "home_khorgaul",
+  "key_group": "home_khorgaul",
+  "music_track": "burnt_hollow",
+  "fs_path": "/home/khorgaul",
+  "environment": {
+    "sky_top": [
+      0.2,
+      0.14,
+      0.16,
+      1
+    ],
+    "sky_horizon": [
+      0.42,
+      0.22,
+      0.18,
+      1
+    ],
+    "ground_horizon": [
+      0.28,
+      0.18,
+      0.14,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.06,
+      0.05,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.4,
+      0.36,
+      1
+    ],
+    "ambient_energy": 0.4,
+    "fog_density": 0.005,
+    "fog_color": [
+      0.3,
+      0.2,
+      0.18,
+      1
+    ],
+    "sun_dir": [
+      -0.5,
+      -0.6,
+      -0.4
+    ],
+    "sun_color": [
+      0.95,
+      0.55,
+      0.35,
+      1
+    ],
+    "sun_energy": 0.85
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.16,
+          0.12,
+          0.1,
+          1
+        ],
+        "floor_color": [
+          0.25,
+          0.18,
+          0.14,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_burrows",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE KHORGAUL ROOST\n\nA burned-out hilltop hold. Charred furniture. Wind through broken stone. Some things are still warm to the touch — though no fire has been laid here for years.\n\nThe Drawing-In started somewhere. It might have started here."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Scorched stone marker:\n\n'The Roost burned in a season nobody wrote down. The wind takes the ash a little further every year. By the time you read this it may already be gone.'"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Charred floorboards. A handful of black feathers in a corner. The smell is faint but familiar — old smoke, and something underneath it that doesn't have a clean name."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "Cultist Drev",
+      "body_color": [
+        0.32,
+        0.28,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.42,
+        0.32,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the cultist",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Cultist Drev",
+            "text": "*he is sweeping ash, slowly. The broom is older than he is. He looks up with the friendliness of a man who has not had visitors in a long while.*\n\nWelcome, friend. Welcome to the Roost. The Master is away on long business — but he'll be back, oh yes. He'll be back any day now.",
+            "choices": [
+              {"label": "How long ago did the Roost burn?", "next": "burn"},
+              {"label": "When did you last see your master?", "next": "last"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "burn": {
+            "speaker": "Cultist Drev",
+            "text": "Burn? *he looks confused.*\n\nThere was — there was a season of bad lightning, perhaps. The roof needs work. The Master will see to it when he returns.\n\n*the wind moves a piece of burnt cloth across the floor. He doesn't seem to notice it.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "last": {
+            "speaker": "Cultist Drev",
+            "text": "Last? Oh, not long. Not long at all. I keep his rooms in order. He'll be back in the next breath, or the breath after, or the one after that.\n\nWalker — would you like a cup of something? I have... I had... let me see what we have.\n\n*he doesn't move.*",
+            "choices": [
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "bye": {
+            "speaker": "Cultist Drev",
+            "text": "Walk well. Tell the Master, if you see him on the road, that the Roost is kept. The Roost is kept."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "burrows",
+      "target_spawn": "from_home_khorgaul",
+      "prompt": "[E] Back to the Burrows"
+    }
+  ]
+}

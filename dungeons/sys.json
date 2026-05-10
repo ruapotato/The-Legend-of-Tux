@@ -1,0 +1,484 @@
+{
+  "name": "The Heartworks",
+  "id": "sys",
+  "key_group": "sys",
+  "music_track": "crown",
+  "fs_path": "/sys",
+  "environment": {
+    "sky_top": [
+      0.1,
+      0.18,
+      0.3,
+      1
+    ],
+    "sky_horizon": [
+      0.3,
+      0.45,
+      0.65,
+      1
+    ],
+    "ground_horizon": [
+      0.2,
+      0.3,
+      0.42,
+      1
+    ],
+    "ground_bottom": [
+      0.08,
+      0.1,
+      0.16,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.72,
+      0.92,
+      1
+    ],
+    "ambient_energy": 0.55,
+    "fog_density": 0.0035,
+    "fog_color": [
+      0.3,
+      0.45,
+      0.65,
+      1
+    ],
+    "sun_dir": [
+      -0.3,
+      -0.7,
+      -0.4
+    ],
+    "sun_color": [
+      0.62,
+      0.85,
+      1.0,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "grid": {
+    "cell_size": 1.0,
+    "floors": [
+      {
+        "y": 0.0,
+        "name": "ground",
+        "cells": [
+          [
+            -4,
+            -4
+          ],
+          [
+            -4,
+            -3
+          ],
+          [
+            -4,
+            -2
+          ],
+          [
+            -4,
+            -1
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -4,
+            1
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            3
+          ],
+          [
+            -3,
+            -4
+          ],
+          [
+            -3,
+            -3
+          ],
+          [
+            -3,
+            -2
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            1
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            3
+          ],
+          [
+            -2,
+            -4
+          ],
+          [
+            -2,
+            -3
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            -2,
+            -1
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            1
+          ],
+          [
+            -2,
+            2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -1,
+            -4
+          ],
+          [
+            -1,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            -4
+          ],
+          [
+            0,
+            -3
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            -4
+          ],
+          [
+            1,
+            -3
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            -4
+          ],
+          [
+            2,
+            -3
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            -4
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "wall_height": 4.0,
+        "wall_color": [
+          0.14,
+          0.2,
+          0.3,
+          1
+        ],
+        "floor_color": [
+          0.2,
+          0.3,
+          0.42,
+          1
+        ],
+        "wall_material": "stone",
+        "has_floor": true,
+        "has_walls": true,
+        "has_roof": false
+      }
+    ]
+  },
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0.0,
+        0.5,
+        -1.5
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_crown",
+      "pos": [
+        0.0,
+        0.5,
+        -1.0
+      ],
+      "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_proc_init",
+      "pos": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "rotation_y": -1.5707963267948966
+    }
+  ],
+  "lights": [],
+  "enemies": [],
+  "props": [
+    {
+      "type": "sign",
+      "pos": [
+        -2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "THE HEARTWORKS\n\nA glassed-in observatory beneath the Murk. The Source can be seen here in slow, steady pulses — each one a heartbeat of the realm.\n\nWatch for as long as you like. It will not stop while you watch."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.5,
+        0.0,
+        2.5
+      ],
+      "rotation_y": 3.141592653589793,
+      "message": "Faded notice on the inner wall:\n\n'Each pulse is a kept promise. No promise is kept silently — there is always a song in it. The reader who counts pulses also hums.'\n\n— Thallin, Heart-Reader, two ages ago."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": 3.141592653589793,
+      "name": "Heart-Reader Velis",
+      "body_color": [
+        0.45,
+        0.55,
+        0.78,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.85,
+        0.95,
+        1.0
+      ],
+      "idle_hint": "[E] Speak softly with the Heart-Reader",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Heart-Reader Velis",
+            "text": "*she has one hand on the glass and her eyes half-closed.*\n\nQuiet, walker. I am counting.\n\n...there. Two thousand and fourteen since dawn. The realm is well today.",
+            "choices": [
+              {"label": "What are you counting?", "next": "count"},
+              {"label": "Have you a hint for me?", "next": "hint"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "count": {
+            "speaker": "Heart-Reader Velis",
+            "text": "Heartbeats. The realm has them. Each one is the Source breathing in and out. Each one is a small kept promise.\n\nWhen the count slows, somewhere a shrine is dimming. When the count steadies, somewhere a walker has done something kind.",
+            "choices": [
+              {"label": "Have you a hint for me?", "next": "hint"},
+              {"label": "Walk well.", "next": "bye"}
+            ]
+          },
+          "hint": {
+            "speaker": "Heart-Reader Velis",
+            "text": "*she turns from the glass, finally.*\n\nThe pulses make a song-glyph if you stand here long enough. Three high beats, one low, three high again. The realm hums it to itself.\n\nIf you ever learn to hum back, walker — the right doors might open for you.",
+            "choices": [{"label": "Walk well.", "next": "bye"}]
+          },
+          "bye": {
+            "speaker": "Heart-Reader Velis",
+            "text": "Walk well. Step quietly through the next door. The pulses notice."
+          }
+        }
+      }
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -3.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "crown",
+      "target_spawn": "from_sys",
+      "prompt": "[E] Up to the Crown"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        0.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "proc_init",
+      "target_spawn": "from_sys",
+      "prompt": "[E] Through to the First Process"
+    }
+  ]
+}

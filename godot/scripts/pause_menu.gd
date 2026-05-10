@@ -381,13 +381,36 @@ func _make_item_tile(name: String, owned: bool, equipped: bool,
     box.add_child(inner)
     _item_tiles[name] = border
 
+    # Procedural silhouette icon. ItemIcon draws a recognisable shape
+    # per item id; the tile reserves the upper ~70% for the icon and
+    # lets the label sit beneath it. Locked / unowned items render the
+    # same silhouette dimmed so the player can preview what's coming.
+    var icon := Control.new()
+    icon.set_script(load("res://scripts/item_icon.gd"))
+    icon.set("item_id", name)
+    icon.set("dim", 1.0 if owned else 0.35)
+    icon.anchor_left = 0.0
+    icon.anchor_right = 1.0
+    icon.anchor_top = 0.0
+    icon.anchor_bottom = 1.0
+    icon.offset_left = 12.0
+    icon.offset_right = -12.0
+    icon.offset_top = 8.0
+    icon.offset_bottom = -28.0
+    icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    box.add_child(icon)
+
     var label := Label.new()
     label.text = name.capitalize()
+    label.anchor_left = 0.0
     label.anchor_right = 1.0
+    label.anchor_top = 1.0
     label.anchor_bottom = 1.0
+    label.offset_top = -24.0
+    label.offset_bottom = -2.0
     label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    label.add_theme_font_size_override("font_size", 14)
+    label.add_theme_font_size_override("font_size", 12)
     if owned:
         label.add_theme_color_override("font_color", LABEL_COLOR)
     else:
