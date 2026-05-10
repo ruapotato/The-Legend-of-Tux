@@ -48,7 +48,13 @@ const KNOWN_ITEMS: Array[String] = [
 # no-op for these — they live in the grid for visibility, not equip.
 const PASSIVE_ITEMS: Array[String] = ["anchor_boots", "glim_mirror"]
 
-const EQUIPMENT_SLOTS: Array[String] = ["sword", "shield", "boomerang"]
+# Permanent equipment slots — Tux starts with all of these. Shown in
+# the Items tab "Equipment" section. Boomerang is NOT here — it's a
+# B-button selectable item from KNOWN_ITEMS, displayed in the equippable
+# grid above. (Earlier it was double-listed and showed "locked" until
+# the player picked up the actual boomerang pickup.)
+const EQUIPMENT_SLOTS: Array[String] = ["sword", "shield"]
+const STARTING_EQUIPMENT: Array[String] = ["sword", "shield"]
 
 var _root: Control
 var _backdrop: ColorRect
@@ -480,7 +486,7 @@ func _build_equipment_tab() -> void:
         name_label.custom_minimum_size = Vector2(180, 0)
         name_label.add_theme_font_size_override("font_size", 18)
         var status_label := Label.new()
-        var owned: bool = (slot == "sword") or GameState.has_item(slot)
+        var owned: bool = STARTING_EQUIPMENT.has(slot) or GameState.has_item(slot)
         if owned:
             status_label.text = "acquired"
             name_label.add_theme_color_override("font_color", LABEL_COLOR)

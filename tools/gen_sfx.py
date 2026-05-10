@@ -386,6 +386,82 @@ def sfx_blob_die():
     return mix(splat, drop)
 
 
+# ---- Whistle / song SFX -------------------------------------------------
+#
+# Each glyph in the song picker plays a distinct whistle pitch — the
+# user "whistles" rather than hums. Pentatonic D-major (D5/E5/F#5/A5/B5)
+# arranged so directional glyphs map to musical interval: down=lowest,
+# up=highest, left/right=middle, diamond=center pitch. A 5-note song
+# strung together sounds melodic by accident (no minor seconds).
+
+def _whistle(freq, dur=0.32):
+    """A short clean whistle tone — sine + 2nd harmonic + soft breath."""
+    base = sine(freq, dur, 0.55)
+    harm = sine(freq * 2.0, dur, 0.10)
+    body = mix(base, harm)
+    # Breath layer — narrow-band noise at the fundamental gives the
+    # "blown air" feel without hiss. Quieter than the tone.
+    breath = bandpass(noise(dur, 0.18), freq, width=200)
+    out = mix(body, breath)
+    # ADSR-ish envelope: 30 ms attack, sustain at 1.0, 80 ms release.
+    N = len(out)
+    env = [1.0] * N
+    a = n_samples(0.030)
+    r = n_samples(0.080)
+    for i in range(min(a, N)):
+        env[i] = i / max(a - 1, 1)
+    for i in range(min(r, N)):
+        idx = N - 1 - i
+        env[idx] = min(env[idx], i / max(r - 1, 1))
+    out = apply_env(out, env)
+    return normalize(fade_edges(out, ms=4), target=0.7)
+
+
+def sfx_song_glyph_down():    return _whistle(587.33)   # D5  — lowest
+def sfx_song_glyph_left():    return _whistle(659.25)   # E5
+def sfx_song_glyph_center():  return _whistle(739.99)   # F#5 — diamond
+def sfx_song_glyph_right():   return _whistle(880.00)   # A5
+def sfx_song_glyph_up():      return _whistle(987.77)   # B5  — highest
+
+
+def sfx_song_learned():
+    # Triumphant ascending arpeggio: D5 → F#5 → A5 → D6, each ~0.18 s,
+    # overlapping the tail of the previous note for a connected feel.
+    notes = [(587.33, 0.16), (739.99, 0.16), (880.00, 0.16), (1174.66, 0.45)]
+    out = [0.0] * n_samples(1.10)
+    cursor = 0
+    for f, d in notes:
+        tone = mix(sine(f, d, 0.55), sine(f * 2, d, 0.12))
+        breath = bandpass(noise(d, 0.10), f, width=180)
+        seg = mix(tone, breath)
+        N = len(seg)
+        env = [1.0] * N
+        a = n_samples(0.020)
+        r = n_samples(0.060)
+        for i in range(min(a, N)):
+            env[i] = i / max(a - 1, 1)
+        for i in range(min(r, N)):
+            idx = N - 1 - i
+            env[idx] = min(env[idx], i / max(r - 1, 1))
+        seg = apply_env(seg, env)
+        for i, s in enumerate(seg):
+            j = cursor + i
+            if j >= len(out):
+                break
+            out[j] += s
+        cursor += n_samples(d * 0.65)   # overlap the next note
+    return normalize(fade_edges(out, ms=10), target=0.85)
+
+
+def sfx_song_play():
+    # Gentle two-note confirmation when re-playing a known song:
+    # F#5 → A5, brief and unintrusive.
+    a = _whistle(739.99, dur=0.20)
+    b = _whistle(880.00, dur=0.30)
+    out = list(a) + list(b)
+    return normalize(fade_edges(out, ms=5), target=0.65)
+
+
 # ---- Driver -------------------------------------------------------------
 
 RECIPES = {
@@ -407,6 +483,13 @@ RECIPES = {
     "blob_alert":          sfx_blob_alert,
     "blob_attack":          sfx_blob_attack,
     "blob_die":            sfx_blob_die,
+    "song_glyph_up":       sfx_song_glyph_up,
+    "song_glyph_down":     sfx_song_glyph_down,
+    "song_glyph_left":     sfx_song_glyph_left,
+    "song_glyph_right":    sfx_song_glyph_right,
+    "song_glyph_center":   sfx_song_glyph_center,
+    "song_learned":        sfx_song_learned,
+    "song_play":           sfx_song_play,
 }
 
 

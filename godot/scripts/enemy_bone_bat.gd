@@ -36,6 +36,11 @@ var player: Node3D = null
 var swoop_target: Vector3 = Vector3.ZERO
 var perch_y: float = 2.8
 var _last_swoop_start: float = -100.0   # used by HOVER cooldown gate
+# After RECOVER, the bat WAS sitting directly above the player (it
+# dove to the player and rose straight up). Pick a random retreat
+# vector during RECOVER so it backs off horizontally before re-perching.
+var _retreat_dir: Vector3 = Vector3.ZERO
+const RETREAT_DISTANCE: float = 4.5     # how far to back off before perching
 
 @onready var visual: Node3D = $Visual
 @onready var wing_l: Node3D = $Visual/WingL
@@ -129,17 +134,41 @@ func _do_swoop(_delta: float, dist: float) -> void:
         velocity = n * SWOOP_SPEED
         rotation.y = atan2(-n.x, -n.z)
     if state_time > SWOOP_DURATION or dist < SWOOP_END_DIST:
+        # Pick a horizontal retreat vector before climbing — random angle
+        # biased away from the player so the bat doesn't perch directly
+        # overhead where the sword can't reach it.
+        var away: Vector3 = Vector3.ZERO
+        if player and is_instance_valid(player):
+            away = global_position - player.global_position
+            away.y = 0
+        if away.length_squared() < 0.01:
+            # Bat is essentially on top of the player — pick a random direction.
+            var ang: float = randf() * TAU
+            away = Vector3(cos(ang), 0, sin(ang))
+        # Add ±60° jitter so multiple bats don't all retreat to the same arc.
+        var jitter: float = (randf() - 0.5) * (PI / 1.5)
+        var n: Vector3 = away.normalized()
+        var c: float = cos(jitter); var s: float = sin(jitter)
+        _retreat_dir = Vector3(n.x * c - n.z * s, 0, n.x * s + n.z * c)
         _set_state(State.RECOVER)
 
 
 func _do_recover(_delta: float) -> void:
     attack_hitbox.set_deferred("monitoring", false)
-    var rise: Vector3 = Vector3(global_position.x, perch_y, global_position.z) - global_position
-    if rise.length_squared() > 0.01:
-        velocity = rise.normalized() * RECOVER_SPEED
-    else:
-        velocity = Vector3.ZERO
-    if abs(global_position.y - perch_y) < 0.3:
+    # Combine horizontal retreat with vertical rise so the bat backs off
+    # AND climbs at the same time — visually a swoop-and-pull-up arc.
+    var rise: float = perch_y - global_position.y
+    var horiz: Vector3 = _retreat_dir * RECOVER_SPEED
+    velocity.x = horiz.x
+    velocity.z = horiz.z
+    velocity.y = clamp(rise * 4.0, -RECOVER_SPEED, RECOVER_SPEED)
+    if visual:
+        visual.rotation.y = atan2(-_retreat_dir.x, -_retreat_dir.z)
+    # Stay in RECOVER until both axes settle (prevents a brief HOVER frame
+    # where the bat would re-detect and immediately re-dive).
+    var horiz_settled: bool = state_time > 0.7
+    var vert_settled: bool = abs(global_position.y - perch_y) < 0.3
+    if horiz_settled and vert_settled:
         _set_state(State.HOVER)
 
 

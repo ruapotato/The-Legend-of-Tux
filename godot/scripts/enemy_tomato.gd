@@ -32,6 +32,11 @@ signal died
 
 @export var max_hp: int = 12
 @export var aggro_range: float = 14.0
+# Beyond this, the tomato sits perfectly still — no rotor spin, no
+# orbit, no aggro check. Generous over the aggro_range so you don't
+# see them pop into life as you approach. Matters most on sourceplain
+# where 60+ tomatoes are scattered across a 200m map.
+const SLEEP_RANGE: float = 32.0
 @export var charge_speed: float = 6.0
 @export var ram_speed: float = 9.0
 @export var contact_damage: int = 2
@@ -133,6 +138,14 @@ func _physics_process(delta: float) -> void:
         to_player = player.global_position - global_position
         to_player.y = 0.0
         dist = to_player.length()
+
+    # Sleep if the player is far away. Sourceplain has 60+ tomatoes
+    # spread across a 200m map; without this, every one of them is
+    # spinning blades and orbiting empty air. SLEEP_RANGE is generous
+    # enough that you won't see a tomato pop into life as you approach.
+    if dist > SLEEP_RANGE:
+        velocity = Vector3.ZERO
+        return
 
     # Always spin the rotor crown on its Y axis at the current spin
     # speed; blades rotate at their own (always faster) rate so they

@@ -54,11 +54,43 @@ func _ready() -> void:
     _trigger = get_node_or_null("Trigger")
     if _trigger:
         _trigger.body_entered.connect(_on_player_entered)
+        _trigger.body_exited.connect(_on_player_exited)
     else:
         # If the .tscn didn't author the trigger, build one defensively.
         _trigger = _build_trigger()
         add_child(_trigger)
         _trigger.body_entered.connect(_on_player_entered)
+        _trigger.body_exited.connect(_on_player_exited)
+
+
+# If the player spawned INSIDE the trigger (cramped dungeons where the
+# entry spawn lands within the boss arena radius), body_entered fires
+# the moment physics catches up — and the boss fight starts before the
+# player can look around. Track whether the player has been outside the
+# trigger at least once; only after they have can a re-entry arm the
+# fight. Player spawning outside → flips true on first _process tick;
+# spawning inside → stays false until they walk out (body_exited).
+var _ever_outside: bool = false
+
+
+func _on_player_exited(body: Node) -> void:
+    if not body.is_in_group("player"):
+        return
+    _ever_outside = true
+
+
+func _physics_process(_delta: float) -> void:
+    # Run for ONE frame after _ready. If the player is NOT inside the
+    # trigger (the common case — they entered the dungeon at a spawn
+    # away from the arena), flip _ever_outside true so the next
+    # body_entered actually starts the fight. If the player IS inside,
+    # leave _ever_outside false; body_exited will flip it later.
+    if _trigger and is_instance_valid(_trigger):
+        var ps := get_tree().get_nodes_in_group("player")
+        if not ps.is_empty():
+            if not _trigger.overlaps_body(ps[0]):
+                _ever_outside = true
+    set_physics_process(false)
 
 
 # Construct a cylinder Area3D detector centered on this node.
@@ -82,6 +114,9 @@ func _on_player_entered(body: Node) -> void:
     if state != State.IDLE:
         return
     if not body.is_in_group("player"):
+        return
+    if not _ever_outside:
+        # Player was inside on spawn — wait for them to walk out first.
         return
     if boss_scene == null:
         push_warning("BossArena[%s]: boss_scene not set; aborting" % boss_name)

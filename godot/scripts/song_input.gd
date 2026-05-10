@@ -233,11 +233,11 @@ func _push_glyph(glyph: String) -> void:
     if idx < _slots.size():
         _slots[idx].color = SLOT_FILLED
         _slot_labels[idx].text = String(SongBook.GLYPH_GLYPH.get(glyph, "?"))
-    # Per-glyph blip — cycles through the 4 numbered glyph SFX so a
-    # 5-note song doesn't sound monotone. If the WAV is missing,
-    # SoundBank silently no-ops.
-    var blip_idx: int = (idx % 4) + 1
-    SoundBank.play_2d("song_glyph_%d" % blip_idx)
+    # Per-glyph whistle pitch — each direction maps to a fixed pitch
+    # (pentatonic D-major) so the same glyph always sounds the same and
+    # a 5-note song reads as a melody. The WAVs are synthesised by
+    # tools/gen_sfx.py.
+    SoundBank.play_2d("song_glyph_%s" % glyph)
     if _sequence.size() >= SongBook.SONG_LENGTH:
         # Slight defer so the final glyph visibly snaps in before the
         # match flash overwrites the panel.
