@@ -189,6 +189,45 @@ func _draw() -> void:
         # right direction (verified against the four cardinals).
         _draw_player_triangle(Vector2(px, py), _player.rotation.y)
     draw_rect(rect, BORDER_COLOR, false, 2.0)
+    # Scene-name banner across the top of the widget so the player can
+    # tell at a glance which region the map is showing — useful when
+    # warping or coming through load zones.
+    var scene_name := _scene_display_name()
+    if scene_name != "":
+        var font := get_theme_default_font()
+        var font_size: int = 12
+        var text_size := font.get_string_size(scene_name,
+            HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)
+        var pad := Vector2(8, 4)
+        var banner := Rect2(
+            Vector2((size.x - text_size.x - pad.x * 2) * 0.5, 2),
+            text_size + pad * 2)
+        draw_rect(banner, Color(0, 0, 0, 0.55))
+        draw_string(font,
+            banner.position + Vector2(pad.x, pad.y + font_size - 2),
+            scene_name, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size,
+            Color(1.0, 0.92, 0.65, 1.0))
+
+
+func _scene_display_name() -> String:
+    var root: Node = get_tree().current_scene
+    if root == null:
+        return ""
+    # Prefer the friendly Name3D the build script puts on the dungeon
+    # root (matches level JSON's "name" field). Falls back to the file
+    # basename otherwise.
+    var n: String = String(root.name)
+    var base := n
+    # If the root's name was a generic "Scene" or path-y, fall back to
+    # the file basename.
+    if base == "" or base == "Scene":
+        var p: String = root.scene_file_path
+        if p.begins_with("res://scenes/"):
+            p = p.substr("res://scenes/".length())
+        if p.ends_with(".tscn"):
+            p = p.substr(0, p.length() - ".tscn".length())
+        base = p
+    return base.replace("_", " ").capitalize()
 
 
 func _draw_player_triangle(at: Vector2, yaw: float) -> void:

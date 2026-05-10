@@ -89,9 +89,22 @@ func _on_player_entered(body: Node) -> void:
     _spawn_boss()
     _intro_cinematic()
     _attach_hud_bar()
-    var mb := get_node_or_null("/root/MusicBank")
-    if mb and mb.has_method("play"):
-        mb.play("boss", 0.4)
+    # Delay the boss-music swap so the region track keeps playing
+    # through the intro fade — the music kicks in right as the boss
+    # actually starts harassing the player rather than the moment they
+    # cross the arena threshold. ~2.5 s lines up with the boss's
+    # first attack telegraph.
+    var music_timer := Timer.new()
+    music_timer.one_shot = true
+    music_timer.wait_time = 2.5
+    add_child(music_timer)
+    music_timer.timeout.connect(func() -> void:
+        if state != State.FIGHT:
+            return
+        var mb := get_node_or_null("/root/MusicBank")
+        if mb and mb.has_method("play"):
+            mb.play("boss", 0.6))
+    music_timer.start()
 
 
 func _raise_barrier() -> void:

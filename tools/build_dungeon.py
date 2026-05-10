@@ -110,7 +110,7 @@ EXT_RESOURCES = {
     "key_pickup":       ("PackedScene", "uid://btuxpkky01", "res://scenes/pickup_key.tscn"),
     "pebble_pickup":    ("PackedScene", "uid://btuxpkpb01", "res://scenes/pickup_pebble.tscn"),
     "heart_pickup":     ("PackedScene", "uid://btuxpkht01", "res://scenes/pickup_heart.tscn"),
-    "boomerang_pickup": ("PackedScene", "uid://btuxbmrg01", "res://scenes/boomerang.tscn"),
+    "boomerang_pickup": ("PackedScene", "uid://btuxpkbmrg01", "res://scenes/pickup_boomerang.tscn"),
     "arrow_pickup":     ("PackedScene", "uid://btuxpkar01", "res://scenes/pickup_arrow.tscn"),
     "seed_pickup":      ("PackedScene", "uid://btuxpksd01", "res://scenes/pickup_seed.tscn"),
     "bow_pickup":       ("PackedScene", "uid://btuxpkbow01", "res://scenes/pickup_bow.tscn"),

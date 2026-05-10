@@ -223,6 +223,29 @@ func _build_items_tab() -> void:
         var equipped: bool = (GameState.active_b_item == name)
         grid.add_child(_make_item_tile(name, owned, equipped, true))
 
+    # Consumable counts — separate row beneath the equip grid. Pulls
+    # straight from GameState so the page reflects what's in the bag
+    # the moment you open the menu, including stuff (fairy bottles,
+    # ammo) that isn't B-button-equippable.
+    var consumables := Label.new()
+    consumables.add_theme_font_size_override("font_size", 16)
+    consumables.add_theme_color_override("font_color", LABEL_COLOR)
+    consumables.offset_top = 36.0 + ITEM_TILE_SIZE.y * 2 + 28.0
+    var lines: Array = []
+    lines.append("Pebbles: %d" % GameState.pebbles)
+    lines.append("Fairy bottles: %d / %d" % [GameState.fairy_bottles,
+                                             GameState.max_fairy_bottles])
+    if GameState.has_item("bow"):
+        lines.append("Arrows: %d / %d" % [GameState.arrows, GameState.max_arrows])
+    if GameState.has_item("slingshot"):
+        lines.append("Seeds: %d / %d"  % [GameState.seeds,  GameState.max_seeds])
+    if GameState.has_item("bombs") or GameState.bombs > 0:
+        lines.append("Bombs: %d / %d"  % [GameState.bombs,  GameState.max_bombs])
+    if GameState.heart_pieces > 0:
+        lines.append("Heart pieces: %d / 4" % GameState.heart_pieces)
+    consumables.text = "  ·  ".join(lines)
+    _content_holder.add_child(consumables)
+
 
 func _make_item_tile(name: String, owned: bool, equipped: bool,
                      equippable: bool) -> Control:
