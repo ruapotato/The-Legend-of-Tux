@@ -29,8 +29,22 @@ static func snap(node: Node3D, max_drop: float = 50.0,
         p + Vector3(0.0, max_drop, 0.0),
         p + Vector3(0.0, -max_drop, 0.0))
     query.collision_mask = WORLD_LAYER
+    # Exclude the prop's own collision bodies — chests, doors, etc.
+    # carry StaticBody3Ds on layer 1 (World), so without this the ray
+    # hits the top of the chest's OWN collider and we snap the root to
+    # there, leaving the prop floating by its own height.
+    var excludes: Array[RID] = []
+    _gather_collision_rids(node, excludes)
+    query.exclude = excludes
     var hit: Dictionary = space.intersect_ray(query)
     if hit.is_empty():
         return false
     node.global_position.y = float(hit["position"].y) + y_offset
     return true
+
+
+static func _gather_collision_rids(n: Node, out: Array[RID]) -> void:
+    if n is CollisionObject3D:
+        out.append((n as CollisionObject3D).get_rid())
+    for c in n.get_children():
+        _gather_collision_rids(c, out)
