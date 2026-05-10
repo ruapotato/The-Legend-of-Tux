@@ -40,8 +40,12 @@ const TRACKS := {
 }
 
 const MIN_DB := -60.0
-const FULL_DB := 0.0
-const COMBAT_DB := -3.0     # combat layer rests slightly under base when active
+# Music sits ~8 dB below SFX so menu chimes / sword hits / boss horns
+# punch through the score. Source tracks are ffmpeg-loudnorm'd to ~-22
+# LUFS integrated; with FULL_DB at -8 the mean output lands around
+# -30 dB, peaks around -16 dB — comfortable background level.
+const FULL_DB := -8.0
+const COMBAT_DB := -11.0    # combat layer rests slightly under base when active
 
 var _base: AudioStreamPlayer = null
 var _combat: AudioStreamPlayer = null
