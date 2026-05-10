@@ -103,6 +103,7 @@ func _shatter() -> void:
     if _shattered: return
     _shattered = true
     hitbox.set_deferred("monitorable", false)
+    SoundBank.play_3d("rock_break", global_position)
     var here: Vector3 = global_position
     if randf() < pebble_chance:
         var p := PebblePickup.instantiate()

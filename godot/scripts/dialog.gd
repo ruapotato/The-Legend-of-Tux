@@ -176,6 +176,8 @@ func _goto(node_id: String) -> void:
         _speaker_label.visible = true
 
     _label.text = String(node.get("text", ""))
+    if get_tree().root.has_node("SoundBank"):
+        SoundBank.play_2d("npc_talk_blip")
 
     # Optional give_item / give_pebbles — fire once per visit per tree.
     if not _given.get(node_id, false):

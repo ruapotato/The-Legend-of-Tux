@@ -31,6 +31,7 @@ func _ready() -> void:
     monitorable = false
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
+    SoundBank.play_3d("arrow_fire", global_position)
 
 
 func setup(initial_velocity: Vector3, shooter: Node = null) -> void:
@@ -79,7 +80,7 @@ func _on_area_entered(area: Area3D) -> void:
         return
     _hit_set.append(area)
     receiver.take_damage(DAMAGE, global_position, owner_player)
-    SoundBank.play_3d("sword_hit", global_position)
+    SoundBank.play_3d("arrow_hit_flesh", global_position)
     queue_free()
 
 
@@ -93,10 +94,11 @@ func _on_body_entered(body: Node) -> void:
             return
         _hit_set.append(body)
         body.take_damage(DAMAGE, global_position, owner_player)
-        SoundBank.play_3d("sword_hit", global_position)
+        SoundBank.play_3d("arrow_hit_flesh", global_position)
         queue_free()
         return
     # World hit — stick briefly so the arrow visibly lodges, then despawn.
+    SoundBank.play_3d("arrow_hit_world", global_position)
     _stuck = true
     velocity = Vector3.ZERO
     set_collision_mask_value(1, false)

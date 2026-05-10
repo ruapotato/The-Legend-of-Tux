@@ -35,7 +35,7 @@ func _ready() -> void:
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
     _origin = global_position
-    SoundBank.play_3d("sword_swing", _origin)
+    SoundBank.play_3d("hookshot_fire", _origin)
 
 
 func set_direction(d: Vector3) -> void:
@@ -57,6 +57,7 @@ func _physics_process(delta: float) -> void:
     traveled += SPEED * delta
     _update_chain()
     if traveled >= MAX_RANGE:
+        SoundBank.play_3d("hookshot_failed_hit", global_position)
         queue_free()
 
 
@@ -93,7 +94,7 @@ func _resolve_hit(_overlap: Node, owner_node: Node) -> void:
     if not is_target:
         return
     _hit = true
-    SoundBank.play_3d("crystal_hit", anchor)
+    SoundBank.play_3d("hookshot_hit", anchor)
     if owner_player:
         # Pull anchor: keep current player Y so we don't yank Tux into
         # the floor or up into a ceiling — most uses are horizontal.

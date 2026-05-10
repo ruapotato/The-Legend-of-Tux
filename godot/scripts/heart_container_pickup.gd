@@ -36,7 +36,7 @@ func _on_body_entered(body: Node) -> void:
     _picked = true
     GameState.add_heart_container()
     if Engine.has_singleton("SoundBank") or get_tree().root.has_node("SoundBank"):
-        SoundBank.play_2d("sword_charge_ready")
+        SoundBank.play_2d("heart_container_get")
     if pickup_message != "" and Engine.has_singleton("Dialog") or get_tree().root.has_node("Dialog"):
         Dialog.show_message(pickup_message)
     queue_free()

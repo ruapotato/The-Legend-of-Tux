@@ -21,6 +21,7 @@ func _ready() -> void:
     monitorable = false
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
+    SoundBank.play_3d("seed_fire", global_position)
 
 
 func setup(initial_velocity: Vector3, shooter: Node = null) -> void:
@@ -47,7 +48,7 @@ func _on_area_entered(area: Area3D) -> void:
         return
     _hit_set.append(area)
     receiver.take_damage(DAMAGE, global_position, owner_player)
-    SoundBank.play_3d("sword_hit", global_position)
+    SoundBank.play_3d("seed_hit", global_position)
     queue_free()
 
 
@@ -59,5 +60,5 @@ func _on_body_entered(body: Node) -> void:
             return
         _hit_set.append(body)
         body.take_damage(DAMAGE, global_position, owner_player)
-        SoundBank.play_3d("sword_hit", global_position)
+        SoundBank.play_3d("seed_hit", global_position)
     queue_free()

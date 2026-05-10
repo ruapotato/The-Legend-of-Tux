@@ -26,6 +26,22 @@ const SOUND_NAMES := [
     "roll", "pebble_get", "crystal_hit",
     "gate_open", "gate_close",
     "blob_alert", "blob_attack", "blob_die",
+    # Ranged weapons + bombs + hookshot.
+    "arrow_fire", "arrow_hit_world", "arrow_hit_flesh",
+    "seed_fire", "seed_hit",
+    "bomb_fuse", "bomb_explode",
+    "hookshot_fire", "hookshot_hit", "hookshot_failed_hit", "hookshot_pull",
+    # World props + interactions.
+    "bush_cut", "rock_break", "door_unlock", "door_close",
+    # NPC + UI feedback.
+    "npc_talk_blip",
+    "menu_select", "menu_confirm", "menu_back",
+    # Pickups + revive + meta.
+    "heart_get", "heart_container_get", "fairy_revive",
+    # Bosses + warp.
+    "boss_horn", "boss_clear", "warp_song",
+    # Ambient loops (3D positional players use them too).
+    "amb_day_wind", "amb_night_crickets", "amb_water_lap",
 ]
 
 var _streams: Dictionary = {}

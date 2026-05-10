@@ -71,7 +71,7 @@ func _explode() -> void:
     if _exploded:
         return
     _exploded = true
-    SoundBank.play_3d("crystal_hit", global_position)
+    SoundBank.play_3d("bomb_explode", global_position)
 
     var here: Vector3 = global_position
     # Build a transient Area3D for the blast and let it sweep its

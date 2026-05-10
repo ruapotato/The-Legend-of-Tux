@@ -314,6 +314,7 @@ class WarpMenu extends CanvasLayer:
         get_tree().paused = false
         if _was_mouse_captured:
             Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+        SoundBank.play_2d("warp_song")
         SceneFader.change_scene(scene_path)
         queue_free()
 

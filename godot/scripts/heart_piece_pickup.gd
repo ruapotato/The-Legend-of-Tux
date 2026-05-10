@@ -39,7 +39,7 @@ func _on_body_entered(body: Node) -> void:
     GameState.add_heart_piece()
     var completed: bool = (was == 3)   # the 4th piece promoted to a container
     if get_tree().root.has_node("SoundBank"):
-        SoundBank.play_2d("sword_charge_ready" if completed else "pebble_get")
+        SoundBank.play_2d("heart_container_get" if completed else "heart_get")
     if get_tree().root.has_node("Dialog"):
         Dialog.show_message(pickup_message_complete if completed else pickup_message_normal)
     queue_free()

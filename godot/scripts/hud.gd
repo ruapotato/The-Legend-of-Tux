@@ -168,7 +168,7 @@ func _on_player_died() -> void:
 func _on_fairy_revive_triggered() -> void:
     _ensure_sparkle_nodes()
     if get_tree().root.has_node("SoundBank"):
-        SoundBank.play_2d("sword_charge_ready")
+        SoundBank.play_2d("fairy_revive")
     _sparkle_rect.color = Color(0.85, 0.95, 1.0, 0.85)
     _sparkle_rect.visible = true
     _sparkle_label.visible = true

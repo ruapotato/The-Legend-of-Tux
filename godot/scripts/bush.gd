@@ -34,7 +34,7 @@ func take_damage(_amount: int = 1, _source_pos: Vector3 = Vector3.ZERO,
         return
     _destroyed = true
     if Engine.has_singleton("SoundBank") or get_tree().root.has_node("SoundBank"):
-        SoundBank.play_3d("pebble_get", global_position)
+        SoundBank.play_3d("bush_cut", global_position)
     hitbox.set_deferred("monitorable", false)
     _drop_loot()
     var t := create_tween()
