@@ -23,6 +23,7 @@ var _start_lid_rot: Vector3
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     _start_lid_rot = lid.rotation
     trigger.body_entered.connect(_on_enter)
     trigger.body_exited.connect(_on_exit)

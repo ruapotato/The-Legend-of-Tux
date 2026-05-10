@@ -24,6 +24,7 @@ var _t: float = 0.0
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	add_to_group("torch")
 	hitbox.set_deferred("collision_layer", 32)
 	hitbox.set_deferred("collision_mask",  0)

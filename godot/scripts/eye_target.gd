@@ -18,6 +18,7 @@ var _start_lid_scale: Vector3 = Vector3.ONE
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	hitbox.set_deferred("collision_layer", 32)
 	hitbox.set_deferred("collision_mask",  0)
 	hitbox.set_deferred("monitorable",     true)

@@ -19,6 +19,7 @@ var _destroyed: bool = false
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     # Sit on layer 32 (same as enemies) so the sword's collision_mask=32
     # picks us up. Deferred because some _ready paths reach here from
     # inside an area-overlap signal callback.

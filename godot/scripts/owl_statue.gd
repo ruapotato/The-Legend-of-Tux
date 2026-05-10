@@ -24,6 +24,7 @@ var _glow_light: OmniLight3D = null
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     add_to_group("owl_statue")
     _build_visual()
     _build_trigger()

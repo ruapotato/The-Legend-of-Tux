@@ -23,6 +23,7 @@ var _active: bool = false
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	if slab:
 		_start_y = slab.position.y
 	trigger.body_entered.connect(_on_enter)

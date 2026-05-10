@@ -13,6 +13,7 @@ var _hint: Label
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     collision_layer = 64
     collision_mask = 2
     monitoring = true

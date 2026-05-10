@@ -35,6 +35,7 @@ var _t: float = 0.0
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     if dialog_tree_json != "" and dialog_tree.is_empty():
         var parsed: Variant = JSON.parse_string(dialog_tree_json)
         if typeof(parsed) == TYPE_DICTIONARY:

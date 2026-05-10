@@ -25,6 +25,7 @@ var _shake_cooldown: float = 0.0
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     var trunk: CylinderMesh = trunk_mesh.mesh
     if trunk:
         trunk.height = trunk_height

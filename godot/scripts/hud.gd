@@ -156,6 +156,11 @@ func _on_seeds_changed(current: int, maximum: int) -> void:
 func _on_player_died() -> void:
     death_overlay.visible = true
     _ensure_death_buttons()
+    # Free the mouse so the player can actually click Continue / Quit —
+    # the camera captures the mouse during gameplay and never released
+    # it for the death overlay before. New scenes recapture in their
+    # own _ready when load_game / reload_current_scene fires.
+    Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 # ---- Fairy-bottle revive sparkle ---------------------------------------

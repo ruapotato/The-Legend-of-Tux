@@ -16,6 +16,7 @@ var _shattered: bool = false
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     add_to_group("destructible_wall")
     collision_layer = 1
     collision_mask = 0

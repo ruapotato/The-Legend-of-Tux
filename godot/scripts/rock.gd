@@ -25,6 +25,7 @@ var _shattered: bool = false
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     add_to_group("rock")
     hitbox.set_deferred("collision_layer", 32)
     hitbox.set_deferred("collision_mask", 0)

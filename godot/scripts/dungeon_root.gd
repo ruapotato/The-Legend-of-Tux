@@ -31,6 +31,12 @@ func _ready() -> void:
     _attach_enemy_culler()
     _start_music()
     _mark_visited()
+    # Drop placed props onto the actual terrain surface — chests, signs,
+    # bushes, NPCs etc. are authored at fixed pos.y in JSON but the
+    # TerrainMesh's per-cell hills can put real ground a couple of
+    # meters above 0. One physics-frame defer so the trimesh shape is
+    # registered before the rays cast.
+    call_deferred("_snap_props_to_ground")
     # Clear any puzzle latch state from the previous dungeon so a
     # crystal switch on "boss_door" in level A doesn't auto-open the
     # gate of the same name in level B.
@@ -93,6 +99,17 @@ func _attach_enemy_culler() -> void:
     var ps := get_tree().get_nodes_in_group("player")
     if ps.size() > 0:
         culler.bind(ps[0])
+
+
+func _snap_props_to_ground() -> void:
+    # Wait one physics tick so the TerrainMesh's trimesh collision
+    # shape has had time to register with the physics server, then
+    # raycast every node in the "ground_snap" group down to it.
+    await get_tree().physics_frame
+    var snap = preload("res://scripts/ground_snap.gd")
+    for n in get_tree().get_nodes_in_group("ground_snap"):
+        if n is Node3D:
+            snap.snap(n)
 
 
 func _start_music() -> void:

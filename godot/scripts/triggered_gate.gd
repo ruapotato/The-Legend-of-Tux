@@ -20,6 +20,7 @@ var _start_body_pos: Vector3
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	_start_body_pos = body.position
 	if listen_id == "":
 		return

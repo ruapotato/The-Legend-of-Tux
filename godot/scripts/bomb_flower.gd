@@ -27,6 +27,7 @@ var _regrow_timer: float = 0.0
 
 
 func _ready() -> void:
+    add_to_group("ground_snap")
     add_to_group("bomb_flower")
     prompt_area.body_entered.connect(_on_prompt_enter)
     prompt_area.body_exited.connect(_on_prompt_exit)

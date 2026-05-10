@@ -24,6 +24,7 @@ var _bob_t: float = 0.0
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	# Sit on layer 32 (Hittable) so the player's sword hitbox picks us
 	# up via its existing collision_mask. Deferred so first-tick scene
 	# wiring doesn't fight the engine's "in/out signal" guard.

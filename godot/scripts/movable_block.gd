@@ -29,6 +29,7 @@ var _sliding: bool = false
 
 
 func _ready() -> void:
+	add_to_group("ground_snap")
 	add_to_group("pushable")
 	# Snap to grid on spawn so author-positioned blocks always sit
 	# on cell centers even if the JSON left them slightly off.
