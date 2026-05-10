@@ -161,6 +161,49 @@ ENEMY_TO_EXT = {
 
 WALL_THICKNESS = 0.5
 
+# Filesystem path per level id (FILESYSTEM.md §2). Levels not in the
+# map fall back to "" — the build script still emits an empty fs_path
+# export so dungeon_root.gd has consistent shape.
+PATH_MAP = {
+    "wyrdkin_glade": "/opt/wyrdmark/glade",
+    "wyrdwood":      "/opt/wyrdmark/woods",
+    "sourceplain":   "/opt/wyrdmark/plain",
+    "hearthold":     "/home/hearthold",
+    "brookhold":     "/home/brookhold",
+    "sigilkeep":     "/etc/wyrdmark",
+    "dungeon_first": "/var/cache/wyrdmark/hollow",
+    "stoneroost":    "/mnt/wyrdmark/stoneroost",
+    "mirelake":      "/var/spool/mire",
+    "burnt_hollow":  "/tmp/burnt",
+    # New scaffolded directories — see FILESYSTEM.md §3.
+    "crown":             "/",
+    "wake":              "/boot",
+    "wake_grub":         "/boot/grub",
+    "scriptorium":       "/etc",
+    "burrows":           "/home",
+    "old_hold":          "/home/wyrdkin",
+    "docks":             "/mnt",
+    "wyrdmark_mounts":   "/mnt/wyrdmark",
+    "docks_foreign":     "/mnt/foreign",
+    "optional_yard":     "/opt",
+    "wyrdmark_gateway":  "/opt/wyrdmark",
+    "murk":              "/proc",
+    "drift":             "/tmp",
+    "sprawl":            "/usr",
+    "binds":             "/usr/bin",
+    "sharers":           "/usr/share",
+    "old_plays":         "/usr/share/games",
+    "locals":            "/usr/local",
+    "library":           "/var",
+    "cache":             "/var/cache",
+    "cache_wyrdmark":    "/var/cache/wyrdmark",
+    "stacks":            "/var/lib",
+    "ledger":            "/var/log",
+    "backwater":         "/var/spool",
+    "forge":             "/dev",
+    "null_door":         "/dev/null",
+}
+
 
 # ---- formatters ---------------------------------------------------------
 
@@ -1212,12 +1255,16 @@ def convert(json_path):
     # Root node first (must precede everything). The dungeon-wide
     # key_group field rides on the root so dungeon_root.gd can read it
     # at _ready and tell GameState which key bucket to use.
-    key_group = data.get("key_group", data["id"])
-    music_track = data.get("music_track", data["id"])
+    key_group    = data.get("key_group",    data["id"])
+    music_track  = data.get("music_track",  data["id"])
+    display_name = data.get("name",         data["id"])
+    fs_path      = data.get("fs_path",      PATH_MAP.get(data["id"], ""))
     root_attrs = [
         'script = ExtResource("root_script")',
-        'key_group = "%s"' % escape(str(key_group)),
-        'music_track = "%s"' % escape(str(music_track)),
+        'key_group = "%s"'    % escape(str(key_group)),
+        'music_track = "%s"'  % escape(str(music_track)),
+        'display_name = "%s"' % escape(str(display_name)),
+        'fs_path = "%s"'      % escape(str(fs_path)),
     ]
     b.nodes.append('[node name="%s" type="Node3D"]\n%s\n'
                    % (data.get("name", data["id"]), "\n".join(root_attrs)))

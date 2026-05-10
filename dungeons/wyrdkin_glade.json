@@ -5099,6 +5099,15 @@
         -12
       ],
       "rotation_y": 3.14159
+    },
+    {
+      "id": "from_wyrdmark_gateway",
+      "pos": [
+        10.61,
+        0.5,
+        -10.61
+      ],
+      "rotation_y": -2.356194490192345
     }
   ],
   "lights": [],
@@ -5672,6 +5681,22 @@
       "target_scene": "wyrdwood",
       "target_spawn": "from_glade",
       "prompt": "[E] Through the elder pines"
+    },
+    {
+      "pos": [
+        12.02,
+        1.4,
+        -12.02
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "wyrdmark_gateway",
+      "target_spawn": "from_wyrdkin_glade",
+      "prompt": "[E] Up to Wyrdmark Gateway"
     }
   ],
   "enemies": [

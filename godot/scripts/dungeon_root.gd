@@ -24,6 +24,12 @@ const EnemyCuller = preload("res://scripts/enemy_culler.gd")
 # build_dungeon.py's emitted "music_track" line).
 @export var music_track: String = ""
 
+# Filesystem coordinates. The Wyrdmark sits inside The Mount — see
+# LORE.md §6 and FILESYSTEM.md. The build script writes both fields
+# from a PATH_MAP keyed on the level id.
+@export var display_name: String = ""    # "Wyrdkin Glade"
+@export var fs_path:      String = ""    # "/opt/wyrdmark/glade"
+
 
 func _ready() -> void:
     _attach_mini_map()

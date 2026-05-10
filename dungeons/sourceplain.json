@@ -85954,6 +85954,15 @@
         80
       ],
       "rotation_y": 2.3562
+    },
+    {
+      "id": "from_wyrdmark_gateway",
+      "pos": [
+        17.0,
+        0.5,
+        -99.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -88706,6 +88715,22 @@
       "target_scene": "mirelake",
       "target_spawn": "from_sourceplain",
       "prompt": "[E] South to the Mire"
+    },
+    {
+      "pos": [
+        17.0,
+        1.4,
+        -101.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "wyrdmark_gateway",
+      "target_spawn": "from_sourceplain",
+      "prompt": "[E] Up to Wyrdmark Gateway"
     }
   ]
 }

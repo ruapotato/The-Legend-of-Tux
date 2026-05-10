@@ -3087,6 +3087,15 @@
         -28
       ],
       "rotation_y": 0
+    },
+    {
+      "id": "from_wyrdmark_gateway",
+      "pos": [
+        3.0,
+        0.5,
+        -17.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -3667,6 +3676,22 @@
       "target_scene": "sourceplain",
       "target_spawn": "from_wyrdwood",
       "prompt": "[E] Onto the bridge"
+    },
+    {
+      "pos": [
+        3.0,
+        1.4,
+        -19.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "wyrdmark_gateway",
+      "target_spawn": "from_wyrdwood",
+      "prompt": "[E] Up to Wyrdmark Gateway"
     }
   ]
 }

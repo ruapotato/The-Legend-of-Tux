@@ -16909,6 +16909,15 @@
         -42.0
       ],
       "rotation_y": 3.141592653589793
+    },
+    {
+      "id": "from_backwater",
+      "pos": [
+        34.95,
+        0.5,
+        -30.95
+      ],
+      "rotation_y": -2.356194490192345
     }
   ],
   "lights": [
@@ -17952,6 +17961,22 @@
       "target_scene": "sourceplain",
       "target_spawn": "from_mirelake",
       "prompt": "[E] North to the plain"
+    },
+    {
+      "pos": [
+        36.36,
+        1.4,
+        -32.36
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "backwater",
+      "target_spawn": "from_mirelake",
+      "prompt": "[E] Up to the Backwater"
     }
   ]
 }

@@ -189,37 +189,55 @@ func _draw() -> void:
         # right direction (verified against the four cardinals).
         _draw_player_triangle(Vector2(px, py), _player.rotation.y)
     draw_rect(rect, BORDER_COLOR, false, 2.0)
-    # Scene-name banner across the top of the widget so the player can
-    # tell at a glance which region the map is showing — useful when
-    # warping or coming through load zones.
+    # Scene-name banner across the top of the widget. Two lines now:
+    # friendly display name on top, monospace filesystem path beneath
+    # in a quieter colour. The path tells Mount-readers exactly where
+    # in the filesystem they're standing; everyone else just sees a
+    # secondary label and reads the friendlier line above it.
     var scene_name := _scene_display_name()
+    var path := _scene_fs_path()
     if scene_name != "":
         var font := get_theme_default_font()
-        var font_size: int = 12
-        var text_size := font.get_string_size(scene_name,
-            HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)
+        var name_size: int = 12
+        var path_size: int = 10
+        var name_extent := font.get_string_size(scene_name,
+            HORIZONTAL_ALIGNMENT_CENTER, -1, name_size)
+        var path_extent := Vector2.ZERO
+        if path != "":
+            path_extent = font.get_string_size(path,
+                HORIZONTAL_ALIGNMENT_CENTER, -1, path_size)
         var pad := Vector2(8, 4)
+        var w: float = max(name_extent.x, path_extent.x) + pad.x * 2
+        var line_h: float = name_size + (path_size + 2 if path != "" else 0)
         var banner := Rect2(
-            Vector2((size.x - text_size.x - pad.x * 2) * 0.5, 2),
-            text_size + pad * 2)
+            Vector2((size.x - w) * 0.5, 2),
+            Vector2(w, line_h + pad.y * 2))
         draw_rect(banner, Color(0, 0, 0, 0.55))
         draw_string(font,
-            banner.position + Vector2(pad.x, pad.y + font_size - 2),
-            scene_name, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size,
+            banner.position + Vector2(pad.x, pad.y + name_size - 2),
+            scene_name, HORIZONTAL_ALIGNMENT_LEFT, -1, name_size,
             Color(1.0, 0.92, 0.65, 1.0))
+        if path != "":
+            draw_string(font,
+                banner.position + Vector2(pad.x,
+                    pad.y + name_size + path_size),
+                path, HORIZONTAL_ALIGNMENT_LEFT, -1, path_size,
+                Color(0.65, 0.78, 0.85, 0.85))
 
 
 func _scene_display_name() -> String:
     var root: Node = get_tree().current_scene
     if root == null:
         return ""
-    # Prefer the friendly Name3D the build script puts on the dungeon
-    # root (matches level JSON's "name" field). Falls back to the file
-    # basename otherwise.
+    # Prefer the dungeon root's `display_name` export (set by the
+    # build script from PATH_MAP). Then fall back to the node Name,
+    # then to the .tscn basename.
+    if "display_name" in root:
+        var dn: String = String(root.display_name)
+        if dn != "":
+            return dn
     var n: String = String(root.name)
     var base := n
-    # If the root's name was a generic "Scene" or path-y, fall back to
-    # the file basename.
     if base == "" or base == "Scene":
         var p: String = root.scene_file_path
         if p.begins_with("res://scenes/"):
@@ -228,6 +246,15 @@ func _scene_display_name() -> String:
             p = p.substr(0, p.length() - ".tscn".length())
         base = p
     return base.replace("_", " ").capitalize()
+
+
+func _scene_fs_path() -> String:
+    var root: Node = get_tree().current_scene
+    if root == null:
+        return ""
+    if "fs_path" in root:
+        return String(root.fs_path)
+    return ""
 
 
 func _draw_player_triangle(at: Vector2, yaw: float) -> void:

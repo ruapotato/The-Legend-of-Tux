@@ -5847,6 +5847,15 @@
         16
       ],
       "rotation_y": 3.14159
+    },
+    {
+      "id": "from_scriptorium",
+      "pos": [
+        -0.0,
+        0.5,
+        -17.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -6153,6 +6162,22 @@
       "target_scene": "hearthold",
       "target_spawn": "from_sigilkeep",
       "prompt": "[E] Back to Hearthold"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -19.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "scriptorium",
+      "target_spawn": "from_sigilkeep",
+      "prompt": "[E] Up to the Scriptorium"
     }
   ]
 }

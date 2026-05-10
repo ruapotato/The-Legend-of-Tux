@@ -10707,6 +10707,15 @@
         46
       ],
       "rotation_y": 0.0
+    },
+    {
+      "id": "from_wyrdmark_mounts",
+      "pos": [
+        -0.0,
+        0.5,
+        -31.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -11649,6 +11658,22 @@
       "target_scene": "sourceplain",
       "target_spawn": "from_stoneroost",
       "prompt": "[E] Down to the plain"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -33.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "wyrdmark_mounts",
+      "target_spawn": "from_stoneroost",
+      "prompt": "[E] Up to Wyrdmark Mounts"
     }
   ]
 }

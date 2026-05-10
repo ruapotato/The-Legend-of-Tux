@@ -18543,6 +18543,15 @@
         1.0
       ],
       "rotation_y": -1.5708
+    },
+    {
+      "id": "from_burrows",
+      "pos": [
+        -1.0,
+        0.5,
+        -25.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -19613,6 +19622,22 @@
       "target_scene": "sourceplain",
       "target_spawn": "from_brookhold",
       "prompt": "[E] West to the plain"
+    },
+    {
+      "pos": [
+        -1.0,
+        1.4,
+        -27.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "burrows",
+      "target_spawn": "from_brookhold",
+      "prompt": "[E] Up to the Burrows"
     }
   ]
 }

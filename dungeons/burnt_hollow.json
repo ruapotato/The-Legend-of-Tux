@@ -16016,6 +16016,15 @@
         49.0
       ],
       "rotation_y": 1.5708
+    },
+    {
+      "id": "from_drift",
+      "pos": [
+        50.0,
+        0.5,
+        7.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -17015,6 +17024,22 @@
       "target_scene": "sourceplain",
       "target_spawn": "from_burnt_hollow",
       "prompt": "[E] East to the plain"
+    },
+    {
+      "pos": [
+        50.0,
+        1.4,
+        5.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "drift",
+      "target_spawn": "from_burnt_hollow",
+      "prompt": "[E] Up to the Drift"
     }
   ]
 }

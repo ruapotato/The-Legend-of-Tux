@@ -3931,6 +3931,15 @@
         -2
       ],
       "rotation_y": 3.14159
+    },
+    {
+      "id": "from_cache_wyrdmark",
+      "pos": [
+        -0.0,
+        0.5,
+        -29.0
+      ],
+      "rotation_y": -1.5707963267948966
     }
   ],
   "lights": [
@@ -4314,7 +4323,11 @@
       "boss_scene_id": "wyrdking",
       "boss_name": "Wyrdking Bonelord",
       "arena_radius": 7.5,
-      "spawn_offset": [0.0, 0.0, 0.0]
+      "spawn_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
       "type": "chest",
@@ -4344,6 +4357,22 @@
       "target_scene": "wyrdwood",
       "target_spawn": "from_dungeon",
       "prompt": "[E] Back to the Wyrdwood"
+    },
+    {
+      "pos": [
+        0.0,
+        1.4,
+        -31.0
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.0,
+      "target_scene": "cache_wyrdmark",
+      "target_spawn": "from_dungeon_first",
+      "prompt": "[E] Up to Wyrdmark Records"
     }
   ],
   "doors": [
