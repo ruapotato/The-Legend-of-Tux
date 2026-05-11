@@ -78,6 +78,116 @@ CELL_SIZE = 1.0
 
 
 # ---------------------------------------------------------------------------
+# Per-level archetypes (v8+)
+# ---------------------------------------------------------------------------
+#
+# Without archetype variation the multi-child hubs all share the same
+# "splat" silhouette: roughly circular hub + arms fanning 360° at similar
+# lengths. To give each directory a distinct organic personality we pick
+# ONE of 6 archetypes per level (deterministically by level id), and the
+# arm + hub passes adapt their parameters accordingly.
+#
+# The picker hand-keys a handful of narratively-loaded ids (so e.g.
+# dead-end loops feel "tuber" / cities feel "dense_cluster"), and falls
+# back to a hash on the level id for everything else.
+# ---------------------------------------------------------------------------
+
+ARCHETYPES = [
+    "radial_burst",
+    "tap_root",
+    "lateral_spread",
+    "tuber",
+    "dense_cluster",
+    "gnarled",
+]
+
+
+def pick_archetype(level_id):
+    """Return one of the 6 ARCHETYPES for the given level id. Hand-keyed
+    where narrative matters; hash-based for the rest. Deterministic."""
+    if level_id == "crown":
+        return "radial_burst"  # root of tree — central
+    if level_id in ("dev_loop", "lost_found", "root_hold"):
+        return "tuber"  # canonically isolated / dead-end
+    if level_id in ("hearthold", "burrows"):
+        return "radial_burst"  # village hubs
+    if level_id in ("sprawl", "binds", "library"):
+        return "dense_cluster"  # cities
+    if level_id in ("forge", "scriptorium"):
+        return "gnarled"  # ancient + bureaucratic
+    if level_id in ("murk", "mirelake", "backwater"):
+        return "lateral_spread"  # water/marsh
+    h = sum(ord(c) for c in level_id)
+    return ARCHETYPES[h % len(ARCHETYPES)]
+
+
+# Per-archetype arm-growth parameters. `grow_arms_for_level` reads these.
+ARM_PARAMS = {
+    "radial_burst": {
+        "width_min": 8, "width_max": 16,
+        "len_min": 36, "len_max": 60,
+        "curve_mag": 0.025,
+        "tap_factor": 1.0, "shoot_factor": 1.0,
+        "min_sep_deg": 22,
+    },
+    "tap_root": {
+        "width_min": 8, "width_max": 16,
+        "len_min": 18, "len_max": 30,
+        "tap_factor": 3.0,   # one arm gets 3x length
+        "shoot_factor": 0.6,  # others get 60%
+        "curve_mag": 0.020,
+        "min_sep_deg": 22,
+    },
+    "lateral_spread": {
+        "width_min": 8, "width_max": 16,
+        "len_min": 36, "len_max": 60,
+        "curve_mag": 0.030,
+        "tap_factor": 1.0, "shoot_factor": 1.0,
+        "min_sep_deg": 22,
+        "angle_band_deg": 60,   # arms only within ±60° of east-west axis
+        "hub_aspect": (2.0, 1.0),  # 2× wider than tall
+    },
+    "tuber": {
+        "width_min": 8, "width_max": 14,
+        "len_min": 30, "len_max": 50,
+        "curve_mag": 0.020,
+        "tap_factor": 1.0, "shoot_factor": 1.0,
+        "min_sep_deg": 26,
+        "arms_at_poles_only": True,
+        "hub_aspect": (1.0, 2.5),  # 2.5× taller than wide
+    },
+    "dense_cluster": {
+        "width_min": 12, "width_max": 20,
+        "len_min": 16, "len_max": 28,
+        "curve_mag": 0.015,
+        "tap_factor": 1.0, "shoot_factor": 1.0,
+        "min_sep_deg": 18,
+        "hub_aspect_scale": 0.9,  # smaller, denser core
+    },
+    "gnarled": {
+        # gnarled uses TWO width bands — skinny vs fat — alternated per arm.
+        "width_min_lo":  6, "width_max_lo": 10,
+        "width_min_hi": 14, "width_max_hi": 20,
+        "len_min": 24, "len_max": 72,
+        "curve_mag": 0.050,  # 2× normal
+        "tap_factor": 1.0, "shoot_factor": 1.0,
+        "min_sep_deg": 22,
+    },
+}
+
+
+def get_arm_params(archetype):
+    """Return the ARM_PARAMS dict for the archetype (fallback radial_burst)."""
+    return ARM_PARAMS.get(archetype, ARM_PARAMS["radial_burst"])
+
+
+# Tuber-axis orientation per level — vertical or horizontal, deterministic.
+def tuber_axis(level_id):
+    """Return 'vertical' or 'horizontal' deterministically per level id."""
+    return "vertical" if _hash01("tuber_axis", level_id) < 0.5 else "horizontal"
+
+
+# ---------------------------------------------------------------------------
 # Tree
 # ---------------------------------------------------------------------------
 
@@ -1263,27 +1373,54 @@ def make_circular_blob_for_level(level_id, data):
     cx = sum(c[0] for c in core) / len(core)
     cz = sum(c[1] for c in core) / len(core)
     n = len(core)
-    r = math.sqrt(n / math.pi) * 1.2
+
+    # v8: per-archetype hub aspect ratio + density scale. The base radius
+    # comes from cell count, then we apply a per-axis stretch (lateral
+    # widens east-west, tuber stretches one axis depending on tuber_axis())
+    # and a density scale (dense_cluster shrinks the hub).
+    arche = pick_archetype(level_id)
+    aparams = get_arm_params(arche)
+    r_scale = aparams.get("hub_aspect_scale", 1.2)  # default v6 scale
+    if arche == "dense_cluster":
+        r_scale = aparams.get("hub_aspect_scale", 0.9)
+    r = math.sqrt(n / math.pi) * r_scale
+
+    # Default circular: per-axis radii equal.
+    ax, az = 1.0, 1.0
+    if arche == "lateral_spread":
+        ax, az = 2.0, 1.0
+    elif arche == "tuber":
+        # Pick axis deterministically: "vertical" stretches Z; "horizontal" X.
+        if tuber_axis(level_id) == "vertical":
+            ax, az = 1.0, 2.5
+        else:
+            ax, az = 2.5, 1.0
+    r_x = r * ax
+    r_z = r * az
 
     seed = "fs::blob::" + level_id
 
-    # Stamp circular blob with Perlin-perturbed radius.
-    # Bounding square: 2.4 * r (per spec).
-    half_bb = int(math.ceil(r * 1.2)) + 2  # 2.4 / 2 = 1.2
+    # Stamp ellipsoidal blob with Perlin-perturbed radius.
+    # Bounding box scales with the per-axis radii.
+    half_bb_x = int(math.ceil(r_x * 1.2)) + 2
+    half_bb_z = int(math.ceil(r_z * 1.2)) + 2
     ci_int = int(round(cx))
     cj_int = int(round(cz))
     new_blob = set()
-    for di in range(-half_bb, half_bb + 1):
-        for dj in range(-half_bb, half_bb + 1):
+    for di in range(-half_bb_x, half_bb_x + 1):
+        for dj in range(-half_bb_z, half_bb_z + 1):
             ii = ci_int + di
             jj = cj_int + dj
-            d = math.hypot(ii - cx, jj - cz)
+            # Normalised ellipse distance.
+            ex = (ii - cx) / max(1e-6, r_x)
+            ez = (jj - cz) / max(1e-6, r_z)
+            d_norm = math.hypot(ex, ez)
             # Perlin perturbation on the radius — sample 2D-ish via a
             # diagonal index so the edge has organic wavelength.
             phase = (ii * 0.21) + (jj * 0.17)
-            jitter = perlin1d(seed + ":r", phase) * (r * 0.18)
-            noisy_r = r + jitter
-            if d < noisy_r:
+            jitter = perlin1d(seed + ":r", phase) * 0.18
+            noisy_r = 1.0 + jitter
+            if d_norm < noisy_r:
                 if (ii, jj) not in cells_set:
                     new_blob.add((ii, jj))
 
@@ -1548,12 +1685,19 @@ def _bfs_reachable_set(cells_set, start):
     return seen
 
 
-def grow_arms_for_level(level_id, data, level_seed_extra=""):
+def grow_arms_for_level(level_id, data, level_seed_extra="",
+                        parent_of=None, trunk_dir=None, world_pos=None,
+                        children_of=None):
     """Add cell-arms reaching from the existing hub out to each
     auto:true load_zone. Mutates `data` in place. Returns dict of stats:
         {arm_count, arm_cells_added, before_n_cells, after_n_cells,
-         before_bbox, after_bbox, sample_arm_distance}.
-    Skips levels with < 2 auto:true LZs."""
+         before_bbox, after_bbox, sample_arm_distance, archetype}.
+    Skips levels with < 2 auto:true LZs.
+
+    v8: per-level archetypes (see pick_archetype) control arm width/
+    length/curve/min-separation, plus per-archetype angle constraints
+    (lateral_spread band, tuber poles), and a forward-arc bias for
+    child LZs relative to this level's trunk_dir."""
     lzs = data.get("load_zones", [])
     auto_lzs = [lz for lz in lzs if lz.get("auto", True)]
     if len(auto_lzs) < 2:
@@ -1628,6 +1772,10 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
     cx = sum(c[0] for c in cells_set) / len(cells_set)
     cz = sum(c[1] for c in cells_set) / len(cells_set)
 
+    # v8: archetype picks per-arm parameters.
+    archetype = pick_archetype(level_id)
+    aparams = get_arm_params(archetype)
+
     # Compute outward direction and starting angle for each LZ.
     #
     # Idempotency: if the LZ has a cached `_pre_arm_pos` (we recorded it
@@ -1655,14 +1803,104 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         dist = math.hypot(dx_world, dz_world)
         lz_dirs.append([lz, ang, dist])
 
+    # v8: archetype-specific MIN_SEP (dense_cluster packs tighter, tuber
+    # spaces wider).
+    MIN_SEP = math.radians(aparams.get("min_sep_deg", 22))
+
+    # ---- v8: archetype angle constraints ----
+    # Apply BEFORE the propagating MIN_SEP nudge so the constraints take
+    # priority. Each LZ entry is [lz, angle, dist]; we mutate angle in
+    # place.
+    #
+    # 1) Identify the parent LZ (so we anchor it at "south" / opposite
+    #    trunk_dir and exclude it from forward-arc / band reshaping).
+    parent_lid = parent_of.get(level_id) if parent_of else None
+    parent_lz_idx = None
+    for i, (lz, _a, _d) in enumerate(lz_dirs):
+        if lz.get("target_scene") == parent_lid:
+            parent_lz_idx = i
+            break
+
+    # 2) Forward-arc bias: each NON-parent LZ angle is biased to lie
+    #    within ±90° of the level's trunk_dir (the direction the player
+    #    entered from south + trunk_angle is forward). Parent LZ is
+    #    anchored at trunk_angle + π (south of the hub).
+    if trunk_dir is not None and level_id in trunk_dir:
+        tdx, tdy = trunk_dir[level_id]
+        trunk_ang = math.atan2(tdy, tdx)
+    else:
+        # Fallback: assume trunk pointing north (+z).
+        trunk_ang = math.pi / 2.0
+
+    def _wrap_pi(a):
+        return ((a + math.pi) % (2.0 * math.pi)) - math.pi
+
+    # Apply forward-arc bias for children: if the LZ's current angle is
+    # outside ±90° of trunk_ang, clamp it to the nearest edge of that arc.
+    for i, entry in enumerate(lz_dirs):
+        if i == parent_lz_idx:
+            continue
+        a = entry[1]
+        diff = _wrap_pi(a - trunk_ang)
+        if abs(diff) > math.pi / 2.0:
+            # Outside forward arc — clamp to the closer ±90° edge.
+            edge = math.pi / 2.0 if diff > 0 else -math.pi / 2.0
+            entry[1] = trunk_ang + edge
+
+    # Parent LZ anchored at south (opposite trunk_dir).
+    if parent_lz_idx is not None:
+        lz_dirs[parent_lz_idx][1] = trunk_ang + math.pi
+
+    # 3) lateral_spread: every non-parent LZ angle pulled into a horizontal
+    #    band — within ±(angle_band_deg/2) of east (0°) or west (π).
+    if archetype == "lateral_spread":
+        band = math.radians(aparams.get("angle_band_deg", 60)) / 2.0
+        for i, entry in enumerate(lz_dirs):
+            if i == parent_lz_idx:
+                continue
+            a = entry[1]
+            # Distance to east (0) and west (π).
+            d_east = abs(_wrap_pi(a - 0.0))
+            d_west = abs(_wrap_pi(a - math.pi))
+            if d_east <= d_west:
+                centre = 0.0
+                signed = _wrap_pi(a - 0.0)
+            else:
+                centre = math.pi
+                signed = _wrap_pi(a - math.pi)
+            if abs(signed) > band:
+                # Clamp into the band.
+                clamp = band if signed > 0 else -band
+                entry[1] = _wrap_pi(centre + clamp)
+
+    # 4) tuber: every non-parent LZ angle clustered within ±30° of one of
+    #    the two "pole" outward directions, determined by hub_aspect axis.
+    if archetype == "tuber" and aparams.get("arms_at_poles_only", False):
+        if tuber_axis(level_id) == "vertical":
+            # Stretched along Z → poles point ±z (north and south).
+            poles = (math.pi / 2.0, -math.pi / 2.0)
+        else:
+            # Stretched along X → poles point ±x (east and west).
+            poles = (0.0, math.pi)
+        pole_half = math.radians(30)
+        for i, entry in enumerate(lz_dirs):
+            if i == parent_lz_idx:
+                continue
+            a = entry[1]
+            # Find closer pole.
+            d0 = abs(_wrap_pi(a - poles[0]))
+            d1 = abs(_wrap_pi(a - poles[1]))
+            target_pole = poles[0] if d0 <= d1 else poles[1]
+            signed = _wrap_pi(a - target_pole)
+            if abs(signed) > pole_half:
+                clamp = pole_half if signed > 0 else -pole_half
+                entry[1] = _wrap_pi(target_pole + clamp)
+
     # Resolve angle clashes. For arms up to 60 cells long and 16 cells
     # wide, two arms need >= ~20° angular separation to avoid tip
-    # overlap. Bumped from 8° (which produced fused arms in sprawl —
-    # locals + burrows ended up 4.5 cells apart at their tips). Also
-    # PROPAGATE the nudge: a single push CCW can pile clashes onto the
-    # next neighbor; iterate sort+resolve until no pair is closer than
-    # MIN_SEP or we hit a fixed iteration cap.
-    MIN_SEP = math.radians(22)
+    # overlap. PROPAGATE the nudge: a single push CCW can pile clashes
+    # onto the next neighbor; iterate sort+resolve until no pair is
+    # closer than MIN_SEP or we hit a fixed iteration cap.
     for _iter in range(6):
         lz_dirs.sort(key=lambda x: x[1])
         moved = False
@@ -1698,6 +1936,30 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         # Snap to nearest cell.
         hub_centroid_cell = nearest_walking_cell(cells_set, cells_to_world_xz(*hub_centroid_cell)) or next(iter(cells_set))
 
+    # v8: tap_root archetype picks ONE arm to be the "tap" — the
+    # non-parent LZ whose angle is most-opposite to trunk_ang (i.e.,
+    # pointing roughly opposite the entry direction). That arm gets
+    # length × tap_factor; the rest get length × shoot_factor.
+    tap_root_tap_idx = None
+    if archetype == "tap_root":
+        opp_trunk = _wrap_pi(trunk_ang + math.pi)
+        best = None
+        best_d = None
+        for i, entry in enumerate(lz_dirs):
+            if i == parent_lz_idx:
+                continue
+            a = entry[1]
+            diff = abs(_wrap_pi(a - opp_trunk))
+            if best_d is None or diff < best_d:
+                best_d = diff
+                best = i
+        tap_root_tap_idx = best
+
+    # Pull archetype params for inner use (default min-width clamp).
+    arche_curve_mag = float(aparams.get("curve_mag", 0.025))
+    arche_min_width_clamp = aparams.get("width_min",
+                                        aparams.get("width_min_lo", 8))
+
     for lz_idx, (lz, ang, _old_dist) in enumerate(lz_dirs):
         dx = math.cos(ang)
         dz = math.sin(ang)
@@ -1706,14 +1968,30 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         arm_seed = seed + ":lz:" + str(lz_idx) + ":" + str(lz.get("target_scene", ""))
         arm_rng = random.Random(arm_seed)
 
-        # v6 width per arm: random uniform 8..16 (was 6..12).
-        # Multi-scale Perlin variation along the length (see step loop)
-        # gives ±4 swings — wider chambers / pinch points rather than a
-        # smooth tube. Min width clamped to 8 throughout.
-        base_arm_width = arm_rng.randint(8, 16)
+        # v8: per-archetype width selection.
+        if archetype == "gnarled":
+            # Alternate skinny/fat per arm index.
+            is_skinny = (lz_idx % 2 == 0)
+            if is_skinny:
+                base_arm_width = arm_rng.randint(
+                    aparams["width_min_lo"], aparams["width_max_lo"])
+            else:
+                base_arm_width = arm_rng.randint(
+                    aparams["width_min_hi"], aparams["width_max_hi"])
+        else:
+            base_arm_width = arm_rng.randint(
+                aparams.get("width_min", 8),
+                aparams.get("width_max", 16))
 
-        # Length per arm: random uniform 36..60 (no change in v6).
-        arm_length = arm_rng.randint(36, 60)
+        # v8: per-archetype length, then apply tap_root tap/shoot factor.
+        arm_length = arm_rng.randint(
+            aparams.get("len_min", 36),
+            aparams.get("len_max", 60))
+        if archetype == "tap_root":
+            if lz_idx == tap_root_tap_idx:
+                arm_length = int(round(arm_length * aparams.get("tap_factor", 3.0)))
+            elif lz_idx != parent_lz_idx:
+                arm_length = max(6, int(round(arm_length * aparams.get("shoot_factor", 0.6))))
 
         # v6 random bulb stamps: every ~10-15 cells along the arm, with
         # probability 0.4, place a disc 1.6× the local width radius at
@@ -1760,13 +2038,11 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
             # step driven by perlin noise. Suppress curve in the joint
             # overlap region to keep the joint straight & solid.
             if step >= joint_overlap:
-                # Curve magnitude per step: 0.025 rad (was 0.06). Over 60
-                # steps with Perlin's bounded ±1 output that's ~1.5 rad
-                # peak deflection, but typically far less. Critically:
-                # use a per-arm seed (curve_seed) NOT the shared arm_seed
-                # — otherwise nearby curve_phase values produce
-                # correlated curves and two arms converge.
-                curve_amt = perlin1d(curve_seed, step * 0.35) * 0.025
+                # v8: per-archetype curve magnitude. Default 0.025 rad/step
+                # (radial_burst); gnarled doubles it to 0.050 for visibly
+                # twisted arms. Use the per-arm curve_seed so nearby phase
+                # values can't produce correlated curves between arms.
+                curve_amt = perlin1d(curve_seed, step * 0.35) * arche_curve_mag
                 ca = math.cos(curve_amt); sa = math.sin(curve_amt)
                 new_dx = ca * cur_dx - sa * cur_dz
                 new_dz = sa * cur_dx + ca * cur_dz
@@ -1786,7 +2062,10 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
             # Each perlin1d is in [-1, 1]. Sum in [-2, 2]. Divide by 1.5
             # and multiply by 3 → swing in [-4, 4].
             width_perlin = ((low_freq + mid_freq) / 1.5) * 3.0
-            cur_width = max(8, base_arm_width + int(round(width_perlin)))
+            # v8: clamp to archetype's minimum width (gnarled allows skinny
+            # arms down to 6; default 8).
+            cur_width = max(arche_min_width_clamp,
+                            base_arm_width + int(round(width_perlin)))
             half_w = cur_width // 2
 
             tip_i = start_i + cur_dx * step
@@ -2006,6 +2285,7 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
 
     return {
         "level": level_id,
+        "archetype": archetype,
         "arm_count": len(lz_dirs),
         "arm_cells_added": len(arm_cells_added),
         "before_n_cells": before_n_cells,
@@ -2152,7 +2432,11 @@ def main():
     for lid, (fn, data) in levels.items():
         if lid not in PATH_MAP and lid not in ALGO_OWNED:
             continue
-        st = grow_arms_for_level(lid, data)
+        st = grow_arms_for_level(
+            lid, data,
+            parent_of=parent_of, trunk_dir=trunk_dir,
+            world_pos=world_pos, children_of=children_of,
+        )
         if not st.get("skipped"):
             arm_stats.append(st)
 
@@ -2306,15 +2590,35 @@ def main():
     total_arm_cells = sum(s["arm_cells_added"] for s in arm_stats)
     total_arms = sum(s["arm_count"] for s in arm_stats)
     print("TOTAL arms grown: %d  (cells added: %d)" % (total_arms, total_arm_cells))
+
+    # v8: per-archetype breakdown (across ALL levels, not just those with
+    # >=2 LZs that grew arms).
+    print()
+    print("=" * 60)
+    print("ARCHETYPE DISTRIBUTION (all %d levels):" % len(levels))
+    arch_count = {}
+    arch_levels = {}
+    for lid in levels:
+        a = pick_archetype(lid)
+        arch_count[a] = arch_count.get(a, 0) + 1
+        arch_levels.setdefault(a, []).append(lid)
+    for a in ARCHETYPES:
+        ids = sorted(arch_levels.get(a, []))
+        print("  %-15s %3d levels: %s" % (
+            a, arch_count.get(a, 0),
+            ", ".join(ids[:6]) + (" ..." if len(ids) > 6 else "")
+        ))
+
     print()
     print("per-level arm breakdown:")
     for s in sorted(arm_stats, key=lambda x: -x["arm_cells_added"]):
         bb0 = s["before_bbox"]; bb1 = s["after_bbox"]
         if bb0 is None or bb1 is None:
             continue
-        print("  %-22s arms=%2d cells %4d->%4d bbox (%3d..%3d, %3d..%3d) -> "
-              "(%3d..%3d, %3d..%3d) sample_arm_dist=+%4.1f" % (
-                  s["level"], s["arm_count"],
+        print("  %-22s [%-14s] arms=%2d cells %4d->%4d bbox "
+              "(%3d..%3d, %3d..%3d) -> (%3d..%3d, %3d..%3d) "
+              "sample_arm_dist=+%4.1f" % (
+                  s["level"], s.get("archetype", "?"), s["arm_count"],
                   s["before_n_cells"], s["after_n_cells"],
                   bb0[0], bb0[2], bb0[1], bb0[3],
                   bb1[0], bb1[2], bb1[1], bb1[3],
