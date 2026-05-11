@@ -2352,12 +2352,12 @@ def grow_arms_for_level(level_id, data, level_seed_extra="",
 # ---------------------------------------------------------------------------
 
 # Tunables (kept module-level so the pass is easy to tweak in one place).
-TERRAIN_HILL_BROAD = 1.8      # ±m broad rolling
-TERRAIN_HILL_DETAIL = 0.4     # ±m fine detail
+TERRAIN_HILL_BROAD = 3.0      # ±m broad rolling (was 1.8 — bumped 1.7× for visible relief)
+TERRAIN_HILL_DETAIL = 0.7     # ±m fine detail (was 0.4)
 TERRAIN_HILL_FREQ_BROAD = 0.05
 TERRAIN_HILL_FREQ_DETAIL = 0.18
-TERRAIN_MAX_RISE = 2.5        # m: south anchor -> north arm tip
-TERRAIN_ARM_SOFTEN = 0.4      # arm corridors get this fraction of hill noise
+TERRAIN_MAX_RISE = 6.5        # m: south anchor -> north arm tip (was 2.5 — much steeper so the slope is felt walking)
+TERRAIN_ARM_SOFTEN = 0.5      # arm corridors get this fraction of hill noise (slightly less softened than before)
 
 
 def _terrain_key(i, j):

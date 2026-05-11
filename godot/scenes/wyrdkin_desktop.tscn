@@ -1,0 +1,854 @@
+[gd_scene load_steps=19 format=3 uid="uid://btuxwyrdkind01"]
+
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+
+[sub_resource type="ProceduralSkyMaterial" id="s1"]
+sky_top_color = Color(0.45, 0.55, 0.65, 1)
+sky_horizon_color = Color(0.8, 0.78, 0.65, 1)
+ground_horizon_color = Color(0.4, 0.42, 0.3, 1)
+ground_bottom_color = Color(0.18, 0.18, 0.12, 1)
+
+[sub_resource type="Sky" id="s2"]
+sky_material = SubResource("s1")
+
+[sub_resource type="Environment" id="s3"]
+background_mode = 2
+sky = SubResource("s2")
+ambient_light_source = 3
+ambient_light_color = Color(0.72, 0.78, 0.72, 1)
+ambient_light_energy = 0.42
+fog_enabled = true
+fog_density = 0.003
+fog_light_color = Color(0.72, 0.75, 0.65, 1)
+
+[sub_resource type="StandardMaterial3D" id="s4"]
+albedo_color = Color(0.4, 0.42, 0.28, 1)
+roughness = 0.95
+metallic = 0
+
+[sub_resource type="StandardMaterial3D" id="s5"]
+albedo_color = Color(0.3, 0.28, 0.2, 1)
+roughness = 0.92
+metallic = 0
+
+[sub_resource type="BoxShape3D" id="s6"]
+size = Vector3(4, 3, 1.5)
+
+[node name="Wyrdkin Desktop" type="Node3D"]
+script = ExtResource("root_script")
+key_group = "wyrdkin_desktop"
+music_track = "wyrdkin_glade"
+display_name = "Wyrdkin Desktop"
+fs_path = "/home/wyrdkin/Desktop"
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("s3")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.780869, 0, -0.624695, -0.427144, 0.729704, -0.53393, 0.455842, 0.683763, 0.569803, 0, 14, 0)
+light_color = Color(0.95, 0.92, 0.78, 1)
+light_energy = 1
+shadow_enabled = true
+
+[node name="TerrainMesh1" type="Node3D" parent="."]
+script = ExtResource("terrain_mesh_script")
+cell_data = [[-6, -6, 0.774], [-6, -5, 0.702], [-6, -4, 0.645], [-6, -3, 0.586], [-6, -2, 0.535], [-6, -1, 0.498], [-6, 0, 0.484], [-6, 1, 0.503], [-6, 2, 0.547], [-6, 3, 0.593], [-6, 4, 0.617], [-6, 5, 0.596], [-5, -6, 0.774], [-5, -5, 0.687], [-5, -4, 0.617], [-5, -3, 0.548], [-5, -2, 0.488], [-5, -1, 0.446], [-5, 0, 0.43], [-5, 1, 0.452], [-5, 2, 0.502], [-5, 3, 0.556], [-5, 4, 0.589], [-5, 5, 0.576], [-4, -6, 0.837], [-4, -5, 0.739], [-4, -4, 0.658], [-4, -3, 0.582], [-4, -2, 0.518], [-4, -1, 0.473], [-4, 0, 0.457], [-4, 1, 0.485], [-4, 2, 0.55], [-4, 3, 0.624], [-4, 4, 0.677], [-4, 5, 0.68], [-3, -6, 1.105], [-3, -5, 0.905], [-3, -4, 0.739], [-3, -3, 0.659], [-3, -2, 0.592], [-3, -1, 0.546], [-3, 0, 0.53], [-3, 1, 0.567], [-3, 2, 0.656], [-3, 3, 0.758], [-3, 4, 0.84], [-3, 5, 0.863], [-2, -6, 1.49], [-2, -5, 1.288], [-2, -4, 1.104], [-2, -3, 0.928], [-2, -2, 0.766], [-2, -1, 0.636], [-2, 0, 0.62], [-2, 1, 0.667], [-2, 2, 0.779], [-2, 3, 0.912], [-2, 4, 1.022], [-2, 5, 1.066], [-1, -6, 1.85], [-1, -5, 1.649], [-1, -4, 1.466], [-1, -3, 1.291], [-1, -2, 1.131], [-1, -1, 0.993], [-1, 0, 0.882], [-1, 1, 0.84], [-1, 2, 0.881], [-1, 3, 1.038], [-1, 4, 1.171], [-1, 5, 1.23], [0, -6, 2.163], [0, -5, 1.964], [0, -4, 1.782], [0, -3, 1.61], [0, -2, 1.452], [0, -1, 1.315], [0, 0, 1.205], [0, 1, 1.165], [0, 2, 1.205], [0, 3, 1.275], [0, 4, 1.324], [0, 5, 1.298], [1, -6, 2.418], [1, -5, 2.227], [1, -4, 2.062], [1, -3, 1.912], [1, -2, 1.779], [1, -1, 1.66], [1, 0, 1.558], [1, 1, 1.509], [1, 2, 1.525], [1, 3, 1.565], [1, 4, 1.585], [1, 5, 1.541], [2, -6, 2.636], [2, -5, 2.461], [2, -4, 2.333], [2, -3, 2.237], [2, -2, 2.158], [2, -1, 2.083], [2, 0, 1.999], [2, 1, 1.93], [2, 2, 1.894], [2, 3, 1.867], [2, 4, 1.824], [2, 5, 1.739], [3, -6, 2.841], [3, -5, 2.687], [3, -4, 2.607], [3, -3, 2.575], [3, -2, 2.563], [3, -1, 2.541], [3, 0, 2.479], [3, 1, 2.386], [3, 2, 2.288], [3, 3, 2.182], [3, 4, 2.064], [3, 5, 1.931], [4, -6, 3.055], [4, -5, 2.924], [4, -4, 2.89], [4, -3, 2.919], [4, -2, 2.969], [4, -1, 2.996], [4, 0, 2.955], [4, 1, 2.841], [4, 2, 2.688], [4, 3, 2.512], [4, 4, 2.328], [4, 5, 2.151], [5, -6, 3.298], [5, -5, 3.19], [5, -4, 3.191], [5, -3, 3.262], [5, -2, 3.353], [5, -1, 3.413], [5, 0, 3.385], [5, 1, 3.259], [5, 2, 3.074], [5, 3, 2.856], [5, 4, 2.633], [5, 5, 2.432], [-10, -5, 1.292], [-10, -4, 1.299], [-10, -3, 1.297], [-10, -2, 1.288], [-10, -1, 1.279], [-10, 0, 1.275], [-10, 1, 1.262], [-10, 2, 1.222], [-10, 3, 1.159], [-10, 4, 1.075], [-9, -5, 1.143], [-9, -4, 1.134], [-9, -3, 1.117], [-9, -2, 1.097], [-9, -1, 1.081], [-9, 0, 1.074], [-9, 1, 1.069], [-9, 2, 1.05], [-9, 3, 1.014], [-9, 4, 0.958], [-8, -6, 1], [-8, -5, 0.968], [-8, -4, 0.942], [-8, -3, 0.91], [-8, -2, 0.879], [-8, -1, 0.855], [-8, 0, 0.846], [-8, 1, 0.85], [-8, 2, 0.857], [-8, 3, 0.853], [-8, 4, 0.828], [-7, -6, 0.86], [-7, -5, 0.807], [-7, -4, 0.765], [-7, -3, 0.719], [-7, -2, 0.677], [-7, -1, 0.646], [-7, 0, 0.634], [-7, 1, 0.648], [-7, 2, 0.677], [-7, 3, 0.703], [-7, 4, 0.708], [-6, 6, 0.522], [-6, 7, 0.473], [-6, 8, 0.447], [-6, 9, 0.424], [-5, 6, 0.508], [-5, 7, 0.462], [-5, 8, 0.439], [-5, 9, 0.418], [-4, 6, 0.616], [-4, 7, 0.551], [-4, 8, 0.493], [-4, 9, 0.434], [-3, -10, 2.692], [-3, -9, 2.298], [-3, -8, 1.856], [-3, -7, 1.434], [-3, 6, 0.801], [-3, 7, 0.702], [-3, 8, 0.587], [-3, 9, 0.466], [-2, -11, 3.243], [-2, -10, 2.97], [-2, -9, 2.602], [-2, -8, 2.193], [-2, -7, 1.802], [-2, 6, 1.005], [-2, 7, 0.87], [-2, 8, 0.693], [-2, 9, 0.504], [-1, -11, 3.501], [-1, -10, 3.237], [-1, -9, 2.891], [-1, -8, 2.511], [-1, -7, 2.147], [-1, 6, 1.17], [-1, 7, 1.005], [-1, 8, 0.779], [-1, 9, 0.535], [0, -11, 3.753], [0, -10, 3.496], [0, -9, 3.163], [0, -8, 2.8], [0, -7, 2.45], [0, 6, 1.238], [0, 7, 1.061], [0, 8, 0.814], [0, 9, 0.548], [1, -10, 3.693], [1, -9, 3.375], [1, -8, 3.028], [1, -7, 2.694], [1, 6, 1.388], [1, 7, 1.123], [1, 8, 0.788], [1, 9, 0.521], [2, -10, 3.807], [2, -9, 3.515], [2, -8, 3.197], [2, -7, 2.891], [2, 6, 1.582], [2, 7, 1.327], [2, 8, 1.007], [2, 9, 0.666], [3, -10, 3.881], [3, -9, 3.622], [3, -8, 3.341], [3, -7, 3.07], [3, 6, 1.769], [3, 7, 1.526], [3, 8, 1.224], [3, 9, 0.903], [4, -10, 3.957], [4, -9, 3.733], [4, -8, 3.49], [4, -7, 3.255], [4, 6, 1.986], [4, 7, 1.755], [4, 8, 1.471], [4, 9, 1.169], [5, 6, 2.266], [5, 7, 2.046], [5, 8, 1.777], [5, 9, 1.491], [6, -6, 3.586], [6, -5, 3.498], [6, -4, 3.515], [6, -3, 3.599], [6, -2, 3.699], [6, -1, 3.763], [6, 0, 3.738], [6, 1, 3.612], [6, 2, 3.426], [6, 3, 3.208], [6, 4, 2.985], [6, 5, 2.786], [6, 6, 2.626], [7, -6, 3.918], [7, -5, 3.849], [7, -4, 3.865], [7, -3, 3.933], [7, -2, 4.011], [7, -1, 4.055], [7, 0, 4.022], [7, 1, 3.901], [7, 2, 3.727], [7, 3, 3.524], [7, 4, 3.317], [7, 5, 3.131], [7, 6, 2.98], [8, -6, 4.272], [8, -5, 4.223], [8, -4, 4.227], [8, -3, 4.265], [8, -2, 4.305], [8, -1, 4.318], [8, 0, 4.271], [8, 1, 4.156], [8, 2, 3.998], [8, 3, 3.816], [8, 4, 3.63], [8, 5, 3.46], [8, 6, 3.32], [9, -6, 4.628], [9, -5, 4.597], [9, -4, 4.59], [9, -3, 4.596], [9, -2, 4.597], [9, -1, 4.576], [9, 0, 4.514], [9, 1, 4.405], [9, 2, 4.264], [9, 3, 4.104], [9, 4, 3.939], [9, 5, 3.785], [9, 6, 3.657], [10, -1, 4.852], [10, 0, 4.78], [10, 1, 4.676]]
+cell_size = 1
+floor_y = 0
+floor_color = Color(0.4, 0.42, 0.28, 1)
+skirt_depth = 6.0
+smoothing = 0.45
+path_cells = [Vector2i(-1, -10), Vector2i(-1, -9), Vector2i(-1, -8)]
+
+[node name="GridTree2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.255, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, -7, 5, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 43
+
+[node name="GridTree3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.837, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -6, -4, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 44
+
+[node name="GridTree4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.918, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(8, -6, 7, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 45
+
+[node name="GridTree5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(0, 10, 1, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 46
+
+[node name="GridTree6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.903, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(3, 10, 4, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 47
+
+[node name="GridTree7" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.852, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(11, -1, 11, 0)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 48
+
+[node name="GridTree8" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.852, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(11, -1, 10, -1)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 49
+
+[node name="GridTree9" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.418, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-5, 10, -4, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 50
+
+[node name="GridTree10" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.881, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(4, -10, 3, -10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 51
+
+[node name="GridTree11" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.596, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -3, 10, -2)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 52
+
+[node name="GridTree12" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.447, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 9, -6, 8)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 53
+
+[node name="GridTree13" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.777, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(6, 8, 6, 9)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 54
+
+[node name="GridTree14" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.657, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 6, 10, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 55
+
+[node name="GridTree15" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.657, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(9, 7, 10, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 56
+
+[node name="GridTree16" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.262, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 2, -10, 1)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 57
+
+[node name="GridTree17" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-5, -6, -6, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 58
+
+[node name="GridTree18" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.299, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, -3, -10, -4)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 59
+
+[node name="GridTree19" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-2, 10, -1, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 60
+
+[node name="GridTree20" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.535, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-1, 10, 0, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 61
+
+[node name="GridTree21" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.473, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 8, -6, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 62
+
+[node name="GridTree22" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.046, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(6, 7, 6, 8)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 63
+
+[node name="GridTree23" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.59, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -4, 10, -3)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 64
+
+[node name="GridTree24" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.785, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 5, 10, 6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 65
+
+[node name="GridTree25" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.275, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 1, -10, 0)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 66
+
+[node name="GridTree26" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.586, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(7, -6, 6, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 67
+
+[node name="GridTree27" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.292, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, -4, -10, -5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 68
+
+[node name="GridTree28" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.292, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-9, -5, -10, -5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 69
+
+[node name="GridTree29" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.075, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 5, -10, 4)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 70
+
+[node name="GridTree30" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.075, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 5, -9, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 71
+
+[node name="GridTree31" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(1, 10, 2, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 72
+
+[node name="GridTree32" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.434, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -6, -3, -7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 73
+
+[node name="GridTree33" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.597, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -5, 10, -4)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 74
+
+[node name="GridTree34" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 7, -6, 6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 75
+
+[node name="GridTree35" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.49, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, -8, 5, -7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 76
+
+[node name="GridTree36" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.272, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(9, -6, 8, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 77
+
+[node name="GridTree37" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.828, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-8, 5, -7, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 78
+
+[node name="GridTree38" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.693, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(2, -10, 1, -10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 79
+
+[node name="GridTree39" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.708, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-7, 5, -6, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 80
+
+[node name="GridTree40" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(7, 7, 8, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 81
+
+[node name="GridTree41" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.856, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -7, -3, -8)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 82
+
+[node name="GridTree42" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.733, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, -9, 5, -8)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 83
+
+[node name="GridTree43" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.169, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(4, 10, 5, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 84
+
+[node name="GridTree44" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-8, -5, -8, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 85
+
+[node name="GridTree45" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-7, -6, -8, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 86
+
+[node name="GridTree46" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.957, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, -10, 5, -9)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 87
+
+[node name="GridTree47" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.957, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, -10, 4, -10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 88
+
+[node name="GridTree48" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.434, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-4, 10, -3, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 89
+
+[node name="GridTree49" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.676, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(11, 1, 11, 2)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 90
+
+[node name="GridTree50" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.676, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 2, 11, 2)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 91
+
+[node name="GridTree51" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-4, -6, -5, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 92
+
+[node name="GridTree52" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.78, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(11, 0, 11, 1)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 93
+
+[node name="GridTree53" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.939, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 4, 10, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 94
+
+[node name="GridTree54" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.666, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(2, 10, 3, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 95
+
+[node name="GridTree55" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.159, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 4, -10, 3)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 96
+
+[node name="GridTree56" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.143, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-8, -5, -9, -5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 97
+
+[node name="GridTree57" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.958, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-9, 5, -8, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 98
+
+[node name="GridTree58" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.628, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -6, 10, -5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 99
+
+[node name="GridTree59" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.628, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -6, 9, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 100
+
+[node name="GridTree60" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.596, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 6, -6, 5)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 101
+
+[node name="GridTree61" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.104, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 3, 10, 4)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 102
+
+[node name="GridTree62" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.626, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(6, 7, 7, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 103
+
+[node name="GridTree63" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.288, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, -1, -10, -2)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 104
+
+[node name="GridTree64" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.279, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 0, -10, -1)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 105
+
+[node name="GridTree65" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.807, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(3, -10, 2, -10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 106
+
+[node name="GridTree66" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.597, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, -2, 10, -1)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 107
+
+[node name="GridTree67" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 10, -6, 9)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 108
+
+[node name="GridTree68" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, 10, -5, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 109
+
+[node name="GridTree69" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.491, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(6, 9, 6, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 110
+
+[node name="GridTree70" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.491, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(5, 10, 6, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 111
+
+[node name="GridTree71" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.222, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, 3, -10, 2)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 112
+
+[node name="GridTree72" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-6, -6, -7, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 113
+
+[node name="GridTree73" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.298, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -8, -3, -9)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 114
+
+[node name="GridTree74" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.264, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(10, 2, 10, 3)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 115
+
+[node name="GridTree75" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, 10, -2, 10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 116
+
+[node name="GridTree76" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.32, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(8, 7, 9, 7)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 117
+
+[node name="GridTree77" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.297, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-10, -2, -10, -3)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 118
+
+[node name="GridTree78" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.298, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(6, -6, 5, -6)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 119
+
+[node name="GridTree79" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.692, 0)
+script = ExtResource("tree_wall_script")
+boundary_points = PackedVector2Array(-3, -9, -3, -10)
+closed = false
+wall_height = 4
+spacing = 1.4
+seed = 120
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="default" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 1.798, 5)
+
+[node name="from_old_hold" type="Marker3D" parent="Spawns"]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 1.798, 5)
+
+[node name="Sign0" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 1.205, 2)
+message = "Wyrdkin Desktop\n\n/home/wyrdkin/Desktop"
+
+[node name="Npc1_Grandmother_s_Ghost" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 1.205, 0)
+npc_name = "Grandmother's Ghost"
+body_color = Color(0.78, 0.72, 0.85, 1)
+hat_color = Color(0.55, 0.45, 0.62, 1)
+idle_hint = "[E] Speak to Grandmother"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Grandmother's Ghost\", \"text\": \"Oh — it's you. Come here, child. The pen is where I\\nset it down. I meant to come back to it.\", \"choices\": [{\"label\": \"What were you writing?\", \"next\": \"writing\"}, {\"label\": \"Are you alright?\", \"next\": \"alright\"}, {\"label\": \"Walk well.\"}]}, \"writing\": {\"speaker\": \"Grandmother's Ghost\", \"text\": \"A letter. To you, perhaps. To someone I would not see\\nagain. The words ran out before the meaning did.\", \"choices\": [{\"label\": \"I'll read it.\", \"next\": \"read\"}, {\"label\": \"Some other time.\"}]}, \"read\": {\"speaker\": \"Grandmother's Ghost\", \"text\": \"It is folded in the next room. Read it when you are\\nold enough — though I suspect you already are.\", \"choices\": [{\"label\": \"Walk well.\"}]}, \"alright\": {\"speaker\": \"Grandmother's Ghost\", \"text\": \"I am as I am. The kin remember; that is enough work\\nfor the realm. Don't sit too long here, child. The\\nlight is going.\", \"choices\": [{\"label\": \"Walk well.\"}]}}}"
+
+[node name="Sign2" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -3, 0.546, -1)
+message = "Grandmother's desk.\n\nThe pen is where she set it down."
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 3, 2.541, -1)
+message = "Untouched. The kin do not move anything in this room."
+
+[node name="Sign4" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 1.324, 4)
+message = "A wooden desk under a small window. A pen, an inkwell,\na stack of paper. The chair is pushed back as if she\nhad only just stood."
+
+[node name="LoadZone0" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.660859, 4.901, -10.4663)
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+script = ExtResource("load_zone_script")
+target_scene = "res://scenes/old_hold.tscn"
+target_spawn = "from_wyrdkin_desktop"
+auto_trigger = true
+prompt = "[E] Back to the Old Hold"
+
+[node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
+shape = SubResource("s6")
+
+[node name="Hint" type="Label3D" parent="LoadZone0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
+text = "[E] Back to the Old Hold"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true
+
+[node name="Tux" parent="." instance=ExtResource("tux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+camera_path = NodePath("../Camera")
+
+[node name="Glim" parent="." instance=ExtResource("glim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.4, 0)
+
+[node name="Camera" type="Node3D" parent="."]
+script = ExtResource("camera_script")
+
+[node name="SpringArm" type="SpringArm3D" parent="Camera"]
+spring_length = 4.5
+margin = 0.05
+
+[node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
+fov = 70.0
+
+[node name="HUD" parent="." instance=ExtResource("hud")]
+
+[node name="DebugOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("debug_script")
+visible_initial = false
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("pause_script")

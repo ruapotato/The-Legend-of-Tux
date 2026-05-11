@@ -341,6 +341,30 @@ PATH_MAP = {
     "var_log_syslog": "/var/log/syslog",
     # Drift (/tmp) — the X11 socket directory.
     "tmp_x11_unix": "/tmp/.X11-unix",
+    # Canonical XDG user dirs across all five home villages (18).
+    # Hearthold already has Desktop+Downloads; add Documents+Music.
+    "hearthold_documents": "/home/hearthold/Documents",
+    "hearthold_music":     "/home/hearthold/Music",
+    # Brookhold — all four.
+    "brookhold_desktop":   "/home/brookhold/Desktop",
+    "brookhold_documents": "/home/brookhold/Documents",
+    "brookhold_music":     "/home/brookhold/Music",
+    "brookhold_downloads": "/home/brookhold/Downloads",
+    # Wyrdkin (Tux's grandparents' Old Hold) — all four.
+    "wyrdkin_desktop":     "/home/wyrdkin/Desktop",
+    "wyrdkin_documents":   "/home/wyrdkin/Documents",
+    "wyrdkin_music":       "/home/wyrdkin/Music",
+    "wyrdkin_downloads":   "/home/wyrdkin/Downloads",
+    # Lirien — all four.
+    "lirien_desktop":      "/home/lirien/Desktop",
+    "lirien_documents":    "/home/lirien/Documents",
+    "lirien_music":        "/home/lirien/Music",
+    "lirien_downloads":    "/home/lirien/Downloads",
+    # Khorgaul — all four.
+    "khorgaul_desktop":    "/home/khorgaul/Desktop",
+    "khorgaul_documents":  "/home/khorgaul/Documents",
+    "khorgaul_music":      "/home/khorgaul/Music",
+    "khorgaul_downloads":  "/home/khorgaul/Downloads",
 }
 
 
@@ -732,6 +756,149 @@ def emit_doors_v2(b, doors):
                 wz = z - sin_r * local_x
                 add_box("DoorWall%d_%s" % (i, "L" if sign < 0 else "R"),
                         wx, wcy, wz, seg_len, wh, wt, mat, rot)
+
+
+# ---- ground-y bake -----------------------------------------------------
+#
+# Each prop kind needs to sit at a specific height above the cell floor.
+# These offsets are baked into `transform.origin.y` at build time so the
+# runtime ground_snap.gd raycast is only a safety net, not the primary
+# fix. Values are the height (m) at which the prop's ORIGIN should sit
+# above the cell's world-y. 0.0 means "origin coincides with the floor
+# surface" (most static props have their mesh origin at the trunk/base).
+_PROP_Y_OFFSETS = {
+    "tree":              0.0,
+    "rock":              0.0,
+    "bush":              0.0,
+    "sign":              0.0,
+    "npc":               0.0,
+    "chest":             0.0,
+    "owl_statue":        0.0,
+    "bomb_flower":       0.0,
+    "door":              0.0,
+    "triggered_gate":    0.0,
+    "time_gate":         0.0,
+    "crystal_switch":    0.0,
+    "pressure_plate":    0.0,
+    "eye_target":        0.0,
+    "movable_block":     0.0,
+    "boss_arena":        0.0,
+    "torch":             0.0,
+    "destructible_wall": 0.0,
+    "hookshot_target":   0.0,
+    # Pickups float slightly above the floor so they're visible against
+    # textured ground. Not currently emitted as standalone props (chests
+    # spawn them at runtime), but kept here for forward compatibility
+    # and in case a future scatter pass drops them directly.
+    "heart_pickup":      0.3,
+    "key_pickup":        0.3,
+    "pebble_pickup":     0.3,
+    "boomerang_pickup":  0.3,
+    "arrow_pickup":      0.3,
+    "seed_pickup":       0.3,
+    "bow_pickup":        0.3,
+    "slingshot_pickup":  0.3,
+    "bomb_pickup":       0.3,
+    "hookshot_pickup":   0.3,
+    "fairy_bottle":      0.3,
+    "heart_piece":       0.3,
+    "heart_container":   0.3,
+    "hammer_pickup":     0.3,
+    "anchor_boots_pickup": 0.3,
+    "glim_sight_pickup": 0.3,
+    "glim_mirror_pickup": 0.3,
+}
+
+# Spawn markers sit at the player capsule's midpoint above the floor.
+_SPAWN_Y_OFFSET = 0.5
+
+# Load-zone triggers sit at chest-height above the floor so the trigger
+# box is centred on the player's body, not buried at ankle level.
+_LOAD_ZONE_Y_OFFSET = 1.4
+
+# When a JSON-authored y exceeds the cell's ground+offset by more than
+# this threshold, we treat it as INTENTIONALLY raised (e.g. a platform,
+# a chest perched on a stone). Keep the authored y in that case.
+_INTENTIONAL_RAISE_THRESHOLD = 1.0
+
+
+# Per-grid memoised cell→world-y maps. Keyed by `id(grid)` so a
+# single conversion run reuses one dict across spawns/props/load_zones;
+# emptied implicitly when the JSON dict is GCed between levels.
+_CELL_Y_CACHE = {}
+
+
+def _build_cell_y_table(grid):
+    """Build {(ci, cj): world_y} for every walking cell on every floor
+    in `grid`. Lower floors win on collision so props on the bottom
+    floor sit on the ground; in practice multi-floor outdoor maps don't
+    exist yet, so the iteration order is mostly cosmetic."""
+    table = {}
+    for floor in grid.get("floors", []) or []:
+        base_y = float(floor.get("y", 0.0))
+        for c in floor.get("cells", []) or []:
+            if isinstance(c, dict):
+                ci, cj = int(c["i"]), int(c["j"])
+                cy = float(c["y"]) if "y" in c else 0.0
+            else:
+                ci, cj = int(c[0]), int(c[1])
+                cy = float(c[2]) if len(c) >= 3 and c[2] is not None else 0.0
+            key = (ci, cj)
+            # First write wins (bottom floor). If we ever stack floors
+            # the lower one is what props sit on, which is what we want.
+            if key not in table:
+                table[key] = base_y + cy
+    return table
+
+
+def cell_y_lookup(grid, world_x, world_z):
+    """Return the world-y of the walking cell under (world_x, world_z),
+    or None if no grid is configured or the (x, z) isn't on a walking
+    cell. The y is the floor's base y plus the per-cell y_offset.
+
+    Used by emit_spawns / emit_props / emit_load_zones to bake the
+    correct ground height into every emitted transform — replacing
+    runtime ground_snap.gd as the primary fix for "trees float / rocks
+    fall" reports."""
+    if not grid:
+        return None
+    cell_size = float(grid.get("cell_size", 2.0))
+    key = id(grid)
+    table = _CELL_Y_CACHE.get(key)
+    if table is None:
+        table = _build_cell_y_table(grid)
+        _CELL_Y_CACHE[key] = table
+    if not table:
+        return None
+    ci = int(math.floor(world_x / cell_size))
+    cj = int(math.floor(world_z / cell_size))
+    return table.get((ci, cj))
+
+
+def resolve_ground_y(grid, kind, pos):
+    """Compute the y at which a prop of `kind` at world (x, _, z) should
+    sit, replacing the JSON-authored y with `cell_y + per_prop_offset`.
+
+    Preserves the JSON y when it's been deliberately raised above the
+    ground (e.g. a chest on top of a platform). Detection is conservative:
+    if `json_y - cell_y > 1.0 m`, we treat it as intentional and leave
+    the authored y untouched.
+
+    Returns (y, source) where source is "baked" if we replaced the y,
+    "authored" if we kept it, or "passthrough" if no grid lookup was
+    available."""
+    x, json_y, z = float(pos[0]), float(pos[1]), float(pos[2])
+    cy = cell_y_lookup(grid, x, z)
+    if cy is None:
+        return json_y, "passthrough"
+    offset = _PROP_Y_OFFSETS.get(kind, 0.0)
+    target = cy + offset
+    if json_y - cy > _INTENTIONAL_RAISE_THRESHOLD:
+        # Deliberately raised — e.g. a chest perched on a stone, a sign
+        # mounted on a platform. Keep the authored y so we don't yank
+        # the prop down into the floor.
+        return json_y, "authored"
+    return target, "baked"
 
 
 def _grid_floor_centroid(floor, cell_size):
@@ -1342,11 +1509,17 @@ def emit_environment(b, env):
         )
 
 
-def emit_spawns(b, spawns):
+def emit_spawns(b, spawns, grid=None):
     b.add_node('[node name="Spawns" type="Node3D" parent="."]\n')
     for sp in (spawns or []):
         x, y, z = sp["pos"]
         rot = float(sp.get("rotation_y", 0.0))
+        # Bake the cell's ground y + capsule-midpoint offset into the
+        # spawn marker so the player materialises ON the floor rather
+        # than ankle-deep in a hill (or floating above one).
+        cy = cell_y_lookup(grid, x, z)
+        if cy is not None and (y - cy) <= _INTENTIONAL_RAISE_THRESHOLD:
+            y = cy + _SPAWN_Y_OFFSET
         b.add_node(
             '[node name="%s" type="Marker3D" parent="Spawns"]\n'
             'transform = %s\n'
@@ -1368,10 +1541,15 @@ def emit_enemies(b, enemies):
         )
 
 
-def emit_props(b, props):
+def emit_props(b, props, grid=None):
     for i, p in enumerate(props or []):
         kind = p["type"]
         x, y, z = p["pos"]
+        # Bake the cell's ground y + per-prop offset into the prop's
+        # transform.origin.y. The JSON y is preserved only when it's
+        # been deliberately raised above the floor (chest on a platform).
+        # See resolve_ground_y / _PROP_Y_OFFSETS above.
+        y, _ground_src = resolve_ground_y(grid, kind, (x, y, z))
         rot = float(p.get("rotation_y", 0.0))
         if kind == "sign":
             b.ext("sign")
@@ -1635,7 +1813,7 @@ def emit_props(b, props):
             )
 
 
-def emit_load_zones(b, zones):
+def emit_load_zones(b, zones, grid=None):
     # Load zones are INVISIBLE triggers now — they sit at the level
     # boundary inside a deliberate gap in the tree wall (carved by
     # _preprocess_load_zones + tree_wall.gd's `gaps` export). The
@@ -1649,6 +1827,12 @@ def emit_load_zones(b, zones):
         x, y, z = lz["pos"]
         sx, sy, sz = lz.get("size", [3.0, 3.0, 1.0])
         rot = float(lz.get("rotation_y", 0.0))
+        # Bake the ground y + chest-height offset into the trigger box
+        # so it sits on the cell, not whatever literal y the JSON had.
+        # Preserve obviously-raised authored y (lz on a platform).
+        cy = cell_y_lookup(grid, x, z)
+        if cy is not None and (y - cy) <= _INTENTIONAL_RAISE_THRESHOLD:
+            y = cy + _LOAD_ZONE_Y_OFFSET
         target_scene = lz["target_scene"]
         if not target_scene.startswith("res://"):
             target_scene = "res://scenes/%s.tscn" % target_scene
@@ -1722,6 +1906,10 @@ def emit_player_camera_hud(b):
 def convert(json_path):
     with open(json_path) as f:
         data = json.load(f)
+    # Reset memoised cell→y tables — `id(grid)` can be reused across
+    # levels by CPython if the previous data dict was GCed, so clearing
+    # explicitly keeps the bake deterministic.
+    _CELL_Y_CACHE.clear()
     b = Builder(data)
     b.ext("root_script")
     # Root node first (must precede everything). The dungeon-wide
@@ -1770,10 +1958,10 @@ def convert(json_path):
                      path_cells_per_floor=lz_info["path_cells_per_floor"])
     emit_doors_v2(b, data.get("doors", []))
     emit_lights(b, data.get("lights", []))
-    emit_spawns(b, data.get("spawns", []))
+    emit_spawns(b, data.get("spawns", []), grid=data.get("grid"))
     emit_enemies(b, data.get("enemies", []))
-    emit_props(b, data.get("props", []))
-    emit_load_zones(b, data.get("load_zones", []))
+    emit_props(b, data.get("props", []), grid=data.get("grid"))
+    emit_load_zones(b, data.get("load_zones", []), grid=data.get("grid"))
     emit_player_camera_hud(b)
 
     out_path = os.path.join(SCENES_OUT, data["id"] + ".tscn")

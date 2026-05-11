@@ -454,6 +454,104 @@ SCAFFOLD = [
         "scope": "passthrough", "theme": "wild-hum", "music": "drift",
         "neighbours": [("drift", "[E] Back to the Drift")],
     },
+    # ---- canonical XDG user dirs per home village (18) -------------------
+    # Four per village (Desktop/Documents/Music/Downloads), minus the two
+    # Hearthold already has from the prior pass.
+    # Hearthold — add Documents and Music.
+    {
+        "id": "hearthold_documents", "name": "Hearthold Documents",
+        "scope": "passthrough", "theme": "alcove", "music": "hearthold",
+        "neighbours": [("hearthold", "[E] Back to Hearthold")],
+    },
+    {
+        "id": "hearthold_music", "name": "Hearthold Music Hall",
+        "scope": "passthrough", "theme": "village-commons", "music": "hearthold",
+        "neighbours": [("hearthold", "[E] Back to Hearthold")],
+    },
+    # Brookhold — all four.
+    {
+        "id": "brookhold_desktop", "name": "Brookhold Desktop",
+        "scope": "passthrough", "theme": "frontier-town", "music": "brookhold",
+        "neighbours": [("brookhold", "[E] Back to Brookhold")],
+    },
+    {
+        "id": "brookhold_documents", "name": "Brookhold Documents",
+        "scope": "passthrough", "theme": "labelled-shelves", "music": "brookhold",
+        "neighbours": [("brookhold", "[E] Back to Brookhold")],
+    },
+    {
+        "id": "brookhold_music", "name": "Brookhold Music",
+        "scope": "passthrough", "theme": "frontier-town", "music": "brookhold",
+        "neighbours": [("brookhold", "[E] Back to Brookhold")],
+    },
+    {
+        "id": "brookhold_downloads", "name": "Brookhold Downloads",
+        "scope": "passthrough", "theme": "labelled-shelves", "music": "brookhold",
+        "neighbours": [("brookhold", "[E] Back to Brookhold")],
+    },
+    # Wyrdkin (Tux's grandparents' Old Hold) — all four.
+    {
+        "id": "wyrdkin_desktop", "name": "Wyrdkin Desktop",
+        "scope": "passthrough", "theme": "overgrown-homestead", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    {
+        "id": "wyrdkin_documents", "name": "Wyrdkin Documents",
+        "scope": "passthrough", "theme": "alcove", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    {
+        "id": "wyrdkin_music", "name": "Wyrdkin Music",
+        "scope": "passthrough", "theme": "overgrown-homestead", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    {
+        "id": "wyrdkin_downloads", "name": "Wyrdkin Downloads",
+        "scope": "passthrough", "theme": "alcove", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    # Lirien — all four (tower-study austere mystical).
+    {
+        "id": "lirien_desktop", "name": "Lirien Desktop",
+        "scope": "passthrough", "theme": "tower-study", "music": "crown",
+        "neighbours": [("home_lirien", "[E] Back to Lirien's Chamber")],
+    },
+    {
+        "id": "lirien_documents", "name": "Lirien Documents",
+        "scope": "passthrough", "theme": "tower-study", "music": "crown",
+        "neighbours": [("home_lirien", "[E] Back to Lirien's Chamber")],
+    },
+    {
+        "id": "lirien_music", "name": "Lirien Music",
+        "scope": "passthrough", "theme": "tower-study", "music": "crown",
+        "neighbours": [("home_lirien", "[E] Back to Lirien's Chamber")],
+    },
+    {
+        "id": "lirien_downloads", "name": "Lirien Downloads",
+        "scope": "passthrough", "theme": "tower-study", "music": "crown",
+        "neighbours": [("home_lirien", "[E] Back to Lirien's Chamber")],
+    },
+    # Khorgaul — all four (burned-hold scorched, silent, mournful).
+    {
+        "id": "khorgaul_desktop", "name": "Khorgaul Desktop",
+        "scope": "passthrough", "theme": "burned-hold", "music": "burnt_hollow",
+        "neighbours": [("home_khorgaul", "[E] Back to the Khorgaul Roost")],
+    },
+    {
+        "id": "khorgaul_documents", "name": "Khorgaul Documents",
+        "scope": "passthrough", "theme": "burned-hold", "music": "burnt_hollow",
+        "neighbours": [("home_khorgaul", "[E] Back to the Khorgaul Roost")],
+    },
+    {
+        "id": "khorgaul_music", "name": "Khorgaul Music",
+        "scope": "passthrough", "theme": "burned-hold", "music": "burnt_hollow",
+        "neighbours": [("home_khorgaul", "[E] Back to the Khorgaul Roost")],
+    },
+    {
+        "id": "khorgaul_downloads", "name": "Khorgaul Downloads",
+        "scope": "passthrough", "theme": "burned-hold", "music": "burnt_hollow",
+        "neighbours": [("home_khorgaul", "[E] Back to the Khorgaul Roost")],
+    },
 ]
 
 # ---- environment palettes per theme ---------------------------------------
