@@ -1,17 +1,17 @@
 [gd_scene load_steps=574 format=3 uid="uid://btuxhomeliri01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.4, 1)
@@ -5206,33 +5206,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.23, 0, -3.36)
 
 [node name="Rock43" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.93, 0, -4.21)
-
-[node name="Rock44" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.04, 0, 37.58)
-
-[node name="Rock45" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.38, 0, 36.42)
-
-[node name="Rock46" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.14, 0, 38.24)
-
-[node name="Rock47" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.02, 0, 37.19)
-
-[node name="Rock48" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.97, 0, 38.29)
-
-[node name="Rock49" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.76, 0, 10.86)
-
-[node name="Rock50" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.02, 0, 8.8)
-
-[node name="Rock51" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.28, 0, 10.47)
-
-[node name="Rock52" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.95, 0, 10.88)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.437285, 1.4, -5.49944)

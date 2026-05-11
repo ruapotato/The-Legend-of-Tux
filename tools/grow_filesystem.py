@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""grow_filesystem.py — the L-system rooting algorithm (FILESYSTEM.md §v3).
+"""grow_filesystem.py — the L-system rooting algorithm (FILESYSTEM.md §v6).
 
 Reads PATH_MAP from build_dungeon.py to learn the directory tree.
 Computes (world_pos, trunk_dir) per directory via depth-first L-system walk
@@ -12,11 +12,22 @@ For the 27 algorithm-owned v2 directories (+ 4 grottoes), it then:
     south end and prong tips
   - re-emits load_zone POSITIONS at compass-correct edges (parent at
     south, children at north prongs, siblings/shortcuts at east/west)
-  - appends pillar clusters (3-5 trees + 1-2 rocks) between every pair
-    of adjacent tree-wall gaps, so multi-child hubs no longer look like
-    one giant black wall
   - re-binds existing handcrafted props (NPCs, signs, chests,
     owl_statues) of those levels to the nearest valid walking cell
+
+For handcrafted hub levels (stone-walled, >=2 auto LZs OR >=800 cells),
+it now also UNIONS in a circular blob of cells centred on the existing
+hub's centroid (v6) so the silhouette reads as round-with-protrusions,
+not as a perfect square. Original cells are always preserved.
+
+v6 also strips ALL legacy `_pillar_cluster` props — pillar clusters were
+a v2 silhouette-breaker that no longer makes sense now that each arm is
+a distinct corridor with tree-wall gaps between arms. The remaining
+perimeter knot bumps (off-bbox rocks) stay since they don't sit in paths.
+
+Arms in v6 are blobular: width baseline 8..16, multi-scale Perlin
+variation ±4 along their length, occasional oval "bulb" stamps every
+10-15 cells. Each arm reads as a string of bulbs, not a uniform tube.
 
 Hand-authored levels (~30 listed in §v3.3) are PRESERVED — their cells
 and spawns are not touched. Their load_zones to algorithm-owned dirs
@@ -798,8 +809,12 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
     rebound = 0
     new_props = []
     for p in data.get("props", []):
-        # Drop previously-added pillar-cluster props (idempotent re-runs).
+        # Drop previously-added pillar-cluster AND perimeter-knot props
+        # (idempotent re-runs). Knot props will be re-emitted via the
+        # handcrafted pass below if applicable.
         if p.get("_pillar_cluster"):
+            continue
+        if p.get("_perimeter_knot"):
             continue
         kind = p.get("type", "")
         if kind in ("npc", "sign", "chest", "owl_statue"):
@@ -820,73 +835,13 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
             new_props.append(p)
 
     # --- pillar clusters between adjacent gaps ---
-    # Compute gap angles in LOCAL frame (which matches the JSON's
-    # local coordinates — both use +y/+z = north).
-    gap_angles = []
-    for lz in new_lz_list:
-        # Use the outward direction from the centroid_world to the lz.
-        cx_w, cz_w = cells_to_world_xz(centroid[0], centroid[1])
-        gx, gz = lz["pos"][0], lz["pos"][2]
-        ang = math.atan2(gz - cz_w, gx - cx_w)
-        gap_angles.append(ang)
-
-    # Detect wall material to choose pillar style: tree-walled levels
-    # get tree+rock mixed clusters; stone-walled levels get rock-only
-    # clusters (placing trees inside a stone room looks broken).
-    floors_for_wm = data.get("grid", {}).get("floors", [])
-    wall_material = "stone"
-    if floors_for_wm:
-        wall_material = floors_for_wm[0].get("wall_material", "stone")
-    is_tree_wall = (wall_material == "tree")
-
+    # REMOVED in v6: pillar clusters used to be placed at the angular
+    # midpoint between adjacent LZ gaps to break the silhouette. Now
+    # that each LZ has its own arm corridor (with tree-wall walls
+    # between arms) those pillars sit inside or alongside the corridor,
+    # looking like rocks blocking the path. v6 emits zero pillar
+    # clusters and strips any stale ones (handled in main()).
     pillar_clusters_added = 0
-    if len(gap_angles) >= 2:
-        sorted_angles = sorted(gap_angles)
-        # Estimate boundary radius from the cell footprint.
-        boundary_r_cells = max(
-            abs(bbox_i[0]), abs(bbox_i[1]),
-            abs(bbox_j[0]), abs(bbox_j[1])
-        )
-        boundary_r = boundary_r_cells * CELL_SIZE + 1.5
-        crng = random.Random("clusters::" + level_id)
-        for k in range(len(sorted_angles)):
-            a = sorted_angles[k]
-            b = sorted_angles[(k + 1) % len(sorted_angles)]
-            if k == len(sorted_angles) - 1:
-                # wrap-around: shift b by 2π
-                b += 2 * math.pi
-            mid = (a + b) / 2.0
-            # If the two adjacent gaps are very close (< 15°) skip — no
-            # room for a cluster.
-            if (b - a) < math.radians(15):
-                continue
-            ccx_w, ccz_w = cells_to_world_xz(centroid[0], centroid[1])
-            cluster_x = ccx_w + math.cos(mid) * (boundary_r - 0.5)
-            cluster_z = ccz_w + math.sin(mid) * (boundary_r - 0.5)
-            if is_tree_wall:
-                n_trees = crng.randint(3, 5)
-                n_rocks = crng.randint(1, 2)
-            else:
-                # Stone-walled hubs: rock-only pillars (no out-of-place trees).
-                n_trees = 0
-                n_rocks = crng.randint(3, 5)
-            for ti in range(n_trees):
-                jx = crng.uniform(-1.6, 1.6)
-                jz = crng.uniform(-1.6, 1.6)
-                new_props.append({
-                    "type": "tree",
-                    "pos": [round(cluster_x + jx, 2), 0.0, round(cluster_z + jz, 2)],
-                    "_pillar_cluster": True,
-                })
-            for ri in range(n_rocks):
-                jx = crng.uniform(-1.4, 1.4)
-                jz = crng.uniform(-1.4, 1.4)
-                new_props.append({
-                    "type": "rock",
-                    "pos": [round(cluster_x + jx, 2), 0.0, round(cluster_z + jz, 2)],
-                    "_pillar_cluster": True,
-                })
-            pillar_clusters_added += 1
 
     # --- write back into data ---
     grid = data.get("grid", {})
@@ -922,24 +877,20 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
 # ---------------------------------------------------------------------------
 
 def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
-    """Hand-crafted levels: between adjacent load_zones, add a cluster of
-    pillar props at the perimeter so the gap-in-wall visual reads as a
-    distinct doorway instead of an arbitrary opening in a featureless
-    wall.
+    """Hand-crafted hubs (v6):
+      - For stone-walled hubs with 4+ auto:true load_zones, REDISTRIBUTE
+        load_zone trigger positions evenly around the cell bbox
+        perimeter (parent kept at south, others fan CW from north).
+      - ADD a few perimeter knot bumps (4-8 small rock props at random
+        spots just outside the cell bbox) so the silhouette doesn't
+        read as a perfect rectangle. These sit OUTSIDE the bbox so they
+        don't clutter walking paths.
 
-    Material rule:
-      - tree-walled levels: tree-pillar clusters (3-5 trees + 1-2 rocks)
-      - stone-walled levels: rock-pillar clusters (3-5 rocks, no trees)
+    v6 NO LONGER emits angular-gap pillar clusters — those rocks ended
+    up sitting in arm corridors after the arm-growth pass. Knot bumps
+    only.
 
-    Additionally, for stone-walled hubs with 4+ auto:true load_zones,
-    REDISTRIBUTE load_zone trigger positions evenly around the cell
-    bbox perimeter (parent kept at south, others fan CW from north),
-    and ADD perimeter knot bumps (4-8 small rock props at random spots
-    just outside the cell bbox) so the silhouette doesn't read as a
-    perfect rectangle.
-
-    Skips levels that already use a tree_walls polygon (those carve
-    gaps via tree_wall.gd's `gaps` system already)."""
+    Skips levels that already use a tree_walls polygon."""
     if data.get("tree_walls"):
         # Still strip stale pillar-cluster props for idempotency.
         data["props"] = [p for p in data.get("props", [])
@@ -1044,84 +995,14 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
         ang = math.atan2(pos_for_ang[2] - cz, pos_for_ang[0] - cx)
         angles.append((ang, lz.get("pos", [0, 0, 0])))
 
-    # Drop previously-added pillar-cluster props (idempotent re-runs)
-    # — they're tagged with `_pillar_cluster: True`.
+    # Drop ALL previously-added pillar-cluster AND perimeter-knot props
+    # (idempotent re-runs). v6: gap pillars permanently disabled; knot
+    # props are re-emitted below in Step B.
     new_props = [p for p in data.get("props", [])
-                 if not p.get("_pillar_cluster")]
+                 if not p.get("_pillar_cluster")
+                 and not p.get("_perimeter_knot")]
 
-    # For tree-walled clusters, the radial distance `r` is computed from
-    # canonical pre-arm positions where present so it doesn't grow each
-    # run as arms push the LZ pos further out.
-    pre_positions = []
-    for lz in lzs:
-        if not lz.get("auto", True):
-            continue
-        pos_for_r = lz.get("_pre_arm_pos") or lz.get("pos", [0, 0, 0])
-        pre_positions.append(pos_for_r)
-
-    added = 0
-    if len(angles) >= 2:
-        angles.sort(key=lambda a: a[0])
-        # Mean radial distance for cluster placement (from canonical
-        # anchors so it doesn't drift between runs).
-        if pre_positions:
-            r = sum(math.hypot(p[0] - cx, p[2] - cz)
-                    for p in pre_positions) / len(pre_positions)
-        else:
-            r = sum(math.hypot(p[0] - cx, p[2] - cz)
-                    for _, p in angles) / len(angles)
-        crng = random.Random("clusters::handcrafted::" + level_id)
-        for k in range(len(angles)):
-            a_ang, _ = angles[k]
-            b_ang, _ = angles[(k + 1) % len(angles)]
-            if k == len(angles) - 1:
-                b_ang += 2 * math.pi
-            if (b_ang - a_ang) < math.radians(15):
-                continue
-            mid = (a_ang + b_ang) / 2.0
-            # For stone-walled hubs after redistribution, project the
-            # cluster onto the bbox boundary (rectangular wall) rather
-            # than at a circular radius. For tree-walled (round-ish)
-            # outdoor scenes, use the average radial distance.
-            if not is_tree_wall:
-                cax = math.cos(mid); caz = math.sin(mid)
-                if abs(cax) < 1e-9:
-                    tx = float("inf")
-                else:
-                    tx = bbox_half_x / abs(cax)
-                if abs(caz) < 1e-9:
-                    tz = float("inf")
-                else:
-                    tz = bbox_half_z / abs(caz)
-                t = min(tx, tz) + 0.4
-                ccx = bbox_cx + cax * t
-                ccz = bbox_cz + caz * t
-            else:
-                ccx = cx + math.cos(mid) * (r + 1.5)
-                ccz = cz + math.sin(mid) * (r + 1.5)
-            if is_tree_wall:
-                n_trees = crng.randint(3, 5)
-                n_rocks = crng.randint(1, 2)
-            else:
-                n_trees = 0
-                n_rocks = crng.randint(3, 5)
-            for _ in range(n_trees):
-                jx = crng.uniform(-1.6, 1.6)
-                jz = crng.uniform(-1.6, 1.6)
-                new_props.append({
-                    "type": "tree",
-                    "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
-                    "_pillar_cluster": True,
-                })
-            for _ in range(n_rocks):
-                jx = crng.uniform(-1.4, 1.4)
-                jz = crng.uniform(-1.4, 1.4)
-                new_props.append({
-                    "type": "rock",
-                    "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
-                    "_pillar_cluster": True,
-                })
-            added += 1
+    added = 0  # v6: pillar clusters disabled — always zero.
 
     # ---- Step B: perimeter knot bumps for stone-walled hubs. ----
     # Break the perfect-rectangle silhouette by sprinkling a few rock
@@ -1163,7 +1044,11 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
             new_props.append({
                 "type": "rock",
                 "pos": [round(bx, 2), 0.0, round(bz, 2)],
-                "_pillar_cluster": True,
+                # _perimeter_knot (v6): separate tag from _pillar_cluster so
+                # these off-bbox silhouette-breaker rocks survive the v6
+                # pillar-cluster strip pass. They sit OUTSIDE the bbox so
+                # they never end up in arm corridors.
+                "_perimeter_knot": True,
             })
             placed += 1
 
@@ -1281,6 +1166,139 @@ def _strip_organic_bulge_cells(data):
     floor["cells"] = new_cells
     floor["_organic_bulge_cells"] = []
     return stripped
+
+
+def _strip_blob_cells(data):
+    """Remove previously-added circular-blob cells from the floor.
+    Returns count stripped. Idempotent."""
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return 0
+    floor = floors[0]
+    blob_set = set()
+    for c in floor.get("_blob_cells", []) or []:
+        try:
+            blob_set.add((int(c[0]), int(c[1])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    if not blob_set:
+        return 0
+    new_cells = []
+    stripped = 0
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            ci, cj = int(c.get("i", 0)), int(c.get("j", 0))
+        else:
+            ci, cj = int(c[0]), int(c[1])
+        if (ci, cj) in blob_set:
+            stripped += 1
+            continue
+        new_cells.append(c)
+    floor["cells"] = new_cells
+    floor["_blob_cells"] = []
+    return stripped
+
+
+def make_circular_blob_for_level(level_id, data):
+    """Union the existing rectangular hub footprint with a circular-blob
+    footprint centred on the centroid of the original cells, with a
+    Perlin-perturbed edge.
+
+    Effective radius `r = sqrt(cell_count / pi) * 1.2` (slight expansion
+    so the blob extends past the square's corners).
+
+    Original cells are ALWAYS preserved (union). So content placement
+    (NPCs / signs / chests / spawns / load_zones) on a now-outside-the-
+    blob cell still sits on a valid walking cell.
+
+    Skips:
+      - tree_walls levels (their boundary is polygon-defined; we don't
+        edit cells there)
+      - levels with fewer than 200 cells (too small to be considered a hub)
+
+    Tags new cells with floor['_blob_cells'] for idempotent re-runs.
+    Returns count of cells added.
+    """
+    if data.get("tree_walls"):
+        _strip_blob_cells(data)
+        return 0
+
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return 0
+    floor = floors[0]
+
+    # Clean up any previous blob cells first.
+    _strip_blob_cells(data)
+
+    cells_set = _existing_cell_set(floor)
+    if len(cells_set) < 200:
+        return 0
+
+    # Determine the "core" footprint to measure the centroid and cell
+    # count from: original handcrafted cells, NOT v4 arm cells or v5
+    # bulge cells (those would skew the centroid outward and inflate
+    # the radius). The strip helpers run before us in main(), but as a
+    # belt-and-braces measure compute the core directly here too.
+    arm_set = set()
+    for c in floor.get("_arm_cells", []) or []:
+        try:
+            arm_set.add((int(c[0]), int(c[1])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    bulge_set = set()
+    for c in floor.get("_organic_bulge_cells", []) or []:
+        try:
+            bulge_set.add((int(c[0]), int(c[1])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    core = cells_set - arm_set - bulge_set
+    if len(core) < 200:
+        # Most stone-walled hubs strip to >=256 core cells; bail if not.
+        return 0
+
+    # Centroid in cell units.
+    cx = sum(c[0] for c in core) / len(core)
+    cz = sum(c[1] for c in core) / len(core)
+    n = len(core)
+    r = math.sqrt(n / math.pi) * 1.2
+
+    seed = "fs::blob::" + level_id
+
+    # Stamp circular blob with Perlin-perturbed radius.
+    # Bounding square: 2.4 * r (per spec).
+    half_bb = int(math.ceil(r * 1.2)) + 2  # 2.4 / 2 = 1.2
+    ci_int = int(round(cx))
+    cj_int = int(round(cz))
+    new_blob = set()
+    for di in range(-half_bb, half_bb + 1):
+        for dj in range(-half_bb, half_bb + 1):
+            ii = ci_int + di
+            jj = cj_int + dj
+            d = math.hypot(ii - cx, jj - cz)
+            # Perlin perturbation on the radius — sample 2D-ish via a
+            # diagonal index so the edge has organic wavelength.
+            phase = (ii * 0.21) + (jj * 0.17)
+            jitter = perlin1d(seed + ":r", phase) * (r * 0.18)
+            noisy_r = r + jitter
+            if d < noisy_r:
+                if (ii, jj) not in cells_set:
+                    new_blob.add((ii, jj))
+
+    if not new_blob:
+        return 0
+
+    # Append to floor.cells.
+    existing_entries = list(floor.get("cells", []))
+    blob_list = []
+    for (i, j) in sorted(new_blob):
+        existing_entries.append([i, j])
+        blob_list.append([i, j])
+    floor["cells"] = existing_entries
+    floor["_blob_cells"] = blob_list
+    return len(blob_list)
 
 
 def grow_organic_bulge_for_level(level_id, data):
@@ -1673,13 +1691,26 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         arm_seed = seed + ":lz:" + str(lz_idx) + ":" + str(lz.get("target_scene", ""))
         arm_rng = random.Random(arm_seed)
 
-        # Width per arm: random uniform 6..12, held across the arm length
-        # but Perlin-varied ±2 along it (clamped to >= 6). Wider so the
-        # corridors are comfortable to walk down (was 4..8).
-        base_arm_width = arm_rng.randint(6, 12)
+        # v6 width per arm: random uniform 8..16 (was 6..12).
+        # Multi-scale Perlin variation along the length (see step loop)
+        # gives ±4 swings — wider chambers / pinch points rather than a
+        # smooth tube. Min width clamped to 8 throughout.
+        base_arm_width = arm_rng.randint(8, 16)
 
-        # Length per arm: random uniform 36..60 (was 24..42).
+        # Length per arm: random uniform 36..60 (no change in v6).
         arm_length = arm_rng.randint(36, 60)
+
+        # v6 random bulb stamps: every ~10-15 cells along the arm, with
+        # probability 0.4, place a disc 1.6× the local width radius at
+        # the centre, so each arm reads as a string of bulbs rather than
+        # a smooth corridor. Pre-compute the bulb anchor steps so the
+        # main loop can stamp them on the fly.
+        bulb_steps = set()
+        s = arm_rng.randint(10, 15)
+        while s < arm_length - 2:
+            if arm_rng.random() < 0.4:
+                bulb_steps.add(s)
+            s += arm_rng.randint(10, 15)
 
         # Anchor: nearest perimeter cell of the existing hub in the
         # outward direction (NOT existing_reach + 1, which left a gap).
@@ -1715,11 +1746,21 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
                 new_dz = sa * cur_dx + ca * cur_dz
                 cur_dx, cur_dz = new_dx, new_dz
 
-            # Width varies along the arm via Perlin (±2, min 6). Wider
-            # baseline so even the narrowest section stays walkable.
+            # v6: width varies along the arm via TWO multi-scale Perlin
+            # streams summed (low-freq rolling bulges every ~12 cells +
+            # mid-freq pinches every ~4 cells), divided by 1.5 so the
+            # combined ±4 swing sits on top of base_arm_width.
             t_width = step / max(1, arm_length)
-            width_perlin = perlin1d(arm_seed + ":w", t_width * 4.0 + curve_phase) * 2.0
-            cur_width = max(6, base_arm_width + int(round(width_perlin)))
+            # Low freq: ~12-cell wavelength → t in [0, ~5] for length 60.
+            # Mid freq: ~4-cell wavelength  → t in [0, ~15] for length 60.
+            low_freq = perlin1d(arm_seed + ":w_lo",
+                                step / 12.0 + curve_phase * 0.1)
+            mid_freq = perlin1d(arm_seed + ":w_mid",
+                                step / 4.0 + curve_phase * 0.3)
+            # Each perlin1d is in [-1, 1]. Sum in [-2, 2]. Divide by 1.5
+            # and multiply by 3 → swing in [-4, 4].
+            width_perlin = ((low_freq + mid_freq) / 1.5) * 3.0
+            cur_width = max(8, base_arm_width + int(round(width_perlin)))
             half_w = cur_width // 2
 
             tip_i = start_i + cur_dx * step
@@ -1755,6 +1796,28 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
                     cells_set.add(key)
                     arm_cells_added.append(key)
                     new_cell_entries.append([ai, aj])
+
+            # v6 bulb stamp: at pre-chosen step indices, stamp an oval
+            # disc of radius 1.6 * (cur_width / 2) centred on the arm
+            # axis. This creates the "string of bulbs" silhouette.
+            if step in bulb_steps:
+                bulb_r = max(4, int(round(cur_width * 0.8)))  # 1.6 * half_w
+                # Stamp a disc with a tiny Perlin perturbation so each
+                # bulb has a slightly irregular shape.
+                for ddi in range(-bulb_r - 1, bulb_r + 2):
+                    for ddj in range(-bulb_r - 1, bulb_r + 2):
+                        d = math.hypot(ddi, ddj)
+                        jph = (ddi * 0.31) + (ddj * 0.19) + step * 0.07
+                        jitter = perlin1d(arm_seed + ":bulb", jph) * 1.5
+                        if d < bulb_r + jitter:
+                            ai = int(round(tip_i)) + ddi
+                            aj = int(round(tip_j)) + ddj
+                            key = (ai, aj)
+                            if key in cells_set:
+                                continue
+                            cells_set.add(key)
+                            arm_cells_added.append(key)
+                            new_cell_entries.append([ai, aj])
 
             # Bridge to previous step: if the curve made the centre move
             # by more than 1 cell on either axis, stamp the orthogonal
@@ -1955,21 +2018,41 @@ def main():
             levels[lid] = (fn, json.load(f))
 
     # Idempotency pre-step: strip every level's previously-added arm
-    # cells AND organic-bulge cells so subsequent passes operate on the
-    # original hub footprint, not last run's arm/bulge-extended one.
+    # cells, organic-bulge cells, AND circular-blob cells (v6) so
+    # subsequent passes operate on the original hub footprint, not last
+    # run's arm/bulge/blob-extended one.
     # Without this, the handcrafted bbox-based LZ redistribution drifts
     # further out each run as the arm-tip becomes the new bbox edge.
     total_stripped_pre = 0
     total_stripped_bulge_pre = 0
+    total_stripped_blob_pre = 0
     for lid, (fn, data) in levels.items():
         total_stripped_pre += _strip_arm_cells(data)
         total_stripped_bulge_pre += _strip_organic_bulge_cells(data)
+        total_stripped_blob_pre += _strip_blob_cells(data)
     if total_stripped_pre:
         print("stripped %d stale arm cells (idempotent re-run cleanup)"
               % total_stripped_pre)
     if total_stripped_bulge_pre:
         print("stripped %d stale organic-bulge cells (idempotent re-run cleanup)"
               % total_stripped_bulge_pre)
+    if total_stripped_blob_pre:
+        print("stripped %d stale circular-blob cells (idempotent re-run cleanup)"
+              % total_stripped_blob_pre)
+
+    # v6: strip ALL legacy `_pillar_cluster` props across every dungeon.
+    # These were placed at angular midpoints between LZs in v2/v3 and
+    # now sit inside or alongside arm corridors. v6 emits zero of them;
+    # perimeter knot bumps (off-bbox, tagged `_perimeter_knot`) survive.
+    total_stripped_pillars = 0
+    for lid, (fn, data) in levels.items():
+        before = len(data.get("props", []))
+        data["props"] = [p for p in data.get("props", [])
+                         if not p.get("_pillar_cluster")]
+        total_stripped_pillars += before - len(data["props"])
+    if total_stripped_pillars:
+        print("stripped %d legacy _pillar_cluster props (v6 cleanup)"
+              % total_stripped_pillars)
 
     for lid, (fn, data) in levels.items():
         if lid in ALGO_OWNED and lid in world_pos:
@@ -1987,6 +2070,40 @@ def main():
             if added > 0:
                 handcrafted_clusters += added
                 handcrafted_touched += 1
+
+    # ---- Circular blob pass (v6) ----
+    # For every handcrafted hub (stone-walled, >=200 cells, with >=2
+    # auto LZs OR >=800 cells), union a circular-blob footprint onto the
+    # existing rectangular cells so the silhouette reads as round (not
+    # square). Original cells are always preserved. Algorithm-owned
+    # levels are skipped because their cells are already organic
+    # (spine + bulb + prongs) from process_algorithm_level.
+    blob_stats = []
+    for lid, (fn, data) in levels.items():
+        if lid in ALGO_OWNED:
+            continue
+        if lid not in PATH_MAP:
+            continue
+        # Qualify as a hub: stone-walled (not tree_walls), and either
+        # >= 2 auto:true LZs OR >= 800 cells.
+        if data.get("tree_walls"):
+            continue
+        floors = data.get("grid", {}).get("floors", [])
+        if not floors:
+            continue
+        wall_material = floors[0].get("wall_material", "stone")
+        if wall_material == "tree":
+            # Outdoor tree-walled levels (sourceplain, brookhold, etc.)
+            # already have organic naturally-painted footprints.
+            continue
+        n_cells_now = len(floors[0].get("cells", []))
+        auto_lz_count = sum(1 for lz in data.get("load_zones", [])
+                            if lz.get("auto", True))
+        if auto_lz_count < 2 and n_cells_now < 800:
+            continue
+        added = make_circular_blob_for_level(lid, data)
+        if added > 0:
+            blob_stats.append((lid, n_cells_now, n_cells_now + added))
 
     # ---- Organic perimeter bulge pass ----
     # Add Perlin-noisy bulges to the perimeter of every level's footprint
@@ -2037,6 +2154,16 @@ def main():
                   bx0, bx1, bz0, bz1,
                   s["spawn_count"], s["lz_count"],
                   s["pillar_clusters"], s["rebound"]))
+
+    print()
+    print("=" * 60)
+    print("CIRCULAR BLOB (v6): %d handcrafted hubs gained circular cell unions"
+          % len(blob_stats))
+    if blob_stats:
+        for lid, before, after in sorted(blob_stats,
+                                          key=lambda x: -(x[2] - x[1]))[:20]:
+            print("  %-22s cells %4d -> %4d  (+%4d blob cells)"
+                  % (lid, before, after, after - before))
 
     print()
     print("=" * 60)
