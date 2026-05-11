@@ -1,23 +1,23 @@
 [gd_scene load_steps=273 format=3 uid="uid://btuxlocals01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.5, 0.6, 0.75, 1)
@@ -2515,13 +2515,13 @@ hat_color = Color(0.55, 0.5, 0.55, 1)
 idle_hint = "[E] Speak with Ema"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Refugee Ema\", \"text\": \"Walker. You've a kind step. Ask, if you would.\", \"choices\": [{\"label\": \"Where did you come from?\", \"next\": \"drift\"}, {\"label\": \"Why come here?\", \"next\": \"why\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"drift\": {\"speaker\": \"Refugee Ema\", \"text\": \"The Drift. The festival town. Where every morning is a new morning, and the day before never quite happened. ...I lived there a long time. Longer than I knew.\", \"choices\": [{\"label\": \"Why leave?\", \"next\": \"why\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"why\": {\"speaker\": \"Refugee Ema\", \"text\": \"*(quiet)* I couldn't bear forgetting. The faces of those I'd known went pale at dawn. I came here because the Locals remember. Even the bitter things. *Especially* the bitter things.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Refugee Ema\", \"text\": \"Walk well. Remember what you can.\"}}}"
 
-[node name="Npc30_Refugee_Quartermaster" parent="." instance=ExtResource("npc")]
+[node name="Npc30_tar" parent="." instance=ExtResource("npc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-npc_name = "Refugee Quartermaster"
+npc_name = "tar"
 body_color = Color(0.45, 0.42, 0.38, 1)
 hat_color = Color(0.3, 0.32, 0.3, 1)
-idle_hint = "[E] Talk to the Quartermaster"
-dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Refugee Quartermaster\", \"text\": \"Walker. We pool what we carry, here — hearts, shafts, powder, and on a lucky week, a wisp in a jar. Pebbles take the place of coin.\", \"choices\": [{\"label\": \"Show me what you have.\", \"next\": \"wares\"}, {\"label\": \"How does the camp fare?\", \"next\": \"fare\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"fare\": {\"speaker\": \"Refugee Quartermaster\", \"text\": \"Better than yesterday. Worse than the year before. The Sheriff keeps the watch; the Settlers keep the fire. We keep the kit. That's the bargain.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"wares\": {\"speaker\": \"Refugee Quartermaster\", \"text\": \"Full kit — hearts, arrows, bombs, and the rare bottled fairy. Ration them. We don't restock fast.\", \"choices\": [{\"label\": \"Show me.\", \"opens_shop\": [\"heart\", \"arrow\", \"bomb\", \"fairy_bottle\"]}, {\"label\": \"Maybe later.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Refugee Quartermaster\", \"text\": \"Walk well. Come back lighter, if you can.\"}}}"
+idle_hint = "[E] tar"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"tar\", \"text\": \"I bundle things together. Hearts, shafts, powder — and a wisp in a jar, on a lucky week. Bundle, unbundle. Same coin.\", \"choices\": [{\"label\": \"Show me what you have.\", \"next\": \"wares\"}, {\"label\": \"What's the camp like?\", \"next\": \"fare\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"fare\": {\"speaker\": \"tar\", \"text\": \"Better than yesterday. Worse than the year before. The Locals haul, I pack. That's the bargain — flags `czf` for me, `xzf` for the next walker who needs it.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"wares\": {\"speaker\": \"tar\", \"text\": \"Full archive — hearts, arrows, bombs, the rare bottled fairy. And `unzip`, if you keep finding caches you can't pry open.\", \"choices\": [{\"label\": \"tar -xvf.\", \"opens_shop\": [\"heart\", \"arrow\", \"bomb\", \"fairy_bottle\", \"unzip\"]}, {\"label\": \"Maybe later.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"tar\", \"text\": \"Walk well. Come back lighter, if you can.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -15.5)

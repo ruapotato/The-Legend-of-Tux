@@ -269,6 +269,12 @@ func _on_boss_died() -> void:
         var gs := get_node_or_null("/root/GameState")
         if gs and gs.has_method("mark_boss_defeated"):
             gs.mark_boss_defeated(bid)
+            # v2 permission grants. Each boss broadens Tux's reach into
+            # the filesystem — `+x` on a binary unlocks a weapon
+            # pipeline stage; `+w` / `+rwx` on a directory lets him
+            # change things there. Lookup-table is small enough to inline
+            # here so a parallel agent can read the grants in one pass.
+            _grant_boss_permissions(gs, bid)
 
     # Capture where the boss was — we anchor the heart-container ceremony
     # there even after the boss node sinks and frees itself.
@@ -664,3 +670,39 @@ func _find_hud() -> CanvasLayer:
         if child is CanvasLayer and child.name == "HUD":
             return child
     return null
+
+
+# ---- v2 permission grants ----------------------------------------------
+#
+# Each boss death broadens the player's permission set per LORE.md §v2.4
+# / DESIGN.md §v2.2. The grants are duck-typed against GameState so this
+# file doesn't hard-depend on the perm API existing; if grant_binary or
+# grant_perm is missing we silently skip (lets the perm system land
+# behind a feature flag without breaking older save files mid-fight).
+func _grant_boss_permissions(gs: Node, bid: String) -> void:
+    if gs == null:
+        return
+    var has_b: bool = gs.has_method("grant_binary")
+    var has_p: bool = gs.has_method("grant_perm")
+    match bid:
+        "wyrdking":
+            if has_b: gs.grant_binary("~/bin/grep", "--x")
+        "codex_knight":
+            if has_b: gs.grant_binary("~/bin/find", "--x")
+            if has_p: gs.grant_perm("/etc", "r-xr-w---")
+        "gale_roost":
+            # Already had cd locally for /opt; this widens its scope.
+            if has_b: gs.grant_binary("~/bin/cd", "--x")
+        "cinder_tomato":
+            if has_b: gs.grant_binary("~/bin/rm", "--x")
+        "forge_wyrm":
+            if has_b: gs.grant_binary("~/bin/sort", "--x")
+            if has_p: gs.grant_perm("/dev", "rwxr-xr-x")
+        "backwater_maw":
+            if has_b: gs.grant_binary("/usr/bin/chroot", "--x")
+        "censor":
+            if has_b: gs.grant_binary("/usr/bin/find", "--x")
+            # The -a flag — Glim Sight reveals dotfiles. r-x on ~/bin/ls.
+            if has_b: gs.grant_binary("~/bin/ls", "r-x")
+        "init":
+            if has_b: gs.grant_binary("/usr/bin/sudo", "--s")

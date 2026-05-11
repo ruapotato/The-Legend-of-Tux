@@ -53,6 +53,7 @@ func _ready() -> void:
     _ensure_objective_label()
     _ensure_lock_reticle()
     _ensure_aim_crosshair()
+    _ensure_terminal_corner()
     _refresh_shield_label()
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)
@@ -204,6 +205,21 @@ func _ensure_aim_crosshair() -> void:
     crosshair.name = "AimCrosshair"
     crosshair.set_script(load("res://scripts/aim_crosshair.gd"))
     add_child(crosshair)
+
+
+func _ensure_terminal_corner() -> void:
+    # Subtle bottom-left "live shell" terminal — flashes the command Tux
+    # just executed (kill, ps | grep | kill, chmod 000 .) so Unix-fluent
+    # players read the action as a shell pipeline. Subscribes to the
+    # TerminalLog autoload; weapon scripts push lines into the log and
+    # this corner renders them. Built procedurally to avoid hud.tscn
+    # churn (matches the lock reticle / aim crosshair pattern above).
+    if get_node_or_null("TerminalCorner") != null:
+        return
+    var corner := Control.new()
+    corner.name = "TerminalCorner"
+    corner.set_script(load("res://scripts/terminal_corner.gd"))
+    add_child(corner)
 
 
 func _refresh_shield_label() -> void:

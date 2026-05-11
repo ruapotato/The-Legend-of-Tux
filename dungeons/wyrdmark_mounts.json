@@ -757,6 +757,539 @@
       "rotation_y": 0,
       "contents": "heart_piece",
       "open_message": "Out on the wind-scoured ledge where only the kin who knew the climb would find it. A piece of heart, anchored under a flat stone."
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.85,
+        0.0,
+        -1.24
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.91,
+        0.0,
+        0.41
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.25,
+        0.0,
+        0.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.56,
+        0.0,
+        -1.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.23,
+        0.0,
+        0.45
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.23,
+        0.0,
+        0.17
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.54,
+        0.0,
+        -1.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.14,
+        0.0,
+        -1.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.77,
+        0.0,
+        -0.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.94,
+        0.0,
+        0.49
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.51,
+        0.0,
+        1.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.55,
+        0.0,
+        -1.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.91,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.85,
+        0.0,
+        -1.24
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.91,
+        0.0,
+        0.41
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.25,
+        0.0,
+        0.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.56,
+        0.0,
+        -1.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.23,
+        0.0,
+        0.45
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.23,
+        0.0,
+        0.17
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.54,
+        0.0,
+        -1.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.14,
+        0.0,
+        -1.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.77,
+        0.0,
+        -0.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.94,
+        0.0,
+        0.49
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.51,
+        0.0,
+        1.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.55,
+        0.0,
+        -1.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.91,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.85,
+        0.0,
+        -1.24
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.91,
+        0.0,
+        0.41
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.25,
+        0.0,
+        0.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.56,
+        0.0,
+        -1.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.23,
+        0.0,
+        0.45
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.23,
+        0.0,
+        0.17
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.54,
+        0.0,
+        -1.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.14,
+        0.0,
+        -1.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.77,
+        0.0,
+        -0.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.94,
+        0.0,
+        0.49
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.51,
+        0.0,
+        1.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.55,
+        0.0,
+        -1.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.91,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.85,
+        0.0,
+        -1.24
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.91,
+        0.0,
+        0.41
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.25,
+        0.0,
+        0.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.56,
+        0.0,
+        -1.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.23,
+        0.0,
+        0.45
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.23,
+        0.0,
+        0.17
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.54,
+        0.0,
+        -1.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.14,
+        0.0,
+        -1.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -10.77,
+        0.0,
+        -0.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.94,
+        0.0,
+        0.49
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.51,
+        0.0,
+        1.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.55,
+        0.0,
+        -1.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.91,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        12.35,
+        0.0,
+        -1.24
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.41,
+        0.0,
+        0.41
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.75,
+        0.0,
+        0.44
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.06,
+        0.0,
+        -1.58
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        12.73,
+        0.0,
+        0.45
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.73,
+        0.0,
+        0.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.04,
+        0.0,
+        -1.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -12.64,
+        0.0,
+        -1.32
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.27,
+        0.0,
+        -0.21
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -12.44,
+        0.0,
+        0.49
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -11.01,
+        0.0,
+        1.35
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -12.05,
+        0.0,
+        -1.33
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -12.41,
+        0.0,
+        1.0
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

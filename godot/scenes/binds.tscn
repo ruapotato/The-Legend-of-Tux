@@ -1,23 +1,23 @@
 [gd_scene load_steps=273 format=3 uid="uid://btuxbinds01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.5, 0.7, 1)
@@ -2529,13 +2529,13 @@ hat_color = Color(0.25, 0.25, 0.35, 1)
 idle_hint = "[E] Listen to Imon"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"*(unrolls a scroll)* Bylaw nine, subsection three: ‘No coin shall be cast in anger.’ ...And yet, every market-day...\", \"choices\": [{\"label\": \"Read me another.\", \"next\": \"another\"}, {\"label\": \"Does anyone follow these?\", \"next\": \"follow\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"another\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Bylaw twelve: ‘All wagers shall be witnessed by a sober party.’ The Guild keeps no record of a sober party in the Binds.\", \"choices\": [{\"label\": \"Another.\", \"next\": \"another2\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"another2\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Bylaw seventeen, omnibus: ‘Honesty is best. Where impractical, courtesy.’ My favourite, in the dignified sense.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"follow\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Follow them? Dear walker, the bylaws are not for following. They are for *citing*.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Bureaucrat Imon\", \"text\": \"Walk well. Cite kindly.\"}}}"
 
-[node name="Npc30_Trader_Joss" parent="." instance=ExtResource("npc")]
+[node name="Npc30_apt" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.540302, 0, -0.841471, 0, 1, 0, 0.841471, 0, 0.540302, -7, 0, -2)
-npc_name = "Trader Joss"
+npc_name = "apt"
 body_color = Color(0.5, 0.4, 0.32, 1)
 hat_color = Color(0.6, 0.4, 0.2, 1)
-idle_hint = "[E] Talk to Joss"
-dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Trader Joss\", \"text\": \"Walker. You've a foreign cut to your cloak. I knew a man with that cut once, down at the Forge.\", \"choices\": [{\"label\": \"The Forge?\", \"next\": \"forge\"}, {\"label\": \"What do you trade?\", \"next\": \"trade\"}, {\"label\": \"Show me your wares.\", \"next\": \"wares\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"forge\": {\"speaker\": \"Trader Joss\", \"text\": \"Aye. Been once. The hammers there don't sound like our hammers. That's all I'll say.\", \"choices\": [{\"label\": \"What was it like?\", \"next\": \"forge_more\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"forge_more\": {\"speaker\": \"Trader Joss\", \"text\": \"Hot. Loud. Old in a way our stones aren't old. I came back lighter than I went, and richer for it. ...Don't ask the way. I won't tell.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"trade\": {\"speaker\": \"Trader Joss\", \"text\": \"What I can carry. What folk will buy. The usual quiet wares. Nothing the Guild needs to fuss over.\", \"choices\": [{\"label\": \"Let's see them, then.\", \"next\": \"wares\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"wares\": {\"speaker\": \"Trader Joss\", \"text\": \"Hearts when you bleed, arrows when you don't, seeds for the sling. Pebble-priced. Pick what you need.\", \"choices\": [{\"label\": \"Show me.\", \"opens_shop\": [\"heart\", \"arrow\", \"seed\"]}, {\"label\": \"Maybe later.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Trader Joss\", \"text\": \"Walk well, foreign-cut.\"}}}"
+idle_hint = "[E] apt"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"apt\", \"text\": \"What do you need? I keep the index. Pebbles in, packages out.\", \"choices\": [{\"label\": \"Show me your wares.\", \"next\": \"wares\"}, {\"label\": \"What are you, exactly?\", \"next\": \"what\"}, {\"label\": \"Any advice?\", \"next\": \"advice\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"apt\", \"text\": \"A tool-spirit of the Binds. I install. I update. I don't haggle — the price is the price.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"advice\": {\"speaker\": \"apt\", \"text\": \"Take `man` first if you can spare eight pebbles. Reading the page beats guessing the flag.\", \"choices\": [{\"label\": \"Show me.\", \"next\": \"wares\"}, {\"label\": \"Back.\", \"next\": \"root\"}]}, \"wares\": {\"speaker\": \"apt\", \"text\": \"Cache is fresh. Pick a name; I'll fetch it.\", \"choices\": [{\"label\": \"apt install.\", \"opens_shop\": [\"heart\", \"arrow\", \"seed\", \"wget\", \"man\"]}, {\"label\": \"Maybe later.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"apt\", \"text\": \"Walk well. Run `apt update` once in a while.\"}}}"
 
 [node name="Npc31_Trader_Kel" parent="." instance=ExtResource("npc")]
 transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 7, 0, -2)

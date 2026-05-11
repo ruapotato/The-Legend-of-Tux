@@ -18840,7 +18840,7 @@
         -13.0
       ],
       "rotation_y": 0.0,
-      "message": "North Paddock\n\nGrazing — root-greens for the lambwisps.\nDo not climb the stones."
+      "message": "North Paddock\n\nGrazing \u2014 root-greens for the lambwisps.\nDo not climb the stones."
     },
     {
       "type": "sign",
@@ -18870,7 +18870,7 @@
         17.0
       ],
       "rotation_y": 0.0,
-      "message": "Lirien's Lambwisps may not pass these stones — bless the stones, bless the kin."
+      "message": "Lirien's Lambwisps may not pass these stones \u2014 bless the stones, bless the kin."
     },
     {
       "type": "chest",
@@ -19317,7 +19317,7 @@
           },
           "offer": {
             "speaker": "Farmer Brook",
-            "text": "Take this — a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
+            "text": "Take this \u2014 a lambwisp charm. They follow the chime of it. If you find one drifting, give it a shake and walk it home.",
             "give_item": "lambwisp_charm",
             "next": "post_offer"
           },
@@ -19369,7 +19369,7 @@
         "nodes": {
           "root": {
             "speaker": "Matriarch Brook",
-            "text": "Well, well. A traveler at our gate. The kin keep the kettle warm — sit a moment, if you've news. Or even if you haven't.",
+            "text": "Well, well. A traveler at our gate. The kin keep the kettle warm \u2014 sit a moment, if you've news. Or even if you haven't.",
             "choices": [
               {
                 "label": "I have a letter from Tova.",
@@ -19378,7 +19378,7 @@
                 "requires_not": "delivered_brookhold_letter"
               },
               {
-                "label": "Tova's letter — already delivered.",
+                "label": "Tova's letter \u2014 already delivered.",
                 "next": "after",
                 "requires": "delivered_brookhold_letter"
               },
@@ -19394,7 +19394,7 @@
           },
           "letter": {
             "speaker": "Matriarch Brook",
-            "text": "From Tova? Truly?! *unfolds it, reads silently — eyes wet*\nYou good soul. You stubborn, lovely soul. She lives — she lives. Take this — eight pebbles for a sling-arm who carried what mattered.",
+            "text": "From Tova? Truly?! *unfolds it, reads silently \u2014 eyes wet*\nYou good soul. You stubborn, lovely soul. She lives \u2014 she lives. Take this \u2014 eight pebbles for a sling-arm who carried what mattered.",
             "give_pebbles": 8,
             "next": "letter_post"
           },
@@ -19540,7 +19540,7 @@
           },
           "two": {
             "speaker": "Little Wren",
-            "text": "Have you seen her? She has — well, she has wool. And a chime. And a tiny attitude. ...You haven't, have you. Sigh. *runs off*"
+            "text": "Have you seen her? She has \u2014 well, she has wool. And a chime. And a tiny attitude. ...You haven't, have you. Sigh. *runs off*"
           }
         }
       }
@@ -19554,7 +19554,7 @@
       ],
       "rotation_y": 3.14159,
       "contents": "heart_piece",
-      "open_message": "Where the brook empties into the lambwisp pen — a piece of heart, washed clean and waiting on a stone."
+      "open_message": "Where the brook empties into the lambwisp pen \u2014 a piece of heart, washed clean and waiting on a stone."
     },
     {
       "type": "npc",
@@ -19583,7 +19583,7 @@
         "nodes": {
           "root": {
             "speaker": "Old Stone",
-            "text": "*A faint hum, like wind through stone…*",
+            "text": "*A faint hum, like wind through stone\u2026*",
             "choices": [
               {
                 "label": "Listen.",
@@ -19617,6 +19617,539 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.26,
+        0.0,
+        -20.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.16,
+        0.0,
+        -20.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.6,
+        0.0,
+        -19.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -23.31,
+        0.0,
+        -21.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.05,
+        0.0,
+        -22.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -23.22,
+        0.0,
+        -22.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.09,
+        0.0,
+        22.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.56,
+        0.0,
+        24.57
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.28,
+        0.0,
+        24.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.74,
+        0.0,
+        22.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.81,
+        0.0,
+        23.06
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.27,
+        0.0,
+        24.21
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.42,
+        0.0,
+        24.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.26,
+        0.0,
+        -20.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.16,
+        0.0,
+        -20.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.6,
+        0.0,
+        -19.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -23.31,
+        0.0,
+        -21.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.05,
+        0.0,
+        -22.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -23.22,
+        0.0,
+        -22.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.09,
+        0.0,
+        22.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.56,
+        0.0,
+        24.57
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.28,
+        0.0,
+        24.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.74,
+        0.0,
+        22.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.81,
+        0.0,
+        23.06
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.27,
+        0.0,
+        24.21
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.42,
+        0.0,
+        24.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.26,
+        0.0,
+        -20.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.16,
+        0.0,
+        -20.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.6,
+        0.0,
+        -19.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -23.31,
+        0.0,
+        -21.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.05,
+        0.0,
+        -22.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -23.22,
+        0.0,
+        -22.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.09,
+        0.0,
+        22.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.56,
+        0.0,
+        24.57
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.28,
+        0.0,
+        24.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.74,
+        0.0,
+        22.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.81,
+        0.0,
+        23.06
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.27,
+        0.0,
+        24.21
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.42,
+        0.0,
+        24.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.26,
+        0.0,
+        -20.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.16,
+        0.0,
+        -20.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.6,
+        0.0,
+        -19.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -23.31,
+        0.0,
+        -21.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.05,
+        0.0,
+        -22.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -23.22,
+        0.0,
+        -22.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.09,
+        0.0,
+        22.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.56,
+        0.0,
+        24.57
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.28,
+        0.0,
+        24.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.74,
+        0.0,
+        22.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.81,
+        0.0,
+        23.06
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.27,
+        0.0,
+        24.21
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        20.42,
+        0.0,
+        24.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.01,
+        0.0,
+        -22.77
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.91,
+        0.0,
+        -22.66
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.34,
+        0.0,
+        -21.58
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.06,
+        0.0,
+        -23.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -23.8,
+        0.0,
+        -23.94
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -24.97,
+        0.0,
+        -23.82
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        22.84,
+        0.0,
+        24.64
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.3,
+        0.0,
+        26.36
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.03,
+        0.0,
+        26.18
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        22.49,
+        0.0,
+        23.96
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        22.55,
+        0.0,
+        24.85
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        22.01,
+        0.0,
+        26.0
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        22.17,
+        0.0,
+        26.52
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

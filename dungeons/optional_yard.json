@@ -4960,6 +4960,498 @@
       "rotation_y": 0,
       "contents": "heart_piece",
       "open_message": "Inside the basin of the long-dry fountain, half-buried under wind-blown leaves. A piece of heart. The Yard saved it for whoever sat longest."
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        0.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.83,
+        0.0,
+        -0.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.7,
+        0.0,
+        0.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.54,
+        0.0,
+        -0.29
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.8,
+        0.0,
+        0.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.44,
+        0.0,
+        1.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.76,
+        0.0,
+        1.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.79,
+        0.0,
+        -1.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.39,
+        0.0,
+        1.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.81,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -13.63,
+        0.0,
+        0.99
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        0.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.83,
+        0.0,
+        -0.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.7,
+        0.0,
+        0.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.54,
+        0.0,
+        -0.29
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.8,
+        0.0,
+        0.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.44,
+        0.0,
+        1.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.76,
+        0.0,
+        1.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.79,
+        0.0,
+        -1.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.39,
+        0.0,
+        1.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.81,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -13.63,
+        0.0,
+        0.99
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        0.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.83,
+        0.0,
+        -0.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.7,
+        0.0,
+        0.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.54,
+        0.0,
+        -0.29
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.8,
+        0.0,
+        0.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.44,
+        0.0,
+        1.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.76,
+        0.0,
+        1.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.79,
+        0.0,
+        -1.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.39,
+        0.0,
+        1.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.81,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -13.63,
+        0.0,
+        0.99
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        0.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.83,
+        0.0,
+        -0.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.7,
+        0.0,
+        0.73
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        15.12,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.54,
+        0.0,
+        -0.29
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.8,
+        0.0,
+        0.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.44,
+        0.0,
+        1.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.76,
+        0.0,
+        1.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.79,
+        0.0,
+        -1.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.39,
+        0.0,
+        1.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.81,
+        0.0,
+        1.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -13.63,
+        0.0,
+        0.99
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.62,
+        0.0,
+        0.85
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.33,
+        0.0,
+        -0.96
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        16.2,
+        0.0,
+        0.73
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.62,
+        0.0,
+        1.3
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.04,
+        0.0,
+        -0.29
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.3,
+        0.0,
+        0.27
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.94,
+        0.0,
+        1.21
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.26,
+        0.0,
+        1.07
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.29,
+        0.0,
+        -1.44
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.89,
+        0.0,
+        1.09
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.31,
+        0.0,
+        1.3
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.13,
+        0.0,
+        0.99
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

@@ -75,6 +75,12 @@ func _begin() -> void:
         queue_free()
         return
     SoundBank.play_2d("glim_sight_open")
+    # Terminal-corner narration. Lore-canon command: `ls -la <cone>` —
+    # the `-a` flag is what makes hidden dotfile-things visible. Fires
+    # once on open; the per-tick scan does NOT re-narrate.
+    var tl: Node = _player.get_node_or_null("/root/TerminalLog")
+    if tl:
+        tl.cmd("ls -la ./cone")
     _layer = CanvasLayer.new()
     _layer.layer = 70    # behind the pause menu (80) but above the HUD
     _layer.process_mode = Node.PROCESS_MODE_ALWAYS

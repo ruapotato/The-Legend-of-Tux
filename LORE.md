@@ -422,3 +422,218 @@ actually *is.*
 ---
 
 *The Legend of Tux — Bible v1*
+
+---
+
+# v2 — THE SHELL LAYER
+
+> *"The Wyrdmark is what Tux sees when he stops to look. The shell is what
+> the Wyrdmark IS when he acts. Both are true at once."*
+
+v1 establishes the Wyrdkin surface: forest, Source, Sigils, Glim. v2 adds
+the **operating layer underneath** — and exposes it to the player. The
+realm is a Unix filesystem; Tux is a shell user walking it; weapons are
+commands; doors are permission gates; the player's actions narrate
+themselves as a live shell session in the corner of the screen.
+
+## v2.1 Two registers, one world
+
+The world has two simultaneous registers. Both are canon. Neither lies.
+
+- **Wyrdmark register** (Tux's POV in his home subtree): forest paths,
+  Source-light, kin who say "walk well." Used by NPCs in
+  `/opt/wyrdmark/*`, `/home/*`, `/etc/wyrdmark` (Sigilkeep). Lyrical,
+  Mount-flavored. The v1 vocabulary applies.
+- **Shell register** (the realm as a system): commands fire, permissions
+  check, processes terminate. Used by NPCs in `/bin`, `/sbin`, `/usr/bin`,
+  `/dev`, `/proc`, `/var`. Direct, technical. Tool-spirit grandchildren
+  speak this.
+
+The further Tux walks from the Wyrdmark, the more shell-fluent the
+inhabitants get. The Wyrdkin in the Glade say *"the Source moves"*; the
+device-spirits in the Forge say *"signal received."* Both describe the
+same event.
+
+**The vocabulary ban from §8 is rescinded for the shell register.**
+Words like *permission*, *process*, *daemon*, *kernel*, *filesystem* are
+not only allowed — they are the everyday words of the merchants,
+sentinels, and device-spirits who live with them. They are still
+forbidden in the Wyrdmark register: Old Hesper does not say "process,"
+he says "the kin are at their work."
+
+## v2.2 Tux as a shell user
+
+Tux is a `uid=1000(tux)` walking his filesystem. Every action he takes
+is a command. The HUD's bottom-left corner runs a tiny live terminal
+that shows what he just did:
+
+```
+tux@wyrdmark:/opt/wyrdmark/glade$ kill PID4321
+tux@wyrdmark:/opt/wyrdmark/glade$ ps aux | grep bone_bat | kill
+tux@wyrdmark:/opt/wyrdmark/glade$ chmod 000 .
+tux@wyrdmark:/opt/wyrdmark/glade$ cat chest_4
+[Permission denied]
+```
+
+The terminal is **subtle** — small monospace, four to six lines tall,
+faded background. Constant low-volume reinforcement that the player IS
+at a shell. New players ignore it; Unix-fluent players read it like a
+second HUD.
+
+## v2.3 Weapons are commands; combat is pipelines
+
+| Player verb | Command | The pipeline IS the mechanic |
+|---|---|---|
+| Strike (touching) | `kill <pid>` | SIGTERM the touching process. Default sword |
+| Strike harder | `kill -TERM` | Brightsteel after Wyrdking grants the flag |
+| Force-strike (spin) | `kill -9` | Glimblade. Irrevocable |
+| Block | `chmod 000 .` | Self-perms = none. Attacks fail their permission check |
+| Reflect | `chmod 777 . \| tee` | Mirror Shield — perms wide open + tee output back to source |
+| Snipe (cheap) | `ping <pid>` | Slingshot — small response from distant target |
+| Ranged kill | `ps aux \| grep <name> \| kill` | **Bow.** 3-stage. The grep step IS the aim reticle |
+| Area force-kill | `ps aux \| sort -k pos \| head -5 \| kill -9` | **Hammer.** Top 5 nearest get SIGKILL |
+| Recursive destroy | `find . -exec rm -rf {} +` | **Bombs.** Recursive remove in radius |
+| Warp / move | `cd /target/path` | Owl statues are directory entries you `cd` to |
+| Grapple / pull | `cd <visible-tile>` | Hookshot — `cd` to a seen tile |
+| Fetch + return | `wget <distant>` | Boomerang |
+| Reveal hidden | `ls -la <cone>` | Glim Sight — the `-a` flag shows dotfiles |
+| Sink down | `chroot /lower` | Anchor Boots — confine to deeper layer (under-water = subdir) |
+| Container | `mktemp -d` | Bottle |
+| Schedule | `crontab` | Songs (Sun = `@noon`, Moon = `@midnight`, Triglyph = `@reboot`) |
+
+Each pipe stage in a weapon's pipeline is a *separate permission* on
+the binary. The bow doesn't work until Tux holds `+x` on `/bin/grep`.
+The hammer doesn't work until he holds `+x` on `/bin/sort`. **Weapon
+unlock and permission progression are the same system.**
+
+## v2.4 Permissions are the character sheet
+
+Replace the Trophy Wall's "bosses defeated" display with a literal
+`ls -l` of the player's permissions:
+
+```
+$ id
+uid=1000(tux) gid=1000(wyrdkin) groups=glade,burrows,wake
+
+$ ls -l ~/bin
+--x------ kill        (default)
+--x------ chmod       (default)
+--x------ cd          (limited to /opt/wyrdmark)
+--x------ grep        (Wyrdking ✓)
+--x------ find        (Codex Knight ✓)
+--x------ sort        (Gale Roost ✓)
+--------- chroot      (locked: defeat Backwater Maw)
+--------- ls -la      (locked: defeat Censor)
+--------- sudo        (locked: assemble Triglyph chord)
+
+$ ls -l /
+drwxr-xr-x boot/      (read+exec — you can enter)
+drwx-w---- etc/       (write granted by Codex)
+drwxr-xr-x dev/       (Forge Wyrm grants rwx)
+d---r---x- proc/      (Backwater Maw grants r+x)
+d--------- root/      (sudo only)
+```
+
+This is the player's status screen. Every permission bit is earned.
+Locked things tell the player **exactly which bit they're missing.**
+
+Boss progression as permission grants:
+
+| Boss | Grant |
+|---|---|
+| Wyrdking | `+x` on `/bin/grep` (bow works) |
+| Codex Knight | `+x` on `/bin/find`; `+w` on `/etc` |
+| Gale Roost | `+x` on `/bin/cd` for non-adjacent dirs (hookshot/warps) |
+| Cinder Tomato | `+x` on `/bin/rm` (bombs) |
+| Forge Wyrm | `+x` on `/bin/sort` (hammer); `+rwx` on `/dev` |
+| Backwater Maw | `+x` on `/usr/bin/chroot` (anchor boots) |
+| Censor | `+x` on `/bin/ls -a` (Glim Sight reveals dotfiles) |
+| Init | `sudo` (one-shot — opens `/dev/null`) |
+
+## v2.5 Doors, chests, NPCs are filesystem objects
+
+- **Locked door** = `chmod 700` on the door. Tux's `uid` doesn't match;
+  permission denied. Hammer (`chmod 777`) overrides.
+- **Locked chest** = `chmod 400` (read-only to owner). Tux needs `+r` on
+  this directory subtree first.
+- **Hidden NPCs** (Mount-canon Daemon Court) = `chmod 000`. Glim Sight
+  (`ls -la`) reveals them.
+- **Fake walls** = dotfiles. `ls` skips them; `ls -la` shows them.
+
+The "locked" state of a chest displays its actual missing bit:
+*"chmod denied — needs `r:var/log`."* That tells the player exactly
+what to chase.
+
+## v2.6 Shopkeepers are package managers
+
+NPCs in `/usr/bin` and `/bin` are not generic merchants. They are
+**named tool-spirits.** Buying from them is `apt install`:
+
+```
+apt> Available today:
+  wget       15p   (boomerang — fetch + return)
+  curl       20p   (alternative)
+  tar -czf   60p   (a new bundling power for stored items)
+```
+
+Buying = `apt install wget` = adds `+x` on `/usr/bin/wget` to Tux's
+perms. The shopkeeper's name **is** the tool: `apt`, `pacman`,
+`make`, `tar`, `gcc`. Each is a single legendary tool-spirit who
+survived. Their grandchildren live in villages with mutated names
+(LS → Lass / Liss / Alice; CD → Cidran; LN → Lenny).
+
+## v2.7 The world grows like roots
+
+The filesystem is grown algorithmically as a **branching root system**,
+not laid out as a grid of squares. From `/`, the trunk descends
+downward through the tree of directories. At each branching node,
+children fan out at angles inherited from the parent's trunk direction.
+Single-child chains lengthen into corridors; multi-child nodes bulb
+into junctions with prongs reaching toward each child.
+
+Every directory's footprint is organic — a **spine** of cells curved by
+Perlin noise, **thickened** with a varying radius, **capped** with a
+bulb at the tip, knotted with small bulges along the perimeter. No
+rectangles. No square rooms. Walking from `/` outward feels like
+descending through the roots of an ancient tree.
+
+**Hand-authored content is grafted in.** The eight Dungeons and the
+existing kingdom-tier hubs (Sourceplain, Hearthold, Library, etc.)
+keep their hand-shaped interiors; the rooting algorithm grows the
+trunk segments **between** them, organically connecting hand-crafted
+chambers with branching corridors. The player never sees the seam.
+
+See `FILESYSTEM.md §v3` for the algorithm; the rooting is canon.
+
+## v2.8 Updated tone for the shell register
+
+Add to §8 vocabulary:
+
+- **Shell-register OK words** (in `/bin /sbin /usr/bin /dev /proc /var`):
+  permission, process, daemon, kernel, filesystem, signal, fork,
+  pipe, schedule, mount, chroot, kill, install. The grandchildren
+  speak with these words the way villagers speak about weather.
+- **Wyrdmark-register words remain forbidden** in `/opt/wyrdmark`,
+  `/home/wyrdkin`, Sigilkeep. Old Hesper still says "the kin are
+  at their work," not "process running."
+- **Tool-spirit name pattern**: legendary command names (LS, CD, RM,
+  KILL) are *ancestors*. Living NPCs carry mutated descendants
+  (Liss, Cidran, Romm, Killian). Direct command names belong to
+  *living legendary tools* (Mount, Sudo, Init, the Colonel, Apt,
+  Make, Tar).
+
+## v2.9 What's still true from v1
+
+Everything. The Source, the Triglyph, Glim, the Drawing-In — all
+canon. The shell layer doesn't replace the Wyrdmark layer; it sits
+underneath it, becoming visible whenever Tux acts. A player who
+ignores the terminal corner and the permission table can still play
+the Wyrdmark fantasy as written. A player who reads them is playing
+a game about a shell user walking his filesystem to fix a kernel that
+is starting to fail.
+
+Both readings are correct. That's the point.
+
+---
+
+*The Legend of Tux — Bible v2 — Shell Layer*

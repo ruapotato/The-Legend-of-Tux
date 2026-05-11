@@ -1,27 +1,28 @@
-[gd_scene load_steps=470 format=3 uid="uid://btuxdrift01"]
+[gd_scene load_steps=471 format=3 uid="uid://btuxdrift01"]
 
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxprgh01" path="res://scenes/enemy_process_ghost.tscn" id="process_ghost"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
 [ext_resource type="PackedScene" uid="uid://btuxpkbmrg01" path="res://scenes/pickup_boomerang.tscn" id="boomerang_pickup"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.55, 0.55, 0.78, 1)
@@ -4463,6 +4464,138 @@ body_color = Color(0.95, 0.55, 0.35, 1)
 hat_color = Color(0.35, 0.7, 0.85, 1)
 idle_hint = "[E] Greet Ralo"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"HO! HO ho ho! Walker! Look at THESE lanterns! Look at this one! It's painted to look like a moon-eyed rook! Hahaha — I love it, I LOVE it, who paints a rook on a lantern? Geniuses. Geniuses everywhere!\", \"choices\": [{\"label\": \"(Offer the honey jar.)\", \"next\": \"trade\", \"requires_flag\": \"trade_step_1\", \"requires_not\": \"trade_step_2\"}, {\"label\": \"(Show the painted mask.)\", \"next\": \"already\", \"requires_flag\": \"trade_step_2\"}, {\"label\": \"What's the festival for?\", \"next\": \"festival\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"trade\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"WHAT — is that — by Lirien's bright breath, is that COMB-HONEY? In a JAR? Sealed in WAX?\\n\\n*he clutches his chest, theatrical.*\\n\\nWalker. Walker. I have been eating festival cakes for THREE DAYS. My tongue has forgotten what real sweetness is. I would trade my own NAME for that jar. — Wait, wait, I have something better. Here.\\n\\n*he presses a painted mask into your hands — fox-faced, lacquer still tacky.*\\n\\nMy cousin painted it. She'd want it loved. Take it on. Take it on!\", \"sets_flag\": \"trade_step_2\", \"next\": \"thanks\"}, \"thanks\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"*already prying the wax seal with his teeth.*\\n\\nGo, go, walk well, the mask wants a road under it!\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"already\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"Ha! Still wearing my cousin's face? Good, GOOD! Show it the long road, walker, show it everything!\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"festival\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"What's it FOR? It's for itself! That's the BEST kind! No anniversary, no harvest, no naming — somebody just hung the first lantern and the rest of us showed up. That's how the good ones start.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Festival-Goer Ralo\", \"text\": \"Walk WELL, walker! Walk loud! The road likes a noisy boot!\"}}}"
+
+[node name="Tree56" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.49, 0, -0.38)
+
+[node name="Tree57" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.36, 0, -0.52)
+
+[node name="Tree58" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.82, 0, -0.99)
+
+[node name="Rock59" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1, 0, 0.95)
+
+[node name="Rock60" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.52, 0, -0.45)
+
+[node name="Tree61" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.47, 0, -0.48)
+
+[node name="Tree62" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.15, 0, -0.46)
+
+[node name="Tree63" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -0.15)
+
+[node name="Tree64" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.18, 0, -1.12)
+
+[node name="Tree65" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.86, 0, -0.13)
+
+[node name="Rock66" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.05, 0, -1)
+
+[node name="Tree67" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.49, 0, -0.38)
+
+[node name="Tree68" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.36, 0, -0.52)
+
+[node name="Tree69" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.82, 0, -0.99)
+
+[node name="Rock70" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1, 0, 0.95)
+
+[node name="Rock71" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.52, 0, -0.45)
+
+[node name="Tree72" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.47, 0, -0.48)
+
+[node name="Tree73" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.15, 0, -0.46)
+
+[node name="Tree74" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -0.15)
+
+[node name="Tree75" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.18, 0, -1.12)
+
+[node name="Tree76" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.86, 0, -0.13)
+
+[node name="Rock77" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.05, 0, -1)
+
+[node name="Tree78" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.49, 0, -0.38)
+
+[node name="Tree79" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.36, 0, -0.52)
+
+[node name="Tree80" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.82, 0, -0.99)
+
+[node name="Rock81" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1, 0, 0.95)
+
+[node name="Rock82" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.52, 0, -0.45)
+
+[node name="Tree83" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.47, 0, -0.48)
+
+[node name="Tree84" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.15, 0, -0.46)
+
+[node name="Tree85" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -0.15)
+
+[node name="Tree86" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.18, 0, -1.12)
+
+[node name="Tree87" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.86, 0, -0.13)
+
+[node name="Rock88" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.05, 0, -1)
+
+[node name="Tree89" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.49, 0, -0.38)
+
+[node name="Tree90" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.36, 0, -0.52)
+
+[node name="Tree91" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.82, 0, -0.99)
+
+[node name="Rock92" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1, 0, 0.95)
+
+[node name="Rock93" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.52, 0, -0.45)
+
+[node name="Tree94" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.47, 0, -0.48)
+
+[node name="Tree95" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.15, 0, -0.46)
+
+[node name="Tree96" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -0.15)
+
+[node name="Tree97" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.18, 0, -1.12)
+
+[node name="Tree98" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.86, 0, -0.13)
+
+[node name="Rock99" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.05, 0, -1)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -27.5)

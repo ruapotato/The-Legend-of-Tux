@@ -819,185 +819,212 @@ func _on_save_pressed() -> void:
             status.text = "Save failed."
 
 
-# ---- Trophies tab -------------------------------------------------------
+# ---- Trophies tab (v2: shell status screen) ----------------------------
 #
-# OoT-style completion display: bosses defeated, hearts collected, songs
-# known, current sword tier. All four sections read straight from
-# GameState — no caching, since the menu rebuilds each time it opens.
+# Replaces the OoT-style "row of boss trophies + heart count" with a
+# literal terminal session: `id`, `ls -l ~/bin`, `ls -l /`. Each binary
+# row carries a tiny grant-story parenthetical so the player can see at
+# a glance "where did this come from?" (default kit, boss-grant, or
+# locked-with-which-boss-unlocks-it).
+#
+# Tab name stays "Trophies" — pause_menu's tab strip still references it
+# verbatim. Only the content rendered here changes.
+
+# Boss → (binary path, display name, grant-story snippet). The status
+# screen walks this in canonical order to render the binary list. Order
+# matches DESIGN.md §2's dungeon order so the player reads progression
+# top-to-bottom. Default tools (kill, cd, etc.) are inserted explicitly
+# above this list.
+const BOSS_GRANTS: Array[Dictionary] = [
+    {"boss": "wyrdking",       "boss_name": "Wyrdking",
+     "binary": "~/bin/grep",          "tool": "grep",   "perm": "--x"},
+    {"boss": "codex_knight",   "boss_name": "Codex Knight",
+     "binary": "~/bin/find",          "tool": "find",   "perm": "--x"},
+    {"boss": "gale_roost",     "boss_name": "Gale Roost",
+     "binary": "~/bin/cd",            "tool": "cd",     "perm": "--x"},
+    {"boss": "cinder_tomato",  "boss_name": "Cinder Tomato",
+     "binary": "~/bin/rm",            "tool": "rm",     "perm": "--x"},
+    {"boss": "forge_wyrm",     "boss_name": "Forge Wyrm",
+     "binary": "~/bin/sort",          "tool": "sort",   "perm": "--x"},
+    {"boss": "backwater_maw",  "boss_name": "Backwater Maw",
+     "binary": "/usr/bin/chroot",     "tool": "chroot", "perm": "--x"},
+    {"boss": "censor",         "boss_name": "Censor",
+     "binary": "/usr/bin/find",       "tool": "find",   "perm": "--x"},
+    {"boss": "init",           "boss_name": "Init the Sleeper",
+     "binary": "/usr/bin/sudo",       "tool": "sudo",   "perm": "--s"},
+]
+
+# Default kit Tux always carries — these are listed above the boss-grant
+# binaries in `ls -l ~/bin` order. Shown with "(default)" as the
+# grant-story so the player understands they're not boss-locked.
+const DEFAULT_BINARIES: Array[Dictionary] = [
+    {"binary": "~/bin/kill",   "tool": "kill"},
+    {"binary": "~/bin/cd",     "tool": "cd"},
+    {"binary": "~/bin/cat",    "tool": "cat"},
+    {"binary": "~/bin/chmod",  "tool": "chmod"},
+    {"binary": "~/bin/ls",     "tool": "ls"},
+]
+
+# Directory grant-stories — boss → (path, label). Used to annotate the
+# `ls -l /` rows that change as bosses fall. Paths NOT in this map render
+# with a static "(read+exec)" / "(locked)" label depending on the perm.
+const DIR_GRANTS: Array[Dictionary] = [
+    {"boss": "codex_knight",   "boss_name": "Codex Knight",
+     "path": "/etc",  "story": "write granted by Codex Knight"},
+    {"boss": "forge_wyrm",     "boss_name": "Forge Wyrm",
+     "path": "/dev",  "story": "Forge Wyrm grants rwx"},
+]
+
+const STATUS_FONT_SIZE: int = 18
+const STATUS_HEADING_SIZE: int = 20
 
 func _build_trophies_tab() -> void:
-    var heading := Label.new()
-    heading.text = "Trophies"
-    heading.add_theme_color_override("font_color", TITLE_COLOR)
-    heading.add_theme_font_size_override("font_size", 20)
-    _content_holder.add_child(heading)
+    # Use a ScrollContainer + VBox so a deep status screen (16 dirs +
+    # 13 binaries + headings) doesn't run off the bottom of the pane.
+    var scroll := ScrollContainer.new()
+    scroll.anchor_left = 0.0
+    scroll.anchor_right = 1.0
+    scroll.anchor_top = 0.0
+    scroll.anchor_bottom = 1.0
+    scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    _content_holder.add_child(scroll)
 
     var col := VBoxContainer.new()
-    col.add_theme_constant_override("separation", 14)
-    col.anchor_left = 0.0
-    col.anchor_right = 1.0
-    col.offset_top = 40.0
-    _content_holder.add_child(col)
+    col.add_theme_constant_override("separation", 10)
+    col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    scroll.add_child(col)
 
-    # Section 1 — bosses defeated. Grid of icons (a coloured square per
-    # slot, dimmed when locked) with the boss's display name beneath.
-    var bosses_title := Label.new()
-    bosses_title.text = "Bosses defeated  (%d / %d)" % [
-        _count_bosses_defeated(), TROPHY_BOSSES.size()]
-    bosses_title.add_theme_color_override("font_color", TITLE_COLOR)
-    bosses_title.add_theme_font_size_override("font_size", 18)
-    col.add_child(bosses_title)
+    # `$ id`
+    col.add_child(_make_status_heading("$ id"))
+    col.add_child(_make_mono_label(GameState.id_string(), LABEL_COLOR))
 
-    var boss_grid := GridContainer.new()
-    boss_grid.columns = 4
-    boss_grid.add_theme_constant_override("h_separation", 16)
-    boss_grid.add_theme_constant_override("v_separation", 10)
-    col.add_child(boss_grid)
-    for entry in TROPHY_BOSSES:
-        boss_grid.add_child(_make_boss_trophy(entry))
+    # Spacer.
+    col.add_child(_make_spacer(8))
 
-    # Section 2 — hearts. Heart containers gained = max_fish - 3 starting
-    # (player begins with 3 fish per game_state.gd reset).
-    var starting_fish: int = 3
-    var containers: int = max(0, GameState.max_fish - starting_fish)
-    var hearts_label := Label.new()
-    hearts_label.add_theme_color_override("font_color", LABEL_COLOR)
-    hearts_label.add_theme_font_size_override("font_size", 16)
-    hearts_label.text = "Hearts  ·  containers gained: %d  ·  pieces: %d / 4" % [
-        containers, GameState.heart_pieces]
-    col.add_child(hearts_label)
+    # `$ ls -l ~/bin`
+    col.add_child(_make_status_heading("$ ls -l ~/bin"))
+    for entry in DEFAULT_BINARIES:
+        col.add_child(_make_binary_row(entry, "default", true))
+    for entry in BOSS_GRANTS:
+        var bid: String = String(entry.get("boss", ""))
+        var owned: bool = GameState.has_binary(String(entry.get("binary", "")))
+        var story: String
+        if owned:
+            story = "%s ✓" % String(entry.get("boss_name", bid))
+        else:
+            story = "locked: defeat %s" % String(entry.get("boss_name", bid))
+        col.add_child(_make_binary_row(entry, story, owned))
 
-    # Section 3 — songs. Show every canonical song with a checkmark or
-    # dash; mirrors the Songs-tab order so the player sees the same list.
-    var songs_title := Label.new()
-    songs_title.text = "Songs  (%d / %d)" % [_count_songs_known(), SongBook.songs.size()]
-    songs_title.add_theme_color_override("font_color", TITLE_COLOR)
-    songs_title.add_theme_font_size_override("font_size", 18)
-    col.add_child(songs_title)
+    col.add_child(_make_spacer(8))
 
-    var songs_box := VBoxContainer.new()
-    songs_box.add_theme_constant_override("separation", 2)
-    col.add_child(songs_box)
-    for song in SongBook.songs:
-        var sid: String = String(song.get("id", ""))
-        var sname: String = String(song.get("name", sid))
-        var owned: bool = GameState.has_song(sid)
-        var row := Label.new()
-        row.add_theme_font_size_override("font_size", 15)
-        row.text = ("  [x] %s" % sname) if owned else ("  [ ] %s" % sname)
-        row.add_theme_color_override("font_color",
-            LABEL_COLOR if owned else LOCKED_COLOR)
-        songs_box.add_child(row)
-
-    # Section 4 — current sword tier. Three pill labels in a row; the
-    # active tier is highlighted in the title colour, the rest dim.
-    var sword_title := Label.new()
-    sword_title.text = "Sword: %s" % SWORD_TIER_NAMES[
-        clamp(GameState.sword_tier, 0, SWORD_TIER_NAMES.size() - 1)]
-    sword_title.add_theme_color_override("font_color", TITLE_COLOR)
-    sword_title.add_theme_font_size_override("font_size", 18)
-    col.add_child(sword_title)
-
-    var tier_row := HBoxContainer.new()
-    tier_row.add_theme_constant_override("separation", 12)
-    col.add_child(tier_row)
-    for i in SWORD_TIER_NAMES.size():
-        var pill := Label.new()
-        var active: bool = (i == GameState.sword_tier)
-        pill.text = "  %d. %s%s  " % [i, SWORD_TIER_NAMES[i],
-            "  *" if active else ""]
-        pill.add_theme_font_size_override("font_size", 15)
-        pill.add_theme_color_override("font_color",
-            TITLE_COLOR if active else (LABEL_COLOR if i < GameState.sword_tier
-                                                    else LOCKED_COLOR))
-        tier_row.add_child(pill)
+    # `$ ls -l /`
+    col.add_child(_make_status_heading("$ ls -l /"))
+    var root_lines: Array = _gather_root_lines()
+    for line_data in root_lines:
+        col.add_child(_make_dir_row(line_data))
 
 
-func _count_bosses_defeated() -> int:
-    var n: int = 0
-    for entry in TROPHY_BOSSES:
-        if GameState.has_defeated_boss(String(entry.get("id", ""))):
-            n += 1
-    return n
+func _make_status_heading(text: String) -> Label:
+    # Bold gold heading — the "$ <command>" cue between status sections.
+    # Mono-ish via the size override; Godot's default UI font isn't a
+    # true monospace but the column lines up well enough at 20pt.
+    var lbl := Label.new()
+    lbl.text = text
+    lbl.add_theme_color_override("font_color", TITLE_COLOR)
+    lbl.add_theme_font_size_override("font_size", STATUS_HEADING_SIZE)
+    return lbl
 
 
-func _count_songs_known() -> int:
-    var n: int = 0
-    for song in SongBook.songs:
-        if GameState.has_song(String(song.get("id", ""))):
-            n += 1
-    return n
+func _make_mono_label(text: String, color: Color) -> Label:
+    # 18pt body row. We don't have a packaged monospace font asset;
+    # Godot's default UI font holds column alignment well enough for the
+    # short, padded strings the status screen produces.
+    var lbl := Label.new()
+    lbl.text = text
+    lbl.add_theme_color_override("font_color", color)
+    lbl.add_theme_font_size_override("font_size", STATUS_FONT_SIZE)
+    return lbl
 
 
-func _make_boss_trophy(entry: Dictionary) -> Control:
-    var bid: String = String(entry.get("id", ""))
-    var bname: String = String(entry.get("name", bid))
-    var defeated: bool = GameState.has_defeated_boss(bid)
+func _make_spacer(h: int) -> Control:
+    var c := Control.new()
+    c.custom_minimum_size = Vector2(0, h)
+    return c
 
-    var box := Control.new()
-    box.custom_minimum_size = Vector2(180, 56)
 
-    var icon := ColorRect.new()
-    icon.anchor_left = 0.0
-    icon.anchor_top = 0.0
-    icon.offset_left = 0.0
-    icon.offset_top = 0.0
-    icon.offset_right = 40.0
-    icon.offset_bottom = 40.0
-    # Coloured-square placeholder. Each boss gets a different hue so the
-    # row reads as a row of trophies rather than identical greyscale tiles.
-    var hue: Color = _boss_icon_color(bid)
-    if defeated:
-        icon.color = hue
+# Render one `ls -l ~/bin`-style row. `entry` is a dict from
+# DEFAULT_BINARIES / BOSS_GRANTS; `story` is the parenthetical to show
+# after the tool name; `owned` controls colour (granted = bright,
+# locked = dim).
+func _make_binary_row(entry: Dictionary, story: String, owned: bool) -> Label:
+    var tool: String = String(entry.get("tool", "?"))
+    var binary: String = String(entry.get("binary", ""))
+    # Use the actual perm if Tux owns it; fall back to the canonical
+    # default for default-kit rows; locked rows render "---".
+    var perm: String = ""
+    if owned:
+        perm = String(GameState.binaries.get(binary, String(entry.get("perm", "--x"))))
     else:
-        icon.color = Color(hue.r * 0.25 + 0.05, hue.g * 0.25 + 0.05,
-                           hue.b * 0.25 + 0.05, 1.0)
-    box.add_child(icon)
-
-    # Tiny check / dash overlay on the icon so a quick glance reveals
-    # progression even if the colour shift is subtle.
-    var mark := Label.new()
-    mark.text = "x" if defeated else "-"
-    mark.anchor_left = 0.0
-    mark.anchor_top = 0.0
-    mark.offset_left = 0.0
-    mark.offset_top = 0.0
-    mark.offset_right = 40.0
-    mark.offset_bottom = 40.0
-    mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    mark.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    mark.add_theme_font_size_override("font_size", 22)
-    mark.add_theme_color_override("font_color",
-        TITLE_COLOR if defeated else LOCKED_COLOR)
-    box.add_child(mark)
-
-    var name_label := Label.new()
-    name_label.text = bname
-    name_label.anchor_left = 0.0
-    name_label.anchor_right = 1.0
-    name_label.offset_left = 48.0
-    name_label.offset_right = 0.0
-    name_label.offset_top = 4.0
-    name_label.offset_bottom = 36.0
-    name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    name_label.add_theme_font_size_override("font_size", 14)
-    name_label.add_theme_color_override("font_color",
-        LABEL_COLOR if defeated else LOCKED_COLOR)
-    box.add_child(name_label)
-
-    return box
+        perm = "---"
+    # Pad the binary owner-bits out to 9 chars so the column lines up
+    # with `ls -l /`'s output. Group + world stay "------" — these are
+    # personal tools, not shared.
+    var full_perm: String = "%s------" % perm
+    var line: String = "-%s %-10s (%s)" % [full_perm, tool, story]
+    var color: Color = LABEL_COLOR if owned else LOCKED_COLOR
+    return _make_mono_label(line, color)
 
 
-func _boss_icon_color(boss_id: String) -> Color:
-    # One muted-but-distinct colour per boss, themed loosely to their
-    # element / arena. Falls back to grey if the id isn't recognised.
-    match boss_id:
-        "wyrdking":      return Color(0.85, 0.85, 0.78)    # bone white
-        "codex_knight":  return Color(0.65, 0.55, 0.85)    # arcane purple
-        "gale_roost":    return Color(0.55, 0.80, 0.92)    # sky blue
-        "cinder_tomato": return Color(0.92, 0.40, 0.30)    # ember red
-        "forge_wyrm":    return Color(0.95, 0.65, 0.20)    # forge orange
-        "backwater_maw": return Color(0.30, 0.55, 0.55)    # murk teal
-        "censor":        return Color(0.45, 0.45, 0.55)    # iron grey
-        "init":          return Color(0.95, 0.92, 0.55)    # final glim gold
-        _:               return Color(0.55, 0.55, 0.55)
+# Build the row data array for `$ ls -l /`. Each entry: {perm, name,
+# story, owned}. Stories come from DIR_GRANTS first; anything not in
+# that map gets a static label based on the perm string.
+func _gather_root_lines() -> Array:
+    var paths: Array[String] = []
+    for p in GameState.permissions.keys():
+        var sp: String = String(p)
+        # Top-level only — `/foo`, not `/foo/bar`. We deliberately skip
+        # `/opt/wyrdmark` and `/home/wyrdkin` from the `/` listing
+        # because `ls -l /` shouldn't recurse.
+        if sp.begins_with("/") and not sp.substr(1).contains("/"):
+            paths.append(sp)
+    paths.sort()
+    var grant_by_path: Dictionary = {}
+    for g in DIR_GRANTS:
+        grant_by_path[String(g.get("path", ""))] = g
+    var out: Array = []
+    for p in paths:
+        var perm: String = String(GameState.permissions.get(p, "---------"))
+        var name: String = p.substr(1)
+        var story: String
+        var owned: bool = perm.find("r") != -1 or perm.find("w") != -1 or perm.find("x") != -1
+        if grant_by_path.has(p):
+            var g: Dictionary = grant_by_path[p]
+            var bid: String = String(g.get("boss", ""))
+            if GameState.has_defeated_boss(bid):
+                story = String(g.get("story", ""))
+            else:
+                story = "locked: defeat %s" % String(g.get("boss_name", bid))
+        else:
+            # Static label: describe the owner-bit slice. r-x = read+exec,
+            # rwx = full, anything starting with --- = locked.
+            var owner: String = perm.substr(0, 3)
+            if owner == "rwx":
+                story = "full"
+            elif owner == "r-x":
+                story = "read+exec — you can enter"
+            elif owner.begins_with("---"):
+                story = "no entry"
+            else:
+                story = owner
+        out.append({"perm": perm, "name": name, "story": story, "owned": owned})
+    return out
+
+
+func _make_dir_row(data: Dictionary) -> Label:
+    var perm: String = String(data.get("perm", "---------"))
+    var name: String = String(data.get("name", "?"))
+    var story: String = String(data.get("story", ""))
+    var owned: bool = bool(data.get("owned", false))
+    var line: String = "d%s %-10s (%s)" % [perm, "%s/" % name, story]
+    var color: Color = LABEL_COLOR if owned else LOCKED_COLOR
+    return _make_mono_label(line, color)

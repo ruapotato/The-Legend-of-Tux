@@ -66,4 +66,9 @@ func _unhandled_input(event: InputEvent) -> void:
         return
     if event.is_action_pressed("interact") and not Dialog.is_active():
         get_viewport().set_input_as_handled()
+        # Terminal-corner narration. Lore-canon command for reading
+        # a sign is `cat <sign>` against the sign's scene-name path.
+        var tl: Node = get_node_or_null("/root/TerminalLog")
+        if tl:
+            tl.cmd("cat %s" % name)
         Dialog.show_message(message)

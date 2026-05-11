@@ -17,7 +17,12 @@ extends Node3D
 @export var key_group: String = ""
 @export var open_offset: Vector3 = Vector3(0, 2.6, 0)
 @export var open_duration: float = 0.55
-@export var locked_message: String = "Locked. A small key would open this door."
+# v2.5 permission reframe: the locked message reads
+# "Permission denied — needs key:<key_group>" so the player sees which
+# dungeon-specific key group unlocks this door. The static export here
+# is now only used as a fallback for doors whose key_group somehow ends
+# up empty (shouldn't happen — dungeon_root.gd seeds it).
+@export var locked_message: String = "Permission denied — needs key"
 @export var unlock_message: String = "The lock turns. The door opens."
 
 @onready var body: Node3D = $Body
@@ -61,9 +66,19 @@ func _unhandled_input(event: InputEvent) -> void:
                 _open()
                 Dialog.show_message(unlock_message)
             else:
-                Dialog.show_message(locked_message)
+                Dialog.show_message(_locked_msg())
         else:
             _open()
+
+
+# v2.5 permission-bit phrasing for the locked-door refusal message.
+# `key_group` is the dungeon-scoped group (e.g. "wyrdkin_glade") that
+# the player would need a small key from. Doors whose group is missing
+# fall back to the bare exported `locked_message`.
+func _locked_msg() -> String:
+    if key_group == "":
+        return locked_message
+    return "Permission denied — needs key:%s" % key_group
 
 
 func _open() -> void:

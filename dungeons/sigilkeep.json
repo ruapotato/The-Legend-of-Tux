@@ -6001,7 +6001,7 @@
         "nodes": {
           "root": {
             "speaker": "Keeper Maren",
-            "text": "Welcome to the Sigilkeep, traveler. The wards here have held a thousand seasons. They thin now, but they hold. Speak — what would you ask of the keep?",
+            "text": "Welcome to the Sigilkeep, traveler. The wards here have held a thousand seasons. They thin now, but they hold. Speak \u2014 what would you ask of the keep?",
             "choices": [
               {
                 "label": "Tell me of the Triglyph.",
@@ -6115,7 +6115,7 @@
         "nodes": {
           "root": {
             "speaker": "Acolyte Pyl",
-            "text": "*kneeling, eyes closed*\nForgive me — I am at prayer. ...One moment.\n\n*opens eyes*\nThere. The vow is renewed. Were you wishing something of me?",
+            "text": "*kneeling, eyes closed*\nForgive me \u2014 I am at prayer. ...One moment.\n\n*opens eyes*\nThere. The vow is renewed. Were you wishing something of me?",
             "choices": [
               {
                 "label": "What were you praying for?",
@@ -6126,7 +6126,7 @@
                 "next": "far"
               },
               {
-                "label": "Forgive me — go on.",
+                "label": "Forgive me \u2014 go on.",
                 "next": "bye"
               }
             ]
@@ -6192,7 +6192,7 @@
       ],
       "rotation_y": 0,
       "contents": "heart_piece",
-      "open_message": "Behind a section of wall that crumbles to a sharp blow — bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file.",
+      "open_message": "Behind a section of wall that crumbles to a sharp blow \u2014 bombs work; so does the Striker's Maul. A heart-piece the Codex Knight forgot to file.",
       "requires": "wyrdking_defeated"
     },
     {
@@ -6236,7 +6236,7 @@
         "nodes": {
           "root": {
             "speaker": "Inkwell Stone",
-            "text": "*A faint hum, like wind through stone…*",
+            "text": "*A faint hum, like wind through stone\u2026*",
             "choices": [
               {
                 "label": "Listen.",
@@ -6270,6 +6270,326 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.79,
+        0.0,
+        -1.25
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.49,
+        0.0,
+        -1.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.43,
+        0.0,
+        -1.8
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.47,
+        0.0,
+        -2.03
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.11,
+        0.0,
+        -1.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.01,
+        0.0,
+        -1.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.87,
+        0.0,
+        -1.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.47,
+        0.0,
+        -0.63
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.01,
+        0.0,
+        -3.26
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.68,
+        0.0,
+        -1.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.79,
+        0.0,
+        -1.25
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.49,
+        0.0,
+        -1.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.43,
+        0.0,
+        -1.8
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.47,
+        0.0,
+        -2.03
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.11,
+        0.0,
+        -1.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.01,
+        0.0,
+        -1.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.87,
+        0.0,
+        -1.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.47,
+        0.0,
+        -0.63
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.01,
+        0.0,
+        -3.26
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.68,
+        0.0,
+        -1.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.79,
+        0.0,
+        -1.25
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.49,
+        0.0,
+        -1.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.43,
+        0.0,
+        -1.8
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.47,
+        0.0,
+        -2.03
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.11,
+        0.0,
+        -1.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.01,
+        0.0,
+        -1.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.87,
+        0.0,
+        -1.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.47,
+        0.0,
+        -0.63
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.01,
+        0.0,
+        -3.26
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.68,
+        0.0,
+        -1.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.79,
+        0.0,
+        -1.25
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.49,
+        0.0,
+        -1.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.43,
+        0.0,
+        -1.8
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.47,
+        0.0,
+        -2.03
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.11,
+        0.0,
+        -1.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.01,
+        0.0,
+        -1.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.87,
+        0.0,
+        -1.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.47,
+        0.0,
+        -0.63
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.01,
+        0.0,
+        -3.26
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.68,
+        0.0,
+        -1.27
+      ]
     }
   ],
   "load_zones": [

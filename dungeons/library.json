@@ -13276,7 +13276,7 @@
         14
       ],
       "rotation_y": 1.5708,
-      "message": "Roster of the Readers, freshly inked:\n\nMistress Yvenn (Head)\nApprentice Yawen\nPell (sabbatical)\nTheln (Wyrdmark records)\nOlm (the Drawing-In)\n— and one entry, scratched out long ago."
+      "message": "Roster of the Readers, freshly inked:\n\nMistress Yvenn (Head)\nApprentice Yawen\nPell (sabbatical)\nTheln (Wyrdmark records)\nOlm (the Drawing-In)\n\u2014 and one entry, scratched out long ago."
     },
     {
       "type": "sign",
@@ -13326,7 +13326,7 @@
         0
       ],
       "rotation_y": -1.5708,
-      "message": "A reader's marginalia, framed and posted:\n\n\"The deepest reading is what looks back at you. I have read this line three times this week and it has read me twice. — Olm\""
+      "message": "A reader's marginalia, framed and posted:\n\n\"The deepest reading is what looks back at you. I have read this line three times this week and it has read me twice. \u2014 Olm\""
     },
     {
       "type": "sign",
@@ -13600,7 +13600,7 @@
           },
           "sigils": {
             "speaker": "Mistress Yvenn",
-            "text": "Three marks of the Source. Lirien's Sight. Khorgaul's Shaping. And the third — Sharing — has not walked the realm in a long age. We keep the records, and we wait.",
+            "text": "Three marks of the Source. Lirien's Sight. Khorgaul's Shaping. And the third \u2014 Sharing \u2014 has not walked the realm in a long age. We keep the records, and we wait.",
             "choices": [
               {
                 "label": "What of the Drawing-In?",
@@ -13628,7 +13628,7 @@
           },
           "slip": {
             "speaker": "Mistress Yvenn",
-            "text": "Faring? Oh — better, I think, than when the breath nearly stilled last week. We had three Readers in the south aisle holding hands when it happened. A bad hour. But the breath came back.",
+            "text": "Faring? Oh \u2014 better, I think, than when the breath nearly stilled last week. We had three Readers in the south aisle holding hands when it happened. A bad hour. But the breath came back.",
             "choices": [
               {
                 "label": "I should walk on.",
@@ -13638,7 +13638,7 @@
           },
           "deeper": {
             "speaker": "Mistress Yvenn",
-            "text": "Down: the Cache, where memories fade. The Stacks east, where they are kept. The Ledger west, where each day is written. And the Backwater, beyond — the stream that overflows toward Mirelake.",
+            "text": "Down: the Cache, where memories fade. The Stacks east, where they are kept. The Ledger west, where each day is written. And the Backwater, beyond \u2014 the stream that overflows toward Mirelake.",
             "choices": [
               {
                 "label": "Back.",
@@ -13680,7 +13680,7 @@
         "nodes": {
           "root": {
             "speaker": "Apprentice Yawen",
-            "text": "Oh — hello! Do you need a book? I can find a book. Probably. I'm still learning the aisles.",
+            "text": "Oh \u2014 hello! Do you need a book? I can find a book. Probably. I'm still learning the aisles.",
             "choices": [
               {
                 "label": "Tell me of the Mistress.",
@@ -13702,7 +13702,7 @@
           },
           "mistress": {
             "speaker": "Apprentice Yawen",
-            "text": "Mistress Yvenn? Oh, she knows everything. I mean — everything that's been written. She remembers shelves the way I remember songs. I want to be like her one day. If I last that long.",
+            "text": "Mistress Yvenn? Oh, she knows everything. I mean \u2014 everything that's been written. She remembers shelves the way I remember songs. I want to be like her one day. If I last that long.",
             "choices": [
               {
                 "label": "Back.",
@@ -13764,7 +13764,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader-on-Sabbatical Pell",
-            "text": "Hm. A walker. Don't mind me. I'm not on duty. I'm — between things.",
+            "text": "Hm. A walker. Don't mind me. I'm not on duty. I'm \u2014 between things.",
             "choices": [
               {
                 "label": "Where have you been?",
@@ -13834,7 +13834,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader Theln",
-            "text": "You smell of the outside. Good. Come, come — I work the Wyrdmark records, the small ones in the alcove down at the Cache. Have you been to the Hollow yet?",
+            "text": "You smell of the outside. Good. Come, come \u2014 I work the Wyrdmark records, the small ones in the alcove down at the Cache. Have you been to the Hollow yet?",
             "choices": [
               {
                 "label": "Tell me of the Hollow.",
@@ -13856,7 +13856,7 @@
           },
           "hollow": {
             "speaker": "Reader Theln",
-            "text": "The Hollow of the Last Wyrd. Old. Old past my reading. Down through the Cache and into the small alcove there — Recorder Thav can tell you more than I can. He keeps the closer pages.",
+            "text": "The Hollow of the Last Wyrd. Old. Old past my reading. Down through the Cache and into the small alcove there \u2014 Recorder Thav can tell you more than I can. He keeps the closer pages.",
             "choices": [
               {
                 "label": "What worries you?",
@@ -13890,7 +13890,7 @@
           },
           "bye": {
             "speaker": "Reader Theln",
-            "text": "Walk well. And if you go to the Hollow — go with a Sigil. Not without."
+            "text": "Walk well. And if you go to the Hollow \u2014 go with a Sigil. Not without."
           }
         }
       }
@@ -14108,7 +14108,7 @@
         "nodes": {
           "root": {
             "speaker": "Apprentice Ted",
-            "text": "Oh — oh, hello. Hello! I'm — I'm cataloguing. I'm meant to be cataloguing. Mistress Yvenn said one shelf a day and I've done — *(he glances at the shelf)* — about half a shelf. In two days. Please don't tell her.",
+            "text": "Oh \u2014 oh, hello. Hello! I'm \u2014 I'm cataloguing. I'm meant to be cataloguing. Mistress Yvenn said one shelf a day and I've done \u2014 *(he glances at the shelf)* \u2014 about half a shelf. In two days. Please don't tell her.",
             "choices": [
               {
                 "label": "(Offer the folded scroll.)",
@@ -14133,7 +14133,7 @@
           },
           "trade": {
             "speaker": "Apprentice Ted",
-            "text": "*he reaches for the scroll, then stops himself, then reaches again.*\n\nMay I — may I see — oh. OH. This is — the hand is — this is from the Reader-on-Sabbatical's circuit, I'd swear it. Look, look, the way the loops carry through. This is a FIND, walker, this is a — a real one.\n\n*he scrambles in a drawer, pulls out a length of pale-dyed ribbon, presses it into your hand with both of his.*\n\nTake this. Please. It's not — it's only a ribbon, but it's a good one, the dye's true, my sister made it before — before. Take it. Walk it somewhere. The scroll stays here where it belongs and I'll — I'll catalogue it FIRST, I promise, before the shelf, even.",
+            "text": "*he reaches for the scroll, then stops himself, then reaches again.*\n\nMay I \u2014 may I see \u2014 oh. OH. This is \u2014 the hand is \u2014 this is from the Reader-on-Sabbatical's circuit, I'd swear it. Look, look, the way the loops carry through. This is a FIND, walker, this is a \u2014 a real one.\n\n*he scrambles in a drawer, pulls out a length of pale-dyed ribbon, presses it into your hand with both of his.*\n\nTake this. Please. It's not \u2014 it's only a ribbon, but it's a good one, the dye's true, my sister made it before \u2014 before. Take it. Walk it somewhere. The scroll stays here where it belongs and I'll \u2014 I'll catalogue it FIRST, I promise, before the shelf, even.",
             "sets_flag": "trade_step_4",
             "next": "thanks"
           },
@@ -14149,7 +14149,7 @@
           },
           "already": {
             "speaker": "Apprentice Ted",
-            "text": "Still carrying the ribbon? Good. Good! It wants — it wants to be given properly. You'll know who. I think you'll know.",
+            "text": "Still carrying the ribbon? Good. Good! It wants \u2014 it wants to be given properly. You'll know who. I think you'll know.",
             "choices": [
               {
                 "label": "Walk well.",
@@ -14159,7 +14159,7 @@
           },
           "slow": {
             "speaker": "Apprentice Ted",
-            "text": "Every book makes me read three more. I open a thing meant for the catalogue and the catalogue waits and the THING — the thing pulls me in. The Mistress says that's the trade. The Mistress says nobody good at this is fast.",
+            "text": "Every book makes me read three more. I open a thing meant for the catalogue and the catalogue waits and the THING \u2014 the thing pulls me in. The Mistress says that's the trade. The Mistress says nobody good at this is fast.",
             "choices": [
               {
                 "label": "Back.",
@@ -14169,10 +14169,330 @@
           },
           "bye": {
             "speaker": "Apprentice Ted",
-            "text": "Walk well! Mind the — the third ladder, Yawen says it wobbles. I haven't tried it yet."
+            "text": "Walk well! Mind the \u2014 the third ladder, Yawen says it wobbles. I haven't tried it yet."
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.01,
+        0.0,
+        -10.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.23,
+        0.0,
+        -10.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.04,
+        0.0,
+        -11.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        28.09,
+        0.0,
+        -12.11
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.5,
+        0.0,
+        -12.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -28.29,
+        0.0,
+        -11.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.1,
+        0.0,
+        -9.69
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.91,
+        0.0,
+        -12.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.5,
+        0.0,
+        -12.43
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.1,
+        0.0,
+        -11.82
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.01,
+        0.0,
+        -10.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.23,
+        0.0,
+        -10.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.04,
+        0.0,
+        -11.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        28.09,
+        0.0,
+        -12.11
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.5,
+        0.0,
+        -12.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -28.29,
+        0.0,
+        -11.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.1,
+        0.0,
+        -9.69
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.91,
+        0.0,
+        -12.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.5,
+        0.0,
+        -12.43
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.1,
+        0.0,
+        -11.82
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.01,
+        0.0,
+        -10.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.23,
+        0.0,
+        -10.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.04,
+        0.0,
+        -11.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        28.09,
+        0.0,
+        -12.11
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.5,
+        0.0,
+        -12.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -28.29,
+        0.0,
+        -11.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.1,
+        0.0,
+        -9.69
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.91,
+        0.0,
+        -12.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.5,
+        0.0,
+        -12.43
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.1,
+        0.0,
+        -11.82
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.01,
+        0.0,
+        -10.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.23,
+        0.0,
+        -10.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.04,
+        0.0,
+        -11.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        28.09,
+        0.0,
+        -12.11
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.5,
+        0.0,
+        -12.27
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -28.29,
+        0.0,
+        -11.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.1,
+        0.0,
+        -9.69
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -27.91,
+        0.0,
+        -12.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.5,
+        0.0,
+        -12.43
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.1,
+        0.0,
+        -11.82
+      ]
     }
   ],
   "load_zones": [

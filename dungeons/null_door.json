@@ -798,7 +798,7 @@
       "rotation_y": 3.141592653589793,
       "contents": "glim_mirror",
       "requires": "censor_defeated",
-      "open_message": "The Glim Mirror. Lirien's true silver, beaten thin and blessed cool. It will catch what Init throws — and throw it back."
+      "open_message": "The Glim Mirror. Lirien's true silver, beaten thin and blessed cool. It will catch what Init throws \u2014 and throw it back."
     },
     {
       "type": "npc",

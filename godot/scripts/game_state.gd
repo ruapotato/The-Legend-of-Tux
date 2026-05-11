@@ -36,6 +36,11 @@ signal warps_changed()
 signal flag_changed(flag_id: String, value)
 signal song_learned(song_id: String)
 signal boss_defeated(boss_id: String)
+# Per-path / per-binary permission grants (the v2 character sheet). Doors,
+# chests, NPCs, and the status screen all listen for these so a freshly
+# granted bit propagates without polling.
+signal permission_changed(path: String, new_perm: String)
+signal binary_granted(binary: String, perm: String)
 # Sword tier upgrade. Emitted by upgrade_sword() whenever the tier
 # actually advances; sword.gd / tux_player listens to live-retint the
 # blade without having to poll the tier each frame.
@@ -148,6 +153,36 @@ var quest_flags: Dictionary = {}
 var songs_known: Dictionary = {}
 var bosses_defeated: Dictionary = {}
 
+# ---- Permissions (v2 character sheet) ----------------------------------
+#
+# Two parallel dictionaries:
+#
+#   permissions  : path → 9-char Unix mode string ("rwxr-xr-x"). Owner,
+#                  group, world bits — owner is what `has_perm` checks
+#                  against. Used for top-level directory-style entries
+#                  (`/etc`, `/dev`, `/opt/wyrdmark`, ...).
+#   binaries     : path → owner-bits string for tools Tux can invoke.
+#                  Three chars ("--x", "r-x", "rwx"). The presence of an
+#                  entry means Tux owns the binary at all; absence means
+#                  it's locked.
+#
+# Both are seeded by `reset()` with the canonical default starting set
+# (LORE.md §v2.4) and grow as bosses are defeated. Saved + loaded so
+# permission progression survives a quit, identically to quest_flags.
+#
+# A "perm string" is always read owner-first. has_perm("/etc", "w") is
+# true iff the first three characters are "rw-" or "rwx" — i.e. the
+# owner bit slice contains a 'w'.
+var permissions: Dictionary = {}
+var binaries: Dictionary = {}
+
+
+func _ready() -> void:
+    # Autoload init: seed default permissions so even a code path that
+    # queries has_perm() before main_menu calls reset() still gets the
+    # canonical starting kit. Cheap — a handful of dict writes.
+    _seed_default_permissions()
+
 
 func reset() -> void:
     max_fish = 3
@@ -166,6 +201,9 @@ func reset() -> void:
     quest_flags.clear()
     songs_known.clear()
     bosses_defeated.clear()
+    permissions.clear()
+    binaries.clear()
+    _seed_default_permissions()
     sword_tier = 0
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
@@ -524,6 +562,136 @@ func has_defeated_boss(boss_id: String) -> bool:
     return bool(bosses_defeated.get(boss_id, false))
 
 
+# ---- Permissions --------------------------------------------------------
+#
+# v2 character sheet. Doors / chests / NPCs check `has_perm` instead of
+# bare quest flags; pause-menu's status screen renders `ls_l_root()` and
+# `ls_l_bin()` directly. Boss-defeat hooks call `grant_binary` /
+# `grant_perm` to broaden Tux's reach over the filesystem.
+
+# Seed the canonical starting set. Called from reset() and on a fresh
+# load_game whose save predates the permissions field.
+func _seed_default_permissions() -> void:
+    # Tux's home subtree — full owner, others can browse.
+    permissions["/opt/wyrdmark"] = "rwxr-xr-x"
+    # His ancestral hold — private.
+    permissions["/home/wyrdkin"] = "rwx------"
+    # Every other top-level directory the player can ever reach. r-x for
+    # owner, locked for everyone else; bosses widen these as they fall.
+    var locked: Array[String] = [
+        "/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/mnt",
+        "/opt", "/proc", "/root", "/sbin", "/srv", "/sys", "/tmp",
+        "/usr", "/var",
+    ]
+    for p in locked:
+        if not permissions.has(p):
+            permissions[p] = "r-x------"
+    # Default binaries Tux always carries — kill (sword), cd (walking),
+    # cat (reading signs), chmod (the shield), ls (looking).
+    binaries["~/bin/kill"]  = "--x"
+    binaries["~/bin/cd"]    = "--x"
+    binaries["~/bin/cat"]   = "--x"
+    binaries["~/bin/chmod"] = "--x"
+    binaries["~/bin/ls"]    = "--x"
+
+
+# Owner-bit check. `perm_char` is "r", "w", or "x"; the function returns
+# true iff the path's owner slice contains that character. Falls back to
+# the `binaries` dict for binary paths (`~/bin/...` or `/usr/bin/...`).
+func has_perm(path: String, perm_char: String) -> bool:
+    if path == "" or perm_char == "":
+        return false
+    var s: String = String(permissions.get(path, ""))
+    if s == "":
+        s = String(binaries.get(path, ""))
+    if s == "":
+        return false
+    # Owner slice = first three chars of either a 3-char binary perm or
+    # a 9-char directory mode string.
+    var owner: String = s.substr(0, min(3, s.length()))
+    return owner.find(perm_char) != -1
+
+
+# Grant or replace the perm string on a path. Idempotent — a re-grant of
+# the same string is a silent no-op. The signal fires on any actual
+# change so listeners can repaint without polling.
+func grant_perm(path: String, new_perm: String) -> void:
+    if path == "" or new_perm == "":
+        return
+    var prev: String = String(permissions.get(path, ""))
+    if prev == new_perm:
+        return
+    permissions[path] = new_perm
+    permission_changed.emit(path, new_perm)
+
+
+# Returns true iff Tux owns +x on this binary path (i.e. can run it at
+# all). The shop / weapon-pipeline checks call this.
+func has_binary(binary: String) -> bool:
+    var s: String = String(binaries.get(binary, ""))
+    if s == "":
+        return false
+    return s.find("x") != -1
+
+
+# Grant a binary entry. Default perm is "--x" (executable only — the most
+# common case from boss-defeat hooks). Idempotent on identical perm.
+func grant_binary(binary: String, perm: String = "--x") -> void:
+    if binary == "":
+        return
+    var prev: String = String(binaries.get(binary, ""))
+    if prev == perm:
+        return
+    binaries[binary] = perm
+    binary_granted.emit(binary, perm)
+
+
+# Render `ls -l /` as a multiline string. The status screen uses this
+# verbatim — one row per directory, sorted alphabetically. Each row is
+# `d<perm-string> <name>/` so it parses visually as real `ls -l` output.
+func ls_l_root() -> String:
+    var paths: Array = []
+    for p in permissions.keys():
+        var sp: String = String(p)
+        # Top-level dirs only (skip /opt/wyrdmark, /home/wyrdkin — they're
+        # nested entries we still want represented).
+        if sp.begins_with("/") and not sp.substr(1).contains("/"):
+            paths.append(sp)
+    paths.sort()
+    var lines: Array = []
+    for p in paths:
+        var sp: String = String(p)
+        var perm: String = String(permissions.get(sp, "---------"))
+        var name: String = sp.substr(1)
+        lines.append("d%s %s/" % [perm, name])
+    return "\n".join(lines)
+
+
+# Render `ls -l ~/bin` as a multiline string — one row per binary Tux
+# owns or has any record of. Locked tools aren't listed here (they show
+# in pause_menu's status screen via the lookup table).
+func ls_l_bin() -> String:
+    var paths: Array = binaries.keys()
+    paths.sort()
+    var lines: Array = []
+    for p in paths:
+        var sp: String = String(p)
+        var perm: String = String(binaries.get(sp, "---"))
+        # Pad the binary owner-bits out to 9 chars so the column lines
+        # up with ls_l_root()'s output. Group + world are always "------"
+        # for tools Tux carries — these are personal.
+        var full: String = "%s------" % perm
+        var name: String = sp.get_file()
+        lines.append("-%s %s" % [full, name])
+    return "\n".join(lines)
+
+
+# Render `id` output. Hard-coded uid/gid because Tux is, canonically,
+# uid=1000(tux) gid=1000(wyrdkin) — see LORE.md §v2.4.
+func id_string() -> String:
+    return "uid=1000(tux) gid=1000(wyrdkin) groups=glade,burrows,wake"
+
+
 # ---- Sword tier ---------------------------------------------------------
 #
 # Three tiers — Twigblade (0), Brightsteel (1), Glimblade (2). Damage
@@ -587,6 +755,8 @@ func save_game(slot: int) -> bool:
         "bosses_defeated":   bosses_defeated.duplicate(true),
         "anchor_boots_active": anchor_boots_active,
         "sword_tier":          sword_tier,
+        "permissions":         permissions.duplicate(true),
+        "binaries":            binaries.duplicate(true),
     }
     var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
     if f == null:
@@ -665,6 +835,33 @@ func load_game(slot: int) -> bool:
     var saved_bosses: Variant = data.get("bosses_defeated", null)
     bosses_defeated = (saved_bosses as Dictionary).duplicate(true) \
         if typeof(saved_bosses) == TYPE_DICTIONARY else {}
+
+    # Permissions / binaries (v2). Older saves predate the field — those
+    # come back through _seed_default_permissions() so the player still
+    # gets their starting kit. Newer saves restore exactly what was
+    # written, then we re-seed missing-default keys (in case the canon
+    # default set has expanded since the save was made — non-destructive,
+    # only fills holes).
+    var saved_perms: Variant = data.get("permissions", null)
+    permissions = (saved_perms as Dictionary).duplicate(true) \
+        if typeof(saved_perms) == TYPE_DICTIONARY else {}
+    var saved_bins: Variant = data.get("binaries", null)
+    binaries = (saved_bins as Dictionary).duplicate(true) \
+        if typeof(saved_bins) == TYPE_DICTIONARY else {}
+    if permissions.is_empty() and binaries.is_empty():
+        _seed_default_permissions()
+    else:
+        # Hole-fill: seed any default key that wasn't carried in the save.
+        # We snapshot before/after so we don't clobber an entry the player
+        # already widened (re-seeding a directory at "r-x------" would
+        # quietly revoke a Codex-Knight grant).
+        var perm_snapshot: Dictionary = permissions.duplicate(true)
+        var bin_snapshot: Dictionary = binaries.duplicate(true)
+        _seed_default_permissions()
+        for k in perm_snapshot.keys():
+            permissions[k] = perm_snapshot[k]
+        for k in bin_snapshot.keys():
+            binaries[k] = bin_snapshot[k]
 
     # Sword tier — older saves predate the field, default to 0 (Twigblade).
     sword_tier = int(data.get("sword_tier", 0))

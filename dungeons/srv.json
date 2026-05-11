@@ -64,20 +64,60 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -9,
+            4
           ],
           [
-            -4,
-            -3
+            -8,
+            4
           ],
           [
-            -4,
-            -2
+            -7,
+            1
           ],
           [
-            -4,
-            -1
+            -7,
+            4
+          ],
+          [
+            -6,
+            1
+          ],
+          [
+            -6,
+            2
+          ],
+          [
+            -6,
+            3
+          ],
+          [
+            -6,
+            4
+          ],
+          [
+            -6,
+            5
+          ],
+          [
+            -6,
+            6
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
           ],
           [
             -4,
@@ -96,12 +136,20 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
           ],
           [
             -3,
@@ -128,12 +176,20 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
           ],
           [
             -2,
@@ -160,12 +216,24 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
           ],
           [
             -1,
@@ -192,12 +260,24 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
           ],
           [
             0,
@@ -224,12 +304,32 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            10
           ],
           [
             1,
@@ -256,12 +356,32 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            10
           ],
           [
             2,
@@ -288,12 +408,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -318,6 +454,102 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            4
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +576,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_crown",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -371,7 +603,7 @@
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "THE SERVERY\n\nThe kitchen of the realm. Always cooking. Always feeding. The hearth has not gone out in living memory.\n\n5 PEBBLES — FULL MEAL"
+      "message": "THE SERVERY\n\nThe kitchen of the realm. Always cooking. Always feeding. The hearth has not gone out in living memory.\n\n5 PEBBLES \u2014 FULL MEAL"
     },
     {
       "type": "sign",
@@ -386,7 +618,7 @@
     {
       "type": "npc",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         1.5
       ],
@@ -412,20 +644,39 @@
             "speaker": "Head Cook Belna",
             "text": "Walker! Sit, sit. You're three shades pale. When did you last eat a hot meal?\n\nFive pebbles. Full bowl. Bread on the side. Hearth's hot.",
             "choices": [
-              {"label": "Five pebbles, please.", "next": "meal"},
-              {"label": "Just looking, thank you.", "next": "looking"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Five pebbles, please.",
+                "next": "meal"
+              },
+              {
+                "label": "Just looking, thank you.",
+                "next": "looking"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "meal": {
             "speaker": "Head Cook Belna",
-            "text": "Right then. *she ladles a bowl deep enough to drown a thought in.*\n\nMind the steam. Eat slow. The Servery isn't going anywhere — neither should you, for a moment.\n\n*you feel warmer just from sitting at her counter. Walk well.*",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "Right then. *she ladles a bowl deep enough to drown a thought in.*\n\nMind the steam. Eat slow. The Servery isn't going anywhere \u2014 neither should you, for a moment.\n\n*you feel warmer just from sitting at her counter. Walk well.*",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "looking": {
             "speaker": "Head Cook Belna",
             "text": "Suit yourself. The pot's here when you change your mind. Hearthbread's coming out in a breath if you can wait.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Head Cook Belna",
@@ -437,9 +688,9 @@
     {
       "type": "npc",
       "pos": [
-        -2.0,
+        -1.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": 1.2,
       "name": "Runner Jenn",
@@ -461,9 +712,12 @@
         "nodes": {
           "root": {
             "speaker": "Runner Jenn",
-            "text": "Hey hey, walker — mind your toes, hot pot coming through!\n\n*she balances three bowls and a kettle without spilling.*\n\nBelna says we feed the realm. So we feed the realm.",
+            "text": "Hey hey, walker \u2014 mind your toes, hot pot coming through!\n\n*she balances three bowls and a kettle without spilling.*\n\nBelna says we feed the realm. So we feed the realm.",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -476,9 +730,9 @@
     {
       "type": "npc",
       "pos": [
-        2.0,
+        1.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": -1.2,
       "name": "Runner Sef",
@@ -500,8 +754,13 @@
         "nodes": {
           "root": {
             "speaker": "Runner Sef",
-            "text": "Two more bowls and I can sit down. Maybe.\n\nIf you see a walker who looks like they haven't eaten — drag them in here. Belna won't take no for an answer.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "Two more bowls and I can sit down. Maybe.\n\nIf you see a walker who looks like they haven't eaten \u2014 drag them in here. Belna won't take no for an answer.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Runner Sef",
@@ -513,7 +772,7 @@
     {
       "type": "npc",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         -1.5
       ],
@@ -538,7 +797,12 @@
           "root": {
             "speaker": "Visiting Bind",
             "text": "Five pebbles for this? Down at the Sprawl I'd get three pebbles' worth and a complaint card.\n\n*he eats anyway. The bowl is empty inside a minute.*\n\nBy the Source, that was a good stew. Don't tell Belna I said so.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Visiting Bind",
@@ -551,9 +815,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,

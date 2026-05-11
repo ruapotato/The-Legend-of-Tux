@@ -64,24 +64,40 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -9,
+            3
           ],
           [
-            -4,
-            -3
+            -8,
+            3
           ],
           [
-            -4,
-            -2
+            -7,
+            3
           ],
           [
-            -4,
-            -1
+            -6,
+            2
           ],
           [
-            -4,
-            0
+            -6,
+            3
+          ],
+          [
+            -6,
+            4
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
           ],
           [
             -4,
@@ -96,12 +112,12 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
           ],
           [
             -3,
@@ -128,12 +144,24 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
+          ],
+          [
+            -3,
+            8
           ],
           [
             -2,
@@ -160,12 +188,24 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
           ],
           [
             -1,
@@ -192,12 +232,28 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
           ],
           [
             0,
@@ -224,12 +280,36 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            10
+          ],
+          [
+            0,
+            11
           ],
           [
             1,
@@ -256,12 +336,28 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
           ],
           [
             2,
@@ -288,12 +384,32 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
+          ],
+          [
+            2,
+            10
           ],
           [
             3,
@@ -318,6 +434,126 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            7
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +580,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_murk",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -386,9 +622,9 @@
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        1.0
+        0.5
       ],
       "rotation_y": 3.141592653589793,
       "name": "The Answer",
@@ -412,23 +648,38 @@
             "speaker": "The Answer",
             "text": "*she is beaming. The fog around her seems lighter just from how cheerful she is.*\n\nWalker! At last! You've come for the Answer.\n\nIt's me. I'm the Answer.",
             "choices": [
-              {"label": "The answer to what?", "next": "what"},
-              {"label": "Are you sure?", "next": "sure"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "The answer to what?",
+                "next": "what"
+              },
+              {
+                "label": "Are you sure?",
+                "next": "sure"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "what": {
             "speaker": "The Answer",
             "text": "*she looks momentarily puzzled, then brightens again.*\n\nI don't entirely remember the question. But the answer is definitely me. I am very confident about this.\n\nThe sign on the post is very clear. Now scheduled. Do not kill.",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "sure": {
             "speaker": "The Answer",
             "text": "Oh yes, walker. Quite sure. Quite, quite sure.\n\nI'll be needed in a breath, no doubt. Or the breath after. Or the one after that. The realm will call. The realm always calls.\n\n*she beams.*",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -442,9 +693,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,

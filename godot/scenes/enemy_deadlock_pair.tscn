@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxdlpr01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_deadlock_pair.gd" id="1_dlp"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.42
+height = 1.30
+
+[sub_resource type="CylinderMesh" id="body_mesh"]
+top_radius = 0.30
+bottom_radius = 0.50
+height = 1.30
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.45, 0.30, 0.65, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(0.55, 0.30, 0.85, 1)
+emission_energy_multiplier = 0.35
+
+[sub_resource type="SphereMesh" id="head_mesh"]
+radius = 0.32
+height = 0.64
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="head_mat"]
+albedo_color = Color(0.30, 0.20, 0.45, 1)
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.45, 0.25, 0.70, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.95, 1.50, 0.95)
+
+[node name="EnemyDeadlockPair" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_dlp")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("hit_shape")

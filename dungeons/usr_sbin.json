@@ -64,24 +64,20 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -6,
+            1
           ],
           [
-            -4,
-            -3
+            -6,
+            2
           ],
           [
-            -4,
-            -2
+            -5,
+            1
           ],
           [
-            -4,
-            -1
-          ],
-          [
-            -4,
-            0
+            -5,
+            2
           ],
           [
             -4,
@@ -96,12 +92,16 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            5
           ],
           [
-            -3,
-            -3
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
           ],
           [
             -3,
@@ -128,12 +128,20 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
           ],
           [
             -2,
@@ -160,12 +168,28 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
+          ],
+          [
+            -2,
+            9
           ],
           [
             -1,
@@ -192,12 +216,28 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
           ],
           [
             0,
@@ -224,12 +264,28 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
           ],
           [
             1,
@@ -256,12 +312,28 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
           ],
           [
             2,
@@ -288,12 +360,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -317,6 +405,138 @@
           ],
           [
             3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            9,
             3
           ]
         ],
@@ -344,29 +564,29 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_sprawl",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_sbin",
       "pos": [
-        1.0,
+        5.5,
         0.5,
-        0.0
+        0.5
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": 1.7267398828622882
     }
   ],
   "lights": [],
@@ -395,9 +615,9 @@
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        1.0
+        0.5
       ],
       "rotation_y": 3.141592653589793,
       "name": "Outpost Sentinel Quenn",
@@ -421,20 +641,39 @@
             "speaker": "Outpost Sentinel Quenn",
             "text": "*she nods once. The hand on the spear does not move.*\n\nWalker. The Outpost is kept. Pass through if you've a reason. Don't if you don't.",
             "choices": [
-              {"label": "What do you watch for?", "next": "watch"},
-              {"label": "Are you alone here?", "next": "alone"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "What do you watch for?",
+                "next": "watch"
+              },
+              {
+                "label": "Are you alone here?",
+                "next": "alone"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "watch": {
             "speaker": "Outpost Sentinel Quenn",
-            "text": "Whatever the merchants have decided to be afraid of this season. Mostly other merchants.\n\nThe sister-watch up on the Crown — her hall is older than this one. The walk between is open. The watches keep open doors.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "Whatever the merchants have decided to be afraid of this season. Mostly other merchants.\n\nThe sister-watch up on the Crown \u2014 her hall is older than this one. The walk between is open. The watches keep open doors.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "alone": {
             "speaker": "Outpost Sentinel Quenn",
             "text": "Alone enough. The sister-watch can hear me if I call. So can the realm.\n\nI don't call often.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Outpost Sentinel Quenn",
@@ -442,14 +681,466 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        3.36,
+        0.0,
+        -7.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.52,
+        0.0,
+        -8.9
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.04,
+        0.0,
+        -6.94
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.8,
+        0.0,
+        -9.4
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.39,
+        0.0,
+        -6.5
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.47,
+        0.0,
+        -7.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4.38,
+        0.0,
+        -9.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -3.24,
+        0.0,
+        14.23
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -2.66,
+        0.0,
+        11.88
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.01,
+        0.0,
+        13.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.8,
+        0.0,
+        12.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.47,
+        0.0,
+        11.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        3.36,
+        0.0,
+        -7.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.52,
+        0.0,
+        -8.9
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.04,
+        0.0,
+        -6.94
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.8,
+        0.0,
+        -9.4
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.39,
+        0.0,
+        -6.5
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.47,
+        0.0,
+        -7.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4.38,
+        0.0,
+        -9.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -3.24,
+        0.0,
+        14.23
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -2.66,
+        0.0,
+        11.88
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.01,
+        0.0,
+        13.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.8,
+        0.0,
+        12.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.47,
+        0.0,
+        11.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -2.27,
+        0.0,
+        13.72
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -3.1,
+        0.0,
+        12.35
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.59,
+        0.0,
+        14.31
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.82,
+        0.0,
+        11.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -3.23,
+        0.0,
+        14.74
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -2.15,
+        0.0,
+        13.25
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -1.25,
+        0.0,
+        12.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.66,
+        0.0,
+        -6.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.5,
+        0.0,
+        -7.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.98,
+        0.0,
+        -5.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.22,
+        0.0,
+        -8.26
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.63,
+        0.0,
+        -5.37
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -5.55,
+        0.0,
+        -6.86
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.64,
+        0.0,
+        -8.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.78,
+        0.0,
+        13.1
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.36,
+        0.0,
+        10.75
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.01,
+        0.0,
+        12.67
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.21,
+        0.0,
+        11.17
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        5.55,
+        0.0,
+        10.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.39,
+        0.0,
+        -5.51
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.56,
+        0.0,
+        -6.88
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.07,
+        0.0,
+        -4.92
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.83,
+        0.0,
+        -7.38
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.43,
+        0.0,
+        -4.48
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        5.51,
+        0.0,
+        -5.97
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.41,
+        0.0,
+        -7.2
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.27,
+        0.0,
+        12.21
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.69,
+        0.0,
+        9.86
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.04,
+        0.0,
+        11.78
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -3.84,
+        0.0,
+        10.28
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -5.5,
+        0.0,
+        9.95
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,
@@ -463,9 +1154,9 @@
     },
     {
       "pos": [
-        3.0,
+        5.58,
         1.4,
-        0.0
+        0.01
       ],
       "size": [
         1.5,

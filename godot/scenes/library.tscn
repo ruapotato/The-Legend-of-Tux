@@ -1,26 +1,27 @@
-[gd_scene load_steps=410 format=3 uid="uid://btuxlibrary01"]
+[gd_scene load_steps=411 format=3 uid="uid://btuxlibrary01"]
 
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.25, 0.22, 0.3, 1)
@@ -3827,6 +3828,126 @@ body_color = Color(0.5, 0.55, 0.7, 1)
 hat_color = Color(0.22, 0.25, 0.35, 1)
 idle_hint = "[E] Speak with Ted"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Apprentice Ted\", \"text\": \"Oh — oh, hello. Hello! I'm — I'm cataloguing. I'm meant to be cataloguing. Mistress Yvenn said one shelf a day and I've done — *(he glances at the shelf)* — about half a shelf. In two days. Please don't tell her.\", \"choices\": [{\"label\": \"(Offer the folded scroll.)\", \"next\": \"trade\", \"requires_flag\": \"trade_step_3\", \"requires_not\": \"trade_step_4\"}, {\"label\": \"(Show the dyed ribbon.)\", \"next\": \"already\", \"requires_flag\": \"trade_step_4\"}, {\"label\": \"Why so slow?\", \"next\": \"slow\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"trade\": {\"speaker\": \"Apprentice Ted\", \"text\": \"*he reaches for the scroll, then stops himself, then reaches again.*\\n\\nMay I — may I see — oh. OH. This is — the hand is — this is from the Reader-on-Sabbatical's circuit, I'd swear it. Look, look, the way the loops carry through. This is a FIND, walker, this is a — a real one.\\n\\n*he scrambles in a drawer, pulls out a length of pale-dyed ribbon, presses it into your hand with both of his.*\\n\\nTake this. Please. It's not — it's only a ribbon, but it's a good one, the dye's true, my sister made it before — before. Take it. Walk it somewhere. The scroll stays here where it belongs and I'll — I'll catalogue it FIRST, I promise, before the shelf, even.\", \"sets_flag\": \"trade_step_4\", \"next\": \"thanks\"}, \"thanks\": {\"speaker\": \"Apprentice Ted\", \"text\": \"*he is already unrolling the scroll on the desk, very carefully, with both hands.*\\n\\nWalk well, walker. Walk well. Oh, this is a GOOD day.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"already\": {\"speaker\": \"Apprentice Ted\", \"text\": \"Still carrying the ribbon? Good. Good! It wants — it wants to be given properly. You'll know who. I think you'll know.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"slow\": {\"speaker\": \"Apprentice Ted\", \"text\": \"Every book makes me read three more. I open a thing meant for the catalogue and the catalogue waits and the THING — the thing pulls me in. The Mistress says that's the trade. The Mistress says nobody good at this is fast.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Apprentice Ted\", \"text\": \"Walk well! Mind the — the third ladder, Yawen says it wobbles. I haven't tried it yet.\"}}}"
+
+[node name="Tree33" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.01, 0, -10.56)
+
+[node name="Tree34" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.23, 0, -10.47)
+
+[node name="Tree35" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.04, 0, -11.09)
+
+[node name="Rock36" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.09, 0, -12.11)
+
+[node name="Tree37" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, -12.27)
+
+[node name="Tree38" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.29, 0, -11.19)
+
+[node name="Tree39" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1, 0, -9.69)
+
+[node name="Tree40" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.91, 0, -12.74)
+
+[node name="Tree41" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, -12.43)
+
+[node name="Rock42" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1, 0, -11.82)
+
+[node name="Tree43" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.01, 0, -10.56)
+
+[node name="Tree44" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.23, 0, -10.47)
+
+[node name="Tree45" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.04, 0, -11.09)
+
+[node name="Rock46" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.09, 0, -12.11)
+
+[node name="Tree47" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, -12.27)
+
+[node name="Tree48" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.29, 0, -11.19)
+
+[node name="Tree49" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1, 0, -9.69)
+
+[node name="Tree50" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.91, 0, -12.74)
+
+[node name="Tree51" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, -12.43)
+
+[node name="Rock52" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1, 0, -11.82)
+
+[node name="Tree53" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.01, 0, -10.56)
+
+[node name="Tree54" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.23, 0, -10.47)
+
+[node name="Tree55" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.04, 0, -11.09)
+
+[node name="Rock56" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.09, 0, -12.11)
+
+[node name="Tree57" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, -12.27)
+
+[node name="Tree58" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.29, 0, -11.19)
+
+[node name="Tree59" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1, 0, -9.69)
+
+[node name="Tree60" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.91, 0, -12.74)
+
+[node name="Tree61" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, -12.43)
+
+[node name="Rock62" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1, 0, -11.82)
+
+[node name="Tree63" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.01, 0, -10.56)
+
+[node name="Tree64" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.23, 0, -10.47)
+
+[node name="Tree65" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.04, 0, -11.09)
+
+[node name="Rock66" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.09, 0, -12.11)
+
+[node name="Tree67" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, 0, -12.27)
+
+[node name="Tree68" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.29, 0, -11.19)
+
+[node name="Tree69" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1, 0, -9.69)
+
+[node name="Tree70" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.91, 0, -12.74)
+
+[node name="Tree71" parent="." instance=ExtResource("tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, 0, -12.43)
+
+[node name="Rock72" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1, 0, -11.82)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -27.5)

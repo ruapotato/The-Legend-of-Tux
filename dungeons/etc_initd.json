@@ -64,20 +64,32 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -6,
+            1
           ],
           [
-            -4,
-            -3
+            -6,
+            2
           ],
           [
-            -4,
-            -2
+            -6,
+            5
           ],
           [
-            -4,
-            -1
+            -5,
+            1
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -5,
+            6
           ],
           [
             -4,
@@ -96,12 +108,16 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
           ],
           [
             -3,
@@ -128,12 +144,20 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
           ],
           [
             -2,
@@ -160,12 +184,28 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
+          ],
+          [
+            -2,
+            9
           ],
           [
             -1,
@@ -192,12 +232,28 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
           ],
           [
             0,
@@ -224,12 +280,28 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
           ],
           [
             1,
@@ -256,12 +328,28 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
           ],
           [
             2,
@@ -288,12 +376,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -318,6 +422,146 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            5,
+            9
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            9,
+            2
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +588,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_scriptorium",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -366,19 +610,19 @@
     {
       "type": "sign",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "THE INITIATES\n\nA candle-lit row of novices. Each is responsible for waking one of the realm's morning ceremonies. Twelve in all — five here today, the others at their posts."
+      "message": "THE INITIATES\n\nA candle-lit row of novices. Each is responsible for waking one of the realm's morning ceremonies. Twelve in all \u2014 five here today, the others at their posts."
     },
     {
       "type": "npc",
       "pos": [
         -2.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": 1.5707963267948966,
       "name": "Initiate Olm",
@@ -402,7 +646,10 @@
             "speaker": "Initiate Olm",
             "text": "*kneeling, eyes closed*\n\n'By the breath of the Maker, the morning is opened. By the Source, the dawn-shrine wakes. Walk the realm, walk it well...'\n\n*she does not pause for you.*",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -415,9 +662,9 @@
     {
       "type": "npc",
       "pos": [
-        -1.25,
+        -1.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": 1.5707963267948966,
       "name": "Initiate Belth",
@@ -441,7 +688,10 @@
             "speaker": "Initiate Belth",
             "text": "*low, steady*\n\n'The wells are blessed at first light. The kettles are blessed at second. The ovens at third. The hearth at fourth, and so on, to the twelfth, which is the last...'\n\n*his voice is calm enough to fall asleep to.*",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -454,9 +704,9 @@
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": 0.0,
       "name": "Initiate Ress",
@@ -478,27 +728,51 @@
         "nodes": {
           "root": {
             "speaker": "Initiate Ress",
-            "text": "*opens his eyes wide*\n\nWalker — please. I've forgotten my recantation. The seventh line. It opens the kettle-shrine for the noon-cooks and I cannot remember it.\n\nIs it 'by the breath of the Maker' or 'by the breath of the Source'?",
+            "text": "*opens his eyes wide*\n\nWalker \u2014 please. I've forgotten my recantation. The seventh line. It opens the kettle-shrine for the noon-cooks and I cannot remember it.\n\nIs it 'by the breath of the Maker' or 'by the breath of the Source'?",
             "choices": [
-              {"label": "By the breath of the Maker.", "next": "right"},
-              {"label": "By the breath of the Source.", "next": "wrong"},
-              {"label": "I'm not sure.", "next": "patience"}
+              {
+                "label": "By the breath of the Maker.",
+                "next": "right"
+              },
+              {
+                "label": "By the breath of the Source.",
+                "next": "wrong"
+              },
+              {
+                "label": "I'm not sure.",
+                "next": "patience"
+              }
             ]
           },
           "right": {
             "speaker": "Initiate Ress",
-            "text": "Yes! Yes — that's it. By the breath of the Maker the kettle-shrine wakes.\n\nLirien's breath, walker, you saved me a scolding. Walk well. Walk very well.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "Yes! Yes \u2014 that's it. By the breath of the Maker the kettle-shrine wakes.\n\nLirien's breath, walker, you saved me a scolding. Walk well. Walk very well.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "wrong": {
             "speaker": "Initiate Ress",
             "text": "Hm. Maybe. I'll try it.\n\n*he doesn't look convinced.*",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "patience": {
             "speaker": "Initiate Ress",
             "text": "Fair. Fair. I'll keep at it.\n\nMaybe Belth will tell me. Belth never forgets a line.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Initiate Ress",
@@ -510,9 +784,9 @@
     {
       "type": "npc",
       "pos": [
-        1.25,
+        1.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": -1.5707963267948966,
       "name": "Initiate Maro",
@@ -536,7 +810,10 @@
             "speaker": "Initiate Maro",
             "text": "*humming a long, low note. Her hands are folded. Her eyes are open and not looking at anything.*\n\n*the tone shifts up half a step. Then back down.*",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -551,7 +828,7 @@
       "pos": [
         2.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": -1.5707963267948966,
       "name": "Initiate Quenn",
@@ -573,9 +850,12 @@
         "nodes": {
           "root": {
             "speaker": "Initiate Quenn",
-            "text": "*reciting fast, almost under his breath*\n\n'...and the gardens, and the orchards, and the brooks, and the wells, and the smaller wells, and the unspoken wells, and the smaller unspoken wells, and—'\n\n*he doesn't notice you.*",
+            "text": "*reciting fast, almost under his breath*\n\n'...and the gardens, and the orchards, and the brooks, and the wells, and the smaller wells, and the unspoken wells, and the smaller unspoken wells, and\u2014'\n\n*he doesn't notice you.*",
             "choices": [
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "bye": {
@@ -589,9 +869,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,

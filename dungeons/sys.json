@@ -64,20 +64,68 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -8,
+            3
           ],
           [
-            -4,
-            -3
+            -7,
+            0
           ],
           [
-            -4,
-            -2
+            -7,
+            1
           ],
           [
-            -4,
-            -1
+            -7,
+            2
+          ],
+          [
+            -7,
+            3
+          ],
+          [
+            -7,
+            4
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -6,
+            1
+          ],
+          [
+            -6,
+            2
+          ],
+          [
+            -6,
+            3
+          ],
+          [
+            -6,
+            4
+          ],
+          [
+            -5,
+            0
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
           ],
           [
             -4,
@@ -96,12 +144,20 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
           ],
           [
             -3,
@@ -128,12 +184,16 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
           ],
           [
             -2,
@@ -160,12 +220,24 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
           ],
           [
             -1,
@@ -192,12 +264,32 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
+          ],
+          [
+            -1,
+            10
           ],
           [
             0,
@@ -224,12 +316,32 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            10
           ],
           [
             1,
@@ -256,12 +368,32 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            10
           ],
           [
             2,
@@ -288,12 +420,32 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
+          ],
+          [
+            2,
+            10
           ],
           [
             3,
@@ -317,6 +469,118 @@
           ],
           [
             3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
             3
           ]
         ],
@@ -344,29 +608,29 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_crown",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_proc_init",
       "pos": [
-        1.0,
+        8.5,
         0.5,
-        0.0
+        3.5
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": -3.1000274932759213
     }
   ],
   "lights": [],
@@ -380,7 +644,7 @@
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "THE HEARTWORKS\n\nA glassed-in observatory beneath the Murk. The Source can be seen here in slow, steady pulses — each one a heartbeat of the realm.\n\nWatch for as long as you like. It will not stop while you watch."
+      "message": "THE HEARTWORKS\n\nA glassed-in observatory beneath the Murk. The Source can be seen here in slow, steady pulses \u2014 each one a heartbeat of the realm.\n\nWatch for as long as you like. It will not stop while you watch."
     },
     {
       "type": "sign",
@@ -390,14 +654,14 @@
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "Faded notice on the inner wall:\n\n'Each pulse is a kept promise. No promise is kept silently — there is always a song in it. The reader who counts pulses also hums.'\n\n— Thallin, Heart-Reader, two ages ago."
+      "message": "Faded notice on the inner wall:\n\n'Each pulse is a kept promise. No promise is kept silently \u2014 there is always a song in it. The reader who counts pulses also hums.'\n\n\u2014 Thallin, Heart-Reader, two ages ago."
     },
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        1.0
+        0.5
       ],
       "rotation_y": 3.141592653589793,
       "name": "Heart-Reader Velis",
@@ -421,23 +685,43 @@
             "speaker": "Heart-Reader Velis",
             "text": "*she has one hand on the glass and her eyes half-closed.*\n\nQuiet, walker. I am counting.\n\n...there. Two thousand and fourteen since dawn. The realm is well today.",
             "choices": [
-              {"label": "What are you counting?", "next": "count"},
-              {"label": "Have you a hint for me?", "next": "hint"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "What are you counting?",
+                "next": "count"
+              },
+              {
+                "label": "Have you a hint for me?",
+                "next": "hint"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "count": {
             "speaker": "Heart-Reader Velis",
             "text": "Heartbeats. The realm has them. Each one is the Source breathing in and out. Each one is a small kept promise.\n\nWhen the count slows, somewhere a shrine is dimming. When the count steadies, somewhere a walker has done something kind.",
             "choices": [
-              {"label": "Have you a hint for me?", "next": "hint"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Have you a hint for me?",
+                "next": "hint"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "hint": {
             "speaker": "Heart-Reader Velis",
-            "text": "*she turns from the glass, finally.*\n\nThe pulses make a song-glyph if you stand here long enough. Three high beats, one low, three high again. The realm hums it to itself.\n\nIf you ever learn to hum back, walker — the right doors might open for you.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "*she turns from the glass, finally.*\n\nThe pulses make a song-glyph if you stand here long enough. Three high beats, one low, three high again. The realm hums it to itself.\n\nIf you ever learn to hum back, walker \u2014 the right doors might open for you.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Heart-Reader Velis",
@@ -445,14 +729,465 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.54,
+        0.0,
+        -4.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.8,
+        0.0,
+        -5.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.55,
+        0.0,
+        -5.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.09,
+        0.0,
+        -3.43
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.22,
+        0.0,
+        -5.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.46,
+        0.0,
+        7.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.02,
+        0.0,
+        8.96
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.46,
+        0.0,
+        10.18
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.78,
+        0.0,
+        9.62
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.22,
+        0.0,
+        8.4
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.81,
+        0.0,
+        9.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.44,
+        0.0,
+        -2.74
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        11.7,
+        0.0,
+        -4.18
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.45,
+        0.0,
+        -4.26
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.99,
+        0.0,
+        -1.69
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.12,
+        0.0,
+        -4.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.36,
+        0.0,
+        6.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.92,
+        0.0,
+        7.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -9.36,
+        0.0,
+        8.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.68,
+        0.0,
+        7.88
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.12,
+        0.0,
+        6.66
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.71,
+        0.0,
+        7.34
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.53,
+        0.0,
+        -5.33
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.79,
+        0.0,
+        -6.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.53,
+        0.0,
+        -6.84
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.07,
+        0.0,
+        -4.28
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.21,
+        0.0,
+        -6.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.45,
+        0.0,
+        8.81
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.01,
+        0.0,
+        9.81
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.45,
+        0.0,
+        11.03
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.76,
+        0.0,
+        10.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.2,
+        0.0,
+        9.25
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.8,
+        0.0,
+        9.93
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.6,
+        0.0,
+        -4.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.86,
+        0.0,
+        -5.52
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.6,
+        0.0,
+        -5.6
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.14,
+        0.0,
+        -3.03
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.28,
+        0.0,
+        -5.34
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.52,
+        0.0,
+        7.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.08,
+        0.0,
+        8.56
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.52,
+        0.0,
+        9.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.83,
+        0.0,
+        9.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.27,
+        0.0,
+        8.01
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.87,
+        0.0,
+        8.68
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.97,
+        0.0,
+        -4.86
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.23,
+        0.0,
+        -6.3
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.97,
+        0.0,
+        -6.37
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.51,
+        0.0,
+        -3.81
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.65,
+        0.0,
+        -6.12
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.89,
+        0.0,
+        8.34
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.45,
+        0.0,
+        9.34
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.89,
+        0.0,
+        10.56
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.2,
+        0.0,
+        10.0
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.64,
+        0.0,
+        8.78
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.24,
+        0.0,
+        9.46
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,
@@ -466,9 +1201,9 @@
     },
     {
       "pos": [
-        3.0,
+        9.0,
         1.4,
-        0.0
+        3.52
       ],
       "size": [
         1.5,

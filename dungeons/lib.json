@@ -64,24 +64,24 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -6,
+            2
           ],
           [
-            -4,
-            -3
+            -5,
+            1
           ],
           [
-            -4,
-            -2
+            -5,
+            2
           ],
           [
-            -4,
-            -1
+            -5,
+            3
           ],
           [
-            -4,
-            0
+            -5,
+            4
           ],
           [
             -4,
@@ -96,12 +96,24 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
+          ],
+          [
+            -4,
+            8
           ],
           [
             -3,
@@ -128,12 +140,24 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
+          ],
+          [
+            -3,
+            8
           ],
           [
             -2,
@@ -160,12 +184,24 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
           ],
           [
             -1,
@@ -192,12 +228,28 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
           ],
           [
             0,
@@ -224,12 +276,32 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            10
           ],
           [
             1,
@@ -256,12 +328,32 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            10
           ],
           [
             2,
@@ -288,12 +380,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -317,6 +425,134 @@
           ],
           [
             3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            9,
+            2
+          ],
+          [
+            9,
             3
           ]
         ],
@@ -344,29 +580,29 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_crown",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_usr_lib",
       "pos": [
-        1.0,
+        -5.5,
         0.5,
-        0.0
+        2.5
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": 0.2655892292353756
     }
   ],
   "lights": [],
@@ -390,14 +626,14 @@
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "THE GREAT TAPESTRY\n\nWoven across the back wall — every room of the realm in shared thread. The Crown above. The Burrows in the warm middle. The Forge at the bottom in deep iron-greys.\n\nIf you look at any one room long enough you can see the threads that run between it and every other room. Nothing is alone."
+      "message": "THE GREAT TAPESTRY\n\nWoven across the back wall \u2014 every room of the realm in shared thread. The Crown above. The Burrows in the warm middle. The Forge at the bottom in deep iron-greys.\n\nIf you look at any one room long enough you can see the threads that run between it and every other room. Nothing is alone."
     },
     {
       "type": "sign",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        -2.0
+        -1.5
       ],
       "rotation_y": 0.0,
       "message": "A small notice pinned to a loom-frame:\n\n'A thread returned is a thread shared. The Loomhouse keeps no debts. Walk well.'"
@@ -431,28 +667,53 @@
             "speaker": "Master Weaver Esweth",
             "text": "*she does not look up from the shuttle.*\n\nWalk softly. The threads pick up footfall.\n\nWhat brings a sword-bearer to a loomhouse?",
             "choices": [
-              {"label": "What is woven here?", "next": "weave"},
-              {"label": "May I look at the great tapestry?", "next": "tap"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "What is woven here?",
+                "next": "weave"
+              },
+              {
+                "label": "May I look at the great tapestry?",
+                "next": "tap"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "weave": {
             "speaker": "Master Weaver Esweth",
             "text": "Whatever the realm needs that day. Cloth. Cordage. Sometimes a song the loom remembered.\n\nThe looms are shared. Every weaver here borrows from every other. By the Source, that is how a Loomhouse stays a Loomhouse.",
             "choices": [
-              {"label": "And if a weaver hoards?", "next": "hoard"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "And if a weaver hoards?",
+                "next": "hoard"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "hoard": {
             "speaker": "Master Weaver Esweth",
             "text": "*the shuttle slows.*\n\nThen the loom forgets her. The thread will not run. The cloth comes off uneven.\n\nA loom is a polite thing. It asks only that you give back what you borrow. Most of us can manage that.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "tap": {
             "speaker": "Master Weaver Esweth",
             "text": "Look as long as you like. Every room you have ever stood in is on that wall. Some you have not stood in yet are also there.\n\nThe Loomhouse is patient.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Master Weaver Esweth",
@@ -488,16 +749,27 @@
         "nodes": {
           "root": {
             "speaker": "Borrower Tem",
-            "text": "Just returning a thread, walker. I borrowed a length of green for a cloak last winter — finished now, and the spool comes home.\n\nThat's all the Loomhouse asks.",
+            "text": "Just returning a thread, walker. I borrowed a length of green for a cloak last winter \u2014 finished now, and the spool comes home.\n\nThat's all the Loomhouse asks.",
             "choices": [
-              {"label": "And it's that simple?", "next": "simple"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "And it's that simple?",
+                "next": "simple"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "simple": {
             "speaker": "Borrower Tem",
             "text": "It's that simple. Take what you need. Give back what you borrowed. The loom keeps no other ledger.\n\nMy mother used to say it kept us a people.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Borrower Tem",
@@ -505,14 +777,424 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.63,
+        0.0,
+        8.4
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.77,
+        0.0,
+        8.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.35,
+        0.0,
+        10.93
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.61,
+        0.0,
+        10.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.66,
+        0.0,
+        10.14
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.24,
+        0.0,
+        -4.47
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.95,
+        0.0,
+        -3.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.14,
+        0.0,
+        -4.81
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.93,
+        0.0,
+        -6.31
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.04,
+        0.0,
+        -5.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.04,
+        0.0,
+        7.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.18,
+        0.0,
+        8.1
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.76,
+        0.0,
+        10.45
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.02,
+        0.0,
+        9.87
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.07,
+        0.0,
+        9.66
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.65,
+        0.0,
+        -3.99
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.36,
+        0.0,
+        -3.36
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.55,
+        0.0,
+        -4.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.34,
+        0.0,
+        -5.83
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.45,
+        0.0,
+        -5.1
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.86,
+        0.0,
+        7.77
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.99,
+        0.0,
+        7.95
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.57,
+        0.0,
+        10.3
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.84,
+        0.0,
+        9.72
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.88,
+        0.0,
+        9.51
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.46,
+        0.0,
+        -3.84
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.18,
+        0.0,
+        -3.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.37,
+        0.0,
+        -4.18
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.16,
+        0.0,
+        -5.68
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.26,
+        0.0,
+        -4.95
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.59,
+        0.0,
+        8.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.73,
+        0.0,
+        8.62
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.31,
+        0.0,
+        10.98
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.57,
+        0.0,
+        10.4
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.62,
+        0.0,
+        10.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.2,
+        0.0,
+        -4.51
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.91,
+        0.0,
+        -3.89
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.1,
+        0.0,
+        -4.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.89,
+        0.0,
+        -6.35
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.0,
+        0.0,
+        -5.62
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.23,
+        0.0,
+        -6.82
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.1,
+        0.0,
+        -6.65
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.52,
+        0.0,
+        -4.29
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.25,
+        0.0,
+        -4.87
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.2,
+        0.0,
+        -5.08
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.63,
+        0.0,
+        10.76
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.91,
+        0.0,
+        11.38
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.72,
+        0.0,
+        10.42
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.93,
+        0.0,
+        8.92
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.82,
+        0.0,
+        9.65
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,
@@ -526,9 +1208,9 @@
     },
     {
       "pos": [
-        3.0,
+        -5.98,
         1.4,
-        0.0
+        2.37
       ],
       "size": [
         1.5,

@@ -31,6 +31,15 @@ static func try_fire(player: Node3D, direction: Vector3) -> Node3D:
         tip.set_owner_player(player)
     if tip.has_method("set_direction"):
         tip.set_direction(direction)
+    # Terminal-corner narration. Lore-canon command: `cd <visible-tile>`.
+    # We don't actually know which tile until the tip lands (or whiffs),
+    # so we emit at fire-time with a placeholder coordinate built from
+    # the tip's spawn point + aim direction. Reads as "I tried to cd
+    # somewhere over there" which is exactly what the player just did.
+    var tl: Node = player.get_node_or_null("/root/TerminalLog")
+    if tl:
+        var dest: Vector3 = origin + direction.normalized() * 8.0
+        tl.cmd("cd ./tile@(%.0f,%.0f)" % [dest.x, dest.z])
     return tip
 
 

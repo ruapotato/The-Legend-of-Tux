@@ -64,20 +64,40 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -7,
+            3
           ],
           [
-            -4,
-            -3
+            -6,
+            3
           ],
           [
-            -4,
-            -2
+            -5,
+            0
           ],
           [
-            -4,
-            -1
+            -5,
+            1
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -5,
+            7
           ],
           [
             -4,
@@ -96,12 +116,16 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            7
           ],
           [
             -3,
@@ -128,12 +152,24 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
+          ],
+          [
+            -3,
+            8
           ],
           [
             -2,
@@ -160,12 +196,28 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
+          ],
+          [
+            -2,
+            9
           ],
           [
             -1,
@@ -192,12 +244,36 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
+          ],
+          [
+            -1,
+            10
+          ],
+          [
+            -1,
+            11
           ],
           [
             0,
@@ -224,12 +300,28 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
           ],
           [
             1,
@@ -256,12 +348,32 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            10
           ],
           [
             2,
@@ -288,12 +400,32 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
+          ],
+          [
+            2,
+            10
           ],
           [
             3,
@@ -318,6 +450,154 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            5,
+            9
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +624,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_crown",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -381,24 +661,24 @@
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "A short catalogue, posted by the door:\n\n  No. 14 — A bone-flute mouthpiece, cracked at the rim.\n  No. 27 — One small leather shoe, child-size, left foot.\n  No. 138 — A folded letter, addressed to 'My own one', never delivered.\n\nIf you know the keeper of any of these, speak to Adra."
+      "message": "A short catalogue, posted by the door:\n\n  No. 14 \u2014 A bone-flute mouthpiece, cracked at the rim.\n  No. 27 \u2014 One small leather shoe, child-size, left foot.\n  No. 138 \u2014 A folded letter, addressed to 'My own one', never delivered.\n\nIf you know the keeper of any of these, speak to Adra."
     },
     {
       "type": "sign",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        -2.0
+        -1.5
       ],
       "rotation_y": 0.0,
-      "message": "Pinned beside the keeper's desk:\n\n'Bring three claim-tokens from broken places in the realm and I will give you a piece of heart in return. Walker — you'll know one when you see one.'"
+      "message": "Pinned beside the keeper's desk:\n\n'Bring three claim-tokens from broken places in the realm and I will give you a piece of heart in return. Walker \u2014 you'll know one when you see one.'"
     },
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        1.0
+        0.5
       ],
       "rotation_y": 3.141592653589793,
       "name": "Keeper Adra",
@@ -422,16 +702,34 @@
             "speaker": "Keeper Adra",
             "text": "*she looks up slowly, the way someone does when they have been looking at small things for a long while.*\n\nWelcome, walker. Welcome to a place that holds things that nothing else holds.\n\nWhat have you found?",
             "choices": [
-              {"label": "(Offer the dyed ribbon.)", "next": "ribbon_trade", "requires_flag": "trade_step_4", "requires_not": "trade_step_5"},
-              {"label": "(About that ribbon-shaped kindness...)", "next": "ribbon_after", "requires_flag": "trade_step_5"},
-              {"label": "What is this place?", "next": "what"},
-              {"label": "What's behind the locked chest?", "next": "chest"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "(Offer the dyed ribbon.)",
+                "next": "ribbon_trade",
+                "requires_flag": "trade_step_4",
+                "requires_not": "trade_step_5"
+              },
+              {
+                "label": "(About that ribbon-shaped kindness...)",
+                "next": "ribbon_after",
+                "requires_flag": "trade_step_5"
+              },
+              {
+                "label": "What is this place?",
+                "next": "what"
+              },
+              {
+                "label": "What's behind the locked chest?",
+                "next": "chest"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "ribbon_trade": {
             "speaker": "Keeper Adra",
-            "text": "*she takes the ribbon between two fingers, very carefully, the way one handles a thing whose owner is known.*\n\n...oh.\n\nOh, walker. This is the dye-work of a child of Hearthold-by-the-kilns. I knew her mother. I held this ribbon's twin in this Hall for nine years before its keeper came back for it. They came back smiling. They came back smiling, walker.\n\n*she sets the ribbon into a labelled drawer, slow as a vow. Then she turns and lifts a lacquered box from the shelf behind her.*\n\nIn this Hall we keep what was lost. But sometimes the realm gives back what was held — and when it does, the Hall gives back too. Take this. It was kept here for whoever brought a kindness across the realm without dropping it.\n\nIt is a heart. A whole one. Yours.",
+            "text": "*she takes the ribbon between two fingers, very carefully, the way one handles a thing whose owner is known.*\n\n...oh.\n\nOh, walker. This is the dye-work of a child of Hearthold-by-the-kilns. I knew her mother. I held this ribbon's twin in this Hall for nine years before its keeper came back for it. They came back smiling. They came back smiling, walker.\n\n*she sets the ribbon into a labelled drawer, slow as a vow. Then she turns and lifts a lacquered box from the shelf behind her.*\n\nIn this Hall we keep what was lost. But sometimes the realm gives back what was held \u2014 and when it does, the Hall gives back too. Take this. It was kept here for whoever brought a kindness across the realm without dropping it.\n\nIt is a heart. A whole one. Yours.",
             "sets_flag": "trade_step_5",
             "give_item": "heart_container",
             "next": "ribbon_close"
@@ -439,34 +737,60 @@
           "ribbon_close": {
             "speaker": "Keeper Adra",
             "text": "*she closes the box's lid over your hands, both of hers warm on yours.*\n\nWalk well, walker. The Hall will remember the day a ribbon came home. By the Source, that is something.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "ribbon_after": {
             "speaker": "Keeper Adra",
-            "text": "*she smiles, small and kind.*\n\nThe ribbon is in its drawer. Its twin is on a shelf in Hearthold, by now — I sent word. The realm carries the kindness on. That is the whole work, in the end.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "*she smiles, small and kind.*\n\nThe ribbon is in its drawer. Its twin is on a shelf in Hearthold, by now \u2014 I sent word. The realm carries the kindness on. That is the whole work, in the end.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "what": {
             "speaker": "Keeper Adra",
             "text": "When a chest in the realm breaks open and what was in it tumbles loose, the pieces find their way here. The Source carries them. I catalogue what I can.\n\nMost have nobody coming back for them. Some still might.",
             "choices": [
-              {"label": "Doesn't that get sad?", "next": "sad"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Doesn't that get sad?",
+                "next": "sad"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "sad": {
             "speaker": "Keeper Adra",
             "text": "*a small, kind smile.*\n\nIt got sad once. Now it is just the work. The work is good. The Hall keeps them safe until somebody knows their name again.\n\nBy the Source, that is something.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "chest": {
             "speaker": "Keeper Adra",
-            "text": "A piece of heart. I keep it for the walker who brings me three claim-tokens — the small things you find when a chest breaks open in the wild.\n\nBring me three. I'll give you the chest. The realm asks no more of either of us.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "A piece of heart. I keep it for the walker who brings me three claim-tokens \u2014 the small things you find when a chest breaks open in the wild.\n\nBring me three. I'll give you the chest. The realm asks no more of either of us.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Keeper Adra",
-            "text": "Walk well, walker. If you find a small leather shoe, left foot, child-size — come back to me."
+            "text": "Walk well, walker. If you find a small leather shoe, left foot, child-size \u2014 come back to me."
           }
         }
       }
@@ -474,9 +798,9 @@
     {
       "type": "chest",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        2.0
+        2.5
       ],
       "rotation_y": 3.141592653589793,
       "contents": "heart_piece",
@@ -487,9 +811,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,

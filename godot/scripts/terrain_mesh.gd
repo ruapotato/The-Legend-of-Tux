@@ -115,11 +115,14 @@ func _path_cell_set() -> Dictionary:
 
 
 func _effective_path_color() -> Color:
-    # Alpha == 0 sentinel means "no override given — derive". We darken
-    # the floor colour ~25% for a "packed dirt vs. grass" feel without
-    # forcing every level to ship its own colour.
+    # Alpha == 0 sentinel means "no override given — derive". The earlier
+    # 25% darken read as "rock against grass" and was hard to pick out
+    # from the tree-wall edge — players couldn't see where to walk to
+    # exit a level. Now near-black with a faint floor tint so the path
+    # reads as a deliberate cut-out arch in the boundary, not a slightly
+    # darker patch of the same biome.
     if path_color.a <= 0.0:
-        return floor_color.darkened(0.25)
+        return floor_color.lerp(Color(0.04, 0.04, 0.05, 1.0), 0.85)
     return path_color
 
 

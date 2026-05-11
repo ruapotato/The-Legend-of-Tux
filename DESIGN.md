@@ -226,3 +226,90 @@ Authoring order so the doc-driven build doesn't deadlock:
 6. **Heart pieces** (§6) — 16 placements.
 7. **Polish pass** — owl statue placement, final boss tuning, intro
    cutscene, save-slot rename.
+
+---
+
+# v2 — THE COMMAND-PIPELINE OVERLAY
+
+> *"Items are commands. Combat is pipelines. Progression is permission bits."*
+
+The v1 item progression in §3 still names the right gameplay verbs.
+v2 *re-skins* them: every item displays as a Unix command (or
+pipeline), and the gameplay's ground truth is **permission bits on
+binaries.** See `LORE.md §v2.3`–`v2.5` for the canon.
+
+## v2.1 Display rename
+
+| §3 item | v2 command (display) | Subtle subtitle |
+|---|---|---|
+| Sword | **`kill`** | (Twigblade=`kill`, Brightsteel=`kill -TERM`, Glimblade=`kill -9`) |
+| Shield | **`chmod 000`** | self-perms denied — incoming attacks fail their permission check |
+| Slingshot | **`ping`** | cheap distant tap |
+| Boomerang | **`wget`** | fetch + return |
+| Bow | **`ps \| grep \| kill`** | 3-stage pipeline; grep step IS the aim reticle |
+| Hammer | **`ps \| sort -k pos \| head -5 \| kill -9`** | top 5 nearest force-killed |
+| Bombs | **`rm -rf`** | recursive area destroy |
+| Hookshot | **`cd <visible-tile>`** | warp to seen tile |
+| Anchor Boots | **`chroot /lower`** | confine to deeper layer |
+| Glim Sight | **`ls -la`** | reveal dotfiles in cone |
+| Glim Mirror | **`chmod 777 . \| tee`** | reflect to source |
+| Bottle | **`mktemp -d`** | container |
+| Songs | **`crontab`** | scheduled jobs |
+
+## v2.2 Permissions = the character sheet
+
+The Trophy Wall's "bosses defeated" display is replaced with a
+literal `ls -l` of the player's permissions (`LORE.md §v2.4`). New
+GameState API:
+
+```gdscript
+var permissions: Dictionary = {
+    "/opt/wyrdmark":  "rwxr-xr-x",
+    "/var":           "r-x------",
+    "~/bin/grep":     "--x",
+    # ...
+}
+func has_perm(path: String, perm: String) -> bool
+func grant_perm(path: String, perm: String) -> void
+```
+
+Boss-defeat hooks into `grant_perm` (see LORE.md §v2.4 table for
+specific grants).
+
+Doors / chests / NPCs check permissions instead of bare quest_flags.
+The "locked" message tells the player exactly which bit they need:
+*"chmod denied — needs `r:var/log`."*
+
+## v2.3 Terminal HUD corner
+
+Bottom-left, 4-6 monospace lines, faded background. Flashes the
+command Tux just executed. Subtle but constant. Players who don't
+read it get the Wyrdmark fantasy uninterrupted; players who do get
+a shell session.
+
+## v2.4 Shopkeepers are package managers
+
+NPCs in `/usr/bin` and `/bin` are named tool-spirits — `apt`,
+`pacman`, `make`, `tar`, `gcc`. Buying = `apt install <wares>` =
+adds `+x` on `/usr/bin/<wares>`. The shopkeeper's name IS the tool
+they sell. (Living legendary tools are the shopkeepers; their
+descendants are the villagers.)
+
+## v2.5 Build sequence (overlay pass)
+
+1. **Permissions system + Status Screen** — game_state.gd extension,
+   pause_menu Trophies → `ls -l` rewrite.
+2. **Terminal HUD corner** — new file + hud.gd extension.
+3. **Weapon-pipeline display** — when bow fires, show the 3-stage
+   pipeline animation; when hammer swings, show the 4-stage.
+4. **Door / chest / NPC permission reframe** — semantically
+   relabel quest_flags + key_group as permissions; locked-message
+   shows the missing bit.
+5. **Shop reframe** — rename the four shopkeepers to package-manager
+   names (`apt`, `pacman`, `make`, `tar`); their wares display as
+   binaries with prices.
+6. **Filesystem rooting algorithm** — `tools/grow_filesystem.py`
+   (see `FILESYSTEM.md §v3`) to regrow the algorithm-owned
+   directories with organic shapes + pillared gaps.
+
+Steps 1-5 can be parallelized after #1 lands. Step 6 is independent.

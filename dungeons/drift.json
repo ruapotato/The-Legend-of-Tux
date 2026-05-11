@@ -15237,7 +15237,7 @@
         "nodes": {
           "root": {
             "speaker": "Festival-Goer Ralo",
-            "text": "HO! HO ho ho! Walker! Look at THESE lanterns! Look at this one! It's painted to look like a moon-eyed rook! Hahaha — I love it, I LOVE it, who paints a rook on a lantern? Geniuses. Geniuses everywhere!",
+            "text": "HO! HO ho ho! Walker! Look at THESE lanterns! Look at this one! It's painted to look like a moon-eyed rook! Hahaha \u2014 I love it, I LOVE it, who paints a rook on a lantern? Geniuses. Geniuses everywhere!",
             "choices": [
               {
                 "label": "(Offer the honey jar.)",
@@ -15262,7 +15262,7 @@
           },
           "trade": {
             "speaker": "Festival-Goer Ralo",
-            "text": "WHAT — is that — by Lirien's bright breath, is that COMB-HONEY? In a JAR? Sealed in WAX?\n\n*he clutches his chest, theatrical.*\n\nWalker. Walker. I have been eating festival cakes for THREE DAYS. My tongue has forgotten what real sweetness is. I would trade my own NAME for that jar. — Wait, wait, I have something better. Here.\n\n*he presses a painted mask into your hands — fox-faced, lacquer still tacky.*\n\nMy cousin painted it. She'd want it loved. Take it on. Take it on!",
+            "text": "WHAT \u2014 is that \u2014 by Lirien's bright breath, is that COMB-HONEY? In a JAR? Sealed in WAX?\n\n*he clutches his chest, theatrical.*\n\nWalker. Walker. I have been eating festival cakes for THREE DAYS. My tongue has forgotten what real sweetness is. I would trade my own NAME for that jar. \u2014 Wait, wait, I have something better. Here.\n\n*he presses a painted mask into your hands \u2014 fox-faced, lacquer still tacky.*\n\nMy cousin painted it. She'd want it loved. Take it on. Take it on!",
             "sets_flag": "trade_step_2",
             "next": "thanks"
           },
@@ -15288,7 +15288,7 @@
           },
           "festival": {
             "speaker": "Festival-Goer Ralo",
-            "text": "What's it FOR? It's for itself! That's the BEST kind! No anniversary, no harvest, no naming — somebody just hung the first lantern and the rest of us showed up. That's how the good ones start.",
+            "text": "What's it FOR? It's for itself! That's the BEST kind! No anniversary, no harvest, no naming \u2014 somebody just hung the first lantern and the rest of us showed up. That's how the good ones start.",
             "choices": [
               {
                 "label": "Back.",
@@ -15302,6 +15302,358 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.49,
+        0.0,
+        -0.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.36,
+        0.0,
+        -0.52
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.82,
+        0.0,
+        -0.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.1,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.52,
+        0.0,
+        -0.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.47,
+        0.0,
+        -0.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.15,
+        0.0,
+        -0.46
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.0,
+        0.0,
+        -0.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.18,
+        0.0,
+        -1.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.86,
+        0.0,
+        -0.13
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -25.05,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.49,
+        0.0,
+        -0.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.36,
+        0.0,
+        -0.52
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.82,
+        0.0,
+        -0.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.1,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.52,
+        0.0,
+        -0.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.47,
+        0.0,
+        -0.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.15,
+        0.0,
+        -0.46
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.0,
+        0.0,
+        -0.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.18,
+        0.0,
+        -1.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.86,
+        0.0,
+        -0.13
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -25.05,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.49,
+        0.0,
+        -0.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.36,
+        0.0,
+        -0.52
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.82,
+        0.0,
+        -0.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.1,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.52,
+        0.0,
+        -0.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.47,
+        0.0,
+        -0.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.15,
+        0.0,
+        -0.46
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.0,
+        0.0,
+        -0.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.18,
+        0.0,
+        -1.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.86,
+        0.0,
+        -0.13
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -25.05,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        27.49,
+        0.0,
+        -0.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.36,
+        0.0,
+        -0.52
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        26.82,
+        0.0,
+        -0.99
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.1,
+        0.0,
+        0.95
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        26.52,
+        0.0,
+        -0.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.47,
+        0.0,
+        -0.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.15,
+        0.0,
+        -0.46
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.0,
+        0.0,
+        -0.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.18,
+        0.0,
+        -1.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.86,
+        0.0,
+        -0.13
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -25.05,
+        0.0,
+        -1.0
+      ]
     }
   ],
   "load_zones": [

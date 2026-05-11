@@ -6730,7 +6730,7 @@
           },
           "source": {
             "speaker": "Hearthold Elder",
-            "text": "The Source is the spring of all green things — the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
+            "text": "The Source is the spring of all green things \u2014 the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
             "choices": [
               {
                 "label": "And the Sigil?",
@@ -6748,7 +6748,7 @@
           },
           "khorgaul": {
             "speaker": "Hearthold Elder",
-            "text": "The Hoarder. He does not steal so much as he gathers — the light, the warmth, the names of things. The wardstones held him once. They thin now.",
+            "text": "The Hoarder. He does not steal so much as he gathers \u2014 the light, the warmth, the names of things. The wardstones held him once. They thin now.",
             "choices": [
               {
                 "label": "Tell me of the Source.",
@@ -6766,7 +6766,7 @@
           },
           "sigil": {
             "speaker": "Hearthold Elder",
-            "text": "The Triglyph — three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
+            "text": "The Triglyph \u2014 three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
             "choices": [
               {
                 "label": "Tell me of the Source.",
@@ -6819,7 +6819,7 @@
             "text": "Eh? You look light in the pouch, traveler. Need any pebbles for the sling?",
             "choices": [
               {
-                "label": "Yes — spare me a handful.",
+                "label": "Yes \u2014 spare me a handful.",
                 "next": "give",
                 "requires_not": "took_takka_pebbles"
               },
@@ -6873,7 +6873,7 @@
       "name": "Smith Brann",
       "body_color": [
         0.32,
-        0.30,
+        0.3,
         0.36,
         1.0
       ],
@@ -6913,7 +6913,7 @@
           },
           "bought": {
             "speaker": "Smith Brann",
-            "text": "Hold it firm and let it sing. Brightsteel keeps an edge — mind it."
+            "text": "Hold it firm and let it sing. Brightsteel keeps an edge \u2014 mind it."
           },
           "already": {
             "speaker": "Smith Brann",
@@ -7024,7 +7024,7 @@
           },
           "source": {
             "speaker": "Father Velis",
-            "text": "The Source flows through every green thing — through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.",
+            "text": "The Source flows through every green thing \u2014 through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.",
             "choices": [
               {
                 "label": "Tell me of the Triglyph.",
@@ -7038,7 +7038,7 @@
           },
           "trig": {
             "speaker": "Father Velis",
-            "text": "Three sigils, three vows. Sight — to see truly. Shaping — to make and unmake. Sharing — to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.",
+            "text": "Three sigils, three vows. Sight \u2014 to see truly. Shaping \u2014 to make and unmake. Sharing \u2014 to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.",
             "choices": [
               {
                 "label": "Tell me of Lirien.",
@@ -7056,7 +7056,7 @@
           },
           "lirien": {
             "speaker": "Father Velis",
-            "text": "Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving — the freedom of the green to grow and grow again.",
+            "text": "Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving \u2014 the freedom of the green to grow and grow again.",
             "choices": [
               {
                 "label": "Tell me of Khorgaul.",
@@ -7084,7 +7084,7 @@
           },
           "shrine": {
             "speaker": "Father Velis",
-            "text": "The hearth-shrine warms two flames — one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.",
+            "text": "The hearth-shrine warms two flames \u2014 one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.",
             "choices": [
               {
                 "label": "Bless me, then.",
@@ -7169,7 +7169,7 @@
         0.0
       ],
       "rotation_y": 1.5708,
-      "name": "Baker Pell",
+      "name": "Pellman the Baker",
       "body_color": [
         0.85,
         0.78,
@@ -7182,13 +7182,13 @@
         0.8,
         1.0
       ],
-      "idle_hint": "[E] Talk to Pell",
+      "idle_hint": "[E] Talk to Pellman",
       "dialog_tree": {
         "start": "root",
         "nodes": {
           "root": {
-            "speaker": "Baker Pell",
-            "text": "Smell that? First batch. Honey-loaf and salt-rusks — a heart's worth in every bite, near enough.",
+            "speaker": "Pellman the Baker",
+            "text": "Fresh from the oven, this morning's. Smell that? First batch. Honey-loaf and salt-rusks \u2014 a heart's worth in every bite, near enough.",
             "choices": [
               {
                 "label": "What are you selling?",
@@ -7201,7 +7201,7 @@
             ]
           },
           "wares": {
-            "speaker": "Baker Pell",
+            "speaker": "Pellman the Baker",
             "text": "Loaves to mend you, a few seeds for your sling-pouch. Nothing fancy. Hearthold prices.",
             "choices": [
               {
@@ -7219,7 +7219,7 @@
             ]
           },
           "bye": {
-            "speaker": "Baker Pell",
+            "speaker": "Pellman the Baker",
             "text": "Mind the kilns on your way out. Walk well."
           }
         }
@@ -7276,7 +7276,7 @@
           },
           "offer": {
             "speaker": "Old Naya",
-            "text": "*she wipes her hands and considers you a long moment.*\n\nHere. A jar of comb-honey, sealed in wax. It'll mean something to someone — gifts always do, when they're carried far enough.\n\nTake it. Pass it along when the moment finds you.",
+            "text": "*she wipes her hands and considers you a long moment.*\n\nHere. A jar of comb-honey, sealed in wax. It'll mean something to someone \u2014 gifts always do, when they're carried far enough.\n\nTake it. Pass it along when the moment finds you.",
             "sets_flag": "trade_step_1",
             "next": "bye"
           },
@@ -7292,7 +7292,7 @@
           },
           "bees": {
             "speaker": "Old Naya",
-            "text": "Old as the kilns, this hive. Older. My grandmother kept her at this same stand. The bees remember the shape of a hand, you know — they remember mine. They'll learn yours, if you stay long enough.\n\nNobody stays long enough.",
+            "text": "Old as the kilns, this hive. Older. My grandmother kept her at this same stand. The bees remember the shape of a hand, you know \u2014 they remember mine. They'll learn yours, if you stay long enough.\n\nNobody stays long enough.",
             "choices": [
               {
                 "label": "Back.",
@@ -7306,6 +7306,582 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.89,
+        0.0,
+        -17.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.23,
+        0.0,
+        -17.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.6,
+        0.0,
+        -17.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.99,
+        0.0,
+        -20.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.32,
+        0.0,
+        -17.83
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.57,
+        0.0,
+        -19.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.09,
+        0.0,
+        18.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.35,
+        0.0,
+        20.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.78,
+        0.0,
+        20.29
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.73,
+        0.0,
+        20.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.41,
+        0.0,
+        20.01
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.03,
+        0.0,
+        20.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.44,
+        0.0,
+        -14.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.96,
+        0.0,
+        -12.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.28,
+        0.0,
+        -15.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.98,
+        0.0,
+        -14.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.21,
+        0.0,
+        -13.93
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.08,
+        0.0,
+        -15.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.89,
+        0.0,
+        -17.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.23,
+        0.0,
+        -17.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.6,
+        0.0,
+        -17.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.99,
+        0.0,
+        -20.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.32,
+        0.0,
+        -17.83
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.57,
+        0.0,
+        -19.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.09,
+        0.0,
+        18.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.35,
+        0.0,
+        20.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.78,
+        0.0,
+        20.29
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.73,
+        0.0,
+        20.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.41,
+        0.0,
+        20.01
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.03,
+        0.0,
+        20.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.44,
+        0.0,
+        -14.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.96,
+        0.0,
+        -12.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.28,
+        0.0,
+        -15.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.98,
+        0.0,
+        -14.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.21,
+        0.0,
+        -13.93
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.08,
+        0.0,
+        -15.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.89,
+        0.0,
+        -17.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.23,
+        0.0,
+        -17.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.6,
+        0.0,
+        -17.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.99,
+        0.0,
+        -20.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.32,
+        0.0,
+        -17.83
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.57,
+        0.0,
+        -19.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.09,
+        0.0,
+        18.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.35,
+        0.0,
+        20.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.78,
+        0.0,
+        20.29
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.73,
+        0.0,
+        20.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.41,
+        0.0,
+        20.01
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.03,
+        0.0,
+        20.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.44,
+        0.0,
+        -14.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.96,
+        0.0,
+        -12.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.28,
+        0.0,
+        -15.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.98,
+        0.0,
+        -14.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.21,
+        0.0,
+        -13.93
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.08,
+        0.0,
+        -15.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.89,
+        0.0,
+        -17.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.23,
+        0.0,
+        -17.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.6,
+        0.0,
+        -17.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.99,
+        0.0,
+        -20.19
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.32,
+        0.0,
+        -17.83
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.57,
+        0.0,
+        -19.45
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.09,
+        0.0,
+        18.97
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.35,
+        0.0,
+        20.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.78,
+        0.0,
+        20.29
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.73,
+        0.0,
+        20.09
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.41,
+        0.0,
+        20.01
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.03,
+        0.0,
+        20.12
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.44,
+        0.0,
+        -14.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.96,
+        0.0,
+        -12.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.28,
+        0.0,
+        -15.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -13.98,
+        0.0,
+        -14.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.21,
+        0.0,
+        -13.93
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.08,
+        0.0,
+        -15.76
+      ]
     }
   ],
   "load_zones": [

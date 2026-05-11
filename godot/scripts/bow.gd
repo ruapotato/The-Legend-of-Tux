@@ -37,4 +37,25 @@ static func try_fire(owner: Node3D, direction: Vector3) -> bool:
     var velocity: Vector3 = dir * SPEED + Vector3(0, ARC_LIFT, 0)
     arrow.setup(velocity, owner)
     SoundBank.play_3d("sword_swing", arrow.global_position)
+    _push_terminal_cmd(owner)
     return true
+
+
+# Terminal-corner narration. Mirrors the bow's lore-canon pipeline:
+# `ps aux | grep <target> | kill`. If the player has a Z-target locked
+# we use that enemy's name as the grep argument; otherwise we fall back
+# to the literal `$RETICLE` placeholder so it reads as "whatever's at
+# the crosshair." Guarded so headless/test contexts without the autoload
+# don't crash.
+static func _push_terminal_cmd(owner: Node3D) -> void:
+    if owner == null or not is_instance_valid(owner):
+        return
+    var tl: Node = owner.get_node_or_null("/root/TerminalLog")
+    if tl == null:
+        return
+    var grep_arg: String = "$RETICLE"
+    if owner.has_method("get_lock_target"):
+        var t: Object = owner.call("get_lock_target")
+        if t and "name" in t and String(t.get("name")) != "":
+            grep_arg = String(t.get("name"))
+    tl.cmd("ps aux | grep %s | kill" % grep_arg)

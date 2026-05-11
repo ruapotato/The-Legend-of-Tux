@@ -4677,7 +4677,7 @@
           },
           "pass": {
             "speaker": "Sheriff Brun",
-            "text": "*(considers)* Fair enough. Pass through, then. Mind the outer edge — there's a bone knight wandering. We'll deal with it. Eventually.",
+            "text": "*(considers)* Fair enough. Pass through, then. Mind the outer edge \u2014 there's a bone knight wandering. We'll deal with it. Eventually.",
             "choices": [
               {
                 "label": "What of the bone knight?",
@@ -4705,7 +4705,7 @@
           },
           "trouble": {
             "speaker": "Sheriff Brun",
-            "text": "Bone knight on the rim. Bat in the rafters of the lower hall — leave that one, it eats the moths. The knight, though. He paces. He doesn't sleep. Khorgaul's grip on him.",
+            "text": "Bone knight on the rim. Bat in the rafters of the lower hall \u2014 leave that one, it eats the moths. The knight, though. He paces. He doesn't sleep. Khorgaul's grip on him.",
             "choices": [
               {
                 "label": "Back.",
@@ -4757,7 +4757,7 @@
         "nodes": {
           "root": {
             "speaker": "Settler Marn",
-            "text": "Walker. Mind the porch — the boards are honest, the nails less so.",
+            "text": "Walker. Mind the porch \u2014 the boards are honest, the nails less so.",
             "choices": [
               {
                 "label": "How is life out here?",
@@ -4961,7 +4961,7 @@
         -2.0
       ],
       "rotation_y": 0.0,
-      "name": "Refugee Quartermaster",
+      "name": "tar",
       "body_color": [
         0.45,
         0.42,
@@ -4974,20 +4974,20 @@
         0.3,
         1.0
       ],
-      "idle_hint": "[E] Talk to the Quartermaster",
+      "idle_hint": "[E] tar",
       "dialog_tree": {
         "start": "root",
         "nodes": {
           "root": {
-            "speaker": "Refugee Quartermaster",
-            "text": "Walker. We pool what we carry, here — hearts, shafts, powder, and on a lucky week, a wisp in a jar. Pebbles take the place of coin.",
+            "speaker": "tar",
+            "text": "I bundle things together. Hearts, shafts, powder \u2014 and a wisp in a jar, on a lucky week. Bundle, unbundle. Same coin.",
             "choices": [
               {
                 "label": "Show me what you have.",
                 "next": "wares"
               },
               {
-                "label": "How does the camp fare?",
+                "label": "What's the camp like?",
                 "next": "fare"
               },
               {
@@ -4997,8 +4997,8 @@
             ]
           },
           "fare": {
-            "speaker": "Refugee Quartermaster",
-            "text": "Better than yesterday. Worse than the year before. The Sheriff keeps the watch; the Settlers keep the fire. We keep the kit. That's the bargain.",
+            "speaker": "tar",
+            "text": "Better than yesterday. Worse than the year before. The Locals haul, I pack. That's the bargain \u2014 flags `czf` for me, `xzf` for the next walker who needs it.",
             "choices": [
               {
                 "label": "Back.",
@@ -5007,16 +5007,17 @@
             ]
           },
           "wares": {
-            "speaker": "Refugee Quartermaster",
-            "text": "Full kit — hearts, arrows, bombs, and the rare bottled fairy. Ration them. We don't restock fast.",
+            "speaker": "tar",
+            "text": "Full archive \u2014 hearts, arrows, bombs, the rare bottled fairy. And `unzip`, if you keep finding caches you can't pry open.",
             "choices": [
               {
-                "label": "Show me.",
+                "label": "tar -xvf.",
                 "opens_shop": [
                   "heart",
                   "arrow",
                   "bomb",
-                  "fairy_bottle"
+                  "fairy_bottle",
+                  "unzip"
                 ]
               },
               {
@@ -5026,7 +5027,7 @@
             ]
           },
           "bye": {
-            "speaker": "Refugee Quartermaster",
+            "speaker": "tar",
             "text": "Walk well. Come back lighter, if you can."
           }
         }

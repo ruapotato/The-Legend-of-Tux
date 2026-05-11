@@ -178,6 +178,13 @@ func _goto(node_id: String) -> void:
     _label.text = String(node.get("text", ""))
     if get_tree().root.has_node("SoundBank"):
         SoundBank.play_2d("npc_talk_blip")
+    # Terminal-corner narration. NPC dialog lines are pushed as
+    # OUTPUT (yellow) rather than commands — they read as the
+    # echo'd response rather than something Tux ran. We truncate to
+    # a sensible width so a long monologue doesn't blow out the
+    # 320px corner panel; the player still has the dialog box itself
+    # for the full text.
+    _push_dialog_output_line(_label.text)
 
     # Optional give_item / give_pebbles — fire once per visit per tree.
     if not _given.get(node_id, false):
@@ -209,12 +216,18 @@ func _goto(node_id: String) -> void:
     _clear_choices()
     var choices: Array = node.get("choices", [])
     var visible_choices: Array = []
+    # Track the first hidden gate so we can synthesize a "Permission
+    # denied" fallback when EVERY choice filters out — otherwise the
+    # dialog would dead-end with no way to advance (v2.5 reframe).
+    var first_hidden_hint: String = ""
     for c in choices:
         if typeof(c) != TYPE_DICTIONARY:
             continue
         if c.has("requires"):
             var key := String(c["requires"])
             if key != "" and not GameState.inventory.has(key):
+                if first_hidden_hint == "":
+                    first_hidden_hint = "item:%s" % key
                 continue
         if c.has("requires_not"):
             var nkey := String(c["requires_not"])
@@ -223,6 +236,8 @@ func _goto(node_id: String) -> void:
         if c.has("requires_flag"):
             var rf := String(c["requires_flag"])
             if rf != "" and not GameState.has_flag(rf):
+                if first_hidden_hint == "":
+                    first_hidden_hint = _perm_hint_for_flag(rf)
                 continue
         if c.has("requires_flag_not"):
             var rfn := String(c["requires_flag_not"])
@@ -231,8 +246,20 @@ func _goto(node_id: String) -> void:
         if c.has("requires_song"):
             var rs := String(c["requires_song"])
             if rs != "" and not GameState.has_song(rs):
+                if first_hidden_hint == "":
+                    first_hidden_hint = "song:%s" % rs
                 continue
         visible_choices.append(c)
+
+    # If the node DECLARED choices but every one of them filtered out,
+    # synthesize a single "Permission denied" continue-line so the
+    # player isn't stranded on a node with no way forward. The fallback
+    # advances via `next` (or ends the conversation) just like a
+    # normal continue node would.
+    if choices.size() > 0 and visible_choices.size() == 0 and first_hidden_hint != "":
+        _label.text = "%s\n(Permission denied — needs %s.)" % [
+            String(node.get("text", "")), first_hidden_hint,
+        ]
 
     if visible_choices.size() > 0:
         _prompt.text = "[1-%d] choose" % visible_choices.size()
@@ -313,6 +340,14 @@ func _take_choice(ch: Dictionary) -> void:
             var cur_node: Dictionary = nodes_dict.get(_current_node, {})
             var speaker: String = String(ch.get("shop_speaker",
                 cur_node.get("speaker", "")))
+            # Terminal-corner narration. Per the lore table a shop
+            # open is `apt list` — the package-manager metaphor for
+            # browsing wares. Pushed BEFORE the conversation drain so
+            # the corner reads "I asked for the catalog" right as the
+            # shop overlay appears.
+            var tl: Node = get_node_or_null("/root/TerminalLog")
+            if tl:
+                tl.cmd("apt list")
             # Drain this conversation before opening the shop so the
             # dialog box doesn't sit underneath the shop overlay.
             _next_in_queue()
@@ -356,6 +391,29 @@ func _advance_no_choices() -> void:
         _goto(nxt)
 
 
+# Map a `requires_flag` string into the same permission-bit hint that
+# treasure_chest.gd surfaces, so dialog dead-end fallbacks read in the
+# same vocabulary as chest refusals (v2.5 reframe). Unknown flags fall
+# back to the bare flag name; trade-quest steps fall back to a softer
+# "prior step" line.
+func _perm_hint_for_flag(flag: String) -> String:
+    var map := {
+        "wyrdking_defeated":      "r:var",
+        "codex_knight_defeated":  "w:etc",
+        "gale_roost_defeated":    "x:bin/cd",
+        "cinder_tomato_defeated": "x:bin/rm",
+        "forge_wyrm_defeated":    "rwx:dev",
+        "backwater_maw_defeated": "x:usr/bin/chroot",
+        "censor_defeated":        "r:hidden",
+        "triglyph_assembled":     "sudo",
+    }
+    if map.has(flag):
+        return String(map[flag])
+    if flag.begins_with("trade_step_"):
+        return "prior step"
+    return "flag:%s" % flag
+
+
 func _unhandled_input(event: InputEvent) -> void:
     if not _active:
         return
@@ -377,3 +435,24 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("interact") or event.is_action_pressed("attack"):
         get_viewport().set_input_as_handled()
         _advance_no_choices()
+
+
+# ---- Terminal-corner narration -----------------------------------------
+
+# Push an NPC line as `echo "..." > /dev/tty` into the corner buffer.
+# We send it as OUTPUT (yellow) rather than CMD because it reads as
+# the shell's response, not as something Tux ran. Trims long lines to
+# keep the 320px corner panel readable; the dialog box still has the
+# full text. Skipped silently if the autoload isn't registered.
+const _TERMINAL_OUTPUT_MAX: int = 48
+
+func _push_dialog_output_line(text: String) -> void:
+    var tl: Node = get_node_or_null("/root/TerminalLog")
+    if tl == null:
+        return
+    var trimmed: String = text.replace("\n", " ").strip_edges()
+    if trimmed == "":
+        return
+    if trimmed.length() > _TERMINAL_OUTPUT_MAX:
+        trimmed = trimmed.substr(0, _TERMINAL_OUTPUT_MAX - 1) + "…"
+    tl.output('echo "%s" > /dev/tty' % trimmed)

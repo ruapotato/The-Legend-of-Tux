@@ -35,6 +35,12 @@ func _ready() -> void:
     physics_material_override = PhysicsMaterial.new()
     physics_material_override.bounce = 0.15
     physics_material_override.friction = 0.85
+    # Terminal-corner narration. Lore-canon command for any bomb
+    # placement/throw is the recursive remove. Fires once on spawn —
+    # _explode() is the resolution, not a fresh action by Tux.
+    var tl: Node = get_node_or_null("/root/TerminalLog")
+    if tl:
+        tl.cmd("find . -exec rm -rf {} +")
 
 
 func _process(delta: float) -> void:

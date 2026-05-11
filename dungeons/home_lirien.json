@@ -64,28 +64,28 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -6,
+            3
           ],
           [
-            -4,
-            -3
+            -6,
+            6
           ],
           [
-            -4,
-            -2
+            -5,
+            2
           ],
           [
-            -4,
-            -1
+            -5,
+            3
           ],
           [
-            -4,
-            0
+            -5,
+            6
           ],
           [
-            -4,
-            1
+            -5,
+            9
           ],
           [
             -4,
@@ -96,12 +96,28 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
+          ],
+          [
+            -4,
+            8
+          ],
+          [
+            -4,
+            9
           ],
           [
             -3,
@@ -128,12 +144,28 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
+          ],
+          [
+            -3,
+            8
+          ],
+          [
+            -3,
+            9
           ],
           [
             -2,
@@ -160,12 +192,28 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
+          ],
+          [
+            -2,
+            9
           ],
           [
             -1,
@@ -192,12 +240,28 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
           ],
           [
             0,
@@ -224,12 +288,32 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
+          ],
+          [
+            0,
+            10
           ],
           [
             1,
@@ -256,12 +340,32 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            10
           ],
           [
             2,
@@ -288,12 +392,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -317,6 +437,110 @@
           ],
           [
             3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            8,
             3
           ]
         ],
@@ -344,29 +568,29 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_burrows",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_var_mail",
       "pos": [
-        1.0,
+        -5.5,
         0.5,
-        0.0
+        3.5
       ],
-      "rotation_y": -1.5707963267948966
+      "rotation_y": 0.10233077862014443
     }
   ],
   "lights": [],
@@ -375,9 +599,9 @@
     {
       "type": "sign",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        -2.0
+        -1.5
       ],
       "rotation_y": 0.0,
       "message": "LIRIEN'S CHAMBER\n\nA hooded blue-curtained study high in a stone tower. Books on stars. A telescope angled at the south sky. The fire is laid but not lit.\n\nNo one here."
@@ -385,19 +609,19 @@
     {
       "type": "sign",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         1.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "A journal lies open on the desk. The hand is small and steady:\n\n'The boy is walking. He doesn't yet know which walk it is. The Sigil sits quiet in him — quieter than I have ever seen it sit in any of his line.\n\nHe will not need me until he needs me. Then he will need me very much.\n\n— L.'"
+      "message": "A journal lies open on the desk. The hand is small and steady:\n\n'The boy is walking. He doesn't yet know which walk it is. The Sigil sits quiet in him \u2014 quieter than I have ever seen it sit in any of his line.\n\nHe will not need me until he needs me. Then he will need me very much.\n\n\u2014 L.'"
     },
     {
       "type": "sign",
       "pos": [
         -2.5,
         0.0,
-        2.0
+        1.5
       ],
       "rotation_y": 3.141592653589793,
       "message": "A telescope, dust-free, angled south. Beside it a slip of paper:\n\n'I have watched the Murk for forty seasons. The pulses there have never once skipped. The realm endures.'"
@@ -407,18 +631,428 @@
       "pos": [
         2.5,
         0.0,
-        2.0
+        2.5
       ],
       "rotation_y": 3.141592653589793,
       "message": "A row of books. The spines: 'Stars by Their Quiet Names', 'On the Slow Returning of Things Once Hoarded', 'A Walker's Manual for Small Mountains', 'The Triglyph and Its Patient Keeping'.\n\nNone of the books are dusty."
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.89,
+        0.0,
+        9.35
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.61,
+        0.0,
+        11.42
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.48,
+        0.0,
+        10.22
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.28,
+        0.0,
+        11.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.79,
+        0.0,
+        11.74
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.58,
+        0.0,
+        11.32
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.28,
+        0.0,
+        -5.28
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.9,
+        0.0,
+        -6.42
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.72,
+        0.0,
+        -4.7
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.43,
+        0.0,
+        -5.55
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.55,
+        0.0,
+        8.2
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.27,
+        0.0,
+        10.28
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.14,
+        0.0,
+        9.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.94,
+        0.0,
+        10.33
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.45,
+        0.0,
+        10.59
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.24,
+        0.0,
+        10.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.94,
+        0.0,
+        -4.13
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.56,
+        0.0,
+        -5.28
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.38,
+        0.0,
+        -3.55
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.09,
+        0.0,
+        -4.4
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.95,
+        0.0,
+        9.28
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.67,
+        0.0,
+        11.36
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.54,
+        0.0,
+        10.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.34,
+        0.0,
+        11.41
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.84,
+        0.0,
+        11.67
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.64,
+        0.0,
+        11.25
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.34,
+        0.0,
+        -5.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.96,
+        0.0,
+        -6.36
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.78,
+        0.0,
+        -4.63
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -9.48,
+        0.0,
+        -5.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.4,
+        0.0,
+        8.01
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.12,
+        0.0,
+        10.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.99,
+        0.0,
+        8.88
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.79,
+        0.0,
+        10.15
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.29,
+        0.0,
+        10.4
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.09,
+        0.0,
+        9.98
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.79,
+        0.0,
+        -3.94
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.41,
+        0.0,
+        -5.09
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.23,
+        0.0,
+        -3.36
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.93,
+        0.0,
+        -4.21
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.27,
+        0.0,
+        8.54
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.99,
+        0.0,
+        10.62
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.86,
+        0.0,
+        9.41
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.65,
+        0.0,
+        10.67
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.16,
+        0.0,
+        10.93
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        8.96,
+        0.0,
+        10.51
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.66,
+        0.0,
+        -4.47
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.28,
+        0.0,
+        -5.62
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.09,
+        0.0,
+        -3.89
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -8.8,
+        0.0,
+        -4.74
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,
@@ -432,9 +1066,9 @@
     },
     {
       "pos": [
-        3.0,
+        -6.0,
         1.4,
-        0.0
+        3.45
       ],
       "size": [
         1.5,

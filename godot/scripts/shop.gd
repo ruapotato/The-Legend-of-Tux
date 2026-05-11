@@ -63,6 +63,40 @@ const WARES_DEFAULTS: Dictionary = {
         "effect": "fairy_bottle",
         "color": Color(0.85, 0.55, 0.95, 1.0),
     },
+    # --- binaries-as-wares -------------------------------------------------
+    # Tool-spirit shopkeepers (apt, make, tar) sell executable bits as
+    # wares. Effect prefix "binary:<path>" routes to GameState.grant_binary
+    # in _apply_effect; "fsck_heal" is a one-shot consumable (heal + scrub).
+    "wget": {
+        "label": "wget (boomerang)",
+        "price": 50,
+        "effect": "binary:/usr/bin/wget",
+        "color": Color(0.55, 0.78, 0.95, 1.0),
+    },
+    "man": {
+        "label": "man (manual pages)",
+        "price": 8,
+        "effect": "binary:/usr/bin/man",
+        "color": Color(0.85, 0.85, 0.78, 1.0),
+    },
+    "gcc": {
+        "label": "gcc (compiler)",
+        "price": 80,
+        "effect": "binary:/usr/bin/gcc",
+        "color": Color(0.78, 0.55, 0.30, 1.0),
+    },
+    "fsck": {
+        "label": "fsck (heal + scrub)",
+        "price": 30,
+        "effect": "fsck_heal",
+        "color": Color(0.55, 0.92, 0.78, 1.0),
+    },
+    "unzip": {
+        "label": "unzip (loot cache)",
+        "price": 40,
+        "effect": "binary:/usr/bin/unzip",
+        "color": Color(0.92, 0.78, 0.55, 1.0),
+    },
 }
 
 var _open: bool = false
@@ -336,6 +370,18 @@ func _on_buy(ware: Dictionary) -> void:
 
 
 func _apply_effect(effect: String) -> void:
+    # binaries-as-wares: tool-spirit shops sell executable bits. We dispatch
+    # the "binary:<path>" prefix to GameState.grant_binary (idempotent —
+    # double-grant is a no-op) and echo a faux apt-install line into the
+    # terminal corner so the purchase reads as a package transaction.
+    if effect.begins_with("binary:"):
+        var path: String = effect.substr("binary:".length())
+        GameState.grant_binary(path, "--x")
+        var pkg: String = path.get_file()
+        if get_tree().root.has_node("TerminalLog"):
+            TerminalLog.cmd("apt install %s" % pkg)
+            TerminalLog.output("[ok] %s installed" % path)
+        return
     match effect:
         "heart":
             # Refill to full. heal() clamps at max_fish * HP_PER_FISH.
@@ -351,5 +397,13 @@ func _apply_effect(effect: String) -> void:
             # so the HUD's bottle row stays visible after the bottle's
             # used. Capacity-clamped inside the call.
             GameState.add_fairy(1)
+        "fsck_heal":
+            # `fsck` from `make`: heal to full and (conceptually) clear any
+            # state debuff. We don't track named debuffs yet, so the heal
+            # is the only mechanical effect for now.
+            GameState.heal(GameState.max_fish * GameState.HP_PER_FISH)
+            if get_tree().root.has_node("TerminalLog"):
+                TerminalLog.cmd("fsck -y /dev/tux")
+                TerminalLog.output("[ok] filesystem clean")
         _:
             push_warning("Shop: unknown effect '%s'" % effect)

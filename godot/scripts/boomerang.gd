@@ -28,6 +28,13 @@ func _ready() -> void:
     body_entered.connect(_on_body_enter)
     area_entered.connect(_on_area_enter)
     SoundBank.play_3d("sword_swing", global_position)
+    # Terminal-corner narration. Lore-canon command: `wget <pos> &` —
+    # the boomerang fetches in the background. We emit on initial
+    # spawn (the throw moment) only; the arc itself doesn't re-narrate.
+    var tl: Node = get_node_or_null("/root/TerminalLog")
+    if tl:
+        var p: Vector3 = global_position
+        tl.cmd("wget (%.1f,%.1f,%.1f) &" % [p.x, p.y, p.z])
 
 
 func set_direction(d: Vector3) -> void:

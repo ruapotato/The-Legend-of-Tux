@@ -11099,7 +11099,7 @@
         40
       ],
       "rotation_y": 0.0,
-      "message": "Stoneroost.\n\nThe Source thins here. Khorgaul has hoarded the warmth — the pines stand like bones, the moss clings cold. Climb if you can."
+      "message": "Stoneroost.\n\nThe Source thins here. Khorgaul has hoarded the warmth \u2014 the pines stand like bones, the moss clings cold. Climb if you can."
     },
     {
       "type": "sign",
@@ -11175,7 +11175,7 @@
       "rotation_y": 3.14159,
       "contents": "pebble",
       "amount": 12,
-      "open_message": "From the summit, the plain unfolds in mist. The chest holds twelve perfect stones — a gift from the wind."
+      "open_message": "From the summit, the plain unfolds in mist. The chest holds twelve perfect stones \u2014 a gift from the wind."
     },
     {
       "type": "bush",
@@ -11464,7 +11464,7 @@
         "nodes": {
           "root": {
             "speaker": "Hermit Cael",
-            "text": "You climbed. Few do. Sit a moment. Breathe the thinness. The Source thins here — but what thins also clarifies. Speak.",
+            "text": "You climbed. Few do. Sit a moment. Breathe the thinness. The Source thins here \u2014 but what thins also clarifies. Speak.",
             "choices": [
               {
                 "label": "Tell me of this peak.",
@@ -11494,7 +11494,7 @@
           },
           "peak": {
             "speaker": "Hermit Cael",
-            "text": "Stoneroost. The crow-stones perch here, and so do I. From this height the realm reads like a single page — Hearthold's smoke, the Brookhold green, the dark over the Hollow. Look long enough, and you can read the wound.",
+            "text": "Stoneroost. The crow-stones perch here, and so do I. From this height the realm reads like a single page \u2014 Hearthold's smoke, the Brookhold green, the dark over the Hollow. Look long enough, and you can read the wound.",
             "choices": [
               {
                 "label": "Tell me of the wind.",
@@ -11550,7 +11550,7 @@
           },
           "wind": {
             "speaker": "Hermit Cael",
-            "text": "Listen — *holds up a finger*\nThe wind moves over the stone. It carries the names the Hoarder forgets. If you ever lose your own name, climb. The wind keeps a copy.",
+            "text": "Listen \u2014 *holds up a finger*\nThe wind moves over the stone. It carries the names the Hoarder forgets. If you ever lose your own name, climb. The wind keeps a copy.",
             "choices": [
               {
                 "label": "Back.",
@@ -11596,7 +11596,7 @@
         "nodes": {
           "root": {
             "speaker": "Warden Briga",
-            "text": "Halt — or rather, mind your step. I keep the south trail. There are bone-knights in the gullies and bats in the high cuts. You'll want to know which is which before you meet either.",
+            "text": "Halt \u2014 or rather, mind your step. I keep the south trail. There are bone-knights in the gullies and bats in the high cuts. You'll want to know which is which before you meet either.",
             "choices": [
               {
                 "label": "Tell me of the bats.",
@@ -11618,7 +11618,7 @@
           },
           "bats": {
             "speaker": "Warden Briga",
-            "text": "Bone-bats — small, fast, drop on you from above. A pebble or an arrow takes them down before they bite. Don't bother with the sword unless they grounded.",
+            "text": "Bone-bats \u2014 small, fast, drop on you from above. A pebble or an arrow takes them down before they bite. Don't bother with the sword unless they grounded.",
             "choices": [
               {
                 "label": "Tell me of the knights.",
@@ -11632,7 +11632,7 @@
           },
           "knights": {
             "speaker": "Warden Briga",
-            "text": "Bone-knights — heavy, patient, will not yield. Strike when their guard drops, then back away. They are not living, but they are not careless. Treat them like a moving wall with a sword.",
+            "text": "Bone-knights \u2014 heavy, patient, will not yield. Strike when their guard drops, then back away. They are not living, but they are not careless. Treat them like a moving wall with a sword.",
             "choices": [
               {
                 "label": "Tell me of the bats.",
@@ -11719,7 +11719,7 @@
         "nodes": {
           "root": {
             "speaker": "Wind-worn Stone",
-            "text": "*A faint hum, like wind through stone…*",
+            "text": "*A faint hum, like wind through stone\u2026*",
             "choices": [
               {
                 "label": "Listen.",
@@ -11753,6 +11753,326 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.56,
+        0.0,
+        9.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        41.32,
+        0.0,
+        10.2
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.19,
+        0.0,
+        9.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.37,
+        0.0,
+        10.36
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        42.16,
+        0.0,
+        8.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.63,
+        0.0,
+        9.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.18,
+        0.0,
+        9.83
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -37.46,
+        0.0,
+        9.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.66,
+        0.0,
+        10.27
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -36.64,
+        0.0,
+        10.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.56,
+        0.0,
+        9.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        41.32,
+        0.0,
+        10.2
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.19,
+        0.0,
+        9.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.37,
+        0.0,
+        10.36
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        42.16,
+        0.0,
+        8.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.63,
+        0.0,
+        9.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.18,
+        0.0,
+        9.83
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -37.46,
+        0.0,
+        9.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.66,
+        0.0,
+        10.27
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -36.64,
+        0.0,
+        10.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.56,
+        0.0,
+        9.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        41.32,
+        0.0,
+        10.2
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.19,
+        0.0,
+        9.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.37,
+        0.0,
+        10.36
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        42.16,
+        0.0,
+        8.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.63,
+        0.0,
+        9.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.18,
+        0.0,
+        9.83
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -37.46,
+        0.0,
+        9.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.66,
+        0.0,
+        10.27
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -36.64,
+        0.0,
+        10.48
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.56,
+        0.0,
+        9.76
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        41.32,
+        0.0,
+        10.2
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.19,
+        0.0,
+        9.44
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        43.37,
+        0.0,
+        10.36
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        42.16,
+        0.0,
+        8.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.63,
+        0.0,
+        9.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.18,
+        0.0,
+        9.83
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -37.46,
+        0.0,
+        9.53
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -38.66,
+        0.0,
+        10.27
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -36.64,
+        0.0,
+        10.48
+      ]
     }
   ],
   "load_zones": [

@@ -17381,7 +17381,7 @@
         -42.0
       ],
       "rotation_y": 0.0,
-      "message": "Step lightly, traveler. The peat will swallow what it can. The wisps know the path — if they don't mean you harm, follow them."
+      "message": "Step lightly, traveler. The peat will swallow what it can. The wisps know the path \u2014 if they don't mean you harm, follow them."
     },
     {
       "type": "sign",
@@ -17391,7 +17391,7 @@
         14.0
       ],
       "rotation_y": 3.141592653589793,
-      "message": "Half-sunken cairns of Source-stone, raised by older hands than ours. Lirien's name is carved on the lowest course — the rest is mud."
+      "message": "Half-sunken cairns of Source-stone, raised by older hands than ours. Lirien's name is carved on the lowest course \u2014 the rest is mud."
     },
     {
       "type": "sign",
@@ -17447,7 +17447,7 @@
       "rotation_y": 3.141592653589793,
       "contents": "anchor_boots",
       "requires": "gale_roost_defeated",
-      "open_message": "Anchor Boots — iron-shod, drowned-keeper boots. They will pull you down where the wisps fear to follow."
+      "open_message": "Anchor Boots \u2014 iron-shod, drowned-keeper boots. They will pull you down where the wisps fear to follow."
     },
     {
       "type": "bush",
@@ -17847,7 +17847,7 @@
         "nodes": {
           "root": {
             "speaker": "Fisher Aelis",
-            "text": "Quiet, quiet — the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?",
+            "text": "Quiet, quiet \u2014 the mire-fish bite shy in the bright hour. You from the plain? You here for the shrine?",
             "choices": [
               {
                 "label": "What shrine?",
@@ -17925,7 +17925,7 @@
         "nodes": {
           "root": {
             "speaker": "Reedweaver Pell",
-            "text": "*braids a long reed without looking up*\nOh — visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?",
+            "text": "*braids a long reed without looking up*\nOh \u2014 visitor. Forgive me, the weave needs a steady hand. What brings you out to my island?",
             "choices": [
               {
                 "label": "What are you weaving?",
@@ -17957,7 +17957,7 @@
           },
           "mire": {
             "speaker": "Reedweaver Pell",
-            "text": "Spores, mostly. Things that bloom and burst. And the great quiet beneath the water — but we don't speak of that one, not on a still day.",
+            "text": "Spores, mostly. Things that bloom and burst. And the great quiet beneath the water \u2014 but we don't speak of that one, not on a still day.",
             "choices": [
               {
                 "label": "What are you weaving?",
@@ -18002,7 +18002,7 @@
       ],
       "rotation_y": 0,
       "contents": "heart_piece",
-      "open_message": "On the far reed-island — only those who can walk the lakebed reach it. The drowned keepers left it for whoever could.",
+      "open_message": "On the far reed-island \u2014 only those who can walk the lakebed reach it. The drowned keepers left it for whoever could.",
       "requires": "gale_roost_defeated"
     },
     {
@@ -18066,7 +18066,7 @@
         "nodes": {
           "root": {
             "speaker": "Sunken Stone",
-            "text": "*A faint hum, like wind through stone…*",
+            "text": "*A faint hum, like wind through stone\u2026*",
             "choices": [
               {
                 "label": "Listen.",
@@ -18100,6 +18100,454 @@
           }
         }
       }
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.57,
+        0.0,
+        -43.3
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.87,
+        0.0,
+        -45.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.92,
+        0.0,
+        -43.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.96,
+        0.0,
+        -43.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.88,
+        0.0,
+        -44.46
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.23,
+        0.0,
+        -44.9
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.46,
+        0.0,
+        -44.77
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.78,
+        0.0,
+        25.89
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.39,
+        0.0,
+        27.05
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -19.0,
+        0.0,
+        27.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.76,
+        0.0,
+        25.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.18,
+        0.0,
+        28.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -18.13,
+        0.0,
+        26.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.22,
+        0.0,
+        27.51
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.57,
+        0.0,
+        -43.3
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.87,
+        0.0,
+        -45.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.92,
+        0.0,
+        -43.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.96,
+        0.0,
+        -43.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.88,
+        0.0,
+        -44.46
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.23,
+        0.0,
+        -44.9
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.46,
+        0.0,
+        -44.77
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.78,
+        0.0,
+        25.89
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.39,
+        0.0,
+        27.05
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -19.0,
+        0.0,
+        27.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.76,
+        0.0,
+        25.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.18,
+        0.0,
+        28.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -18.13,
+        0.0,
+        26.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.22,
+        0.0,
+        27.51
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.57,
+        0.0,
+        -43.3
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.87,
+        0.0,
+        -45.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.92,
+        0.0,
+        -43.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.96,
+        0.0,
+        -43.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.88,
+        0.0,
+        -44.46
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.23,
+        0.0,
+        -44.9
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.46,
+        0.0,
+        -44.77
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.78,
+        0.0,
+        25.89
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.39,
+        0.0,
+        27.05
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -19.0,
+        0.0,
+        27.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.76,
+        0.0,
+        25.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.18,
+        0.0,
+        28.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -18.13,
+        0.0,
+        26.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.22,
+        0.0,
+        27.51
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.57,
+        0.0,
+        -43.3
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.87,
+        0.0,
+        -45.07
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.92,
+        0.0,
+        -43.71
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.96,
+        0.0,
+        -43.0
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.88,
+        0.0,
+        -44.46
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.23,
+        0.0,
+        -44.9
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.46,
+        0.0,
+        -44.77
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.78,
+        0.0,
+        25.89
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -18.39,
+        0.0,
+        27.05
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -19.0,
+        0.0,
+        27.17
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -17.76,
+        0.0,
+        25.38
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -16.18,
+        0.0,
+        28.33
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -18.13,
+        0.0,
+        26.15
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.22,
+        0.0,
+        27.51
+      ]
     }
   ],
   "load_zones": [

@@ -73,6 +73,13 @@ var _hammer_visual: Node3D = null
 
 func _begin_swing() -> void:
     SoundBank.play_3d("hammer_swing", _player.global_position)
+    # Terminal-corner narration. Lore-canon command: hammer is an
+    # area force-kill targeting the nearest few process IDs by
+    # position. Fires once at the wind-up start, not at impact, so
+    # the player sees the command land alongside the swing wind-up.
+    var tl: Node = _player.get_node_or_null("/root/TerminalLog")
+    if tl:
+        tl.cmd("ps aux | sort -k pos | head -5 | kill -9")
     # Brief cosmetic mallet that hangs off the player's silhouette while
     # the wind-up plays. Uses the dedicated hammer.tscn so the visual
     # stays consistent with the equipped-weapon look.

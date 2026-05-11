@@ -5316,7 +5316,7 @@
         8
       ],
       "rotation_y": 0,
-      "message": "A wyrdkin-stone, cool to the touch.\n\n\"Lirien's roots reach here. The Source whispers in the leaves — listen, and you may hear your own name spoken back.\""
+      "message": "A wyrdkin-stone, cool to the touch.\n\n\"Lirien's roots reach here. The Source whispers in the leaves \u2014 listen, and you may hear your own name spoken back.\""
     },
     {
       "type": "chest",
@@ -5338,7 +5338,7 @@
       ],
       "rotation_y": 0,
       "contents": "fairy",
-      "open_message": "A Fairy Bottle. The fae hide a spark of life inside — it'll catch you once if a blow would have laid you low."
+      "open_message": "A Fairy Bottle. The fae hide a spark of life inside \u2014 it'll catch you once if a blow would have laid you low."
     },
     {
       "type": "chest",
@@ -5592,7 +5592,7 @@
           },
           "realm": {
             "speaker": "Old Hesper",
-            "text": "This is Lirien's weave. Forest, brook, kiln, and stone — all spun from the Source. The Maker gave; the Hoarder takes. The balance has tipped, and so the wardstones thin. That is why you are here.",
+            "text": "This is Lirien's weave. Forest, brook, kiln, and stone \u2014 all spun from the Source. The Maker gave; the Hoarder takes. The balance has tipped, and so the wardstones thin. That is why you are here.",
             "choices": [
               {
                 "label": "What is the Sigil of Sharing?",
@@ -5610,7 +5610,7 @@
           },
           "sigil": {
             "speaker": "Old Hesper",
-            "text": "Three sigils mark the Triglyph — Sight, Shaping, Sharing. Yours is the third. To share is to refuse the hoard; to refuse the hoard is to be the answer to Khorgaul. Carry it gently. Carry it bright.",
+            "text": "Three sigils mark the Triglyph \u2014 Sight, Shaping, Sharing. Yours is the third. To share is to refuse the hoard; to refuse the hoard is to be the answer to Khorgaul. Carry it gently. Carry it bright.",
             "choices": [
               {
                 "label": "Who is Glim?",
@@ -5628,7 +5628,7 @@
           },
           "glim": {
             "speaker": "Old Hesper",
-            "text": "A wisp — a fleck of the Source given a small, brave will. She has chosen you, and that is no small thing. Where you are dim, Glim brightens. Where you forget, Glim remembers.",
+            "text": "A wisp \u2014 a fleck of the Source given a small, brave will. She has chosen you, and that is no small thing. Where you are dim, Glim brightens. Where you forget, Glim remembers.",
             "choices": [
               {
                 "label": "Where should I go?",
@@ -5713,7 +5713,7 @@
         7
       ],
       "rotation_y": 0,
-      "message": "A leaf-curtain stirs against the wall — there is a hollow behind it."
+      "message": "A leaf-curtain stirs against the wall \u2014 there is a hollow behind it."
     },
     {
       "type": "npc",
@@ -5762,7 +5762,7 @@
           },
           "teach": {
             "speaker": "Glim",
-            "text": "Listen — and remember. *up... right... down... left... up.* Carry it. Hum it at any owl-shrine and the keepers will tend you. *[Z] to hum.*",
+            "text": "Listen \u2014 and remember. *up... right... down... left... up.* Carry it. Hum it at any owl-shrine and the keepers will tend you. *[Z] to hum.*",
             "learns_song": "glim_theme",
             "next": "bye"
           },
@@ -5861,6 +5861,416 @@
       ],
       "rotation_y": 0,
       "message": "Glim is in this glade. Speak with him."
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.5,
+        0.0,
+        -14.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.93,
+        0.0,
+        -11.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.63,
+        0.0,
+        -13.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.58,
+        0.0,
+        -13.28
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.62,
+        0.0,
+        -14.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.77,
+        0.0,
+        12.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.36,
+        0.0,
+        13.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.02,
+        0.0,
+        13.37
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.08,
+        0.0,
+        13.61
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.27,
+        0.0,
+        13.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.5,
+        0.0,
+        -14.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.93,
+        0.0,
+        -11.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.63,
+        0.0,
+        -13.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.58,
+        0.0,
+        -13.28
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.62,
+        0.0,
+        -14.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.77,
+        0.0,
+        12.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.36,
+        0.0,
+        13.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.02,
+        0.0,
+        13.37
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.08,
+        0.0,
+        13.61
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.27,
+        0.0,
+        13.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.5,
+        0.0,
+        -14.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.93,
+        0.0,
+        -11.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.63,
+        0.0,
+        -13.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.58,
+        0.0,
+        -13.28
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.62,
+        0.0,
+        -14.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.77,
+        0.0,
+        12.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.36,
+        0.0,
+        13.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.02,
+        0.0,
+        13.37
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.08,
+        0.0,
+        13.61
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.27,
+        0.0,
+        13.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        6.5,
+        0.0,
+        -14.8
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.93,
+        0.0,
+        -11.92
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        4.63,
+        0.0,
+        -13.38
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.58,
+        0.0,
+        -13.28
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.62,
+        0.0,
+        -14.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.77,
+        0.0,
+        12.85
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.36,
+        0.0,
+        13.39
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.02,
+        0.0,
+        13.37
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.08,
+        0.0,
+        13.61
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.27,
+        0.0,
+        13.08
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.48,
+        0.0,
+        -17.1
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.91,
+        0.0,
+        -14.22
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.61,
+        0.0,
+        -15.68
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.55,
+        0.0,
+        -15.58
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.6,
+        0.0,
+        -16.34
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.75,
+        0.0,
+        15.15
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.34,
+        0.0,
+        15.69
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.0,
+        0.0,
+        15.67
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.06,
+        0.0,
+        15.91
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -5.25,
+        0.0,
+        15.38
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxcrnd01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_cron_daemon.gd" id="1_crd"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.45
+height = 1.40
+
+[sub_resource type="CylinderMesh" id="base_mesh"]
+top_radius = 0.30
+bottom_radius = 0.55
+height = 1.20
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="iron_mat"]
+albedo_color = Color(0.18, 0.20, 0.24, 1)
+metallic = 0.85
+roughness = 0.40
+
+[sub_resource type="SphereMesh" id="orb_mesh"]
+radius = 0.28
+height = 0.56
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="orb_mat"]
+albedo_color = Color(1.0, 0.40, 0.20, 1)
+emission_enabled = true
+emission = Color(1.0, 0.30, 0.15, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.95, 1.50, 0.95)
+
+[node name="EnemyCronDaemon" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_crd")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Base" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("base_mesh")
+surface_material_override/0 = SubResource("iron_mat")
+
+[node name="Orb" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40, 0)
+mesh = SubResource("orb_mesh")
+surface_material_override/0 = SubResource("orb_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("hit_shape")

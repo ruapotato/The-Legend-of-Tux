@@ -56,6 +56,15 @@ func _on_body_entered(body: Node) -> void:
     if not body.is_in_group("player"):
         return
     _picked = true
+    # Terminal-corner narration. Lore-canon command for grabbing a
+    # pickup is `cp <pickup> ~/.inv/`. We prefer a human-readable
+    # label (item_name for ITEM kind, the kind name otherwise) over
+    # the bare scene-node name so the corner reads as "cp Hammer …"
+    # not "cp @Pickup_413@".
+    var tl: Node = get_node_or_null("/root/TerminalLog")
+    if tl:
+        var label: String = _terminal_label()
+        tl.cmd("cp %s ~/.inv/" % label)
     match kind:
         Kind.PEBBLE:
             GameState.add_pebbles(pebble_amount)
@@ -96,3 +105,27 @@ func _banner_show(item_id: String) -> void:
     var banner := get_node_or_null("/root/PickupBanner")
     if banner and banner.has_method("show_item"):
         banner.show_item(item_id)
+
+
+# Build the label used inside the terminal-corner `cp ...` line. ITEM
+# pickups carry a meaningful `item_name`; the rest report by kind so
+# generic pebble/heart/key drops all read as themselves rather than
+# whatever the engine auto-named the scene node.
+func _terminal_label() -> String:
+    match kind:
+        Kind.ITEM:
+            return item_name if item_name != "" else "item"
+        Kind.PEBBLE:
+            return "pebble"
+        Kind.FISH:
+            return "fish"
+        Kind.KEY:
+            return "key"
+        Kind.ARROW:
+            return "arrow"
+        Kind.SEED:
+            return "seed"
+        Kind.BOMB:
+            return "bomb"
+        _:
+            return name

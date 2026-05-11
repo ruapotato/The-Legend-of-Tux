@@ -4774,7 +4774,7 @@
       ],
       "rotation_y": 0.0,
       "contents": "heart",
-      "open_message": "A Heart Container — the climb was long, but you arrived. The Crown has a quiet way of being generous."
+      "open_message": "A Heart Container \u2014 the climb was long, but you arrived. The Crown has a quiet way of being generous."
     },
     {
       "type": "npc",
@@ -4887,7 +4887,7 @@
         "nodes": {
           "root": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "Pardon — I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
+            "text": "Pardon \u2014 I'm taking notes. You arrived. I had written that you would. The page is glad to be right.",
             "choices": [
               {
                 "label": "Where are you from?",
@@ -4905,7 +4905,7 @@
           },
           "from": {
             "speaker": "Reader-on-pilgrimage",
-            "text": "The Library. Not Sigilkeep's — the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
+            "text": "The Library. Not Sigilkeep's \u2014 the other one. We had a spring of new arrivals; the Throne has been generous this year, before the climb begins.",
             "choices": [
               {
                 "label": "Back.",
@@ -5135,6 +5135,198 @@
       "warp_message": "You stand at the height. The world is small below.",
       "warp_target_scene": "crown",
       "warp_target_spawn": "default"
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.28,
+        0.0,
+        -15.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.24,
+        0.0,
+        -15.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.25,
+        0.0,
+        -17.68
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        0.54,
+        0.0,
+        -16.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.15,
+        0.0,
+        -17.57
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.04,
+        0.0,
+        -17.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.28,
+        0.0,
+        -15.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.24,
+        0.0,
+        -15.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.25,
+        0.0,
+        -17.68
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        0.54,
+        0.0,
+        -16.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.15,
+        0.0,
+        -17.57
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.04,
+        0.0,
+        -17.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.28,
+        0.0,
+        -15.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.24,
+        0.0,
+        -15.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.25,
+        0.0,
+        -17.68
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        0.54,
+        0.0,
+        -16.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.15,
+        0.0,
+        -17.57
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.04,
+        0.0,
+        -17.04
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.28,
+        0.0,
+        -15.87
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.24,
+        0.0,
+        -15.58
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.25,
+        0.0,
+        -17.68
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        0.54,
+        0.0,
+        -16.79
+      ]
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.15,
+        0.0,
+        -17.57
+      ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.04,
+        0.0,
+        -17.04
+      ]
     }
   ],
   "load_zones": [

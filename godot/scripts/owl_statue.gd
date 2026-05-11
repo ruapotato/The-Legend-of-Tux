@@ -318,6 +318,14 @@ class WarpMenu extends CanvasLayer:
         var scene_path: String = scene_id
         if not scene_path.begins_with("res://"):
             scene_path = "res://scenes/%s.tscn" % scene_id
+        # Terminal-corner narration. Lore-canon command for an owl
+        # warp is `cd /<warp_target>` — owl statues are directory
+        # entries you cd to. Push BEFORE the scene fade so the player
+        # sees the cmd on their last frame of the old scene; the new
+        # scene's terminal_corner picks up its own cwd on load.
+        var tl: Node = get_node_or_null("/root/TerminalLog")
+        if tl:
+            tl.cmd("cd /%s" % scene_id)
         # Restore mouse + unpause before the fade so the new scene
         # comes up in its normal input mode.
         get_tree().paused = false

@@ -40,6 +40,13 @@ var _prev_action: int = -1
 var _prev_swing_idx: int = -1
 var _charge_ready_played: bool = false
 
+# Mirror state of GameState.anchor_boots_active so we can fire a
+# terminal-corner cmd on the rising/falling edge. The toggle itself
+# lives in pause_menu.gd; we observe the value here so the corner
+# picks up on/off transitions whether they came from the menu, a
+# save load, or any future hotkey.
+var _prev_anchor_boots_active: bool = false
+
 # Only one boomerang can be in flight at a time. Track via tree_exited
 # so the flag clears when the projectile despawns.
 var _boomerang_in_flight: bool = false
@@ -225,6 +232,7 @@ func _physics_process(delta: float) -> void:
 	if _hookshot_cooldown > 0.0:
 		_hookshot_cooldown -= delta
 	_update_carried_bomb()
+	_observe_anchor_boots_toggle()
 
 
 func _read_inputs() -> void:
@@ -677,6 +685,11 @@ func take_damage(amount: int, source_pos: Vector3, attacker: Node = null) -> voi
 	if attacker and attacker.is_in_group("final_laser") \
 			and GameState.has_glim_mirror():
 		SoundBank.play_3d("mirror_reflect", global_position)
+		# Terminal-corner narration. Lore-canon command for a Mirror
+		# Shield reflect: open every bit and tee the result back to
+		# the source. Fires per-reflect (each laser hit is its own
+		# event), matching the SFX cadence above.
+		_push_terminal_cmd("chmod 777 . | tee")
 		if attacker.has_method("take_damage"):
 			attacker.take_damage(25, global_position, self)
 		if camera and camera.has_method("shake"):
@@ -878,6 +891,10 @@ func _dispatch_action_sounds() -> void:
 			TS.ACT_HURT:        SoundBank.play_3d("hurt", global_position)
 			TS.ACT_DEAD:        SoundBank.play_3d("death", global_position)
 			TS.ACT_CHARGING:    SoundBank.play_3d("sword_charge", global_position)
+		# Terminal-corner narration. Same trigger points as the SFX
+		# above so the corner only narrates the *initial* transition,
+		# not every frame the action is sustained.
+		_dispatch_terminal_for_action(act, _prev_action)
 		if act == TS.ACT_CHARGING:
 			_charge_ready_played = false
 
@@ -909,6 +926,65 @@ func _emit_trail_if_active(delta: float) -> void:
 		return
 	_trail_cooldown = TRAIL_INTERVAL
 	_spawn_ghost_blade()
+
+
+# ---- Terminal-corner narration ----------------------------------------
+#
+# Per LORE.md §v2.2–v2.3 the bottom-left HUD terminal narrates Tux's
+# actions as live shell commands. The autoload `TerminalLog` is the
+# pub/sub buffer; we push from the same trigger points the SFX system
+# uses (entry into a new ACT_*) so the corner only narrates the initial
+# event, not every frame the action is sustained.
+#
+# All push helpers are guarded against a missing autoload so headless
+# unit-test contexts (no scene tree) don't crash the call.
+
+func _push_terminal_cmd(text: String) -> void:
+	var tl: Node = get_node_or_null("/root/TerminalLog")
+	if tl:
+		tl.cmd(text)
+
+
+# Translate a state-machine action transition into the matching shell
+# command per the LORE table:
+#   ACT_SPIN     → kill -9 *      (force-kill across the spin radius)
+#   ACT_BLOCK    → chmod 000 .    (self-perms = none, attacks fail)
+# Charge release into spin is captured by the SPIN entry above; the
+# brightsteel `kill -TERM <PID>` line fires when the player has an
+# active lock target so the pid arg can name a real process.
+func _dispatch_terminal_for_action(act: int, prev_act: int) -> void:
+	var TS := TuxState
+	match act:
+		TS.ACT_SPIN:
+			# If the spin came directly out of a charge release, the
+			# lore variant is `kill -TERM <PID>` against the locked
+			# target (Brightsteel's flag-grant). Without a lock target
+			# we still narrate the radial sweep as `kill -9 *` so the
+			# corner has something to render either way.
+			if prev_act == TS.ACT_CHARGING and _lock_target \
+					and is_instance_valid(_lock_target):
+				_push_terminal_cmd("kill -TERM PID%d"
+						% _lock_target.get_instance_id())
+			else:
+				_push_terminal_cmd("kill -9 *")
+		TS.ACT_BLOCK:
+			_push_terminal_cmd("chmod 000 .")
+
+
+# Watch GameState.anchor_boots_active for transitions and push the
+# matching `chroot /lower` (on) / `cd /` (off) cmd to the corner. The
+# toggle itself lives in pause_menu.gd (which we don't own); polling
+# here means the corner narrates the change regardless of who flipped
+# the bit.
+func _observe_anchor_boots_toggle() -> void:
+	var cur: bool = GameState.anchor_boots_active
+	if cur == _prev_anchor_boots_active:
+		return
+	_prev_anchor_boots_active = cur
+	if cur:
+		_push_terminal_cmd("chroot /lower")
+	else:
+		_push_terminal_cmd("cd /")
 
 
 func _spawn_ghost_blade() -> void:

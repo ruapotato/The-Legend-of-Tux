@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxrccd01"]
+
+[ext_resource type="Script" path="res://scripts/enemy_race_condition.gd" id="1_rcd"]
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.40
+height = 1.20
+
+[sub_resource type="CapsuleMesh" id="body_mesh"]
+radius = 0.42
+height = 1.10
+radial_segments = 12
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="body_mat"]
+albedo_color = Color(0.85, 0.45, 0.18, 1)
+roughness = 0.55
+emission_enabled = true
+emission = Color(0.95, 0.40, 0.10, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="SphereMesh" id="eye_mesh"]
+radius = 0.07
+height = 0.14
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="eye_mat"]
+albedo_color = Color(1.0, 0.95, 0.65, 1)
+emission_enabled = true
+emission = Color(1.0, 0.85, 0.40, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.95, 1.30, 0.95)
+
+[sub_resource type="BoxShape3D" id="atk_shape"]
+size = Vector3(1.10, 0.90, 1.40)
+
+[node name="EnemyRaceCondition" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_rcd")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("body_shape")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("body_mat")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, 1.05, -0.34)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 1.05, -0.34)
+mesh = SubResource("eye_mesh")
+surface_material_override/0 = SubResource("eye_mat")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("hit_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("hit_shape")
+
+[node name="AttackHitbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.7)
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="AttackHitbox"]
+shape = SubResource("atk_shape")

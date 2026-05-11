@@ -64,20 +64,48 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -7,
+            3
           ],
           [
-            -4,
-            -3
+            -6,
+            0
           ],
           [
-            -4,
-            -2
+            -6,
+            3
           ],
           [
-            -4,
-            -1
+            -6,
+            4
+          ],
+          [
+            -5,
+            0
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -5,
+            6
           ],
           [
             -4,
@@ -96,12 +124,8 @@
             3
           ],
           [
-            -3,
-            -4
-          ],
-          [
-            -3,
-            -3
+            -4,
+            4
           ],
           [
             -3,
@@ -128,12 +152,16 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
           ],
           [
             -2,
@@ -160,12 +188,20 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
           ],
           [
             -1,
@@ -192,12 +228,24 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
           ],
           [
             0,
@@ -224,12 +272,28 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            9
           ],
           [
             1,
@@ -256,12 +320,28 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            9
           ],
           [
             2,
@@ -288,12 +368,28 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            2,
+            9
           ],
           [
             3,
@@ -318,6 +414,162 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            3,
+            9
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            7
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +596,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_library",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -386,9 +638,9 @@
     {
       "type": "npc",
       "pos": [
+        -0.5,
         0.0,
-        0.0,
-        1.0
+        0.5
       ],
       "rotation_y": 3.141592653589793,
       "name": "Festival-Goer Pyt",
@@ -412,24 +664,43 @@
             "speaker": "Festival-Goer Pyt",
             "text": "*he sits on a barrel. He is wearing what was a festival hat a year ago. The food on his plate has been there for a while.*\n\nWalker. Welcome to the festival. Such as it is.\n\nI was supposed to meet someone here. They were supposed to come back the next day. The next day was a year ago.",
             "choices": [
-              {"label": "Have you tried going home?", "next": "home"},
-              {"label": "Who were you waiting for?", "next": "who"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "Have you tried going home?",
+                "next": "home"
+              },
+              {
+                "label": "Who were you waiting for?",
+                "next": "who"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "home": {
             "speaker": "Festival-Goer Pyt",
             "text": "*he smiles. The smile is gentle.*\n\nNot yet. Not yet, walker. The next breath. Maybe the breath after.\n\nIf I leave and they come back and I'm not here, they'll think I forgot. The Drift forgets. The Long Drift remembers a little. I remember a lot.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "who": {
             "speaker": "Festival-Goer Pyt",
             "text": "A friend. Just a friend. The kind of friend you don't have many of.\n\nI'm sure they're fine. The road is the road. They'll be back.\n\n*he looks at the empty plate.*",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Festival-Goer Pyt",
-            "text": "Walk well. If you see anyone on the road who looks like they might be coming this way — point them at the post. The post says 'still waiting'. They'll know."
+            "text": "Walk well. If you see anyone on the road who looks like they might be coming this way \u2014 point them at the post. The post says 'still waiting'. They'll know."
           }
         }
       }
@@ -438,9 +709,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,

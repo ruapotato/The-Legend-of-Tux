@@ -105,6 +105,7 @@ func _on_area_entered(area: Area3D) -> void:
     if DEBUG:
         print("[%s] HIT area=%s receiver=%s" % [_label(), area.name, receiver.name])
     receiver.take_damage(damage, global_position, _find_attacker())
+    _push_kill_cmd(receiver)
     target_hit.emit(receiver)
 
 
@@ -119,7 +120,26 @@ func _on_body_entered(body: Node) -> void:
     if DEBUG:
         print("[%s] HIT body=%s" % [_label(), body.name])
     body.take_damage(damage, global_position, _find_attacker())
+    _push_kill_cmd(body)
     target_hit.emit(body)
+
+
+# Terminal-corner hook. Only the player's hitbox should narrate kills
+# in the live shell — enemy sword_hitboxes (bone knights, etc.) share
+# this script and must NOT push commands as if Tux ran them. We gate
+# on the owning CharacterBody3D being in the "player" group.
+func _push_kill_cmd(target: Object) -> void:
+    var attacker: Node = _find_attacker()
+    if attacker == null or not attacker.is_in_group("player"):
+        return
+    var tl: Node = get_node_or_null("/root/TerminalLog")
+    if tl == null or target == null or not (target is Object):
+        return
+    var pid: int = target.get_instance_id() if target.has_method("get_instance_id") else 0
+    var label: String = String(target.get("name")) if "name" in target else "PID%d" % pid
+    if label == "":
+        label = "PID%d" % pid
+    tl.cmd("kill %s" % label)
 
 
 func _find_attacker() -> Node:

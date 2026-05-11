@@ -854,3 +854,140 @@ edges still apply):
 ---
 
 *The Wyrdmark Filesystem v2 — Unix-shape canonisation*
+
+---
+
+# v3 — THE ROOTING ALGORITHM
+
+> *"The world is grown, not laid out. From the Crown the trunk
+> descends; at every branch, children fork at angles. Every directory
+> is an organic root — never a square."*
+
+v2 codified the compass + child-count rules. v3 replaces the layout
+algorithm with a generative **L-system rooting** that produces
+branching, organic geometry. Hand-authored Dungeons graft into the
+grown trunk; the player never sees the seam.
+
+## v3.1 Inputs and outputs
+
+**Input:** PATH_MAP from `tools/build_dungeon.py` — the directory tree
+with each level's filesystem path.
+
+**Output, per directory:**
+- `world_pos: Vector2` — absolute world position of the directory's anchor
+- `trunk_dir: Vector2` — unit vector indicating the directory's growth axis
+- `cells: Array[Vector2i]` — organic cell footprint, no rectangles
+- `spawn_anchors: Dictionary` — `from_<parent>` and `from_<child>` placements
+  on the spine ends
+- `tree_wall_gaps: Array` — auto-computed gap arcs for each load_zone
+- `pillar_clusters: Array` — 3-5 trees + 1-2 rocks placed between adjacent gaps
+
+## v3.2 Growth rules
+
+```
+grow(parent, child, sibling_index, sibling_count):
+    # 1. Branching angle: fan siblings across an arc inherited from parent
+    spread_deg = clamp(30 * sibling_count, 30, 140)
+    parent_angle = atan2(parent.trunk_dir.y, parent.trunk_dir.x)
+    my_angle = parent_angle + (sibling_index - (sibling_count-1)/2) * spread_deg/sibling_count
+    child.trunk_dir = unit_vector(my_angle)
+
+    # 2. Distance from parent: deep enough to feel separate
+    base_dist = 30 + (sibling_count > 2 ? 15 : 0)
+    child.world_pos = parent.world_pos + child.trunk_dir * base_dist
+
+    # 3. Spine: 8-14 cells from south anchor along trunk_dir, perturbed by Perlin
+    spine = []
+    spine_length = leaf? 6 : (single_child? 14 : 10)
+    for i in [0, spine_length):
+        t = i / float(spine_length)
+        offset = perlin(seed=child.id, t) * 2.0
+        cell = round(t * spine_length * trunk_dir + perp(trunk_dir) * offset)
+        spine.append(cell)
+
+    # 4. Thicken: at each spine cell, add perpendicular cells
+    #    Radius varies along spine — narrow at stem (3w), wide mid (5-7w), tip varies
+    for i, sc in enumerate(spine):
+        r = thickness_curve(i / spine_length, role=role(child))
+        for j in [-r..r]:
+            child.cells.add(sc + perp(trunk_dir) * j)
+
+    # 5. Bulb / junction at tip
+    if leaf:
+        bulb_radius = 5
+        circle of cells around spine[-1] with bulb_radius (organic, perlin-perturbed)
+    elif single_child:
+        # spine continues into child's stem
+        pass
+    else:
+        # 2+ children — sprout prongs reaching toward each child anchor
+        for ci in children:
+            prong_dir = (ci.world_pos - this.world_pos).normalized()
+            prong cells of length 6 in prong_dir from spine[-1]
+
+    # 6. Knots: 2-4 small 1-cell bulges along the perimeter
+    for k in [0, 4):
+        random perimeter cell + 1 outward neighbor
+
+    # 7. Tree-wall gaps: one per load_zone
+    for lz in load_zones:
+        gap_angle = atan2(lz.world_pos.y - this.world_pos.y, lz.world_pos.x - this.world_pos.x)
+        gap_width = 0.5 rad  (~28°)
+        tree_wall_gaps.add({angle: gap_angle, width: gap_width})
+
+    # 8. Pillar clusters BETWEEN adjacent gaps
+    for (gap_a, gap_b) in adjacent_pairs(sorted(tree_wall_gaps, by angle)):
+        midpoint_angle = (gap_a.angle + gap_b.angle) / 2
+        cluster_pos = this.world_pos + (cos(midpoint_angle), sin(midpoint_angle)) * (boundary_radius + 1)
+        place_cluster(cluster_pos, trees=randint(3,5), rocks=randint(1,2))
+```
+
+## v3.3 Hand-authored content grafting
+
+Some levels are **handcrafted** — the eight Dungeons + the existing
+kingdom-tier hubs. These keep their authored cell footprints and
+internal content. The rooting algorithm only:
+
+1. Computes their `world_pos` from the L-system
+2. Aligns their existing footprint so its **south anchor** points
+   toward the parent
+3. Adjusts their existing load_zones to compass-correct edges
+4. Generates the **trunk corridor** that connects them to the parent
+
+The handcrafted footprint replaces the algorithm's would-have-been
+footprint exactly where it sits in the tree. To the player, it's
+seamless: organic root corridors grow into a hand-shaped chamber,
+then organic root corridors continue out the other side.
+
+**Handcrafted (preserve):** `wyrdkin_glade`, `wyrdwood`, `sourceplain`,
+`hearthold`, `brookhold`, `burrows`, `library`, `cache`, `stacks`,
+`ledger`, `backwater`, `wake`, `drift`, `murk`, `sprawl`, `binds`,
+`sharers`, `old_plays`, `locals`, `crown`, `optional_yard`, `old_hold`,
+`wake_grub`, `dungeon_first`, `sigilkeep`, `stoneroost`, `burnt_hollow`,
+`forge`, `mirelake`, `scriptorium`, `null_door`. (~30 levels.)
+
+**Algorithm-grown (rebuild):** the 27 v2 directories
+(`bin`, `sbin`, `lib`, `lost_found`, `root_hold`, `srv`, `sys`,
+`etc_initd`, `etc_passwd`, `home_lirien`, `home_khorgaul`, `proc_init`,
+`proc_sys`, `proc_42`, `usr_lib`, `usr_sbin`, `usr_src`, `usr_include`,
+`usr_share_man`, `var_mail`, `var_run`, `var_tmp`, `var_games`,
+`dev_zero`, `dev_random`, `dev_tty`, `dev_loop`) plus the 4 grottoes
++ any small passthroughs.
+
+## v3.4 Big cities special-case
+
+`/usr/bin` (The Birthplace), `/usr/share` (The Sharers), `/usr/local`
+(The Locals), `/var` (The Library) need to feel **city-scaled**. The
+algorithm allocates them a **40-50 cell** trunk-junction with multiple
+prongs forming streets. Shopkeeper NPCs (named tool-spirits) line the
+prong-corridors as stalls.
+
+## v3.5 Implementation tool
+
+`tools/grow_filesystem.py` — runs the rooting algorithm, writes
+results back into dungeon JSONs. Idempotent for already-handcrafted
+levels (preserves their cells/content). Re-runnable.
+
+---
+
+*The Wyrdmark Filesystem v3 — Rooting algorithm*

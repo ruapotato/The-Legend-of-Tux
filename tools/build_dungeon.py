@@ -111,6 +111,20 @@ EXT_RESOURCES = {
     "wyrm_hatchling":   ("PackedScene", "uid://btuxmbwymh01", "res://scenes/enemy_wyrm_hatchling.tscn"),
     "shade_archon":     ("PackedScene", "uid://btuxmbshrc01", "res://scenes/enemy_shade_archon.tscn"),
     "bone_ogre":        ("PackedScene", "uid://btuxmbbnog01", "res://scenes/enemy_bone_ogre.tscn"),
+    # Unix-flavored quirk enemies (DESIGN.md follow-up). Each picks one
+    # tongue-in-cheek shell behaviour and turns it into a combat verb;
+    # placement is a separate pass so these aren't yet referenced from
+    # any dungeon JSON.
+    "rm_phantom":     ("PackedScene", "uid://btuxrmph01", "res://scenes/enemy_rm_phantom.tscn"),
+    "cp_doppel":      ("PackedScene", "uid://btuxcpdp01", "res://scenes/enemy_cp_doppel.tscn"),
+    "kill_signal":    ("PackedScene", "uid://btuxklsg01", "res://scenes/enemy_kill_signal.tscn"),
+    "cron_daemon":    ("PackedScene", "uid://btuxcrnd01", "res://scenes/enemy_cron_daemon.tscn"),
+    "zombie_proc":    ("PackedScene", "uid://btuxzbpr01", "res://scenes/enemy_zombie_proc.tscn"),
+    "null_pointer":   ("PackedScene", "uid://btuxnlpt01", "res://scenes/enemy_null_pointer.tscn"),
+    "race_condition": ("PackedScene", "uid://btuxrccd01", "res://scenes/enemy_race_condition.tscn"),
+    "deadlock_pair":  ("PackedScene", "uid://btuxdlpr01", "res://scenes/enemy_deadlock_pair.tscn"),
+    "find_hawk":      ("PackedScene", "uid://btuxfdhk01", "res://scenes/enemy_find_hawk.tscn"),
+    "cache_wraith":   ("PackedScene", "uid://btuxcwrh01", "res://scenes/enemy_cache_wraith.tscn"),
     "sign":             ("PackedScene", "uid://btuxsgnp01", "res://scenes/sign_post.tscn"),
     "bush":             ("PackedScene", "uid://btuxbush01", "res://scenes/bush.tscn"),
     "rock":             ("PackedScene", "uid://btuxrock01", "res://scenes/rock.tscn"),
@@ -207,6 +221,17 @@ ENEMY_TO_EXT = {
     "wyrm_hatchling": "wyrm_hatchling",
     "shade_archon":   "shade_archon",
     "bone_ogre":      "bone_ogre",
+    # Unix-flavored quirk enemies — see EXT_RESOURCES block above.
+    "rm_phantom":     "rm_phantom",
+    "cp_doppel":      "cp_doppel",
+    "kill_signal":    "kill_signal",
+    "cron_daemon":    "cron_daemon",
+    "zombie_proc":    "zombie_proc",
+    "null_pointer":   "null_pointer",
+    "race_condition": "race_condition",
+    "deadlock_pair":  "deadlock_pair",
+    "find_hawk":      "find_hawk",
+    "cache_wraith":   "cache_wraith",
 }
 
 WALL_THICKNESS = 0.5

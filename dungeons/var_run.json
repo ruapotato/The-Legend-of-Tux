@@ -64,20 +64,52 @@
         "name": "ground",
         "cells": [
           [
-            -4,
-            -4
+            -7,
+            4
           ],
           [
-            -4,
-            -3
+            -7,
+            5
           ],
           [
-            -4,
-            -2
+            -6,
+            3
           ],
           [
-            -4,
-            -1
+            -6,
+            4
+          ],
+          [
+            -6,
+            5
+          ],
+          [
+            -5,
+            0
+          ],
+          [
+            -5,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            4
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -5,
+            6
+          ],
+          [
+            -5,
+            7
           ],
           [
             -4,
@@ -96,12 +128,24 @@
             3
           ],
           [
-            -3,
-            -4
+            -4,
+            4
           ],
           [
-            -3,
-            -3
+            -4,
+            5
+          ],
+          [
+            -4,
+            6
+          ],
+          [
+            -4,
+            7
+          ],
+          [
+            -4,
+            8
           ],
           [
             -3,
@@ -128,12 +172,32 @@
             3
           ],
           [
-            -2,
-            -4
+            -3,
+            4
           ],
           [
-            -2,
-            -3
+            -3,
+            5
+          ],
+          [
+            -3,
+            6
+          ],
+          [
+            -3,
+            7
+          ],
+          [
+            -3,
+            8
+          ],
+          [
+            -3,
+            9
+          ],
+          [
+            -3,
+            10
           ],
           [
             -2,
@@ -160,12 +224,32 @@
             3
           ],
           [
-            -1,
-            -4
+            -2,
+            4
           ],
           [
-            -1,
-            -3
+            -2,
+            5
+          ],
+          [
+            -2,
+            6
+          ],
+          [
+            -2,
+            7
+          ],
+          [
+            -2,
+            8
+          ],
+          [
+            -2,
+            9
+          ],
+          [
+            -2,
+            10
           ],
           [
             -1,
@@ -192,12 +276,32 @@
             3
           ],
           [
-            0,
-            -4
+            -1,
+            4
           ],
           [
-            0,
-            -3
+            -1,
+            5
+          ],
+          [
+            -1,
+            6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -1,
+            9
+          ],
+          [
+            -1,
+            10
           ],
           [
             0,
@@ -224,12 +328,24 @@
             3
           ],
           [
-            1,
-            -4
+            0,
+            4
           ],
           [
-            1,
-            -3
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
           ],
           [
             1,
@@ -256,12 +372,24 @@
             3
           ],
           [
-            2,
-            -4
+            1,
+            4
           ],
           [
-            2,
-            -3
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
           ],
           [
             2,
@@ -288,12 +416,24 @@
             3
           ],
           [
-            3,
-            -4
+            2,
+            4
           ],
           [
-            3,
-            -3
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
           ],
           [
             3,
@@ -318,6 +458,86 @@
           [
             3,
             3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            8,
+            2
           ]
         ],
         "wall_height": 4.0,
@@ -344,18 +564,18 @@
     {
       "id": "default",
       "pos": [
-        0.0,
         0.5,
-        -1.5
+        0.5,
+        -0.5
       ],
       "rotation_y": 3.141592653589793
     },
     {
       "id": "from_library",
       "pos": [
-        0.0,
         0.5,
-        -1.0
+        0.5,
+        -1.5
       ],
       "rotation_y": 3.141592653589793
     }
@@ -366,12 +586,12 @@
     {
       "type": "sign",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         2.5
       ],
       "rotation_y": 3.141592653589793,
-      "message": "THE PULSE ROOM\n\nA chamber of beating drums — one for every walker, every keeper, every shaped daemon currently alive in the realm. A drum stops if its keeper falls.\n\nThe drumkeeper listens. He has been listening for a long time."
+      "message": "THE PULSE ROOM\n\nA chamber of beating drums \u2014 one for every walker, every keeper, every shaped daemon currently alive in the realm. A drum stops if its keeper falls.\n\nThe drumkeeper listens. He has been listening for a long time."
     },
     {
       "type": "sign",
@@ -388,7 +608,7 @@
       "pos": [
         -2.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": 1.5707963267948966,
       "message": "DRUM: WYRD TOMATO\n\nA quick light drum, the rhythm slightly off-kilter, as if it can't decide which beat is the strong one. Painted leaf-green."
@@ -418,7 +638,7 @@
       "pos": [
         2.5,
         0.0,
-        0.0
+        -0.5
       ],
       "rotation_y": -1.5707963267948966,
       "message": "DRUM: THE BURNT SHEPHERD\n\nA cracked, bright drum. The fire-marks on it are old. Beats fast, then long pauses."
@@ -436,7 +656,7 @@
     {
       "type": "npc",
       "pos": [
-        0.0,
+        -0.5,
         0.0,
         0.5
       ],
@@ -462,20 +682,39 @@
             "speaker": "Drumkeeper Hesh",
             "text": "*he is sitting cross-legged in the centre, eyes closed, listening. The drums beat around him in a slow round.*\n\nQuiet, walker. The room is counting.\n\n...all of them are still going. The realm endures.",
             "choices": [
-              {"label": "What happens when one stops?", "next": "stop"},
-              {"label": "Whose drum is the largest?", "next": "large"},
-              {"label": "Walk well.", "next": "bye"}
+              {
+                "label": "What happens when one stops?",
+                "next": "stop"
+              },
+              {
+                "label": "Whose drum is the largest?",
+                "next": "large"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
             ]
           },
           "stop": {
             "speaker": "Drumkeeper Hesh",
-            "text": "Then the keeper has fallen. The realm hears the silence. The drum is taken down and the wall is left bare for a season, then a new drum is hung — for whoever rises in their place.\n\nA bare wall is not a sad thing here. It is a kept promise.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "text": "Then the keeper has fallen. The realm hears the silence. The drum is taken down and the wall is left bare for a season, then a new drum is hung \u2014 for whoever rises in their place.\n\nA bare wall is not a sad thing here. It is a kept promise.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "large": {
             "speaker": "Drumkeeper Hesh",
             "text": "*his voice goes very quiet.*\n\nKhorgaul's. The slow one. Some days I forget it is there, because the beats are so far apart. Some days I remember and have to sit down for a while.\n\nHe is still going, walker. That is information. Take it as you will.",
-            "choices": [{"label": "Walk well.", "next": "bye"}]
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
           },
           "bye": {
             "speaker": "Drumkeeper Hesh",
@@ -488,9 +727,9 @@
   "load_zones": [
     {
       "pos": [
-        0.0,
+        0.5,
         1.4,
-        -3.0
+        -2.0
       ],
       "size": [
         4.0,
