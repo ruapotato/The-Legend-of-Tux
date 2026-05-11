@@ -2130,6 +2130,53 @@ def main():
         if not st.get("skipped"):
             arm_stats.append(st)
 
+    # Hole-fill pass: any non-cell position that has >= 3 of 4 cardinal
+    # neighbors as cells gets filled in. Without this, the Perlin width
+    # variation + arm bulge stamps leave tiny gaps inside the arms; the
+    # build script then emits a GridTree on every cell-to-hole edge,
+    # producing ~1800 tree-pillars per hub scattered through arms ("black
+    # dots in pathways"). Iterate until no new fills (handles single-cell
+    # holes whose neighbors only become cells after a prior fill round).
+    total_holes_filled = 0
+    for lid, (fn, data) in levels.items():
+        floor = data.get("grid", {}).get("floors", [{}])[0]
+        if not floor: continue
+        cells_list = floor.get("cells", [])
+        if not cells_list: continue
+        # Preserve y-offsets — cells with 3+ entries keep them.
+        cell_y = {}
+        for c in cells_list:
+            cell_y[(int(c[0]), int(c[1]))] = float(c[2]) if len(c) >= 3 else 0.0
+        cell_set = set(cell_y.keys())
+        filled_this_level = 0
+        for _ in range(8):  # bounded rounds — usually converges in 2-3
+            xs = [k[0] for k in cell_set]; zs = [k[1] for k in cell_set]
+            if not xs: break
+            new_fills = set()
+            for z in range(min(zs) - 1, max(zs) + 2):
+                for x in range(min(xs) - 1, max(xs) + 2):
+                    if (x, z) in cell_set: continue
+                    n = sum(1 for dx, dz in [(-1, 0), (1, 0), (0, -1), (0, 1)]
+                            if (x + dx, z + dz) in cell_set)
+                    if n >= 3:
+                        new_fills.add((x, z))
+            if not new_fills: break
+            for (x, z) in new_fills:
+                cell_set.add((x, z))
+                cell_y[(x, z)] = 0.0
+            filled_this_level += len(new_fills)
+        if filled_this_level:
+            new_cells_list = []
+            for (i, j) in sorted(cell_set):
+                y = cell_y[(i, j)]
+                if abs(y) > 1e-4:
+                    new_cells_list.append([i, j, y])
+                else:
+                    new_cells_list.append([i, j])
+            floor["cells"] = new_cells_list
+            total_holes_filled += filled_this_level
+    print("HOLE-FILL: %d cells filled across all levels" % total_holes_filled)
+
     # Write back.
     for lid, (fn, data) in levels.items():
         with open(os.path.join(DUNGEONS, fn), "w") as f:
