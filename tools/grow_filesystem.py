@@ -995,6 +995,9 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
             parent_lz["pos"] = [round(new_x, 2),
                                 old[1] if len(old) > 1 else 1.4,
                                 round(new_z, 2)]
+            # Invalidate the cached pre-arm pos: this pos is the new
+            # canonical anchor, replacing whatever was cached previously.
+            parent_lz.pop("_pre_arm_pos", None)
         M = len(non_parent)
         if M > 0:
             step = 2.0 * math.pi / M
@@ -1027,6 +1030,7 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
                 lz["pos"] = [round(new_x, 2),
                              old[1] if len(old) > 1 else 1.4,
                              round(new_z, 2)]
+                lz.pop("_pre_arm_pos", None)
         redistributed = True
 
     # Re-read positions for downstream calcs (in case we just moved them).
@@ -1034,20 +1038,39 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
     for lz in lzs:
         if not lz.get("auto", True):
             continue  # skip cellar trapdoors (interior, not boundary)
-        pos = lz.get("pos", [0, 0, 0])
-        ang = math.atan2(pos[2] - cz, pos[0] - cx)
-        angles.append((ang, pos))
+        # Use the cached pre-arm pos (canonical bbox-edge anchor) if
+        # present so subsequent runs see stable angles, regardless of
+        # where the arm pass last pushed the LZ.
+        pos_for_ang = lz.get("_pre_arm_pos") or lz.get("pos", [0, 0, 0])
+        ang = math.atan2(pos_for_ang[2] - cz, pos_for_ang[0] - cx)
+        angles.append((ang, lz.get("pos", [0, 0, 0])))
 
     # Drop previously-added pillar-cluster props (idempotent re-runs)
     # — they're tagged with `_pillar_cluster: True`.
     new_props = [p for p in data.get("props", [])
                  if not p.get("_pillar_cluster")]
 
+    # For tree-walled clusters, the radial distance `r` is computed from
+    # canonical pre-arm positions where present so it doesn't grow each
+    # run as arms push the LZ pos further out.
+    pre_positions = []
+    for lz in lzs:
+        if not lz.get("auto", True):
+            continue
+        pos_for_r = lz.get("_pre_arm_pos") or lz.get("pos", [0, 0, 0])
+        pre_positions.append(pos_for_r)
+
     added = 0
     if len(angles) >= 2:
         angles.sort(key=lambda a: a[0])
-        # Mean radial distance for cluster placement.
-        r = sum(math.hypot(p[0] - cx, p[2] - cz) for _, p in angles) / len(angles)
+        # Mean radial distance for cluster placement (from canonical
+        # anchors so it doesn't drift between runs).
+        if pre_positions:
+            r = sum(math.hypot(p[0] - cx, p[2] - cz)
+                    for p in pre_positions) / len(pre_positions)
+        else:
+            r = sum(math.hypot(p[0] - cx, p[2] - cz)
+                    for _, p in angles) / len(angles)
         crng = random.Random("clusters::handcrafted::" + level_id)
         for k in range(len(angles)):
             a_ang, _ = angles[k]
@@ -1151,6 +1174,362 @@ def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
 
 
 # ---------------------------------------------------------------------------
+# Cell-arm growing pass (FILESYSTEM.md §v4 — "hub + branches" silhouette)
+# ---------------------------------------------------------------------------
+#
+# Rationale:
+#   Even after rooting v1+v2, multi-child hubs read as flat squares with
+#   doorway-marks on the perimeter. The bounding box of Crown is a perfect
+#   32x32 box and all 17 load_zones sit on its edge. There's no visible
+#   "branching" — the silhouette doesn't read as a hub-with-arms.
+#
+# Solution:
+#   For every level with >= 2 outgoing auto:true load_zones, grow a
+#   cell-arm per load_zone reaching outward from the existing footprint
+#   to the LZ's direction. Each arm is a 3-cell-wide corridor 8-14 cells
+#   long with a slight Perlin-noise curve, terminating exactly where the
+#   load_zone trigger now sits. The matching from_<X> spawn moves with
+#   the LZ to the arm tip, so the player walks back into the corridor on
+#   re-entry.
+#
+# Idempotency:
+#   We track every arm cell we add in floor["_arm_cells"] (a flat list
+#   of [i,j]). On re-run, we strip those cells from floor["cells"] and
+#   re-grow from scratch using the same deterministic seed, so re-running
+#   yields the same result.
+#
+# What is preserved:
+#   - All non-arm cells (the hub footprint stays put).
+#   - All NPCs, signs, chests, owl_statues, props (they're inside the
+#     hub which doesn't move).
+#   - Each LZ's target_scene/target_spawn/size/prompt/auto/rotation_y
+#     fields stay intact — only `pos` is updated to the arm tip.
+#   - _pillar_cluster props (rooting v2) — pillars sit in the angular
+#     gap between adjacent arms, which is still correct.
+# ---------------------------------------------------------------------------
+
+
+def _strip_arm_cells(data):
+    """Remove previously-added arm cells from the floor's cell list.
+    Returns count stripped. Idempotent: safe to call repeatedly."""
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return 0
+    floor = floors[0]
+    arm_set = set()
+    for c in floor.get("_arm_cells", []) or []:
+        try:
+            arm_set.add((int(c[0]), int(c[1])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    if not arm_set:
+        return 0
+    new_cells = []
+    stripped = 0
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            ci, cj = int(c.get("i", 0)), int(c.get("j", 0))
+        else:
+            ci, cj = int(c[0]), int(c[1])
+        if (ci, cj) in arm_set:
+            stripped += 1
+            continue
+        new_cells.append(c)
+    floor["cells"] = new_cells
+    floor["_arm_cells"] = []
+    return stripped
+
+
+def _existing_cell_set(floor):
+    """Return set of (i,j) of cells currently in the floor."""
+    s = set()
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            s.add((int(c.get("i", 0)), int(c.get("j", 0))))
+        else:
+            s.add((int(c[0]), int(c[1])))
+    return s
+
+
+def _radius_along_direction(cells_set, cx, cz, dx, dz, max_search=200):
+    """Walk outward from (cx, cz) along (dx, dz) and return the distance
+    (in cells) to the LAST cell that is still inside the cell set.
+    Used to find where an arm should start (just past the hub edge)."""
+    last_inside = 0
+    for step in range(max_search):
+        ti = int(round(cx + dx * step))
+        tj = int(round(cz + dz * step))
+        if (ti, tj) in cells_set:
+            last_inside = step
+    return last_inside
+
+
+def grow_arms_for_level(level_id, data, level_seed_extra=""):
+    """Add cell-arms reaching from the existing hub out to each
+    auto:true load_zone. Mutates `data` in place. Returns dict of stats:
+        {arm_count, arm_cells_added, before_n_cells, after_n_cells,
+         before_bbox, after_bbox, sample_arm_distance}.
+    Skips levels with < 2 auto:true LZs."""
+    lzs = data.get("load_zones", [])
+    auto_lzs = [lz for lz in lzs if lz.get("auto", True)]
+    if len(auto_lzs) < 2:
+        # Strip stale arm cells just in case (idempotency).
+        _strip_arm_cells(data)
+        return {
+            "level": level_id,
+            "arm_count": 0,
+            "arm_cells_added": 0,
+            "before_n_cells": 0,
+            "after_n_cells": 0,
+            "before_bbox": None,
+            "after_bbox": None,
+            "sample_arm_distance": 0.0,
+            "skipped": True,
+        }
+
+    # Strip previously-added arm cells (idempotency).
+    _strip_arm_cells(data)
+
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return {
+            "level": level_id,
+            "arm_count": 0,
+            "arm_cells_added": 0,
+            "before_n_cells": 0,
+            "after_n_cells": 0,
+            "before_bbox": None,
+            "after_bbox": None,
+            "sample_arm_distance": 0.0,
+            "skipped": True,
+        }
+    floor = floors[0]
+    cs = float(grid.get("cell_size", CELL_SIZE))
+
+    # tree_walls levels: their boundary is an explicit polygon, growing
+    # arms via cells doesn't extend the boundary. Skip them.
+    if data.get("tree_walls"):
+        return {
+            "level": level_id,
+            "arm_count": 0,
+            "arm_cells_added": 0,
+            "before_n_cells": 0,
+            "after_n_cells": 0,
+            "before_bbox": None,
+            "after_bbox": None,
+            "sample_arm_distance": 0.0,
+            "skipped": True,
+        }
+
+    cells_set = _existing_cell_set(floor)
+    if not cells_set:
+        return {
+            "level": level_id,
+            "arm_count": 0,
+            "arm_cells_added": 0,
+            "before_n_cells": 0,
+            "after_n_cells": 0,
+            "before_bbox": None,
+            "after_bbox": None,
+            "sample_arm_distance": 0.0,
+            "skipped": True,
+        }
+
+    is_ = [c[0] for c in cells_set]
+    js_ = [c[1] for c in cells_set]
+    before_bbox = (min(is_), min(js_), max(is_), max(js_))
+    before_n_cells = len(cells_set)
+    # Centroid of existing cells (in cell units).
+    cx = sum(c[0] for c in cells_set) / len(cells_set)
+    cz = sum(c[1] for c in cells_set) / len(cells_set)
+
+    # Compute outward direction and starting angle for each LZ.
+    #
+    # Idempotency: if the LZ has a cached `_pre_arm_pos` (we recorded it
+    # the first time we grew an arm for this LZ), use that fixed
+    # position to compute the outward angle. Otherwise capture the
+    # current pos AS the canonical pre-arm pos and use it. This prevents
+    # the LZ position from drifting on each subsequent run when the
+    # handcrafted-pass doesn't redistribute (i.e. hubs with < 4 auto LZs).
+    #
+    # If two LZs end up at very similar angles, we nudge them apart by
+    # >= 8 degrees so the arms don't fuse.
+    lz_dirs = []  # list of (lz, angle_rad, current_distance_world_units)
+    for lz in auto_lzs:
+        pre_pos = lz.get("_pre_arm_pos")
+        if pre_pos is None:
+            pre_pos = list(lz.get("pos", [0, 0, 0]))
+            lz["_pre_arm_pos"] = [float(pre_pos[0]),
+                                  float(pre_pos[1]) if len(pre_pos) > 1 else 1.4,
+                                  float(pre_pos[2]) if len(pre_pos) > 2 else 0.0]
+        ref_x = float(pre_pos[0])
+        ref_z = float(pre_pos[2]) if len(pre_pos) > 2 else 0.0
+        dx_world = ref_x - (cx + 0.5) * cs
+        dz_world = ref_z - (cz + 0.5) * cs
+        ang = math.atan2(dz_world, dx_world)
+        dist = math.hypot(dx_world, dz_world)
+        lz_dirs.append([lz, ang, dist])
+
+    # Resolve angle clashes: sort by angle, then walk and ensure each
+    # adjacent pair differs by >= MIN_SEP. If not, push the later one CCW.
+    MIN_SEP = math.radians(8)
+    lz_dirs.sort(key=lambda x: x[1])
+    for i in range(1, len(lz_dirs)):
+        prev_ang = lz_dirs[i - 1][1]
+        if lz_dirs[i][1] - prev_ang < MIN_SEP:
+            lz_dirs[i][1] = prev_ang + MIN_SEP
+    # Also handle wrap-around: last vs first + 2pi.
+    if len(lz_dirs) >= 2:
+        wrap_diff = (lz_dirs[0][1] + 2 * math.pi) - lz_dirs[-1][1]
+        if wrap_diff < MIN_SEP:
+            # Distribute the deficit by nudging the last one CW.
+            lz_dirs[-1][1] -= (MIN_SEP - wrap_diff)
+
+    seed = "arms::" + level_id + level_seed_extra
+    rng = random.Random(seed)
+
+    arm_cells_added = []  # list of (i, j) — also recorded into floor
+    new_cell_entries = []  # plain [i, j] entries to append to floor.cells
+    sample_arm_distance = 0.0
+
+    # Cell-arm parameters. For tightly-packed hubs (many LZs in a
+    # 360°-fan layout) shorten arms slightly so adjacent arms don't fuse;
+    # also if MIN_SEP forced clashes near each other, the arms diverge as
+    # they grow so they should still separate visually.
+    arm_width = 3
+    half_w = arm_width // 2  # = 1; arm cells span perpendicular [-1, 0, +1]
+
+    for lz_idx, (lz, ang, _old_dist) in enumerate(lz_dirs):
+        dx = math.cos(ang)
+        dz = math.sin(ang)
+
+        # Find the existing footprint's reach along this direction
+        # (so the arm starts AT the boundary, not floating outside it).
+        existing_reach = _radius_along_direction(cells_set, cx, cz, dx, dz)
+        # If the existing footprint doesn't reach in this direction at
+        # all (e.g. a concave silhouette), default to half the bbox.
+        if existing_reach < 1:
+            existing_reach = max(
+                abs(before_bbox[0]), abs(before_bbox[1]),
+                abs(before_bbox[2]), abs(before_bbox[3])
+            )
+
+        # Arm length, with deterministic per-LZ randomness.
+        arm_seed = seed + ":lz:" + str(lz_idx) + ":" + str(lz.get("target_scene", ""))
+        arm_rng = random.Random(arm_seed)
+        arm_length = arm_rng.randint(8, 14)
+
+        # Per-LZ slight perlin curve. Use a phase derived from the LZ
+        # index so each arm curves differently.
+        curve_phase = arm_rng.uniform(0.0, 100.0)
+        cur_dx, cur_dz = dx, dz
+        last_centre = (cx, cz)
+
+        for step in range(1, arm_length + 1):
+            # Slight curve: rotate the direction by a tiny amount each
+            # step driven by perlin noise.
+            curve_amt = perlin1d(arm_seed, curve_phase + step * 0.35) * 0.06
+            ca = math.cos(curve_amt); sa = math.sin(curve_amt)
+            new_dx = ca * cur_dx - sa * cur_dz
+            new_dz = sa * cur_dx + ca * cur_dz
+            cur_dx, cur_dz = new_dx, new_dz
+
+            tip_i = cx + cur_dx * (existing_reach + step)
+            tip_j = cz + cur_dz * (existing_reach + step)
+
+            # Perpendicular vector for arm width.
+            perp_dx = -cur_dz
+            perp_dz = cur_dx
+
+            for w in range(-half_w, half_w + 1):
+                ai = int(round(tip_i + perp_dx * w))
+                aj = int(round(tip_j + perp_dz * w))
+                key = (ai, aj)
+                if key in cells_set:
+                    continue
+                cells_set.add(key)
+                arm_cells_added.append(key)
+                new_cell_entries.append([ai, aj])
+
+            last_centre = (tip_i, tip_j)
+
+        # The arm tip is the centre cell at the end of the corridor.
+        tip_i_int = int(round(last_centre[0]))
+        tip_j_int = int(round(last_centre[1]))
+        # World coords for the arm tip cell centre.
+        tip_x_world = (tip_i_int + 0.5) * cs
+        tip_z_world = (tip_j_int + 0.5) * cs
+
+        # Push the LZ trigger half a cell beyond the tip in the outward
+        # direction so it's at the very end of the arm corridor.
+        outward_x = tip_x_world + cur_dx * cs * 0.5
+        outward_z = tip_z_world + cur_dz * cs * 0.5
+
+        old_pos = lz.get("pos", [0, 1.4, 0])
+        old_y = float(old_pos[1]) if len(old_pos) > 1 else 1.4
+        # Track sample arm distance for the report (use first arm only).
+        if lz_idx == 0:
+            old_dist = math.hypot(
+                float(old_pos[0]) - (cx + 0.5) * cs,
+                float(old_pos[2]) - (cz + 0.5) * cs,
+            )
+            new_dist = math.hypot(
+                outward_x - (cx + 0.5) * cs,
+                outward_z - (cz + 0.5) * cs,
+            )
+            sample_arm_distance = new_dist - old_dist
+        lz["pos"] = [round(outward_x, 2), old_y, round(outward_z, 2)]
+
+        # Rotate the LZ so it faces inward (rotation_y is the trigger's
+        # facing — the spawn faces opposite). Set rotation_y so the
+        # trigger box's local +z aligns with the arm direction.
+        # (Most LZ triggers use rotation_y to align their flat face with
+        # the wall; we'll set it to atan2(dx, dz) which rotates from -z
+        # to (dx, dz). Keep existing if zero/unset to be conservative.)
+        if "rotation_y" in lz:
+            lz["rotation_y"] = round(math.atan2(cur_dx, cur_dz), 4)
+
+        # Update the matching from_<target> spawn so a player coming
+        # back into this scene appears at the arm tip facing inward.
+        target_scene = lz.get("target_scene", "")
+        if target_scene:
+            spawn_id = "from_" + target_scene
+            spawns = data.get("spawns", [])
+            for sp in spawns:
+                if sp.get("id") == spawn_id:
+                    old_sp_pos = sp.get("pos", [0, 0.5, 0])
+                    sp_y = float(old_sp_pos[1]) if len(old_sp_pos) > 1 else 0.5
+                    sp["pos"] = [round(tip_x_world, 2), sp_y,
+                                 round(tip_z_world, 2)]
+                    # Spawn faces back toward the hub (inward).
+                    sp["rotation_y"] = round(math.atan2(-cur_dx, -cur_dz), 4)
+                    break
+
+    # Write the new cells back into floor.
+    floor["cells"] = list(floor.get("cells", [])) + new_cell_entries
+    floor["_arm_cells"] = [[i, j] for (i, j) in arm_cells_added]
+
+    final_cells = _existing_cell_set(floor)
+    is2 = [c[0] for c in final_cells]
+    js2 = [c[1] for c in final_cells]
+    after_bbox = (min(is2), min(js2), max(is2), max(js2)) if final_cells else None
+
+    return {
+        "level": level_id,
+        "arm_count": len(lz_dirs),
+        "arm_cells_added": len(arm_cells_added),
+        "before_n_cells": before_n_cells,
+        "after_n_cells": len(final_cells),
+        "before_bbox": before_bbox,
+        "after_bbox": after_bbox,
+        "sample_arm_distance": sample_arm_distance,
+        "skipped": False,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Driver
 # ---------------------------------------------------------------------------
 
@@ -1176,6 +1555,19 @@ def main():
         with open(os.path.join(DUNGEONS, fn)) as f:
             levels[lid] = (fn, json.load(f))
 
+    # Idempotency pre-step: strip every level's previously-added arm
+    # cells so subsequent passes (algorithm-owned regrow + handcrafted
+    # pillar/redistribute) operate on the original hub footprint, not
+    # last run's arm-extended footprint. Without this, the handcrafted
+    # bbox-based LZ redistribution drifts further out each run as the
+    # arm-tip becomes the new bbox edge for the next run's redistribution.
+    total_stripped_pre = 0
+    for lid, (fn, data) in levels.items():
+        total_stripped_pre += _strip_arm_cells(data)
+    if total_stripped_pre:
+        print("stripped %d stale arm cells (idempotent re-run cleanup)"
+              % total_stripped_pre)
+
     for lid, (fn, data) in levels.items():
         if lid in ALGO_OWNED and lid in world_pos:
             stats = process_algorithm_level(
@@ -1192,6 +1584,18 @@ def main():
             if added > 0:
                 handcrafted_clusters += added
                 handcrafted_touched += 1
+
+    # ---- Cell-arm growth pass (after all earlier mutations) ----
+    # For every dir with >= 2 outgoing auto:true load_zones, extend
+    # cell-arms reaching outward to each LZ so the silhouette reads as
+    # a hub-with-branches. Idempotent.
+    arm_stats = []
+    for lid, (fn, data) in levels.items():
+        if lid not in PATH_MAP and lid not in ALGO_OWNED:
+            continue
+        st = grow_arms_for_level(lid, data)
+        if not st.get("skipped"):
+            arm_stats.append(st)
 
     # Write back.
     for lid, (fn, data) in levels.items():
@@ -1217,6 +1621,26 @@ def main():
                   bx0, bx1, bz0, bz1,
                   s["spawn_count"], s["lz_count"],
                   s["pillar_clusters"], s["rebound"]))
+
+    print()
+    print("=" * 60)
+    print("CELL-ARM GROWTH: %d levels grew arms" % len(arm_stats))
+    total_arm_cells = sum(s["arm_cells_added"] for s in arm_stats)
+    total_arms = sum(s["arm_count"] for s in arm_stats)
+    print("TOTAL arms grown: %d  (cells added: %d)" % (total_arms, total_arm_cells))
+    print()
+    print("per-level arm breakdown:")
+    for s in sorted(arm_stats, key=lambda x: -x["arm_cells_added"]):
+        bb0 = s["before_bbox"]; bb1 = s["after_bbox"]
+        if bb0 is None or bb1 is None:
+            continue
+        print("  %-22s arms=%2d cells %4d->%4d bbox (%3d..%3d, %3d..%3d) -> "
+              "(%3d..%3d, %3d..%3d) sample_arm_dist=+%4.1f" % (
+                  s["level"], s["arm_count"],
+                  s["before_n_cells"], s["after_n_cells"],
+                  bb0[0], bb0[2], bb0[1], bb0[3],
+                  bb1[0], bb1[2], bb1[1], bb1[3],
+                  s["sample_arm_distance"]))
 
 
 if __name__ == "__main__":
