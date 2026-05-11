@@ -38,6 +38,13 @@ static func snap(node: Node3D, max_drop: float = 50.0,
     query.exclude = excludes
     var hit: Dictionary = space.intersect_ray(query)
     if hit.is_empty():
+        # Diagnostic: when a prop can't find ground beneath it the
+        # caller has no way to know — the prop just stays where it
+        # was (likely floating). Surface it so the headless-boot
+        # smoke tests catch terrain holes.
+        push_warning("ground_snap: no ground beneath %s @ %s" % [
+            node.name, p
+        ])
         return false
     node.global_position.y = float(hit["position"].y) + y_offset
     return true

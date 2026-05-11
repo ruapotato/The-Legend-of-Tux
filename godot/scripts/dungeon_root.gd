@@ -122,10 +122,36 @@ func _attach_enemy_culler() -> void:
 
 
 func _snap_props_to_ground() -> void:
-    # Wait one physics tick so the TerrainMesh's trimesh collision
+    # Wait several physics ticks so the TerrainMesh's trimesh collision
     # shape has had time to register with the physics server, then
     # raycast every node in the "ground_snap" group down to it.
+    #
+    # With per-cell hills (terrain_height_pass) every level now ships a
+    # mesh with hundreds of varying-height triangles; the trimesh shape
+    # rebuild + physics-server registration sometimes takes more than a
+    # single frame, especially on the bigger hubs (crown ~24k cells).
+    # If we snap before it's ready, every ray returns empty and props
+    # hover. Three ticks is empirically enough on sourceplain (the
+    # heaviest level); we then verify by sampling one terrain_mesh
+    # node and waiting until *its* StaticBody3D answers a ray.
     await get_tree().physics_frame
+    await get_tree().physics_frame
+    await get_tree().physics_frame
+    # Verify terrain collision is live by raying down through it from
+    # high above the level origin; if nothing comes back, give it a few
+    # more frames before giving up. Caps at ~10 extra frames so we
+    # don't deadlock on a genuinely terrain-less scene.
+    var world := get_world_3d()
+    if world != null:
+        var space := world.direct_space_state
+        var probe := PhysicsRayQueryParameters3D.create(
+            Vector3(0.0, 200.0, 0.0), Vector3(0.0, -200.0, 0.0))
+        probe.collision_mask = 1
+        for _i in range(10):
+            var hit: Dictionary = space.intersect_ray(probe)
+            if not hit.is_empty():
+                break
+            await get_tree().physics_frame
     var snap = preload("res://scripts/ground_snap.gd")
     for n in get_tree().get_nodes_in_group("ground_snap"):
         if n is Node3D:

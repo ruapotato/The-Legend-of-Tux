@@ -330,6 +330,34 @@ def perlin1d(seed, t):
     return a * (1 - s) + b * s
 
 
+def perlin2d(seed, x, y):
+    """Return a smooth 2D noise value in [-1, 1] for (x, y).
+
+    Implemented as bilinear-interpolated _hash01 values at the four
+    integer-lattice corners with smoothstep easing, matching perlin1d's
+    style. Deterministic for a given (seed, x, y).
+    """
+    x = float(x)
+    y = float(y)
+    x0 = int(math.floor(x))
+    y0 = int(math.floor(y))
+    x1 = x0 + 1
+    y1 = y0 + 1
+    fx = x - x0
+    fy = y - y0
+    # Corner samples, mapped to [-1, 1].
+    a = _hash01(seed, x0, y0) * 2 - 1
+    b = _hash01(seed, x1, y0) * 2 - 1
+    c = _hash01(seed, x0, y1) * 2 - 1
+    d = _hash01(seed, x1, y1) * 2 - 1
+    # Smoothstep ease in each axis.
+    sx = fx * fx * (3 - 2 * fx)
+    sy = fy * fy * (3 - 2 * fy)
+    ab = a * (1 - sx) + b * sx
+    cd = c * (1 - sx) + d * sx
+    return ab * (1 - sy) + cd * sy
+
+
 # ---------------------------------------------------------------------------
 # Cell generation per algorithm-owned directory
 # ---------------------------------------------------------------------------
@@ -2298,6 +2326,358 @@ def grow_arms_for_level(level_id, data, level_seed_extra="",
 
 
 # ---------------------------------------------------------------------------
+# Per-cell terrain height (Fix 1) — Perlin hills + linear up-slope to children
+# ---------------------------------------------------------------------------
+#
+# Up until this pass every cell's y is 0 (only ~205 of crown's 11k cells
+# carried any y). Levels rendered as a billiard table. terrain_height_pass
+# walks every cell of every level and stamps in a deterministic y-offset
+# composed of:
+#
+#   1. Broad rolling Perlin hills (±1.8m) + fine detail (±0.4m).
+#   2. A linear up-slope along trunk_axis: going SOUTH (toward the parent)
+#      descends to zero, going NORTH (toward children / arm tips) climbs
+#      to MAX_RISE = 2.5m. So load_zones to children sit at the *high*
+#      points of the level.
+#   3. Arm cells get hill noise dampened to 0.4× so corridors stay
+#      walkable rather than turning into roller coasters.
+#
+# Pre-existing manually-set y values (the Old Throne mesa at y=3.0 in
+# Crown, for instance) are preserved via `floor["_terrain_y"]`: that map
+# records what *this pass* generated last run, so subsequent re-runs can
+# subtract the prior contribution off cell.y to recover the manual base
+# and re-apply the new generated values on top without drift.
+#
+# Idempotent: re-running yields identical cell y's.
+# ---------------------------------------------------------------------------
+
+# Tunables (kept module-level so the pass is easy to tweak in one place).
+TERRAIN_HILL_BROAD = 1.8      # ±m broad rolling
+TERRAIN_HILL_DETAIL = 0.4     # ±m fine detail
+TERRAIN_HILL_FREQ_BROAD = 0.05
+TERRAIN_HILL_FREQ_DETAIL = 0.18
+TERRAIN_MAX_RISE = 2.5        # m: south anchor -> north arm tip
+TERRAIN_ARM_SOFTEN = 0.4      # arm corridors get this fraction of hill noise
+
+
+def _terrain_key(i, j):
+    """JSON-safe dict key for the (i, j) → y_terrain map."""
+    return "%d,%d" % (int(i), int(j))
+
+
+def _level_south_anchor_cell(data, cells_set):
+    """Return (i, j) for the 'south' anchor of this level — used as the
+    low end of the trunk-axis up-slope. Prefer the `default` spawn's
+    cell (handcrafted levels put their entry there); fall back to the
+    `from_<parent>` spawn; final fallback is the cell with the lowest j
+    in the footprint (algorithm-owned convention)."""
+    cs = CELL_SIZE
+    spawns = data.get("spawns", []) or []
+    default = None
+    from_parent = None
+    for s in spawns:
+        sid = s.get("id", "")
+        if sid == "default":
+            default = s
+        elif sid.startswith("from_") and from_parent is None:
+            # Parent spawn isn't reliably first; we just pick the first
+            # `from_*` as a fallback if no `default` exists.
+            from_parent = s
+    candidate = default or from_parent
+    if candidate:
+        pos = candidate.get("pos", [0, 0, 0])
+        if len(pos) >= 3:
+            x = float(pos[0]); z = float(pos[2])
+            ci = int(math.floor(x / cs))
+            cj = int(math.floor(z / cs))
+            # Snap to nearest in-footprint cell.
+            if cells_set:
+                best = min(cells_set, key=lambda c: (c[0]-ci)*(c[0]-ci) + (c[1]-cj)*(c[1]-cj))
+                return best
+            return (ci, cj)
+    # Last resort: lowest-j cell.
+    if cells_set:
+        return min(cells_set, key=lambda c: c[1])
+    return (0, -1)
+
+
+def _cell_y_lookup(cells_list):
+    """Build a {(i,j): y} map from a floor['cells'] list."""
+    out = {}
+    for c in cells_list:
+        if isinstance(c, dict):
+            i = int(c.get("i", 0)); j = int(c.get("j", 0))
+            y = float(c.get("y", 0.0))
+        else:
+            i = int(c[0]); j = int(c[1])
+            y = float(c[2]) if len(c) >= 3 and c[2] is not None else 0.0
+        out[(i, j)] = y
+    return out
+
+
+def terrain_height_pass(levels, parent_of=None, children_of=None,
+                        world_pos=None, trunk_dir=None):
+    """Assign each cell of every level a y-offset combining Perlin hills,
+    a linear up-slope toward children, and a smooth soften-with-distance
+    so arm corridors aren't roller coasters. Mutates each `data` in
+    place. Returns a list of per-level stats.
+
+    `parent_of`/`children_of`/`world_pos`/`trunk_dir` come from the
+    L-system layout (main()). When provided we use them to pick a
+    stable trunk axis direction per level — derived from the level id
+    only, so re-runs don't drift even when the upstream arm/bulge
+    passes shuffle their cells.
+    """
+    parent_of = parent_of or {}
+    children_of = children_of or {}
+    world_pos = world_pos or {}
+    trunk_dir = trunk_dir or {}
+    stats = []
+
+    for lid, (_fn, data) in levels.items():
+        floor = data.get("grid", {}).get("floors", [{}])[0]
+        if not floor:
+            continue
+        cells_list = floor.get("cells", []) or []
+        if not cells_list:
+            continue
+
+        # Build (i,j) -> current y from the current cells list. We
+        # need to recover the manually-authored y (e.g. the Old Throne
+        # mesa) so successive re-runs don't drift. The previous run
+        # stored its PURE generated delta in floor["_terrain_y"]; on a
+        # re-run, the current y is either:
+        #   - that generated value (no manual override), or
+        #   - a larger value (manual > generated triggered the max).
+        # So if cur_y > prior_terrain + tiny epsilon, the cell had a
+        # manual override and cur_y IS the manual_y. Otherwise it had
+        # no override and manual_y is effectively zero.
+        cur_y = _cell_y_lookup(cells_list)
+        prior_terrain = floor.get("_terrain_y", {}) or {}
+        manual_y = {}
+        for key, y in cur_y.items():
+            tk = _terrain_key(*key)
+            if tk not in prior_terrain:
+                # No prior pass record — this cell's whole y is manual.
+                manual_y[key] = y
+                continue
+            prior = float(prior_terrain[tk])
+            if y > prior + 1e-3:
+                # Manual override drove cur_y above the generated value.
+                manual_y[key] = y
+            else:
+                # cur_y matches (or sits below) the prior generated
+                # value; treat as "no manual override here".
+                manual_y[key] = 0.0
+
+        cells_set = set(cur_y.keys())
+        if not cells_set:
+            continue
+
+        # Determine south anchor + trunk axis. Both must be STABLE
+        # across re-runs (only depend on the level id and the
+        # L-system tree, not on the current arm/bulge cell positions
+        # which the upstream passes shuffle slightly each run).
+        south_anchor = _level_south_anchor_cell(data, cells_set)
+
+        # Pick a trunk axis direction. Priority order:
+        #   1. Algorithm-owned dirs: local +j (the spec's "north
+        #      toward children" convention used by generate_cells).
+        #   2. Any dir with kids in the L-system tree: from world_pos
+        #      delta to the centroid of all child world positions,
+        #      rotated into this level's LOCAL frame via trunk_dir.
+        #      Note for handcrafted levels we don't have a trunk_dir
+        #      (only ALGO_OWNED gets one from compute_layout). In that
+        #      case the world-frame delta IS the local frame delta
+        #      (we treat cells coords as world XZ — see
+        #      cells_to_world_xz).
+        #   3. Hash-fixed direction per level id — deterministic and
+        #      run-independent. Used when the level has no kids and
+        #      no other signal.
+        local_axis = None
+        if lid in ALGO_OWNED:
+            local_axis = (0.0, 1.0)
+        elif lid in world_pos:
+            kids = [k for k in (children_of.get(lid, []) or [])
+                    if k in world_pos and k != parent_of.get(lid)]
+            if kids:
+                my_wx, my_wy = world_pos[lid]
+                avg_wx = sum(world_pos[k][0] for k in kids) / float(len(kids)) - my_wx
+                avg_wy = sum(world_pos[k][1] for k in kids) / float(len(kids)) - my_wy
+                if lid in trunk_dir:
+                    # ALGO_OWNED short-circuited above, so this is
+                    # only hit when an explicit trunk_dir exists for
+                    # a non-algo-owned id (rare). Rotate to local.
+                    tdx_w, tdy_w = trunk_dir[lid]
+                    lx = tdy_w * avg_wx - tdx_w * avg_wy
+                    ly = tdx_w * avg_wx + tdy_w * avg_wy
+                else:
+                    # Handcrafted: cell coords are themselves world
+                    # XZ deltas from the level origin, so the world-
+                    # frame vector IS the local-frame vector.
+                    lx, ly = avg_wx, avg_wy
+                mag = math.hypot(lx, ly)
+                if mag > 1e-6:
+                    local_axis = (lx / mag, ly / mag)
+        if local_axis is None:
+            # Hash-derived constant per level id — stable across runs
+            # and a sensible "this level points roughly that way"
+            # heuristic for leaf levels with no children.
+            ang = _hash01("terrain::axis::" + lid) * 2.0 * math.pi
+            local_axis = (math.cos(ang), math.sin(ang))
+        tdx, tdj = local_axis
+
+        # bbox_diag for slope normalisation: project every cell onto
+        # the trunk axis and take the span. So a cell at the arm tip
+        # (max projection) lands at the MAX_RISE end of the slope
+        # (per Fix 3 — "tips at the level's HIGH point"). We quantise
+        # to nearest 4 cells so the small per-run drift in arm-grow
+        # output (one or two cells added/removed at the rim) doesn't
+        # shift the slope mapping; without quantisation the per-cell
+        # y picks up a few-cm drift across re-runs.
+        cell_projs = [(c[0] - south_anchor[0]) * tdx
+                      + (c[1] - south_anchor[1]) * tdj
+                      for c in cells_set]
+        if cell_projs:
+            raw_diag = max(1.0, max(cell_projs) - min(cell_projs))
+            bbox_diag = max(1.0, round(raw_diag / 4.0) * 4.0)
+        else:
+            bbox_diag = 1.0
+
+        seed_broad = "terrain::" + lid
+        seed_detail = "terrain::" + lid + "::detail"
+
+        # Pre-compute the dampening per-cell as a smooth function of
+        # projection distance, so a cell that flips between
+        # `_arm_cells` membership across runs doesn't toggle a
+        # discrete 0.4x switch and shift its y by ~1m. Cells far from
+        # the south anchor (i.e. out in the arms) get more soften;
+        # cells in the hub stay full-strength.
+        new_terrain = {}
+        new_y_by_cell = {}
+        for (i, j) in cells_set:
+            # 1. Perlin hills.
+            h1 = perlin2d(seed_broad,
+                          i * TERRAIN_HILL_FREQ_BROAD,
+                          j * TERRAIN_HILL_FREQ_BROAD) * TERRAIN_HILL_BROAD
+            h2 = perlin2d(seed_detail,
+                          i * TERRAIN_HILL_FREQ_DETAIL,
+                          j * TERRAIN_HILL_FREQ_DETAIL) * TERRAIN_HILL_DETAIL
+            hill_y = h1 + h2
+            # Soften based on projected distance from the south anchor
+            # along the trunk axis — far cells (arm corridors) get
+            # gentler hills than near cells (hub). This avoids
+            # toggling a discrete 0.4x on/off when a cell flips its
+            # `_arm_cells` membership between non-idempotent re-runs.
+            proj_for_soften = (i - south_anchor[0]) * tdx + (j - south_anchor[1]) * tdj
+            t_soften = max(0.0, min(1.0, proj_for_soften / bbox_diag))
+            # 1.0 at south (full hills), TERRAIN_ARM_SOFTEN at far north.
+            soften = 1.0 + (TERRAIN_ARM_SOFTEN - 1.0) * t_soften
+            hill_y *= soften
+            # 2. Linear slope along trunk axis.
+            proj = (i - south_anchor[0]) * tdx + (j - south_anchor[1]) * tdj
+            t = proj / bbox_diag
+            if t < 0.0: t = 0.0
+            elif t > 1.0: t = 1.0
+            slope_y = t * TERRAIN_MAX_RISE
+            # 3. Combine + manual preserve. We store the PURE generated
+            # delta in _terrain_y (not the final y after the manual
+            # override), so a re-run that backs prior_terrain off cur_y
+            # cleanly recovers manual_y — even when manual > generated.
+            gen = round(hill_y + slope_y, 3)
+            my = manual_y.get((i, j), 0.0)
+            if my > 0.5:
+                y = max(gen, my)
+            else:
+                y = gen
+            new_terrain[(i, j)] = gen
+            new_y_by_cell[(i, j)] = round(y, 3)
+
+        # Rewrite cells list, preserving color tuples on entries that
+        # have them, dropping the y entry when it's effectively zero.
+        new_cells = []
+        for c in cells_list:
+            color = None
+            if isinstance(c, dict):
+                i = int(c.get("i", 0)); j = int(c.get("j", 0))
+                if c.get("color"):
+                    color = c["color"]
+            else:
+                i = int(c[0]); j = int(c[1])
+                if len(c) >= 4 and c[3] is not None:
+                    color = c[3]
+            y = new_y_by_cell.get((i, j), 0.0)
+            if color is not None:
+                new_cells.append([i, j, y, color])
+            elif abs(y) > 1e-4:
+                new_cells.append([i, j, y])
+            else:
+                new_cells.append([i, j])
+        floor["cells"] = new_cells
+
+        # Persist the generated terrain map so future re-runs can back
+        # out the prior pass cleanly (idempotency).
+        floor["_terrain_y"] = {_terrain_key(i, j): v
+                               for (i, j), v in new_terrain.items()}
+
+        # Fix 3 — Update load_zone trigger y's to ride on the hill, and
+        # update from_<X> spawn y's to match the cell beneath them.
+        for lz in data.get("load_zones", []) or []:
+            pos = lz.get("pos", None)
+            if not pos or len(pos) < 3:
+                continue
+            x = float(pos[0]); z = float(pos[2])
+            ci = int(math.floor(x / CELL_SIZE))
+            cj = int(math.floor(z / CELL_SIZE))
+            # Snap to the nearest in-footprint cell — LZ triggers sit
+            # half a cell past the arm tip, so the cell *exactly under*
+            # the trigger XZ is sometimes a void.
+            if (ci, cj) in new_y_by_cell:
+                cy = new_y_by_cell[(ci, cj)]
+            elif cells_set:
+                best = min(cells_set,
+                           key=lambda c: (c[0]-ci)*(c[0]-ci) + (c[1]-cj)*(c[1]-cj))
+                cy = new_y_by_cell.get(best, 0.0)
+            else:
+                cy = 0.0
+            lz["pos"] = [pos[0], round(cy + 1.4, 2), pos[2]]
+
+        for sp in data.get("spawns", []) or []:
+            sid = sp.get("id", "")
+            # Only adjust spawn anchors that ride on a level cell. The
+            # `default` and `from_*` spawns are placed at cell centres
+            # by earlier passes; their y becomes ground_y + 0.5.
+            if not (sid == "default" or sid.startswith("from_")):
+                continue
+            pos = sp.get("pos", None)
+            if not pos or len(pos) < 3:
+                continue
+            x = float(pos[0]); z = float(pos[2])
+            ci = int(math.floor(x / CELL_SIZE))
+            cj = int(math.floor(z / CELL_SIZE))
+            if (ci, cj) in new_y_by_cell:
+                cy = new_y_by_cell[(ci, cj)]
+            elif cells_set:
+                best = min(cells_set,
+                           key=lambda c: (c[0]-ci)*(c[0]-ci) + (c[1]-cj)*(c[1]-cj))
+                cy = new_y_by_cell.get(best, 0.0)
+            else:
+                cy = 0.0
+            sp["pos"] = [pos[0], round(cy + 0.5, 2), pos[2]]
+
+        ys = list(new_y_by_cell.values())
+        stats.append({
+            "level": lid,
+            "n_cells": len(cells_set),
+            "n_nonzero": sum(1 for y in ys if abs(y) > 1e-3),
+            "min_y": min(ys) if ys else 0.0,
+            "max_y": max(ys) if ys else 0.0,
+            "mean_y": (sum(ys) / len(ys)) if ys else 0.0,
+        })
+    return stats
+
+
+# ---------------------------------------------------------------------------
 # Driver
 # ---------------------------------------------------------------------------
 
@@ -2540,6 +2920,18 @@ def main():
             total_holes_filled += filled_this_level
     print("HOLE-FILL: %d cells filled across all levels" % total_holes_filled)
 
+    # ---- Per-cell terrain height (Fix 1) ----
+    # Walk every cell and stamp a Perlin hill + linear up-slope y-offset
+    # so levels stop rendering as flat slabs. Also re-projects load_zone
+    # trigger y's and from_<X> spawn y's onto the new surface. Idempotent.
+    terrain_stats = terrain_height_pass(
+        levels,
+        parent_of=parent_of,
+        children_of=children_of,
+        world_pos=world_pos,
+        trunk_dir=trunk_dir,
+    )
+
     # Write back.
     for lid, (fn, data) in levels.items():
         with open(os.path.join(DUNGEONS, fn), "w") as f:
@@ -2623,6 +3015,26 @@ def main():
                   bb0[0], bb0[2], bb0[1], bb0[3],
                   bb1[0], bb1[2], bb1[1], bb1[3],
                   s["sample_arm_distance"]))
+
+    print()
+    print("=" * 60)
+    print("TERRAIN HEIGHT PASS: %d levels stamped with Perlin hills + slope"
+          % len(terrain_stats))
+    if terrain_stats:
+        all_max = max(s["max_y"] for s in terrain_stats)
+        all_min = min(s["min_y"] for s in terrain_stats)
+        total_cells = sum(s["n_cells"] for s in terrain_stats)
+        total_nz = sum(s["n_nonzero"] for s in terrain_stats)
+        avg_range = sum(s["max_y"] - s["min_y"] for s in terrain_stats) / float(len(terrain_stats))
+        print("  global min y: %+.2f m   global max y: %+.2f m" % (all_min, all_max))
+        print("  cells with non-zero y: %d / %d (%.1f%%)"
+              % (total_nz, total_cells, 100.0 * total_nz / max(1, total_cells)))
+        print("  average per-level elevation range: %.2f m" % avg_range)
+        print()
+        print("  per-level elevation range (top 15 by range):")
+        for s in sorted(terrain_stats, key=lambda x: -(x["max_y"] - x["min_y"]))[:15]:
+            print("    %-22s cells=%5d  y range %+.2f .. %+.2f  mean %+.2f"
+                  % (s["level"], s["n_cells"], s["min_y"], s["max_y"], s["mean_y"]))
 
 
 if __name__ == "__main__":
