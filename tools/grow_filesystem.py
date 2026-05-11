@@ -2156,6 +2156,59 @@ def main():
         if not st.get("skipped"):
             arm_stats.append(st)
 
+    # Orphan-island strip: BFS each level's cells, find connected
+    # components, drop any component smaller than 30 cells. These tiny
+    # disconnected fragments (left behind by arm-rejection or blob-
+    # union edges) produce ghost tree-pillar clusters in the void —
+    # "floating trees" because every cell-edge becomes a tree_wall and
+    # the cluster has no actual room. After v7 hole-fill the big
+    # connected mass is solid; the survivors must be the strays.
+    total_orphans_stripped = 0
+    for lid, (fn, data) in levels.items():
+        floor = data.get("grid", {}).get("floors", [{}])[0]
+        if not floor: continue
+        cells_list = floor.get("cells", [])
+        if not cells_list: continue
+        cell_y = {}
+        for c in cells_list:
+            cell_y[(int(c[0]), int(c[1]))] = float(c[2]) if len(c) >= 3 else 0.0
+        cells_set = set(cell_y.keys())
+        visited = set()
+        components = []
+        for start in cells_set:
+            if start in visited: continue
+            stack = [start]; comp = set()
+            while stack:
+                cur = stack.pop()
+                if cur in visited: continue
+                visited.add(cur); comp.add(cur)
+                for dx, dz in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    n = (cur[0] + dx, cur[1] + dz)
+                    if n in cells_set and n not in visited:
+                        stack.append(n)
+            components.append(comp)
+        if len(components) <= 1: continue
+        components.sort(key=len, reverse=True)
+        # Keep the largest + any other component ≥ 30 cells. Drop the rest.
+        dropped = 0
+        new_cells_set = set(components[0])
+        for comp in components[1:]:
+            if len(comp) >= 30:
+                new_cells_set |= comp
+            else:
+                dropped += len(comp)
+        if dropped:
+            new_cells_list = []
+            for (i, j) in sorted(new_cells_set):
+                y = cell_y[(i, j)]
+                if abs(y) > 1e-4:
+                    new_cells_list.append([i, j, y])
+                else:
+                    new_cells_list.append([i, j])
+            floor["cells"] = new_cells_list
+            total_orphans_stripped += dropped
+    print("ORPHAN-ISLAND STRIP: %d stray cells removed" % total_orphans_stripped)
+
     # Hole-fill pass: any non-cell position that has >= 3 of 4 cardinal
     # neighbors as cells gets filled in. Without this, the Perlin width
     # variation + arm bulge stamps leave tiny gaps inside the arms; the
