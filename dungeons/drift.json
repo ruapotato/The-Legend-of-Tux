@@ -179189,6 +179189,67 @@
         40.05
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Tucked in a corner of the carnival yard:\n\nOld session lockfiles. Cleared at boot. Most of us don't ask."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Festival-goer",
+      "body_color": [
+        0.95,
+        0.4,
+        0.15,
+        1.0
+      ],
+      "hat_color": [
+        0.75,
+        0.25,
+        0.1,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the festival-goer",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Festival-goer",
+            "text": "*she is wearing yesterday's wreath, already wilting*\n\nYesterday's release? Forgotten. Tomorrow's? Will be. Today is the festival, walker, and the festival is the only thing.",
+            "choices": [
+              {
+                "label": "What was yesterday's?",
+                "next": "yest"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "yest": {
+            "speaker": "Festival-goer",
+            "text": "*she thinks for a long second*\n\nI do not remember. That is the point.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Festival-goer",
+            "text": "*she spins back into the crowd*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

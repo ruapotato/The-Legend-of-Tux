@@ -113569,6 +113569,118 @@
         -76.22
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "message": "Mounted on the key-forging anvil:\n\n    ssh-keygen\n\n    Forge a key here.\n    Never the same key twice.\n    Lose it and lose access.\n\nThe priests will not forge you another. The realm only accepts the one."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        1.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Scribe Tab",
+      "body_color": [
+        0.3,
+        0.4,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.5,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Scribe Tab",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Scribe Tab",
+            "text": "*she does not look up from her parchment. Her colleague across the way is wrong. She has been ready to say so for twenty-six years.*\n\nTabs.",
+            "choices": [
+              {
+                "label": "Tabs?",
+                "next": "tabs"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "tabs": {
+            "speaker": "Scribe Tab",
+            "text": "Tabs.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Scribe Tab",
+            "text": "*she does not, in fact, look up*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Scribe Spaces",
+      "body_color": [
+        0.55,
+        0.3,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.55,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Scribe Spaces",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Scribe Spaces",
+            "text": "*she sharpens her quill with theatrical care. Her colleague is wrong and has been for twenty-six years. She is content to keep being right.*\n\nSpaces.",
+            "choices": [
+              {
+                "label": "Spaces?",
+                "next": "sp"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "sp": {
+            "speaker": "Scribe Spaces",
+            "text": "Spaces.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Scribe Spaces",
+            "text": "*she resumes sharpening*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

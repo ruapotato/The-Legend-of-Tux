@@ -3167,6 +3167,26 @@
       ],
       "rotation_y": 0.0,
       "message": "Locked.\nThe chord will know."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "WARNING. DO NOT RUN.\n\n    rm -rf /\n\nThe realm has been here before. Some patches never re-grew."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -5.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Etched small in the threshold stone:\n\n    A black hole.\n    Append-only.\n    No retrieval."
     }
   ],
   "load_zones": [

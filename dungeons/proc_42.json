@@ -14594,6 +14594,16 @@
           }
         }
       }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Carved stone, polished by many hands:\n\n    model name : Wyrdkin Core 1\n    cores      : 1\n    bogomips   : 4.20\n    clock      : 1.000 wing-beats / breath"
     }
   ],
   "load_zones": [

@@ -1,22 +1,22 @@
 [gd_scene load_steps=891 format=3 uid="uid://btuxlocals01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
@@ -8108,6 +8108,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.46, 0, -31.28)
 
 [node name="Rock38" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.69, 0, 30.24)
+
+[node name="Npc39_Nano" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 1, 0, 0)
+npc_name = "Nano"
+body_color = Color(0.85, 0.75, 0.55, 1)
+hat_color = Color(0.6, 0.5, 0.35, 1)
+idle_hint = "[E] Speak with Nano"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Nano\", \"text\": \"*soft, small voice*\\n\\nI just want to write something simple. The keys are listed at the bottom. ^O to save. ^X to leave. I do not understand why anyone needs more than this.\", \"choices\": [{\"label\": \"It is enough.\", \"next\": \"ok\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"ok\": {\"speaker\": \"Nano\", \"text\": \"*she smiles, relieved*\\n\\nThank you.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Nano\", \"text\": \"*she goes back to the page*\"}}}"
+
+[node name="Npc40_Arch_User" parent="." instance=ExtResource("npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+npc_name = "Arch-User"
+body_color = Color(0.25, 0.4, 0.55, 1)
+hat_color = Color(0.15, 0.25, 0.4, 1)
+idle_hint = "[E] Speak with the arch-user"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Arch-User\", \"text\": \"*before you can speak, he speaks*\\n\\nI built my home from the source. Every beam I cut. Every nail I forged. Every shingle I split. I do not let anyone forget this.\", \"choices\": [{\"label\": \"...Is it a good home?\", \"next\": \"good\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"good\": {\"speaker\": \"Arch-User\", \"text\": \"It is exactly the home I wanted, because I built it. *he beams* You should build yours from the source. It is the only way.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Arch-User\", \"text\": \"*he watches you go, ready to tell the next walker*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01634, 1.3, -31.3763)

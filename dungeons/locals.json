@@ -49494,6 +49494,108 @@
         30.24
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Nano",
+      "body_color": [
+        0.85,
+        0.75,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.5,
+        0.35,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Nano",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Nano",
+            "text": "*soft, small voice*\n\nI just want to write something simple. The keys are listed at the bottom. ^O to save. ^X to leave. I do not understand why anyone needs more than this.",
+            "choices": [
+              {
+                "label": "It is enough.",
+                "next": "ok"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "ok": {
+            "speaker": "Nano",
+            "text": "*she smiles, relieved*\n\nThank you.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Nano",
+            "text": "*she goes back to the page*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.0,
+        0.0,
+        2.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Arch-User",
+      "body_color": [
+        0.25,
+        0.4,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.15,
+        0.25,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the arch-user",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Arch-User",
+            "text": "*before you can speak, he speaks*\n\nI built my home from the source. Every beam I cut. Every nail I forged. Every shingle I split. I do not let anyone forget this.",
+            "choices": [
+              {
+                "label": "...Is it a good home?",
+                "next": "good"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "good": {
+            "speaker": "Arch-User",
+            "text": "It is exactly the home I wanted, because I built it. *he beams* You should build yours from the source. It is the only way.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Arch-User",
+            "text": "*he watches you go, ready to tell the next walker*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

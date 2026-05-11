@@ -3779,6 +3779,58 @@
       "rotation_y": 0,
       "contents": "heart_piece",
       "open_message": "Behind the painted carnival curtain that has not been raised in three years. The barker meant to give it as a prize. The festival never came."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -5.0
+      ],
+      "rotation_y": 0.0,
+      "name": "The Cow",
+      "body_color": [
+        0.95,
+        0.95,
+        0.92,
+        1.0
+      ],
+      "hat_color": [
+        0.25,
+        0.18,
+        0.12,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to the Cow",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Cow",
+            "text": " ____________________\n< Moo. Have a nice day. >\n --------------------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||",
+            "choices": [
+              {
+                "label": "...Walk well, cow.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "The Cow",
+            "text": "*The Cow chews. The bubble holds.*"
+          }
+        }
+      }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -2.0,
+        0.0,
+        -8.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Carnival placard:\n\n    cowsay -f bunny \"do not feed\""
     }
   ],
   "load_zones": [

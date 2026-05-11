@@ -27756,6 +27756,26 @@
         0.0,
         13.08
       ]
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "message": "Near the cradle stones:\n\n   Who are you?\n   Tux.\n\nThere has never been anyone else here."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        1.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "message": "By the cradle path:\n\n    One breath sent.\n    One breath returned.\n    No breath lost.\n    Home is reachable."
     }
   ],
   "load_zones": [

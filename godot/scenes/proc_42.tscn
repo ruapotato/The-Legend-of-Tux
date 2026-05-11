@@ -1,16 +1,16 @@
 [gd_scene load_steps=516 format=3 uid="uid://btuxproc4201"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.3, 0.34, 0.4, 1)
@@ -4575,6 +4575,10 @@ body_color = Color(0.95, 0.85, 0.45, 1)
 hat_color = Color(0.92, 0.65, 0.25, 1)
 idle_hint = "[E] Speak with the Answer"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"The Answer\", \"text\": \"*she is beaming. The fog around her seems lighter just from how cheerful she is.*\\n\\nWalker! At last! You've come for the Answer.\\n\\nIt's me. I'm the Answer.\", \"choices\": [{\"label\": \"The answer to what?\", \"next\": \"what\"}, {\"label\": \"Are you sure?\", \"next\": \"sure\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"what\": {\"speaker\": \"The Answer\", \"text\": \"*she looks momentarily puzzled, then brightens again.*\\n\\nI don't entirely remember the question. But the answer is definitely me. I am very confident about this.\\n\\nThe sign on the post is very clear. Now scheduled. Do not kill.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"sure\": {\"speaker\": \"The Answer\", \"text\": \"Oh yes, walker. Quite sure. Quite, quite sure.\\n\\nI'll be needed in a breath, no doubt. Or the breath after. Or the one after that. The realm will call. The realm always calls.\\n\\n*she beams.*\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"The Answer\", \"text\": \"Walk well, walker! Tell the others I am here, and I am the Answer, and I am ready!\"}}}"
+
+[node name="Sign3" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+message = "Carved stone, polished by many hands:\n\n    model name : Wyrdkin Core 1\n    cores      : 1\n    bogomips   : 4.20\n    clock      : 1.000 wing-beats / breath"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.484975, 2.78, -6.49997)

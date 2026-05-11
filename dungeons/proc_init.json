@@ -31984,6 +31984,48 @@
         0.0,
         10.7
       ]
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 3.14159,
+      "name": "Uname",
+      "body_color": [
+        0.55,
+        0.55,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.85,
+        0.9,
+        1.0
+      ],
+      "idle_hint": "[E] Ask Uname who we are",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Uname",
+            "text": "You want the full name of the realm? Few do.\n\nWyrdmark wyrdkin-machine 6.12.42-mount #1 SMP PREEMPT Cron-MM-DD.\n\nThat is the realm. Every part of it true. No part of it useful.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Uname",
+            "text": "*she nods, satisfied that she was asked*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

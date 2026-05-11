@@ -21157,6 +21157,16 @@
         -10.53
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Pinned on a shelf of bound histories:\n\n    All commits are equal but some commits are 'fix.'\n\nThe Stacks-keeper has read this shelf three times. The shelf is, in fact, only one commit. Long."
     }
   ],
   "load_zones": [

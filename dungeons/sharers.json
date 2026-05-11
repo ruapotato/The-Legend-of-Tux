@@ -42565,6 +42565,207 @@
         -8.03
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        4.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "The Fortune Teller",
+      "body_color": [
+        0.45,
+        0.2,
+        0.5,
+        1.0
+      ],
+      "hat_color": [
+        0.92,
+        0.78,
+        0.15,
+        1.0
+      ],
+      "idle_hint": "[E] Hear a fortune",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Fortune Teller",
+            "text": "*She turns over a smooth stone. Each side carries a word that wasn't there a moment ago.*\n\nThe realm has prepared a saying for you. Listen.",
+            "choices": [
+              {
+                "label": "Turn the stone (1).",
+                "next": "f1"
+              },
+              {
+                "label": "Turn the stone (2).",
+                "next": "f2"
+              },
+              {
+                "label": "Turn the stone (3).",
+                "next": "f3"
+              },
+              {
+                "label": "Turn the stone (4).",
+                "next": "f4"
+              },
+              {
+                "label": "Turn the stone (5).",
+                "next": "f5"
+              },
+              {
+                "label": "Turn the stone (6).",
+                "next": "f6"
+              },
+              {
+                "label": "Turn the stone (7).",
+                "next": "f7"
+              },
+              {
+                "label": "Turn the stone (8).",
+                "next": "f8"
+              },
+              {
+                "label": "Turn the stone (9).",
+                "next": "f9"
+              },
+              {
+                "label": "Turn the stone (10).",
+                "next": "f10"
+              },
+              {
+                "label": "Turn the stone (11).",
+                "next": "f11"
+              },
+              {
+                "label": "Turn the stone (12).",
+                "next": "f12"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "f1": {
+            "speaker": "The Fortune Teller",
+            "text": "\"He who laughs, lasts.\"",
+            "next": "root"
+          },
+          "f2": {
+            "speaker": "The Fortune Teller",
+            "text": "\"The early bird gets the worm, but the second mouse gets the cheese.\"",
+            "next": "root"
+          },
+          "f3": {
+            "speaker": "The Fortune Teller",
+            "text": "\"You will find what you seek, after you stop seeking it.\"",
+            "next": "root"
+          },
+          "f4": {
+            "speaker": "The Fortune Teller",
+            "text": "\"All that is gold does not glitter; not all who wander are lost.\"",
+            "next": "root"
+          },
+          "f5": {
+            "speaker": "The Fortune Teller",
+            "text": "\"Today is the first day of the rest of your loop.\"",
+            "next": "root"
+          },
+          "f6": {
+            "speaker": "The Fortune Teller",
+            "text": "\"Beware the man of one book. Especially if it is this one.\"",
+            "next": "root"
+          },
+          "f7": {
+            "speaker": "The Fortune Teller",
+            "text": "\"To err is human; to forgive, divine; to debug, neither.\"",
+            "next": "root"
+          },
+          "f8": {
+            "speaker": "The Fortune Teller",
+            "text": "\"A penguin in motion stays in motion. A penguin at rest is also in motion. (The realm spins.)\"",
+            "next": "root"
+          },
+          "f9": {
+            "speaker": "The Fortune Teller",
+            "text": "\"The best time to plant a tree was twenty years ago. The second best time is after you finish this errand.\"",
+            "next": "root"
+          },
+          "f10": {
+            "speaker": "The Fortune Teller",
+            "text": "\"You will meet a tall stranger. They will be a sign.\"",
+            "next": "root"
+          },
+          "f11": {
+            "speaker": "The Fortune Teller",
+            "text": "\"Remember: every door was once a wall someone got tired of.\"",
+            "next": "root"
+          },
+          "f12": {
+            "speaker": "The Fortune Teller",
+            "text": "\"Help is on the way. It may be slower than you would prefer.\"",
+            "next": "root"
+          },
+          "bye": {
+            "speaker": "The Fortune Teller",
+            "text": "*She pockets the stone.* Come back when the next one is ready."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "name": "The Word-Hoarder",
+      "body_color": [
+        0.4,
+        0.3,
+        0.2,
+        1.0
+      ],
+      "hat_color": [
+        0.7,
+        0.55,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the word-hoarder",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "The Word-Hoarder",
+            "text": "I know every word. *he taps a stack of scrolls thicker than his arm*\n\nI never use them all. Most of them are waiting. One of them is probably for you.",
+            "choices": [
+              {
+                "label": "Which one?",
+                "next": "which"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "which": {
+            "speaker": "The Word-Hoarder",
+            "text": "I cannot tell you. Knowing which word is yours would deplete it. Take your time. You will hear it.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "The Word-Hoarder",
+            "text": "*he opens the scroll at random*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

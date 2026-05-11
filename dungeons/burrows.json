@@ -113640,6 +113640,57 @@
         22.17
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Old Debian",
+      "body_color": [
+        0.55,
+        0.25,
+        0.25,
+        1.0
+      ],
+      "hat_color": [
+        0.35,
+        0.18,
+        0.18,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Old Debian",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Debian",
+            "text": "*calm, patient, the kind of old that smells of pipe-smoke and warm bread*\n\nI am stable, walker. I have been stable for a very long time. I will not move quickly, and I will not move suddenly, and I will be here when you come back.",
+            "choices": [
+              {
+                "label": "That's a comfort.",
+                "next": "comf"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "comf": {
+            "speaker": "Old Debian",
+            "text": "It is meant to be. Some things in the Wyrdmark move fast. I am not one of them. That is the gift I give.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Old Debian",
+            "text": "Walk well, walker. I will be here."
+          }
+        }
+      }
     }
   ],
   "load_zones": [

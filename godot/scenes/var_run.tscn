@@ -1,16 +1,16 @@
 [gd_scene load_steps=544 format=3 uid="uid://btuxvarrun01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.22, 0.28, 1)
@@ -4847,6 +4847,10 @@ body_color = Color(0.55, 0.45, 0.4, 1)
 hat_color = Color(0.78, 0.65, 0.45, 1)
 idle_hint = "[E] Speak with the drumkeeper"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Drumkeeper Hesh\", \"text\": \"*he is sitting cross-legged in the centre, eyes closed, listening. The drums beat around him in a slow round.*\\n\\nQuiet, walker. The room is counting.\\n\\n...all of them are still going. The realm endures.\", \"choices\": [{\"label\": \"What happens when one stops?\", \"next\": \"stop\"}, {\"label\": \"Whose drum is the largest?\", \"next\": \"large\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"stop\": {\"speaker\": \"Drumkeeper Hesh\", \"text\": \"Then the keeper has fallen. The realm hears the silence. The drum is taken down and the wall is left bare for a season, then a new drum is hung — for whoever rises in their place.\\n\\nA bare wall is not a sad thing here. It is a kept promise.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"large\": {\"speaker\": \"Drumkeeper Hesh\", \"text\": \"*his voice goes very quiet.*\\n\\nKhorgaul's. The slow one. Some days I forget it is there, because the beats are so far apart. Some days I remember and have to sit down for a while.\\n\\nHe is still going, walker. That is information. Take it as you will.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Drumkeeper Hesh\", \"text\": \"Walk well. The drums will tell me when you've done something.\"}}}"
+
+[node name="Sign8" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+message = "Mounted on the Pulse Room wall:\n\n    * * * * * /usr/bin/pulse\n\nIt has run every minute since the beginning. It will run every minute until the end. It does not know what it is for. We do not ask."
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.497817, 1.18, -1.5)

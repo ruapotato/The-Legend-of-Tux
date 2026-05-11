@@ -1,17 +1,18 @@
-[gd_scene load_steps=509 format=3 uid="uid://btuxdevrando01"]
+[gd_scene load_steps=510 format=3 uid="uid://btuxdevrando01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.3, 0.1, 0.4, 1)
@@ -4501,6 +4502,14 @@ message = "Carved into a stone you swear was somewhere else last time:\n\n'The h
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, -0.5)
 contents_scene = ExtResource("heart_piece")
 open_message = "A piece of heart, half-buried in the shifting floor. The realm hummed it into being while you were looking the other way."
+
+[node name="Npc3_Urandom" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 2, 0, 0)
+npc_name = "Urandom"
+body_color = Color(0.55, 0.35, 0.65, 1)
+hat_color = Color(0.95, 0.55, 0.85, 1)
+idle_hint = "[E] Ask Urandom for a hint"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Urandom\", \"text\": \"*she rummages in a bag of bone-dice and pulls one out at random*\\n\\nA hint for you. From the well of unpredictable things. It is good enough for almost any use.\", \"choices\": [{\"label\": \"Roll once.\", \"next\": \"h1\"}, {\"label\": \"Roll again.\", \"next\": \"h2\"}, {\"label\": \"And again.\", \"next\": \"h3\"}, {\"label\": \"Once more.\", \"next\": \"h4\"}, {\"label\": \"Last time.\", \"next\": \"h5\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"h1\": {\"speaker\": \"Urandom\", \"text\": \"\\\"The thing you cannot reach is two paces lower than you think.\\\"\", \"next\": \"root\"}, \"h2\": {\"speaker\": \"Urandom\", \"text\": \"\\\"Hammers open doors that are not doors.\\\"\", \"next\": \"root\"}, \"h3\": {\"speaker\": \"Urandom\", \"text\": \"\\\"There is a chest behind something you walked past today.\\\"\", \"next\": \"root\"}, \"h4\": {\"speaker\": \"Urandom\", \"text\": \"\\\"Glim sees more in the dark. You should let him try.\\\"\", \"next\": \"root\"}, \"h5\": {\"speaker\": \"Urandom\", \"text\": \"\\\"When in doubt, hum the chord you know best.\\\"\", \"next\": \"root\"}, \"bye\": {\"speaker\": \"Urandom\", \"text\": \"*she pockets the dice*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.519574, -0.17, -5.49995)

@@ -105210,6 +105210,16 @@
         83.51
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 0.0,
+      "message": "On the locked stone door:\n\n    shadow\n    readable only to root.\n\nNobody but the Maker has ever turned this latch."
     }
   ],
   "load_zones": [

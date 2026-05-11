@@ -1,15 +1,16 @@
-[gd_scene load_steps=523 format=3 uid="uid://btuxusrshare01"]
+[gd_scene load_steps=524 format=3 uid="uid://btuxusrshare01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.18, 0.25, 1)
@@ -4650,6 +4651,18 @@ message = "BOUND MANUSCRIPT — THE FORGE\n\n'The Forge is hot, and old, and rul
 [node name="Sign4" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, 1.5)
 message = "Pinned to the reading-desk:\n\n'A walker who has read three manuscripts has done more than half the work of any quest. The realm asks no fee for the reading. Walk well.'"
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
+message = "Carved over the lintel in too-large letters:\n\n____   __  __   _ _   _\n|_  | |  \\/  | | | | | |\n  | | | |\\/| | | | | | |\n  |_| |_|  |_| |_|_| |_|\n\n  T   M   U   X"
+
+[node name="Npc6_Figlet_Scribe" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 2, 0, -3)
+npc_name = "Figlet-Scribe"
+body_color = Color(0.7, 0.55, 0.35, 1)
+hat_color = Color(0.95, 0.85, 0.4, 1)
+idle_hint = "[E] Speak with the scribe"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Figlet-Scribe\", \"text\": \"*ink on his sleeves, ink on his cheek*\\n\\nI make the big letters. Banners, headstones, doors. If you want a name shouted in stone, you come to me.\", \"choices\": [{\"label\": \"How big do you go?\", \"next\": \"big\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"big\": {\"speaker\": \"Figlet-Scribe\", \"text\": \"Big enough that you can read the word before you finish entering the room. That, I have decided, is the correct size.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Figlet-Scribe\", \"text\": \"*he picks up the chisel*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.618337, 0.1, -5.498)

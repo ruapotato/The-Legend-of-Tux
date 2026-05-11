@@ -1,25 +1,25 @@
 [gd_scene load_steps=2065 format=3 uid="uid://btuxsigilkee01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxmbarmkt01" path="res://scenes/enemy_armored_knight.tscn" id="armored_knight"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
-[ext_resource type="PackedScene" uid="uid://btuxchmd01" path="res://scenes/enemy_chmod_zealot.tscn" id="chmod_zealot"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxbosscdx01" path="res://scenes/enemy_codex_knight.tscn" id="codex_knight"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxchmd01" path="res://scenes/enemy_chmod_zealot.tscn" id="chmod_zealot"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbosscdx01" path="res://scenes/enemy_codex_knight.tscn" id="codex_knight"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxmbarmkt01" path="res://scenes/enemy_armored_knight.tscn" id="armored_knight"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
@@ -18663,6 +18663,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.3, 0, 78.05)
 
 [node name="Rock56" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.06, 0, -76.22)
+
+[node name="Sign57" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -2, 0, 0)
+message = "Mounted on the key-forging anvil:\n\n    ssh-keygen\n\n    Forge a key here.\n    Never the same key twice.\n    Lose it and lose access.\n\nThe priests will not forge you another. The realm only accepts the one."
+
+[node name="Npc58_Scribe_Tab" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 2, 0, 1)
+npc_name = "Scribe Tab"
+body_color = Color(0.3, 0.4, 0.55, 1)
+hat_color = Color(0.6, 0.5, 0.3, 1)
+idle_hint = "[E] Speak with Scribe Tab"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Scribe Tab\", \"text\": \"*she does not look up from her parchment. Her colleague across the way is wrong. She has been ready to say so for twenty-six years.*\\n\\nTabs.\", \"choices\": [{\"label\": \"Tabs?\", \"next\": \"tabs\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"tabs\": {\"speaker\": \"Scribe Tab\", \"text\": \"Tabs.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Scribe Tab\", \"text\": \"*she does not, in fact, look up*\"}}}"
+
+[node name="Npc59_Scribe_Spaces" parent="." instance=ExtResource("npc")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 0, 0, 3)
+npc_name = "Scribe Spaces"
+body_color = Color(0.55, 0.3, 0.35, 1)
+hat_color = Color(0.3, 0.55, 0.55, 1)
+idle_hint = "[E] Speak with Scribe Spaces"
+dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Scribe Spaces\", \"text\": \"*she sharpens her quill with theatrical care. Her colleague is wrong and has been for twenty-six years. She is content to keep being right.*\\n\\nSpaces.\", \"choices\": [{\"label\": \"Spaces?\", \"next\": \"sp\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"sp\": {\"speaker\": \"Scribe Spaces\", \"text\": \"Spaces.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Scribe Spaces\", \"text\": \"*she resumes sharpening*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.4488, 0.91, -78.5216)

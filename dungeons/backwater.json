@@ -25849,6 +25849,57 @@
         43.84
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Swap-keeper",
+      "body_color": [
+        0.3,
+        0.35,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.5,
+        0.5,
+        0.6,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the swap-keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Swap-keeper",
+            "text": "*he is sorting damp pages into shelves and back out of them*\n\nPages go in. Pages go out. I do not read them. That is the agreement. If I read them, I would slow.",
+            "choices": [
+              {
+                "label": "Who decides which goes where?",
+                "next": "who"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "who": {
+            "speaker": "Swap-keeper",
+            "text": "The pressure does. When the air is full, the older pages descend. When the air thins, they rise. I am only the keeper of the descent.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Swap-keeper",
+            "text": "*he resumes sorting*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

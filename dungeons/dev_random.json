@@ -15127,6 +15127,93 @@
       "rotation_y": 3.141592653589793,
       "contents": "heart_piece",
       "open_message": "A piece of heart, half-buried in the shifting floor. The realm hummed it into being while you were looking the other way."
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Urandom",
+      "body_color": [
+        0.55,
+        0.35,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.55,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Ask Urandom for a hint",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Urandom",
+            "text": "*she rummages in a bag of bone-dice and pulls one out at random*\n\nA hint for you. From the well of unpredictable things. It is good enough for almost any use.",
+            "choices": [
+              {
+                "label": "Roll once.",
+                "next": "h1"
+              },
+              {
+                "label": "Roll again.",
+                "next": "h2"
+              },
+              {
+                "label": "And again.",
+                "next": "h3"
+              },
+              {
+                "label": "Once more.",
+                "next": "h4"
+              },
+              {
+                "label": "Last time.",
+                "next": "h5"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "h1": {
+            "speaker": "Urandom",
+            "text": "\"The thing you cannot reach is two paces lower than you think.\"",
+            "next": "root"
+          },
+          "h2": {
+            "speaker": "Urandom",
+            "text": "\"Hammers open doors that are not doors.\"",
+            "next": "root"
+          },
+          "h3": {
+            "speaker": "Urandom",
+            "text": "\"There is a chest behind something you walked past today.\"",
+            "next": "root"
+          },
+          "h4": {
+            "speaker": "Urandom",
+            "text": "\"Glim sees more in the dark. You should let him try.\"",
+            "next": "root"
+          },
+          "h5": {
+            "speaker": "Urandom",
+            "text": "\"When in doubt, hum the chord you know best.\"",
+            "next": "root"
+          },
+          "bye": {
+            "speaker": "Urandom",
+            "text": "*she pockets the dice*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

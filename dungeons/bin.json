@@ -15602,6 +15602,26 @@
           }
         }
       }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Stone tablet, weather-smoothed:\n\n    echo \"Hello, world!\"\n\n    Hello, world!\n\nThe first program ever written by anyone in The Mount.\nWe have not improved on it."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Posted next to the oldest tool-rack:\n\n    1993.\n    Oldest still-walking among us.\n\n*Beneath, in newer hand:* she does not require the newer tools. she does not provide them either."
     }
   ],
   "load_zones": [

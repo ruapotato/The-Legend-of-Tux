@@ -123869,6 +123869,57 @@
         -106.86
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -2.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Maker's Apprentice",
+      "body_color": [
+        0.5,
+        0.35,
+        0.25,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.2,
+        0.15,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the apprentice",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Maker's Apprentice",
+            "text": "*soot on the cheeks, broom in hand*\n\nI clean up before I build. Always have. The Forge runs sour if you do not. My mentor said it. Her mentor said it. I am saying it to you in case you forget.",
+            "choices": [
+              {
+                "label": "make clean.",
+                "next": "yes"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "yes": {
+            "speaker": "Maker's Apprentice",
+            "text": "Now you understand. *she returns to the broom*",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Maker's Apprentice",
+            "text": "*sweep, sweep*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

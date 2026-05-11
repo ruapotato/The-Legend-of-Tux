@@ -15150,6 +15150,16 @@
           }
         }
       }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Mounted on the Pulse Room wall:\n\n    * * * * * /usr/bin/pulse\n\nIt has run every minute since the beginning. It will run every minute until the end. It does not know what it is for. We do not ask."
     }
   ],
   "load_zones": [

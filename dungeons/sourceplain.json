@@ -220456,6 +220456,16 @@
         0.0,
         70.37
       ]
+    },
+    {
+      "type": "sign",
+      "pos": [
+        37.0,
+        0.0,
+        5.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Where the paths cross.\n\nIf you ever utter ls and the letters slip, a long train passes through. Wait for it. It is a tradition older than any kin still walking."
     }
   ],
   "load_zones": [

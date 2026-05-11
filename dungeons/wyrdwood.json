@@ -38353,6 +38353,16 @@
         0.0,
         -8.99
       ]
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "At the path-fork:\n\n    Look hard.\n    Case doesn't matter.\n\nThe needle is here. The haystack is also."
     }
   ],
   "load_zones": [

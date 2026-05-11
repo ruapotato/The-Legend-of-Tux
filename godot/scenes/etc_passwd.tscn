@@ -1,16 +1,16 @@
 [gd_scene load_steps=490 format=3 uid="uid://btuxetcpassw01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.22, 0.3, 1)
@@ -4349,6 +4349,14 @@ body_color = Color(0.55, 0.5, 0.62, 1)
 hat_color = Color(0.78, 0.7, 0.55, 1)
 idle_hint = "[E] Speak with the scribe"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Scribe Onel\", \"text\": \"*she does not look up from the stylus. The iron makes a small, careful scrape against stone.*\\n\\nWalker. Welcome to the Hall.\\n\\nNew name? Or just looking?\", \"choices\": [{\"label\": \"Just looking.\", \"next\": \"look\"}, {\"label\": \"What's the finer-hand list?\", \"next\": \"fine\"}, {\"label\": \"Will you write my name?\", \"next\": \"name\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"look\": {\"speaker\": \"Scribe Onel\", \"text\": \"Look as long as you like. Every name on this wall was once a stranger to the realm. Now they're all of them part of it.\\n\\nThat's how a realm grows.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"fine\": {\"speaker\": \"Scribe Onel\", \"text\": \"*she pauses, then quietly:*\\n\\nThe finer hand is for walkers who passed through but never stopped to be recorded. The wall remembers them anyway. The wall is patient.\\n\\nSome of those names I do not understand. The Scriptorium tells me to write them anyway. I write them anyway.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"name\": {\"speaker\": \"Scribe Onel\", \"text\": \"*she looks at you, properly, for the first time.*\\n\\n...I already wrote yours. The wall asked me to. The wall does sometimes.\\n\\nI did not understand the line about your mark. I wrote it anyway.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Scribe Onel\", \"text\": \"Walk well, walker. The wall keeps.\"}}}"
+
+[node name="Sign5" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -3, 0, 0)
+message = "Cast in bronze, twelve names long:\n\n    root:x:0:0:root:/root:/bin/bash\n    daemon:x:1:1:daemon:/sbin:/usr/sbin/nologin\n    nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\n    tux:x:1000:1000:Hero:/home/wyrdkin:/bin/bash"
+
+[node name="Sign6" parent="." instance=ExtResource("sign")]
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 3, 0, 0)
+message = "Whispered on the back wall:\n\n    ::1 is just as much localhost as 127.0.0.1.\n\nWe do not talk about this."
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315672, 1.03, -5.49514)

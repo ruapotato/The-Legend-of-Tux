@@ -53596,6 +53596,57 @@
         9.11
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Tmux-keeper",
+      "body_color": [
+        0.35,
+        0.4,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.8,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the tmux-keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Tmux-keeper",
+            "text": "*she tends a row of small windows, each looking onto a different corner of the realm*\n\nDetach and come back, walker. Your session waits. The keepers do not let it close.",
+            "choices": [
+              {
+                "label": "What if I forget the name?",
+                "next": "fname"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "fname": {
+            "speaker": "Tmux-keeper",
+            "text": "We call yours 'journey.' If you forget, ask. We will remember.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Tmux-keeper",
+            "text": "*she straightens the row of windows*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

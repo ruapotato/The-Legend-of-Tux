@@ -15714,6 +15714,26 @@
           }
         }
       }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Posted on the kitchen door of the Servery:\n\n    tux@servery $ make sandwich\n    Permission denied.\n\n    tux@servery $ sudo make sandwich\n    Okay."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "message": "Posted at the Servery's front gate:\n\n    It works!\n\nIf you are reading this, the Servery has been raised correctly.\nYou may now serve content as you see fit.\nIf you did not raise this Servery, the keeper would like a word."
     }
   ],
   "load_zones": [

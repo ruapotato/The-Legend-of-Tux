@@ -13702,6 +13702,108 @@
         0.56
       ],
       "_perimeter_knot": true
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Vim the Modal",
+      "body_color": [
+        0.2,
+        0.5,
+        0.2,
+        1.0
+      ],
+      "hat_color": [
+        0.1,
+        0.35,
+        0.1,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Vim",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Vim the Modal",
+            "text": "I have lived in this town for forty years and I still cannot leave. *he gestures helplessly* I have tried :q. I have tried :q!. The door does not open. I do not know which mode I am in.",
+            "choices": [
+              {
+                "label": "Try :wq?",
+                "next": "wq"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wq": {
+            "speaker": "Vim the Modal",
+            "text": "I have not written the changes. There are no changes. There are only forty years and a door that will not.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Vim the Modal",
+            "text": "*he stares at the door*"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        -1.0
+      ],
+      "rotation_y": 1.5708,
+      "name": "Emaca the Boundless",
+      "body_color": [
+        0.45,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "hat_color": [
+        0.6,
+        0.35,
+        0.7,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Emaca",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Emaca the Boundless",
+            "text": "I have built an entire realm inside this kitchen. I read my mail in the soup. I balance the ledger in the bread. I draft a treatise while the pot boils.\n\n*she gestures at Vim across the way* He cannot leave because he has not learned to bring the whole world inside.",
+            "choices": [
+              {
+                "label": "...Doesn't that get exhausting?",
+                "next": "ex"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "ex": {
+            "speaker": "Emaca the Boundless",
+            "text": "Only the keyboard. *she flexes her hand* The chord is C-x C-c. I will press it when I am ready. Not before.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Emaca the Boundless",
+            "text": "*she returns to seven things at once*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

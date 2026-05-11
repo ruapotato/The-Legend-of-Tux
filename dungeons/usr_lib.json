@@ -24767,6 +24767,77 @@
         0.0,
         12.7
       ]
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 3.14159,
+      "name": "Nix",
+      "body_color": [
+        0.85,
+        0.85,
+        0.9,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.7,
+        0.95,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Nix",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Nix",
+            "text": "*she does not blink when you arrive. she has been here long enough that arrival is uninteresting*\n\nI never change. When the realm needs me changed, it replaces me. The one before me was also called Nix. So will the one after.",
+            "choices": [
+              {
+                "label": "Then who are you?",
+                "next": "who"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "who": {
+            "speaker": "Nix",
+            "text": "Whichever Nix is current. The realm will know.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Nix",
+            "text": "*she does not move*"
+          }
+        }
+      }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        2.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Pinned by a tangle of threads at the loomhouse:\n\n    yarn install\n\nWait twelve minutes.\nDo not interrupt.\nIt is doing what it has always done."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.0,
+        0.0,
+        -3.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Pinned over a workbench:\n\n    There are two hard things in this realm:\n        naming,\n        cache invalidation,\n        and off-by-one errors."
     }
   ],
   "load_zones": [

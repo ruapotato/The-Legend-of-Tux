@@ -15900,6 +15900,67 @@
       ],
       "rotation_y": 3.141592653589793,
       "message": "Pinned to the reading-desk:\n\n'A walker who has read three manuscripts has done more than half the work of any quest. The realm asks no fee for the reading. Walk well.'"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": 0.0,
+      "message": "Carved over the lintel in too-large letters:\n\n____   __  __   _ _   _\n|_  | |  \\/  | | | | | |\n  | | | |\\/| | | | | | |\n  |_| |_|  |_| |_|_| |_|\n\n  T   M   U   X"
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        -3.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Figlet-Scribe",
+      "body_color": [
+        0.7,
+        0.55,
+        0.35,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.85,
+        0.4,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the scribe",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Figlet-Scribe",
+            "text": "*ink on his sleeves, ink on his cheek*\n\nI make the big letters. Banners, headstones, doors. If you want a name shouted in stone, you come to me.",
+            "choices": [
+              {
+                "label": "How big do you go?",
+                "next": "big"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "big": {
+            "speaker": "Figlet-Scribe",
+            "text": "Big enough that you can read the word before you finish entering the room. That, I have decided, is the correct size.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Figlet-Scribe",
+            "text": "*he picks up the chisel*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [

@@ -15482,6 +15482,57 @@
           }
         }
       }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        2.0,
+        0.0,
+        -3.0
+      ],
+      "rotation_y": 3.14159,
+      "name": "Top",
+      "body_color": [
+        0.3,
+        0.5,
+        0.65,
+        1.0
+      ],
+      "hat_color": [
+        0.2,
+        0.3,
+        0.45,
+        1.0
+      ],
+      "idle_hint": "[E] Ask Top what's running",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Top",
+            "text": "*she watches the air the way a hawk watches a field*\n\nThe three loudest in the Mount, just now? init at 0.0% \u2014 quiet, as he ought to be. wyrdking at \u2014 well. wyrdking returns nothing; defeated. and tux, 99%, running. You.",
+            "choices": [
+              {
+                "label": "What about the rest?",
+                "next": "rest"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "rest": {
+            "speaker": "Top",
+            "text": "Sleeping. Waiting. A few zombies the wardens have not got to. The realm hums. I listen.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Top",
+            "text": "*she resumes listening*"
+          }
+        }
+      }
     }
   ],
   "load_zones": [
