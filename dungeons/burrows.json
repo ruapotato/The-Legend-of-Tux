@@ -5561,6 +5561,384 @@
         0.0,
         -12.29
       ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.48,
+        0.0,
+        -15.8
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.15,
+        0.0,
+        -15.66
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.14,
+        0.0,
+        -16.55
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.33,
+        0.0,
+        -15.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.13,
+        0.0,
+        -16.62
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.25,
+        0.0,
+        -17.56
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -2.73,
+        0.0,
+        -16.0
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        2.81,
+        0.0,
+        -15.96
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.92,
+        0.0,
+        -15.25
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.84,
+        0.0,
+        -16.61
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.94,
+        0.0,
+        -15.7
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.91,
+        0.0,
+        -17.75
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.89,
+        0.0,
+        -17.63
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.6,
+        0.0,
+        -17.0
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.56,
+        0.0,
+        -15.32
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.29,
+        0.0,
+        -15.59
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.75,
+        0.0,
+        0.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.39,
+        0.0,
+        0.22
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.49,
+        0.0,
+        -0.48
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.14,
+        0.0,
+        0.78
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.04,
+        0.0,
+        -0.86
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.06,
+        0.0,
+        15.37
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.27,
+        0.0,
+        15.07
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.77,
+        0.0,
+        16.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.25,
+        0.0,
+        16.54
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -0.17,
+        0.0,
+        17.69
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -0.71,
+        0.0,
+        15.31
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.71,
+        0.0,
+        17.1
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.21,
+        0.0,
+        17.27
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.94,
+        0.0,
+        17.01
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.38,
+        0.0,
+        0.21
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.86,
+        0.0,
+        1.18
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.3,
+        0.0,
+        -0.99
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.93,
+        0.0,
+        -0.91
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.27,
+        0.0,
+        -0.03
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.45,
+        0.0,
+        14.54
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.92,
+        0.0,
+        0.48
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.94,
+        0.0,
+        14.92
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        11.9,
+        0.0,
+        16.62
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.12,
+        0.0,
+        1.91
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -11.47,
+        0.0,
+        16.62
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.77,
+        0.0,
+        -1.47
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
@@ -5568,7 +5946,7 @@
       "pos": [
         0.0,
         1.4,
-        -15.0
+        -16.5
       ],
       "size": [
         4.0,
@@ -5582,9 +5960,9 @@
     },
     {
       "pos": [
-        -7.0,
+        -6.82,
         1.4,
-        15.0
+        16.46
       ],
       "size": [
         4.0,
@@ -5598,9 +5976,9 @@
     },
     {
       "pos": [
-        -14.0,
+        6.82,
         1.4,
-        15.0
+        16.46
       ],
       "size": [
         4.0,
@@ -5614,9 +5992,9 @@
     },
     {
       "pos": [
-        14.0,
+        16.46,
         1.4,
-        15.0
+        6.82
       ],
       "size": [
         4.0,
@@ -5630,9 +6008,9 @@
     },
     {
       "pos": [
-        15.0,
+        16.46,
         1.4,
-        -14.0
+        -6.82
       ],
       "size": [
         1.5,
@@ -5646,9 +6024,9 @@
     },
     {
       "pos": [
-        -15.0,
+        6.82,
         1.4,
-        0.0
+        -16.46
       ],
       "size": [
         1.5,
@@ -5662,9 +6040,9 @@
     },
     {
       "pos": [
-        7.0,
+        -6.82,
         1.4,
-        15.0
+        -16.46
       ],
       "size": [
         4.0,
@@ -5678,9 +6056,9 @@
     },
     {
       "pos": [
-        0.0,
+        -16.46,
         1.4,
-        15.0
+        -6.82
       ],
       "size": [
         4.0,
@@ -5694,9 +6072,9 @@
     },
     {
       "pos": [
-        15.0,
+        -16.46,
         1.4,
-        14.0
+        6.82
       ],
       "size": [
         1.5,

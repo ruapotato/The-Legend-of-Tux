@@ -1,22 +1,22 @@
 [gd_scene load_steps=318 format=3 uid="uid://btuxhearthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.55, 0.78, 1)
@@ -3062,6 +3062,57 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.21, 0, -13.93)
 
 [node name="Rock90" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.08, 0, -15.76)
+
+[node name="Rock91" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 0, -21.39)
+
+[node name="Rock92" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.58, 0, -21.09)
+
+[node name="Rock93" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.58, 0, -19.01)
+
+[node name="Rock94" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.88, 0, -21.3)
+
+[node name="Rock95" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.49, 0, -19.26)
+
+[node name="Rock96" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.63, 0, 19.65)
+
+[node name="Rock97" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.78, 0, 19.78)
+
+[node name="Rock98" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.55, 0, 21.11)
+
+[node name="Rock99" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.03, 0, -19.2)
+
+[node name="Rock100" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.1, 0, -19.25)
+
+[node name="Rock101" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.28, 0, -20.43)
+
+[node name="Rock102" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.21, 0, -19.8)
+
+[node name="Rock103" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08, 0, 21.07)
+
+[node name="Rock104" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.67, 0, 20.82)
+
+[node name="Rock105" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.08, 0, -0.02)
+
+[node name="Rock106" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.31, 0, -17.45)
+
+[node name="Rock107" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.56, 0, -0.8)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 1.4, 0)

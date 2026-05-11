@@ -5552,6 +5552,141 @@
         0.0,
         -7.17
       ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.0,
+        0.0,
+        -7.82
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.06,
+        0.0,
+        -7.56
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.09,
+        0.0,
+        -7.6
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -0.67,
+        0.0,
+        17.64
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -0.72,
+        0.0,
+        16.96
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -0.23,
+        0.0,
+        17.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.24,
+        0.0,
+        17.1
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.2,
+        0.0,
+        -6.57
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.18,
+        0.0,
+        -5.44
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.24,
+        0.0,
+        -7.0
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.38,
+        0.0,
+        5.29
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.83,
+        0.0,
+        -13.39
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.65,
+        0.0,
+        -13.9
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -4.72,
+        0.0,
+        16.49
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.68,
+        0.0,
+        2.47
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

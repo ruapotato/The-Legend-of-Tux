@@ -12073,6 +12073,132 @@
         0.0,
         10.48
       ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        39.49,
+        0.0,
+        5.08
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        40.16,
+        0.0,
+        5.14
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        39.68,
+        0.0,
+        5.58
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        39.66,
+        0.0,
+        5.8
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -40.38,
+        0.0,
+        4.91
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -40.98,
+        0.0,
+        4.57
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -41.19,
+        0.0,
+        4.97
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -41.59,
+        0.0,
+        4.82
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        40.64,
+        0.0,
+        33.21
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -40.54,
+        0.0,
+        3.61
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        40.27,
+        0.0,
+        18.77
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -40.4,
+        0.0,
+        42.53
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        39.9,
+        0.0,
+        50.67
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -40.71,
+        0.0,
+        13.83
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

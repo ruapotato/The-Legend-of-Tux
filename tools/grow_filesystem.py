@@ -150,11 +150,24 @@ def compute_layout(root_id, parent_of, children_of):
         if not kids:
             continue
         sib_count = len(kids)
-        spread_deg = max(30, min(140, 30 * sib_count))
-        spread_rad = math.radians(spread_deg)
         parent_angle = math.atan2(trunk_dir[node][1], trunk_dir[node][0])
+        # 4+ children: fan across full 360° perimeter so the hub doesn't
+        # have all its child trunks crowd into one arc. First kid sits at
+        # +y (north, math angle = π/2); subsequent kids walk CLOCKWISE
+        # (decreasing math angle) around the perimeter.
+        full_perim = sib_count >= 4
+        if full_perim:
+            base_dist = 45
+        else:
+            base_dist = 30 + (15 if sib_count > 2 else 0)
+            spread_deg = max(30, min(140, 30 * sib_count))
+            spread_rad = math.radians(spread_deg)
         for idx, kid in enumerate(kids):
-            if sib_count == 1:
+            if full_perim:
+                # Place i-th kid at math angle (π/2) - (2π/N)*i
+                # i=0 → +π/2 (north / +y).  Going clockwise in XZ.
+                my_angle = math.pi / 2 - (2.0 * math.pi / sib_count) * idx
+            elif sib_count == 1:
                 my_angle = parent_angle
             else:
                 # fan across arc centred on parent_angle
@@ -162,7 +175,6 @@ def compute_layout(root_id, parent_of, children_of):
                 my_angle = parent_angle + offset
             tdx = math.cos(my_angle)
             tdy = math.sin(my_angle)
-            base_dist = 30 + (15 if sib_count > 2 else 0)
             px, py = world_pos[node]
             world_pos[kid] = (px + tdx * base_dist, py + tdy * base_dist)
             trunk_dir[kid] = (tdx, tdy)
@@ -220,11 +232,11 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
     cells = set()
 
     # 1. Spine: south to north along +y, perturbed in x by perlin.
+    # Range ±3 cells perpendicular for a more curved/winding profile.
     spine_cells = []
     for k in range(spine_length):
         t = k / max(1, spine_length - 1)
-        # offset perpendicular to +y is just x. Range ±2 cells.
-        ox = perlin1d(seed + ":spine_x", t * 4.0) * 2.0
+        ox = perlin1d(seed + ":spine_x", t * 4.0) * 3.0
         ix = int(round(ox))
         iy = k  # 0..spine_length-1
         spine_cells.append((ix, iy))
@@ -267,11 +279,11 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
     # 3. Tip bulb / prongs.
     last_sx, last_sy = spine_cells[-1]
     if role == "leaf":
-        bulb_r = 5
+        bulb_r = 8
         for di in range(-bulb_r - 1, bulb_r + 2):
             for dj in range(-bulb_r - 1, bulb_r + 2):
                 jitter = perlin1d(seed + ":bulb",
-                                  (di * 0.7) + (dj * 0.31)) * 1.0
+                                  (di * 0.7) + (dj * 0.31)) * 1.5
                 if di * di + dj * dj <= (bulb_r + jitter) ** 2:
                     cells.add((last_sx + di, last_sy + dj))
     elif role == "single":
@@ -479,13 +491,13 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
     n_kids = len(real_kids)
     if n_kids == 0:
         role = "leaf"
-        spine_length = 6
+        spine_length = 24
     elif n_kids == 1:
         role = "single"
-        spine_length = 14
+        spine_length = 28
     else:
         role = "multi"
-        spine_length = 10
+        spine_length = 24
 
     big_city = level_id in BIG_CITY
 
@@ -595,6 +607,31 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
     self_target_count = sum(1 for m in lz_meta if m["target_scene"] == level_id)
     self_target_idx = 0
 
+    # 360° distribution mode: when this hub has 4+ auto:true LZs, override
+    # the world-direction-based local_dir with a canonical angle per LZ
+    # so the doorways spread evenly around the perimeter rather than
+    # crowding into one arc. Parent (south) is anchored; the rest fan
+    # CW starting at +y (north).
+    auto_meta = [m for m in lz_meta if m["auto"]]
+    forced_angles = {}  # id(meta) -> radians
+    if len(auto_meta) >= 4:
+        # Separate parent vs others.
+        non_parent = [m for m in auto_meta if m["target_scene"] != parent]
+        M = len(non_parent)
+        if M > 0:
+            # Distribute M slots across 360°, first at +π/2 (north),
+            # going CW. If a parent exists and M is even, shift the
+            # start by half-step so no slot lands exactly at south.
+            step = 2.0 * math.pi / M
+            start = math.pi / 2.0
+            if parent is not None and M > 0 and M % 2 == 0:
+                start += step / 2.0
+            for i, m in enumerate(non_parent):
+                ang = start - step * i
+                # Wrap into (-π, π]
+                ang = ((ang + math.pi) % (2.0 * math.pi)) - math.pi
+                forced_angles[id(m)] = ang
+
     new_lz_list = []
     extra_spawns = []
     used_spawn_ids = {"default"}
@@ -658,27 +695,32 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
             # Treat as a child / sibling / shortcut. Compute world
             # direction → local direction → put on the closest
             # perimeter cell along that direction.
-            tw = world_pos.get(ts)
-            if tw is None:
-                # Unknown target. Default to north.
-                local_dir = (0.0, 1.0)
+            if id(meta) in forced_angles:
+                # 360° distribution overrides world-direction.
+                ang = forced_angles[id(meta)]
+                local_dir = (math.cos(ang), math.sin(ang))
             else:
-                rdx = tw[0] - my_wx
-                rdy = tw[1] - my_wy
-                lx, ly = world_to_local(rdx, rdy)
-                mag = math.hypot(lx, ly)
-                if mag < 1e-6:
+                tw = world_pos.get(ts)
+                if tw is None:
+                    # Unknown target. Default to north.
                     local_dir = (0.0, 1.0)
                 else:
-                    local_dir = (lx / mag, ly / mag)
-                # If this target is a child of mine: it should be NORTH
-                # (positive local y). Force at least slightly +y so it
-                # ends up at the bulb.
-                if ts in real_kids and local_dir[1] < 0.2:
-                    local_dir = (local_dir[0], 0.4)
-                    # renormalize
-                    m = math.hypot(*local_dir)
-                    local_dir = (local_dir[0] / m, local_dir[1] / m)
+                    rdx = tw[0] - my_wx
+                    rdy = tw[1] - my_wy
+                    lx, ly = world_to_local(rdx, rdy)
+                    mag = math.hypot(lx, ly)
+                    if mag < 1e-6:
+                        local_dir = (0.0, 1.0)
+                    else:
+                        local_dir = (lx / mag, ly / mag)
+                    # If this target is a child of mine: it should be NORTH
+                    # (positive local y). Force at least slightly +y so it
+                    # ends up at the bulb.
+                    if ts in real_kids and local_dir[1] < 0.2:
+                        local_dir = (local_dir[0], 0.4)
+                        # renormalize
+                        m = math.hypot(*local_dir)
+                        local_dir = (local_dir[0] / m, local_dir[1] / m)
             # Use the centroid (not (0,0)) so children pick perimeter
             # cells out at the bulb. Narrower initial arc means
             # neighbouring shortcut targets each get distinct cells.
@@ -789,6 +831,15 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
         ang = math.atan2(gz - cz_w, gx - cx_w)
         gap_angles.append(ang)
 
+    # Detect wall material to choose pillar style: tree-walled levels
+    # get tree+rock mixed clusters; stone-walled levels get rock-only
+    # clusters (placing trees inside a stone room looks broken).
+    floors_for_wm = data.get("grid", {}).get("floors", [])
+    wall_material = "stone"
+    if floors_for_wm:
+        wall_material = floors_for_wm[0].get("wall_material", "stone")
+    is_tree_wall = (wall_material == "tree")
+
     pillar_clusters_added = 0
     if len(gap_angles) >= 2:
         sorted_angles = sorted(gap_angles)
@@ -806,15 +857,20 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
                 # wrap-around: shift b by 2π
                 b += 2 * math.pi
             mid = (a + b) / 2.0
-            # If the two adjacent gaps are very close (< 25°) skip — no
+            # If the two adjacent gaps are very close (< 15°) skip — no
             # room for a cluster.
-            if (b - a) < math.radians(25):
+            if (b - a) < math.radians(15):
                 continue
             ccx_w, ccz_w = cells_to_world_xz(centroid[0], centroid[1])
             cluster_x = ccx_w + math.cos(mid) * (boundary_r - 0.5)
             cluster_z = ccz_w + math.sin(mid) * (boundary_r - 0.5)
-            n_trees = crng.randint(3, 5)
-            n_rocks = crng.randint(1, 2)
+            if is_tree_wall:
+                n_trees = crng.randint(3, 5)
+                n_rocks = crng.randint(1, 2)
+            else:
+                # Stone-walled hubs: rock-only pillars (no out-of-place trees).
+                n_trees = 0
+                n_rocks = crng.randint(3, 5)
             for ti in range(n_trees):
                 jx = crng.uniform(-1.6, 1.6)
                 jz = crng.uniform(-1.6, 1.6)
@@ -866,34 +922,114 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
 # Pillar-cluster pass for handcrafted levels (light touch)
 # ---------------------------------------------------------------------------
 
-def add_pillar_clusters_handcrafted(level_id, data):
-    """Hand-crafted OUTDOOR levels: between adjacent load_zones, add a
-    cluster of trees + rocks at the perimeter so the gap-in-tree-wall
-    visual reads as a clearing instead of an arbitrary opening.
+def add_pillar_clusters_handcrafted(level_id, data, parent_target=None):
+    """Hand-crafted levels: between adjacent load_zones, add a cluster of
+    pillar props at the perimeter so the gap-in-wall visual reads as a
+    distinct doorway instead of an arbitrary opening in a featureless
+    wall.
+
+    Material rule:
+      - tree-walled levels: tree-pillar clusters (3-5 trees + 1-2 rocks)
+      - stone-walled levels: rock-pillar clusters (3-5 rocks, no trees)
+
+    Additionally, for stone-walled hubs with 4+ auto:true load_zones,
+    REDISTRIBUTE load_zone trigger positions evenly around the cell
+    bbox perimeter (parent kept at south, others fan CW from north),
+    and ADD perimeter knot bumps (4-8 small rock props at random spots
+    just outside the cell bbox) so the silhouette doesn't read as a
+    perfect rectangle.
 
     Skips levels that already use a tree_walls polygon (those carve
-    gaps via tree_wall.gd's `gaps` system already), and indoor levels
-    (whose grid uses non-tree wall material — placing trees inside
-    stone-walled rooms looks broken)."""
+    gaps via tree_wall.gd's `gaps` system already)."""
     if data.get("tree_walls"):
+        # Still strip stale pillar-cluster props for idempotency.
+        data["props"] = [p for p in data.get("props", [])
+                         if not p.get("_pillar_cluster")]
         return 0
     lzs = data.get("load_zones", [])
-    if len(lzs) < 2:
-        return 0
-    # Compute centroid of cells.
     grid = data.get("grid", {})
     floors = grid.get("floors", [])
     if not floors:
         return 0
-    # Only run on grids whose first floor uses tree-walls.
-    if floors[0].get("wall_material") != "tree":
-        return 0
     cells_raw = floors[0].get("cells", [])
     if not cells_raw:
         return 0
+    wall_material = floors[0].get("wall_material", "stone")
+    is_tree_wall = (wall_material == "tree")
     cs = float(grid.get("cell_size", 1.0))
+    # Centroid of cells (used for radial geometry).
     cx = sum((int(c[0]) + 0.5) * cs for c in cells_raw) / len(cells_raw)
     cz = sum((int(c[1]) + 0.5) * cs for c in cells_raw) / len(cells_raw)
+    # Cell bbox in world coords.
+    xs = [int(c[0]) for c in cells_raw]
+    js = [int(c[1]) for c in cells_raw]
+    bbox_x_min = min(xs) * cs
+    bbox_x_max = (max(xs) + 1) * cs
+    bbox_z_min = min(js) * cs
+    bbox_z_max = (max(js) + 1) * cs
+    bbox_half_x = (bbox_x_max - bbox_x_min) / 2.0
+    bbox_half_z = (bbox_z_max - bbox_z_min) / 2.0
+    bbox_cx = (bbox_x_min + bbox_x_max) / 2.0
+    bbox_cz = (bbox_z_min + bbox_z_max) / 2.0
+
+    # ---- Step A: 360° redistribution of LZ positions for big hubs. ----
+    # Only for stone-walled (indoor / handcrafted hub) levels, since
+    # tree-walled outdoor scenes already use the tree_wall gap system
+    # for placement and have artistic positioning we shouldn't override.
+    auto_lzs = [lz for lz in lzs if lz.get("auto", True)]
+    redistributed = False
+    if (not is_tree_wall) and len(auto_lzs) >= 4:
+        # Identify parent LZ (the one whose target is this level's parent).
+        parent_lz = None
+        non_parent = []
+        for lz in auto_lzs:
+            if parent_target is not None and lz.get("target_scene") == parent_target:
+                parent_lz = lz
+            else:
+                non_parent.append(lz)
+        # Place parent at south on the bbox boundary.
+        if parent_lz is not None:
+            new_x = bbox_cx
+            new_z = bbox_z_min - 0.5  # just outside south wall
+            old = parent_lz["pos"]
+            parent_lz["pos"] = [round(new_x, 2),
+                                old[1] if len(old) > 1 else 1.4,
+                                round(new_z, 2)]
+        M = len(non_parent)
+        if M > 0:
+            step = 2.0 * math.pi / M
+            start = math.pi / 2.0
+            if parent_lz is not None and M % 2 == 0:
+                start += step / 2.0
+            for i, lz in enumerate(non_parent):
+                ang = start - step * i
+                # Project ray from bbox centre at this angle out to the
+                # rectangular bbox boundary. (Compass-correct: angle 0 = +x,
+                # π/2 = +z = north.)
+                cax = math.cos(ang)
+                caz = math.sin(ang)
+                # Find scale t such that (t*cax, t*caz) hits the box boundary.
+                if abs(cax) < 1e-9:
+                    tx = float("inf")
+                else:
+                    tx = bbox_half_x / abs(cax)
+                if abs(caz) < 1e-9:
+                    tz = float("inf")
+                else:
+                    tz = bbox_half_z / abs(caz)
+                t = min(tx, tz)
+                # Push the trigger half a cell beyond the wall so it sits
+                # on the boundary (player has to walk into it).
+                t_outer = t + 0.5
+                new_x = bbox_cx + cax * t_outer
+                new_z = bbox_cz + caz * t_outer
+                old = lz["pos"]
+                lz["pos"] = [round(new_x, 2),
+                             old[1] if len(old) > 1 else 1.4,
+                             round(new_z, 2)]
+        redistributed = True
+
+    # Re-read positions for downstream calcs (in case we just moved them).
     angles = []
     for lz in lzs:
         if not lz.get("auto", True):
@@ -901,50 +1037,114 @@ def add_pillar_clusters_handcrafted(level_id, data):
         pos = lz.get("pos", [0, 0, 0])
         ang = math.atan2(pos[2] - cz, pos[0] - cx)
         angles.append((ang, pos))
-    if len(angles) < 2:
-        return 0
-    angles.sort(key=lambda a: a[0])
-    # Mean radial distance.
-    r = sum(math.hypot(p[0] - cx, p[2] - cz) for _, p in angles) / len(angles)
-    crng = random.Random("clusters::handcrafted::" + level_id)
+
     # Drop previously-added pillar-cluster props (idempotent re-runs)
     # — they're tagged with `_pillar_cluster: True`.
     new_props = [p for p in data.get("props", [])
                  if not p.get("_pillar_cluster")]
+
     added = 0
-    for k in range(len(angles)):
-        a_ang, _ = angles[k]
-        b_ang, _ = angles[(k + 1) % len(angles)]
-        if k == len(angles) - 1:
-            b_ang += 2 * math.pi
-        if (b_ang - a_ang) < math.radians(25):
-            continue
-        mid = (a_ang + b_ang) / 2.0
-        # Place cluster JUST OUTSIDE the average load-zone radius — the
-        # tree wall lives at the perimeter, so we want the visual cluster
-        # to land between gaps in the tree-wall zone, not inside the
-        # walking area.
-        ccx = cx + math.cos(mid) * (r + 1.5)
-        ccz = cz + math.sin(mid) * (r + 1.5)
-        n_trees = crng.randint(3, 5)
-        n_rocks = crng.randint(1, 2)
-        for _ in range(n_trees):
-            jx = crng.uniform(-1.6, 1.6)
-            jz = crng.uniform(-1.6, 1.6)
-            new_props.append({
-                "type": "tree",
-                "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
-                "_pillar_cluster": True,
-            })
-        for _ in range(n_rocks):
-            jx = crng.uniform(-1.4, 1.4)
-            jz = crng.uniform(-1.4, 1.4)
+    if len(angles) >= 2:
+        angles.sort(key=lambda a: a[0])
+        # Mean radial distance for cluster placement.
+        r = sum(math.hypot(p[0] - cx, p[2] - cz) for _, p in angles) / len(angles)
+        crng = random.Random("clusters::handcrafted::" + level_id)
+        for k in range(len(angles)):
+            a_ang, _ = angles[k]
+            b_ang, _ = angles[(k + 1) % len(angles)]
+            if k == len(angles) - 1:
+                b_ang += 2 * math.pi
+            if (b_ang - a_ang) < math.radians(15):
+                continue
+            mid = (a_ang + b_ang) / 2.0
+            # For stone-walled hubs after redistribution, project the
+            # cluster onto the bbox boundary (rectangular wall) rather
+            # than at a circular radius. For tree-walled (round-ish)
+            # outdoor scenes, use the average radial distance.
+            if not is_tree_wall:
+                cax = math.cos(mid); caz = math.sin(mid)
+                if abs(cax) < 1e-9:
+                    tx = float("inf")
+                else:
+                    tx = bbox_half_x / abs(cax)
+                if abs(caz) < 1e-9:
+                    tz = float("inf")
+                else:
+                    tz = bbox_half_z / abs(caz)
+                t = min(tx, tz) + 0.4
+                ccx = bbox_cx + cax * t
+                ccz = bbox_cz + caz * t
+            else:
+                ccx = cx + math.cos(mid) * (r + 1.5)
+                ccz = cz + math.sin(mid) * (r + 1.5)
+            if is_tree_wall:
+                n_trees = crng.randint(3, 5)
+                n_rocks = crng.randint(1, 2)
+            else:
+                n_trees = 0
+                n_rocks = crng.randint(3, 5)
+            for _ in range(n_trees):
+                jx = crng.uniform(-1.6, 1.6)
+                jz = crng.uniform(-1.6, 1.6)
+                new_props.append({
+                    "type": "tree",
+                    "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
+                    "_pillar_cluster": True,
+                })
+            for _ in range(n_rocks):
+                jx = crng.uniform(-1.4, 1.4)
+                jz = crng.uniform(-1.4, 1.4)
+                new_props.append({
+                    "type": "rock",
+                    "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
+                    "_pillar_cluster": True,
+                })
+            added += 1
+
+    # ---- Step B: perimeter knot bumps for stone-walled hubs. ----
+    # Break the perfect-rectangle silhouette by sprinkling a few rock
+    # props at jittered positions just outside the cell bbox.
+    if (not is_tree_wall) and len(cells_raw) >= 200:
+        krng = random.Random("knot::handcrafted::" + level_id)
+        n_bumps = krng.randint(4, 8)
+        # Build a set of "claimed angles" so we don't put a bump right
+        # where a doorway is.
+        gap_angles_set = [a for a, _ in angles]
+
+        def too_close_to_gap(ang_deg):
+            for ga in gap_angles_set:
+                ga_deg = math.degrees(ga)
+                d = abs((ang_deg - ga_deg + 180) % 360 - 180)
+                if d < 12:
+                    return True
+            return False
+
+        placed = 0
+        attempts = 0
+        while placed < n_bumps and attempts < 60:
+            attempts += 1
+            ang = krng.uniform(-math.pi, math.pi)
+            if too_close_to_gap(math.degrees(ang)):
+                continue
+            cax = math.cos(ang); caz = math.sin(ang)
+            if abs(cax) < 1e-9:
+                tx = float("inf")
+            else:
+                tx = bbox_half_x / abs(cax)
+            if abs(caz) < 1e-9:
+                tz = float("inf")
+            else:
+                tz = bbox_half_z / abs(caz)
+            t = min(tx, tz) + krng.uniform(0.2, 1.4)
+            bx = bbox_cx + cax * t
+            bz = bbox_cz + caz * t
             new_props.append({
                 "type": "rock",
-                "pos": [round(ccx + jx, 2), 0.0, round(ccz + jz, 2)],
+                "pos": [round(bx, 2), 0.0, round(bz, 2)],
                 "_pillar_cluster": True,
             })
-        added += 1
+            placed += 1
+
     # Always write back (so we strip stale clusters even if `added`==0).
     data["props"] = new_props
     return added
@@ -985,8 +1185,10 @@ def main():
             grown_stats.append(stats)
             total_rebound += stats["rebound"]
         elif lid in PATH_MAP:
-            # handcrafted level — pillar-cluster pass only.
-            added = add_pillar_clusters_handcrafted(lid, data)
+            # handcrafted level — pillar-cluster pass + perimeter knots
+            # + (for stone-walled big hubs) 360° LZ redistribution.
+            parent_target = parent_of.get(lid)
+            added = add_pillar_clusters_handcrafted(lid, data, parent_target)
             if added > 0:
                 handcrafted_clusters += added
                 handcrafted_touched += 1

@@ -5450,6 +5450,420 @@
         0.0,
         -12.37
       ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.18,
+        0.0,
+        -14.93
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.33,
+        0.0,
+        -17.03
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -12.47,
+        0.0,
+        -15.8
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -13.14,
+        0.0,
+        -15.14
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -2.46,
+        0.0,
+        -17.44
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.26,
+        0.0,
+        -15.99
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -3.82,
+        0.0,
+        -16.81
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.65,
+        0.0,
+        -15.91
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        3.53,
+        0.0,
+        -17.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.63,
+        0.0,
+        -16.13
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.96,
+        0.0,
+        -16.88
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.22,
+        0.0,
+        -16.12
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        13.9,
+        0.0,
+        -16.31
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        12.35,
+        0.0,
+        -16.59
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.81,
+        0.0,
+        -3.25
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.71,
+        0.0,
+        -4.08
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.23,
+        0.0,
+        -3.15
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.8,
+        0.0,
+        -3.25
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.34,
+        0.0,
+        -2.08
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.4,
+        0.0,
+        8.72
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.31,
+        0.0,
+        8.67
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.73,
+        0.0,
+        10.66
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.04,
+        0.0,
+        8.78
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.27,
+        0.0,
+        9.61
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        7.24,
+        0.0,
+        16.31
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        5.0,
+        0.0,
+        16.82
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.71,
+        0.0,
+        17.77
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.02,
+        0.0,
+        15.37
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -5.16,
+        0.0,
+        15.05
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -7.14,
+        0.0,
+        17.38
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.95,
+        0.0,
+        8.09
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.42,
+        0.0,
+        10.33
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -15.17,
+        0.0,
+        8.96
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.62,
+        0.0,
+        -2.29
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.69,
+        0.0,
+        -3.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.02,
+        0.0,
+        -3.55
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.05,
+        0.0,
+        -2.44
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.09,
+        0.0,
+        -2.75
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.31,
+        0.0,
+        12.16
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        4.15,
+        0.0,
+        16.52
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        14.39,
+        0.0,
+        -16.74
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        15.19,
+        0.0,
+        -16.99
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.62,
+        0.0,
+        -2.29
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.77,
+        0.0,
+        7.06
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.47,
+        0.0,
+        10.59
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.72,
+        0.0,
+        17.26
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [
@@ -5457,7 +5871,7 @@
       "pos": [
         0.0,
         1.4,
-        -15.0
+        -16.5
       ],
       "size": [
         4.0,
@@ -5471,9 +5885,9 @@
     },
     {
       "pos": [
-        -14.0,
+        0.0,
         1.4,
-        15.0
+        16.5
       ],
       "size": [
         4.0,
@@ -5487,9 +5901,9 @@
     },
     {
       "pos": [
-        9.33,
+        13.75,
         1.4,
-        15.0
+        16.38
       ],
       "size": [
         4.0,
@@ -5503,9 +5917,9 @@
     },
     {
       "pos": [
-        0.0,
+        16.49,
         1.4,
-        15.0
+        2.91
       ],
       "size": [
         4.0,
@@ -5519,9 +5933,9 @@
     },
     {
       "pos": [
-        15.0,
+        16.43,
         1.4,
-        0.0
+        -9.49
       ],
       "size": [
         1.5,
@@ -5535,9 +5949,9 @@
     },
     {
       "pos": [
-        -15.0,
+        5.99,
         1.4,
-        0.0
+        -16.47
       ],
       "size": [
         1.5,
@@ -5551,9 +5965,9 @@
     },
     {
       "pos": [
-        -4.67,
+        -5.99,
         1.4,
-        15.0
+        -16.47
       ],
       "size": [
         4.0,
@@ -5567,9 +5981,9 @@
     },
     {
       "pos": [
-        4.67,
+        -16.43,
         1.4,
-        15.0
+        -9.49
       ],
       "size": [
         4.0,
@@ -5583,9 +5997,9 @@
     },
     {
       "pos": [
-        14.0,
+        -16.49,
         1.4,
-        15.0
+        2.91
       ],
       "size": [
         4.0,
@@ -5599,9 +6013,9 @@
     },
     {
       "pos": [
-        -9.33,
+        -13.75,
         1.4,
-        15.0
+        16.38
       ],
       "size": [
         4.0,

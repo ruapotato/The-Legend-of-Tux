@@ -4811,6 +4811,78 @@
           }
         }
       }
+    },
+    {
+      "type": "rock",
+      "pos": [
+        12.55,
+        0.0,
+        16.38
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.94,
+        0.0,
+        4.7
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        1.9,
+        0.0,
+        16.45
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.33,
+        0.0,
+        -0.65
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.41,
+        0.0,
+        4.49
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.38,
+        0.0,
+        3.07
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.98,
+        0.0,
+        -14.69
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        0.81,
+        0.0,
+        16.33
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

@@ -1,23 +1,23 @@
 [gd_scene load_steps=273 format=3 uid="uid://btuxlocals01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.5, 0.6, 0.75, 1)
@@ -2522,6 +2522,30 @@ body_color = Color(0.45, 0.42, 0.38, 1)
 hat_color = Color(0.3, 0.32, 0.3, 1)
 idle_hint = "[E] tar"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"tar\", \"text\": \"I bundle things together. Hearts, shafts, powder — and a wisp in a jar, on a lucky week. Bundle, unbundle. Same coin.\", \"choices\": [{\"label\": \"Show me what you have.\", \"next\": \"wares\"}, {\"label\": \"What's the camp like?\", \"next\": \"fare\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"fare\": {\"speaker\": \"tar\", \"text\": \"Better than yesterday. Worse than the year before. The Locals haul, I pack. That's the bargain — flags `czf` for me, `xzf` for the next walker who needs it.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"wares\": {\"speaker\": \"tar\", \"text\": \"Full archive — hearts, arrows, bombs, the rare bottled fairy. And `unzip`, if you keep finding caches you can't pry open.\", \"choices\": [{\"label\": \"tar -xvf.\", \"opens_shop\": [\"heart\", \"arrow\", \"bomb\", \"fairy_bottle\", \"unzip\"]}, {\"label\": \"Maybe later.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"tar\", \"text\": \"Walk well. Come back lighter, if you can.\"}}}"
+
+[node name="Rock31" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.41, 0, -11.29)
+
+[node name="Rock32" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.03, 0, 2.65)
+
+[node name="Rock33" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.42, 0, 6.26)
+
+[node name="Rock34" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.19, 0, -7.28)
+
+[node name="Rock35" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.27, 0, 17.06)
+
+[node name="Rock36" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.12, 0, 16.89)
+
+[node name="Rock37" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.29, 0, -15.94)
+
+[node name="Rock38" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.42, 0, 9.4)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -15.5)

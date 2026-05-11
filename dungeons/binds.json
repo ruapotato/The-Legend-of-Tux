@@ -4936,7 +4936,7 @@
           },
           "what": {
             "speaker": "apt",
-            "text": "A tool-spirit of the Binds. I install. I update. I don't haggle — the price is the price.",
+            "text": "A tool-spirit of the Binds. I install. I update. I don't haggle \u2014 the price is the price.",
             "choices": [
               {
                 "label": "Back.",
@@ -5132,6 +5132,42 @@
           }
         }
       }
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.68,
+        0.0,
+        -6.47
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -5.7,
+        0.0,
+        -16.88
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.9,
+        0.0,
+        7.54
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        16.79,
+        0.0,
+        0.05
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

@@ -15654,6 +15654,96 @@
         0.0,
         -1.0
       ]
+    },
+    {
+      "type": "rock",
+      "pos": [
+        29.22,
+        0.0,
+        1.3
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        28.07,
+        0.0,
+        0.31
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        27.94,
+        0.0,
+        0.72
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -28.89,
+        0.0,
+        1.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.38,
+        0.0,
+        0.68
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -29.01,
+        0.0,
+        1.28
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -18.47,
+        0.0,
+        -29.17
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.88,
+        0.0,
+        -28.99
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        10.3,
+        0.0,
+        28.23
+      ],
+      "_pillar_cluster": true
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -28.51,
+        0.0,
+        7.53
+      ],
+      "_pillar_cluster": true
     }
   ],
   "load_zones": [

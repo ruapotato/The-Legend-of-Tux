@@ -1,33 +1,33 @@
 [gd_scene load_steps=2388 format=3 uid="uid://btuxburnthol01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxprgh01" path="res://scenes/enemy_process_ghost.tscn" id="process_ghost"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxmbbnog01" path="res://scenes/enemy_bone_ogre.tscn" id="bone_ogre"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxpkbm01" path="res://scenes/pickup_bomb.tscn" id="bomb_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
 [ext_resource type="PackedScene" uid="uid://btuxdwall01" path="res://scenes/destructible_wall.tscn" id="destructible_wall"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxmbbnog01" path="res://scenes/enemy_bone_ogre.tscn" id="bone_ogre"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpkbm01" path="res://scenes/pickup_bomb.tscn" id="bomb_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbflw01" path="res://scenes/bomb_flower.tscn" id="bomb_flower"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxprgh01" path="res://scenes/enemy_process_ghost.tscn" id="process_ghost"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
+[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
 [ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxbosscnt01" path="res://scenes/enemy_cinder_tomato.tscn" id="cinder_tomato"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.3, 1)
@@ -21785,6 +21785,45 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.48, 0, 81.75)
 
 [node name="Rock92" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.77, 0, 82.95)
+
+[node name="Rock93" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.66, 0, 3.57)
+
+[node name="Rock94" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.08, 0, 3.51)
+
+[node name="Rock95" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.35, 0, 2.78)
+
+[node name="Rock96" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.9, 0, 4.46)
+
+[node name="Rock97" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.93, 0, 96.24)
+
+[node name="Rock98" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.94, 0, 96.19)
+
+[node name="Rock99" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.06, 0, 95.04)
+
+[node name="Rock100" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.24, 0, 96.26)
+
+[node name="Rock101" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.21, 0, 69.34)
+
+[node name="Rock102" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.59, 0, 97.26)
+
+[node name="Rock103" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.73, 0, 47.39)
+
+[node name="Rock104" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.65, 0, 96.37)
+
+[node name="Rock105" parent="." instance=ExtResource("rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.21, 0, 96.5)
 
 [node name="LoadZone0" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.4996, 1.4, 48.9809)
