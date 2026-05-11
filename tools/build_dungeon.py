@@ -325,6 +325,22 @@ PATH_MAP = {
     "dev_random":        "/dev/random",
     "dev_tty":           "/dev/tty",
     "dev_loop":          "/dev/loop",
+    # Canonical Unix sub-dirs the player will instantly recognise (10).
+    # Hearthold (/home/hearthold) children.
+    "hearthold_desktop":   "/home/hearthold/Desktop",
+    "hearthold_downloads": "/home/hearthold/Downloads",
+    # Old Hold (/home/wyrdkin) children — dotfiles + cache + history.
+    "wyrdkin_config":        "/home/wyrdkin/.config",
+    "wyrdkin_cache":         "/home/wyrdkin/.cache",
+    "wyrdkin_bash_history":  "/home/wyrdkin/.bash_history",
+    # Scriptorium (/etc) children — classic /etc tablets.
+    "etc_hosts": "/etc/hosts",
+    "etc_motd":  "/etc/motd",
+    "etc_fstab": "/etc/fstab",
+    # Ledger (/var/log) — running syslog.
+    "var_log_syslog": "/var/log/syslog",
+    # Drift (/tmp) — the X11 socket directory.
+    "tmp_x11_unix": "/tmp/.X11-unix",
 }
 
 

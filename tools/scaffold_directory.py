@@ -397,6 +397,63 @@ SCAFFOLD = [
         "scope": "passthrough", "theme": "recursion-hall", "music": "burnt_hollow",
         "neighbours": [("forge", "[E] Back to the Forge")],
     },
+    # ---- canonical Unix sub-dirs the player will instantly recognise (10) ----
+    # Each is a leaf in the tree. Parents wire to them via patched JSONs.
+    # Under /home/hearthold (2).
+    {
+        "id": "hearthold_desktop", "name": "Hearthold Desktop",
+        "scope": "passthrough", "theme": "village-commons", "music": "hearthold",
+        "neighbours": [("hearthold", "[E] Back to Hearthold")],
+    },
+    {
+        "id": "hearthold_downloads", "name": "Hearthold Downloads",
+        "scope": "passthrough", "theme": "labelled-shelves", "music": "hearthold",
+        "neighbours": [("hearthold", "[E] Back to Hearthold")],
+    },
+    # Under /home/wyrdkin (3) — Tux's grandparents' hold + dotfiles.
+    {
+        "id": "wyrdkin_config", "name": "The Ritual Room",
+        "scope": "passthrough", "theme": "alcove", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    {
+        "id": "wyrdkin_cache", "name": "The Stale Pantry",
+        "scope": "passthrough", "theme": "lower-archive", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    {
+        "id": "wyrdkin_bash_history", "name": "The Hall of Spoken Lines",
+        "scope": "passthrough", "theme": "running-scrolls", "music": "wyrdkin_glade",
+        "neighbours": [("old_hold", "[E] Back to the Old Hold")],
+    },
+    # Under /etc (3).
+    {
+        "id": "etc_hosts", "name": "The Hosts Tablet",
+        "scope": "passthrough", "theme": "stone-vault", "music": "sigilkeep",
+        "neighbours": [("scriptorium", "[E] Back to the Scriptorium")],
+    },
+    {
+        "id": "etc_motd", "name": "The Message of the Day",
+        "scope": "passthrough", "theme": "stone-vault", "music": "sigilkeep",
+        "neighbours": [("scriptorium", "[E] Back to the Scriptorium")],
+    },
+    {
+        "id": "etc_fstab", "name": "The Mount Table",
+        "scope": "passthrough", "theme": "labelled-shelves", "music": "sigilkeep",
+        "neighbours": [("scriptorium", "[E] Back to the Scriptorium")],
+    },
+    # Under /var/log (1).
+    {
+        "id": "var_log_syslog", "name": "The Syslog Hall",
+        "scope": "passthrough", "theme": "running-scrolls", "music": "sigilkeep",
+        "neighbours": [("ledger", "[E] Back to the Ledger")],
+    },
+    # Under /tmp (1).
+    {
+        "id": "tmp_x11_unix", "name": "The X11 Socket Room",
+        "scope": "passthrough", "theme": "wild-hum", "music": "drift",
+        "neighbours": [("drift", "[E] Back to the Drift")],
+    },
 ]
 
 # ---- environment palettes per theme ---------------------------------------
