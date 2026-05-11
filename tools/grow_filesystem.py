@@ -243,9 +243,9 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
 
     # 2. Thicken: at each spine cell, add cells perpendicular within
     # a radius that varies along the spine.
-    base_r_mid = 6
+    base_r_mid = 10  # was 6 — wider body
     if big_city:
-        base_r_mid = 11  # 22+ cells across at the wide bulge
+        base_r_mid = 18  # was 11 — wider wide-bulge city body
     for k, (sx, sy) in enumerate(spine_cells):
         t = k / max(1, spine_length - 1)
         # Radius profile:
@@ -279,39 +279,39 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
     # 3. Tip bulb / prongs.
     last_sx, last_sy = spine_cells[-1]
     if role == "leaf":
-        bulb_r = 8
+        bulb_r = 16  # was 8 — 2x larger leaf bulb
         for di in range(-bulb_r - 1, bulb_r + 2):
             for dj in range(-bulb_r - 1, bulb_r + 2):
                 jitter = perlin1d(seed + ":bulb",
-                                  (di * 0.7) + (dj * 0.31)) * 1.5
+                                  (di * 0.7) + (dj * 0.31)) * 2.5
                 if di * di + dj * dj <= (bulb_r + jitter) ** 2:
                     cells.add((last_sx + di, last_sy + dj))
     elif role == "single":
         # Spine merges into the child's stem — no extra bulb. Round
         # the tip a bit so it's not a flat plate.
-        for di in range(-3, 4):
-            for dj in range(-2, 3):
-                if di * di + dj * dj <= 8:
+        for di in range(-6, 7):
+            for dj in range(-4, 5):
+                if di * di + dj * dj <= 32:
                     cells.add((last_sx + di, last_sy + dj))
     else:
         # multi-child junction: fat bulb + prongs to each child.
-        bulb_r = 8 if not big_city else 12
+        bulb_r = 16 if not big_city else 22  # was 8/12 — 2x larger hub bulbs
         for di in range(-bulb_r - 1, bulb_r + 2):
             for dj in range(-bulb_r - 1, bulb_r + 2):
                 jitter = perlin1d(seed + ":hub",
-                                  (di * 0.5) + (dj * 0.27)) * 1.5
+                                  (di * 0.5) + (dj * 0.27)) * 2.5
                 if di * di + dj * dj <= (bulb_r + jitter) ** 2:
                     cells.add((last_sx + di, last_sy + dj))
         # Prongs reaching toward each child.
-        prong_len = 6
+        prong_len = 12  # was 6
         for cd in prong_dirs_local:
             cdx, cdy = cd
             for step in range(1, prong_len + 1):
                 cx = last_sx + int(round(cdx * step))
                 cy = last_sy + int(round(cdy * step))
-                # 3-cell-wide prong (perpendicular to direction).
+                # 5-cell-wide prong (perpendicular to direction).
                 pdx, pdy = -cdy, cdx  # perpendicular in 2D
-                for j in range(-1, 2):
+                for j in range(-2, 3):
                     cells.add((cx + int(round(pdx * j)),
                                cy + int(round(pdy * j))))
 
@@ -337,14 +337,13 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
                     break
 
     # 5. Stem: ensure a clean corridor from south anchor (0, -1) up to
-    # the spine start. Carve a 4-cell-wide entrance.
+    # the spine start. Carve a 6-cell-wide entrance (was 4).
     for j in range(-2, spine_cells[0][1] + 2):
-        for i in range(-3, 4):
+        for i in range(-4, 5):
             cells.add((i, j))
 
-    # 6. Sanity: minimum 12x12 effective cell-rect. If our bounding box
-    # is too small, expand the bulb a bit. (Also enforces the multi-child
-    # hub at-least-18×18 rule and big-city at-least-40×40 rule.)
+    # 6. Sanity: minimum 24x24 effective cell-rect (was 12). Bigger
+    # baselines for multi-child hubs (32) and big-city (60).
     cells = _ensure_min_size(cells, level_id, role, big_city, last_sx, last_sy)
 
     return cells, spine_cells
@@ -353,11 +352,11 @@ def generate_cells(level_id, role, spine_length, sibling_count_of_self,
 def _ensure_min_size(cells, level_id, role, big_city, cx, cy):
     """Pad the bulb area with concentric circles until the bbox meets
     the required minimum dimensions."""
-    min_dim = 12
+    min_dim = 24  # was 12 — 2x baseline
     if role == "multi":
-        min_dim = 18
+        min_dim = 32  # was 18
     if big_city:
-        min_dim = 40
+        min_dim = 60  # was 40
     safety = 0
     while True:
         is_ = [c[0] for c in cells]
@@ -491,13 +490,13 @@ def process_algorithm_level(level_id, data, parent_of, children_of,
     n_kids = len(real_kids)
     if n_kids == 0:
         role = "leaf"
-        spine_length = 24
+        spine_length = 48  # was 24 — 3x scale-up for fatter leaves
     elif n_kids == 1:
         role = "single"
-        spine_length = 28
+        spine_length = 56  # was 28
     else:
         role = "multi"
-        spine_length = 24
+        spine_length = 48  # was 24
 
     big_city = level_id in BIG_CITY
 
@@ -1252,6 +1251,206 @@ def _existing_cell_set(floor):
     return s
 
 
+def _strip_organic_bulge_cells(data):
+    """Remove previously-added organic-bulge cells from the floor.
+    Returns count stripped. Idempotent."""
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return 0
+    floor = floors[0]
+    bulge_set = set()
+    for c in floor.get("_organic_bulge_cells", []) or []:
+        try:
+            bulge_set.add((int(c[0]), int(c[1])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    if not bulge_set:
+        return 0
+    new_cells = []
+    stripped = 0
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            ci, cj = int(c.get("i", 0)), int(c.get("j", 0))
+        else:
+            ci, cj = int(c[0]), int(c[1])
+        if (ci, cj) in bulge_set:
+            stripped += 1
+            continue
+        new_cells.append(c)
+    floor["cells"] = new_cells
+    floor["_organic_bulge_cells"] = []
+    return stripped
+
+
+def grow_organic_bulge_for_level(level_id, data):
+    """Add Perlin-noisy organic bulges to the perimeter of the existing
+    cell footprint. Used for handcrafted hubs (and algorithm multi-hubs)
+    so the silhouette no longer reads as a flat rectangle/circle.
+
+    Walks the perimeter cells; with probability ~0.5 each, extends outward
+    by 1-3 cells in a slightly off-perpendicular angle (perturbed by
+    Perlin noise). The bulge's outward direction is the average outward
+    normal at that cell, rotated by a small per-cell Perlin angle.
+
+    Tags new cells via floor['_organic_bulge_cells'] for idempotency.
+    Skips levels with tree_walls (those use polygon walls instead).
+
+    Returns count of cells added.
+    """
+    if data.get("tree_walls"):
+        # Still strip stale bulge cells for idempotency.
+        _strip_organic_bulge_cells(data)
+        return 0
+
+    grid = data.get("grid", {})
+    floors = grid.get("floors", [])
+    if not floors:
+        return 0
+    floor = floors[0]
+
+    # Strip previous bulge for clean regen.
+    _strip_organic_bulge_cells(data)
+
+    cells_set_all = _existing_cell_set(floor)
+    if len(cells_set_all) < 50:
+        # Don't bulge tiny levels; they'd be overwhelmed.
+        return 0
+
+    # Use the LARGEST 4-connected component as the perimeter source so we
+    # don't grow bulges around stranded sub-islands (some pre-existing
+    # handcrafted levels — mirelake, burnt_hollow — have legitimately
+    # disconnected core cells that we shouldn't decorate).
+    # Find components.
+    visited = set()
+    components = []
+    for c in cells_set_all:
+        if c in visited:
+            continue
+        seen = {c}
+        stack = [c]
+        while stack:
+            ci, cj = stack.pop()
+            for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                nb = (ci + ddi, cj + ddj)
+                if nb in cells_set_all and nb not in seen:
+                    seen.add(nb)
+                    stack.append(nb)
+        visited |= seen
+        components.append(seen)
+    components.sort(key=len, reverse=True)
+    cells_set = components[0] if components else cells_set_all
+
+    seed = "fs::bulge::" + level_id
+    rng = random.Random(seed)
+
+    # Find perimeter cells: cells with at least one 4-neighbor outside.
+    perim = []
+    for (ci, cj) in cells_set:
+        out_normals = []
+        for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            if (ci + ddi, cj + ddj) not in cells_set:
+                out_normals.append((ddi, ddj))
+        if out_normals:
+            # Average outward normal.
+            nx = sum(n[0] for n in out_normals)
+            ny = sum(n[1] for n in out_normals)
+            mag = math.hypot(nx, ny)
+            if mag < 1e-6:
+                continue
+            perim.append(((ci, cj), (nx / mag, ny / mag)))
+
+    if not perim:
+        return 0
+
+    # Walk perimeter; with prob 0.5, extend outward by 1-3 cells in a
+    # Perlin-noisy bulge. We stamp filled rectangles at each step (not
+    # just perpendicular sticks) so bulges are guaranteed 4-connected to
+    # the source perimeter cell.
+    new_cells = set()
+    for (cell, (nx, ny)) in perim:
+        ci, cj = cell
+        if rng.random() > 0.5:
+            continue
+        # Extension length 1-3, weighted toward 2.
+        ext = rng.choices([1, 2, 3, 4], weights=[2, 3, 2, 1])[0]
+        # Perlin-perturb the outward angle slightly so bulges aren't
+        # perfectly perpendicular.
+        t_phase = (ci * 0.137) + (cj * 0.219)
+        ang_perturb = perlin1d(seed + ":ang", t_phase) * 0.6  # ~±35°
+        base_ang = math.atan2(ny, nx)
+        ang = base_ang + ang_perturb
+        bx, by = math.cos(ang), math.sin(ang)
+        # For every extension step, stamp a 3x3 (or larger) BLOCK
+        # centred on the outward cell. The block's anchor cell at step=1
+        # is guaranteed to be a 4-neighbor of the source perimeter cell
+        # (because we stamp a block of ≥3 cells in each axis). Subsequent
+        # steps stamp blocks that overlap the previous step's block.
+        prev_block_centre = (ci, cj)
+        for step in range(1, ext + 1):
+            # Outward centre.
+            ti = ci + bx * step
+            tj = cj + by * step
+            ai = int(round(ti))
+            aj = int(round(tj))
+            # Half-width of the block along each axis (so block is 3x3
+            # for step=1, 5x5 for step=2, 3x3 thereafter).
+            half_w = 2 if step == 2 else 1
+            for ddi in range(-half_w, half_w + 1):
+                for ddj in range(-half_w, half_w + 1):
+                    pi = ai + ddi
+                    pj = aj + ddj
+                    if (pi, pj) not in cells_set:
+                        new_cells.add((pi, pj))
+            # Bridge: ensure block centre and prev block centre are
+            # 4-connected via a swept line.
+            pci, pcj = prev_block_centre
+            steps_b = max(abs(ai - pci), abs(aj - pcj))
+            if steps_b > 0:
+                for sb in range(1, steps_b + 1):
+                    bi_ = pci + (ai - pci) * sb // steps_b
+                    bj_ = pcj + (aj - pcj) * sb // steps_b
+                    for ddi in (-1, 0, 1):
+                        for ddj in (-1, 0, 1):
+                            pi = bi_ + ddi
+                            pj = bj_ + ddj
+                            if (pi, pj) not in cells_set:
+                                new_cells.add((pi, pj))
+            prev_block_centre = (ai, aj)
+
+    # Connectivity filter: only keep new cells that are 4-connected to
+    # either the existing footprint or transitively to another new cell
+    # that is. This guarantees the bulge can be reached from the hub.
+    union = cells_set | new_cells
+    seed_anchors = [c for c in new_cells
+                    if any((c[0] + ddi, c[1] + ddj) in cells_set
+                           for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)])]
+    reachable = set(seed_anchors)
+    stack = list(seed_anchors)
+    while stack:
+        ci, cj = stack.pop()
+        for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            nb = (ci + ddi, cj + ddj)
+            if nb in new_cells and nb not in reachable:
+                reachable.add(nb)
+                stack.append(nb)
+    new_cells = reachable
+
+    if not new_cells:
+        floor["_organic_bulge_cells"] = []
+        return 0
+
+    # Append new cells to floor.cells.
+    existing_entries = list(floor.get("cells", []))
+    bulge_list = []
+    for (i, j) in sorted(new_cells):
+        existing_entries.append([i, j])
+        bulge_list.append([i, j])
+    floor["cells"] = existing_entries
+    floor["_organic_bulge_cells"] = bulge_list
+    return len(bulge_list)
+
+
 def _radius_along_direction(cells_set, cx, cz, dx, dz, max_search=200):
     """Walk outward from (cx, cz) along (dx, dz) and return the distance
     (in cells) to the LAST cell that is still inside the cell set.
@@ -1263,6 +1462,72 @@ def _radius_along_direction(cells_set, cx, cz, dx, dz, max_search=200):
         if (ti, tj) in cells_set:
             last_inside = step
     return last_inside
+
+
+def _nearest_perimeter_cell_in_dir(cells_set, cx, cz, dx, dz, max_search=400):
+    """Return the perimeter cell of `cells_set` closest to the ray from
+    (cx, cz) in direction (dx, dz). Walks the ray and returns the LAST
+    cell still inside. If no cell is inside on the ray, picks the
+    perimeter cell minimising the angular distance to the ray.
+
+    Returned as (i, j). Always returns SOMETHING if cells_set is non-empty.
+    """
+    if not cells_set:
+        return None
+    # Walk along ray.
+    last_inside = None
+    for step in range(max_search):
+        ti = int(round(cx + dx * step))
+        tj = int(round(cz + dz * step))
+        if (ti, tj) in cells_set:
+            last_inside = (ti, tj)
+        elif last_inside is not None:
+            # We've left the footprint; last_inside is the perimeter cell.
+            return last_inside
+    if last_inside is not None:
+        return last_inside
+    # Ray missed entirely; pick perimeter cell with smallest angular delta.
+    target_ang = math.atan2(dz, dx)
+    best = None; best_d = None
+    for (ci, cj) in cells_set:
+        # Quick perimeter check.
+        is_perim = False
+        for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            if (ci + ddi, cj + ddj) not in cells_set:
+                is_perim = True
+                break
+        if not is_perim:
+            continue
+        rdx = ci - cx
+        rdz = cj - cz
+        if rdx == 0 and rdz == 0:
+            continue
+        a = math.atan2(rdz, rdx)
+        diff = abs((a - target_ang + math.pi) % (2 * math.pi) - math.pi)
+        # Combine angular and distance for tiebreak.
+        score = diff
+        if best_d is None or score < best_d:
+            best_d = score
+            best = (ci, cj)
+    return best
+
+
+def _bfs_reachable_set(cells_set, start):
+    """4-connected BFS reachable cells from `start` within `cells_set`.
+    Returns the reachable set (a subset of cells_set). If `start` is not
+    in cells_set, returns empty set."""
+    if start not in cells_set:
+        return set()
+    seen = {start}
+    stack = [start]
+    while stack:
+        ci, cj = stack.pop()
+        for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            nb = (ci + ddi, cj + ddj)
+            if nb in cells_set and nb not in seen:
+                seen.add(nb)
+                stack.append(nb)
+    return seen
 
 
 def grow_arms_for_level(level_id, data, level_seed_extra=""):
@@ -1394,56 +1659,78 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
     new_cell_entries = []  # plain [i, j] entries to append to floor.cells
     sample_arm_distance = 0.0
 
-    # Cell-arm parameters. For tightly-packed hubs (many LZs in a
-    # 360°-fan layout) shorten arms slightly so adjacent arms don't fuse;
-    # also if MIN_SEP forced clashes near each other, the arms diverge as
-    # they grow so they should still separate visually.
-    arm_width = 3
-    half_w = arm_width // 2  # = 1; arm cells span perpendicular [-1, 0, +1]
+    # Hub centroid (snapped) used for BFS reachability checks below.
+    hub_centroid_cell = (int(round(cx)), int(round(cz)))
+    if hub_centroid_cell not in cells_set:
+        # Snap to nearest cell.
+        hub_centroid_cell = nearest_walking_cell(cells_set, cells_to_world_xz(*hub_centroid_cell)) or next(iter(cells_set))
 
     for lz_idx, (lz, ang, _old_dist) in enumerate(lz_dirs):
         dx = math.cos(ang)
         dz = math.sin(ang)
 
-        # Find the existing footprint's reach along this direction
-        # (so the arm starts AT the boundary, not floating outside it).
-        existing_reach = _radius_along_direction(cells_set, cx, cz, dx, dz)
-        # If the existing footprint doesn't reach in this direction at
-        # all (e.g. a concave silhouette), default to half the bbox.
-        if existing_reach < 1:
-            existing_reach = max(
-                abs(before_bbox[0]), abs(before_bbox[1]),
-                abs(before_bbox[2]), abs(before_bbox[3])
-            )
-
-        # Arm length, with deterministic per-LZ randomness.
+        # Per-LZ deterministic RNG.
         arm_seed = seed + ":lz:" + str(lz_idx) + ":" + str(lz.get("target_scene", ""))
         arm_rng = random.Random(arm_seed)
-        arm_length = arm_rng.randint(8, 14)
+
+        # Width per arm: random uniform 4..8, held across the arm length
+        # but Perlin-varied ±1 along it (clamped to >= 4).
+        base_arm_width = arm_rng.randint(4, 8)
+
+        # Length per arm: random uniform 24..42 (was 8..14).
+        arm_length = arm_rng.randint(24, 42)
+
+        # Anchor: nearest perimeter cell of the existing hub in the
+        # outward direction (NOT existing_reach + 1, which left a gap).
+        anchor = _nearest_perimeter_cell_in_dir(cells_set, cx, cz, dx, dz)
+        if anchor is None:
+            # No hub cells at all; fall back to centroid.
+            anchor = hub_centroid_cell
 
         # Per-LZ slight perlin curve. Use a phase derived from the LZ
         # index so each arm curves differently.
         curve_phase = arm_rng.uniform(0.0, 100.0)
         cur_dx, cur_dz = dx, dz
-        last_centre = (cx, cz)
+        # Start the arm AT the anchor (overlap, not gap). The arm cells
+        # will dedupe with the hub at the anchor; subsequent steps walk
+        # outward.
+        start_i = float(anchor[0])
+        start_j = float(anchor[1])
+        last_centre = (start_i, start_j)
 
-        for step in range(1, arm_length + 1):
+        # We span step=0..arm_length so the FIRST 2-3 cells are inside/at
+        # the hub perimeter (overlap), and the rest extend outward.
+        # That's the structural fix for the visible gap rows.
+        joint_overlap = 3  # how many cells overlap with the hub
+        prev_centre_int = None  # previous step's centre (i, j) — for bridging
+        for step in range(0, arm_length + 1):
             # Slight curve: rotate the direction by a tiny amount each
-            # step driven by perlin noise.
-            curve_amt = perlin1d(arm_seed, curve_phase + step * 0.35) * 0.06
-            ca = math.cos(curve_amt); sa = math.sin(curve_amt)
-            new_dx = ca * cur_dx - sa * cur_dz
-            new_dz = sa * cur_dx + ca * cur_dz
-            cur_dx, cur_dz = new_dx, new_dz
+            # step driven by perlin noise. Suppress curve in the joint
+            # overlap region to keep the joint straight & solid.
+            if step >= joint_overlap:
+                curve_amt = perlin1d(arm_seed, curve_phase + step * 0.35) * 0.06
+                ca = math.cos(curve_amt); sa = math.sin(curve_amt)
+                new_dx = ca * cur_dx - sa * cur_dz
+                new_dz = sa * cur_dx + ca * cur_dz
+                cur_dx, cur_dz = new_dx, new_dz
 
-            tip_i = cx + cur_dx * (existing_reach + step)
-            tip_j = cz + cur_dz * (existing_reach + step)
+            # Width varies along the arm via Perlin (±1, min 4).
+            t_width = step / max(1, arm_length)
+            width_perlin = perlin1d(arm_seed + ":w", t_width * 4.0 + curve_phase)
+            cur_width = max(4, base_arm_width + int(round(width_perlin)))
+            half_w = cur_width // 2
+
+            tip_i = start_i + cur_dx * step
+            tip_j = start_j + cur_dz * step
 
             # Perpendicular vector for arm width.
             perp_dx = -cur_dz
             perp_dz = cur_dx
 
-            for w in range(-half_w, half_w + 1):
+            # Width range: split half_w (rounding bias for even widths).
+            wlow = -half_w
+            whigh = cur_width - 1 - half_w  # so total = cur_width cells
+            for w in range(wlow, whigh + 1):
                 ai = int(round(tip_i + perp_dx * w))
                 aj = int(round(tip_j + perp_dz * w))
                 key = (ai, aj)
@@ -1453,7 +1740,87 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
                 arm_cells_added.append(key)
                 new_cell_entries.append([ai, aj])
 
+            # Joint widening: in the joint_overlap region, also stamp a
+            # 1-cell-larger half-width on each side so the join with the
+            # hub is solid (no diagonal gaps).
+            if step < joint_overlap:
+                for w in (wlow - 1, whigh + 1):
+                    ai = int(round(tip_i + perp_dx * w))
+                    aj = int(round(tip_j + perp_dz * w))
+                    key = (ai, aj)
+                    if key in cells_set:
+                        continue
+                    cells_set.add(key)
+                    arm_cells_added.append(key)
+                    new_cell_entries.append([ai, aj])
+
+            # Bridge to previous step: if the curve made the centre move
+            # by more than 1 cell on either axis, stamp the orthogonal
+            # bridge cells so 4-connectivity is preserved.
+            cur_centre_int = (int(round(tip_i)), int(round(tip_j)))
+            if prev_centre_int is not None:
+                pi, pj = prev_centre_int
+                ci_, cj_ = cur_centre_int
+                # Walk a Bresenham-ish line of width=1 between prev and cur
+                # for the centre cells (and also fill perp neighbours so
+                # the corridor stays its full width across the bridge).
+                steps_b = max(abs(ci_ - pi), abs(cj_ - pj))
+                if steps_b > 1:
+                    for sb in range(1, steps_b):
+                        bi = pi + (ci_ - pi) * sb // steps_b
+                        bj = pj + (cj_ - pj) * sb // steps_b
+                        for w in range(wlow, whigh + 1):
+                            ai = int(round(bi + perp_dx * w))
+                            aj = int(round(bj + perp_dz * w))
+                            key = (ai, aj)
+                            if key in cells_set:
+                                continue
+                            cells_set.add(key)
+                            arm_cells_added.append(key)
+                            new_cell_entries.append([ai, aj])
+            prev_centre_int = cur_centre_int
+
             last_centre = (tip_i, tip_j)
+
+        # BFS reachability check: ensure the arm tip is reachable from
+        # the hub centroid. If not, walk back from the tip and widen
+        # joint cells (add fill cells) until reachable.
+        tip_int = (int(round(last_centre[0])), int(round(last_centre[1])))
+        if tip_int not in cells_set:
+            # Snap tip onto the closest arm cell.
+            best = None; best_d = None
+            for (ai, aj) in arm_cells_added:
+                d2 = (ai - last_centre[0]) ** 2 + (aj - last_centre[1]) ** 2
+                if best_d is None or d2 < best_d:
+                    best_d = d2; best = (ai, aj)
+            if best is not None:
+                tip_int = best
+
+        if tip_int in cells_set:
+            reachable = _bfs_reachable_set(cells_set, hub_centroid_cell)
+            if tip_int not in reachable:
+                # Force reachability: stamp a fat 5-cell-wide ribbon along
+                # the line from the anchor to the tip. This always
+                # connects since it's continuous-grid.
+                for s in range(0, max(1, int(math.hypot(
+                        tip_int[0] - anchor[0],
+                        tip_int[1] - anchor[1])) + 1)):
+                    ti = anchor[0] + (tip_int[0] - anchor[0]) * s / max(
+                        1, int(math.hypot(tip_int[0] - anchor[0],
+                                          tip_int[1] - anchor[1])))
+                    tj = anchor[1] + (tip_int[1] - anchor[1]) * s / max(
+                        1, int(math.hypot(tip_int[0] - anchor[0],
+                                          tip_int[1] - anchor[1])))
+                    for ddi in (-2, -1, 0, 1, 2):
+                        for ddj in (-2, -1, 0, 1, 2):
+                            ai = int(round(ti)) + ddi
+                            aj = int(round(tj)) + ddj
+                            key = (ai, aj)
+                            if key in cells_set:
+                                continue
+                            cells_set.add(key)
+                            arm_cells_added.append(key)
+                            new_cell_entries.append([ai, aj])
 
         # The arm tip is the centre cell at the end of the corridor.
         tip_i_int = int(round(last_centre[0]))
@@ -1507,6 +1874,36 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
                     sp["rotation_y"] = round(math.atan2(-cur_dx, -cur_dz), 4)
                     break
 
+    # Final connectivity filter: drop any newly-added arm cells that are
+    # not 4-connected (transitively) to the existing hub footprint. This
+    # eliminates speckle strays from rotated-perpendicular rounding
+    # artifacts at far ends of curved arms.
+    pre_existing = set()
+    for c in floor.get("cells", []):
+        if isinstance(c, dict):
+            pre_existing.add((int(c.get("i", 0)), int(c.get("j", 0))))
+        else:
+            pre_existing.add((int(c[0]), int(c[1])))
+    new_set = set(arm_cells_added)
+    union = pre_existing | new_set
+    # Seed: any arm cell adjacent to a pre-existing cell.
+    seeds = [c for c in new_set
+             if any((c[0] + ddi, c[1] + ddj) in pre_existing
+                    for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)])]
+    reachable_arm = set(seeds)
+    stack = list(seeds)
+    while stack:
+        ci, cj = stack.pop()
+        for ddi, ddj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            nb = (ci + ddi, cj + ddj)
+            if nb in new_set and nb not in reachable_arm:
+                reachable_arm.add(nb)
+                stack.append(nb)
+    # Drop unreachable arm cells.
+    dropped_strays = len(new_set) - len(reachable_arm)
+    arm_cells_added = [c for c in arm_cells_added if c in reachable_arm]
+    new_cell_entries = [e for e in new_cell_entries if (e[0], e[1]) in reachable_arm]
+
     # Write the new cells back into floor.
     floor["cells"] = list(floor.get("cells", [])) + new_cell_entries
     floor["_arm_cells"] = [[i, j] for (i, j) in arm_cells_added]
@@ -1556,17 +1953,21 @@ def main():
             levels[lid] = (fn, json.load(f))
 
     # Idempotency pre-step: strip every level's previously-added arm
-    # cells so subsequent passes (algorithm-owned regrow + handcrafted
-    # pillar/redistribute) operate on the original hub footprint, not
-    # last run's arm-extended footprint. Without this, the handcrafted
-    # bbox-based LZ redistribution drifts further out each run as the
-    # arm-tip becomes the new bbox edge for the next run's redistribution.
+    # cells AND organic-bulge cells so subsequent passes operate on the
+    # original hub footprint, not last run's arm/bulge-extended one.
+    # Without this, the handcrafted bbox-based LZ redistribution drifts
+    # further out each run as the arm-tip becomes the new bbox edge.
     total_stripped_pre = 0
+    total_stripped_bulge_pre = 0
     for lid, (fn, data) in levels.items():
         total_stripped_pre += _strip_arm_cells(data)
+        total_stripped_bulge_pre += _strip_organic_bulge_cells(data)
     if total_stripped_pre:
         print("stripped %d stale arm cells (idempotent re-run cleanup)"
               % total_stripped_pre)
+    if total_stripped_bulge_pre:
+        print("stripped %d stale organic-bulge cells (idempotent re-run cleanup)"
+              % total_stripped_bulge_pre)
 
     for lid, (fn, data) in levels.items():
         if lid in ALGO_OWNED and lid in world_pos:
@@ -1584,6 +1985,19 @@ def main():
             if added > 0:
                 handcrafted_clusters += added
                 handcrafted_touched += 1
+
+    # ---- Organic perimeter bulge pass ----
+    # Add Perlin-noisy bulges to the perimeter of every level's footprint
+    # so the silhouette is no longer a flat rectangle/circle. Run this
+    # BEFORE the arm pass so arms anchor onto the bulged perimeter
+    # (avoiding gaps at the join). Idempotent.
+    bulge_stats = []
+    for lid, (fn, data) in levels.items():
+        if lid not in PATH_MAP and lid not in ALGO_OWNED:
+            continue
+        added = grow_organic_bulge_for_level(lid, data)
+        if added > 0:
+            bulge_stats.append((lid, added))
 
     # ---- Cell-arm growth pass (after all earlier mutations) ----
     # For every dir with >= 2 outgoing auto:true load_zones, extend
@@ -1621,6 +2035,15 @@ def main():
                   bx0, bx1, bz0, bz1,
                   s["spawn_count"], s["lz_count"],
                   s["pillar_clusters"], s["rebound"]))
+
+    print()
+    print("=" * 60)
+    print("ORGANIC BULGE: %d levels gained perimeter bulges" % len(bulge_stats))
+    if bulge_stats:
+        total_bulge = sum(n for _, n in bulge_stats)
+        print("TOTAL bulge cells added: %d" % total_bulge)
+        for lid, n in sorted(bulge_stats, key=lambda x: -x[1])[:12]:
+            print("  %-22s +%4d bulge cells" % (lid, n))
 
     print()
     print("=" * 60)
