@@ -1673,12 +1673,13 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         arm_seed = seed + ":lz:" + str(lz_idx) + ":" + str(lz.get("target_scene", ""))
         arm_rng = random.Random(arm_seed)
 
-        # Width per arm: random uniform 4..8, held across the arm length
-        # but Perlin-varied ±1 along it (clamped to >= 4).
-        base_arm_width = arm_rng.randint(4, 8)
+        # Width per arm: random uniform 6..12, held across the arm length
+        # but Perlin-varied ±2 along it (clamped to >= 6). Wider so the
+        # corridors are comfortable to walk down (was 4..8).
+        base_arm_width = arm_rng.randint(6, 12)
 
-        # Length per arm: random uniform 24..42 (was 8..14).
-        arm_length = arm_rng.randint(24, 42)
+        # Length per arm: random uniform 36..60 (was 24..42).
+        arm_length = arm_rng.randint(36, 60)
 
         # Anchor: nearest perimeter cell of the existing hub in the
         # outward direction (NOT existing_reach + 1, which left a gap).
@@ -1714,10 +1715,11 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
                 new_dz = sa * cur_dx + ca * cur_dz
                 cur_dx, cur_dz = new_dx, new_dz
 
-            # Width varies along the arm via Perlin (±1, min 4).
+            # Width varies along the arm via Perlin (±2, min 6). Wider
+            # baseline so even the narrowest section stays walkable.
             t_width = step / max(1, arm_length)
-            width_perlin = perlin1d(arm_seed + ":w", t_width * 4.0 + curve_phase)
-            cur_width = max(4, base_arm_width + int(round(width_perlin)))
+            width_perlin = perlin1d(arm_seed + ":w", t_width * 4.0 + curve_phase) * 2.0
+            cur_width = max(6, base_arm_width + int(round(width_perlin)))
             half_w = cur_width // 2
 
             tip_i = start_i + cur_dx * step
