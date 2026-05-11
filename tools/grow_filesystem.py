@@ -1655,20 +1655,35 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
         dist = math.hypot(dx_world, dz_world)
         lz_dirs.append([lz, ang, dist])
 
-    # Resolve angle clashes: sort by angle, then walk and ensure each
-    # adjacent pair differs by >= MIN_SEP. If not, push the later one CCW.
-    MIN_SEP = math.radians(8)
-    lz_dirs.sort(key=lambda x: x[1])
-    for i in range(1, len(lz_dirs)):
-        prev_ang = lz_dirs[i - 1][1]
-        if lz_dirs[i][1] - prev_ang < MIN_SEP:
-            lz_dirs[i][1] = prev_ang + MIN_SEP
-    # Also handle wrap-around: last vs first + 2pi.
-    if len(lz_dirs) >= 2:
-        wrap_diff = (lz_dirs[0][1] + 2 * math.pi) - lz_dirs[-1][1]
-        if wrap_diff < MIN_SEP:
-            # Distribute the deficit by nudging the last one CW.
-            lz_dirs[-1][1] -= (MIN_SEP - wrap_diff)
+    # Resolve angle clashes. For arms up to 60 cells long and 16 cells
+    # wide, two arms need >= ~20° angular separation to avoid tip
+    # overlap. Bumped from 8° (which produced fused arms in sprawl —
+    # locals + burrows ended up 4.5 cells apart at their tips). Also
+    # PROPAGATE the nudge: a single push CCW can pile clashes onto the
+    # next neighbor; iterate sort+resolve until no pair is closer than
+    # MIN_SEP or we hit a fixed iteration cap.
+    MIN_SEP = math.radians(22)
+    for _iter in range(6):
+        lz_dirs.sort(key=lambda x: x[1])
+        moved = False
+        for i in range(1, len(lz_dirs)):
+            prev_ang = lz_dirs[i - 1][1]
+            if lz_dirs[i][1] - prev_ang < MIN_SEP:
+                lz_dirs[i][1] = prev_ang + MIN_SEP
+                moved = True
+        # Wrap-around: last vs first + 2pi.
+        if len(lz_dirs) >= 2:
+            wrap_diff = (lz_dirs[0][1] + 2 * math.pi) - lz_dirs[-1][1]
+            if wrap_diff < MIN_SEP:
+                # Halve the deficit on each side instead of dumping it on
+                # one neighbor — this propagates the pressure around the
+                # ring more evenly across iterations.
+                deficit = MIN_SEP - wrap_diff
+                lz_dirs[-1][1] -= deficit * 0.5
+                lz_dirs[0][1]  += deficit * 0.5
+                moved = True
+        if not moved:
+            break
 
     seed = "arms::" + level_id + level_seed_extra
     rng = random.Random(seed)
@@ -1720,8 +1735,13 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
             anchor = hub_centroid_cell
 
         # Per-LZ slight perlin curve. Use a phase derived from the LZ
-        # index so each arm curves differently.
+        # index so each arm curves differently. The curve seed includes
+        # the LZ's target_scene so two arms with similar phases CAN'T
+        # accidentally share the same Perlin path (which previously made
+        # sprawl's locals and burrows arms converge at near-identical
+        # tips even after their initial angles were spread 22° apart).
         curve_phase = arm_rng.uniform(0.0, 100.0)
+        curve_seed = arm_seed + ":curve:" + str(lz.get("target_scene", "?")) + ":" + str(lz_idx)
         cur_dx, cur_dz = dx, dz
         # Start the arm AT the anchor (overlap, not gap). The arm cells
         # will dedupe with the hub at the anchor; subsequent steps walk
@@ -1740,7 +1760,13 @@ def grow_arms_for_level(level_id, data, level_seed_extra=""):
             # step driven by perlin noise. Suppress curve in the joint
             # overlap region to keep the joint straight & solid.
             if step >= joint_overlap:
-                curve_amt = perlin1d(arm_seed, curve_phase + step * 0.35) * 0.06
+                # Curve magnitude per step: 0.025 rad (was 0.06). Over 60
+                # steps with Perlin's bounded ±1 output that's ~1.5 rad
+                # peak deflection, but typically far less. Critically:
+                # use a per-arm seed (curve_seed) NOT the shared arm_seed
+                # — otherwise nearby curve_phase values produce
+                # correlated curves and two arms converge.
+                curve_amt = perlin1d(curve_seed, step * 0.35) * 0.025
                 ca = math.cos(curve_amt); sa = math.sin(curve_amt)
                 new_dx = ca * cur_dx - sa * cur_dz
                 new_dz = sa * cur_dx + ca * cur_dz
