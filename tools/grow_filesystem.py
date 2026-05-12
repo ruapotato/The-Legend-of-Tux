@@ -2853,11 +2853,28 @@ def main():
             components.append(comp)
         if len(components) <= 1: continue
         components.sort(key=len, reverse=True)
-        # Keep the largest + any other component ≥ 30 cells. Drop the rest.
+        # Keep ONLY components that the player can actually reach: the
+        # one containing the default spawn, plus any component holding
+        # a load_zone tip, a hand-placed prop, or any spawn. Orphan
+        # arm-cell fragments (left over from old grow runs where the
+        # _arm_cells sentinel was lost) have NO LZs/spawns/props on
+        # them — they get dropped regardless of size.
+        cs = float(data.get("grid", {}).get("cell_size", 1.0))
+        def cell_at(world_xz):
+            return (int(world_xz[0] // cs), int(world_xz[2] // cs))
+        anchor_cells = set()
+        for sp in data.get("spawns", []):
+            anchor_cells.add(cell_at(sp.get("pos", [0, 0, 0])))
+        for lz in data.get("load_zones", []):
+            anchor_cells.add(cell_at(lz.get("pos", [0, 0, 0])))
+        for p in data.get("props", []):
+            anchor_cells.add(cell_at(p.get("pos", [0, 0, 0])))
         dropped = 0
         new_cells_set = set(components[0])
         for comp in components[1:]:
-            if len(comp) >= 30:
+            # Keep this component only if it anchors something the
+            # player needs to reach. Otherwise drop regardless of size.
+            if any(a in comp for a in anchor_cells):
                 new_cells_set |= comp
             else:
                 dropped += len(comp)
