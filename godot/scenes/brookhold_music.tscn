@@ -1,16 +1,16 @@
 [gd_scene load_steps=180 format=3 uid="uid://btuxbrookhol01"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.5, 0.6, 0.75, 1)
@@ -548,7 +548,7 @@ shadow_enabled = true
 
 [node name="TerrainMesh1" type="Node3D" parent="."]
 script = ExtResource("terrain_mesh_script")
-cell_data = [[-6, -6, -1.395], [-6, -5, -1.551], [-6, -4, -1.773], [-6, -3, -2.019], [-6, -2, -2.247], [-6, -1, -2.414], [-6, 0, -2.479], [-6, 1, -2.364], [-6, 2, -2.072], [-6, 3, -1.684], [-6, 4, -1.027], [-6, 5, -0.365], [-5, -8, -1.415], [-5, -7, -1.486], [-5, -6, -1.598], [-5, -5, -1.784], [-5, -4, -2.027], [-5, -3, -2.286], [-5, -2, -2.521], [-5, -1, -2.692], [-5, 0, -2.758], [-5, 1, -2.641], [-5, 2, -2.345], [-5, 3, -1.952], [-5, 4, -1.382], [-5, 5, -0.7], [-4, -6, -1.864], [-4, -5, -2.07], [-4, -4, -2.285], [-4, -3, -2.486], [-4, -2, -2.654], [-4, -1, -2.768], [-4, 0, -2.811], [-4, 1, -2.71], [-4, 2, -2.454], [-4, 3, -2.108], [-4, 4, -1.682], [-4, 5, -1.015], [-3, -6, -2.154], [-3, -5, -2.374], [-3, -4, -2.531], [-3, -3, -2.63], [-3, -2, -2.684], [-3, -1, -2.707], [-3, 0, -2.711], [-3, 1, -2.637], [-3, 2, -2.443], [-3, 3, -2.176], [-3, 4, -1.88], [-3, 5, -1.294], [-2, -6, -2.422], [-2, -5, -2.649], [-2, -4, -2.738], [-2, -3, -2.724], [-2, -2, -2.654], [-2, -1, -2.576], [-2, 0, -2.54], [-2, 1, -2.493], [-2, 2, -2.368], [-2, 3, -2.186], [-2, 4, -1.968], [-2, 5, -1.531], [-1, -6, -2.618], [-1, -5, -2.849], [-1, -4, -2.882], [-1, -3, -2.775], [-1, -2, -2.605], [-1, -1, -2.447], [-1, 0, -2.378], [-1, 1, -2.353], [-1, 2, -2.283], [-1, 3, -2.169], [-1, 4, -2.015], [-1, 5, -1.719], [0, -6, -2.694], [0, -5, -2.925], [0, -4, -2.935], [0, -3, -2.79], [0, -2, -2.579], [0, -1, -2.388], [0, 0, -2.306], [0, 1, -2.291], [0, 2, -2.243], [0, 3, -2.157], [0, 4, -2.028], [0, 5, -1.853], [1, -6, -2.616], [1, -5, -2.849], [1, -4, -2.871], [1, -3, -2.746], [1, -2, -2.557], [1, -1, -2.383], [1, 0, -2.307], [1, 1, -2.293], [1, 2, -2.248], [1, 3, -2.167], [1, 4, -2.042], [1, 5, -1.87], [2, -6, -2.426], [2, -5, -2.66], [2, -4, -2.712], [2, -3, -2.636], [2, -2, -2.499], [2, -1, -2.368], [2, 0, -2.309], [2, 1, -2.298], [2, 2, -2.261], [2, 3, -2.19], [2, 4, -2.077], [2, 5, -1.914], [3, -6, -2.186], [3, -5, -2.42], [3, -4, -2.51], [3, -3, -2.495], [3, -2, -2.423], [3, -1, -2.344], [3, 0, -2.307], [3, 1, -2.3], [3, 2, -2.274], [3, 3, -2.216], [3, 4, -2.118], [3, 5, -1.969], [4, -6, -1.96], [4, -5, -2.192], [4, -4, -2.315], [4, -3, -2.355], [4, -2, -2.344], [4, -1, -2.313], [4, 0, -2.296], [4, 1, -2.294], [4, 2, -2.278], [4, 3, -2.236], [4, 4, -2.155], [4, 5, -2.021], [4, 6, -1.836], [4, 7, -1.391], [4, 8, -0.923], [5, -6, -1.809], [5, -5, -2.036], [5, -4, -2.178], [5, -3, -2.251], [5, -2, -2.277], [5, -1, -2.278], [5, 0, -2.273], [5, 1, -2.274], [5, 2, -2.268], [5, 3, -2.24], [5, 4, -2.174], [5, 5, -2.056], [6, 0, -2.241], [7, 0, -2.25], [-11, 3, 0.458], [-11, 4, 0.71], [-11, 5, 1.017], [-11, 6, 1.393], [-10, -8, -0.541], [-10, -7, -0.556], [-10, -6, -0.568], [-10, -5, -0.566], [-10, -4, -0.508], [-10, -3, -0.415], [-10, -2, -0.313], [-10, -1, -0.232], [-10, 0, -0.199], [-10, 1, -0.214], [-10, 2, -0.247], [-10, 3, 0.015], [-10, 4, 0.329], [-10, 5, 0.683], [-10, 6, 1.085], [-10, 7, 1.488], [-9, -8, -0.735], [-9, -7, -0.756], [-9, -6, -0.787], [-9, -5, -0.826], [-9, -4, -0.84], [-9, -3, -0.832], [-9, -2, -0.814], [-9, -1, -0.796], [-9, 0, -0.788], [-9, 1, -0.77], [-9, 2, -0.721], [-9, 3, -0.442], [-9, 4, -0.021], [-9, 5, 0.409], [-9, 6, 0.84], [-9, 7, 1.241], [-8, -8, -0.935], [-8, -7, -0.954], [-8, -6, -0.997], [-8, -5, -1.078], [-8, -4, -1.171], [-8, -3, -1.262], [-8, -2, -1.34], [-8, -1, -1.395], [-8, 0, -1.415], [-8, 1, -1.359], [-8, 2, -1.212], [-8, 3, -0.901], [-8, 4, -0.354], [-8, 5, 0.165], [-8, 6, 0.625], [-8, 7, 1.016], [-7, -8, -1.125], [-7, -7, -1.144], [-7, -6, -1.2], [-7, -5, -1.32], [-7, -4, -1.487], [-7, -3, -1.669], [-7, -2, -1.836], [-7, -1, -1.957], [-7, 0, -2.005], [-7, 1, -1.912], [-7, 2, -1.677], [-7, 3, -1.349], [-7, 4, -0.684], [-7, 5, -0.082], [-7, 6, 0.405], [-7, 7, 0.789], [-6, -8, -1.287], [-6, -7, -1.318], [-6, 6, 0.148], [-6, 7, 0.535], [-5, 6, -0.166], [-5, 7, 0.243], [-4, -10, -1.235], [-4, -9, -1.405], [-4, -8, -1.551], [-4, -7, -1.696], [-4, 6, -0.466], [-4, 7, -0.019], [-3, -10, -1.188], [-3, -9, -1.444], [-3, -8, -1.687], [-3, -7, -1.923], [-3, 6, -0.733], [-3, 7, -0.241], [-3, 8, 0.214], [-3, 9, 0.661], [-2, -10, -1.128], [-2, -9, -1.467], [-2, -8, -1.806], [-2, -7, -2.13], [-2, 6, -0.963], [-2, 7, -0.427], [-2, 8, 0.089], [-2, 9, 0.599], [-1, -11, -0.717], [-1, -10, -1.076], [-1, -9, -1.478], [-1, -8, -1.89], [-1, -7, -2.28], [-1, 6, -1.146], [-1, 7, -0.577], [-1, 8, -0.014], [-1, 9, 0.545], [0, -11, -0.681], [0, -10, -1.055], [0, -9, -1.481], [0, -8, -1.922], [0, -7, -2.339], [0, 6, -1.278], [0, 7, -0.694], [0, 8, -0.111], [0, 9, 0.469], [1, -11, -0.635], [1, -10, -1.005], [1, -9, -1.424], [1, -8, -1.857], [1, -7, -2.266], [1, 6, -1.4], [1, 7, -0.823], [1, 8, -0.25], [1, 9, 0.32], [2, -11, -0.525], [2, -10, -0.884], [2, -9, -1.285], [2, -8, -1.698], [2, -7, -2.089], [2, 6, -1.554], [2, 7, -0.996], [2, 8, -0.45], [2, 9, 0.091], [3, -11, -0.393], [3, -10, -0.737], [3, -9, -1.115], [3, -8, -1.5], [3, -7, -1.866], [3, 6, -1.724], [3, 7, -1.192], [3, 8, -0.685], [3, 9, -0.182], [4, -10, -0.608], [4, -9, -0.961], [4, -8, -1.319], [4, -7, -1.659], [4, 9, -0.462], [5, -10, -0.541], [5, -9, -0.873], [5, -8, -1.207], [5, -7, -1.525], [5, 6, -1.887], [5, 7, -1.572], [5, 8, -1.137], [5, 9, -0.709], [6, -6, -1.79], [6, -5, -2.007], [6, -4, -2.143], [6, -3, -2.216], [6, -2, -2.243], [6, -1, -2.245], [6, 1, -2.245], [6, 2, -2.245], [6, 3, -2.226], [6, 4, -2.173], [6, 5, -2.07], [6, 6, -1.917], [6, 7, -1.724], [6, 8, -1.307], [7, -6, -1.863], [7, -5, -2.067], [7, -4, -2.19], [7, -3, -2.249], [7, -2, -2.264], [7, -1, -2.257], [7, 1, -2.256], [7, 2, -2.264], [7, 3, -2.256], [7, 4, -2.217], [7, 5, -2.13], [7, 6, -1.994], [7, 7, -1.901], [7, 8, -1.502], [8, -6, -1.984], [8, -5, -2.173], [8, -4, -2.28], [8, -3, -2.321], [8, -2, -2.32], [8, -1, -2.302], [8, 0, -2.291], [8, 1, -2.3], [8, 2, -2.315], [8, 3, -2.32], [8, 4, -2.297], [8, 5, -2.227], [8, 6, -2.108], [8, 7, -2.022], [8, 8, -1.725], [9, -6, -2.117], [9, -5, -2.289], [9, -4, -2.379], [9, -3, -2.402], [9, -2, -2.384], [9, -1, -2.353], [9, 0, -2.337], [9, 1, -2.349], [9, 2, -2.374], [9, 3, -2.392], [9, 4, -2.385], [9, 5, -2.334], [9, 6, -2.233], [9, 7, -2.153], [9, 8, -1.957], [10, -5, -2.383], [10, -4, -2.456], [10, -3, -2.461]]
+cell_data = [[-6, -6, -0.928], [-6, -5, -0.995], [-6, -4, -1.115], [-6, -3, -1.257], [-6, -2, -1.394], [-6, -1, -1.497], [-6, 0, -1.538], [-6, 1, -1.463], [-6, 2, -1.276], [-6, 3, -1.033], [-6, 4, -0.539], [-6, 5, -0.027], [-5, -8, -1.012], [-5, -7, -0.998], [-5, -6, -1.016], [-5, -5, -1.09], [-5, -4, -1.212], [-5, -3, -1.353], [-5, -2, -1.487], [-5, -1, -1.588], [-5, 0, -1.627], [-5, 1, -1.552], [-5, 2, -1.365], [-5, 3, -1.122], [-5, 4, -0.723], [-5, 5, -0.204], [-4, -6, -1.155], [-4, -5, -1.231], [-4, -4, -1.322], [-4, -3, -1.412], [-4, -2, -1.491], [-4, -1, -1.547], [-4, 0, -1.568], [-4, 1, -1.505], [-4, 2, -1.348], [-4, 3, -1.143], [-4, 4, -0.878], [-4, 5, -0.377], [-3, -6, -1.319], [-3, -5, -1.395], [-3, -4, -1.434], [-3, -3, -1.444], [-3, -2, -1.436], [-3, -1, -1.422], [-3, 0, -1.415], [-3, 1, -1.372], [-3, 2, -1.262], [-3, 3, -1.115], [-3, 4, -0.961], [-3, 5, -0.535], [-2, -6, -1.477], [-2, -5, -1.55], [-2, -4, -1.534], [-2, -3, -1.457], [-2, -2, -1.356], [-2, -1, -1.268], [-2, 0, -1.23], [-2, 1, -1.207], [-2, 2, -1.148], [-2, 3, -1.064], [-2, 4, -0.969], [-2, 5, -0.678], [-1, -6, -1.596], [-1, -5, -1.666], [-1, -4, -1.606], [-1, -3, -1.459], [-1, -2, -1.283], [-1, -1, -1.136], [-1, 0, -1.074], [-1, 1, -1.068], [-1, 2, -1.048], [-1, 3, -1.015], [-1, 4, -0.967], [-1, 5, -0.805], [0, -6, -1.643], [0, -5, -1.712], [0, -4, -1.633], [0, -3, -1.458], [0, -2, -1.252], [0, -1, -1.08], [0, 0, -1.009], [0, 1, -1.009], [0, 2, -1.006], [0, 3, -0.993], [0, 4, -0.964], [0, 5, -0.914], [1, -6, -1.587], [1, -5, -1.657], [1, -4, -1.588], [1, -3, -1.428], [1, -2, -1.237], [1, -1, -1.078], [1, 0, -1.012], [1, 1, -1.013], [1, 2, -1.011], [1, 3, -1.001], [1, 4, -0.974], [1, 5, -0.926], [2, -6, -1.451], [2, -5, -1.523], [2, -4, -1.477], [2, -3, -1.353], [2, -2, -1.201], [2, -1, -1.073], [2, 0, -1.019], [2, 1, -1.021], [2, 2, -1.025], [2, 3, -1.02], [2, 4, -0.999], [2, 5, -0.955], [3, -6, -1.278], [3, -5, -1.353], [3, -4, -1.336], [3, -3, -1.257], [3, -2, -1.154], [3, -1, -1.064], [3, 0, -1.026], [3, 1, -1.031], [3, 2, -1.04], [3, 3, -1.043], [3, 4, -1.03], [3, 5, -0.992], [4, -6, -1.114], [4, -5, -1.192], [4, -4, -1.202], [4, -3, -1.165], [4, -2, -1.107], [4, -1, -1.053], [4, 0, -1.029], [4, 1, -1.037], [4, 2, -1.052], [4, 3, -1.063], [4, 4, -1.058], [4, 5, -1.025], [4, 6, -0.964], [4, 7, -0.649], [4, 8, -0.302], [5, -6, -1.004], [5, -5, -1.083], [5, -4, -1.11], [5, -3, -1.1], [5, -2, -1.071], [5, -1, -1.04], [5, 0, -1.026], [5, 1, -1.035], [5, 2, -1.055], [5, 3, -1.071], [5, 4, -1.073], [5, 5, -1.046], [6, 0, -1.018], [7, 0, -1.041], [-11, 3, 0.049], [-11, 4, 0.319], [-11, 5, 0.625], [-11, 6, 0.979], [-10, -8, -0.513], [-10, -7, -0.552], [-10, -6, -0.586], [-10, -5, -0.607], [-10, -4, -0.585], [-10, -3, -0.534], [-10, -2, -0.474], [-10, -1, -0.423], [-10, 0, -0.402], [-10, 1, -0.416], [-10, 2, -0.449], [-10, 3, -0.187], [-10, 4, 0.118], [-10, 5, 0.449], [-10, 6, 0.813], [-10, 7, 1.176], [-9, -8, -0.628], [-9, -7, -0.652], [-9, -6, -0.68], [-9, -5, -0.714], [-9, -4, -0.728], [-9, -3, -0.726], [-9, -2, -0.715], [-9, -1, -0.703], [-9, 0, -0.698], [-9, 1, -0.69], [-9, 2, -0.668], [-9, 3, -0.427], [-9, 4, -0.055], [-9, 5, 0.321], [-9, 6, 0.695], [-9, 7, 1.046], [-8, -8, -0.746], [-8, -7, -0.749], [-8, -6, -0.767], [-8, -5, -0.814], [-8, -4, -0.869], [-8, -3, -0.924], [-8, -2, -0.973], [-8, -1, -1.007], [-8, 0, -1.02], [-8, 1, -0.985], [-8, 2, -0.896], [-8, 3, -0.667], [-8, 4, -0.213], [-8, 5, 0.216], [-8, 6, 0.6], [-8, 7, 0.934], [-7, -8, -0.856], [-7, -7, -0.839], [-7, -6, -0.849], [-7, -5, -0.907], [-7, -4, -1.001], [-7, -3, -1.109], [-7, -2, -1.211], [-7, -1, -1.287], [-7, 0, -1.317], [-7, 1, -1.258], [-7, 2, -1.108], [-7, 3, -0.9], [-7, 4, -0.37], [-7, 5, 0.109], [-7, 6, 0.502], [-7, 7, 0.821], [-6, -8, -0.946], [-6, -7, -0.92], [-6, 6, 0.375], [-6, 7, 0.687], [-5, 6, 0.204], [-5, 7, 0.523], [-4, -10, -1.022], [-4, -9, -1.064], [-4, -8, -1.088], [-4, -7, -1.111], [-4, 6, 0.035], [-4, 7, 0.372], [-3, -10, -0.994], [-3, -9, -1.085], [-3, -8, -1.166], [-3, -7, -1.242], [-3, 6, -0.122], [-3, 7, 0.24], [-3, 8, 0.577], [-3, 9, 0.911], [-2, -10, -0.955], [-2, -9, -1.096], [-2, -8, -1.236], [-2, -7, -1.365], [-2, 6, -0.265], [-2, 7, 0.122], [-2, 8, 0.496], [-2, 9, 0.867], [-1, -11, -0.768], [-1, -10, -0.921], [-1, -9, -1.1], [-1, -8, -1.286], [-1, -7, -1.458], [-1, 6, -0.392], [-1, 7, 0.016], [-1, 8, 0.418], [-1, 9, 0.819], [0, -11, -0.746], [0, -10, -0.907], [0, -9, -1.101], [0, -8, -1.305], [0, -7, -1.494], [0, 6, -0.5], [0, 7, -0.084], [0, 8, 0.33], [0, 9, 0.745], [1, -11, -0.709], [1, -10, -0.868], [1, -9, -1.058], [1, -8, -1.257], [1, -7, -1.441], [1, 6, -0.612], [1, 7, -0.2], [1, 8, 0.209], [1, 9, 0.617], [2, -11, -0.619], [2, -10, -0.772], [2, -9, -0.952], [2, -8, -1.139], [2, -7, -1.312], [2, 6, -0.743], [2, 7, -0.342], [2, 8, 0.05], [2, 9, 0.441], [3, -11, -0.507], [3, -10, -0.653], [3, -9, -0.82], [3, -8, -0.99], [3, -7, -1.148], [3, 6, -0.883], [3, 7, -0.496], [3, 8, -0.127], [3, 9, 0.241], [4, -10, -0.542], [4, -9, -0.695], [4, -8, -0.85], [4, -7, -0.994], [4, 9, 0.043], [5, -10, -0.472], [5, -9, -0.615], [5, -8, -0.758], [5, -7, -0.892], [5, 6, -0.989], [5, 7, -0.785], [5, 8, -0.455], [5, 9, -0.127], [6, -6, -0.988], [6, -5, -1.064], [6, -4, -1.092], [6, -3, -1.084], [6, -2, -1.059], [6, -1, -1.031], [6, 1, -1.028], [6, 2, -1.05], [6, 3, -1.069], [6, 4, -1.074], [6, 5, -1.05], [6, 6, -0.998], [6, 7, -0.899], [6, 8, -0.574], [7, -6, -1.037], [7, -5, -1.109], [7, -4, -1.132], [7, -3, -1.119], [7, -2, -1.087], [7, -1, -1.056], [7, 1, -1.052], [7, 2, -1.075], [7, 3, -1.098], [7, 4, -1.107], [7, 5, -1.088], [7, 6, -1.039], [7, 7, -1.025], [7, 8, -0.708], [8, -6, -1.119], [8, -5, -1.186], [8, -4, -1.203], [8, -3, -1.181], [8, -2, -1.142], [8, -1, -1.104], [8, 0, -1.087], [8, 1, -1.099], [8, 2, -1.125], [8, 3, -1.152], [8, 4, -1.165], [8, 5, -1.151], [8, 6, -1.106], [8, 7, -1.087], [8, 8, -0.858], [9, -6, -1.21], [9, -5, -1.272], [9, -4, -1.281], [9, -3, -1.25], [9, -2, -1.202], [9, -1, -1.157], [9, 0, -1.138], [9, 1, -1.151], [9, 2, -1.18], [9, 3, -1.211], [9, 4, -1.229], [9, 5, -1.221], [9, 6, -1.179], [9, 7, -1.155], [9, 8, -1.015], [10, -5, -1.34], [10, -4, -1.342], [10, -3, -1.304]]
 cell_size = 1
 floor_y = 0
 floor_color = Color(0.55, 0.45, 0.3, 1)
@@ -557,7 +557,7 @@ smoothing = 0.45
 path_cells = [Vector2i(-1, -10), Vector2i(-1, -9), Vector2i(-1, -8)]
 
 [node name="GridWall2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.065, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.254, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -569,7 +569,7 @@ mesh = SubResource("s7")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.71, 4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.319, 4.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -581,7 +581,7 @@ mesh = SubResource("s9")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall4" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.875, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.144, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -593,7 +593,7 @@ mesh = SubResource("s11")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall5" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.137, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.963, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -605,7 +605,7 @@ mesh = SubResource("s13")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall6" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.469, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.745, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -617,7 +617,7 @@ mesh = SubResource("s15")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall7" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.981, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.372, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -629,7 +629,7 @@ mesh = SubResource("s17")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall8" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.585, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.988, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -641,7 +641,7 @@ mesh = SubResource("s19")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall9" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.818, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.241, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -653,7 +653,7 @@ mesh = SubResource("s21")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall10" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.475, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.381, -11)
 collision_layer = 1
 collision_mask = 0
 
@@ -665,7 +665,7 @@ mesh = SubResource("s23")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall11" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 3.241, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 3.046, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -677,7 +677,7 @@ mesh = SubResource("s25")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall12" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.233, 6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.821, 6.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -689,7 +689,7 @@ mesh = SubResource("s27")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall13" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.459, -7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.487, -7.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -701,7 +701,7 @@ mesh = SubResource("s29")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall14" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 1.459, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 1.487, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -713,7 +713,7 @@ mesh = SubResource("s31")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall15" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.786, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.584, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -725,7 +725,7 @@ mesh = SubResource("s33")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall16" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -0.461, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.696, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -737,7 +737,7 @@ mesh = SubResource("s35")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall17" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, -0.461, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.696, -2)
 collision_layer = 1
 collision_mask = 0
 
@@ -749,7 +749,7 @@ mesh = SubResource("s37")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall18" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.349, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.849, 1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -761,7 +761,7 @@ mesh = SubResource("s39")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall19" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.214, 8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.577, 8.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -773,7 +773,7 @@ mesh = SubResource("s41")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall20" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.492, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.415, -3.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -785,7 +785,7 @@ mesh = SubResource("s43")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall21" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.599, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.867, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -797,7 +797,7 @@ mesh = SubResource("s45")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall22" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.545, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.819, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -809,7 +809,7 @@ mesh = SubResource("s47")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall23" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.535, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.687, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -821,7 +821,7 @@ mesh = SubResource("s49")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall24" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.334, 5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.779, 5.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -833,7 +833,7 @@ mesh = SubResource("s51")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall25" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.801, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.598, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -845,7 +845,7 @@ mesh = SubResource("s53")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall26" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.475, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.108, -6.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -857,7 +857,7 @@ mesh = SubResource("s55")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall27" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.337, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.862, 0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -869,7 +869,7 @@ mesh = SubResource("s57")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall28" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.21, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.012, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -881,7 +881,7 @@ mesh = SubResource("s59")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall29" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.434, -4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.393, -4.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -893,7 +893,7 @@ mesh = SubResource("s61")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall30" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.32, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.617, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -905,7 +905,7 @@ mesh = SubResource("s63")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall31" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0.275, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 1.142, 9)
 collision_layer = 1
 collision_mask = 0
 
@@ -917,7 +917,7 @@ mesh = SubResource("s65")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall32" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.458, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.049, 3.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -929,7 +929,7 @@ mesh = SubResource("s67")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall33" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 2.458, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 2.049, 3)
 collision_layer = 1
 collision_mask = 0
 
@@ -941,7 +941,7 @@ mesh = SubResource("s69")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall34" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.713, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.054, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -953,7 +953,7 @@ mesh = SubResource("s71")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall35" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.793, -7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.242, -7.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -965,7 +965,7 @@ mesh = SubResource("s73")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall36" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0.016, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0.881, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -977,7 +977,7 @@ mesh = SubResource("s75")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall37" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.538, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2.043, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -989,7 +989,7 @@ mesh = SubResource("s77")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall38" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3.393, 6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.979, 6.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1001,7 +1001,7 @@ mesh = SubResource("s79")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall39" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 3.393, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 2.979, 7)
 collision_layer = 1
 collision_mask = 0
 
@@ -1013,7 +1013,7 @@ mesh = SubResource("s81")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall40" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 3.016, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.934, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -1025,7 +1025,7 @@ mesh = SubResource("s83")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall41" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.392, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.458, -10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1037,7 +1037,7 @@ mesh = SubResource("s85")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall42" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.595, -8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.936, -8.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1049,7 +1049,7 @@ mesh = SubResource("s87")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall43" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.607, -10.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.493, -10.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1061,7 +1061,7 @@ mesh = SubResource("s89")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall44" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.607, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.493, -11)
 collision_layer = 1
 collision_mask = 0
 
@@ -1073,7 +1073,7 @@ mesh = SubResource("s91")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall45" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.693, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.426, 9)
 collision_layer = 1
 collision_mask = 0
 
@@ -1085,7 +1085,7 @@ mesh = SubResource("s93")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall46" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -0.456, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.658, -3.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1097,7 +1097,7 @@ mesh = SubResource("s95")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall47" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 1.265, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 1.372, -8)
 collision_layer = 1
 collision_mask = 0
 
@@ -1109,7 +1109,7 @@ mesh = SubResource("s97")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall48" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 2.243, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 2.523, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -1121,7 +1121,7 @@ mesh = SubResource("s99")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall49" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.765, -9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.978, -9.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1133,7 +1133,7 @@ mesh = SubResource("s101")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall50" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.765, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.978, -10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1145,7 +1145,7 @@ mesh = SubResource("s103")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall51" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.385, 4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.771, 4.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1157,7 +1157,7 @@ mesh = SubResource("s105")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall52" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -0.383, -4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.66, -4.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1169,7 +1169,7 @@ mesh = SubResource("s107")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall53" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, -0.383, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.66, -5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1181,7 +1181,7 @@ mesh = SubResource("s109")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall54" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.091, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.441, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1193,7 +1193,7 @@ mesh = SubResource("s111")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall55" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.043, 8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.985, 8.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1205,7 +1205,7 @@ mesh = SubResource("s113")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall56" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.043, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.985, 9)
 collision_layer = 1
 collision_mask = 0
 
@@ -1217,7 +1217,7 @@ mesh = SubResource("s115")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall57" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.432, -5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.414, -5.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1229,7 +1229,7 @@ mesh = SubResource("s117")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall58" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.117, -5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.79, -5.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1241,7 +1241,7 @@ mesh = SubResource("s119")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall59" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, -0.117, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.79, -6)
 collision_layer = 1
 collision_mask = 0
 
@@ -1253,7 +1253,7 @@ mesh = SubResource("s121")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall60" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.392, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.789, 3.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1265,7 +1265,7 @@ mesh = SubResource("s123")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall61" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.687, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.526, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1277,7 +1277,7 @@ mesh = SubResource("s125")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall62" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.768, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.577, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1289,7 +1289,7 @@ mesh = SubResource("s127")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall63" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.488, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.176, 7.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1301,7 +1301,7 @@ mesh = SubResource("s129")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall64" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 3.488, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 3.176, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -1313,7 +1313,7 @@ mesh = SubResource("s131")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall65" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.127, -8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.385, -8.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1325,7 +1325,7 @@ mesh = SubResource("s133")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall66" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.384, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.798, -1.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1337,7 +1337,7 @@ mesh = SubResource("s135")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall67" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.291, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.873, 9.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1349,7 +1349,7 @@ mesh = SubResource("s137")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall68" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.291, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.873, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1361,7 +1361,7 @@ mesh = SubResource("s139")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall69" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.353, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.843, -0.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1373,7 +1373,7 @@ mesh = SubResource("s141")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall70" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.153, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.845, 7.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1385,7 +1385,7 @@ mesh = SubResource("s143")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall71" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.444, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.448, -6.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1397,7 +1397,7 @@ mesh = SubResource("s145")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall72" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.753, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.551, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1409,7 +1409,7 @@ mesh = SubResource("s147")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall73" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.374, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.82, 2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1421,7 +1421,7 @@ mesh = SubResource("s149")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall74" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.661, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.911, 9.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1433,7 +1433,7 @@ mesh = SubResource("s151")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall75" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.661, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.911, 10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1445,7 +1445,7 @@ mesh = SubResource("s153")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall76" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.585, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.466, -2.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1457,7 +1457,7 @@ mesh = SubResource("s155")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall77" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2.789, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2.821, 8)
 collision_layer = 1
 collision_mask = 0
 
@@ -1469,7 +1469,7 @@ mesh = SubResource("s157")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall78" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.459, -9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.528, -9.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1481,7 +1481,7 @@ mesh = SubResource("s159")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall79" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.459, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.528, -10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1493,7 +1493,7 @@ mesh = SubResource("s161")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall80" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3.017, 5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2.625, 5.5)
 collision_layer = 1
 collision_mask = 0
 
@@ -1505,7 +1505,7 @@ mesh = SubResource("s163")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall81" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.812, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.006, -10)
 collision_layer = 1
 collision_mask = 0
 
@@ -1517,7 +1517,7 @@ mesh = SubResource("s165")
 surface_material_override/0 = SubResource("s5")
 
 [node name="GridWall82" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.498, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.292, 9)
 collision_layer = 1
 collision_mask = 0
 
@@ -1531,17 +1531,17 @@ surface_material_override/0 = SubResource("s5")
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="default" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -1.353, 5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -0.414, 5)
 
 [node name="from_brookhold" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -1.353, 5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -0.414, 5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -2.243, 2)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -1.006, 2)
 message = "Brookhold Music\n\n/home/brookhold/Music"
 
 [node name="Npc1_Fiddler_Marn" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, -2.306, 0)
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, -1.009, 0)
 npc_name = "Fiddler Marn"
 body_color = Color(0.85, 0.55, 0.32, 1)
 hat_color = Color(0.62, 0.42, 0.22, 1)
@@ -1549,15 +1549,15 @@ idle_hint = "[E] Ask Marn to play"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Fiddler Marn\", \"text\": \"Eh! Come sit. You ever learn a tune you couldn't read?\\nBest way. Hands learn faster than eyes.\", \"choices\": [{\"label\": \"Who taught you?\", \"next\": \"uncle\"}, {\"label\": \"Play me one?\", \"next\": \"play\"}, {\"label\": \"Walk well.\"}]}, \"uncle\": {\"speaker\": \"Fiddler Marn\", \"text\": \"Uncles. Three of 'em. Couldn't read a word between 'em\\nbut they could pull a wedding out of a Tuesday.\", \"choices\": [{\"label\": \"Walk well.\"}]}, \"play\": {\"speaker\": \"Fiddler Marn\", \"text\": \"*Marn draws the bow. A short, bright tune that sounds\\nlike running water and stamping feet at once. Then a\\nlong note that fades just as you notice it's there.*\", \"choices\": [{\"label\": \"Thank you.\"}]}}}"
 
 [node name="Sign2" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -3, -2.707, -1)
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, -3, -1.422, -1)
 message = "Fiddle-on-the-fence —\n\ntaught by uncles who could not read."
 
 [node name="Sign3" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 3, -2.344, -1)
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 3, -1.064, -1)
 message = "A fiddle leans against the fence-post, bow tucked under\nthe strings. Anyone who passes can pick it up. Most do."
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0522421, 0.683, -10.4998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0522421, 0.632, -10.4998)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

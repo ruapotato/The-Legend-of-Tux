@@ -2358,12 +2358,17 @@ def grow_arms_for_level(level_id, data, level_seed_extra="",
 # ---------------------------------------------------------------------------
 
 # Tunables (kept module-level so the pass is easy to tweak in one place).
-TERRAIN_HILL_BROAD = 3.0      # ±m broad rolling (was 1.8 — bumped 1.7× for visible relief)
-TERRAIN_HILL_DETAIL = 0.7     # ±m fine detail (was 0.4)
-TERRAIN_HILL_FREQ_BROAD = 0.05
+# Hill amplitude dialled back from ±3.7 total to ±2.0 total — brookhold
+# was spanning 8.7m of elevation and the user reported "tiny room" because
+# valleys had hills tall enough to occlude the rest of the level. The
+# linear up-incline (MAX_RISE) stays steep so the directional gradient
+# parent↔child is still felt.
+TERRAIN_HILL_BROAD = 1.5      # ±m broad rolling
+TERRAIN_HILL_DETAIL = 0.5     # ±m fine detail
+TERRAIN_HILL_FREQ_BROAD = 0.04   # slightly lower freq → wider rolls, fewer 'walls'
 TERRAIN_HILL_FREQ_DETAIL = 0.18
-TERRAIN_MAX_RISE = 6.5        # m: south anchor -> north arm tip (was 2.5 — much steeper so the slope is felt walking)
-TERRAIN_ARM_SOFTEN = 0.5      # arm corridors get this fraction of hill noise (slightly less softened than before)
+TERRAIN_MAX_RISE = 6.5        # m: south anchor -> north arm tip
+TERRAIN_ARM_SOFTEN = 0.35     # arms get more flattening so corridors stay walkable
 
 
 def _terrain_key(i, j):
