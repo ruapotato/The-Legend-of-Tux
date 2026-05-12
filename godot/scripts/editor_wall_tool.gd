@@ -21,6 +21,10 @@ var have_anchor: bool = false
 var wall_height: float = 4.0
 var wall_thickness: float = 0.3
 var material_kind: String = "stone"   # "stone"/"wood"/"brick"/"dirt"/"metal"
+# When true, each placed wall's end becomes the next wall's start (chained).
+# When false (default), each pair of clicks starts a fresh wall. The editor
+# UI toggles this with C.
+var chain_mode: bool = false
 
 var _preview: MeshInstance3D = null
 var _preview_parent: Node = null
@@ -52,8 +56,12 @@ func pick(world_pos: Vector3, place_parent: Node) -> Node3D:
 		have_anchor = true
 		return null
 	var wall := _spawn_wall(anchor, world_pos, place_parent)
-	# Chain: new anchor is the just-placed end.
-	anchor = world_pos
+	if chain_mode:
+		# Chain: new anchor is the just-placed end.
+		anchor = world_pos
+	else:
+		# Fresh start: each pair of clicks is an independent wall.
+		have_anchor = false
 	return wall
 
 

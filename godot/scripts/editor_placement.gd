@@ -42,6 +42,36 @@ static func raycast_from_mouse(camera: Camera3D, mouse_pos: Vector2) -> Dictiona
 	return out
 
 
+# Center-screen raycast. The crosshair at viewport center is the
+# targeting reticle — picking, placement, sculpting all use this.
+# Returns the same dictionary shape as `raycast_from_mouse`.
+static func raycast_from_center(camera: Camera3D, max_dist: float = 200.0) -> Dictionary:
+	var out := {"hit": false, "position": Vector3.ZERO, "normal": Vector3.UP, "collider": null}
+	if camera == null or not is_instance_valid(camera):
+		return out
+	var world := camera.get_world_3d()
+	if world == null:
+		return out
+	var space := world.direct_space_state
+	if space == null:
+		return out
+	var origin: Vector3 = camera.global_position
+	var dir: Vector3 = -camera.global_transform.basis.z
+	var to: Vector3 = origin + dir * max_dist
+	var params := PhysicsRayQueryParameters3D.create(origin, to)
+	params.collide_with_areas = true
+	params.collide_with_bodies = true
+	var hit := space.intersect_ray(params)
+	if hit.is_empty():
+		out["position"] = origin + dir * 8.0
+		return out
+	out["hit"] = true
+	out["position"] = hit["position"]
+	out["normal"] = hit.get("normal", Vector3.UP)
+	out["collider"] = hit.get("collider", null)
+	return out
+
+
 static func snap_to_grid(p: Vector3, step: float) -> Vector3:
 	if step <= 0.0:
 		return p

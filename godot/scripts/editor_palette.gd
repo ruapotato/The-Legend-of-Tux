@@ -21,22 +21,26 @@ var _slot_buttons: Array = []           # array of Button (16)
 
 func _ready() -> void:
 	# Build static layout once; updated entries hot-swap their text/colour.
-	custom_minimum_size = Vector2(0, 100)
+	custom_minimum_size = Vector2(0, 88)
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	var vbox := VBoxContainer.new()
 	vbox.anchor_right = 1.0
 	vbox.anchor_bottom = 1.0
+	vbox.mouse_filter = Control.MOUSE_FILTER_PASS
 	add_child(vbox)
 
 	_tabs = HBoxContainer.new()
+	_tabs.mouse_filter = Control.MOUSE_FILTER_PASS
 	vbox.add_child(_tabs)
 
 	_slots_row = HBoxContainer.new()
 	_slots_row.add_theme_constant_override("separation", 2)
+	_slots_row.mouse_filter = Control.MOUSE_FILTER_PASS
 	vbox.add_child(_slots_row)
 
 	for i in VISIBLE_SLOTS:
 		var b := Button.new()
-		b.custom_minimum_size = Vector2(60, 60)
+		b.custom_minimum_size = Vector2(56, 56)
 		b.text = ""
 		b.toggle_mode = true
 		b.pressed.connect(_on_slot_pressed.bind(i))
