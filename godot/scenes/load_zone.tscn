@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://btuxlz01"]
+
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="1_lz"]
+
+[sub_resource type="BoxShape3D" id="lz_shape"]
+size = Vector3(3, 3, 1.5)
+
+[node name="LoadZone" type="Area3D" groups=["load_zone"]]
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+script = ExtResource("1_lz")
+target_scene = ""
+target_spawn = "default"
+prompt = "Travel"
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("lz_shape")
+
+[node name="Hint" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+text = "Travel"

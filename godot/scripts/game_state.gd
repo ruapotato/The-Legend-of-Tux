@@ -874,7 +874,7 @@ func load_game(slot: int) -> bool:
     active_item_changed.emit(active_b_item)
     fairy_bottles_changed.emit(fairy_bottles, max_fairy_bottles)
 
-    var scene_id := String(data.get("current_scene_id", "wyrdkin_glade"))
+    var scene_id := String(data.get("current_scene_id", "level_00"))
     next_spawn_id = current_spawn_id
     var scene_path := "res://scenes/%s.tscn" % scene_id
     var err := get_tree().change_scene_to_file(scene_path)

@@ -10,10 +10,10 @@ extends Control
 # Wyrdkin Glade with the slot bound for autosave.
 
 const NUM_SLOTS: int = 3
-const START_SCENE_ID: String = "wyrdkin_glade"
+const START_SCENE_ID: String = "level_00"
 
 @export var sandbox_path: String = "res://scenes/combat_arena.tscn"
-@export var editor_path: String = "res://scenes/editor.tscn"
+@export var editor_path: String = "res://scenes/level_00.tscn"
 
 var _title: Label
 var _subtitle: Label
@@ -197,6 +197,11 @@ func _on_sandbox() -> void:
 
 func _on_editor() -> void:
     GameState.last_slot = -1
+    # Land directly in edit mode — the integrated editor lives inside
+    # every level scene, so we just deep-flag it before the scene swap.
+    var em: Node = get_node_or_null("/root/EditorMode")
+    if em:
+        em.set("_pending_edit_on_load", true)
     get_tree().change_scene_to_file(editor_path)
 
 

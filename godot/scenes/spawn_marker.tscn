@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btuxspawn01"]
+
+[ext_resource type="Script" path="res://scripts/spawn_marker.gd" id="1_sp"]
+
+[node name="SpawnMarker" type="Node3D"]
+script = ExtResource("1_sp")
