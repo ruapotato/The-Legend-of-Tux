@@ -1,27 +1,27 @@
-[gd_scene load_steps=1771 format=3 uid="uid://btuxlibrary01"]
+[gd_scene load_steps=1769 format=3 uid="uid://btuxlibrary01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxfair01" path="res://scenes/fairy_bottle_pickup.tscn" id="fairy_bottle"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.25, 0.22, 0.3, 1)
@@ -5248,15 +5248,11 @@ size = Vector3(0.2, 4, 1)
 [sub_resource type="BoxMesh" id="s1737"]
 size = Vector3(0.2, 4, 1)
 
-[sub_resource type="StandardMaterial3D" id="s1738"]
-albedo_color = Color(0.45, 0.38, 0.3, 1)
-roughness = 0.95
-metallic = 0
+[sub_resource type="BoxShape3D" id="s1738"]
+size = Vector3(4, 3, 1.5)
 
-[sub_resource type="StandardMaterial3D" id="s1739"]
-albedo_color = Color(0.36, 0.3, 0.24, 1)
-roughness = 0.92
-metallic = 0
+[sub_resource type="BoxShape3D" id="s1739"]
+size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s1740"]
 size = Vector3(4, 3, 1.5)
@@ -5277,12 +5273,6 @@ size = Vector3(4, 3, 1.5)
 size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s1746"]
-size = Vector3(4, 3, 1.5)
-
-[sub_resource type="BoxShape3D" id="s1747"]
-size = Vector3(4, 3, 1.5)
-
-[sub_resource type="BoxShape3D" id="s1748"]
 size = Vector3(4, 3, 1.5)
 
 [node name="The Library of Past Echoes" type="Node3D"]
@@ -15707,16 +15697,6 @@ shape = SubResource("s1736")
 mesh = SubResource("s1737")
 surface_material_override/0 = SubResource("s5")
 
-[node name="TerrainMesh868" type="Node3D" parent="."]
-script = ExtResource("terrain_mesh_script")
-cell_data = [[-2, -2, 2.341], [-2, -1, 2.378], [-2, 0, 2.376], [-2, 1, 2.335], [-1, -2, 2.439], [-1, -1, 2.514], [-1, 0, 2.529], [-1, 1, 2.481], [0, -2, 2.468], [0, -1, 2.558], [0, 0, 2.58], [0, 1, 2.529], [1, -2, 2.401], [1, -1, 2.474], [1, 0, 2.488], [1, 1, 2.442]]
-cell_size = 1
-floor_y = 0.4
-floor_color = Color(0.45, 0.38, 0.3, 1)
-skirt_depth = 6.0
-smoothing = 0.45
-path_cells = []
-
 [node name="Light0" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, -22)
 light_color = Color(1, 0.92, 0.65, 1)
@@ -16213,7 +16193,7 @@ auto_trigger = true
 prompt = "[E] Up to the Crown"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone0"]
-shape = SubResource("s1740")
+shape = SubResource("s1738")
 
 [node name="Hint" type="Label3D" parent="LoadZone0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16235,7 +16215,7 @@ auto_trigger = true
 prompt = "[E] Down to the Cache"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s1741")
+shape = SubResource("s1739")
 
 [node name="Hint" type="Label3D" parent="LoadZone1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16257,7 +16237,7 @@ auto_trigger = true
 prompt = "[E] To the Stacks"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s1742")
+shape = SubResource("s1740")
 
 [node name="Hint" type="Label3D" parent="LoadZone2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16279,7 +16259,7 @@ auto_trigger = true
 prompt = "[E] To the Ledger"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
-shape = SubResource("s1743")
+shape = SubResource("s1741")
 
 [node name="Hint" type="Label3D" parent="LoadZone3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16301,7 +16281,7 @@ auto_trigger = true
 prompt = "[E] To the Backwater"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
-shape = SubResource("s1744")
+shape = SubResource("s1742")
 
 [node name="Hint" type="Label3D" parent="LoadZone4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16323,7 +16303,7 @@ auto_trigger = true
 prompt = "[E] To the Postmark"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone5"]
-shape = SubResource("s1745")
+shape = SubResource("s1743")
 
 [node name="Hint" type="Label3D" parent="LoadZone5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16345,7 +16325,7 @@ auto_trigger = true
 prompt = "[E] Into the Pulse Room"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone6"]
-shape = SubResource("s1746")
+shape = SubResource("s1744")
 
 [node name="Hint" type="Label3D" parent="LoadZone6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16367,7 +16347,7 @@ auto_trigger = true
 prompt = "[E] Into the Long Drift"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone7"]
-shape = SubResource("s1747")
+shape = SubResource("s1745")
 
 [node name="Hint" type="Label3D" parent="LoadZone7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
@@ -16389,7 +16369,7 @@ auto_trigger = true
 prompt = "[E] To the Scoreroom"
 
 [node name="Shape" type="CollisionShape3D" parent="LoadZone8"]
-shape = SubResource("s1748")
+shape = SubResource("s1746")
 
 [node name="Hint" type="Label3D" parent="LoadZone8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)

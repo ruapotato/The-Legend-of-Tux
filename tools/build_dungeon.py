@@ -1185,23 +1185,6 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None,
             })
     path_cells_per_floor = path_cells_per_floor or {}
 
-    # Union of EVERY floor's walking cells — used by the per-floor wall
-    # emission below so we don't emit a wall between two floors that
-    # overlap. Example: brookhold has a 'yard' floor and a 'paddock'
-    # floor; for paddock-perimeter cells whose neighbour is a yard cell
-    # (not a paddock cell), we don't want to drop a fence wall there —
-    # otherwise the player can hop into the paddock but can't leave.
-    # The fence still appears at paddock-cells whose neighbour is void
-    # in ALL floors.
-    all_walking_cells: set = set()
-    for f in floors:
-        for c in f.get("cells", []):
-            if isinstance(c, dict):
-                all_walking_cells.add((int(c.get("i", 0)),
-                                       int(c.get("j", 0))))
-            else:
-                all_walking_cells.add((int(c[0]), int(c[1])))
-
     def in_load_zone(wx, wz):
         for fp in lz_footprints:
             pos = fp["pos"]
@@ -1349,19 +1332,16 @@ def emit_grid_floors(b, grid, load_zones=None, doors=None,
                 z_south = (j + 1) * cell_size
                 cx_mid  = (x_left + x_right) / 2.0
                 cz_mid  = (z_north + z_south) / 2.0
-                # Wall only emits if the neighbour cell is in NO floor.
-                # If it's a walking cell in a different floor (paddock
-                # vs yard), the player can step between — no wall.
-                if (i + 1, j) not in all_walking_cells and not in_load_zone(x_right, cz_mid):
+                if (i + 1, j) not in cells and not in_load_zone(x_right, cz_mid):
                     emit_edge((x_right, z_north), (x_right, z_south),
                               x_right, cz_mid, wall_thick, cell_size, i, j)
-                if (i - 1, j) not in all_walking_cells and not in_load_zone(x_left, cz_mid):
+                if (i - 1, j) not in cells and not in_load_zone(x_left, cz_mid):
                     emit_edge((x_left, z_south), (x_left, z_north),
                               x_left, cz_mid, wall_thick, cell_size, i, j)
-                if (i, j + 1) not in all_walking_cells and not in_load_zone(cx_mid, z_south):
+                if (i, j + 1) not in cells and not in_load_zone(cx_mid, z_south):
                     emit_edge((x_left, z_south), (x_right, z_south),
                               cx_mid, z_south, cell_size, wall_thick, i, j)
-                if (i, j - 1) not in all_walking_cells and not in_load_zone(cx_mid, z_north):
+                if (i, j - 1) not in cells and not in_load_zone(cx_mid, z_north):
                     emit_edge((x_right, z_north), (x_left, z_north),
                               cx_mid, z_north, cell_size, wall_thick, i, j)
 
