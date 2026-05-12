@@ -157,3 +157,17 @@ func scroll(direction: int) -> void:
 	var max_off: int = max(0, es.size() - VISIBLE_SLOTS)
 	scroll_offset = clamp(scroll_offset + direction, 0, max_off)
 	_refresh_slots()
+
+
+# Public hotkey entry points used by editor_ui.gd. `activate_slot(N)`
+# simulates clicking slot N (0..VISIBLE_SLOTS-1). `clear_selection()`
+# deselects whatever's current.
+func activate_slot(slot_idx: int) -> void:
+	_on_slot_pressed(slot_idx)
+
+
+func clear_selection() -> void:
+	if selected_index != -1:
+		selected_index = -1
+		_refresh_slots()
+		entry_selected.emit(-1)

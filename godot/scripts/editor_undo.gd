@@ -38,6 +38,36 @@ func push(action: Dictionary) -> void:
 	undone.clear()
 
 
+# Convenience wrappers used by editor_ui.gd. Keep the Action-dict shape
+# in one place so callers don't have to know it.
+func record_place(node: Node) -> void:
+	if node == null:
+		return
+	push({
+		"type":   "place",
+		"target": node.get_path() if node.is_inside_tree() else NodePath(""),
+		"before": null,
+		"after":  {
+			"name": node.name,
+			"parent_path": node.get_parent().get_path() if node.get_parent() else NodePath(""),
+		},
+	})
+
+
+func record_delete(node: Node) -> void:
+	if node == null:
+		return
+	push({
+		"type":   "delete",
+		"target": node.get_path() if node.is_inside_tree() else NodePath(""),
+		"before": {
+			"name": node.name,
+			"parent_path": node.get_parent().get_path() if node.get_parent() else NodePath(""),
+		},
+		"after":  null,
+	})
+
+
 func clear() -> void:
 	done.clear()
 	undone.clear()
