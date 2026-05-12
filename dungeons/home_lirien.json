@@ -15786,15 +15786,6 @@
       "rotation_y": 3.141592653589793
     },
     {
-      "id": "from_var_mail",
-      "pos": [
-        -15.5,
-        5.26,
-        57.5
-      ],
-      "rotation_y": -0.7244965430810857
-    },
-    {
       "id": "from_lirien_desktop",
       "pos": [
         15.5,
@@ -16211,23 +16202,6 @@
       "target_scene": "burrows",
       "target_spawn": "from_home_lirien",
       "prompt": "[E] Back to the Burrows"
-    },
-    {
-      "pos": [
-        -15.87,
-        6.16,
-        57.83
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "var_mail",
-      "target_spawn": "from_home_lirien",
-      "prompt": "[E] Check the mailbox",
-      "auto": false
     },
     {
       "pos": [

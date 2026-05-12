@@ -1,17 +1,17 @@
-[gd_scene load_steps=512 format=3 uid="uid://btuxhomeliri01"]
+[gd_scene load_steps=511 format=3 uid="uid://btuxhomeliri01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.4, 1)
@@ -1510,7 +1510,7 @@ size = Vector3(1, 4, 0.2)
 size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s495"]
-size = Vector3(1.5, 3, 4)
+size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s496"]
 size = Vector3(4, 3, 1.5)
@@ -1519,9 +1519,6 @@ size = Vector3(4, 3, 1.5)
 size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s498"]
-size = Vector3(4, 3, 1.5)
-
-[sub_resource type="BoxShape3D" id="s499"]
 size = Vector3(4, 3, 1.5)
 
 [node name="Lirien's Chamber" type="Node3D"]
@@ -4486,9 +4483,6 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 0
 [node name="from_burrows" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 1.043, -1.5)
 
-[node name="from_var_mail" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.748833, 0, 0.662759, 0, 1, 0, -0.662759, 0, 0.748833, -15.5, 5.261, 57.5)
-
 [node name="from_lirien_desktop" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-0.826726, 0, 0.562604, 0, 1, 0, -0.562604, 0, -0.826726, 15.5, 4.501, 49.5)
 
@@ -4660,28 +4654,6 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.87, 6.161, 57.83)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/var_mail.tscn"
-target_spawn = "from_home_lirien"
-auto_trigger = false
-prompt = "[E] Check the mailbox"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s495")
-
-[node name="Hint" type="Label3D" parent="LoadZone1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Check the mailbox"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.91, 5.401, 49.78)
 collision_layer = 64
 collision_mask = 2
@@ -4692,10 +4664,10 @@ target_spawn = "from_home_lirien"
 auto_trigger = false
 prompt = "[E] To the astronomer's desk"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s496")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
+shape = SubResource("s495")
 
-[node name="Hint" type="Label3D" parent="LoadZone2"]
+[node name="Hint" type="Label3D" parent="LoadZone1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the astronomer's desk"
 font_size = 32
@@ -4703,7 +4675,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone3" type="Area3D" parent="."]
+[node name="LoadZone2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.95, 6.775, 46.72)
 collision_layer = 64
 collision_mask = 2
@@ -4714,10 +4686,10 @@ target_spawn = "from_home_lirien"
 auto_trigger = false
 prompt = "[E] To the star-charts"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
-shape = SubResource("s497")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
+shape = SubResource("s496")
 
-[node name="Hint" type="Label3D" parent="LoadZone3"]
+[node name="Hint" type="Label3D" parent="LoadZone2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the star-charts"
 font_size = 32
@@ -4725,7 +4697,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone4" type="Area3D" parent="."]
+[node name="LoadZone3" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9, 5.352, 50.79)
 collision_layer = 64
 collision_mask = 2
@@ -4736,10 +4708,10 @@ target_spawn = "from_home_lirien"
 auto_trigger = false
 prompt = "[E] To the singing bowl"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
-shape = SubResource("s498")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
+shape = SubResource("s497")
 
-[node name="Hint" type="Label3D" parent="LoadZone4"]
+[node name="Hint" type="Label3D" parent="LoadZone3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the singing bowl"
 font_size = 32
@@ -4747,7 +4719,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone5" type="Area3D" parent="."]
+[node name="LoadZone4" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.79, 6.015, 61.9)
 collision_layer = 64
 collision_mask = 2
@@ -4758,10 +4730,10 @@ target_spawn = "from_home_lirien"
 auto_trigger = false
 prompt = "[E] To the basket of sealed letters"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone5"]
-shape = SubResource("s499")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
+shape = SubResource("s498")
 
-[node name="Hint" type="Label3D" parent="LoadZone5"]
+[node name="Hint" type="Label3D" parent="LoadZone4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the basket of sealed letters"
 font_size = 32

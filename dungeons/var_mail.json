@@ -18480,42 +18480,6 @@
         -1.5
       ],
       "rotation_y": 3.141592653589793
-    },
-    {
-      "id": "from_hearthold",
-      "pos": [
-        5.5,
-        -1.34,
-        1.5
-      ],
-      "rotation_y": 1.9096953831331078
-    },
-    {
-      "id": "from_brookhold",
-      "pos": [
-        6.5,
-        -1.05,
-        2.5
-      ],
-      "rotation_y": 2.27300830848971
-    },
-    {
-      "id": "from_old_hold",
-      "pos": [
-        20.5,
-        1.36,
-        21.5
-      ],
-      "rotation_y": 2.616942202258066
-    },
-    {
-      "id": "from_home_lirien",
-      "pos": [
-        19.5,
-        1.61,
-        19.5
-      ],
-      "rotation_y": 2.574175743188197
     }
   ],
   "lights": [],
@@ -19042,74 +19006,6 @@
       "target_scene": "library",
       "target_spawn": "from_var_mail",
       "prompt": "[E] Back to the Library"
-    },
-    {
-      "pos": [
-        5.67,
-        -0.44,
-        1.03
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "hearthold",
-      "target_spawn": "from_var_mail",
-      "prompt": "[E] Send a letter to Hearthold",
-      "auto": false
-    },
-    {
-      "pos": [
-        6.82,
-        -0.15,
-        2.12
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "brookhold",
-      "target_spawn": "from_var_mail",
-      "prompt": "[E] Send a letter to Brookhold",
-      "auto": false
-    },
-    {
-      "pos": [
-        20.93,
-        2.26,
-        21.25
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "old_hold",
-      "target_spawn": "from_var_mail",
-      "prompt": "[E] Send a letter to the Old Hold",
-      "auto": false
-    },
-    {
-      "pos": [
-        19.92,
-        2.51,
-        19.23
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "home_lirien",
-      "target_spawn": "from_var_mail",
-      "prompt": "[E] Send a letter to Lirien",
-      "auto": false
     }
   ]
 }

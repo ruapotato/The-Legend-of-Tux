@@ -1,22 +1,22 @@
-[gd_scene load_steps=32 format=3 uid="uid://btuxoldhold01"]
+[gd_scene load_steps=31 format=3 uid="uid://btuxoldhold01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.55, 0.65, 1)
@@ -51,27 +51,24 @@ metallic = 0
 size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s7"]
-size = Vector3(1.5, 3, 4)
+size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s8"]
-size = Vector3(4, 3, 1.5)
+size = Vector3(1.5, 3, 4)
 
 [sub_resource type="BoxShape3D" id="s9"]
 size = Vector3(1.5, 3, 4)
 
 [sub_resource type="BoxShape3D" id="s10"]
-size = Vector3(1.5, 3, 4)
+size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s11"]
 size = Vector3(4, 3, 1.5)
 
 [sub_resource type="BoxShape3D" id="s12"]
-size = Vector3(4, 3, 1.5)
-
-[sub_resource type="BoxShape3D" id="s13"]
 size = Vector3(1.5, 3, 4)
 
-[sub_resource type="BoxShape3D" id="s14"]
+[sub_resource type="BoxShape3D" id="s13"]
 size = Vector3(1.5, 3, 4)
 
 [node name="The Old Hold" type="Node3D"]
@@ -877,9 +874,6 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -2.
 [node name="from_burrows" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, -2.209, -3)
 
-[node name="from_var_mail" type="Marker3D" parent="Spawns"]
-transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 3, -2.093, 0)
-
 [node name="from_wyrdkin_bash_history" type="Marker3D" parent="Spawns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.263, 0)
 
@@ -1010,28 +1004,6 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.997, 0)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/var_mail.tscn"
-target_spawn = "from_old_hold"
-auto_trigger = false
-prompt = "[E] Check the mailbox"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s7")
-
-[node name="Hint" type="Label3D" parent="LoadZone1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Check the mailbox"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34, -0.718, 7.65)
 collision_layer = 64
 collision_mask = 2
@@ -1042,10 +1014,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] Behind the ash-grey curtain"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s8")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
+shape = SubResource("s7")
 
-[node name="Hint" type="Label3D" parent="LoadZone2"]
+[node name="Hint" type="Label3D" parent="LoadZone1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Behind the ash-grey curtain"
 font_size = 32
@@ -1053,7 +1025,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone3" type="Area3D" parent="."]
+[node name="LoadZone2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.97, -1.165, 0.72)
 collision_layer = 64
 collision_mask = 2
@@ -1064,10 +1036,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] Into the stale pantry"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
-shape = SubResource("s9")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
+shape = SubResource("s8")
 
-[node name="Hint" type="Label3D" parent="LoadZone3"]
+[node name="Hint" type="Label3D" parent="LoadZone2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Into the stale pantry"
 font_size = 32
@@ -1075,7 +1047,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone4" type="Area3D" parent="."]
+[node name="LoadZone3" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21, -0.959, 5.04)
 collision_layer = 64
 collision_mask = 2
@@ -1086,10 +1058,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] Down the hall of carved tablets"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
-shape = SubResource("s10")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
+shape = SubResource("s9")
 
-[node name="Hint" type="Label3D" parent="LoadZone4"]
+[node name="Hint" type="Label3D" parent="LoadZone3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Down the hall of carved tablets"
 font_size = 32
@@ -1097,7 +1069,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone5" type="Area3D" parent="."]
+[node name="LoadZone4" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, -0.233, 7.29)
 collision_layer = 64
 collision_mask = 2
@@ -1108,10 +1080,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] To Grandmother's desk"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone5"]
-shape = SubResource("s11")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
+shape = SubResource("s10")
 
-[node name="Hint" type="Label3D" parent="LoadZone5"]
+[node name="Hint" type="Label3D" parent="LoadZone4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To Grandmother's desk"
 font_size = 32
@@ -1119,7 +1091,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone6" type="Area3D" parent="."]
+[node name="LoadZone5" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87, -0.531, 5.7)
 collision_layer = 64
 collision_mask = 2
@@ -1130,10 +1102,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] To the family-papers chest"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone6"]
-shape = SubResource("s12")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone5"]
+shape = SubResource("s11")
 
-[node name="Hint" type="Label3D" parent="LoadZone6"]
+[node name="Hint" type="Label3D" parent="LoadZone5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the family-papers chest"
 font_size = 32
@@ -1141,7 +1113,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone7" type="Area3D" parent="."]
+[node name="LoadZone6" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93, -0.949, 2.87)
 collision_layer = 64
 collision_mask = 2
@@ -1152,10 +1124,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] To the hung harp"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone7"]
-shape = SubResource("s13")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone6"]
+shape = SubResource("s12")
 
-[node name="Hint" type="Label3D" parent="LoadZone7"]
+[node name="Hint" type="Label3D" parent="LoadZone6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the hung harp"
 font_size = 32
@@ -1163,7 +1135,7 @@ outline_size = 8
 billboard = 1
 no_depth_test = true
 
-[node name="LoadZone8" type="Area3D" parent="."]
+[node name="LoadZone7" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.48, -0.951, -0.59)
 collision_layer = 64
 collision_mask = 2
@@ -1174,10 +1146,10 @@ target_spawn = "from_old_hold"
 auto_trigger = false
 prompt = "[E] To the pile by the door"
 
-[node name="Shape" type="CollisionShape3D" parent="LoadZone8"]
-shape = SubResource("s14")
+[node name="Shape" type="CollisionShape3D" parent="LoadZone7"]
+shape = SubResource("s13")
 
-[node name="Hint" type="Label3D" parent="LoadZone8"]
+[node name="Hint" type="Label3D" parent="LoadZone7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] To the pile by the door"
 font_size = 32

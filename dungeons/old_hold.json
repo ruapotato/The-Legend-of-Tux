@@ -3052,15 +3052,6 @@
       "rotation_y": 3.141592653589793
     },
     {
-      "id": "from_var_mail",
-      "pos": [
-        3.0,
-        -2.09,
-        0.0
-      ],
-      "rotation_y": -1.5707963267948966
-    },
-    {
       "id": "from_wyrdkin_bash_history",
       "pos": [
         0.0,
@@ -3091,7 +3082,7 @@
       "id": "from_wyrdkin_desktop",
       "pos": [
         0.0,
-        0.5,
+        -2.26,
         0.0
       ],
       "rotation_y": 0.0
@@ -3100,7 +3091,7 @@
       "id": "from_wyrdkin_documents",
       "pos": [
         0.0,
-        0.5,
+        -2.26,
         0.0
       ],
       "rotation_y": 0.0
@@ -3109,7 +3100,7 @@
       "id": "from_wyrdkin_downloads",
       "pos": [
         0.0,
-        0.5,
+        -2.26,
         0.0
       ],
       "rotation_y": 0.0
@@ -3118,7 +3109,7 @@
       "id": "from_wyrdkin_music",
       "pos": [
         0.0,
-        0.5,
+        -2.26,
         0.0
       ],
       "rotation_y": 0.0
@@ -3489,23 +3480,6 @@
       "target_scene": "burrows",
       "target_spawn": "from_old_hold",
       "prompt": "[E] Back to the Burrows"
-    },
-    {
-      "pos": [
-        5.0,
-        -1.0,
-        0.0
-      ],
-      "size": [
-        1.5,
-        3.0,
-        4.0
-      ],
-      "rotation_y": 0.0,
-      "target_scene": "var_mail",
-      "target_spawn": "from_old_hold",
-      "prompt": "[E] Check the mailbox",
-      "auto": false
     },
     {
       "pos": [

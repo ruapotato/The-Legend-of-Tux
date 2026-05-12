@@ -1,18 +1,18 @@
-[gd_scene load_steps=544 format=3 uid="uid://btuxvarmail01"]
+[gd_scene load_steps=540 format=3 uid="uid://btuxvarmail01"]
 
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.22, 0.22, 0.3, 1)
@@ -1605,18 +1605,6 @@ size = Vector3(1, 4, 0.2)
 
 [sub_resource type="BoxShape3D" id="s526"]
 size = Vector3(4, 3, 1.5)
-
-[sub_resource type="BoxShape3D" id="s527"]
-size = Vector3(1.5, 3, 4)
-
-[sub_resource type="BoxShape3D" id="s528"]
-size = Vector3(1.5, 3, 4)
-
-[sub_resource type="BoxShape3D" id="s529"]
-size = Vector3(1.5, 3, 4)
-
-[sub_resource type="BoxShape3D" id="s530"]
-size = Vector3(1.5, 3, 4)
 
 [node name="The Postmark" type="Node3D"]
 script = ExtResource("root_script")
@@ -4772,18 +4760,6 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -
 [node name="from_library" type="Marker3D" parent="Spawns"]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -2.297, -1.5)
 
-[node name="from_hearthold" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.332449, 0, -0.943121, 0, 1, 0, 0.943121, 0, -0.332449, 5.5, -1.342, 1.5)
-
-[node name="from_brookhold" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.645908, 0, -0.763415, 0, 1, 0, 0.763415, 0, -0.645908, 6.5, -1.053, 2.5)
-
-[node name="from_old_hold" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.865499, 0, -0.500911, 0, 1, 0, 0.500911, 0, -0.865499, 20.5, 1.357, 21.5)
-
-[node name="from_home_lirien" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.843292, 0, -0.537456, 0, 1, 0, 0.537456, 0, -0.843292, 19.5, 1.609, 19.5)
-
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -2.583, 2.5)
 message = "THE POSTMARK\n\nFour pigeon-cotes line the back wall, each named for a village. Letters arrive. Letters depart. The pigeons know their own road.\n\nThe Postmaster keeps the ledger. The Postmaster always has work."
@@ -4973,94 +4949,6 @@ shape = SubResource("s526")
 [node name="Hint" type="Label3D" parent="LoadZone0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 text = "[E] Back to the Library"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.67, -0.442, 1.03)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/hearthold.tscn"
-target_spawn = "from_var_mail"
-auto_trigger = false
-prompt = "[E] Send a letter to Hearthold"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone1"]
-shape = SubResource("s527")
-
-[node name="Hint" type="Label3D" parent="LoadZone1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Send a letter to Hearthold"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82, -0.153, 2.12)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/brookhold.tscn"
-target_spawn = "from_var_mail"
-auto_trigger = false
-prompt = "[E] Send a letter to Brookhold"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone2"]
-shape = SubResource("s528")
-
-[node name="Hint" type="Label3D" parent="LoadZone2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Send a letter to Brookhold"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.93, 2.257, 21.25)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/old_hold.tscn"
-target_spawn = "from_var_mail"
-auto_trigger = false
-prompt = "[E] Send a letter to the Old Hold"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone3"]
-shape = SubResource("s529")
-
-[node name="Hint" type="Label3D" parent="LoadZone3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Send a letter to the Old Hold"
-font_size = 32
-outline_size = 8
-billboard = 1
-no_depth_test = true
-
-[node name="LoadZone4" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.92, 2.509, 19.23)
-collision_layer = 64
-collision_mask = 2
-monitoring = true
-script = ExtResource("load_zone_script")
-target_scene = "res://scenes/home_lirien.tscn"
-target_spawn = "from_var_mail"
-auto_trigger = false
-prompt = "[E] Send a letter to Lirien"
-
-[node name="Shape" type="CollisionShape3D" parent="LoadZone4"]
-shape = SubResource("s530")
-
-[node name="Hint" type="Label3D" parent="LoadZone4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
-text = "[E] Send a letter to Lirien"
 font_size = 32
 outline_size = 8
 billboard = 1
