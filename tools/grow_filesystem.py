@@ -2268,12 +2268,21 @@ def grow_arms_for_level(level_id, data, level_seed_extra="",
         if target_scene:
             spawn_id = "from_" + target_scene
             spawns = data.get("spawns", [])
+            # Pull the spawn ~5 cells INWARD from the arm tip. Putting
+            # the spawn AT the tip lands the third-person camera 3m
+            # behind the player, which is past the corridor edge into
+            # the tree-wall — player sees the back face of the wall
+            # and gets the "inverted wall" report. Pulling inward 5
+            # cells keeps the camera safely inside the corridor.
+            sp_inward = 5.0  # cells
+            sp_x_world = tip_x_world - cur_dx * cs * sp_inward
+            sp_z_world = tip_z_world - cur_dz * cs * sp_inward
             for sp in spawns:
                 if sp.get("id") == spawn_id:
                     old_sp_pos = sp.get("pos", [0, 0.5, 0])
                     sp_y = float(old_sp_pos[1]) if len(old_sp_pos) > 1 else 0.5
-                    sp["pos"] = [round(tip_x_world, 2), sp_y,
-                                 round(tip_z_world, 2)]
+                    sp["pos"] = [round(sp_x_world, 2), sp_y,
+                                 round(sp_z_world, 2)]
                     # Spawn faces back toward the hub (inward).
                     sp["rotation_y"] = round(math.atan2(-cur_dx, -cur_dz), 4)
                     break

@@ -44026,45 +44026,45 @@
     {
       "id": "from_burrows",
       "pos": [
-        57.5,
-        5.54,
-        88.5
+        53.54,
+        5.46,
+        85.44
       ],
       "rotation_y": -2.2282
     },
     {
       "id": "from_lirien_desktop",
       "pos": [
-        38.5,
-        -0.33,
-        -3.5
+        35.32,
+        -0.49,
+        0.36
       ],
       "rotation_y": -0.6892
     },
     {
       "id": "from_lirien_documents",
       "pos": [
-        -54.5,
-        5.26,
-        72.5
+        -50.03,
+        4.96,
+        70.26
       ],
       "rotation_y": 2.0358
     },
     {
       "id": "from_lirien_music",
       "pos": [
-        48.5,
-        1.33,
-        -15.5
+        45.75,
+        0.18,
+        -11.32
       ],
       "rotation_y": -0.5816
     },
     {
       "id": "from_lirien_downloads",
       "pos": [
-        -81.5,
-        4.26,
-        61.5
+        -76.71,
+        4.61,
+        60.07
       ],
       "rotation_y": 1.8609
     }

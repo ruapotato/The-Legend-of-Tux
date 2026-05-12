@@ -1,17 +1,17 @@
 [gd_scene load_steps=1729 format=3 uid="uid://btuxhomeliri01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.2, 0.4, 1)
@@ -15443,19 +15443,19 @@ surface_material_override/0 = SubResource("s5")
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 0.699, -0.5)
 
 [node name="from_burrows" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.611064, 0, 0.791581, 0, 1, 0, -0.791581, 0, -0.611064, 57.5, 5.542, 88.5)
+transform = Transform3D(-0.611064, 0, 0.791581, 0, 1, 0, -0.791581, 0, -0.611064, 53.54, 5.465, 85.44)
 
 [node name="from_lirien_desktop" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.771755, 0, 0.63592, 0, 1, 0, -0.63592, 0, 0.771755, 38.5, -0.335, -3.5)
+transform = Transform3D(0.771755, 0, 0.63592, 0, 1, 0, -0.63592, 0, 0.771755, 35.32, -0.49, 0.36)
 
 [node name="from_lirien_documents" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.448426, 0, -0.89382, 0, 1, 0, 0.89382, 0, -0.448426, -54.5, 5.261, 72.5)
+transform = Transform3D(-0.448426, 0, -0.89382, 0, 1, 0, 0.89382, 0, -0.448426, -50.03, 4.965, 70.26)
 
 [node name="from_lirien_music" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.835585, 0, 0.549362, 0, 1, 0, -0.549362, 0, 0.835585, 48.5, 1.332, -15.5)
+transform = Transform3D(0.835585, 0, 0.549362, 0, 1, 0, -0.549362, 0, 0.835585, 45.75, 0.179, -11.32)
 
 [node name="from_lirien_downloads" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.286052, 0, -0.958214, 0, 1, 0, 0.958214, 0, -0.286052, -81.5, 4.259, 61.5)
+transform = Transform3D(-0.286052, 0, -0.958214, 0, 1, 0, 0.958214, 0, -0.286052, -76.71, 4.61, 60.07)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.253, -1.5)

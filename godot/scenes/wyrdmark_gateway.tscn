@@ -1,23 +1,23 @@
 [gd_scene load_steps=29 format=3 uid="uid://btuxwyrdmark01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
-[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
@@ -5452,16 +5452,16 @@ seed = 637
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0, 0.199, -8.5)
 
 [node name="from_optional_yard" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.989822, 0, 0.142308, 0, 1, 0, -0.142308, 0, -0.989822, 3.5, 5.84, 56.5)
+transform = Transform3D(-0.989822, 0, 0.142308, 0, 1, 0, -0.142308, 0, -0.989822, 2.79, 5.606, 51.55)
 
 [node name="from_wyrdkin_glade" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.251765, 0, -0.967788, 0, 1, 0, 0.967788, 0, -0.251765, -57.5, 2.053, 20.5)
+transform = Transform3D(-0.251765, 0, -0.967788, 0, 1, 0, 0.967788, 0, -0.251765, -52.66, 2.234, 19.24)
 
 [node name="from_wyrdwood" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.303245, 0, 0.952913, 0, 1, 0, -0.952913, 0, 0.303245, 67.5, 0.506, -13.5)
+transform = Transform3D(0.303245, 0, 0.952913, 0, 1, 0, -0.952913, 0, 0.303245, 62.74, 1.082, -11.98)
 
 [node name="from_sourceplain" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.0164956, 0, 0.999864, 0, 1, 0, -0.999864, 0, 0.0164956, 69.5, 1.514, 10.5)
+transform = Transform3D(0.0164956, 0, 0.999864, 0, 1, 0, -0.999864, 0, 0.0164956, 64.5, 1.869, 10.58)
 
 [node name="Knight0" parent="." instance=ExtResource("knight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2.5)

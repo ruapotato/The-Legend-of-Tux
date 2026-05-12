@@ -1,16 +1,16 @@
 [gd_scene load_steps=1100 format=3 uid="uid://btuxhomekhor01"]
 
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
 [ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.14, 0.16, 1)
@@ -9790,19 +9790,19 @@ surface_material_override/0 = SubResource("s5")
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 1.73, -0.5)
 
 [node name="from_burrows" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.792991, 0, -0.609233, 0, 1, 0, 0.609233, 0, -0.792991, -47.5, 6.934, 99.5)
+transform = Transform3D(-0.792991, 0, -0.609233, 0, 1, 0, 0.609233, 0, -0.792991, -44.45, 6.583, 95.53)
 
 [node name="from_khorgaul_desktop" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.685359, 0, -0.728206, 0, 1, 0, 0.728206, 0, 0.685359, -26.5, 0.959, 11.5)
+transform = Transform3D(0.685359, 0, -0.728206, 0, 1, 0, 0.728206, 0, 0.685359, -22.86, 0.476, 14.93)
 
 [node name="from_khorgaul_documents" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.820392, 0, -0.571801, 0, 1, 0, 0.571801, 0, 0.820392, -22.5, 0.526, -2.5)
+transform = Transform3D(0.820392, 0, -0.571801, 0, 1, 0, 0.571801, 0, 0.820392, -19.64, 0.782, 1.6)
 
 [node name="from_khorgaul_music" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.451016, 0, 0.892516, 0, 1, 0, -0.892516, 0, -0.451016, 34.5, 3.739, 53.5)
+transform = Transform3D(-0.451016, 0, 0.892516, 0, 1, 0, -0.892516, 0, -0.451016, 30.04, 3.461, 51.24)
 
 [node name="from_khorgaul_downloads" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-0.794998, 0, 0.606613, 0, 1, 0, -0.606613, 0, -0.794998, 24.5, 4.805, 65.5)
+transform = Transform3D(-0.794998, 0, 0.606613, 0, 1, 0, -0.606613, 0, -0.794998, 21.47, 4.7, 61.53)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2.5, 1.087, 2.5)

@@ -30099,45 +30099,45 @@
     {
       "id": "from_burrows",
       "pos": [
-        -47.5,
-        6.93,
-        99.5
+        -44.45,
+        6.58,
+        95.53
       ],
       "rotation_y": 2.4865
     },
     {
       "id": "from_khorgaul_desktop",
       "pos": [
-        -26.5,
-        0.96,
-        11.5
+        -22.86,
+        0.48,
+        14.93
       ],
       "rotation_y": 0.8157
     },
     {
       "id": "from_khorgaul_documents",
       "pos": [
-        -22.5,
-        0.53,
-        -2.5
+        -19.64,
+        0.78,
+        1.6
       ],
       "rotation_y": 0.6087
     },
     {
       "id": "from_khorgaul_music",
       "pos": [
-        34.5,
-        3.74,
-        53.5
+        30.04,
+        3.46,
+        51.24
       ],
       "rotation_y": -2.0387
     },
     {
       "id": "from_khorgaul_downloads",
       "pos": [
-        24.5,
-        4.8,
-        65.5
+        21.47,
+        4.7,
+        61.53
       ],
       "rotation_y": -2.4898
     }
