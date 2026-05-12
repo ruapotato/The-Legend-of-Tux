@@ -1,22 +1,25 @@
 extends ScrollContainer
 
 # Inspector panel — shows the generic transform fields for the selected
-# Node3D plus a smattering of type-specific editors:
-#   - NPC dialog tree (multiline JSON)
-#   - Sign message
-#   - Chest contents
-#   - Load Zone target + spawn id + new-level button
-#   - Owl Statue warp id
-#   - Spawn Marker id
-#   - Light color/energy/range
-#   - Water Volume surface_y
+# Node3D plus a smattering of type-specific editors. Supports multi-
+# select: when more than one node is selected we show a small banner
+# and operate transforms on all of them. Type-specific sections only
+# appear when a single node is selected.
+#
+# Also exposes:
+#   - Material picker (any MeshInstance3D descendant)
+#   - Non-uniform scale toggle
+#   - Snap-to-floor button
 #
 # Live-binds the selected node so any UI change writes back immediately
 # and flips EditorMode.dirty. When the selection clears we hide the
 # panel contents.
 
+const EditorMaterialsCls = preload("res://scripts/editor_materials.gd")
+
 var _target: Node3D = null
-var _owner_ui = null            # editor_ui.gd — needed for "delete" button + new-level
+var _targets: Array = []        # multi-select list (subset of selection)
+var _owner_ui = null
 
 var _vbox: VBoxContainer = null
 
@@ -27,6 +30,10 @@ var _pos_y: SpinBox = null
 var _pos_z: SpinBox = null
 var _rot_y: SpinBox = null
 var _scale_box: SpinBox = null
+var _scale_x: SpinBox = null
+var _scale_y: SpinBox = null
+var _scale_z: SpinBox = null
+var _scale_uniform: bool = true
 
 
 func _ready() -> void:
@@ -42,18 +49,46 @@ func set_owner_ui(ui) -> void:
 	_owner_ui = ui
 
 
+# Single-target entry point (back-compat). Also sets _targets.
 func set_target(node: Node3D) -> void:
+	if node == null:
+		_targets = []
+	else:
+		_targets = [node]
 	_target = node
+	_rebuild_ui()
+
+
+# Multi-target entry point.
+func set_target_multi(nodes: Array) -> void:
+	_targets = []
+	for n in nodes:
+		if n is Node3D:
+			_targets.append(n)
+	if _targets.is_empty():
+		_target = null
+	else:
+		_target = _targets[0]
+	_rebuild_ui()
+
+
+func _rebuild_ui() -> void:
 	for c in _vbox.get_children():
 		c.queue_free()
-	if node == null:
+	if _target == null:
 		var l := Label.new()
 		l.text = "(nothing selected)"
 		l.modulate = Color(0.7, 0.7, 0.7, 1)
 		_vbox.add_child(l)
 		return
+	if _targets.size() > 1:
+		var banner := Label.new()
+		banner.text = "(%d selected — common props)" % _targets.size()
+		banner.modulate = Color(1, 0.8, 0.4, 1)
+		_vbox.add_child(banner)
 	_build_generic_section()
-	_build_typed_section()
+	if _targets.size() == 1:
+		_build_typed_section()
 
 
 # ---- Generic fields ---------------------------------------------------
@@ -64,10 +99,11 @@ func _build_generic_section() -> void:
 	hdr.add_theme_font_size_override("font_size", 14)
 	_vbox.add_child(hdr)
 
-	_name_edit = LineEdit.new()
-	_name_edit.text = _target.name
-	_name_edit.text_changed.connect(_on_name_changed)
-	_vbox.add_child(_row("Name", _name_edit))
+	if _targets.size() == 1:
+		_name_edit = LineEdit.new()
+		_name_edit.text = _target.name
+		_name_edit.text_changed.connect(_on_name_changed)
+		_vbox.add_child(_row("Name", _name_edit))
 
 	_pos_x = _spin(_target.position.x, -2000, 2000, 0.1)
 	_pos_y = _spin(_target.position.y, -2000, 2000, 0.1)
@@ -83,14 +119,46 @@ func _build_generic_section() -> void:
 	_rot_y.value_changed.connect(_on_rot_changed)
 	_vbox.add_child(_row("Rot Y°", _rot_y))
 
-	_scale_box = _spin(_target.scale.x, 0.05, 100.0, 0.05)
-	_scale_box.value_changed.connect(_on_scale_changed)
-	_vbox.add_child(_row("Scale", _scale_box))
+	# Uniform / non-uniform scale toggle.
+	var scale_toggle := CheckBox.new()
+	scale_toggle.text = "Non-uniform scale"
+	scale_toggle.button_pressed = not _scale_uniform
+	scale_toggle.toggled.connect(func(p):
+		_scale_uniform = not p
+		_rebuild_ui())
+	_vbox.add_child(scale_toggle)
 
+	if _scale_uniform:
+		_scale_box = _spin(_target.scale.x, 0.05, 100.0, 0.05)
+		_scale_box.value_changed.connect(_on_scale_changed)
+		_vbox.add_child(_row("Scale", _scale_box))
+	else:
+		_scale_x = _spin(_target.scale.x, 0.05, 100.0, 0.05)
+		_scale_y = _spin(_target.scale.y, 0.05, 100.0, 0.05)
+		_scale_z = _spin(_target.scale.z, 0.05, 100.0, 0.05)
+		_scale_x.value_changed.connect(_on_scale_xyz_changed)
+		_scale_y.value_changed.connect(_on_scale_xyz_changed)
+		_scale_z.value_changed.connect(_on_scale_xyz_changed)
+		var sr := HBoxContainer.new()
+		sr.add_child(_scale_x); sr.add_child(_scale_y); sr.add_child(_scale_z)
+		_vbox.add_child(_row("Scale XYZ", sr))
+
+	# Buttons row: Delete + Snap-to-floor.
+	var br := HBoxContainer.new()
 	var del := Button.new()
 	del.text = "Delete"
 	del.pressed.connect(_on_delete_pressed)
-	_vbox.add_child(del)
+	br.add_child(del)
+	var snap_btn := Button.new()
+	snap_btn.text = "Snap-to-floor"
+	snap_btn.pressed.connect(_on_snap_floor_pressed)
+	br.add_child(snap_btn)
+	_vbox.add_child(br)
+
+	# Material picker for any node that has a descendant MeshInstance3D.
+	var mi := _find_first_mesh_instance(_target)
+	if mi:
+		_build_material_picker(mi)
 
 	_vbox.add_child(_hr())
 
@@ -102,7 +170,6 @@ func _build_typed_section() -> void:
 	hdr.add_theme_font_size_override("font_size", 13)
 	_vbox.add_child(hdr)
 
-	# Detect type by script resource_path or class.
 	var s: Script = _target.get_script() as Script
 	var sp: String = s.resource_path if s else ""
 
@@ -123,6 +190,8 @@ func _build_typed_section() -> void:
 		_build_light_section()
 	elif sp.ends_with("water_volume.gd") or _target.is_in_group("water_volume"):
 		_build_water_section()
+	elif sp.ends_with("terrain_patch_edit.gd") or _target.is_in_group("terrain_patch"):
+		_build_terrain_section()
 	elif _target is MeshInstance3D and _target.has_meta("mesh_id"):
 		_build_mesh_section()
 	else:
@@ -145,21 +214,40 @@ func _on_name_changed(new_name: String) -> void:
 func _on_pos_changed(_v: float) -> void:
 	if _target == null:
 		return
-	_target.position = Vector3(_pos_x.value, _pos_y.value, _pos_z.value)
+	# In multi-select, treat the inspector's pos as a delta from the
+	# previously committed _target position and apply to all.
+	var newp := Vector3(_pos_x.value, _pos_y.value, _pos_z.value)
+	if _targets.size() > 1:
+		var delta: Vector3 = newp - _target.position
+		for n in _targets:
+			(n as Node3D).position += delta
+	else:
+		_target.position = newp
 	EditorMode.dirty = true
 
 
 func _on_rot_changed(v: float) -> void:
 	if _target == null:
 		return
-	_target.rotation.y = deg_to_rad(v)
+	for n in _targets:
+		(n as Node3D).rotation.y = deg_to_rad(v)
 	EditorMode.dirty = true
 
 
 func _on_scale_changed(v: float) -> void:
 	if _target == null:
 		return
-	_target.scale = Vector3(v, v, v)
+	for n in _targets:
+		(n as Node3D).scale = Vector3(v, v, v)
+	EditorMode.dirty = true
+
+
+func _on_scale_xyz_changed(_v: float) -> void:
+	if _target == null:
+		return
+	var s := Vector3(_scale_x.value, _scale_y.value, _scale_z.value)
+	for n in _targets:
+		(n as Node3D).scale = s
 	EditorMode.dirty = true
 
 
@@ -168,10 +256,72 @@ func _on_delete_pressed() -> void:
 		_owner_ui.delete_selected_external()
 
 
+func _on_snap_floor_pressed() -> void:
+	if _owner_ui and _owner_ui.has_method("snap_selected_to_floor"):
+		_owner_ui.snap_selected_to_floor()
+		_rebuild_ui()
+
+
+# ---- Material picker --------------------------------------------------
+
+func _build_material_picker(mi: MeshInstance3D) -> void:
+	var hdr := Label.new()
+	hdr.text = "Material"
+	hdr.modulate = Color(0.85, 0.85, 0.7, 1)
+	_vbox.add_child(hdr)
+	var opt := OptionButton.new()
+	for k in EditorMaterialsCls.KINDS:
+		opt.add_item(k.capitalize())
+	# Pre-select if we have a mat_kind meta.
+	var current: String = String(mi.get_meta("mat_kind", "default"))
+	for i in EditorMaterialsCls.KINDS.size():
+		if EditorMaterialsCls.KINDS[i] == current:
+			opt.select(i)
+			break
+	opt.item_selected.connect(func(idx):
+		var kind: String = String(EditorMaterialsCls.KINDS[idx])
+		mi.set_meta("mat_kind", kind)
+		if kind == "default":
+			mi.material_override = null
+		elif kind == "custom_color":
+			# Build a colored material from the picker's value.
+			var m := StandardMaterial3D.new()
+			m.albedo_color = Color(0.8, 0.8, 0.8, 1)
+			mi.material_override = m
+		else:
+			mi.material_override = EditorMaterialsCls.get_material(kind)
+		EditorMode.dirty = true)
+	_vbox.add_child(_row("Preset", opt))
+
+	# Optional color override (always visible — applies on top of preset).
+	var cp := ColorPickerButton.new()
+	var existing_color: Color = Color(0.8, 0.8, 0.8, 1)
+	if mi.material_override is StandardMaterial3D:
+		existing_color = (mi.material_override as StandardMaterial3D).albedo_color
+	cp.color = existing_color
+	cp.color_changed.connect(func(c):
+		var m: StandardMaterial3D = mi.material_override as StandardMaterial3D
+		if m == null:
+			m = StandardMaterial3D.new()
+			mi.material_override = m
+		m.albedo_color = c
+		mi.set_meta("mat_kind", "custom_color")
+		EditorMode.dirty = true)
+	_vbox.add_child(_row("Tint", cp))
+
+	var reset := Button.new()
+	reset.text = "Reset material"
+	reset.pressed.connect(func():
+		mi.material_override = null
+		mi.remove_meta("mat_kind")
+		EditorMode.dirty = true
+		_rebuild_ui())
+	_vbox.add_child(reset)
+
+
 # ---- Type-specific builders ------------------------------------------
 
 func _build_npc_section() -> void:
-	# name, idle_hint, body_color, hat_color, dialog_tree.
 	var name_field := LineEdit.new()
 	name_field.text = String(_target.get_meta("npc_name", _target.name))
 	name_field.text_changed.connect(func(t):
@@ -287,7 +437,6 @@ func _build_load_zone_section() -> void:
 		EditorMode.dirty = true)
 	_vbox.add_child(_row("Target", tgt))
 
-	# Browse + NEW LEVEL buttons.
 	var btn_row := HBoxContainer.new()
 	var browse := Button.new()
 	browse.text = "Browse..."
@@ -377,7 +526,6 @@ func _build_spawn_marker_section() -> void:
 		if "spawn_id" in _target:
 			_target.spawn_id = t
 		_target.set_meta("spawn_id", t)
-		# Rename the node so dungeon_root can find it by name too.
 		if t != "":
 			_target.name = t
 		EditorMode.dirty = true)
@@ -428,6 +576,31 @@ func _build_water_section() -> void:
 	_vbox.add_child(_row("Surface Y", sy))
 
 
+func _build_terrain_section() -> void:
+	var gs := SpinBox.new()
+	gs.min_value = 2
+	gs.max_value = 128
+	gs.step = 1
+	gs.value = float(_get_export(_target, "grid_size", 32))
+	gs.value_changed.connect(func(v):
+		_target.grid_size = int(v)
+		EditorMode.dirty = true)
+	_vbox.add_child(_row("Grid size", gs))
+	var cs := SpinBox.new()
+	cs.min_value = 0.25
+	cs.max_value = 8.0
+	cs.step = 0.25
+	cs.value = float(_get_export(_target, "cell_size", 2.0))
+	cs.value_changed.connect(func(v):
+		_target.cell_size = v
+		EditorMode.dirty = true)
+	_vbox.add_child(_row("Cell size m", cs))
+	var hint := Label.new()
+	hint.text = "Press B to sculpt, P to paint."
+	hint.modulate = Color(0.85, 0.85, 0.55, 1)
+	_vbox.add_child(hint)
+
+
 func _build_mesh_section() -> void:
 	var le := LineEdit.new()
 	le.text = String(_target.get_meta("mesh_id", ""))
@@ -436,6 +609,16 @@ func _build_mesh_section() -> void:
 
 
 # ---- Helpers ----------------------------------------------------------
+
+func _find_first_mesh_instance(n: Node) -> MeshInstance3D:
+	if n is MeshInstance3D:
+		return n as MeshInstance3D
+	for c in n.get_children():
+		var f := _find_first_mesh_instance(c)
+		if f:
+			return f
+	return null
+
 
 func _row(label: String, child: Control) -> HBoxContainer:
 	var h := HBoxContainer.new()
@@ -469,8 +652,6 @@ func _meta_color(key: String, default: Color) -> Color:
 	return default
 
 
-# Read an @export property. Tolerant of nodes that don't expose the
-# property (returns the default).
 func _get_export(node: Node, prop: String, default: Variant) -> Variant:
 	if node == null:
 		return default

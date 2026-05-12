@@ -6,6 +6,7 @@ extends Node
 
 const SPAWN_MARKER_SCENE := "res://scenes/spawn_marker.tscn"
 const GROUND_PATCH_SCENE := "res://scenes/ground_patch.tscn"
+const TERRAIN_PATCH_SCENE := "res://scenes/terrain_patch_edit.tscn"
 const WALL_SEGMENT_SCENE := "res://scenes/wall_segment.tscn"
 const WATER_VOLUME_SCENE := "res://scenes/water_volume.tscn"
 const LOAD_ZONE_SCENE    := "res://scenes/load_zone.tscn"
@@ -65,6 +66,9 @@ static func build_catalog() -> Array:
 	entries.append({"category": "Geometry", "label": "Ground Patch",
 			"kind": "primitive", "scene_path": GROUND_PATCH_SCENE,
 			"snap": 1.0})
+	entries.append({"category": "Geometry", "label": "Terrain Patch",
+			"kind": "primitive", "scene_path": TERRAIN_PATCH_SCENE,
+			"snap": 2.0})
 	entries.append({"category": "Geometry", "label": "Wall Segment",
 			"kind": "primitive", "scene_path": WALL_SEGMENT_SCENE,
 			"snap": 0.5})

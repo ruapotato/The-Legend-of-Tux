@@ -85,6 +85,14 @@ func _draw_node(n: Node, center: Vector2) -> void:
 		var r := Rect2(p - Vector2(s_px * 0.5, s_px * 0.5), Vector2(s_px, s_px))
 		draw_rect(r, ICON_GROUND)
 		return
+	if n.is_in_group("terrain_patch"):
+		var gs: float = float(n.get("grid_size")) if "grid_size" in n else 32.0
+		var cell: float = float(n.get("cell_size")) if "cell_size" in n else 2.0
+		var s_world2 := gs * cell * (n3d.scale.x if n3d.scale.x > 0 else 1.0)
+		var s_px2 := (s_world2 / (MAP_RADIUS_M * 2.0)) * size.x
+		var r2 := Rect2(p - Vector2(s_px2 * 0.5, s_px2 * 0.5), Vector2(s_px2, s_px2))
+		draw_rect(r2, Color(0.32, 0.50, 0.28, 0.55))
+		return
 	if n.is_in_group("wall_segment"):
 		draw_rect(Rect2(p - Vector2(4, 1), Vector2(8, 2)), ICON_WALL)
 		return
