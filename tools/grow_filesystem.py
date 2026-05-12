@@ -2640,6 +2640,55 @@ def terrain_height_pass(levels, parent_of=None, children_of=None,
         floor["_terrain_y"] = {_terrain_key(i, j): v
                                for (i, j), v in new_terrain.items()}
 
+        # Secondary floors (paddocks, barns, "buildings on top of the
+        # yard") need their cells to ride on the yard's terrain too.
+        # Otherwise floor[0] is hilly and floor[1+] is flat at y=0,
+        # producing the "wooden building embedded in a 4m hill"
+        # symptom user reported in brookhold. For each secondary
+        # cell at (i, j), copy floor[0]'s y at that (i, j) plus a
+        # tiny lift so the building floor sits ON TOP of the yard.
+        all_floors = data.get("grid", {}).get("floors", [])
+        if len(all_floors) > 1:
+            yard_y_by_cell = new_y_by_cell  # alias for clarity
+            for sec_idx in range(1, len(all_floors)):
+                sec_floor = all_floors[sec_idx]
+                sec_cells_raw = sec_floor.get("cells", []) or []
+                sec_new_cells = []
+                sec_new_y = {}
+                for c in sec_cells_raw:
+                    if isinstance(c, dict):
+                        i = int(c.get("i", 0)); j = int(c.get("j", 0))
+                        color = c.get("color")
+                    else:
+                        i = int(c[0]); j = int(c[1])
+                        color = c[3] if len(c) >= 4 else None
+                    # Pull the yard's y at this (i, j); if the
+                    # building extends past the yard footprint use
+                    # the nearest yard cell instead.
+                    if (i, j) in yard_y_by_cell:
+                        yard_y = yard_y_by_cell[(i, j)]
+                    elif yard_y_by_cell:
+                        best = min(yard_y_by_cell.keys(),
+                                   key=lambda c: (c[0]-i)*(c[0]-i)
+                                                 + (c[1]-j)*(c[1]-j))
+                        yard_y = yard_y_by_cell[best]
+                    else:
+                        yard_y = 0.0
+                    # Building floor sits 0.05m above yard surface so
+                    # the player walks IN the building rather than
+                    # clipping through its base mesh.
+                    sec_y = yard_y + 0.05
+                    sec_new_y[(i, j)] = sec_y
+                    if color is not None:
+                        sec_new_cells.append([i, j, sec_y, color])
+                    else:
+                        sec_new_cells.append([i, j, sec_y])
+                sec_floor["cells"] = sec_new_cells
+                # Track the generated y so future re-runs idempotently
+                # back this out (same pattern as floor 0).
+                sec_floor["_terrain_y"] = {_terrain_key(i, j): v
+                                           for (i, j), v in sec_new_y.items()}
+
         # Fix 3 — Update load_zone trigger y's to ride on the hill, and
         # update from_<X> spawn y's to match the cell beneath them.
         for lz in data.get("load_zones", []) or []:
