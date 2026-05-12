@@ -1,0 +1,2957 @@
+{
+  "id": "hearthold",
+  "name": "Hearthold",
+  "environment": {
+    "sky_top": [
+      0.4,
+      0.55,
+      0.78,
+      1
+    ],
+    "sky_horizon": [
+      0.78,
+      0.74,
+      0.62,
+      1
+    ],
+    "ground_horizon": [
+      0.45,
+      0.4,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.14,
+      0.12,
+      0.08,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.55,
+      0.52,
+      1
+    ],
+    "ambient_energy": 0.55,
+    "fog_density": 0.005,
+    "fog_color": [
+      0.68,
+      0.66,
+      0.58,
+      1
+    ],
+    "sun_dir": [
+      0.3,
+      -0.6,
+      -0.5
+    ],
+    "sun_color": [
+      1.0,
+      0.95,
+      0.82,
+      1
+    ],
+    "sun_energy": 1.0
+  },
+  "sky_color": [
+    0.65,
+    0.72,
+    0.78
+  ],
+  "fog_color": [
+    0.78,
+    0.75,
+    0.65
+  ],
+  "ambient_color": [
+    0.55,
+    0.5,
+    0.45
+  ],
+  "sun_color": [
+    1.0,
+    0.85,
+    0.6
+  ],
+  "wall_thickness": 0.3,
+  "spawn_point": [
+    0.0,
+    -0.49,
+    18.0
+  ],
+  "materials": {
+    "stone_hold": {
+      "albedo": [
+        0.6,
+        0.58,
+        0.55
+      ],
+      "roughness": 0.93
+    },
+    "wood_warm": {
+      "albedo": [
+        0.55,
+        0.4,
+        0.25
+      ],
+      "roughness": 0.85
+    },
+    "dirt_floor": {
+      "albedo": [
+        0.36,
+        0.27,
+        0.16
+      ],
+      "roughness": 0.95
+    }
+  },
+  "rooms": [
+    {
+      "name": "VillageHall",
+      "origin": [
+        -4.0,
+        0.0,
+        0.0
+      ],
+      "size": [
+        8.0,
+        6.0,
+        8.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "wood_warm",
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 3.0,
+              "width": 2.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.5,
+              "height": 1.2,
+              "sill": 1.6
+            },
+            {
+              "type": "window",
+              "x": 5.0,
+              "width": 1.5,
+              "height": 1.2,
+              "sill": 1.6
+            }
+          ]
+        },
+        "west": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.5,
+              "height": 1.2,
+              "sill": 1.6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Smithy",
+      "origin": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "size": [
+        6.0,
+        5.0,
+        6.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "dirt_floor",
+      "walls": {
+        "north": {
+          "openings": []
+        },
+        "south": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 2.0,
+              "width": 2.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "east": {
+          "openings": []
+        },
+        "west": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.5,
+              "height": 1.2,
+              "sill": 1.6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Bakery",
+      "origin": [
+        -8.0,
+        0.0,
+        -4.0
+      ],
+      "size": [
+        6.0,
+        4.5,
+        5.0
+      ],
+      "material": "wood_warm",
+      "floor_material": "wood_warm",
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 2.0,
+              "width": 2.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.0,
+              "height": 1.0,
+              "sill": 1.5
+            }
+          ]
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "EldersHouse",
+      "origin": [
+        -14.0,
+        0.0,
+        4.0
+      ],
+      "size": [
+        6.0,
+        5.0,
+        6.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "wood_warm",
+      "walls": {
+        "north": {
+          "openings": []
+        },
+        "south": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 2.0,
+              "width": 2.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.5,
+              "height": 1.2,
+              "sill": 1.6
+            }
+          ]
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "BeekeepersCottage",
+      "origin": [
+        -10.0,
+        0.0,
+        12.0
+      ],
+      "size": [
+        5.0,
+        4.0,
+        4.0
+      ],
+      "material": "wood_warm",
+      "floor_material": "wood_warm",
+      "walls": {
+        "north": {
+          "openings": []
+        },
+        "south": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 1.5,
+              "width": 1.5,
+              "height": 2.4
+            }
+          ]
+        },
+        "east": {
+          "openings": []
+        },
+        "west": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 1.0,
+              "width": 1.0,
+              "height": 1.0,
+              "sill": 1.4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "MarketStall",
+      "origin": [
+        4.0,
+        0.0,
+        -4.0
+      ],
+      "size": [
+        5.0,
+        3.5,
+        4.0
+      ],
+      "material": "wood_warm",
+      "floor": false,
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 0.5,
+              "width": 4.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 0.5,
+              "width": 3.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "VelisShrine",
+      "origin": [
+        -10.0,
+        0.0,
+        -10.0
+      ],
+      "size": [
+        5.0,
+        4.0,
+        5.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "stone_hold",
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 1.5,
+              "width": 2.0,
+              "height": 3.0
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 2.0,
+              "width": 1.0,
+              "height": 1.5,
+              "sill": 1.0
+            }
+          ]
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "KilnShed",
+      "origin": [
+        12.0,
+        0.0,
+        -6.0
+      ],
+      "size": [
+        4.0,
+        3.5,
+        4.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "dirt_floor",
+      "walls": {
+        "north": {
+          "openings": []
+        },
+        "south": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 1.0,
+              "width": 1.5,
+              "height": 2.4
+            }
+          ]
+        },
+        "east": {
+          "openings": []
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "WellHouse",
+      "origin": [
+        16.0,
+        0.0,
+        8.0
+      ],
+      "size": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "material": "stone_hold",
+      "floor_material": "stone_hold",
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 1.0,
+              "width": 1.5,
+              "height": 2.4
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": []
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    }
+  ],
+  "terrain_patches": [
+    {
+      "name": "HeartholdPlaza",
+      "origin": [
+        -90.0,
+        0.0,
+        -25.0
+      ],
+      "size_x": 180.0,
+      "size_z": 140.0,
+      "resolution": 24,
+      "heights": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.015,
+        -0.0076,
+        -0.0201,
+        -0.0288,
+        -0.0344,
+        -0.033,
+        -0.0305,
+        -0.0346,
+        -0.0377,
+        -0.0281,
+        -0.0085,
+        0.0122,
+        0.0334,
+        0.053,
+        0.0592,
+        0.0469,
+        0.0281,
+        0.0134,
+        0.0003,
+        -0.0123,
+        -0.0186,
+        -0.0208,
+        -0.0,
+        0.0,
+        0.033,
+        -0.0278,
+        -0.1289,
+        -0.1291,
+        -0.0639,
+        -0.0606,
+        -0.1084,
+        -0.1128,
+        -0.0966,
+        -0.117,
+        -0.0984,
+        0.0293,
+        0.1643,
+        0.198,
+        0.1828,
+        0.1757,
+        0.1154,
+        -0.0049,
+        -0.0637,
+        -0.0271,
+        -0.0128,
+        -0.0322,
+        -0.0,
+        0.0,
+        0.022,
+        -0.0438,
+        -0.0996,
+        -0.1536,
+        -0.2189,
+        -0.1959,
+        -0.1462,
+        -0.1896,
+        -0.2446,
+        -0.1701,
+        -0.0274,
+        0.0684,
+        0.1682,
+        0.3138,
+        0.3705,
+        0.2635,
+        0.1349,
+        0.0835,
+        0.0199,
+        -0.087,
+        -0.0833,
+        -0.0325,
+        -0.0,
+        0.0,
+        0.0409,
+        0.037,
+        -0.0244,
+        -0.1625,
+        -0.2856,
+        -0.3516,
+        -0.3488,
+        -0.2969,
+        -0.2035,
+        -0.0766,
+        0.0456,
+        0.1315,
+        0.1941,
+        0.253,
+        0.2931,
+        0.2968,
+        0.2711,
+        0.2148,
+        0.107,
+        -0.0322,
+        -0.0923,
+        -0.0706,
+        -0.0,
+        0.0,
+        0.0518,
+        0.1032,
+        0.0247,
+        -0.1066,
+        -0.2363,
+        -0.4142,
+        -0.5248,
+        -0.3402,
+        -0.0362,
+        0.0831,
+        0.0906,
+        0.1674,
+        0.1923,
+        0.0706,
+        0.0436,
+        0.2409,
+        0.3866,
+        0.2954,
+        0.1222,
+        0.0316,
+        -0.0668,
+        -0.0899,
+        -0.0,
+        0.0,
+        0.0106,
+        0.0396,
+        0.1,
+        0.0277,
+        -0.2067,
+        -0.307,
+        -0.1951,
+        -0.1445,
+        -0.094,
+        0.1014,
+        0.2346,
+        0.1002,
+        -0.0719,
+        -0.0344,
+        0.0543,
+        0.0412,
+        0.0961,
+        0.226,
+        0.17,
+        -0.0088,
+        -0.0713,
+        -0.0344,
+        -0.0,
+        -0.0,
+        -0.0121,
+        -0.0177,
+        -0.0024,
+        0.0352,
+        0.0875,
+        0.1388,
+        0.1469,
+        0.1118,
+        0.0534,
+        0.0037,
+        -0.0295,
+        -0.0528,
+        -0.0634,
+        -0.0638,
+        -0.0729,
+        -0.0964,
+        -0.1097,
+        -0.0804,
+        -0.0355,
+        0.0021,
+        0.0239,
+        0.0214,
+        0.0,
+        -0.0,
+        -0.0288,
+        -0.0598,
+        -0.0969,
+        0.0374,
+        0.3634,
+        0.5352,
+        0.421,
+        0.3308,
+        0.2126,
+        -0.0682,
+        -0.276,
+        -0.1854,
+        -0.04,
+        -0.1063,
+        -0.2206,
+        -0.2177,
+        -0.2678,
+        -0.3521,
+        -0.2247,
+        0.0203,
+        0.113,
+        0.0667,
+        0.0,
+        -0.0,
+        -0.0601,
+        -0.098,
+        0.0048,
+        0.1645,
+        0.3215,
+        0.5745,
+        0.6992,
+        0.4936,
+        0.1449,
+        -0.0195,
+        -0.0804,
+        -0.2294,
+        -0.319,
+        -0.229,
+        -0.213,
+        -0.4118,
+        -0.5311,
+        -0.3317,
+        -0.1236,
+        -0.0149,
+        0.0852,
+        0.1016,
+        0.0,
+        -0.0,
+        -0.0404,
+        -0.0176,
+        0.0672,
+        0.199,
+        0.3511,
+        0.4693,
+        0.4792,
+        0.4349,
+        0.3367,
+        0.1888,
+        0.0084,
+        -0.1778,
+        -0.3433,
+        -0.4622,
+        -0.5126,
+        -0.4864,
+        -0.3942,
+        -0.2222,
+        -0.0623,
+        0.0435,
+        0.0841,
+        0.0644,
+        0.0,
+        -0.0,
+        -0.0131,
+        0.0619,
+        0.1105,
+        0.1883,
+        0.3065,
+        0.2725,
+        0.1694,
+        0.2873,
+        0.4476,
+        0.3443,
+        0.0874,
+        -0.0919,
+        -0.291,
+        -0.5835,
+        -0.6875,
+        -0.4528,
+        -0.1803,
+        -0.0736,
+        0.0068,
+        0.0897,
+        0.0659,
+        0.0156,
+        0.0,
+        -0.0,
+        -0.0213,
+        0.0274,
+        0.1605,
+        0.1893,
+        0.0612,
+        0.0502,
+        0.1787,
+        0.1959,
+        0.1686,
+        0.2584,
+        0.2568,
+        -0.0363,
+        -0.3527,
+        -0.4066,
+        -0.3516,
+        -0.3465,
+        -0.2155,
+        0.0619,
+        0.1311,
+        0.0251,
+        -0.0086,
+        0.0153,
+        0.0,
+        -0.0,
+        -0.0032,
+        0.0001,
+        0.0047,
+        0.0181,
+        0.0403,
+        0.0492,
+        0.0414,
+        0.0419,
+        0.0412,
+        0.0213,
+        -0.0045,
+        -0.0176,
+        -0.0289,
+        -0.0492,
+        -0.0597,
+        -0.048,
+        -0.0334,
+        -0.024,
+        -0.0095,
+        0.0065,
+        0.0101,
+        0.0056,
+        0.0,
+        0.0,
+        0.0132,
+        -0.0322,
+        -0.1453,
+        -0.1505,
+        -0.0029,
+        0.0319,
+        -0.0853,
+        -0.115,
+        -0.1144,
+        -0.225,
+        -0.2481,
+        0.004,
+        0.2834,
+        0.3237,
+        0.2654,
+        0.2562,
+        0.1375,
+        -0.0995,
+        -0.1381,
+        -0.0192,
+        0.0219,
+        -0.0028,
+        -0.0,
+        0.0,
+        0.0071,
+        -0.067,
+        -0.102,
+        -0.1633,
+        -0.2676,
+        -0.2145,
+        -0.1016,
+        -0.2316,
+        -0.4153,
+        -0.3269,
+        -0.0843,
+        0.0689,
+        0.2455,
+        0.5333,
+        0.6363,
+        0.394,
+        0.1249,
+        0.0454,
+        -0.0133,
+        -0.087,
+        -0.0568,
+        -0.0064,
+        -0.0,
+        0.0,
+        0.0403,
+        0.018,
+        -0.0737,
+        -0.1992,
+        -0.3272,
+        -0.4423,
+        -0.4699,
+        -0.422,
+        -0.3153,
+        -0.1869,
+        -0.0273,
+        0.1699,
+        0.348,
+        0.4512,
+        0.4887,
+        0.4764,
+        0.3907,
+        0.2046,
+        0.0482,
+        -0.0392,
+        -0.0766,
+        -0.0627,
+        -0.0,
+        0.0,
+        0.0615,
+        0.0965,
+        -0.0071,
+        -0.1746,
+        -0.3479,
+        -0.6041,
+        -0.7194,
+        -0.5174,
+        -0.1739,
+        0.0044,
+        0.085,
+        0.2394,
+        0.3338,
+        0.261,
+        0.2541,
+        0.4403,
+        0.5473,
+        0.346,
+        0.1303,
+        0.0096,
+        -0.092,
+        -0.1042,
+        -0.0,
+        0.0,
+        0.0342,
+        0.0626,
+        0.0917,
+        -0.0625,
+        -0.4192,
+        -0.5292,
+        -0.4247,
+        -0.3417,
+        -0.2296,
+        0.039,
+        0.2472,
+        0.1846,
+        0.0709,
+        0.1467,
+        0.2564,
+        0.247,
+        0.2792,
+        0.3896,
+        0.2396,
+        -0.0274,
+        -0.1272,
+        -0.0761,
+        -0.0,
+        0.0,
+        0.0221,
+        0.0271,
+        -0.0118,
+        -0.0762,
+        -0.1184,
+        -0.1615,
+        -0.1811,
+        -0.141,
+        -0.0706,
+        -0.0207,
+        0.0158,
+        0.0628,
+        0.0967,
+        0.099,
+        0.1047,
+        0.133,
+        0.1407,
+        0.1006,
+        0.045,
+        -0.0052,
+        -0.0379,
+        -0.0369,
+        -0.0,
+        -0.0,
+        -0.0029,
+        -0.0355,
+        -0.1067,
+        -0.0471,
+        0.0765,
+        0.1056,
+        0.0518,
+        0.0295,
+        0.0112,
+        -0.0697,
+        -0.1157,
+        -0.0324,
+        0.0678,
+        0.0635,
+        0.0261,
+        0.0271,
+        -0.0109,
+        -0.1033,
+        -0.1111,
+        -0.0011,
+        0.051,
+        0.0211,
+        0.0,
+        -0.0,
+        -0.0456,
+        -0.101,
+        -0.0222,
+        0.0378,
+        0.0696,
+        0.1376,
+        0.1834,
+        0.1113,
+        -0.0064,
+        -0.044,
+        -0.0347,
+        -0.0566,
+        -0.0589,
+        -0.0016,
+        0.0134,
+        -0.0689,
+        -0.1332,
+        -0.1023,
+        -0.0542,
+        -0.0267,
+        0.0514,
+        0.0796,
+        0.0,
+        -0.0,
+        -0.0357,
+        -0.0168,
+        0.0035,
+        0.0344,
+        0.067,
+        0.0818,
+        0.0778,
+        0.0667,
+        0.0472,
+        0.0157,
+        -0.0145,
+        -0.0302,
+        -0.0403,
+        -0.0553,
+        -0.0664,
+        -0.0653,
+        -0.0594,
+        -0.0512,
+        -0.0279,
+        0.0104,
+        0.0443,
+        0.0636,
+        0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "surface_grid": [],
+      "flat_color": [
+        0.36,
+        0.5,
+        0.22
+      ],
+      "slope_color": [
+        0.45,
+        0.32,
+        0.18
+      ]
+    }
+  ],
+  "tux_props": [
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": 3.14159,
+      "name": "Hearthold Elder",
+      "body_color": [
+        0.55,
+        0.42,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.2,
+        0.12,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the Elder",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Hearthold Elder",
+            "text": "Well met, little wanderer. The kilns burn warm tonight, and the rooks still keep their watch. Ask, if you would.",
+            "choices": [
+              {
+                "label": "Tell me about the Source.",
+                "next": "source"
+              },
+              {
+                "label": "What of Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "What is the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "I should be going.",
+                "next": "bye"
+              }
+            ]
+          },
+          "source": {
+            "speaker": "Hearthold Elder",
+            "text": "The Source is the spring of all green things — the breath that Lirien gave the world before names were spoken. Glim is a fleck of it, you know. The whole forest is.",
+            "choices": [
+              {
+                "label": "And the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "And Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "khorgaul": {
+            "speaker": "Hearthold Elder",
+            "text": "The Hoarder. He does not steal so much as he gathers — the light, the warmth, the names of things. The wardstones held him once. They thin now.",
+            "choices": [
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "And the Sigil?",
+                "next": "sigil"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "sigil": {
+            "speaker": "Hearthold Elder",
+            "text": "The Triglyph — three marks, three vows. One for the root, one for the wing, one for the spark. When all three glow, the wards renew. We have lost two.",
+            "choices": [
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "And Khorgaul?",
+                "next": "khorgaul"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Hearthold Elder",
+            "text": "Walk under the wing of Lirien, friend."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        10.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Takka the Smith",
+      "body_color": [
+        0.4,
+        0.35,
+        0.45,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.3,
+        0.15,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Takka",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Takka the Smith",
+            "text": "Eh? You look light in the pouch, traveler. Need any pebbles for the sling?",
+            "choices": [
+              {
+                "label": "Yes — spare me a handful.",
+                "next": "give",
+                "requires_not": "took_takka_pebbles"
+              },
+              {
+                "label": "You already gave me some.",
+                "next": "already_gave",
+                "requires": "took_takka_pebbles"
+              },
+              {
+                "label": "No, I'm fine.",
+                "next": "bye"
+              }
+            ]
+          },
+          "give": {
+            "speaker": "Takka the Smith",
+            "text": "Five pebbles. Good for one good throw and four bad ones. Don't tell the Pebbler.",
+            "give_pebbles": 5,
+            "next": "post_give"
+          },
+          "post_give": {
+            "speaker": "Takka the Smith",
+            "text": "Mind the wardstones to the north. They sing when they're upset.",
+            "choices": [
+              {
+                "label": "Thanks, Takka.",
+                "next": "bye",
+                "sets": "took_takka_pebbles"
+              }
+            ]
+          },
+          "already_gave": {
+            "speaker": "Takka the Smith",
+            "text": "Aye, and I'll not give again 'til the moon turns. Off with you, sling-arm."
+          },
+          "bye": {
+            "speaker": "Takka the Smith",
+            "text": "Hammer and hearth keep you."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        12.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y": -1.5708,
+      "name": "Smith Brann",
+      "body_color": [
+        0.32,
+        0.3,
+        0.36,
+        1.0
+      ],
+      "hat_color": [
+        0.62,
+        0.66,
+        0.72,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Smith Brann",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Smith Brann",
+            "text": "I can shape you a brighter blade. 30 pebbles.",
+            "choices": [
+              {
+                "label": "Buy the Brightsteel. (30 pebbles)",
+                "next": "bought",
+                "upgrades_sword": 1,
+                "costs_pebbles": 30,
+                "fails_to": "broke",
+                "sets": "brann_brightsteel_bought",
+                "requires_not": "brann_brightsteel_bought"
+              },
+              {
+                "label": "About your blade.",
+                "next": "already",
+                "requires": "brann_brightsteel_bought"
+              },
+              {
+                "label": "Maybe later.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bought": {
+            "speaker": "Smith Brann",
+            "text": "Hold it firm and let it sing. Brightsteel keeps an edge — mind it."
+          },
+          "already": {
+            "speaker": "Smith Brann",
+            "text": "Your blade is already brighter than mine. Carry it well."
+          },
+          "broke": {
+            "speaker": "Smith Brann",
+            "text": "Pebbles first, blade after. Come back when your pouch is heavier."
+          },
+          "bye": {
+            "speaker": "Smith Brann",
+            "text": "Hammer and hearth keep you, friend."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": 0.5,
+      "name": "Pim",
+      "body_color": [
+        0.7,
+        0.8,
+        0.6,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.65,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Pim",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Pim",
+            "text": "Lambwisp! LAMBWISP! Did you see one? It went *floof* and then it went *poof*!",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Pim",
+            "text": "Mama says they're little pieces of Lirien's breath. I want to catch one and put it in a jar. Don't tell mama."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -7.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 1.0,
+      "name": "Father Velis",
+      "body_color": [
+        0.6,
+        0.4,
+        0.3,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.55,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Father Velis",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Father Velis",
+            "text": "Welcome to the Hearth-shrine, traveler. The kilns warm our bones; the Source warms our names. You bring questions. Speak them.",
+            "choices": [
+              {
+                "label": "Tell me of the Source.",
+                "next": "source"
+              },
+              {
+                "label": "Tell me of the Triglyph.",
+                "next": "trig"
+              },
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "What is this shrine for?",
+                "next": "shrine"
+              },
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              }
+            ]
+          },
+          "source": {
+            "speaker": "Father Velis",
+            "text": "The Source flows through every green thing — through fire as it leaps, through water as it falls, through the breath of any kin who tells the truth. To break it is the easiest thing. To mend it asks a life.",
+            "choices": [
+              {
+                "label": "Tell me of the Triglyph.",
+                "next": "trig"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "trig": {
+            "speaker": "Father Velis",
+            "text": "Three sigils, three vows. Sight — to see truly. Shaping — to make and unmake. Sharing — to refuse the hoard. The first two were claimed in elder days. The third was given to a small one. Perhaps to you.",
+            "choices": [
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "lirien": {
+            "speaker": "Father Velis",
+            "text": "Lirien the Maker, the Wing, the Greenhand. We say she is everywhere a leaf unfurls and nowhere we may name. Her gift is the giving — the freedom of the green to grow and grow again.",
+            "choices": [
+              {
+                "label": "Tell me of Khorgaul.",
+                "next": "khor"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "khor": {
+            "speaker": "Father Velis",
+            "text": "Khorgaul the Hoarder, the Cold-hand, the Without-Sharing. He is what the Source becomes when nothing is given. We do not curse him at the shrine. We pity him. And we hold the wards.",
+            "choices": [
+              {
+                "label": "Tell me of Lirien.",
+                "next": "lirien"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "shrine": {
+            "speaker": "Father Velis",
+            "text": "The hearth-shrine warms two flames — one for the kiln, one for the kin. When both burn, Hearthold endures. Should one go cold, the other will not last the season.",
+            "choices": [
+              {
+                "label": "Bless me, then.",
+                "next": "bless"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bless": {
+            "speaker": "Father Velis",
+            "text": "*marks your brow with ash*\nGo with the wing of Lirien at your back. Go with the green underfoot. Go with the giving in your hand."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        6.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y": -2.5,
+      "name": "Tilly",
+      "body_color": [
+        0.75,
+        0.5,
+        0.4,
+        1.0
+      ],
+      "hat_color": [
+        0.9,
+        0.65,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Tilly",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Tilly",
+            "text": "HYAA! I am the bravest knight in Hearthold and I have THREE swords and they are ALL invisible except this one which is a stick.",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Tilly",
+            "text": "Wanna duel? *brandishes stick*\nNo? Fine. I'll save the realm without you. Tell Father Velis if I don't come back by supper."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "name": "Pellman the Baker",
+      "body_color": [
+        0.85,
+        0.78,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        0.95,
+        0.92,
+        0.8,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Pellman",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Pellman the Baker",
+            "text": "Fresh from the oven, this morning's. Smell that? First batch. Honey-loaf and salt-rusks — a heart's worth in every bite, near enough.",
+            "choices": [
+              {
+                "label": "What are you selling?",
+                "next": "wares"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "wares": {
+            "speaker": "Pellman the Baker",
+            "text": "Loaves to mend you, a few seeds for your sling-pouch. Nothing fancy. Hearthold prices.",
+            "choices": [
+              {
+                "label": "Show me.",
+                "opens_shop": [
+                  "heart",
+                  "heart",
+                  "seed"
+                ]
+              },
+              {
+                "label": "Not today.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Pellman the Baker",
+            "text": "Mind the kilns on your way out. Walk well."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -7.0,
+        0.0,
+        14.0
+      ],
+      "rotation_y": 0.0,
+      "name": "Old Naya the Beekeeper",
+      "body_color": [
+        0.62,
+        0.5,
+        0.32,
+        1.0
+      ],
+      "hat_color": [
+        0.85,
+        0.7,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with Old Naya",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Naya",
+            "text": "*she squints up from a row of clay jars, hands sticky with comb.*\n\nMind the bees, walker. They mind themselves, mostly. Mind them anyway.",
+            "choices": [
+              {
+                "label": "Have you anything for a traveller?",
+                "next": "offer",
+                "requires_not": "trade_step_1"
+              },
+              {
+                "label": "(Show the honey jar.)",
+                "next": "already",
+                "requires_flag": "trade_step_1"
+              },
+              {
+                "label": "Tell me about the bees.",
+                "next": "bees"
+              },
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "offer": {
+            "speaker": "Old Naya",
+            "text": "*she wipes her hands and considers you a long moment.*\n\nHere. A jar of comb-honey, sealed in wax. It'll mean something to someone — gifts always do, when they're carried far enough.\n\nTake it. Pass it along when the moment finds you.",
+            "sets_flag": "trade_step_1",
+            "next": "bye"
+          },
+          "already": {
+            "speaker": "Old Naya",
+            "text": "Mm. Still got it? Then you've not yet met the one who needs it. Keep walking. They'll know the jar when they see it.",
+            "choices": [
+              {
+                "label": "Walk well.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bees": {
+            "speaker": "Old Naya",
+            "text": "Old as the kilns, this hive. Older. My grandmother kept her at this same stand. The bees remember the shape of a hand, you know — they remember mine. They'll learn yours, if you stay long enough.\n\nNobody stays long enough.",
+            "choices": [
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Old Naya",
+            "text": "Walk well, walker. The Source is in the comb, same as it's in the leaf."
+          }
+        }
+      }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -3,
+        0,
+        16
+      ],
+      "rotation_y": 0,
+      "message": "Hearthold.\n\nThe gate is thrown open. Smoke from the kilns rises to meet the rooks. North: the Sigilkeep. The wardstones still glow there, faintly."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        4
+      ],
+      "rotation_y": 1.5708,
+      "message": "A hand-painted shingle: \"Takka the Pebbler. Trades stone for stone. Will not haggle.\"\n\nThe shop is shuttered."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        12,
+        0,
+        4
+      ],
+      "rotation_y": -1.5708,
+      "message": "A wax-sealed notice on the smithy door:\n\n\"By order of the keepers of the Hold: no sword may be carried past the inner gate. Edge magic flares badly near the sealed wards.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        3,
+        0,
+        12
+      ],
+      "rotation_y": 0,
+      "message": "A wax-fresh proclamation:\n\n\"By the keepers of Hearthold: any traveler who has drawn breath in the Sourceplain shall be welcomed at the hearths within. Coin is not asked of the brave.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -8,
+        0,
+        13
+      ],
+      "rotation_y": 0,
+      "message": "Worn cellar steps disappear under the kitchen-yard. The Elder's pickles, perhaps."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -5,
+        0,
+        12
+      ],
+      "rotation_y": 0,
+      "contents": "heart",
+      "open_message": "A bundle of warm bread and a heart-flower. The keepers' welcome."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        17
+      ],
+      "rotation_y": 3.14159,
+      "contents": "heart_piece",
+      "open_message": "Tucked in the kitchen-yard behind the Elder's house. The keepers leave heart-pulses where children can find them first."
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        4,
+        0,
+        8
+      ],
+      "rotation_y": 0,
+      "warp_id": "owl_hearthold",
+      "warp_name": "Hearthold Yard",
+      "warp_target_scene": "hearthold",
+      "warp_target_spawn": "from_sourceplain"
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.88,
+        0.0,
+        44.02
+      ],
+      "rotation_y": 3.375
+    },
+    {
+      "type": "tree",
+      "pos": [
+        49.56,
+        0.0,
+        16.87
+      ],
+      "rotation_y": 1.75
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -28.65,
+        0.0,
+        59.71
+      ],
+      "rotation_y": 2.841
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.12,
+        0.0,
+        17.93
+      ],
+      "rotation_y": 1.069
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -53.19,
+        0.0,
+        52.66
+      ],
+      "rotation_y": 2.241
+    },
+    {
+      "type": "tree",
+      "pos": [
+        63.0,
+        0.0,
+        59.21
+      ],
+      "rotation_y": 3.744
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.56,
+        0.0,
+        18.82
+      ],
+      "rotation_y": 3.841
+    },
+    {
+      "type": "tree",
+      "pos": [
+        36.6,
+        0.0,
+        14.09
+      ],
+      "rotation_y": 2.037
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -33.32,
+        0.0,
+        92.79
+      ],
+      "rotation_y": 3.871
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.55,
+        0.0,
+        92.55
+      ],
+      "rotation_y": 4.931
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.87,
+        0.0,
+        67.53
+      ],
+      "rotation_y": 4.874
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.48,
+        0.0,
+        0.55
+      ],
+      "rotation_y": 0.02
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -14.77,
+        0.0,
+        -5.0
+      ],
+      "rotation_y": 3.145
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -70.65,
+        0.0,
+        22.27
+      ],
+      "rotation_y": 1.072
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -77.75,
+        0.0,
+        24.3
+      ],
+      "rotation_y": 5.148
+    },
+    {
+      "type": "tree",
+      "pos": [
+        56.02,
+        0.0,
+        94.83
+      ],
+      "rotation_y": 3.661
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -24.61,
+        0.0,
+        -12.67
+      ],
+      "rotation_y": 2.774
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -45.2,
+        0.0,
+        51.45
+      ],
+      "rotation_y": 3.831
+    },
+    {
+      "type": "tree",
+      "pos": [
+        18.69,
+        0.0,
+        -16.39
+      ],
+      "rotation_y": 3.21
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -1.99,
+        0.0,
+        28.59
+      ],
+      "rotation_y": 1.304
+    },
+    {
+      "type": "tree",
+      "pos": [
+        29.78,
+        0.0,
+        54.69
+      ],
+      "rotation_y": 5.744
+    },
+    {
+      "type": "tree",
+      "pos": [
+        20.6,
+        0.0,
+        26.86
+      ],
+      "rotation_y": 0.354
+    },
+    {
+      "type": "tree",
+      "pos": [
+        73.09,
+        0.0,
+        22.4
+      ],
+      "rotation_y": 0.223
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -47.39,
+        0.0,
+        22.94
+      ],
+      "rotation_y": 1.845
+    },
+    {
+      "type": "tree",
+      "pos": [
+        66.04,
+        0.0,
+        -1.85
+      ],
+      "rotation_y": 0.893
+    },
+    {
+      "type": "tree",
+      "pos": [
+        42.19,
+        0.0,
+        87.89
+      ],
+      "rotation_y": 2.347
+    },
+    {
+      "type": "tree",
+      "pos": [
+        56.31,
+        0.0,
+        33.55
+      ],
+      "rotation_y": 3.869
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -7.99,
+        0.0,
+        80.23
+      ],
+      "rotation_y": 2.452
+    },
+    {
+      "type": "tree",
+      "pos": [
+        33.65,
+        0.0,
+        72.78
+      ],
+      "rotation_y": 6.093
+    },
+    {
+      "type": "tree",
+      "pos": [
+        38.12,
+        0.0,
+        7.4
+      ],
+      "rotation_y": 2.053
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -46.83,
+        0.0,
+        76.74
+      ],
+      "rotation_y": 5.905
+    },
+    {
+      "type": "tree",
+      "pos": [
+        10.9,
+        0.0,
+        27.13
+      ],
+      "rotation_y": 6.16
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -40.34,
+        0.0,
+        -7.75
+      ],
+      "rotation_y": 3.445
+    },
+    {
+      "type": "tree",
+      "pos": [
+        63.49,
+        0.0,
+        89.93
+      ],
+      "rotation_y": 5.065
+    },
+    {
+      "type": "tree",
+      "pos": [
+        14.59,
+        0.0,
+        -9.62
+      ],
+      "rotation_y": 0.476
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -20.55,
+        0.0,
+        -5.27
+      ],
+      "rotation_y": 5.865
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -0.42,
+        0.0,
+        -11.35
+      ],
+      "rotation_y": 2.775
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -35.24,
+        0.0,
+        6.86
+      ],
+      "rotation_y": 2.122
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -5.42,
+        0.0,
+        87.01
+      ],
+      "rotation_y": 5.79
+    },
+    {
+      "type": "tree",
+      "pos": [
+        12.6,
+        0.0,
+        69.98
+      ],
+      "rotation_y": 2.521
+    },
+    {
+      "type": "tree",
+      "pos": [
+        36.05,
+        0.0,
+        41.07
+      ],
+      "rotation_y": 0.558
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -69.14,
+        0.0,
+        -13.31
+      ],
+      "rotation_y": 0.172
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -58.48,
+        0.0,
+        39.37
+      ],
+      "rotation_y": 5.02
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -25.66,
+        0.0,
+        87.02
+      ],
+      "rotation_y": 1.132
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -48.07,
+        0.0,
+        -4.87
+      ],
+      "rotation_y": 3.996
+    },
+    {
+      "type": "tree",
+      "pos": [
+        22.56,
+        0.0,
+        49.78
+      ],
+      "rotation_y": 0.546
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.9,
+        0.0,
+        74.62
+      ],
+      "rotation_y": 5.118
+    },
+    {
+      "type": "tree",
+      "pos": [
+        44.65,
+        0.0,
+        80.45
+      ],
+      "rotation_y": 6.09
+    },
+    {
+      "type": "tree",
+      "pos": [
+        5.73,
+        0.0,
+        87.87
+      ],
+      "rotation_y": 2.313
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -57.61,
+        0.0,
+        75.67
+      ],
+      "rotation_y": 4.998
+    },
+    {
+      "type": "tree",
+      "pos": [
+        70.98,
+        0.0,
+        27.86
+      ],
+      "rotation_y": 5.643
+    },
+    {
+      "type": "tree",
+      "pos": [
+        44.94,
+        0.0,
+        36.5
+      ],
+      "rotation_y": 1.468
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -36.91,
+        0.0,
+        68.26
+      ],
+      "rotation_y": 2.977
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -63.7,
+        0.0,
+        57.19
+      ],
+      "rotation_y": 6.271
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.12,
+        0.0,
+        50.46
+      ],
+      "rotation_y": 5.983
+    },
+    {
+      "type": "tree",
+      "pos": [
+        1.1,
+        0.0,
+        12.22
+      ],
+      "rotation_y": 3.539
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -65.78,
+        0.0,
+        32.7
+      ],
+      "rotation_y": 3.448
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -55.64,
+        0.0,
+        68.36
+      ],
+      "rotation_y": 0.131
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -72.74,
+        0.0,
+        75.74
+      ],
+      "rotation_y": 5.218
+    },
+    {
+      "type": "tree",
+      "pos": [
+        9.57,
+        0.0,
+        39.36
+      ],
+      "rotation_y": 5.947
+    },
+    {
+      "type": "bush",
+      "pos": [
+        68.48,
+        0.0,
+        -0.1
+      ],
+      "rotation_y": 4.114
+    },
+    {
+      "type": "bush",
+      "pos": [
+        75.3,
+        0.0,
+        7.38
+      ],
+      "rotation_y": 0.835
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -5.64,
+        0.0,
+        83.24
+      ],
+      "rotation_y": 2.569
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -23.08,
+        0.0,
+        38.43
+      ],
+      "rotation_y": 4.127
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -54.16,
+        0.0,
+        90.53
+      ],
+      "rotation_y": 1.631
+    },
+    {
+      "type": "bush",
+      "pos": [
+        77.65,
+        0.0,
+        -0.26
+      ],
+      "rotation_y": 6.229
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -60.36,
+        0.0,
+        34.34
+      ],
+      "rotation_y": 6.229
+    },
+    {
+      "type": "bush",
+      "pos": [
+        3.0,
+        0.0,
+        69.16
+      ],
+      "rotation_y": 6.082
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -25.16,
+        0.0,
+        47.86
+      ],
+      "rotation_y": 5.853
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -54.35,
+        0.0,
+        4.45
+      ],
+      "rotation_y": 5.915
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -67.4,
+        0.0,
+        42.77
+      ],
+      "rotation_y": 3.587
+    },
+    {
+      "type": "bush",
+      "pos": [
+        10.04,
+        0.0,
+        50.95
+      ],
+      "rotation_y": 5.263
+    },
+    {
+      "type": "bush",
+      "pos": [
+        69.7,
+        0.0,
+        15.24
+      ],
+      "rotation_y": 2.551
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -25.18,
+        0.0,
+        33.25
+      ],
+      "rotation_y": 0.414
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -33.53,
+        0.0,
+        29.08
+      ],
+      "rotation_y": 5.815
+    },
+    {
+      "type": "bush",
+      "pos": [
+        30.36,
+        0.0,
+        12.16
+      ],
+      "rotation_y": 5.776
+    },
+    {
+      "type": "bush",
+      "pos": [
+        12.02,
+        0.0,
+        46.6
+      ],
+      "rotation_y": 1.621
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -77.81,
+        0.0,
+        8.66
+      ],
+      "rotation_y": 2.359
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -63.73,
+        0.0,
+        22.0
+      ],
+      "rotation_y": 1.473
+    },
+    {
+      "type": "bush",
+      "pos": [
+        64.9,
+        0.0,
+        93.73
+      ],
+      "rotation_y": 4.48
+    },
+    {
+      "type": "bush",
+      "pos": [
+        55.45,
+        0.0,
+        22.5
+      ],
+      "rotation_y": 1.06
+    },
+    {
+      "type": "bush",
+      "pos": [
+        10.52,
+        0.0,
+        83.12
+      ],
+      "rotation_y": 5.111
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -25.08,
+        0.0,
+        25.89
+      ],
+      "rotation_y": 0.233
+    },
+    {
+      "type": "bush",
+      "pos": [
+        34.25,
+        0.0,
+        19.41
+      ],
+      "rotation_y": 2.534
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -4.17,
+        0.0,
+        21.64
+      ],
+      "rotation_y": 4.914
+    },
+    {
+      "type": "bush",
+      "pos": [
+        51.72,
+        0.0,
+        39.62
+      ],
+      "rotation_y": 3.054
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -64.35,
+        0.0,
+        -18.16
+      ],
+      "rotation_y": 0.865
+    },
+    {
+      "type": "bush",
+      "pos": [
+        22.79,
+        0.0,
+        -6.62
+      ],
+      "rotation_y": 0.188
+    },
+    {
+      "type": "bush",
+      "pos": [
+        27.08,
+        0.0,
+        5.57
+      ],
+      "rotation_y": 4.277
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4.98,
+        0.0,
+        19.47
+      ],
+      "rotation_y": 0.475
+    },
+    {
+      "type": "rock",
+      "pos": [
+        65.51,
+        0.0,
+        35.7
+      ],
+      "rotation_y": 6.19
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -66.07,
+        0.0,
+        66.25
+      ],
+      "rotation_y": 4.609
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -67.93,
+        0.0,
+        3.29
+      ],
+      "rotation_y": 4.262
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -68.17,
+        0.0,
+        52.24
+      ],
+      "rotation_y": 3.345
+    },
+    {
+      "type": "rock",
+      "pos": [
+        54.81,
+        0.0,
+        50.29
+      ],
+      "rotation_y": 1.26
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -44.4,
+        0.0,
+        77.18
+      ],
+      "rotation_y": 1.416
+    },
+    {
+      "type": "rock",
+      "pos": [
+        59.44,
+        0.0,
+        17.74
+      ],
+      "rotation_y": 6.078
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -36.2,
+        0.0,
+        57.48
+      ],
+      "rotation_y": 5.177
+    },
+    {
+      "type": "rock",
+      "pos": [
+        75.64,
+        0.0,
+        84.97
+      ],
+      "rotation_y": 2.863
+    },
+    {
+      "type": "rock",
+      "pos": [
+        60.28,
+        0.0,
+        62.32
+      ],
+      "rotation_y": 4.671
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -43.55,
+        0.0,
+        50.49
+      ],
+      "rotation_y": 6.023
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -11.53,
+        0.0,
+        53.46
+      ],
+      "rotation_y": 0.265
+    },
+    {
+      "type": "rock",
+      "pos": [
+        63.66,
+        0.0,
+        -15.88
+      ],
+      "rotation_y": 2.299
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -25.37,
+        0.0,
+        17.91
+      ],
+      "rotation_y": 2.528
+    },
+    {
+      "type": "rock",
+      "pos": [
+        74.64,
+        0.0,
+        -6.48
+      ],
+      "rotation_y": 2.142
+    },
+    {
+      "type": "rock",
+      "pos": [
+        12.46,
+        0.0,
+        88.44
+      ],
+      "rotation_y": 3.39
+    },
+    {
+      "type": "rock",
+      "pos": [
+        17.84,
+        0.0,
+        86.67
+      ],
+      "rotation_y": 1.852
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -16.91,
+        0.0,
+        30.34
+      ],
+      "rotation_y": 0.762
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -20.74,
+        0.0,
+        22.42
+      ],
+      "rotation_y": 5.463
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -24.35,
+        0.0,
+        -11.43
+      ],
+      "rotation_y": 2.664
+    }
+  ],
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0,
+        -0.49,
+        18
+      ],
+      "rotation_y": 3.14159
+    },
+    {
+      "id": "from_burrows",
+      "pos": [
+        -69.61,
+        -0.06,
+        -6.44
+      ],
+      "rotation_y": 1.3577
+    },
+    {
+      "id": "from_grotto_burrows",
+      "pos": [
+        -37.16,
+        1.08,
+        95.08
+      ],
+      "rotation_y": 2.6553
+    },
+    {
+      "id": "from_hearthold_desktop",
+      "pos": [
+        -52.45,
+        -0.4,
+        57.56
+      ],
+      "rotation_y": 2.1989
+    },
+    {
+      "id": "from_hearthold_downloads",
+      "pos": [
+        -80.29,
+        0.37,
+        58.81
+      ],
+      "rotation_y": 2.1393
+    },
+    {
+      "id": "from_hearthold_documents",
+      "pos": [
+        22.79,
+        1.03,
+        82.8
+      ],
+      "rotation_y": -2.7917
+    },
+    {
+      "id": "from_hearthold_music",
+      "pos": [
+        69.48,
+        3.44,
+        54.52
+      ],
+      "rotation_y": -2.2092
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        -74.99,
+        0.79,
+        -7.61
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": -1.7839,
+      "target_scene": "burrows",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Up to the Burrows"
+    },
+    {
+      "pos": [
+        -39.73,
+        1.39,
+        99.94
+      ],
+      "size": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "rotation_y": -0.4863,
+      "target_scene": "grotto_burrows",
+      "target_spawn": "from_hearthold",
+      "auto": false,
+      "prompt": "[E] Down into the root cellar"
+    },
+    {
+      "pos": [
+        -56.9,
+        0.31,
+        60.79
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": -0.9427,
+      "target_scene": "hearthold_desktop",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Step onto the Desktop",
+      "auto": false
+    },
+    {
+      "pos": [
+        -84.92,
+        1.42,
+        61.77
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": -1.0023,
+      "target_scene": "hearthold_downloads",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Into the Downloads room",
+      "auto": false
+    },
+    {
+      "pos": [
+        24.67,
+        1.89,
+        87.97
+      ],
+      "size": [
+        4.0,
+        3.0,
+        1.5
+      ],
+      "rotation_y": 0.3499,
+      "target_scene": "hearthold_documents",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Into the writing room",
+      "auto": false
+    },
+    {
+      "pos": [
+        73.9,
+        4.69,
+        57.8
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.9324,
+      "target_scene": "hearthold_music",
+      "target_spawn": "from_hearthold",
+      "prompt": "[E] Into the music hall",
+      "auto": false
+    }
+  ],
+  "enemies": []
+}

@@ -1,0 +1,1584 @@
+{
+  "id": "wyrdkin_glade",
+  "name": "Wyrdkin Glade",
+  "environment": {
+    "sky_top": [
+      0.45,
+      0.62,
+      0.86,
+      1
+    ],
+    "sky_horizon": [
+      0.86,
+      0.85,
+      0.78,
+      1
+    ],
+    "ground_horizon": [
+      0.4,
+      0.46,
+      0.3,
+      1
+    ],
+    "ground_bottom": [
+      0.1,
+      0.14,
+      0.08,
+      1
+    ],
+    "ambient_color": [
+      0.55,
+      0.62,
+      0.55,
+      1
+    ],
+    "ambient_energy": 0.55,
+    "fog_density": 0.005,
+    "fog_color": [
+      0.7,
+      0.78,
+      0.62,
+      1
+    ],
+    "sun_dir": [
+      0.4,
+      -0.65,
+      -0.6
+    ],
+    "sun_color": [
+      1.0,
+      0.96,
+      0.84,
+      1
+    ],
+    "sun_energy": 1.1
+  },
+  "sky_color": [
+    0.6,
+    0.78,
+    0.85
+  ],
+  "fog_color": [
+    0.7,
+    0.85,
+    0.75
+  ],
+  "ambient_color": [
+    0.55,
+    0.6,
+    0.5
+  ],
+  "sun_color": [
+    1.0,
+    0.95,
+    0.8
+  ],
+  "wall_thickness": 0.25,
+  "spawn_point": [
+    0.0,
+    0.24,
+    6.0
+  ],
+  "materials": {
+    "wood_warm": {
+      "albedo": [
+        0.55,
+        0.4,
+        0.25
+      ],
+      "roughness": 0.85
+    },
+    "stone_pale": {
+      "albedo": [
+        0.65,
+        0.62,
+        0.55
+      ],
+      "roughness": 0.92
+    }
+  },
+  "rooms": [
+    {
+      "name": "HespersHut",
+      "origin": [
+        2.0,
+        0.0,
+        7.0
+      ],
+      "size": [
+        6.0,
+        4.0,
+        5.0
+      ],
+      "material": "wood_warm",
+      "floor_material": "wood_warm",
+      "walls": {
+        "north": {
+          "openings": []
+        },
+        "south": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 2.5,
+              "width": 1.5,
+              "height": 2.4
+            }
+          ]
+        },
+        "east": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 1.5,
+              "width": 1.0,
+              "height": 1.0,
+              "sill": 1.2
+            }
+          ]
+        },
+        "west": {
+          "openings": []
+        }
+      }
+    },
+    {
+      "name": "GladeShrine",
+      "origin": [
+        -2.5,
+        0.0,
+        2.0
+      ],
+      "size": [
+        5.0,
+        3.5,
+        5.0
+      ],
+      "material": "stone_pale",
+      "floor_material": "stone_pale",
+      "walls": {
+        "north": {
+          "openings": [
+            {
+              "type": "door",
+              "x": 1.75,
+              "width": 1.5,
+              "height": 2.4
+            }
+          ]
+        },
+        "south": {
+          "openings": []
+        },
+        "east": {
+          "openings": []
+        },
+        "west": {
+          "openings": [
+            {
+              "type": "window",
+              "x": 1.5,
+              "width": 1.0,
+              "height": 1.0,
+              "sill": 1.2
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "terrain_patches": [
+    {
+      "name": "ForestYard",
+      "origin": [
+        -30.0,
+        0.0,
+        -30.0
+      ],
+      "size_x": 60.0,
+      "size_z": 60.0,
+      "resolution": 16,
+      "heights": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0103,
+        -0.0288,
+        -0.0234,
+        0.0027,
+        0.0247,
+        0.0221,
+        0.0001,
+        -0.0164,
+        -0.0089,
+        0.015,
+        0.0299,
+        0.0195,
+        -0.0056,
+        -0.0194,
+        -0.0,
+        0.0,
+        -0.0116,
+        -0.05,
+        -0.0263,
+        0.036,
+        0.0858,
+        0.0808,
+        0.0271,
+        -0.0299,
+        -0.0525,
+        -0.0468,
+        -0.0498,
+        -0.0831,
+        -0.1243,
+        -0.0635,
+        -0.0,
+        -0.0,
+        -0.0048,
+        0.0081,
+        0.0492,
+        0.0812,
+        0.1011,
+        0.1029,
+        0.0762,
+        0.0112,
+        -0.0883,
+        -0.1984,
+        -0.2844,
+        -0.3196,
+        -0.1989,
+        -0.078,
+        -0.0,
+        -0.0,
+        0.0123,
+        0.0733,
+        0.1329,
+        0.1204,
+        0.0693,
+        0.0702,
+        0.0919,
+        0.0409,
+        -0.1356,
+        -0.3782,
+        -0.5542,
+        -0.4582,
+        -0.2449,
+        -0.0844,
+        -0.0,
+        0.0,
+        0.0388,
+        0.1051,
+        0.1571,
+        0.1339,
+        0.0642,
+        0.0326,
+        0.0158,
+        -0.0577,
+        -0.2269,
+        -0.4418,
+        -0.5954,
+        -0.4911,
+        -0.2753,
+        -0.1023,
+        -0.0,
+        0.0,
+        0.0718,
+        0.1091,
+        0.1319,
+        0.1401,
+        0.0972,
+        0.0099,
+        -0.1171,
+        -0.252,
+        -0.3639,
+        -0.4441,
+        -0.5015,
+        -0.431,
+        -0.2872,
+        -0.1268,
+        -0.0,
+        0.0,
+        0.1066,
+        0.1265,
+        0.1187,
+        0.1282,
+        0.0858,
+        -0.0525,
+        -0.258,
+        -0.4232,
+        -0.4692,
+        -0.4236,
+        -0.3875,
+        -0.3409,
+        -0.2657,
+        -0.1334,
+        -0.0,
+        0.0,
+        0.1366,
+        0.1833,
+        0.1604,
+        0.094,
+        -0.0215,
+        -0.1821,
+        -0.3587,
+        -0.4752,
+        -0.4829,
+        -0.4126,
+        -0.3482,
+        -0.2776,
+        -0.207,
+        -0.1067,
+        -0.0,
+        0.0,
+        0.1537,
+        0.2535,
+        0.2315,
+        0.0508,
+        -0.1738,
+        -0.3277,
+        -0.3993,
+        -0.4183,
+        -0.4186,
+        -0.4075,
+        -0.372,
+        -0.2481,
+        -0.1328,
+        -0.0605,
+        -0.0,
+        0.0,
+        0.1514,
+        0.2785,
+        0.2606,
+        0.0215,
+        -0.2554,
+        -0.391,
+        -0.3873,
+        -0.3427,
+        -0.3429,
+        -0.378,
+        -0.3694,
+        -0.2193,
+        -0.0794,
+        -0.0273,
+        -0.0,
+        0.0,
+        0.1273,
+        0.2231,
+        0.2034,
+        0.0195,
+        -0.1957,
+        -0.315,
+        -0.3344,
+        -0.3119,
+        -0.3021,
+        -0.3049,
+        -0.2801,
+        -0.1666,
+        -0.068,
+        -0.0276,
+        -0.0,
+        0.0,
+        0.085,
+        0.1118,
+        0.0896,
+        0.0297,
+        -0.0321,
+        -0.1113,
+        -0.1917,
+        -0.2351,
+        -0.2191,
+        -0.1633,
+        -0.1149,
+        -0.1068,
+        -0.0868,
+        -0.0495,
+        -0.0,
+        0.0,
+        0.0327,
+        0.0067,
+        -0.004,
+        0.0279,
+        0.05,
+        0.0188,
+        -0.0526,
+        -0.1075,
+        -0.1045,
+        -0.0601,
+        -0.0307,
+        -0.0523,
+        -0.1022,
+        -0.0615,
+        -0.0,
+        -0.0,
+        -0.0199,
+        -0.0252,
+        -0.0125,
+        0.0131,
+        0.0341,
+        0.0358,
+        0.0196,
+        -0.0002,
+        -0.0108,
+        -0.0131,
+        -0.0179,
+        -0.0309,
+        -0.0443,
+        -0.0433,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "surface_grid": [],
+      "flat_color": [
+        0.32,
+        0.55,
+        0.22
+      ],
+      "slope_color": [
+        0.45,
+        0.32,
+        0.18
+      ]
+    },
+    {
+      "name": "SouthPath",
+      "origin": [
+        -15.0,
+        -0.01,
+        -15.0
+      ],
+      "size_x": 24.0,
+      "size_z": 12.0,
+      "resolution": 9,
+      "heights": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "surface_grid": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "dirt",
+        "dirt",
+        "dirt",
+        "dirt",
+        "",
+        "",
+        "",
+        "",
+        "dirt",
+        "dirt",
+        "dirt",
+        "dirt",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "flat_color": [
+        0.35,
+        0.55,
+        0.22
+      ],
+      "slope_color": [
+        0.45,
+        0.32,
+        0.18
+      ]
+    }
+  ],
+  "tux_props": [
+    {
+      "type": "npc",
+      "pos": [
+        3.0,
+        0.0,
+        8.0
+      ],
+      "rotation_y": -2.0,
+      "name": "Old Hesper",
+      "body_color": [
+        0.5,
+        0.65,
+        0.7,
+        1.0
+      ],
+      "hat_color": [
+        0.3,
+        0.45,
+        0.55,
+        1.0
+      ],
+      "idle_hint": "[E] Speak with the keeper",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Old Hesper",
+            "text": "Welcome to the Glade, little one. I am Hesper, oldest of the keepers here. The wyrdkin sleep, and we tend their dreaming. You wake into a strange hour. Will you sit, and learn?",
+            "choices": [
+              {
+                "label": "Tell me of this realm.",
+                "next": "realm"
+              },
+              {
+                "label": "What is the Sigil of Sharing?",
+                "next": "sigil"
+              },
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Where should I go?",
+                "next": "go"
+              },
+              {
+                "label": "Farewell, keeper.",
+                "next": "bye"
+              }
+            ]
+          },
+          "realm": {
+            "speaker": "Old Hesper",
+            "text": "This is Lirien's weave. Forest, brook, kiln, and stone — all spun from the Source. The Maker gave; the Hoarder takes. The balance has tipped, and so the wardstones thin. That is why you are here.",
+            "choices": [
+              {
+                "label": "What is the Sigil of Sharing?",
+                "next": "sigil"
+              },
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "sigil": {
+            "speaker": "Old Hesper",
+            "text": "Three sigils mark the Triglyph — Sight, Shaping, Sharing. Yours is the third. To share is to refuse the hoard; to refuse the hoard is to be the answer to Khorgaul. Carry it gently. Carry it bright.",
+            "choices": [
+              {
+                "label": "Who is Glim?",
+                "next": "glim"
+              },
+              {
+                "label": "Tell me of this realm.",
+                "next": "realm"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "glim": {
+            "speaker": "Old Hesper",
+            "text": "A wisp — a fleck of the Source given a small, brave will. She has chosen you, and that is no small thing. Where you are dim, Glim brightens. Where you forget, Glim remembers.",
+            "choices": [
+              {
+                "label": "Where should I go?",
+                "next": "go"
+              },
+              {
+                "label": "Back.",
+                "next": "root"
+              }
+            ]
+          },
+          "go": {
+            "speaker": "Old Hesper",
+            "text": "North, through the wyrdwood. Past the fork, past the ribbon, into the Hollow. You will know it when you see it. The road from there is yours to find.",
+            "choices": [
+              {
+                "label": "Thank you, keeper.",
+                "next": "bye"
+              }
+            ]
+          },
+          "bye": {
+            "speaker": "Old Hesper",
+            "text": "Walk in the green. Walk under the wing of Lirien."
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        -4.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y": 1.5,
+      "name": "Little Pip",
+      "body_color": [
+        0.65,
+        0.8,
+        0.75,
+        1.0
+      ],
+      "hat_color": [
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "idle_hint": "[E] Talk to Pip",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Little Pip",
+            "text": "Are you the wanderer? Hesper said a wanderer would come. Are you going north? You should go north! The wyrdwood is north!",
+            "next": "two"
+          },
+          "two": {
+            "speaker": "Little Pip",
+            "text": "I'm not allowed to go past the marker stone. But you can! Go on! The trees there know secrets. I think they whisper them to wisps. Maybe Glim already knows!"
+          }
+        }
+      }
+    },
+    {
+      "type": "npc",
+      "pos": [
+        0.0,
+        0.5,
+        4.0
+      ],
+      "rotation_y": 3.14,
+      "name": "Glim",
+      "body_color": [
+        0.95,
+        0.92,
+        0.55,
+        1.0
+      ],
+      "hat_color": [
+        1.0,
+        0.85,
+        0.3,
+        1.0
+      ],
+      "idle_hint": "[E] Listen to Glim",
+      "dialog_tree": {
+        "start": "root",
+        "nodes": {
+          "root": {
+            "speaker": "Glim",
+            "text": "*The little wisp pulses, gentle and curious.* You hear me, don't you. The Source still moves through you. Good.",
+            "choices": [
+              {
+                "label": "Teach me a song.",
+                "next": "teach",
+                "requires_not": "glim_theme_learned"
+              },
+              {
+                "label": "(You hum the song to yourself.)",
+                "next": "remembered",
+                "requires_song": "glim_theme"
+              },
+              {
+                "label": "Goodbye.",
+                "next": "bye"
+              }
+            ]
+          },
+          "teach": {
+            "speaker": "Glim",
+            "text": "Listen — and remember. *up... right... down... left... up.* Carry it. Hum it at any owl-shrine and the keepers will tend you. *[Z] to hum.*",
+            "learns_song": "glim_theme",
+            "next": "bye"
+          },
+          "remembered": {
+            "speaker": "Glim",
+            "text": "Yes. The melody's in you now. The Source remembers what you remember.",
+            "next": "bye"
+          },
+          "bye": {
+            "speaker": "Glim",
+            "text": "*Glim drifts a little higher and waits.*"
+          }
+        }
+      }
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -1.5,
+        0,
+        4
+      ],
+      "rotation_y": 0,
+      "message": "Wyrdkin Glade.\n\nThe wyrdkin sleep beneath the great trees, and Glim flickers at your shoulder. South, beyond the elder pines, the path runs to the Wyrdwood."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4,
+        0,
+        -2
+      ],
+      "rotation_y": -1.5708,
+      "message": "Glim chimes once, gently. \"You can read what's left of the Source by Sight,\" she says, \"but only one Sigil can pass it on. We carry that one.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -6,
+        0,
+        8
+      ],
+      "rotation_y": 0,
+      "message": "A wyrdkin-stone, cool to the touch.\n\n\"Lirien's roots reach here. The Source whispers in the leaves — listen, and you may hear your own name spoken back.\""
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -12,
+        0,
+        7
+      ],
+      "rotation_y": 0,
+      "message": "A leaf-curtain stirs against the wall — there is a hollow behind it."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        1
+      ],
+      "rotation_y": 0,
+      "message": "Welcome to the Wyrdmark.\n[WASD] to move. [Space] to jump."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        1.5,
+        0,
+        2.5
+      ],
+      "rotation_y": 0,
+      "message": "[J] to swing your blade.\nHold to charge."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -1.5,
+        0,
+        3
+      ],
+      "rotation_y": 0,
+      "message": "[K] to roll. Useful for dodging."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        4,
+        0,
+        5
+      ],
+      "rotation_y": 0,
+      "message": "[E] to read signs, open chests, speak to kin."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4,
+        0,
+        5
+      ],
+      "rotation_y": 0,
+      "message": "[Esc] to pause. The pause menu has Items, Songs, and the World Map."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        0,
+        0,
+        8
+      ],
+      "rotation_y": 0,
+      "message": "[Q] to lock onto an enemy. Tap again to release. (Once you have learned a song, [Z] to hum it.)"
+    },
+    {
+      "type": "sign",
+      "pos": [
+        1,
+        0,
+        -1
+      ],
+      "rotation_y": 0,
+      "message": "Glim is in this glade. Speak with him."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        -4.0,
+        0.0,
+        0.0
+      ],
+      "rotation_y": 1.5708,
+      "message": "Near the cradle stones:\n\n   Who are you?\n   Tux.\n\nThere has never been anyone else here."
+    },
+    {
+      "type": "sign",
+      "pos": [
+        1.0,
+        0.0,
+        -4.0
+      ],
+      "rotation_y": 0.0,
+      "message": "By the cradle path:\n\n    One breath sent.\n    One breath returned.\n    No breath lost.\n    Home is reachable."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        3,
+        0,
+        3
+      ],
+      "rotation_y": 0,
+      "contents": "heart",
+      "open_message": "A heart-flower, pressed in oilcloth. The Source thanks you."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -2.5,
+        0,
+        4.5
+      ],
+      "rotation_y": 0,
+      "contents": "fairy",
+      "open_message": "A Fairy Bottle. The fae hide a spark of life inside — it'll catch you once if a blow would have laid you low."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -3,
+        0,
+        -11
+      ],
+      "rotation_y": 0,
+      "contents": "item",
+      "item_name": "bow",
+      "open_message": "A yew longbow, oiled and strung. Press F to draw and loose. Find arrows in quivers along the path."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2.5,
+        0,
+        -10.5
+      ],
+      "rotation_y": 0,
+      "contents": "arrow",
+      "open_message": "A bundle of fletched arrows."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -7.5,
+        0,
+        -3.0
+      ],
+      "rotation_y": 0,
+      "contents": "arrow",
+      "open_message": "A bundle of fletched arrows."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        4.5,
+        0,
+        -1.5
+      ],
+      "rotation_y": 0,
+      "contents": "item",
+      "item_name": "slingshot",
+      "open_message": "A forked slingshot. Press F to fling a seed at speed."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        5.5,
+        0,
+        -2.5
+      ],
+      "rotation_y": 0,
+      "contents": "seed",
+      "open_message": "A small bag of dry deku-seeds."
+    },
+    {
+      "type": "chest",
+      "pos": [
+        -9,
+        0,
+        -13
+      ],
+      "rotation_y": 0,
+      "contents": "heart_piece",
+      "open_message": "A piece of heart, pressed deep into a thicket of wyrdkin-bramble. Glim says the bushes were planted to hide it."
+    },
+    {
+      "type": "owl_statue",
+      "pos": [
+        -3.0,
+        0,
+        8.0
+      ],
+      "rotation_y": 0.0,
+      "warp_id": "owl_wyrdkin_glade",
+      "warp_name": "Glade Owl",
+      "warp_message": "The wyrdkin breathe slow. The Glade remembers your shape.",
+      "warp_target_scene": "wyrdkin_glade",
+      "warp_target_spawn": "default"
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.81,
+        0.0,
+        -26.6
+      ],
+      "rotation_y": 2.326
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -12.6,
+        0.0,
+        -15.5
+      ],
+      "rotation_y": 1.316
+    },
+    {
+      "type": "tree",
+      "pos": [
+        13.24,
+        0.0,
+        9.9
+      ],
+      "rotation_y": 1.677
+    },
+    {
+      "type": "tree",
+      "pos": [
+        21.96,
+        0.0,
+        -23.13
+      ],
+      "rotation_y": 5.885
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -4.37,
+        0.0,
+        -26.33
+      ],
+      "rotation_y": 4.072
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.76,
+        0.0,
+        0.3
+      ],
+      "rotation_y": 3.827
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -26.51,
+        0.0,
+        -16.87
+      ],
+      "rotation_y": 1.075
+    },
+    {
+      "type": "tree",
+      "pos": [
+        8.39,
+        0.0,
+        2.52
+      ],
+      "rotation_y": 4.581
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.66,
+        0.0,
+        5.0
+      ],
+      "rotation_y": 1.027
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.33,
+        0.0,
+        -27.64
+      ],
+      "rotation_y": 2.384
+    },
+    {
+      "type": "tree",
+      "pos": [
+        17.13,
+        0.0,
+        11.1
+      ],
+      "rotation_y": 6.217
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -8.95,
+        0.0,
+        -19.29
+      ],
+      "rotation_y": 4.021
+    },
+    {
+      "type": "tree",
+      "pos": [
+        25.6,
+        0.0,
+        -9.15
+      ],
+      "rotation_y": 3.499
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.81,
+        0.0,
+        -22.58
+      ],
+      "rotation_y": 4.302
+    },
+    {
+      "type": "tree",
+      "pos": [
+        19.46,
+        0.0,
+        5.81
+      ],
+      "rotation_y": 5.296
+    },
+    {
+      "type": "tree",
+      "pos": [
+        2.03,
+        0.0,
+        26.49
+      ],
+      "rotation_y": 4.876
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -6.8,
+        0.0,
+        2.91
+      ],
+      "rotation_y": 1.439
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -15.24,
+        0.0,
+        -11.79
+      ],
+      "rotation_y": 0.202
+    },
+    {
+      "type": "tree",
+      "pos": [
+        -22.34,
+        0.0,
+        -12.43
+      ],
+      "rotation_y": 1.982
+    },
+    {
+      "type": "tree",
+      "pos": [
+        7.6,
+        0.0,
+        -7.57
+      ],
+      "rotation_y": 1.682
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -24.0,
+        0.0,
+        10.2
+      ],
+      "rotation_y": 4.268
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -18.52,
+        0.0,
+        -1.95
+      ],
+      "rotation_y": 0.591
+    },
+    {
+      "type": "bush",
+      "pos": [
+        8.93,
+        0.0,
+        15.23
+      ],
+      "rotation_y": 3.913
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -25.0,
+        0.0,
+        -3.52
+      ],
+      "rotation_y": 4.944
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -6.64,
+        0.0,
+        18.32
+      ],
+      "rotation_y": 5.648
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -3.43,
+        0.0,
+        -16.84
+      ],
+      "rotation_y": 2.081
+    },
+    {
+      "type": "bush",
+      "pos": [
+        18.25,
+        0.0,
+        16.65
+      ],
+      "rotation_y": 3.323
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -6.46,
+        0.0,
+        -21.02
+      ],
+      "rotation_y": 4.405
+    },
+    {
+      "type": "bush",
+      "pos": [
+        14.16,
+        0.0,
+        5.06
+      ],
+      "rotation_y": 1.048
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -22.82,
+        0.0,
+        22.98
+      ],
+      "rotation_y": 5.33
+    },
+    {
+      "type": "bush",
+      "pos": [
+        17.63,
+        0.0,
+        -10.6
+      ],
+      "rotation_y": 4.906
+    },
+    {
+      "type": "bush",
+      "pos": [
+        20.22,
+        0.0,
+        1.16
+      ],
+      "rotation_y": 0.315
+    },
+    {
+      "type": "bush",
+      "pos": [
+        -20.64,
+        0.0,
+        18.5
+      ],
+      "rotation_y": 3.716
+    },
+    {
+      "type": "bush",
+      "pos": [
+        4.39,
+        0.0,
+        22.5
+      ],
+      "rotation_y": 2.313
+    },
+    {
+      "type": "rock",
+      "pos": [
+        18.83,
+        0.0,
+        -16.81
+      ],
+      "rotation_y": 0.22
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -14.29,
+        0.0,
+        -24.49
+      ],
+      "rotation_y": 2.425
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -19.93,
+        0.0,
+        -25.54
+      ],
+      "rotation_y": 2.999
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -17.85,
+        0.0,
+        0.71
+      ],
+      "rotation_y": 5.761
+    },
+    {
+      "type": "rock",
+      "pos": [
+        25.45,
+        0.0,
+        10.06
+      ],
+      "rotation_y": 1.185
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -6.32,
+        0.0,
+        -4.94
+      ],
+      "rotation_y": 1.623
+    },
+    {
+      "type": "rock",
+      "pos": [
+        9.95,
+        0.0,
+        -9.04
+      ],
+      "rotation_y": 1.558
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.18,
+        0.0,
+        17.76
+      ],
+      "rotation_y": 0.309
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.1,
+        0.0,
+        -20.18
+      ],
+      "rotation_y": 4.233
+    },
+    {
+      "type": "rock",
+      "pos": [
+        -22.36,
+        0.0,
+        -21.08
+      ],
+      "rotation_y": 5.132
+    },
+    {
+      "type": "rock",
+      "pos": [
+        23.86,
+        0.0,
+        -20.4
+      ],
+      "rotation_y": 2.742
+    },
+    {
+      "type": "rock",
+      "pos": [
+        6.52,
+        0.0,
+        24.42
+      ],
+      "rotation_y": 0.238
+    }
+  ],
+  "spawns": [
+    {
+      "id": "default",
+      "pos": [
+        0,
+        0.24,
+        6
+      ],
+      "rotation_y": 0
+    },
+    {
+      "id": "from_wyrdmark_gateway",
+      "pos": [
+        8.99,
+        4.69,
+        73.53
+      ],
+      "rotation_y": -3.0391
+    },
+    {
+      "id": "from_grotto_glade",
+      "pos": [
+        -66.66,
+        0.88,
+        16.25
+      ],
+      "rotation_y": 1.8227
+    }
+  ],
+  "load_zones": [
+    {
+      "pos": [
+        9.55,
+        5.73,
+        79.0
+      ],
+      "size": [
+        1.5,
+        3.0,
+        4.0
+      ],
+      "rotation_y": 0.1025,
+      "target_scene": "wyrdmark_gateway",
+      "target_spawn": "from_wyrdkin_glade",
+      "prompt": "[E] Up to Wyrdmark Gateway"
+    },
+    {
+      "pos": [
+        -71.98,
+        1.41,
+        17.62
+      ],
+      "size": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "rotation_y": -1.3189,
+      "target_scene": "grotto_glade",
+      "target_spawn": "from_wyrdkin_glade",
+      "auto": false,
+      "prompt": "[E] Push through the leaf-curtain"
+    }
+  ],
+  "enemies": [
+    {
+      "type": "tomato",
+      "pos": [
+        -5.0,
+        1.6,
+        -10.0
+      ]
+    }
+  ]
+}
