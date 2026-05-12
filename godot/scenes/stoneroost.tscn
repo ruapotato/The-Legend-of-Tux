@@ -1,29 +1,29 @@
 [gd_scene load_steps=1146 format=3 uid="uid://btuxstoneroo01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="PackedScene" uid="uid://btuxpkhs01" path="res://scenes/pickup_hookshot.tscn" id="hookshot_pickup"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
 [ext_resource type="PackedScene" uid="uid://btuxhshot01" path="res://scenes/hookshot_target.tscn" id="hookshot_target"]
-[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxwsph01" path="res://scenes/enemy_wisp_hunter.tscn" id="wisp_hunter"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxpkhs01" path="res://scenes/pickup_hookshot.tscn" id="hookshot_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxbossglr01" path="res://scenes/enemy_gale_roost.tscn" id="gale_roost"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbarn01" path="res://scenes/boss_arena.tscn" id="boss_arena"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.4, 0.45, 0.55, 1)
@@ -10287,7 +10287,7 @@ open_message = "A hookshot. The chain is cold; the spike is colder. It longs for
 contents_item_name = "hookshot"
 
 [node name="HookshotTarget5" parent="." instance=ExtResource("hookshot_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.565, 20)
 
 [node name="Chest6" parent="." instance=ExtResource("chest")]
 transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 36, 0.168, 16)
@@ -10322,7 +10322,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.89, -35.4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4, 0.128, 17.8)
 
 [node name="Bush14" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3, 0, 16.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3, -1.038, 16.1)
 
 [node name="Bush15" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8, -0.877, 17.9)
@@ -10346,7 +10346,7 @@ trunk_height = 4.04993
 canopy_radius = 1.60452
 
 [node name="Tree21" parent="." instance=ExtResource("tree")]
-transform = Transform3D(0.984613, 0, -0.174748, 0, 1, 0, 0.174748, 0, 0.984613, 26.5, 0, 13.5)
+transform = Transform3D(0.984613, 0, -0.174748, 0, 1, 0, 0.174748, 0, 0.984613, 26.5, -1.17, 13.5)
 pebble_chance = 0.3
 trunk_height = 4.45271
 canopy_radius = 1.42572
@@ -10593,7 +10593,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6, 0, 57.07)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.71, 0, 18.53)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(0.999685, 0, 0.0250974, 0, 1, 0, -0.0250974, 0, 0.999685, -1.57294, 3.33, 77.4987)
+transform = Transform3D(0.999685, 0, 0.0250974, 0, 1, 0, -0.0250974, 0, 0.999685, -1.57294, 3.517, 77.4987)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -10615,7 +10615,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(-0.846568, 0, 0.532281, 0, 1, 0, -0.532281, 0, -0.846568, -23.54, 6.42, -36.4761)
+transform = Transform3D(-0.846568, 0, 0.532281, 0, 1, 0, -0.532281, 0, -0.846568, -23.54, 6.424, -36.4761)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

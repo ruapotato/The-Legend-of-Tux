@@ -1,16 +1,16 @@
 [gd_scene load_steps=550 format=3 uid="uid://btuxbin01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.3, 0.28, 0.3, 1)
@@ -4867,19 +4867,19 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -1.599, -1.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.845, 2.5)
 message = "THE TOOLSHED\n\nA wall of twenty-seven tools. Each handle smoothed by hands that worked. Hammers, chisels, looms, kettles, knives, files, awls, rasps, gimlets, planes, mallets, drawknives, augers, gouges, burins, scribes, dividers, calipers, shears, snips, tongs, pincers, pliers, prybars, pickers, pokers, prods.\n\nTwenty-seven things that work."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, 0, -1.5)
+transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, -2.169, -1.5)
 message = "Tool wall, west run.\n\nWorn handles. Bright edges. Each hung in its own peg. The Wyrdkin who set this wall said: 'A tool that lives on a peg is a tool that knows where to go home.'"
 
 [node name="Sign2" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 3.5, 0, -0.5)
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 3.5, -2.275, -0.5)
 message = "Tool wall, east run.\n\nThe smaller things — awls, scribes, gimlets. The kind of tool you reach for when you've already tried the bigger one and a quieter answer is needed."
 
 [node name="Npc3_Old_Toolwright_Marn" parent="." instance=ExtResource("npc")]
-transform = Transform3D(0.825336, 0, -0.564642, 0, 1, 0, 0.564642, 0, 0.825336, -1.5, 0, 0.5)
+transform = Transform3D(0.825336, 0, -0.564642, 0, 1, 0, 0.564642, 0, 0.825336, -1.5, -1.944, 0.5)
 npc_name = "Old Toolwright Marn"
 body_color = Color(0.55, 0.42, 0.3, 1)
 hat_color = Color(0.4, 0.32, 0.22, 1)
@@ -4887,7 +4887,7 @@ idle_hint = "[E] Speak with the toolwright"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"Well met, walker. Mind the floor — there's a chisel somewhere I haven't found yet.\\n\\nYou after a tool, or after a story?\", \"choices\": [{\"label\": \"A story.\", \"next\": \"story\"}, {\"label\": \"Tell me of these tools.\", \"next\": \"tools\"}, {\"label\": \"What's the apprentice arguing about?\", \"next\": \"appr\"}]}, \"tools\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"Twenty-seven on the wall. Each one shaped for a thing the realm needs every day.\\n\\nA hammer is a hammer. A scribe is a scribe. There's no nobler tool than the one you can name without thinking.\", \"choices\": [{\"label\": \"And the unnamed ones?\", \"next\": \"unnamed\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"unnamed\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"Then it's not a tool yet. It's a thing that happens to be in your hand.\\n\\nBy the Source — name it and it'll start working.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"appr\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"Pell thinks the third hammer from the left is the canonical one. I think it's the seventh. We've been at this since spring.\\n\\nThe truth is they're both right. There's no canonical hammer. But don't tell Pell.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"story\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"My grandmother strung this wall. She said the Wyrdmark would never be lost so long as someone could pick a tool off it and remember what to do.\\n\\nSo far, so good.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Old Toolwright Marn\", \"text\": \"Walk well. And mind the chisel.\"}}}"
 
 [node name="Npc4_Apprentice_Pell" parent="." instance=ExtResource("npc")]
-transform = Transform3D(0.825336, 0, 0.564642, 0, 1, 0, -0.564642, 0, 0.825336, 1.5, 0, 0.5)
+transform = Transform3D(0.825336, 0, 0.564642, 0, 1, 0, -0.564642, 0, 0.825336, 1.5, -1.836, 0.5)
 npc_name = "Apprentice Pell"
 body_color = Color(0.78, 0.65, 0.45, 1)
 hat_color = Color(0.5, 0.4, 0.28, 1)
@@ -4895,15 +4895,15 @@ idle_hint = "[E] Speak with the apprentice"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Apprentice Pell\", \"text\": \"You! Settle this. Third hammer from the left, or seventh? Marn says seventh. Marn is wrong.\", \"choices\": [{\"label\": \"Third.\", \"next\": \"third\"}, {\"label\": \"Seventh.\", \"next\": \"seventh\"}, {\"label\": \"They're both fine.\", \"next\": \"fine\"}]}, \"third\": {\"speaker\": \"Apprentice Pell\", \"text\": \"Thank you. Finally. A walker with eyes.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"seventh\": {\"speaker\": \"Apprentice Pell\", \"text\": \"Hmph. Marn's got to you.\\n\\nLook again next time, all right? Third. It's third.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"fine\": {\"speaker\": \"Apprentice Pell\", \"text\": \"Don't say that. Don't ever say that here.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Apprentice Pell\", \"text\": \"Walk well. Don't trust Marn on hammers.\"}}}"
 
 [node name="Sign5" parent="." instance=ExtResource("sign")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -2.099, -1.5)
 message = "Stone tablet, weather-smoothed:\n\n    echo \"Hello, world!\"\n\n    Hello, world!\n\nThe first program ever written by anyone in The Mount.\nWe have not improved on it."
 
 [node name="Sign6" parent="." instance=ExtResource("sign")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -2.198, -1.5)
 message = "Posted next to the oldest tool-rack:\n\n    1993.\n    Oldest still-walking among us.\n\n*Beneath, in newer hand:* she does not require the newer tools. she does not provide them either."
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.648474, -0.7, -6.49755)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.648474, -0.485, -6.49755)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

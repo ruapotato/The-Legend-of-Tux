@@ -1,16 +1,16 @@
 [gd_scene load_steps=516 format=3 uid="uid://btuxprocsys01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.3, 0.34, 0.4, 1)
@@ -4629,7 +4629,7 @@ idle_hint = "[E] Ask Top what's running"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Top\", \"text\": \"*she watches the air the way a hawk watches a field*\\n\\nThe three loudest in the Mount, just now? init at 0.0% — quiet, as he ought to be. wyrdking at — well. wyrdking returns nothing; defeated. and tux, 99%, running. You.\", \"choices\": [{\"label\": \"What about the rest?\", \"next\": \"rest\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"rest\": {\"speaker\": \"Top\", \"text\": \"Sleeping. Waiting. A few zombies the wardens have not got to. The realm hums. I listen.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Top\", \"text\": \"*she resumes listening*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482831, 3.56, -5.49996)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482831, 3.088, -5.49996)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

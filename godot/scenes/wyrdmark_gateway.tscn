@@ -1,24 +1,24 @@
 [gd_scene load_steps=29 format=3 uid="uid://btuxwyrdmark01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxbat01" path="res://scenes/enemy_bone_bat.tscn" id="bat"]
 [ext_resource type="PackedScene" uid="uid://btuxbnk01" path="res://scenes/enemy_bone_knight.tscn" id="knight"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.5, 0.65, 0.8, 1)
@@ -5790,7 +5790,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1, 1.052, -2.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6, 1.168, -3.55)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(0.989821, 0, -0.142315, 0, 1, 0, 0.142315, 0, 0.989821, 3.66591, 5.57, 56.4993)
+transform = Transform3D(0.989821, 0, -0.142315, 0, 1, 0, 0.142315, 0, 0.989821, 3.66591, 5.574, 56.4993)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5812,7 +5812,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(0.251758, 0, 0.96779, 0, 1, 0, -0.96779, 0, 0.251758, -57.4859, 1.26, 20.5534)
+transform = Transform3D(0.251758, 0, 0.96779, 0, 1, 0, -0.96779, 0, 0.251758, -57.4859, 1.257, 20.5534)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5834,7 +5834,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone2" type="Area3D" parent="."]
-transform = Transform3D(-0.303252, 0, -0.95291, 0, 1, 0, 0.95291, 0, -0.303252, 68.4406, 1.3, -13.8446)
+transform = Transform3D(-0.303252, 0, -0.95291, 0, 1, 0, 0.95291, 0, -0.303252, 68.4406, 1.305, -13.8446)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5856,7 +5856,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone3" type="Area3D" parent="."]
-transform = Transform3D(-0.0165029, 0, -0.999864, 0, 1, 0, 0.999864, 0, -0.0165029, 69.0001, 2.21, 10.4754)
+transform = Transform3D(-0.0165029, 0, -0.999864, 0, 1, 0, 0.999864, 0, -0.0165029, 69.0001, 2.213, 10.4754)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

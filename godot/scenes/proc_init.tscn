@@ -1,18 +1,18 @@
 [gd_scene load_steps=1013 format=3 uid="uid://btuxprocinit01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.3, 0.34, 0.4, 1)
@@ -9195,7 +9195,7 @@ idle_hint = "[E] Ask Uname who we are"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Uname\", \"text\": \"You want the full name of the realm? Few do.\\n\\nWyrdmark wyrdkin-machine 6.12.42-mount #1 SMP PREEMPT Cron-MM-DD.\\n\\nThat is the realm. Every part of it true. No part of it useful.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Uname\", \"text\": \"*she nods, satisfied that she was asked*\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(0.948001, 0, 0.318266, 0, 1, 0, -0.318266, 0, 0.948001, -26.5164, 6.96, 129.491)
+transform = Transform3D(0.948001, 0, 0.318266, 0, 1, 0, -0.318266, 0, 0.948001, -26.5164, 6.959, 129.491)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -9217,7 +9217,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(-0.991756, 0, 0.128139, 0, 1, 0, -0.128139, 0, -0.991756, -8.53503, -0.12, -26.5006)
+transform = Transform3D(-0.991756, 0, 0.128139, 0, 1, 0, -0.128139, 0, -0.991756, -8.53503, -0.122, -26.5006)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

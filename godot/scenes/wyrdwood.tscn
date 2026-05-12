@@ -1,26 +1,26 @@
 [gd_scene load_steps=31 format=3 uid="uid://btuxwyrdwood01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
 [ext_resource type="PackedScene" uid="uid://btuxblb01" path="res://scenes/enemy_blob.tscn" id="blob"]
-[ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtmto01" path="res://scenes/enemy_tomato.tscn" id="tomato"]
 [ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.18, 0.22, 0.28, 1)
@@ -6068,7 +6068,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.191, -15.2)
 pebble_amount = 3
 
 [node name="Bush5" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, -1.486, -0.1)
 
 [node name="Bush6" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0.568, -10)
@@ -6092,7 +6092,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 2.108, -23.2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3, 2.594, -22.9)
 
 [node name="Bush13" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -2.131, 0.5)
 
 [node name="Bush14" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, -0.832, -5.2)
@@ -6124,7 +6124,7 @@ trunk_height = 3.76577
 canopy_radius = 1.99138
 
 [node name="Rock20" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -1.35, 7.5)
 pebble_chance = 0.4
 
 [node name="Rock21" parent="." instance=ExtResource("rock")]
@@ -6148,7 +6148,7 @@ trunk_height = 4.98533
 canopy_radius = 2.01589
 
 [node name="Tree25" parent="." instance=ExtResource("tree")]
-transform = Transform3D(0.997124, 0, 0.0757848, 0, 1, 0, -0.0757848, 0, 0.997124, 4.5, 0, 4.5)
+transform = Transform3D(0.997124, 0, 0.0757848, 0, 1, 0, -0.0757848, 0, 0.997124, 4.5, -1.749, 4.5)
 pebble_chance = 0.2
 trunk_height = 4.64583
 canopy_radius = 1.74298
@@ -6172,7 +6172,7 @@ trunk_height = 4.57924
 canopy_radius = 1.74972
 
 [node name="Tree29" parent="." instance=ExtResource("tree")]
-transform = Transform3D(0.939951, 0, 0.341309, 0, 1, 0, -0.341309, 0, 0.939951, -2.5, 0, 5.5)
+transform = Transform3D(0.939951, 0, 0.341309, 0, 1, 0, -0.341309, 0, 0.939951, -2.5, -1.775, 5.5)
 pebble_chance = 0.45
 trunk_height = 5.39463
 canopy_radius = 1.72742
@@ -6205,7 +6205,7 @@ contents_scene = ExtResource("heart_piece")
 open_message = "Beneath the eldest pine — its roots had grown around a Source-pulse so old it had nearly forgotten itself. Press on."
 
 [node name="Npc34_Whispering_Stone" parent="." instance=ExtResource("npc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.308, 8)
 npc_name = "Whispering Stone"
 body_color = Color(0.32, 0.28, 0.4, 1)
 hat_color = Color(0.45, 0.5, 0.4, 1)
@@ -6429,11 +6429,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.49, 0.387, -8.29)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.69, 0, -8.99)
 
 [node name="Sign107" parent="." instance=ExtResource("sign")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.968, -2)
 message = "At the path-fork:\n\n    Look hard.\n    Case doesn't matter.\n\nThe needle is here. The haystack is also."
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.4694, 2.59, 40.0594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.4694, 1.054, 40.0594)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -6455,7 +6455,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6572, 3.16, -49.4618)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6572, 3.159, -49.4618)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

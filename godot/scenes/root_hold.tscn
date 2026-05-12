@@ -1,17 +1,17 @@
 [gd_scene load_steps=19 format=3 uid="uid://btuxroothold01"]
 
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
 [ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 [ext_resource type="Script" path="res://scripts/tree_wall.gd" id="tree_wall_script"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.55, 0.65, 1)
@@ -2341,7 +2341,7 @@ idle_hint = "[E] Speak with the elder"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"The Sysadmin\", \"text\": \"*an older Wyrdkin pours tea without asking. The cup is the right temperature when it reaches your hand.*\\n\\nSit, walker. You came up the long way. Most do.\\n\\nWhat's still in front of you?\", \"choices\": [{\"label\": \"I don't know yet.\", \"next\": \"advice\"}, {\"label\": \"A locked dungeon.\", \"next\": \"advice\"}, {\"label\": \"A boss I can't beat.\", \"next\": \"advice\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"advice\": {\"speaker\": \"The Sysadmin\", \"text\": \"Then I will tell you the one thing I tell every walker who finds this room.\\n\\nThe realm runs because somebody, somewhere, kept showing up. Not because anyone was strong. Because they kept showing up.\\n\\nGo on. Show up.\\n\\n*the kettle starts to sing.*\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"The Sysadmin\", \"text\": \"Walk well, walker. The kettle will be on when you come back.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433847, 2.05, -3.49854)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433847, 1.9, -3.49854)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

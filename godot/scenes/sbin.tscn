@@ -1,18 +1,18 @@
 [gd_scene load_steps=1117 format=3 uid="uid://btuxsbin01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.22, 0.3, 1)
@@ -9951,15 +9951,15 @@ transform = Transform3D(-0.766904, 0, 0.641761, 0, 1, 0, -0.641761, 0, -0.766904
 transform = Transform3D(-0.550701, 0, -0.834703, 0, 1, 0, 0.834703, 0, -0.550701, -49.5, 5.107, 66.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2.5, -1.739, 2.5)
 message = "SENTINEL HALL\n\nThe quiet wardens stand here. They were set in stone before any Wyrdkin came north. They have not moved.\n\nThey are not asleep."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 2.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 2.5, -1.736, 2.5)
 message = "A small carved line at the base of the floor:\n\n'Speak the right thing and the watch will answer. Speak the wrong thing and the watch will not.'"
 
 [node name="Npc2_The_Sentinel" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, 1.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.631, 1.5)
 npc_name = "The Sentinel"
 body_color = Color(0.42, 0.45, 0.5, 1)
 hat_color = Color(0.32, 0.34, 0.38, 1)
@@ -9991,7 +9991,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.52, 0, -6.11)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.42, 0, -5.9)
 
 [node name="Rock11" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, 0, -4.69)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.092, -4.69)
 
 [node name="Tree12" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83, -0.759, 7.83)
@@ -10075,7 +10075,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.58, 0, -2.94)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.11, 0, -1.73)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(0.7669, 0, -0.641767, 0, 1, 0, 0.641767, 0, 0.7669, 57.4342, 8.5, 92.562)
+transform = Transform3D(0.7669, 0, -0.641767, 0, 1, 0, 0.641767, 0, 0.7669, 57.4342, 8.499, 92.562)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -10097,7 +10097,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(0.550695, 0, 0.834707, 0, 1, 0, -0.834707, 0, 0.550695, -52.2512, 6.01, 67.6829)
+transform = Transform3D(0.550695, 0, 0.834707, 0, 1, 0, -0.834707, 0, 0.550695, -52.2512, 5.796, 67.6829)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

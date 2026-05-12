@@ -819,7 +819,14 @@ _LOAD_ZONE_Y_OFFSET = 1.4
 # When a JSON-authored y exceeds the cell's ground+offset by more than
 # this threshold, we treat it as INTENTIONALLY raised (e.g. a platform,
 # a chest perched on a stone). Keep the authored y in that case.
-_INTENTIONAL_RAISE_THRESHOLD = 1.0
+# Threshold for treating an authored y as an "intentional platform"
+# rather than a default-zero placeholder. With v10 terrain hills hitting
+# +4m / -4m, a tree authored at y=0 sitting above a -3m cell looks
+# "raised" by 3m even though it's just a scaffolder default. Bumped
+# from 1.0 to 5.0 (above the worst-case hill amplitude of ±3.7m) so
+# only genuinely-intentional raises (e.g. spawn_offset chests, platform-
+# stacked props) are preserved.
+_INTENTIONAL_RAISE_THRESHOLD = 5.0
 
 
 # Per-grid memoised cell→world-y maps. Keyed by `id(grid)` so a

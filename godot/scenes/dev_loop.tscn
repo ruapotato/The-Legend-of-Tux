@@ -1,19 +1,19 @@
 [gd_scene load_steps=502 format=3 uid="uid://btuxdevloop01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxhpie01" path="res://scenes/heart_piece.tscn" id="heart_piece"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.1, 0.12, 0.18, 1)
@@ -4372,36 +4372,36 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -
 transform = Transform3D(-0.222521, 0, -0.974928, 0, 1, 0, 0.974928, 0, -0.222521, 4.5, -1.311, -1.5)
 
 [node name="loop_0" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_1" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_2" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_3" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_4" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_5" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="loop_6" type="Marker3D" parent="Spawns"]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0.5, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.439, -0.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.793, 2.5)
 message = "THE SEVENTH TIME, THE DOOR IS REAL."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, 0, -1.5)
+transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, -1.995, -1.5)
 message = "THE RECURSION HALL\n\nA corridor whose far door always brings you back to its near door, no matter how many times you walk through.\n\nUntil you walk it seven times. Then a third door appears.\n\nThe Wyrdkin who built this hall did not explain why."
 
 [node name="Chest2" parent="." instance=ExtResource("chest")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, -0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.939, -0.5)
 contents_scene = ExtResource("heart_piece")
 open_message = "A piece of heart, behind the third door. Seven walks. Some realms ask only for showing up, again and again, and again."
 requires_flag = "dev_loop_traversed_7"
@@ -4587,10 +4587,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48, 0, 7.35)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 0, 7.27)
 
 [node name="Tree63" parent="." instance=ExtResource("tree")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.65, 0, 6.26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.65, -1.519, 6.26)
 
 [node name="Tree64" parent="." instance=ExtResource("tree")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.91, 0, 7.07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.91, -1.542, 7.07)
 
 [node name="Tree65" parent="." instance=ExtResource("tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.44, 0, 5.53)
@@ -4599,7 +4599,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.44, 0, 5.53)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.21, 0, 6.68)
 
 [node name="Tree67" parent="." instance=ExtResource("tree")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.37, 0, 6.47)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.37, -1.681, 6.47)
 
 [node name="Rock68" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.26, 0, 6.72)
@@ -4711,7 +4711,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.61, -0.41, -1.99)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.61, -0.411, -1.99)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4733,7 +4733,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81, -0.37, 1.11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81, -0.368, 1.11)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4755,7 +4755,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.95, 2.27, 15.28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.95, 2.275, 15.28)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4777,7 +4777,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone4" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.67, 29.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.667, 29.5)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4799,7 +4799,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone5" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.95, 5.3, 43.72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.95, 5.302, 43.72)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4821,7 +4821,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone6" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.81, 6.64, 60.89)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.81, 6.644, 60.89)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -4843,7 +4843,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone7" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61, 7.5, 64.99)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61, 7.503, 64.99)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

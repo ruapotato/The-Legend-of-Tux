@@ -1,16 +1,16 @@
 [gd_scene load_steps=498 format=3 uid="uid://btuxusrinclu01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.22, 0.22, 0.3, 1)
@@ -4399,15 +4399,15 @@ transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -
 transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -1.403, -1.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -2.5, -1.578, 2.5)
 message = "SPRAWL INDEX HALL\n\nAn alphabetised hall of header-scrolls. Each scroll declares the shape of one thing the Sprawl keeps. The shapes are dry. The shapes are dependable."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 2.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 2.5, -1.506, 2.5)
 message = "Pinned over the desk:\n\n'Look up before you reach. Reach before you ask. Ask before you guess. Guess only when the realm is on fire.'\n\n— posted by an Indexer who is no longer here."
 
 [node name="Npc2_Indexer_Yera" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, 0, 0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, -0.5, -1.999, 0.5)
 npc_name = "Indexer Yera"
 body_color = Color(0.55, 0.55, 0.62, 1)
 hat_color = Color(0.7, 0.6, 0.45, 1)
@@ -4415,7 +4415,7 @@ idle_hint = "[E] Speak with the indexer"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Indexer Yera\", \"text\": \"*she rubs her eyes. The candle is low. The desk is full of scrolls she has not got to today, and none she got to yesterday.*\\n\\nWalker. Yes. What are you looking for? I can find it. It will take a moment. It will probably take more than a moment.\", \"choices\": [{\"label\": \"Just looking.\", \"next\": \"look\"}, {\"label\": \"How long have you been at this?\", \"next\": \"long\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"look\": {\"speaker\": \"Indexer Yera\", \"text\": \"Then look. There's a section on every shape the Sprawl knows. Most of them are correct. The ones that aren't, I will get to.\\n\\nIn the next breath, perhaps. Or the breath after.\\n\\nAnd remember: we begin at zero. We do not apologise.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"long\": {\"speaker\": \"Indexer Yera\", \"text\": \"*she actually laughs.*\\n\\nLong enough that the answer doesn't help. Long enough that I have begun to remember the day I started, and the day I am supposed to finish, and the realm seems unconcerned about the difference between them.\\n\\nWalk well, walker. Don't take up indexing.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Indexer Yera\", \"text\": \"Walk well. Don't knock the scrolls.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2528, -0.5, -5.49126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2528, -0.16, -5.49126)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

@@ -1,16 +1,16 @@
 [gd_scene load_steps=520 format=3 uid="uid://btuxvargames01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.4, 0.6, 1)
@@ -4613,7 +4613,7 @@ idle_hint = "[E] Speak with the scorekeeper"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Scorekeeper Innis\", \"text\": \"*she has a stub of chalk and a smile.*\\n\\nWalker! Welcome to the Scoreroom. You play any of the games down at the Old Plays — you come back here, I write you on the wall.\\n\\nWin one, you go on the current list. Lose your record, you go on the former list. The wall keeps both.\", \"choices\": [{\"label\": \"Why both lists?\", \"next\": \"both\"}, {\"label\": \"Will you put me up?\", \"next\": \"me\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"both\": {\"speaker\": \"Scorekeeper Innis\", \"text\": \"Because a record beaten is still a record set. The realm doesn't forget who got there first.\\n\\nMost rooms only keep the new names. We keep all of them. By the Source, that's the kind of room I want to run.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"me\": {\"speaker\": \"Scorekeeper Innis\", \"text\": \"I will the moment you win one. I've already chalked your line — see? — Tux of the Glade, blank for now. The blank is a promise.\\n\\nGo win something.\", \"choices\": [{\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"bye\": {\"speaker\": \"Scorekeeper Innis\", \"text\": \"Walk well. Come back with a score.\"}}}"
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563714, 3.43, -5.49942)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563714, 2.992, -5.49942)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

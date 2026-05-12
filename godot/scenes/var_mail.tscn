@@ -1,18 +1,18 @@
 [gd_scene load_steps=544 format=3 uid="uid://btuxvarmail01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.22, 0.22, 0.3, 1)
@@ -4785,27 +4785,27 @@ transform = Transform3D(-0.865499, 0, -0.500911, 0, 1, 0, 0.500911, 0, -0.865499
 transform = Transform3D(-0.843292, 0, -0.537456, 0, 1, 0, 0.537456, 0, -0.843292, 19.5, 1.609, 19.5)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 0, 2.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -2.583, 2.5)
 message = "THE POSTMARK\n\nFour pigeon-cotes line the back wall, each named for a village. Letters arrive. Letters depart. The pigeons know their own road.\n\nThe Postmaster keeps the ledger. The Postmaster always has work."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, 0, -1.5)
+transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, -2.627, -1.5)
 message = "COTE: HEARTHOLD\n\nA grey pigeon nestles inside, eyes half-closed. Letters here run east to the village of bakers and Source-priests. Most weeks she carries one or two."
 
 [node name="Sign2" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, 0, 1.5)
+transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, -2.5, -2.659, 1.5)
 message = "COTE: BROOKHOLD\n\nA brown pigeon coos softly. The farmstead's letters tend to be longer than the others — there is more to say when there are fields to keep account of."
 
 [node name="Sign3" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 2.5, 0, -1.5)
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 2.5, -2.593, -1.5)
 message = "COTE: OLD HOLD\n\nThis cote is empty. The pigeon used to be silver-grey. The Postmaster keeps the cote ready anyway. 'In case someone writes,' he says."
 
 [node name="Sign4" parent="." instance=ExtResource("sign")]
-transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 2.5, 0, 1.5)
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 2.5, -2.526, 1.5)
 message = "COTE: LIRIEN'S CHAMBER\n\nThe pigeon here is paler than the others, almost white. She comes and goes at her own hours. The Postmaster has never had to feed her. He doesn't ask why."
 
 [node name="Npc5_Postmaster_Olbrin" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, 0, 0.5)
+transform = Transform3D(-1, 0, -1.22465e-16, 0, 1, 0, 1.22465e-16, 0, -1, 0.5, -2.884, 0.5)
 npc_name = "Postmaster Olbrin"
 body_color = Color(0.55, 0.5, 0.45, 1)
 hat_color = Color(0.4, 0.55, 0.42, 1)
@@ -4979,7 +4979,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.67, -0.44, 1.03)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.67, -0.442, 1.03)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5001,7 +5001,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82, -0.15, 2.12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82, -0.153, 2.12)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5023,7 +5023,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.93, 2.26, 21.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.93, 2.257, 21.25)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -5045,7 +5045,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone4" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.92, 2.51, 19.23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.92, 2.509, 19.23)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

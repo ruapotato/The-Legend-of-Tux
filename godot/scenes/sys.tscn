@@ -1,18 +1,18 @@
 [gd_scene load_steps=935 format=3 uid="uid://btuxsys01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
 [ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.1, 0.18, 0.3, 1)
@@ -8461,7 +8461,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.27, 2.253, 8.01)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.87, 2.253, 8.68)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(-0.972748, 0, 0.231863, 0, 1, 0, -0.231863, 0, -0.972748, -18.4246, 1.68, -28.5298)
+transform = Transform3D(-0.972748, 0, 0.231863, 0, 1, 0, -0.231863, 0, -0.972748, -18.4246, 1.681, -28.5298)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -8483,7 +8483,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(-0.962833, 0, -0.270096, 0, 1, 0, 0.270096, 0, -0.962833, 13.5285, 2.43, -42.4926)
+transform = Transform3D(-0.962833, 0, -0.270096, 0, 1, 0, 0.270096, 0, -0.962833, 13.5285, 2.432, -42.4926)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

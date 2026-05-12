@@ -1,24 +1,24 @@
 [gd_scene load_steps=923 format=3 uid="uid://btuxledger01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
-[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxinit01" path="res://scenes/enemy_init_shade.tscn" id="init_shade"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="PackedScene" uid="uid://btuxpkky01" path="res://scenes/pickup_key.tscn" id="key_pickup"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
 [ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
 [ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="PackedScene" uid="uid://btuxspr01" path="res://scenes/enemy_spore.tscn" id="spore"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
+[ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.2, 0.22, 0.28, 1)
@@ -8227,7 +8227,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, 6)
 
 [node name="Sign0" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, 0, 12)
+transform = Transform3D(-1, 0, -2.65359e-06, 0, 1, 0, 2.65359e-06, 0, -1, 0, -1.68, 12)
 message = "The Ledger.\n\nThe running record of the realm. Speak softly — the scribes are listening for inscriptions."
 
 [node name="Sign1" parent="." instance=ExtResource("sign")]
@@ -8235,7 +8235,7 @@ transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, -12, 0
 message = "A pinned snippet, recently inked:\n\n\"...the seventh wardstone in Sigilkeep dimmed at the third hour of the morning, and brightened at the fourth, with no walker seen near it.\""
 
 [node name="Sign2" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, 0, -8)
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, -1.073, -8)
 message = "A folded notice, weighted with a stone:\n\n\"NOTICE. An unusually large number of un-quieted appeared in the Murk last cycle. The Hidden Choir is consulted. Walkers are advised to keep to lit paths.\""
 
 [node name="Sign3" parent="." instance=ExtResource("sign")]
@@ -8243,7 +8243,7 @@ transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, -12, 0
 message = "A wood plaque polished by hands:\n\n\"In memory of the Senior Scribes — Vael the elder, Anth the long-handed, Tarn who kept the longest scroll, and Pell the first.\""
 
 [node name="Sign4" parent="." instance=ExtResource("sign")]
-transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, 0, 6)
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, 12, -1.807, 6)
 message = "A small inscription card:\n\n\"...and on the morning of the fourth thinning, the Source was held for the length of one breath, and three Readers fainted, and the realm continued.\""
 
 [node name="Sign5" parent="." instance=ExtResource("sign")]
@@ -8283,28 +8283,28 @@ contents_key_group = "ledger"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -0.124, -14)
 
 [node name="Bush13" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1.782, -14)
 
 [node name="Bush14" parent="." instance=ExtResource("bush")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 1.202, 14)
 
 [node name="Bush15" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1.84, 14)
 
 [node name="Bush16" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.27, 8)
 
 [node name="Rock17" parent="." instance=ExtResource("rock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.239, 6)
 
 [node name="Rock18" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1.122, 6)
 
 [node name="Rock19" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.039, -2)
 
 [node name="Npc20_Senior_Scribe_Vonn" parent="." instance=ExtResource("npc")]
-transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -3, 0.5, 2)
+transform = Transform3D(0.877583, 0, -0.479426, 0, 1, 0, 0.479426, 0, 0.877583, -3, -0.707, 2)
 npc_name = "Senior Scribe Vonn"
 body_color = Color(0.4, 0.38, 0.35, 1)
 hat_color = Color(0.22, 0.2, 0.18, 1)
@@ -8320,7 +8320,7 @@ idle_hint = "[E] Speak with the grey Reader"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"A grey Reader\", \"text\": \"Walker. You are scheduled. I have logged you. Pleased to meet you.\", \"choices\": [{\"label\": \"Scheduled?\", \"next\": \"scheduled\"}, {\"label\": \"Logged?\", \"next\": \"logged\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"scheduled\": {\"speaker\": \"A grey Reader\", \"text\": \"(She looks at you with a precise small smile. She does not answer the question. She tilts her head a little, as though listening to something.) The Wyrdmark walks. We attend.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"logged\": {\"speaker\": \"A grey Reader\", \"text\": \"An old habit of speech. Forgive it. Some of the older Readers had the habit too. They worked here a long time.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"A grey Reader\", \"text\": \"Walk well, walker. We have your line.\"}}}"
 
 [node name="Npc22_Scribe_Penn" parent="." instance=ExtResource("npc")]
-transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 4, 0.5, 4)
+transform = Transform3D(0.540302, 0, 0.841471, 0, 1, 0, -0.841471, 0, 0.540302, 4, -0.995, 4)
 npc_name = "Scribe Penn"
 body_color = Color(0.55, 0.5, 0.42, 1)
 hat_color = Color(0.3, 0.27, 0.22, 1)
@@ -8352,7 +8352,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.81, 0, -30.28)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.26, 0, 30.54)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.87774, 2.08, -29.4978)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.87774, 0.622, -29.4978)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -8374,7 +8374,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.12, 3.93, 24.12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.12, 3.934, 24.12)
 collision_layer = 64
 collision_mask = 2
 monitoring = true

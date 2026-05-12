@@ -1,23 +1,23 @@
 [gd_scene load_steps=6759 format=3 uid="uid://btuxcrown01"]
 
-[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
-[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
-[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
-[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
-[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="debug_script"]
-[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
-[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxpkht01" path="res://scenes/pickup_heart.tscn" id="heart_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
-[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
-[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
-[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
-[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="PackedScene" uid="uid://btuxnpc01" path="res://scenes/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" uid="uid://btuxglim01" path="res://scenes/glim.tscn" id="glim"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="pause_script"]
 [ext_resource type="PackedScene" uid="uid://btuxowl01" path="res://scenes/owl_statue.tscn" id="owl_statue"]
-[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
+[ext_resource type="PackedScene" uid="uid://btuxtree01" path="res://scenes/tree_prop.tscn" id="tree"]
+[ext_resource type="Script" path="res://scripts/load_zone.gd" id="load_zone_script"]
+[ext_resource type="PackedScene" uid="uid://btuxsgnp01" path="res://scenes/sign_post.tscn" id="sign"]
+[ext_resource type="PackedScene" uid="uid://btuxpl01" path="res://scenes/tux.tscn" id="tux"]
+[ext_resource type="Script" path="res://scripts/terrain_mesh.gd" id="terrain_mesh_script"]
 [ext_resource type="PackedScene" uid="uid://btuxhud01" path="res://scenes/hud.tscn" id="hud"]
+[ext_resource type="Script" path="res://scripts/dungeon_root.gd" id="root_script"]
+[ext_resource type="PackedScene" uid="uid://btuxbush01" path="res://scenes/bush.tscn" id="bush"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="camera_script"]
+[ext_resource type="PackedScene" uid="uid://btuxpkpb01" path="res://scenes/pickup_pebble.tscn" id="pebble_pickup"]
+[ext_resource type="PackedScene" uid="uid://btuxchst01" path="res://scenes/treasure_chest.tscn" id="chest"]
+[ext_resource type="PackedScene" uid="uid://btuxrock01" path="res://scenes/rock.tscn" id="rock"]
 
 [sub_resource type="ProceduralSkyMaterial" id="s1"]
 sky_top_color = Color(0.45, 0.55, 0.78, 1)
@@ -60731,7 +60731,7 @@ contents_scene = ExtResource("heart_pickup")
 open_message = "A Heart Container — the climb was long, but you arrived. The Crown has a quiet way of being generous."
 
 [node name="Npc8_Pilgrim_Hesp" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 6, 0, 0)
+transform = Transform3D(-3.67321e-06, 0, 1, 0, 1, 0, -1, 0, -3.67321e-06, 6, -2.132, 0)
 npc_name = "Pilgrim Hesp"
 body_color = Color(0.55, 0.5, 0.45, 1)
 hat_color = Color(0.35, 0.3, 0.25, 1)
@@ -60739,7 +60739,7 @@ idle_hint = "[E] Speak with Hesp"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Pilgrim Hesp\", \"text\": \"Look at you, little climber. The wind up here is thin and old. I come once a year. I have come for forty years. What would you ask of an old man with cold knees?\", \"choices\": [{\"label\": \"Why do you come?\", \"next\": \"why\"}, {\"label\": \"What do you hope to see?\", \"next\": \"hope\"}, {\"label\": \"What is the Throne?\", \"next\": \"throne\"}, {\"label\": \"Walk well.\", \"next\": \"bye\"}]}, \"why\": {\"speaker\": \"Pilgrim Hesp\", \"text\": \"Because the climb is the answer. Because if I stop climbing I will not start again. Because the wind here is the breath of Lirien with no leaves between us.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"hope\": {\"speaker\": \"Pilgrim Hesp\", \"text\": \"Some climbers say they have seen her. Lirien, I mean. A figure beside the Throne, or a wind that turns. I have seen nothing in forty climbs. I keep climbing.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"throne\": {\"speaker\": \"Pilgrim Hesp\", \"text\": \"The Throne is older than the asking. There is no record of who carved it. Nobody alive remembers what it was for. That doesn't seem to bother the Throne.\", \"choices\": [{\"label\": \"Back.\", \"next\": \"root\"}]}, \"bye\": {\"speaker\": \"Pilgrim Hesp\", \"text\": \"Walk well, climber. Breathe what you can.\"}}}"
 
 [node name="Npc9_Reader_on_pilgrimage" parent="." instance=ExtResource("npc")]
-transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -6, 0, 0)
+transform = Transform3D(-3.67321e-06, 0, -1, 0, 1, 0, 1, 0, -3.67321e-06, -6, -2.134, 0)
 npc_name = "Reader-on-pilgrimage"
 body_color = Color(0.5, 0.45, 0.55, 1)
 hat_color = Color(0.65, 0.55, 0.4, 1)
@@ -60755,43 +60755,43 @@ idle_hint = "[E] ..."
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"?\", \"text\": \"*Their voice does not reach you.*\"}}}"
 
 [node name="Bush11" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -1.853, 6)
 drop_chance = 0.2
 
 [node name="Bush12" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -1.733, -6)
 drop_chance = 0.2
 
 [node name="Bush13" parent="." instance=ExtResource("bush")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, -8)
 drop_chance = 0.2
 
 [node name="Rock14" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -2.42, 0)
 pebble_chance = 0.3
 
 [node name="Rock15" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -2.278, 0)
 pebble_chance = 0.3
 
 [node name="Rock16" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.308, 5)
 pebble_chance = 0.3
 
 [node name="Rock17" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.445, -5)
 pebble_chance = 0.3
 
 [node name="Rock18" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1.02, -3)
 pebble_chance = 0.25
 
 [node name="Rock19" parent="." instance=ExtResource("rock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.5, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -1.673, 3)
 pebble_chance = 0.25
 
 [node name="Npc20_Lirien" parent="." instance=ExtResource("npc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, -8)
 npc_name = "Lirien"
 body_color = Color(0.85, 0.88, 0.95, 1)
 hat_color = Color(0.6, 0.7, 0.85, 1)
@@ -60799,7 +60799,7 @@ idle_hint = "[E] Approach Lirien"
 dialog_tree_json = "{\"start\": \"root\", \"nodes\": {\"root\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien stands beside the Old Throne. Tall, hooded, looking past you to the cold horizon.* You climbed. Few do.\", \"choices\": [{\"label\": \"I came to ask about the Door.\", \"next\": \"door\"}, {\"label\": \"(Hum the songs you have learned.)\", \"next\": \"weave\", \"requires_song\": \"glim_theme\", \"requires_flag\": \"sun_chord_learned\"}, {\"label\": \"(Hum the Triglyph Chord.)\", \"next\": \"remembered\", \"requires_song\": \"triglyph_chord\"}, {\"label\": \"I'll go.\", \"next\": \"bye\"}]}, \"door\": {\"speaker\": \"Lirien\", \"text\": \"The Door at the end of the Forge. It is held by an older watch than any kingdom. To open it you need a chord no one alive can hum alone. *Lirien glances at you.* Bring me what you have learned, and I will teach you the rest.\", \"next\": \"root\"}, \"weave\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien listens. Closes her eyes.* You have Glim's Theme. You have the Sun. You have the Moon. *She nods.* Then I will give you the chord that ties them.\", \"next\": \"weave_check\"}, \"weave_check\": {\"speaker\": \"Lirien\", \"text\": \"*She hums it once, slowly. Up... down... up... left... right. The wind carries it.* Now hum it back. The Door will hear.\", \"learns_song\": \"triglyph_chord\", \"sets_flag\": \"lirien_blessing\", \"next\": \"bye\"}, \"remembered\": {\"speaker\": \"Lirien\", \"text\": \"*Lirien tilts her head a fraction.* The Triglyph holds. The Door is yours to wake.\", \"next\": \"bye\"}, \"bye\": {\"speaker\": \"Lirien\", \"text\": \"*The wind on the summit does not stop for anyone.*\"}}}"
 
 [node name="OwlStatue_owl_crown" parent="." instance=ExtResource("owl_statue")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.173, 11)
 warp_id = "owl_crown"
 warp_name = "Crown Owl"
 warp_target_scene = "crown"
@@ -60878,7 +60878,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 3.375, -17.57)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04, 3.305, -17.04)
 
 [node name="LoadZone0" type="Area3D" parent="."]
-transform = Transform3D(-0.487831, 0, 0.872938, 0, 1, 0, -0.872938, 0, -0.487831, -89.3767, -0.53, -79.9836)
+transform = Transform3D(-0.487831, 0, 0.872938, 0, 1, 0, -0.872938, 0, -0.487831, -89.3767, -0.365, -79.9836)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -60900,7 +60900,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone1" type="Area3D" parent="."]
-transform = Transform3D(0.0424835, 0, 0.999097, 0, 1, 0, -0.999097, 0, 0.0424835, -111.502, 2.39, -28.4395)
+transform = Transform3D(0.0424835, 0, 0.999097, 0, 1, 0, -0.999097, 0, 0.0424835, -111.502, 2.388, -28.4395)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -60922,7 +60922,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone2" type="Area3D" parent="."]
-transform = Transform3D(0.377686, 0, 0.925934, 0, 1, 0, -0.925934, 0, 0.377686, -84.3554, 1.3, 14.4055)
+transform = Transform3D(0.377686, 0, 0.925934, 0, 1, 0, -0.925934, 0, 0.377686, -84.3554, 1.487, 14.4055)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -60944,7 +60944,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone3" type="Area3D" parent="."]
-transform = Transform3D(0.491487, 0, 0.870885, 0, 1, 0, -0.870885, 0, 0.491487, -82.5184, 1.68, 49.4812)
+transform = Transform3D(0.491487, 0, 0.870885, 0, 1, 0, -0.870885, 0, 0.491487, -82.5184, 1.681, 49.4812)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -60966,7 +60966,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone4" type="Area3D" parent="."]
-transform = Transform3D(0.944147, 0, 0.329525, 0, 1, 0, -0.329525, 0, 0.944147, -39.4212, 1.37, 96.5307)
+transform = Transform3D(0.944147, 0, 0.329525, 0, 1, 0, -0.329525, 0, 0.944147, -39.4212, 1.373, 96.5307)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -60988,7 +60988,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone5" type="Area3D" parent="."]
-transform = Transform3D(0.603431, 0, -0.797415, 0, 1, 0, 0.797415, 0, 0.603431, 115.525, 5.15, 64.4692)
+transform = Transform3D(0.603431, 0, -0.797415, 0, 1, 0, 0.797415, 0, 0.603431, 115.525, 5.154, 64.4692)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61010,7 +61010,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone6" type="Area3D" parent="."]
-transform = Transform3D(0.862504, 0, -0.506051, 0, 1, 0, 0.506051, 0, 0.862504, 93.5145, 5.29, 102.221)
+transform = Transform3D(0.862504, 0, -0.506051, 0, 1, 0, 0.506051, 0, 0.862504, 93.5145, 5.493, 102.221)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61032,7 +61032,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone7" type="Area3D" parent="."]
-transform = Transform3D(0.869849, 0, -0.493318, 0, 1, 0, 0.493318, 0, 0.869849, 62.5986, 2.35, 108.453)
+transform = Transform3D(0.869849, 0, -0.493318, 0, 1, 0, 0.493318, 0, 0.869849, 62.5986, 2.351, 108.453)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61054,7 +61054,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone8" type="Area3D" parent="."]
-transform = Transform3D(0.999591, 0, -0.0285961, 0, 1, 0, 0.0285961, 0, 0.999591, 8.64991, 2.59, 81.0098)
+transform = Transform3D(0.999591, 0, -0.0285961, 0, 1, 0, 0.0285961, 0, 0.999591, 8.64991, 2.587, 81.0098)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61076,7 +61076,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone9" type="Area3D" parent="."]
-transform = Transform3D(-0.729098, 0, -0.684409, 0, 1, 0, 0.684409, 0, -0.729098, 128.475, 2.18, -116.519)
+transform = Transform3D(-0.729098, 0, -0.684409, 0, 1, 0, 0.684409, 0, -0.729098, 128.475, 2.179, -116.519)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61142,7 +61142,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone12" type="Area3D" parent="."]
-transform = Transform3D(0.335368, 0, -0.942087, 0, 1, 0, 0.942087, 0, 0.335368, 149.97, 5.43, 29.67)
+transform = Transform3D(0.335368, 0, -0.942087, 0, 1, 0, 0.942087, 0, 0.335368, 149.97, 5.429, 29.67)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61164,7 +61164,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone13" type="Area3D" parent="."]
-transform = Transform3D(-0.863518, 0, -0.504319, 0, 1, 0, 0.504319, 0, -0.863518, 99.5118, 2.96, -159.49)
+transform = Transform3D(-0.863518, 0, -0.504319, 0, 1, 0, 0.504319, 0, -0.863518, 99.5118, 2.962, -159.49)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61186,7 +61186,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone14" type="Area3D" parent="."]
-transform = Transform3D(-0.993691, 0, -0.112156, 0, 1, 0, 0.112156, 0, -0.993691, 32.5165, 0.17, -131.502)
+transform = Transform3D(-0.993691, 0, -0.112156, 0, 1, 0, 0.112156, 0, -0.993691, 32.5165, 0.167, -131.502)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61208,7 +61208,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone15" type="Area3D" parent="."]
-transform = Transform3D(-0.937961, 0, 0.346739, 0, 1, 0, -0.346739, 0, -0.937961, -18.5068, 1.67, -136.497)
+transform = Transform3D(-0.937961, 0, 0.346739, 0, 1, 0, -0.346739, 0, -0.937961, -18.5068, 1.673, -136.497)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
@@ -61230,7 +61230,7 @@ billboard = 1
 no_depth_test = true
 
 [node name="LoadZone16" type="Area3D" parent="."]
-transform = Transform3D(-0.658711, 0, 0.752396, 0, 1, 0, -0.752396, 0, -0.658711, -62.5343, 1.53, -106.469)
+transform = Transform3D(-0.658711, 0, 0.752396, 0, 1, 0, -0.752396, 0, -0.658711, -62.5343, 1.534, -106.469)
 collision_layer = 64
 collision_mask = 2
 monitoring = true
