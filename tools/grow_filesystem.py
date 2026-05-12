@@ -1727,7 +1727,13 @@ def grow_arms_for_level(level_id, data, level_seed_extra="",
     (lateral_spread band, tuber poles), and a forward-arc bias for
     child LZs relative to this level's trunk_dir."""
     lzs = data.get("load_zones", [])
-    auto_lzs = [lz for lz in lzs if lz.get("auto", True)]
+    # Auto-true LZs are boundary portals (walk off the edge); auto-false
+    # are trapdoors/door-prompts. Both need a physical arm-corridor
+    # reaching them — otherwise the LZ sits in empty void off the hub.
+    # Previously only auto:true counted, which left every home-XDG /
+    # cellar trapdoor LZ floating on disconnected arm-fragments after
+    # the orphan strip. Now we grow arms for ALL LZs.
+    auto_lzs = list(lzs)
     if len(auto_lzs) < 2:
         # Strip stale arm cells just in case (idempotency).
         _strip_arm_cells(data)
@@ -2862,13 +2868,20 @@ def main():
         cs = float(data.get("grid", {}).get("cell_size", 1.0))
         def cell_at(world_xz):
             return (int(world_xz[0] // cs), int(world_xz[2] // cs))
+        # 2-cell radius around each anchor so rounding doesn't lose an
+        # arm-tip whose LZ pos rounds to a cell outside the arm strand.
         anchor_cells = set()
+        def add_anchor(pos):
+            ci, cj = cell_at(pos)
+            for dx in range(-2, 3):
+                for dz in range(-2, 3):
+                    anchor_cells.add((ci + dx, cj + dz))
         for sp in data.get("spawns", []):
-            anchor_cells.add(cell_at(sp.get("pos", [0, 0, 0])))
+            add_anchor(sp.get("pos", [0, 0, 0]))
         for lz in data.get("load_zones", []):
-            anchor_cells.add(cell_at(lz.get("pos", [0, 0, 0])))
+            add_anchor(lz.get("pos", [0, 0, 0]))
         for p in data.get("props", []):
-            anchor_cells.add(cell_at(p.get("pos", [0, 0, 0])))
+            add_anchor(p.get("pos", [0, 0, 0]))
         dropped = 0
         new_cells_set = set(components[0])
         for comp in components[1:]:
