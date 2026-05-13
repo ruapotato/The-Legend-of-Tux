@@ -13,6 +13,7 @@ const MeatPickup := preload("res://scenes/pickup_meat.tscn")
 
 const GRAVITY: float = 24.0
 const FLEE_TIME: float = 3.0
+const AI_RADIUS_SQ: float = 60.0 * 60.0
 
 enum State { IDLE, WALK, FLEE }
 
@@ -21,6 +22,7 @@ var state: int = State.IDLE
 var state_time: float = 0.0
 var state_duration: float = 0.0
 var move_dir: Vector3 = Vector3.ZERO
+var _player_ref: Node3D = null
 
 
 func _ready() -> void:
@@ -30,6 +32,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    if _player_ref == null or not is_instance_valid(_player_ref):
+        var ps := get_tree().get_nodes_in_group("player")
+        if ps.is_empty():
+            return
+        _player_ref = ps[0] as Node3D
+    if global_position.distance_squared_to(_player_ref.global_position) > AI_RADIUS_SQ:
+        return
     state_time += delta
 
     match state:

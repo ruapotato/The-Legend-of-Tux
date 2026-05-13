@@ -171,6 +171,18 @@ func _ready() -> void:
 	# load_game emits sword_upgraded before this scene is built. Also
 	# (re)applies tier 0 cleanly on reset.
 	_apply_sword_tier(GameState.sword_tier)
+	# Gate starter equipment on the inventory. Fresh games begin
+	# unarmed (fists only); the sword/shield become visible the
+	# moment the player crafts sapling_blade / bark_round at a
+	# workbench. _on_item_acquired flips them on.
+	_apply_equipment_visibility()
+
+
+func _apply_equipment_visibility() -> void:
+	if sword:
+		sword.visible = bool(GameState.inventory.get("sapling_blade", false))
+	if shield:
+		shield.visible = bool(GameState.inventory.get("bark_round", false))
 
 
 func _physics_process(delta: float) -> void:
@@ -760,6 +772,10 @@ func _on_player_died() -> void:
 func _on_item_acquired(item_name: String) -> void:
 	if item_name == "glim_mirror":
 		_refresh_shield_skin()
+	# Crafting the starter sword/shield at a workbench reveals the
+	# corresponding mesh on the rig. Fresh games start unarmed.
+	if item_name == "sapling_blade" or item_name == "bark_round":
+		_apply_equipment_visibility()
 
 
 func _refresh_shield_skin() -> void:

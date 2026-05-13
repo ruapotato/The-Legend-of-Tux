@@ -78,8 +78,11 @@ const BIOME_RINGS: Array = [
 			{"scene": "res://scenes/rock.tscn",          "weight": 1.0},
 			{"scene": "res://scenes/raspberry_bush.tscn", "weight": 1.5},
 			{"scene": "res://scenes/mushroom.tscn",       "weight": 0.8},
-			{"scene": "res://scenes/deer.tscn",           "weight": 0.5},
-			{"scene": "res://scenes/sheep.tscn",          "weight": 0.3},
+			# Animals are rare. Combined with the in-script
+			# distance-throttle (60 m), total active animal count
+			# stays at ~5–15 across the whole streaming ring.
+			{"scene": "res://scenes/deer.tscn",           "weight": 0.10},
+			{"scene": "res://scenes/sheep.tscn",          "weight": 0.06},
 		],
 		# base × MOD_RANGE = peak density. Dense thickets approach
 		# ~70 trees/chunk, clearings drop to single digits.
@@ -93,7 +96,7 @@ const BIOME_RINGS: Array = [
 			{"scene": "res://scenes/rock.tscn",      "weight": 6.0},
 			{"scene": "res://scenes/tree_prop.tscn", "weight": 2.0},
 			{"scene": "res://scenes/mushroom.tscn",  "weight": 0.2},
-			{"scene": "res://scenes/pig.tscn",       "weight": 0.2},
+			{"scene": "res://scenes/pig.tscn",       "weight": 0.04},
 		],
 		"density": 0.0020,
 	},
@@ -106,7 +109,7 @@ const BIOME_RINGS: Array = [
 			{"scene": "res://scenes/rock.tscn",          "weight": 2.0},
 			{"scene": "res://scenes/tree_prop.tscn",     "weight": 1.0},
 			{"scene": "res://scenes/raspberry_bush.tscn", "weight": 1.0},
-			{"scene": "res://scenes/pig.tscn",            "weight": 0.4},
+			{"scene": "res://scenes/pig.tscn",            "weight": 0.08},
 		],
 		"density": 0.0030,
 	},
@@ -118,7 +121,7 @@ const BIOME_RINGS: Array = [
 			{"scene": "res://scenes/tree_prop.tscn", "weight": 7.0},
 			{"scene": "res://scenes/rock.tscn",      "weight": 2.0},
 			{"scene": "res://scenes/mushroom.tscn",  "weight": 1.5},
-			{"scene": "res://scenes/deer.tscn",      "weight": 0.3},
+			{"scene": "res://scenes/deer.tscn",      "weight": 0.06},
 		],
 		"density": 0.0060,
 	},

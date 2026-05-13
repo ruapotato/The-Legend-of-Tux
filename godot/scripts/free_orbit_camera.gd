@@ -98,8 +98,9 @@ func _unhandled_input(event: InputEvent) -> void:
             arm_length = clamp(arm_length + 0.4, arm_min, arm_max)
             if arm:
                 arm.spring_length = arm_length
-    elif event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-        Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+    # Esc is owned by game_pause_menu.gd now (it toggles a real menu
+    # AND re-captures the mouse on close). The old "release mouse on
+    # Esc" stub here left the player stuck without a way to dismiss.
 
 
 func _process(delta: float) -> void:
