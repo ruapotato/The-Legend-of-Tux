@@ -14,7 +14,7 @@ height = 0.15
 albedo_color = Color(0.94, 0.90, 0.78, 1)
 roughness = 0.8
 
-[sub_resource type="ConeMesh" id="cap_mesh"]
+[sub_resource type="CylinderMesh" id="cap_mesh"]
 top_radius = 0.0
 bottom_radius = 0.20
 height = 0.20

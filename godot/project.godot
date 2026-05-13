@@ -34,6 +34,7 @@ WorldGen="*res://scripts/world_gen.gd"
 WorldStreamer="*res://scripts/world_streamer.gd"
 Weather="*res://scripts/weather.gd"
 PlayerStatus="*res://scripts/player_status.gd"
+Recipes="*res://scripts/recipes.gd"
 
 [display]
 

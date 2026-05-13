@@ -10,7 +10,7 @@ top_radius = 0.025
 bottom_radius = 0.035
 height = 0.30
 
-[sub_resource type="ConeMesh" id="tine_mesh"]
+[sub_resource type="CylinderMesh" id="tine_mesh"]
 top_radius = 0.0
 bottom_radius = 0.035
 height = 0.18

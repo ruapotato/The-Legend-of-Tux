@@ -206,10 +206,17 @@ func _physics_process(delta: float) -> void:
 	# serious cost.
 	var is_blocking: bool = state.action == TuxState.ACT_BLOCK and state.action_time >= TuxState.BLOCK_RAISE_DURATION
 	if not is_blocking:
-		GameState.regen_stamina(30.0, delta)
+		# Cold halves stamina regen (PlayerStatus reads weather + time
+		# of day; 1.0 when comfy, 0.5 when chilled).
+		var regen_mul: float = PlayerStatus.stamina_regen_multiplier() if PlayerStatus else 1.0
+		GameState.regen_stamina(30.0 * regen_mul, delta)
 
 	_apply_passive_movement_mods(delta)
-	velocity = state.vel
+	# Cold + wet trim horizontal movement (Y preserved so gravity/jump
+	# aren't muted). PlayerStatus.speed_multiplier() returns 1.0 when
+	# unaffected.
+	var move_mul: float = PlayerStatus.speed_multiplier() if PlayerStatus else 1.0
+	velocity = Vector3(state.vel.x * move_mul, state.vel.y, state.vel.z * move_mul)
 	move_and_slide()
 	rotation.y = state.face_yaw
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/tux.tscn" id="r1"]
 [ext_resource type="Script" path="res://scripts/tux_player.gd" id="r2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/world_disc.gd" id="r6"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_marker.tscn" id="r7"]
 [ext_resource type="Script" path="res://scripts/world_fps_overlay.gd" id="r8"]
+[ext_resource type="Script" path="res://scripts/hud_status.gd" id="r9"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_top_color = Color(0.42, 0.60, 0.85, 1)
@@ -98,3 +99,6 @@ offset_right = -8
 offset_bottom = 28
 horizontal_alignment = 2
 script = ExtResource("r8")
+
+[node name="StatusRow" type="Control" parent="FpsOverlay"]
+script = ExtResource("r9")

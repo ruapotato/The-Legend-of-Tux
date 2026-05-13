@@ -73,9 +73,13 @@ const BIOME_RINGS: Array = [
 		"max_r": 4000.0,
 		"color": Color(0.40, 0.62, 0.28),
 		"foliage": [
-			{"scene": "res://scenes/tree_prop.tscn", "weight": 6.0},
-			{"scene": "res://scenes/bush.tscn",      "weight": 3.0},
-			{"scene": "res://scenes/rock.tscn",      "weight": 1.0},
+			{"scene": "res://scenes/tree_prop.tscn",     "weight": 6.0},
+			{"scene": "res://scenes/bush.tscn",          "weight": 3.0},
+			{"scene": "res://scenes/rock.tscn",          "weight": 1.0},
+			{"scene": "res://scenes/raspberry_bush.tscn", "weight": 1.5},
+			{"scene": "res://scenes/mushroom.tscn",       "weight": 0.8},
+			{"scene": "res://scenes/deer.tscn",           "weight": 0.5},
+			{"scene": "res://scenes/sheep.tscn",          "weight": 0.3},
 		],
 		# base × MOD_RANGE = peak density. Dense thickets approach
 		# ~70 trees/chunk, clearings drop to single digits.
@@ -88,6 +92,8 @@ const BIOME_RINGS: Array = [
 		"foliage": [
 			{"scene": "res://scenes/rock.tscn",      "weight": 6.0},
 			{"scene": "res://scenes/tree_prop.tscn", "weight": 2.0},
+			{"scene": "res://scenes/mushroom.tscn",  "weight": 0.2},
+			{"scene": "res://scenes/pig.tscn",       "weight": 0.2},
 		],
 		"density": 0.0020,
 	},
@@ -96,9 +102,11 @@ const BIOME_RINGS: Array = [
 		"max_r": 14000.0,
 		"color": Color(0.32, 0.50, 0.42),
 		"foliage": [
-			{"scene": "res://scenes/bush.tscn",      "weight": 5.0},
-			{"scene": "res://scenes/rock.tscn",      "weight": 2.0},
-			{"scene": "res://scenes/tree_prop.tscn", "weight": 1.0},
+			{"scene": "res://scenes/bush.tscn",          "weight": 5.0},
+			{"scene": "res://scenes/rock.tscn",          "weight": 2.0},
+			{"scene": "res://scenes/tree_prop.tscn",     "weight": 1.0},
+			{"scene": "res://scenes/raspberry_bush.tscn", "weight": 1.0},
+			{"scene": "res://scenes/pig.tscn",            "weight": 0.4},
 		],
 		"density": 0.0030,
 	},
@@ -109,6 +117,8 @@ const BIOME_RINGS: Array = [
 		"foliage": [
 			{"scene": "res://scenes/tree_prop.tscn", "weight": 7.0},
 			{"scene": "res://scenes/rock.tscn",      "weight": 2.0},
+			{"scene": "res://scenes/mushroom.tscn",  "weight": 1.5},
+			{"scene": "res://scenes/deer.tscn",      "weight": 0.3},
 		],
 		"density": 0.0060,
 	},

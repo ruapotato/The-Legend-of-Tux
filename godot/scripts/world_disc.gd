@@ -19,3 +19,19 @@ func _ready() -> void:
 	# Pre-warm the chunks around the spawn so collision exists by the
 	# time gravity kicks in this frame.
 	WorldStreamer.force_load_around(_tux.position)
+	# Drop a workbench just in front of Tux so the gather → craft loop
+	# is reachable from the start. (POI seeder will scatter more later.)
+	_spawn_starter_workbench()
+
+
+func _spawn_starter_workbench() -> void:
+	var wb_scene: PackedScene = load("res://scenes/workbench.tscn") as PackedScene
+	if wb_scene == null:
+		return
+	var wb: Node3D = wb_scene.instantiate() as Node3D
+	add_child(wb)
+	var wx: float = 4.0
+	var wz: float = -2.0
+	var wy: float = WorldGen.height_at(wx, wz)
+	wb.global_position = Vector3(wx, wy, wz)
+	wb.rotation.y = PI    # face the player at spawn
