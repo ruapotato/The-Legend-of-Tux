@@ -30,6 +30,13 @@ const GLOW_RING_RADIUS: float = 1.8     # ring drawn on the ground at the trigge
 @export var auto_trigger: bool = true
 @export var debug_visible: bool = false  # set true in editor to see the trigger box
 
+# Gating: transition refuses to fire unless GameState satisfies these.
+# Empty strings = no gate. `gate_message` is what we say to the player
+# when they bounce off — leave blank to silently refuse.
+@export var requires_flag: String = ""
+@export var requires_item: String = ""
+@export_multiline var gate_message: String = ""
+
 @onready var hint: Label3D = $Hint if has_node("Hint") else null
 
 var _firing: bool = false
@@ -127,6 +134,22 @@ func _on_enter(body: Node) -> void:
 func _fire(player: Node) -> void:
     if _firing or target_scene == "":
         return
+    # Gate check. requires_flag and requires_item accept either a
+    # single name or a comma-separated list — the door refuses entry
+    # if ANY required flag/item is missing. Stays un-fired so the
+    # player can come back later.
+    for f in requires_flag.split(",", false):
+        var nm := f.strip_edges()
+        if nm != "" and not GameState.has_flag(nm):
+            if gate_message != "":
+                Dialog.show_message(gate_message)
+            return
+    for it in requires_item.split(",", false):
+        var nm := it.strip_edges()
+        if nm != "" and not GameState.inventory.get(nm, false):
+            if gate_message != "":
+                Dialog.show_message(gate_message)
+            return
     _firing = true
     GameState.next_spawn_id = target_spawn
     # Mirror the destination spawn into current_spawn_id ahead of the

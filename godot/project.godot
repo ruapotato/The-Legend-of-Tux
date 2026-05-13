@@ -30,6 +30,8 @@ GameEndWatcher="*res://scripts/game_end_watcher.gd"
 PickupBanner="*res://scripts/pickup_banner.gd"
 TargetPractice="*res://scripts/target_practice.gd"
 EditorMode="*res://scripts/editor_mode.gd"
+WorldGen="*res://scripts/world_gen.gd"
+WorldStreamer="*res://scripts/world_streamer.gd"
 
 [display]
 
@@ -39,6 +41,11 @@ window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
+window/vsync/vsync_mode=0
+
+[physics]
+
+common/physics_interpolation=true
 
 [input]
 

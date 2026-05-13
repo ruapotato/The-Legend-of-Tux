@@ -128,7 +128,7 @@ func _process(delta: float) -> void:
         # position toward the head target by the same blend factor.
         if arm:
             arm.spring_length = lerp(arm_length, 0.0, _fp_blend)
-        var third_person_pos: Vector3 = target_node.global_position + look_offset
+        var third_person_pos: Vector3 = target_node.get_global_transform_interpolated().origin + look_offset
         var pos: Vector3 = third_person_pos.lerp(head_target, _fp_blend)
         # Settle quickly when actively in FP — the lerp above is from
         # third- to first-person; we still need a frame-smoothed follow
@@ -147,8 +147,8 @@ func _process(delta: float) -> void:
     # _pitch so when the lock releases the mouse picks up smoothly from
     # the camera's current orientation rather than snapping.
     if _lock_target != null and is_instance_valid(_lock_target):
-        var pp: Vector3 = target_node.global_position
-        var tp: Vector3 = _lock_target.global_position
+        var pp: Vector3 = target_node.get_global_transform_interpolated().origin
+        var tp: Vector3 = _lock_target.get_global_transform_interpolated().origin
         var to_t: Vector3 = tp - pp
         to_t.y = 0.0
         if to_t.length() > 0.001:
@@ -172,7 +172,12 @@ func _process(delta: float) -> void:
             _apply_shake(delta)
             return
 
-    var desired := target_node.global_position + look_offset
+    # Read the interpolated origin so the camera sees Tux smoothly
+    # between physics steps. Without this, at high FPS (200+) the
+    # camera renders at every frame but Tux's transform only updates
+    # at the 60 Hz physics tick — visible as a forward "jitter" /
+    # stagger on the player while sprinting.
+    var desired := target_node.get_global_transform_interpolated().origin + look_offset
     global_position = global_position.lerp(desired, clamp(delta * follow_smooth, 0.0, 1.0))
     rotation = Vector3(_pitch, _yaw, 0.0)
 

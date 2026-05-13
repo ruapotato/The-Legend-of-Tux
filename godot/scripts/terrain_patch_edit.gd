@@ -92,12 +92,20 @@ func _rebuild() -> void:
 	var mat := StandardMaterial3D.new()
 	mat.vertex_color_use_as_albedo = true
 	mat.roughness = 0.92
+	# Render from both sides — without this the patch is invisible from
+	# below, which makes "facing wrong direction" confusion easy.
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	_mesh_inst.material_override = mat
 	add_child(_mesh_inst)
 	_coll = CollisionShape3D.new()
 	_coll.name = "Shape"
 	var shape := ConcavePolygonShape3D.new()
 	shape.data = _build_collision_faces()
+	# Two-sided collision: raycasts and falling bodies hit the patch
+	# from above OR below. Without this the trimesh is one-sided and
+	# bodies plunge through the "wrong" face — and click-selection
+	# only registers from the side facing the face winding.
+	shape.backface_collision = true
 	_coll.shape = shape
 	add_child(_coll)
 	terrain_changed.emit()

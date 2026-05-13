@@ -26,6 +26,13 @@ extends Node3D
 @export var contents_amount: int = 0
 @export var contents_item_name: String = ""
 
+# Direct grants: when set, the chest adds the item to GameState.inventory
+# and / or sets the flag on open. Lets a chest hand out a sword or
+# shield without needing a bespoke pickup scene — the chest IS the
+# pickup. Either or both may be set independently of contents_scene.
+@export var grants_item: String = ""
+@export var grants_flag: String = ""
+
 # v2.5 permission-bit reframe (LORE §v2.4–v2.5, DESIGN §v2.2). When a
 # `requires_flag` chest is opened without the flag set, the failure
 # message tells the player exactly which permission bit they're
@@ -119,6 +126,13 @@ func _open() -> void:
         var pop := create_tween().set_parallel(true)
         pop.tween_property(item, "global_position:y", global_position.y + 1.0, 0.25)
         pop.chain().tween_property(item, "global_position:y", global_position.y + 0.4, 0.25)
+    # Direct grants — used for items that don't have a dedicated pickup
+    # scene yet (early-game sword + shield). The chest acts as both
+    # container and pickup.
+    if grants_item != "":
+        GameState.acquire_item(grants_item)
+    if grants_flag != "":
+        GameState.set_flag(grants_flag, true)
     if open_message != "":
         Dialog.show_message(open_message)
 

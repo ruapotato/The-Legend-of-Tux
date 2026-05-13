@@ -10,10 +10,10 @@ extends Control
 # Wyrdkin Glade with the slot bound for autosave.
 
 const NUM_SLOTS: int = 3
-const START_SCENE_ID: String = "level_00"
+const START_SCENE_ID: String = "world_disc"
 
 @export var sandbox_path: String = "res://scenes/combat_arena.tscn"
-@export var editor_path: String = "res://scenes/level_00.tscn"
+@export var editor_path: String = "res://scenes/world_disc.tscn"
 
 var _title: Label
 var _subtitle: Label
@@ -160,12 +160,11 @@ func _on_new(slot: int) -> void:
     if f != null:
         f.store_string(JSON.stringify(data, "  "))
         f.close()
-    # New-game only: route through the opening cutscene. The intro scene
-    # reads `show_intro`, plays its storyboard, then hops to the start
-    # scene. Loaded saves bypass this entirely (they go through
-    # _on_load → GameState.load_game → change_scene_to_file).
-    GameState.show_intro = true
-    get_tree().change_scene_to_file("res://scenes/intro.tscn")
+    # New game goes straight into the procedural world — the intro
+    # cutscene is retired for now (will revisit when there's a real
+    # narrative pass). Loaded saves already bypass this path.
+    GameState.show_intro = false
+    get_tree().change_scene_to_file("res://scenes/world_disc.tscn")
 
 
 func _on_load(slot: int) -> void:

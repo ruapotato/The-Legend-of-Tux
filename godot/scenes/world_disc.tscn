@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/tux.tscn" id="r1"]
+[ext_resource type="Script" path="res://scripts/tux_player.gd" id="r2"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="r3"]
+[ext_resource type="PackedScene" path="res://scenes/glim.tscn" id="r4"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="r5"]
+[ext_resource type="Script" path="res://scripts/world_disc.gd" id="r6"]
+[ext_resource type="PackedScene" path="res://scenes/spawn_marker.tscn" id="r7"]
+[ext_resource type="Script" path="res://scripts/world_fps_overlay.gd" id="r8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.42, 0.60, 0.85, 1)
+sky_horizon_color = Color(0.85, 0.85, 0.78, 1)
+ground_bottom_color = Color(0.10, 0.13, 0.17, 1)
+ground_horizon_color = Color(0.55, 0.62, 0.55, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_color = Color(0.85, 0.90, 0.95, 1)
+ambient_light_energy = 0.6
+fog_enabled = true
+fog_light_color = Color(0.75, 0.80, 0.85, 1)
+fog_density = 0.0015
+
+[sub_resource type="PlaneMesh" id="ocean_mesh"]
+size = Vector2(60000, 60000)
+
+[sub_resource type="StandardMaterial3D" id="ocean_mat"]
+albedo_color = Color(0.18, 0.40, 0.55, 0.85)
+metallic = 0.4
+roughness = 0.25
+transparency = 1
+
+[node name="WorldDisc" type="Node3D" groups=["level_root"]]
+script = ExtResource("r6")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, 0, -0.5, 0.25, 0.866, 0.433, 0.433, -0.5, 0.75, 0, 50, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="default" type="Node3D" parent="Spawns" instance=ExtResource("r7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+metadata/spawn_id = "default"
+
+[node name="Tux" type="CharacterBody3D" parent="." instance=ExtResource("r1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("r2")
+camera_path = NodePath("../Camera")
+
+[node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+script = ExtResource("r3")
+target_node = NodePath("../Tux")
+
+[node name="SpringArm" type="SpringArm3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+spring_length = 5.0
+
+[node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
+current = true
+
+[node name="Glim" type="Node3D" parent="." instance=ExtResource("r4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 51.7, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." instance=ExtResource("r5")]
+
+[node name="Ocean" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("ocean_mesh")
+material_override = SubResource("ocean_mat")
+
+[node name="Chunks" type="Node3D" parent="."]
+
+[node name="FpsOverlay" type="CanvasLayer" parent="."]
+layer = 80
+
+[node name="FpsLabel" type="Label" parent="FpsOverlay"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -460
+offset_top = 6
+offset_right = -8
+offset_bottom = 28
+horizontal_alignment = 2
+script = ExtResource("r8")

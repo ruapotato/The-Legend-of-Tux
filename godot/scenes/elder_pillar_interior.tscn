@@ -1,0 +1,233 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/tux.tscn" id="r1"]
+[ext_resource type="Script" path="res://scripts/tux_player.gd" id="r2"]
+[ext_resource type="Script" path="res://scripts/free_orbit_camera.gd" id="r3"]
+[ext_resource type="PackedScene" path="res://scenes/glim.tscn" id="r4"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="r5"]
+[ext_resource type="PackedScene" path="res://scenes/spawn_marker.tscn" id="r6"]
+[ext_resource type="PackedScene" path="res://scenes/terrain_point_mesh.tscn" id="r7"]
+[ext_resource type="PackedScene" path="res://scenes/torch.tscn" id="r8"]
+[ext_resource type="PackedScene" path="res://scenes/wall_segment.tscn" id="r9"]
+[ext_resource type="PackedScene" path="res://scenes/treasure_chest.tscn" id="r10"]
+[ext_resource type="PackedScene" path="res://scenes/heart_container.tscn" id="r11"]
+[ext_resource type="PackedScene" path="res://scenes/sign_post.tscn" id="r12"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_blob.tscn" id="r13"]
+[ext_resource type="PackedScene" path="res://scenes/load_zone.tscn" id="r14"]
+
+[node name="ElderPillarInterior" type="Node3D" groups=["level_root"]]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, 0, -0.5, 0.25, 0.866, 0.433, 0.433, -0.5, 0.75, 0, 30, 0)
+light_color = Color(0.65, 0.5, 0.35, 1)
+shadow_enabled = true
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="from_hollow" type="Node3D" parent="Spawns" instance=ExtResource("r6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 27)
+metadata/spawn_id = "from_hollow"
+
+[node name="default" type="Node3D" parent="Spawns" instance=ExtResource("r6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 27)
+metadata/spawn_id = "default"
+
+[node name="Tux" type="CharacterBody3D" parent="." instance=ExtResource("r1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("r2")
+camera_path = NodePath("../Camera")
+
+[node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("r3")
+target_node = NodePath("../Tux")
+
+[node name="SpringArm" type="SpringArm3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+spring_length = 5.0
+
+[node name="Camera" type="Camera3D" parent="Camera/SpringArm"]
+current = true
+
+[node name="Glim" type="Node3D" parent="." instance=ExtResource("r4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.7, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." instance=ExtResource("r5")]
+
+[node name="Placed" type="Node3D" parent="."]
+
+[node name="TerrainMesh" type="StaticBody3D" parent="Placed" instance=ExtResource("r7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_mask = 0
+terrain_color = Color(0.28, 0.18, 0.12, 1)
+
+[node name="Point1" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -30)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point2" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point3" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -30)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point4" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point5" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point6" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point7" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point8" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point9" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point10" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point11" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point12" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point13" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 30)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point14" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Point15" type="StaticBody3D" parent="Placed/TerrainMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 30)
+collision_layer = 64
+collision_mask = 0
+metadata/is_terrain_point = true
+
+[node name="Torch1" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 20)
+
+[node name="Torch2" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 20)
+
+[node name="Torch3" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+
+[node name="Torch4" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)
+
+[node name="Torch5" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -20)
+
+[node name="Torch6" parent="Placed" instance=ExtResource("r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -20)
+
+[node name="Wall1" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -11, 0, 29)
+
+[node name="Wall2" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 11, 0, 29)
+
+[node name="Wall3" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, -0, 0, -5.8, -16, 0, 0)
+
+[node name="Wall4" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, -0, 0, -5.8, 16, 0, 0)
+
+[node name="Wall5" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -2.2, 0, 0, -5, 0, 10)
+
+[node name="Wall6" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -2.2, 0, 0, 5, 0, -10)
+
+[node name="Wall7" parent="Placed" instance=ExtResource("r9")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -3.2, 0, 0, 0, 0, -29)
+
+[node name="Chest1" parent="Placed" instance=ExtResource("r10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26)
+grants_flag = "elder_pillar_cleared"
+open_message = "A heart container — the Elder Pillar's blessing. You feel hardier."
+contents_scene = ExtResource("r11")
+
+[node name="Sign1" parent="Placed" instance=ExtResource("r12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+message = "INSIDE THE ELDER PILLAR\n\nThe heartwood thrums.\nSomething nests deeper in. Bring it down."
+
+[node name="Sign2" parent="Placed" instance=ExtResource("r12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+message = "Combat: LEFT-CLICK swings the Sapling Blade. RIGHT-CLICK raises the Bark Round."
+
+[node name="Sign3" parent="Placed" instance=ExtResource("r12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+message = "Something larger waits ahead.\nKeep the shield up."
+
+[node name="enemy_blob_1" parent="Placed" instance=ExtResource("r13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 4)
+
+[node name="enemy_blob_2" parent="Placed" instance=ExtResource("r13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 4)
+
+[node name="enemy_blob_3" parent="Placed" instance=ExtResource("r13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -18)
+
+[node name="enemy_blob_4" parent="Placed" instance=ExtResource("r13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -18)
+
+[node name="enemy_blob_5" parent="Placed" instance=ExtResource("r13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -24)
+
+[node name="LoadZone1" parent="Placed" instance=ExtResource("r14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 31)
+target_scene = "res://scenes/wyrdwood_hollow.tscn"
+target_spawn = "from_elder_pillar"
+prompt = "Leave the Elder Pillar"
+

@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://btuxcot01"]
+
+[sub_resource type="BoxMesh" id="walls_mesh"]
+size = Vector3(5, 3, 4)
+
+[sub_resource type="BoxShape3D" id="walls_shape"]
+size = Vector3(5, 3, 4)
+
+[sub_resource type="StandardMaterial3D" id="walls_mat"]
+albedo_color = Color(0.55, 0.40, 0.25, 1)
+roughness = 0.85
+
+[sub_resource type="PrismMesh" id="roof_mesh"]
+size = Vector3(5.6, 1.5, 4.6)
+
+[sub_resource type="StandardMaterial3D" id="roof_mat"]
+albedo_color = Color(0.30, 0.18, 0.12, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="door_mesh"]
+size = Vector3(1.2, 2.0, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="door_mat"]
+albedo_color = Color(0.18, 0.10, 0.05, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="window_mesh"]
+size = Vector3(0.8, 0.8, 0.05)
+
+[node name="Cottage" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Walls" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("walls_mesh")
+material_override = SubResource("walls_mat")
+
+[node name="WallsShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("walls_shape")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
+mesh = SubResource("roof_mesh")
+material_override = SubResource("roof_mat")
+
+[node name="Door" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 2.03)
+mesh = SubResource("door_mesh")
+material_override = SubResource("door_mat")
+
+[node name="WindowL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 1.8, 2.03)
+mesh = SubResource("window_mesh")
+
+[node name="WindowR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 1.8, 2.03)
+mesh = SubResource("window_mesh")

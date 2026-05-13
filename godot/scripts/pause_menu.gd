@@ -113,8 +113,15 @@ func _input(event: InputEvent) -> void:
     # listen on raw KEY_Z (not via InputMap) to keep the action list in
     # project.godot uncluttered for now; the picker handles its own
     # pause/unpause and dismisses cleanly.
+    # Gate: ignore Z when a modifier is held (so Ctrl+Z undo / Shift+Z
+    # redo aren't eaten) and ignore it while the integrated editor is
+    # open (editor has its own keymap).
     if event is InputEventKey and event.pressed and not event.echo \
-            and (event as InputEventKey).keycode == KEY_Z:
+            and (event as InputEventKey).keycode == KEY_Z \
+            and not (event as InputEventKey).ctrl_pressed \
+            and not (event as InputEventKey).shift_pressed \
+            and not (event as InputEventKey).alt_pressed \
+            and not (EditorMode != null and EditorMode.is_edit):
         if not Dialog.is_active():
             get_viewport().set_input_as_handled()
             _open_song_input()

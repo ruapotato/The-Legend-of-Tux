@@ -1,0 +1,265 @@
+{
+  "_comment": "Canonical world graph for The Legend of Tux. Run tools/build_zones.py to regenerate stub .tscn files. The slice is fully populated; later zones are stubs.",
+
+  "version": 2,
+  "start_zone": "wyrdwood_hollow",
+
+  "items": {
+    "sapling_blade": {"display": "Sapling Blade", "kind": "weapon",
+        "description": "A practice sword carved from a young sapling."},
+    "bark_round":    {"display": "Bark Round",    "kind": "shield",
+        "description": "A round shield woven from inner bark."}
+  },
+
+  "zones": {
+
+    "wyrdwood_hollow": {
+      "display": "Wyrdwood Hollow",
+      "scene": "res://scenes/wyrdwood_hollow.tscn",
+      "kind": "overworld",
+      "biome": "forest",
+      "ambient_light": [0.50, 0.55, 0.45],
+      "sun_color": [1.00, 0.95, 0.85],
+
+      "_layout": "60×60m clearing. North is -Z. The playable bowl is bounded by a tall perimeter ridge (no walking off the world). A dirt path runs spawn→dungeon along the central N-S axis. Three cottages ring the clearing. A pond sits in the SW corner.",
+
+      "terrains": [
+        {
+          "_role": "outer ridge — sloped wall around the playable bowl. Shaded so the elevation actually reads as hills.",
+          "color": [0.30, 0.42, 0.22],
+          "shaded": true,
+          "points": [
+            [-40, 10,-40],[-20, 10,-44],[  0, 12,-46],[ 20, 10,-44],[ 40, 10,-40],
+            [-44, 10,-20],                                                  [ 44, 10,-20],
+            [-46, 10,  0],                                                  [ 46, 12,  0],
+            [-44, 10, 20],                                                  [ 44, 10, 20],
+            [-40, 10, 40],[-20, 10, 44],[  0, 12, 46],[ 20, 10, 44],[ 40, 10, 40],
+            [-32,  6,-32],[  0,  7,-34],[ 32,  6,-32],
+            [-34,  6,  0],                            [ 34,  6,  0],
+            [-32,  6, 32],[  0,  7, 34],[ 32,  6, 32],
+            [-22,  2,-22],[  0,  3,-24],[ 22,  2,-22],
+            [-24,  2,  0],                            [ 24,  2,  0],
+            [-22,  2, 22],[  0,  3, 24],[ 22,  2, 22]
+          ]
+        },
+        {
+          "_role": "inner floor — the actual clearing, flat at Y≈0, deliberately small so the player feels enclosed.",
+          "color": [0.42, 0.58, 0.32],
+          "shaded": false,
+          "points": [
+            [-18, 0,-18],[  0, 0,-20],[ 18, 0,-18],
+            [-20, 0,  0],[  0, 0,  0],[ 20, 0,  0],
+            [-18, 0, 18],[  0, 0, 20],[ 18, 0, 18],
+            [-10, 0,-10],[ 10, 0,-10],[-10, 0, 10],[ 10, 0, 10]
+          ]
+        },
+        {
+          "_role": "dirt path running spawn→dungeon along the central axis. Slightly raised so it z-fights cleanly.",
+          "color": [0.40, 0.28, 0.16],
+          "shaded": false,
+          "points": [
+            [-2, 0.05, 18],[ 2, 0.05, 18],
+            [-2, 0.05,  6],[ 2, 0.05,  6],
+            [-2, 0.05, -6],[ 2, 0.05, -6],
+            [-2, 0.05,-18],[ 2, 0.05,-18]
+          ]
+        }
+      ],
+
+      "spawns": [
+        {"id": "default",           "pos": [0, 1.0, 17]},
+        {"id": "from_elder_pillar", "pos": [0, 1.0,-18]}
+      ],
+
+      "_tree_ring": "Dense tree perimeter inside the ridge — visual + collision wall.",
+      "trees": [
+        [-25, 0,-25],[-12, 0,-28],[  0, 0,-29],[ 12, 0,-28],[ 25, 0,-25],
+        [-28, 0,-12],[ 28, 0,-12],
+        [-29, 0,  0],[ 29, 0,  0],
+        [-28, 0, 12],[ 28, 0, 12],
+        [-25, 0, 25],[-12, 0, 28],[ 12, 0, 28],[ 25, 0, 25],
+        [-19, 0,  4],[ 19, 0,  4],[-19, 0,-4],[ 19, 0,-4],
+        [  8, 0, 22],[ -8, 0, 22]
+      ],
+      "bushes": [
+        [-14, 0,  6],[ 14, 0,  6],[-14, 0, -6],[ 14, 0, -6],
+        [-8, 0, 16],[ 8, 0, 16],[-8, 0,-16],[ 8, 0,-16],
+        [-22, 0, 8],[ 22, 0, 8]
+      ],
+      "rocks": [
+        [-16, 0, 12],[ 16, 0,-12],[-6, 0,-14]
+      ],
+
+      "_cottage_block": "Three cottages around the clearing. NW and NE flank the path north toward the dungeon; SW sits beside the pond. The rot_y in degrees rotates the cottage so the door faces the clearing.",
+      "cottages": [
+        {"pos": [-14, 0,-10], "rot_y": 90,  "_role": "NW — Brann's cottage"},
+        {"pos": [ 14, 0,-10], "rot_y":-90,  "_role": "NE — Maelin's cottage"},
+        {"pos": [-14, 0, 12], "rot_y": 90,  "_role": "SW — Old Hennra, by the pond"}
+      ],
+
+      "_water": "A small pond in the SW corner. The water_volume scene wraps a translucent blue surface with a damage trigger off by default.",
+      "water_volumes": [
+        {"pos": [-15, 0.2, 14], "size": [6, 0.5, 5]}
+      ],
+
+      "chests": [
+        {"pos": [ 8, 0, 0], "rot_y": 180,
+         "grants_item": "sapling_blade", "grants_flag": "have_sapling_blade",
+         "open_message": "A practice sword. Brann said you'd know it when you saw it."},
+        {"pos": [-8, 0, 0], "rot_y": 0,
+         "grants_item": "bark_round", "grants_flag": "have_bark_round",
+         "open_message": "A round shield of woven bark — light, but it'll hold."}
+      ],
+
+      "_tutorial_signs": "Cluster at spawn so the player reads them on arrival. Each one is one mechanic. Faced toward the player (rot_y=180 since spawn is to the south looking north, signs at the south edge face south back at the player).",
+      "signs": [
+        {"pos": [-5, 0, 15], "rot_y": 180,
+         "message": "MOVE\n\nWASD to walk.\nMouse to look around.\nSPACE to jump."},
+        {"pos": [-1.5, 0, 15], "rot_y": 180,
+         "message": "INTERACT\n\nE — talk to people, open chests, read signs.\nLook at a thing first and the prompt will show."},
+        {"pos": [ 1.5, 0, 15], "rot_y": 180,
+         "message": "FIGHT\n\nOnce you have the Sapling Blade:\nLEFT-CLICK to swing.\nRIGHT-CLICK to raise the shield (after you find one)."},
+        {"pos": [ 5, 0, 15], "rot_y": 180,
+         "message": "EDIT\n\nTAB to enter the in-game editor at any time.\nClick things, drag points, tweak. TAB again to return."},
+        {"pos": [0, 0, -14], "rot_y": 0,
+         "message": "ELDER PILLAR\n\nThe pillar's heartwood will not open\nuntil you carry both blade and shield."}
+      ],
+
+      "_npcs": "Five villagers. Each has 1 line of dialog directed at the player. Body/hat colors set the silhouette so the user can recognize them at a glance.",
+      "npcs": [
+        {"pos": [0, 0, 10], "rot_y": 180,
+         "name": "Brann the Elder",
+         "body_color": [0.55, 0.40, 0.25], "hat_color": [0.25, 0.45, 0.20],
+         "idle_hint": "[E] Speak to Brann",
+         "dialog_text": "'Two chests in the clearing — blade and shield. Open both, then north. The pillar won't have you unarmed.'"},
+        {"pos": [-12, 0,-7], "rot_y": 90,
+         "name": "Vesta the Whittler",
+         "body_color": [0.65, 0.50, 0.35], "hat_color": [0.40, 0.25, 0.15],
+         "idle_hint": "[E] Speak to Vesta",
+         "dialog_text": "'I carved that little blade myself. It'll bend before it breaks. So would I, mind.'"},
+        {"pos": [ 12, 0,-7], "rot_y": -90,
+         "name": "Maelin the Tinker",
+         "body_color": [0.45, 0.30, 0.45], "hat_color": [0.70, 0.55, 0.30],
+         "idle_hint": "[E] Speak to Maelin",
+         "dialog_text": "'The bark round is light because hands tire. Heavier is not always better. Tell Brann I said so.'"},
+        {"pos": [-13, 0, 16], "rot_y": 60,
+         "name": "Old Hennra",
+         "body_color": [0.30, 0.30, 0.45], "hat_color": [0.50, 0.50, 0.55],
+         "idle_hint": "[E] Speak to Hennra",
+         "dialog_text": "'The pond's mine. I sit by it. There are pebbles in it. You may take a few. The water won't notice.'"},
+        {"pos": [0, 0, 4], "rot_y": 0,
+         "name": "Wisp-Tender",
+         "body_color": [0.85, 0.75, 0.55], "hat_color": [0.95, 0.85, 0.45],
+         "idle_hint": "[E] Speak to the Wisp-Tender",
+         "dialog_text": "'Glim follows you because she likes the look of you. Don't disappoint her.'"}
+      ],
+
+      "_pebbles": "Scattered along the path and around the pond so the player picks them up walking the route.",
+      "pebbles": [
+        [-3, 0.6, 14],[ 3, 0.6, 14],
+        [ 0, 0.6,  10],[-1, 0.6,  6],[ 1, 0.6,  2],
+        [-1, 0.6, -2],[ 1, 0.6, -6],[ 0, 0.6,-10],
+        [-13, 0.6, 14],[-17, 0.6, 12],[-15, 0.6, 16]
+      ],
+
+      "load_zones": [
+        {"pos": [0, 0.5,-22], "size": [10, 3, 4],
+         "to_zone": "elder_pillar_interior", "to_spawn": "from_hollow",
+         "prompt": "Enter the Elder Pillar",
+         "requires_flag": "have_sapling_blade,have_bark_round",
+         "gate_message": "The Elder Pillar's heartwood refuses you. You feel that without both blade and shield, it will not open."}
+      ]
+    },
+
+
+    "elder_pillar_interior": {
+      "display": "Inside the Elder Pillar",
+      "scene": "res://scenes/elder_pillar_interior.tscn",
+      "kind": "dungeon",
+      "biome": "interior_wood",
+      "ambient_light": [0.15, 0.13, 0.10],
+      "sun_color": [0.65, 0.50, 0.35],
+
+      "_layout": "Three connected chambers running south (entry) to north (boss). Wall_segments make the divisions. Torches mark room corners.",
+
+      "terrains": [
+        {
+          "_role": "Dark wooden floor for the whole interior.",
+          "color": [0.28, 0.18, 0.12],
+          "shaded": false,
+          "points": [
+            [-14, 0,-30],[ 0, 0,-32],[ 14, 0,-30],
+            [-16, 0,-15],[ 0, 0,-15],[ 16, 0,-15],
+            [-16, 0,  0],[ 0, 0,  0],[ 16, 0,  0],
+            [-16, 0, 15],[ 0, 0, 15],[ 16, 0, 15],
+            [-14, 0, 30],[ 0, 0, 32],[ 14, 0, 30]
+          ]
+        }
+      ],
+
+      "spawns": [
+        {"id": "from_hollow", "pos": [0, 1.0, 27]},
+        {"id": "default",     "pos": [0, 1.0, 27]}
+      ],
+
+      "_walls": "Two staggered dividers create a slalom: south room (entry), middle room, north room (boss). Each gap is offset so the player has to move across the chamber to find it. Outer perimeter walls close the chamber so the player can't walk out the side.",
+      "walls": [
+        {"a": [-16,  29], "b": [ -6,  29]}, {"a": [  6,  29], "b": [ 16,  29],
+         "_role": "south wall around the entry, gap centered on the door"},
+        {"a": [-16,  29], "b": [-16, -29]}, {"a": [ 16,  29], "b": [ 16, -29],
+         "_role": "east + west outer walls"},
+        {"a": [-16,  10], "b": [  6,  10],
+         "_role": "first divider — gap on east"},
+        {"a": [ -6, -10], "b": [ 16, -10],
+         "_role": "second divider — gap on west, forces slalom"},
+        {"a": [-16, -29], "b": [ 16, -29],
+         "_role": "back wall"}
+      ],
+
+      "torches": [
+        [-13, 0, 20],[ 13, 0, 20],
+        [-13, 0,  0],[ 13, 0,  0],
+        [-13, 0,-20],[ 13, 0,-20]
+      ],
+
+      "signs": [
+        {"pos": [0, 0, 25], "rot_y": 0,
+         "message": "INSIDE THE ELDER PILLAR\n\nThe heartwood thrums.\nSomething nests deeper in. Bring it down."},
+        {"pos": [0, 0, 12], "rot_y": 0,
+         "message": "Combat: LEFT-CLICK swings the Sapling Blade. RIGHT-CLICK raises the Bark Round."},
+        {"pos": [0, 0,-12], "rot_y": 0,
+         "message": "Something larger waits ahead.\nKeep the shield up."}
+      ],
+
+      "enemies": [
+        {"type": "enemy_blob.tscn", "pos": [-6, 1,  4]},
+        {"type": "enemy_blob.tscn", "pos": [ 6, 1,  4]},
+        {"type": "enemy_blob.tscn", "pos": [-8, 1,-18]},
+        {"type": "enemy_blob.tscn", "pos": [ 8, 1,-18]},
+        {"type": "enemy_blob.tscn", "pos": [ 0, 1,-24], "_role": "boss slot"}
+      ],
+
+      "chests": [
+        {"pos": [0, 0,-26], "rot_y": 0,
+         "contents_scene": "res://scenes/heart_container.tscn",
+         "grants_flag": "elder_pillar_cleared",
+         "open_message": "A heart container — the Elder Pillar's blessing. You feel hardier."}
+      ],
+
+      "load_zones": [
+        {"pos": [0, 0.5, 31], "size": [10, 3, 4],
+         "to_zone": "wyrdwood_hollow", "to_spawn": "from_elder_pillar",
+         "prompt": "Leave the Elder Pillar"}
+      ]
+    },
+
+
+    "_future_zones": {
+      "_comment": "Stubs for later passes — not generated yet.",
+      "cairnreach_outpost":  {"display": "Cairnreach Outpost",  "biome": "rock_mountain", "kind": "overworld"},
+      "selkari_shoals":      {"display": "Selkari Shoals",      "biome": "water_coast",   "kind": "overworld"},
+      "duneborn_canyon":     {"display": "Duneborn Canyon",     "biome": "desert",        "kind": "overworld"},
+      "hollowed_warren":     {"display": "Hollowed Warren",     "biome": "subterranean",  "kind": "dungeon"}
+    }
+  }
+}

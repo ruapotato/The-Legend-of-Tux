@@ -101,11 +101,15 @@ func _unhandled_input(event: InputEvent) -> void:
 					_end_fly()
 				get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_MIDDLE:
+				# MMB: teleport to the clicked spot. Alt+MMB: orbit
+				# (legacy). Shift+MMB: pan-drag (legacy, hold to drag).
 				if mb.pressed:
 					if Input.is_key_pressed(KEY_ALT):
 						_begin_orbit()
-					else:
+					elif Input.is_key_pressed(KEY_SHIFT):
 						_begin_pan()
+					else:
+						_teleport_to_mouse(mb.position)
 				else:
 					_panning = false
 					_orbiting = false
@@ -224,6 +228,34 @@ func _process(delta: float) -> void:
 # the camera origin along its -Z (the screen-center direction), 200m
 # range. This is the entire raycast model for editor placement: the
 # crosshair at viewport center IS the targeting reticle.
+# MMB-click teleport: raycast from the cursor through the camera, then
+# move ourselves so the hit point sits ~5m in front of us along our
+# current viewing direction. If nothing is hit, jumps forward 30 m.
+# Keeps orientation unchanged so the user doesn't lose their bearings.
+func _teleport_to_mouse(mouse_pos: Vector2) -> void:
+	var world := get_world_3d()
+	if world == null:
+		return
+	var space := world.direct_space_state
+	if space == null:
+		return
+	var origin: Vector3 = project_ray_origin(mouse_pos)
+	var dir: Vector3 = project_ray_normal(mouse_pos)
+	var to: Vector3 = origin + dir * 500.0
+	var params := PhysicsRayQueryParameters3D.create(origin, to)
+	params.collide_with_areas = true
+	params.collide_with_bodies = true
+	var hit := space.intersect_ray(params)
+	var target_world: Vector3
+	if hit.is_empty():
+		target_world = origin + dir * 30.0
+	else:
+		target_world = hit["position"]
+	# Sit 5m back along our view direction so the target is in front.
+	var view_dir: Vector3 = -global_transform.basis.z
+	global_position = target_world - view_dir * 5.0
+
+
 func center_raycast(max_dist: float = 200.0) -> Dictionary:
 	var out := {"hit": false, "position": Vector3.ZERO, "normal": Vector3.UP, "collider": null}
 	var world := get_world_3d()

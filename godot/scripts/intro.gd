@@ -24,8 +24,8 @@ extends CanvasLayer
 # without setting the flag — a Loaded save shouldn't), we hop straight
 # to the destination so we never strand the player on a black screen.
 
-const DEST_SCENE: String = "res://scenes/level_00.tscn"
-const DEST_TRACK: String = "level_00"
+const DEST_SCENE: String = "res://scenes/world_disc.tscn"
+const DEST_TRACK: String = "world_disc"
 
 const NARRATION: Array[String] = [
     "The Source moved through the realm,",

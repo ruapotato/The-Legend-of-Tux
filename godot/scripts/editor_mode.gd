@@ -53,17 +53,13 @@ func _ready() -> void:
 	call_deferred("_on_scene_ready")
 
 
-func _input(event: InputEvent) -> void:
-	if not (event is InputEventKey):
-		return
-	var ke := event as InputEventKey
-	if not ke.pressed or ke.echo:
-		return
-	if ke.keycode == KEY_TAB:
-		if not _scene_supports_editor:
-			return
-		toggle()
-		get_viewport().set_input_as_handled()
+func _input(_event: InputEvent) -> void:
+	# Tab → edit mode is retired now that the procedural world is the
+	# main game. The in-game editor still exists and `toggle()` works
+	# if a future feature wants to call it, but the keyboard shortcut
+	# is gone so Tab doesn't accidentally drop the player into the
+	# editor mid-run.
+	pass
 
 
 func toggle() -> void:
@@ -190,6 +186,12 @@ func _apply_mode() -> void:
 			(p as Node).process_mode = (
 				Node.PROCESS_MODE_DISABLED if is_edit else Node.PROCESS_MODE_INHERIT
 			)
+		# On every play-mode entry, snap the player to the named spawn so
+		# we don't carry over runtime physics state (a falling Tux from a
+		# previous play that got auto-saved at y=-180 is the kind of bug
+		# this prevents).
+		if not is_edit and p is Node3D:
+			_snap_to_spawn(p as Node3D)
 
 	# Enemies + bosses.
 	for grp in ["enemy", "boss"]:
@@ -224,6 +226,17 @@ func _apply_mode() -> void:
 	# Spawn-marker visibility — hidden in play, visible in edit.
 	_toggle_spawn_marker_visibility()
 
+	# Terrain control-point visuals — only meaningful in edit mode.
+	for n in get_tree().get_nodes_in_group("terrain_point_vis"):
+		if n is Node3D:
+			(n as Node3D).visible = is_edit
+	# Also disable the point bodies' collision so the player doesn't
+	# bonk into invisible spheres in play. Layer 64 in edit (Interactable),
+	# 0 in play.
+	for n in get_tree().get_nodes_in_group("terrain_point"):
+		if n is CollisionObject3D:
+			(n as CollisionObject3D).collision_layer = 64 if is_edit else 0
+
 	# Editor-only visual aids on load_zones.
 	_toggle_load_zone_visuals()
 
@@ -243,6 +256,16 @@ func _apply_mode() -> void:
 		_editor_camera.set_process_input(is_edit)
 		_editor_camera.set_process_unhandled_input(is_edit)
 		_editor_camera.visible = is_edit
+
+	# Mouse cursor: free in edit (so the user can click palette/inspector),
+	# captured in play (so the orbit camera's mouse-look works).
+	# Skipped while the editor camera is in RMB-fly — it owns the cursor.
+	if not (_editor_camera and is_instance_valid(_editor_camera)
+			and _editor_camera.has_method("is_flying")
+			and _editor_camera.is_flying()):
+		Input.mouse_mode = (
+			Input.MOUSE_MODE_VISIBLE if is_edit else Input.MOUSE_MODE_CAPTURED
+		)
 
 
 func _toggle_load_zones_by_script(root: Node, enabled: bool) -> void:
@@ -383,6 +406,12 @@ func _save_current_level() -> bool:
 	var sc := get_tree().current_scene
 	if sc == null or sc.scene_file_path == "":
 		return false
+	# Snap the player back to the spawn marker so we never persist a
+	# falling/runtime Tux position into the .tscn. Without this every
+	# Tab→Play save bakes the live transform, and a single missed
+	# collision in play mode marches Tux deeper underground forever.
+	var saved_player_xform: Dictionary = _snapshot_player_transforms()
+	_snap_players_for_save()
 	# Strip the editor-only nodes before packing so saved .tscns boot
 	# straight into play mode without the editor cruft.
 	var stripped: Array = _strip_editor_nodes_for_save(sc)
@@ -399,6 +428,8 @@ func _save_current_level() -> bool:
 		push_warning("EditorMode: pack failed (%s)" % err)
 		return false
 	err = ResourceSaver.save(packed, sc.scene_file_path)
+	# Restore any runtime player transforms that we temporarily snapped.
+	_restore_player_transforms(saved_player_xform)
 	if err != OK:
 		push_warning("EditorMode: save failed (%s)" % err)
 		return false
@@ -414,12 +445,15 @@ func save_level_as(new_path: String) -> bool:
 	var sc := get_tree().current_scene
 	if sc == null:
 		return false
+	var saved_player_xform: Dictionary = _snapshot_player_transforms()
+	_snap_players_for_save()
 	var stripped: Array = _strip_editor_nodes_for_save(sc)
 	_reparent_owners_to_scene(sc)
 	var packed := PackedScene.new()
 	var err := packed.pack(sc)
 	for entry in stripped:
 		entry["parent"].add_child(entry["node"])
+	_restore_player_transforms(saved_player_xform)
 	if err != OK:
 		return false
 	err = ResourceSaver.save(packed, new_path)
@@ -445,7 +479,84 @@ func _strip_editor_nodes_for_save(sc: Node) -> Array:
 			and _ephemeral_spawn.is_inside_tree():
 		out.append({"parent": _ephemeral_spawn.get_parent(), "node": _ephemeral_spawn})
 		_ephemeral_spawn.get_parent().remove_child(_ephemeral_spawn)
+	# Strip any node tagged editor_only (outline ghost, wall anchor marker,
+	# placement preview). Walk a snapshot so we don't mutate while iterating.
+	for n in _walk(sc):
+		if n == sc:
+			continue
+		if n.has_meta("editor_only"):
+			var parent: Node = n.get_parent()
+			if parent:
+				out.append({"parent": parent, "node": n})
+				parent.remove_child(n)
 	return out
+
+
+func _snap_to_spawn(p: Node3D) -> void:
+	# Move the player to the spawn matching GameState.next_spawn_id, or
+	# Spawns/default if not set, so play mode never starts mid-fall.
+	var sc := get_tree().current_scene
+	if sc == null:
+		return
+	var spawn: Node3D = _find_spawn(sc)
+	if spawn == null:
+		return
+	p.global_transform = spawn.global_transform
+	if "velocity" in p:
+		p.set("velocity", Vector3.ZERO)
+
+
+func _find_spawn(sc: Node) -> Node3D:
+	# Prefer the spawn id requested by GameState (set by load zones); fall
+	# back to "default" or the first spawn marker we find.
+	var wanted: String = ""
+	if Engine.has_singleton("GameState"):
+		wanted = String(GameState.next_spawn_id)
+	if wanted == "" and "default" != "":
+		wanted = "default"
+	var by_id: Node3D = null
+	var first: Node3D = null
+	for n in get_tree().get_nodes_in_group("spawn_marker"):
+		if not (n is Node3D):
+			continue
+		if first == null:
+			first = n
+		var id: String = String(n.get_meta("spawn_id", n.name))
+		if id == wanted:
+			by_id = n
+			break
+	return by_id if by_id != null else first
+
+
+func _snapshot_player_transforms() -> Dictionary:
+	var out: Dictionary = {}
+	for p in get_tree().get_nodes_in_group("player"):
+		if p is Node3D:
+			var entry: Dictionary = {"xform": (p as Node3D).global_transform}
+			if "velocity" in p:
+				entry["velocity"] = p.get("velocity")
+			out[p.get_path()] = entry
+	return out
+
+
+func _snap_players_for_save() -> void:
+	for p in get_tree().get_nodes_in_group("player"):
+		if p is Node3D:
+			_snap_to_spawn(p as Node3D)
+
+
+func _restore_player_transforms(snapshot: Dictionary) -> void:
+	# Put live runtime state back so the editor session continues from
+	# wherever the player was. The pack() saw the snapped pose, but the
+	# user keeps editing the live scene.
+	for path in snapshot.keys():
+		var n := get_node_or_null(path)
+		if n == null or not (n is Node3D):
+			continue
+		var entry: Dictionary = snapshot[path]
+		(n as Node3D).global_transform = entry["xform"]
+		if entry.has("velocity") and "velocity" in n:
+			n.set("velocity", entry["velocity"])
 
 
 func _reparent_owners_to_scene(sc: Node) -> void:

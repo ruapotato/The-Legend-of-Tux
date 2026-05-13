@@ -7,6 +7,7 @@ extends Node
 const SPAWN_MARKER_SCENE := "res://scenes/spawn_marker.tscn"
 const GROUND_PATCH_SCENE := "res://scenes/ground_patch.tscn"
 const TERRAIN_PATCH_SCENE := "res://scenes/terrain_patch_edit.tscn"
+const TERRAIN_POINT_MESH_SCENE := "res://scenes/terrain_point_mesh.tscn"
 const WALL_SEGMENT_SCENE := "res://scenes/wall_segment.tscn"
 const WATER_VOLUME_SCENE := "res://scenes/water_volume.tscn"
 const LOAD_ZONE_SCENE    := "res://scenes/load_zone.tscn"
@@ -17,8 +18,11 @@ const PROP_OFFSET_Y: float = 0.0           # most props are ground-aligned
 # ---- Raycast --------------------------------------------------------
 
 # Returns {hit, position, normal, collider}. If nothing hit, returns
-# {hit=false, position=cam_pos + 5m forward}.
-static func raycast_from_mouse(camera: Camera3D, mouse_pos: Vector2) -> Dictionary:
+# {hit=false, position=cam_pos + 5m forward}. `exclude` is an
+# Array[RID] of bodies the ray should skip (used by the placement
+# preview to ignore its own ghost).
+static func raycast_from_mouse(camera: Camera3D, mouse_pos: Vector2,
+		max_dist: float = 500.0, exclude: Array = []) -> Dictionary:
 	var out := {"hit": false, "position": Vector3.ZERO, "normal": Vector3.UP, "collider": null}
 	if camera == null or not is_instance_valid(camera):
 		return out
@@ -27,10 +31,12 @@ static func raycast_from_mouse(camera: Camera3D, mouse_pos: Vector2) -> Dictiona
 		return out
 	var origin: Vector3 = camera.project_ray_origin(mouse_pos)
 	var dir: Vector3 = camera.project_ray_normal(mouse_pos)
-	var to: Vector3 = origin + dir * 500.0
+	var to: Vector3 = origin + dir * max_dist
 	var params := PhysicsRayQueryParameters3D.create(origin, to)
 	params.collide_with_areas = true
 	params.collide_with_bodies = true
+	if not exclude.is_empty():
+		params.exclude = exclude
 	var hit := space.intersect_ray(params)
 	if hit.is_empty():
 		out["position"] = origin + dir * 5.0
@@ -44,8 +50,11 @@ static func raycast_from_mouse(camera: Camera3D, mouse_pos: Vector2) -> Dictiona
 
 # Center-screen raycast. The crosshair at viewport center is the
 # targeting reticle — picking, placement, sculpting all use this.
-# Returns the same dictionary shape as `raycast_from_mouse`.
-static func raycast_from_center(camera: Camera3D, max_dist: float = 200.0) -> Dictionary:
+# Returns the same dictionary shape as `raycast_from_mouse`. Optional
+# `exclude` is an Array[RID] of bodies/areas the ray should ignore
+# (used by the editor UI to skip the placement-preview ghost).
+static func raycast_from_center(camera: Camera3D, max_dist: float = 200.0,
+		exclude: Array = []) -> Dictionary:
 	var out := {"hit": false, "position": Vector3.ZERO, "normal": Vector3.UP, "collider": null}
 	if camera == null or not is_instance_valid(camera):
 		return out
@@ -61,6 +70,8 @@ static func raycast_from_center(camera: Camera3D, max_dist: float = 200.0) -> Di
 	var params := PhysicsRayQueryParameters3D.create(origin, to)
 	params.collide_with_areas = true
 	params.collide_with_bodies = true
+	if not exclude.is_empty():
+		params.exclude = exclude
 	var hit := space.intersect_ray(params)
 	if hit.is_empty():
 		out["position"] = origin + dir * 8.0
@@ -99,6 +110,9 @@ static func build_catalog() -> Array:
 	entries.append({"category": "Geometry", "label": "Terrain Patch",
 			"kind": "primitive", "scene_path": TERRAIN_PATCH_SCENE,
 			"snap": 2.0})
+	entries.append({"category": "Geometry", "label": "Terrain Mesh (points)",
+			"kind": "primitive", "scene_path": TERRAIN_POINT_MESH_SCENE,
+			"snap": 1.0})
 	entries.append({"category": "Geometry", "label": "Wall Segment",
 			"kind": "primitive", "scene_path": WALL_SEGMENT_SCENE,
 			"snap": 0.5})
@@ -156,11 +170,39 @@ static func build_catalog() -> Array:
 				"kind": "instance", "scene_path": "res://scenes/boss_arena.tscn",
 				"snap": 0.5})
 
-	# ---- Mesh tab — placeholder for Phase 2 GLB pipeline.
-	entries.append({"category": "Mesh", "label": "(drop .glb in assets/meshes)",
-			"kind": "mesh_placeholder", "scene_path": "", "snap": 0.5})
+	# ---- Mesh tab — any .tscn under res://scenes/meshes/ is a placeable
+	# prefab. The intended workflow: drag a .glb into Godot, save the
+	# resulting scene to that folder, and it shows up here automatically.
+	var mesh_scenes := _discover_mesh_scenes()
+	for m in mesh_scenes:
+		entries.append({"category": "Mesh", "label": m["label"],
+				"kind": "instance", "scene_path": m["path"], "snap": 0.5})
+	if mesh_scenes.is_empty():
+		entries.append({"category": "Mesh", "label": "(drop .tscn in scenes/meshes/)",
+				"kind": "mesh_placeholder", "scene_path": "", "snap": 0.5})
 
 	return entries
+
+
+static func _discover_mesh_scenes() -> Array:
+	# Returns [{label, path}] for every .tscn in res://scenes/meshes/.
+	# Folder is optional — if missing, returns empty (palette shows hint).
+	var out: Array = []
+	var dir := DirAccess.open("res://scenes/meshes")
+	if dir == null:
+		return out
+	dir.list_dir_begin()
+	var name := dir.get_next()
+	while name != "":
+		if not dir.current_is_dir() and name.ends_with(".tscn"):
+			var path := "res://scenes/meshes/" + name
+			var label := name.substr(0, name.length() - ".tscn".length())
+			label = label.replace("_", " ").capitalize()
+			out.append({"label": label, "path": path})
+		name = dir.get_next()
+	dir.list_dir_end()
+	out.sort_custom(func(a, b): return a["label"] < b["label"])
+	return out
 
 
 static func _discover_enemy_scenes() -> Array:

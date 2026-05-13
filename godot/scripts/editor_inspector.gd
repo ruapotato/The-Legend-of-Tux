@@ -16,6 +16,7 @@ extends ScrollContainer
 # panel contents.
 
 const EditorMaterialsCls = preload("res://scripts/editor_materials.gd")
+const EditorHeightmapCanvasCls = preload("res://scripts/editor_heightmap_canvas.gd")
 
 var _target: Node3D = null
 var _targets: Array = []        # multi-select list (subset of selection)
@@ -192,6 +193,8 @@ func _build_typed_section() -> void:
 		_build_water_section()
 	elif sp.ends_with("terrain_patch_edit.gd") or _target.is_in_group("terrain_patch"):
 		_build_terrain_section()
+	elif sp.ends_with("terrain_point_mesh.gd") or _target.is_in_group("terrain_point_mesh"):
+		_build_terrain_point_mesh_section()
 	elif _target is MeshInstance3D and _target.has_meta("mesh_id"):
 		_build_mesh_section()
 	else:
@@ -584,7 +587,9 @@ func _build_terrain_section() -> void:
 	gs.value = float(_get_export(_target, "grid_size", 32))
 	gs.value_changed.connect(func(v):
 		_target.grid_size = int(v)
-		EditorMode.dirty = true)
+		EditorMode.dirty = true
+		# Rebuild the painter so the canvas matches the new grid size.
+		_rebuild_ui())
 	_vbox.add_child(_row("Grid size", gs))
 	var cs := SpinBox.new()
 	cs.min_value = 0.25
@@ -595,10 +600,55 @@ func _build_terrain_section() -> void:
 		_target.cell_size = v
 		EditorMode.dirty = true)
 	_vbox.add_child(_row("Cell size m", cs))
-	var hint := Label.new()
-	hint.text = "Press B to sculpt, P to paint."
-	hint.modulate = Color(0.85, 0.85, 0.55, 1)
-	_vbox.add_child(hint)
+
+	# Inline heightmap painter — LMB drag raises, RMB drag lowers, wheel
+	# adjusts brush radius. Real-time mesh update.
+	var painter_label := Label.new()
+	painter_label.text = "Heightmap painter (LMB=up, RMB=down, wheel=size)"
+	painter_label.modulate = Color(0.85, 0.85, 0.55, 1)
+	_vbox.add_child(painter_label)
+	var painter := EditorHeightmapCanvasCls.new()
+	painter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_vbox.add_child(painter)
+	painter.set_patch(_target)
+
+	# Quick-action buttons.
+	var br := HBoxContainer.new()
+	var flat_btn := Button.new()
+	flat_btn.text = "Flatten"
+	flat_btn.pressed.connect(func():
+		var sz: int = (int(_target.grid_size) + 1) * (int(_target.grid_size) + 1)
+		var z := PackedFloat32Array()
+		z.resize(sz)
+		_target.set_heights(z)
+		painter.set_patch(_target)
+		EditorMode.dirty = true)
+	br.add_child(flat_btn)
+	_vbox.add_child(br)
+
+
+func _build_terrain_point_mesh_section() -> void:
+	# Single colour per mesh — the user mixes biomes by placing
+	# multiple TerrainPointMeshes side-by-side.
+	var cp := ColorPickerButton.new()
+	var current: Color = Color(0.40, 0.55, 0.30, 1)
+	if "terrain_color" in _target:
+		current = _target.terrain_color
+	cp.color = current
+	cp.color_changed.connect(func(c):
+		if "terrain_color" in _target:
+			_target.terrain_color = c
+		EditorMode.dirty = true)
+	_vbox.add_child(_row("Color", cp))
+
+	var pt_count: int = 0
+	for c in _target.get_children():
+		if c is Node3D and (c.is_in_group("terrain_point") or c.has_meta("is_terrain_point")):
+			pt_count += 1
+	var info := Label.new()
+	info.text = "Points: %d  •  P to drop one at the camera" % pt_count
+	info.modulate = Color(0.8, 0.8, 0.7, 1)
+	_vbox.add_child(info)
 
 
 func _build_mesh_section() -> void:

@@ -39,33 +39,46 @@ func push(action: Dictionary) -> void:
 
 
 # Convenience wrappers used by editor_ui.gd. Keep the Action-dict shape
-# in one place so callers don't have to know it.
+# in one place so callers don't have to know it. We pack a snapshot of
+# the node *now* so the inverse operation (redo of an undone place /
+# undo of a delete) can re-create it from scratch — the live node is
+# about to be freed, or already was when undo runs.
 func record_place(node: Node) -> void:
 	if node == null:
+		print("[UNDO] record_place called with null")
 		return
-	push({
-		"type":   "place",
-		"target": node.get_path() if node.is_inside_tree() else NodePath(""),
-		"before": null,
-		"after":  {
-			"name": node.name,
-			"parent_path": node.get_parent().get_path() if node.get_parent() else NodePath(""),
-		},
-	})
+	var snap := _snapshot(node, "place")
+	push(snap)
+	print("[UNDO] record_place name=%s target=%s parent=%s stack_now=%d" % [
+		node.name, snap.get("target"),
+		node.get_parent().name if node.get_parent() else "none",
+		done.size()])
 
 
 func record_delete(node: Node) -> void:
 	if node == null:
 		return
-	push({
-		"type":   "delete",
-		"target": node.get_path() if node.is_inside_tree() else NodePath(""),
-		"before": {
-			"name": node.name,
-			"parent_path": node.get_parent().get_path() if node.get_parent() else NodePath(""),
-		},
-		"after":  null,
-	})
+	push(_snapshot(node, "delete"))
+
+
+func _snapshot(node: Node, typ: String) -> Dictionary:
+	var packed: PackedScene = pack_for_delete(node)
+	var t: Transform3D = Transform3D.IDENTITY
+	if node is Node3D:
+		t = (node as Node3D).transform
+	var parent_path: NodePath = NodePath("")
+	if node.get_parent():
+		parent_path = node.get_parent().get_path()
+	return {
+		"type":        typ,
+		"target":      node.get_path() if node.is_inside_tree() else NodePath(""),
+		"before":      null,
+		"after":       null,
+		"packed":      packed,
+		"transform":   t,
+		"name":        String(node.name),
+		"parent_path": parent_path,
+	}
 
 
 func clear() -> void:
@@ -85,8 +98,10 @@ func can_redo() -> bool:
 # a reference to keep this script tree-agnostic.
 func undo(scene_root: Node) -> bool:
 	if done.is_empty():
+		print("[UNDO] undo called but stack empty")
 		return false
 	var a: Dictionary = done.pop_back()
+	print("[UNDO] popping action type=%s target=%s" % [a.get("type"), a.get("target")])
 	_apply(a, scene_root, true)
 	undone.append(a)
 	return true
@@ -129,8 +144,12 @@ func _apply(a: Dictionary, scene_root: Node, is_undo: bool) -> void:
 			# undo = remove the placed node; redo = re-create.
 			if is_undo:
 				var n3: Node = _resolve(scene_root, a.get("target", ""))
+				print("[UNDO place] resolved=%s for target=%s" % [n3, a.get("target")])
 				if n3:
 					n3.queue_free()
+					print("[UNDO place] queue_free'd %s" % n3.name)
+				else:
+					print("[UNDO place] FAIL: target path could not be resolved")
 			else:
 				_restore_node(a, scene_root)
 		"delete":
@@ -162,28 +181,49 @@ func _apply(a: Dictionary, scene_root: Node, is_undo: bool) -> void:
 
 
 func _resolve(scene_root: Node, path: Variant) -> Node:
-	if scene_root == null or path == null or path == "":
+	# Path arrives as NodePath from get_path() or as String if a caller
+	# passed it that way. Normalise via NodePath() so we don't get
+	# "Invalid operands 'NodePath' and 'String' in operator '=='" when
+	# checking for emptiness — that error silently broke Ctrl+Z for any
+	# placed-by-editor node.
+	if scene_root == null or path == null:
 		return null
-	return scene_root.get_node_or_null(String(path))
+	var np: NodePath
+	if path is NodePath:
+		np = path
+	else:
+		np = NodePath(String(path))
+	if np.is_empty():
+		return null
+	return scene_root.get_node_or_null(np)
 
 
 func _restore_node(a: Dictionary, scene_root: Node) -> void:
 	# Re-create a node from a pickled scene snapshot. We pack the node
-	# at delete time so it survives the round-trip.
+	# at delete/place time so it survives the round-trip.
 	var blob: Variant = a.get("packed", null)
-	if blob is PackedScene:
-		var inst := (blob as PackedScene).instantiate()
-		if inst == null:
-			return
-		var parent: Node = scene_root.get_node_or_null(String(a.get("parent_path", ".")))
-		if parent == null:
-			parent = scene_root
-		parent.add_child(inst)
-		inst.owner = scene_root
-		if inst is Node3D and a.has("transform"):
-			(inst as Node3D).transform = a["transform"]
-		if a.has("name"):
-			inst.name = String(a["name"])
+	if not (blob is PackedScene):
+		return
+	var inst := (blob as PackedScene).instantiate()
+	if inst == null:
+		return
+	var pp: Variant = a.get("parent_path", ".")
+	var parent_np: NodePath = pp if pp is NodePath else NodePath(String(pp))
+	var parent: Node = scene_root.get_node_or_null(parent_np) if not parent_np.is_empty() else null
+	if parent == null:
+		parent = scene_root
+	parent.add_child(inst)
+	inst.owner = scene_root
+	if a.has("name"):
+		inst.name = String(a["name"])
+	if inst is Node3D and a.has("transform"):
+		(inst as Node3D).transform = a["transform"]
+	# Refresh target path so subsequent undo/redo can re-resolve.
+	a["target"] = inst.get_path()
+	# Notify the parent so e.g. a TerrainPointMesh re-triangulates with
+	# the restored point included. Deferred so add_child finalizes first.
+	if parent.has_method("rebuild"):
+		parent.call_deferred("rebuild")
 
 
 # Helper used by callers to pack a node before deletion so undo can
