@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://btuxmush01"]
+
+[ext_resource type="Script" path="res://scripts/mushroom.gd" id="1_mu"]
+
+[sub_resource type="SphereShape3D" id="prompt_shape"]
+radius = 1.5
+
+[sub_resource type="CylinderMesh" id="stem_mesh"]
+top_radius = 0.05
+bottom_radius = 0.06
+height = 0.15
+
+[sub_resource type="StandardMaterial3D" id="stem_mat"]
+albedo_color = Color(0.94, 0.90, 0.78, 1)
+roughness = 0.8
+
+[sub_resource type="ConeMesh" id="cap_mesh"]
+top_radius = 0.0
+bottom_radius = 0.20
+height = 0.20
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="cap_mat"]
+albedo_color = Color(0.78, 0.18, 0.18, 1)
+roughness = 0.55
+
+[sub_resource type="SphereMesh" id="spot_mesh"]
+radius = 0.025
+height = 0.05
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="spot_mat"]
+albedo_color = Color(0.98, 0.98, 0.96, 1)
+roughness = 0.6
+
+[node name="Mushroom" type="Node3D"]
+script = ExtResource("1_mu")
+
+[node name="Stem" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+mesh = SubResource("stem_mesh")
+surface_material_override/0 = SubResource("stem_mat")
+
+[node name="Cap" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20, 0)
+mesh = SubResource("cap_mesh")
+surface_material_override/0 = SubResource("cap_mat")
+
+[node name="Spot0" type="MeshInstance3D" parent="Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0.05, 0.04)
+mesh = SubResource("spot_mesh")
+surface_material_override/0 = SubResource("spot_mat")
+
+[node name="Spot1" type="MeshInstance3D" parent="Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0.04, 0.02)
+mesh = SubResource("spot_mesh")
+surface_material_override/0 = SubResource("spot_mat")
+
+[node name="Spot2" type="MeshInstance3D" parent="Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.07, -0.06)
+mesh = SubResource("spot_mesh")
+surface_material_override/0 = SubResource("spot_mat")
+
+[node name="Spot3" type="MeshInstance3D" parent="Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.05, -0.07)
+mesh = SubResource("spot_mesh")
+surface_material_override/0 = SubResource("spot_mat")
+
+[node name="PromptArea" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+
+[node name="Shape" type="CollisionShape3D" parent="PromptArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("prompt_shape")
+
+[node name="Hint" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+text = "[E] Pick mushroom"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true

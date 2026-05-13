@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuxpkan01"]
+
+[ext_resource type="Script" path="res://scripts/pickup_resource.gd" id="1_pr"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.4
+
+[sub_resource type="CylinderMesh" id="shaft_mesh"]
+top_radius = 0.025
+bottom_radius = 0.035
+height = 0.30
+
+[sub_resource type="ConeMesh" id="tine_mesh"]
+top_radius = 0.0
+bottom_radius = 0.035
+height = 0.18
+
+[sub_resource type="StandardMaterial3D" id="antler_mat"]
+albedo_color = Color(0.60, 0.55, 0.48, 1)
+roughness = 0.75
+
+[node name="PickupAntler" type="Area3D"]
+script = ExtResource("1_pr")
+item_id = "antler"
+amount = 1
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Shaft" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("shaft_mesh")
+surface_material_override/0 = SubResource("antler_mat")
+
+[node name="TineL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.866, -0.5, 0, 0.5, 0.866, 0, 0, 0, 1, -0.06, 0.16, 0)
+mesh = SubResource("tine_mesh")
+surface_material_override/0 = SubResource("antler_mat")
+
+[node name="TineR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.866, 0.5, 0, -0.5, 0.866, 0, 0, 0, 1, 0.06, 0.16, 0)
+mesh = SubResource("tine_mesh")
+surface_material_override/0 = SubResource("antler_mat")

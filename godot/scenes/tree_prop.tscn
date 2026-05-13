@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://btuxtree01"]
+[gd_scene load_steps=8 format=3 uid="uid://btuxtree01"]
 
 [ext_resource type="Script" path="res://scripts/tree_prop.gd" id="1_t"]
+[ext_resource type="Script" path="res://scripts/tree_hit_forwarder.gd" id="2_thf"]
 
 [sub_resource type="CylinderMesh" id="trunk_mesh"]
 height = 4.6
@@ -25,6 +26,7 @@ script = ExtResource("1_t")
 [node name="TrunkBody" type="StaticBody3D" parent="."]
 collision_layer = 1
 collision_mask = 0
+script = ExtResource("2_thf")
 
 [node name="Shape" type="CollisionShape3D" parent="TrunkBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)

@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxrbsh01"]
+
+[ext_resource type="Script" path="res://scripts/raspberry_bush.gd" id="1_rb"]
+
+[sub_resource type="SphereShape3D" id="prompt_shape"]
+radius = 1.5
+
+[sub_resource type="StandardMaterial3D" id="leaf_mat"]
+albedo_color = Color(0.22, 0.46, 0.20, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="berry_mat"]
+albedo_color = Color(0.78, 0.18, 0.22, 1)
+roughness = 0.5
+
+[sub_resource type="SphereMesh" id="leaf_mesh"]
+radius = 0.6
+height = 1.2
+radial_segments = 14
+rings = 8
+
+[sub_resource type="SphereMesh" id="berry_mesh"]
+radius = 0.08
+height = 0.16
+radial_segments = 8
+rings = 5
+
+[node name="RaspberryBush" type="Node3D"]
+script = ExtResource("1_rb")
+
+[node name="Leaf" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0.28, 0)
+mesh = SubResource("leaf_mesh")
+surface_material_override/0 = SubResource("leaf_mat")
+
+[node name="Berry0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.52, 0.12)
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")
+
+[node name="Berry1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 0.48, 0.05)
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")
+
+[node name="Berry2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.54, -0.18)
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")
+
+[node name="Berry3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10, 0.50, 0.22)
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")
+
+[node name="Berry4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.46, -0.06)
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")
+
+[node name="PromptArea" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = true
+
+[node name="Shape" type="CollisionShape3D" parent="PromptArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("prompt_shape")
+
+[node name="Hint" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10, 0)
+text = "[E] Pick raspberries"
+font_size = 32
+outline_size = 8
+billboard = 1
+no_depth_test = true

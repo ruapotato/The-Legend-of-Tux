@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://btuxbld03"]
+
+[sub_resource type="BoxMesh" id="roof_mesh"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="BoxShape3D" id="roof_shape"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="StandardMaterial3D" id="roof_mat"]
+albedo_color = Color(0.38, 0.25, 0.15, 1)
+roughness = 0.85
+
+[node name="WoodRoofLow" type="StaticBody3D" groups=["build_piece"]]
+collision_layer = 1
+collision_mask = 0
+metadata/piece_id = "wood_roof_low"
+metadata/cost_wood = 2
+metadata/snap_origin = "center_top"
+metadata/pitch_deg = 22.5
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9238795, 0.3826834, 0, -0.3826834, 0.9238795, 0, -0.0923879, -0.0382683)
+mesh = SubResource("roof_mesh")
+material_override = SubResource("roof_mat")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9238795, 0.3826834, 0, -0.3826834, 0.9238795, 0, -0.0923879, -0.0382683)
+shape = SubResource("roof_shape")

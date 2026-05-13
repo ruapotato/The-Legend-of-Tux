@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuxpkrb01"]
+
+[ext_resource type="Script" path="res://scripts/pickup_resource.gd" id="1_pr"]
+
+[sub_resource type="SphereShape3D" id="shape"]
+radius = 0.35
+
+[sub_resource type="SphereMesh" id="berry_mesh"]
+radius = 0.09
+height = 0.18
+radial_segments = 10
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="berry_mat"]
+albedo_color = Color(0.78, 0.18, 0.22, 1)
+roughness = 0.5
+
+[node name="PickupRaspberry" type="Area3D"]
+script = ExtResource("1_pr")
+item_id = "raspberry"
+amount = 1
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("shape")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("berry_mesh")
+surface_material_override/0 = SubResource("berry_mat")

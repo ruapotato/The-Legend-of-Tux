@@ -32,6 +32,8 @@ TargetPractice="*res://scripts/target_practice.gd"
 EditorMode="*res://scripts/editor_mode.gd"
 WorldGen="*res://scripts/world_gen.gd"
 WorldStreamer="*res://scripts/world_streamer.gd"
+Weather="*res://scripts/weather.gd"
+PlayerStatus="*res://scripts/player_status.gd"
 
 [display]
 

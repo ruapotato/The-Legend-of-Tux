@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://btuxbld02"]
+
+[sub_resource type="BoxMesh" id="wall_mesh"]
+size = Vector3(2, 2, 0.15)
+
+[sub_resource type="BoxShape3D" id="wall_shape"]
+size = Vector3(2, 2, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="wall_mat"]
+albedo_color = Color(0.45, 0.3, 0.18, 1)
+roughness = 0.85
+
+[node name="WoodWall" type="StaticBody3D" groups=["build_piece"]]
+collision_layer = 1
+collision_mask = 0
+metadata/piece_id = "wood_wall"
+metadata/cost_wood = 2
+metadata/snap_origin = "center_bottom"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("wall_mesh")
+material_override = SubResource("wall_mat")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("wall_shape")

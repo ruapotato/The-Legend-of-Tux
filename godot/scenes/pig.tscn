@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://btuxpig01"]
+
+[ext_resource type="Script" path="res://scripts/pig.gd" id="1_pg"]
+
+[sub_resource type="CapsuleShape3D" id="body_col"]
+radius = 0.28
+height = 0.70
+
+[sub_resource type="BoxMesh" id="body_mesh"]
+size = Vector3(1.0, 0.55, 0.45)
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+size = Vector3(0.30, 0.30, 0.35)
+
+[sub_resource type="CylinderMesh" id="snout_mesh"]
+top_radius = 0.10
+bottom_radius = 0.10
+height = 0.10
+
+[sub_resource type="CylinderMesh" id="leg_mesh"]
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.32
+
+[sub_resource type="StandardMaterial3D" id="hide_mat"]
+albedo_color = Color(0.92, 0.65, 0.62, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="snout_mat"]
+albedo_color = Color(0.82, 0.50, 0.50, 1)
+roughness = 0.8
+
+[node name="Pig" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_pg")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50, 0)
+shape = SubResource("body_col")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.966, 0.259, 0, -0.259, 0.966, 0, 0.72, -0.55)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="Snout" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.20)
+mesh = SubResource("snout_mesh")
+surface_material_override/0 = SubResource("snout_mat")
+
+[node name="LegFL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.16, -0.36)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegFR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.16, -0.36)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegBL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.16, 0.36)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegBR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.16, 0.36)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")

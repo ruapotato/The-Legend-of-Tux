@@ -118,6 +118,13 @@ var show_intro: bool = false
 var inventory: Dictionary = {}
 var active_b_item: String = ""
 
+# Stackable resources (wood, stone, raspberry, meat, antler, etc.) —
+# separate from the bool inventory above. Maps item_id → int count.
+# Used by gather/craft/build flows; persisted with the save (added to
+# the save snapshot below).
+signal resource_changed(item_id: String, new_count: int)
+var resources: Dictionary = {}
+
 # Anchor Boots: passive toggle, set from the pause menu's Items tab.
 # When true, tux_player.gd applies its slow-walk / heavy-gravity
 # modifiers and the player can sink under water. Saved + loaded so the
@@ -393,6 +400,58 @@ func consume_key(group: String = "") -> bool:
     n -= 1
     keys_by_group[g] = n
     keys_changed.emit(g, n)
+    return true
+
+
+# ---- Inventory ----------------------------------------------------------
+
+# ---- Stackable resources (wood/stone/meat/raspberry/etc.) ---------------
+
+# Increment a resource count. Stacks unbounded for now; tier-gated
+# carrying caps come later if needed.
+func add_resource(item_id: String, amount: int = 1) -> void:
+    if amount <= 0:
+        return
+    var cur: int = int(resources.get(item_id, 0))
+    cur += amount
+    resources[item_id] = cur
+    resource_changed.emit(item_id, cur)
+
+
+# Returns true if we had >= amount and consumed it; false otherwise.
+# Used by craft / build flows that need atomic spend.
+func consume_resource(item_id: String, amount: int = 1) -> bool:
+    if amount <= 0:
+        return true
+    var cur: int = int(resources.get(item_id, 0))
+    if cur < amount:
+        return false
+    cur -= amount
+    if cur <= 0:
+        resources.erase(item_id)
+    else:
+        resources[item_id] = cur
+    resource_changed.emit(item_id, cur)
+    return true
+
+
+func resource_count(item_id: String) -> int:
+    return int(resources.get(item_id, 0))
+
+
+func has_resources(costs: Dictionary) -> bool:
+    for k in costs.keys():
+        if resource_count(String(k)) < int(costs[k]):
+            return false
+    return true
+
+
+# Atomic spend of a recipe's cost dict. Returns true on success.
+func consume_resources(costs: Dictionary) -> bool:
+    if not has_resources(costs):
+        return false
+    for k in costs.keys():
+        consume_resource(String(k), int(costs[k]))
     return true
 
 
@@ -743,6 +802,7 @@ func save_game(slot: int) -> bool:
         "keys_by_group": keys_by_group.duplicate(true),
         "current_key_group": current_key_group,
         "inventory": inventory.duplicate(true),
+        "resources": resources.duplicate(true),
         "active_b_item": active_b_item,
         "current_scene_id": _current_scene_id(),
         "current_spawn_id": current_spawn_id,
@@ -802,6 +862,7 @@ func load_game(slot: int) -> bool:
     if saved_groups == null and data.has("keys"):
         keys_by_group[current_key_group] = int(data.get("keys", 0))
     inventory = (data.get("inventory", {}) as Dictionary).duplicate(true)
+    resources = (data.get("resources", {}) as Dictionary).duplicate(true)
     active_b_item = String(data.get("active_b_item", ""))
     # Anchor Boots stay in whatever state Tux left them — they're a
     # passive toggle, not an event flag, so a save mid-Mirelake comes

@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://btuxsheep01"]
+
+[ext_resource type="Script" path="res://scripts/sheep.gd" id="1_sh"]
+
+[sub_resource type="CapsuleShape3D" id="body_col"]
+radius = 0.28
+height = 0.80
+
+[sub_resource type="SphereMesh" id="fluff_mesh"]
+radius = 0.38
+height = 0.70
+radial_segments = 12
+rings = 6
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+size = Vector3(0.25, 0.25, 0.30)
+
+[sub_resource type="CylinderMesh" id="leg_mesh"]
+top_radius = 0.045
+bottom_radius = 0.045
+height = 0.40
+
+[sub_resource type="StandardMaterial3D" id="wool_mat"]
+albedo_color = Color(0.94, 0.92, 0.86, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="head_mat"]
+albedo_color = Color(0.30, 0.24, 0.20, 1)
+roughness = 0.85
+
+[node name="Sheep" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_sh")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("body_col")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Fluff0" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1.1, 0, 0, 0, 0.95, 0, 0, 0, 1.15, 0, 0.65, 0)
+mesh = SubResource("fluff_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Fluff1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, -0.22, 0.72, 0.10)
+mesh = SubResource("fluff_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Fluff2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0.22, 0.72, 0.10)
+mesh = SubResource("fluff_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.966, 0.259, 0, -0.259, 0.966, 0, 0.78, -0.45)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="LegFL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.20, -0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="LegFR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.20, -0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="LegBL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.20, 0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("head_mat")
+
+[node name="LegBR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.20, 0.30)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("head_mat")

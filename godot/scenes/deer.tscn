@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://btuxdeer01"]
+
+[ext_resource type="Script" path="res://scripts/deer.gd" id="1_dr"]
+
+[sub_resource type="CapsuleShape3D" id="body_col"]
+radius = 0.30
+height = 0.90
+
+[sub_resource type="BoxMesh" id="body_mesh"]
+size = Vector3(1.2, 0.6, 0.4)
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+size = Vector3(0.35, 0.35, 0.4)
+
+[sub_resource type="CylinderMesh" id="leg_mesh"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.50
+
+[sub_resource type="StandardMaterial3D" id="hide_mat"]
+albedo_color = Color(0.45, 0.30, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="antler_base_mesh"]
+top_radius = 0.025
+bottom_radius = 0.035
+height = 0.18
+
+[sub_resource type="ConeMesh" id="antler_tip_mesh"]
+top_radius = 0.0
+bottom_radius = 0.03
+height = 0.14
+
+[node name="Deer" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_dr")
+
+[node name="BodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("body_col")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80, 0)
+mesh = SubResource("body_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.966, 0.259, 0, -0.259, 0.966, 0, 0.95, -0.65)
+mesh = SubResource("head_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegFL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20, 0.25, -0.45)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegFR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20, 0.25, -0.45)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegBL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20, 0.25, 0.45)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="LegBR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20, 0.25, 0.45)
+mesh = SubResource("leg_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="AntlerL_Shaft" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.966, -0.259, 0, 0.259, 0.966, 0, 0, 0, 1, -0.10, 0.20, 0.04)
+mesh = SubResource("antler_base_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="AntlerL_Tip" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.866, -0.5, 0, 0.5, 0.866, 0, 0, 0, 1, -0.15, 0.30, -0.04)
+mesh = SubResource("antler_tip_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="AntlerR_Shaft" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.966, 0.259, 0, -0.259, 0.966, 0, 0, 0, 1, 0.10, 0.20, 0.04)
+mesh = SubResource("antler_base_mesh")
+surface_material_override/0 = SubResource("hide_mat")
+
+[node name="AntlerR_Tip" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.866, 0.5, 0, -0.5, 0.866, 0, 0, 0, 1, 0.15, 0.30, -0.04)
+mesh = SubResource("antler_tip_mesh")
+surface_material_override/0 = SubResource("hide_mat")
