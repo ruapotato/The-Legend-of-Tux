@@ -7,6 +7,7 @@ extends CharacterBody3D
 
 const TuxState = preload("res://scripts/tux_state.gd")
 const TuxAnim  = preload("res://scripts/tux_anim.gd")
+const WorldGen = preload("res://scripts/world_gen.gd")
 const BoomerangScene = preload("res://scenes/boomerang.tscn")
 const BombScene      = preload("res://scenes/bomb.tscn")
 const Bow       = preload("res://scripts/bow.gd")
@@ -105,6 +106,21 @@ var _locked: bool = false
 const AIM_HEAD_OFFSET: Vector3 = Vector3(0, 1.6, 0)
 var aim_mode: bool = false
 
+# Fractional HP / stamina accumulators for the swim systems —
+# GameState.damage and spend_stamina take ints, so we accumulate
+# fractional drain and dispatch when a whole point is ready. Without
+# this the per-frame swim stamina cost (8/sec * 0.0166s = 0.13/tick)
+# truncated to int 0 every frame and stamina never moved.
+var _swim_drown_remainder: float = 0.0
+var _swim_stamina_remainder: float = 0.0
+# Post-swim regen lockout. Starts at SWIM_REGEN_LOCKOUT_S whenever
+# state.action == ACT_SWIM and ticks down. Stamina regen is suppressed
+# while > 0. Stops the cheese where the player jumped out of the water
+# for a frame each cycle to harvest a tick of regen mid-air before
+# splashing back in.
+const SWIM_REGEN_LOCKOUT_S: float = 1.5
+var _swim_regen_lockout: float = 0.0
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -161,11 +177,13 @@ func _ready() -> void:
 	GameState.player_died.connect(_on_player_died)
 	GameState.item_acquired.connect(_on_item_acquired)
 	GameState.sword_upgraded.connect(_on_sword_upgraded)
-	GameState.reset()
-	# Apply the mirror skin if a save reload landed us with glim_mirror
-	# already owned (the connect-then-reset above wipes inventory; in
-	# practice load_game runs after _ready completes, so this catches a
-	# fresh-game-with-cheat-inventory path more than anything).
+	# NOTE: we used to call GameState.reset() here. That wiped the
+	# inventory/resources that the main menu's Load button had JUST
+	# loaded (load_game writes state then change_scene_to_file —
+	# tux_player._ready runs after the scene swap, AFTER the load). The
+	# correct lifecycle: main_menu.gd handles reset on New Game; load
+	# fills state on Load Game; this script just consumes whatever is
+	# already in GameState. Don't reset here.
 	_refresh_shield_skin()
 	# Apply the current sword tier — covers the title→load path where
 	# load_game emits sword_upgraded before this scene is built. Also
@@ -183,6 +201,31 @@ func _apply_equipment_visibility() -> void:
 		sword.visible = bool(GameState.inventory.get("sapling_blade", false))
 	if shield:
 		shield.visible = bool(GameState.inventory.get("bark_round", false))
+	_refresh_weapon_damage()
+
+
+# Per-weapon-tier base damage. Best owned weapon wins. Bare fists do 1
+# (so the punch is meaningful but slow), Sapling Blade doubles it,
+# Stone Axe and Stone Sword triple it. Future metal/glim tiers will
+# slot in here. The receiver (tree_prop, animal, bush) reads
+# `take_damage(amount, …)` so this scaling propagates everywhere.
+const WEAPON_DAMAGE: Dictionary = {
+	"sapling_blade": 2,
+	"stone_axe":     3,
+	"stone_sword":   3,
+}
+
+func _refresh_weapon_damage() -> void:
+	var dmg: int = 1    # bare fists
+	for id in WEAPON_DAMAGE.keys():
+		if bool(GameState.inventory.get(String(id), false)):
+			dmg = max(dmg, int(WEAPON_DAMAGE[id]))
+	if sword_hitbox:
+		sword_hitbox.damage = dmg
+	if spin_hitbox:
+		# Spin keeps the legacy 2× ratio — wider radial, costs stamina,
+		# should hit harder than a single swing.
+		spin_hitbox.damage = dmg * 2
 
 
 func _physics_process(delta: float) -> void:
@@ -194,7 +237,79 @@ func _physics_process(delta: float) -> void:
 
 	state.is_on_floor = is_on_floor()
 	state.pos = global_position
+	# Mirror equipment state into the action machine so it can gate
+	# combos/charge/spin (sword) and parry/full-block (shield) at the
+	# source of truth — GameState.inventory. Cheap dict lookup, fine to
+	# do every tick; no signal-fan-out plumbing required.
+	state.armed = bool(GameState.inventory.get("sapling_blade", false))
+	state.has_shield = bool(GameState.inventory.get("bark_round", false))
+	# Water feedback. Sea level is a single source of truth in WorldGen
+	# (anything below 0 is ocean floor); pass it through so ACT_SWIM
+	# doesn't have to import the world script. in_water is the trigger
+	# for the swim transition; anchor_boots flips buoyancy to sink-mode
+	# so the player can walk along the seabed in those boots.
+	state.water_level = WorldGen.SEA_LEVEL
+	# Hysteresis on the swim gate. ENTER at waist-deep
+	# (SWIM_ENTER_DEPTH); EXIT only once the feet have actually crested
+	# the surface by SWIM_EXIT_DEPTH (a small negative number — the
+	# threshold sits ABOVE the water line so swim ends promptly when
+	# climbing out). Otherwise the swim animation persists for a beat
+	# after stepping onto the beach.
+	var depth: float = WorldGen.SEA_LEVEL - global_position.y
+	if state.action == TuxState.ACT_SWIM:
+		state.in_water = depth > TuxState.SWIM_EXIT_DEPTH
+	else:
+		state.in_water = depth > TuxState.SWIM_ENTER_DEPTH
+	state.anchor_boots = GameState.anchor_boots_active
+
+	# Swim stamina drain. The state machine couldn't do this itself
+	# because spend_stamina takes int and the per-frame drain is < 1 —
+	# we accumulate the fractional cost here and dispatch whole spends.
+	# Only counts while the player is actively propelling (input held);
+	# floating in place is free.
+	if state.action == TuxState.ACT_SWIM and state.input_stick.length() > 0.001 \
+			and GameState.stamina > 0:
+		_swim_stamina_remainder += TuxState.SWIM_STAMINA_PER_SEC * delta
+		var stam_whole: int = int(_swim_stamina_remainder)
+		if stam_whole > 0:
+			_swim_stamina_remainder -= stam_whole
+			GameState.spend_stamina(stam_whole)
+	else:
+		_swim_stamina_remainder = 0.0
+
+	# Tux-can't-swim penalty: once stamina is gone and we're still
+	# swimming, the cold ocean starts taking life. ~1 hp/sec — fast
+	# enough to feel real but slow enough that a determined player can
+	# still scramble to shore. Each HP tick fires the "hurt" SFX so the
+	# player gets audio feedback that they're actively losing health.
+	if state.action == TuxState.ACT_SWIM and GameState.stamina <= 0:
+		_swim_drown_remainder += TuxState.SWIM_HP_DRAIN_PER_SEC * delta
+		var whole: int = int(_swim_drown_remainder)
+		if whole > 0:
+			_swim_drown_remainder -= whole
+			GameState.damage(whole)
+			SoundBank.play_3d("hurt", global_position)
+			# Brief camera shake — same intensity as a regular hit so
+			# the player's eye snaps to the HP bar.
+			if camera and camera.has_method("shake"):
+				camera.shake(0.10, 0.18)
+	else:
+		_swim_drown_remainder = 0.0
+	# Wetness pops to 1.0 the moment Tux is submerged. PlayerStatus
+	# normally chases rain/snow at WET_RISE_RATE, but a literal dunk
+	# should be instantaneous so the wet pill flips on right away.
+	if state.in_water and PlayerStatus:
+		PlayerStatus.wetness = 1.0
 	state.step(delta)
+	# Hide sword/shield while swimming (hands free for treading water).
+	# Suspends the inventory-driven visibility for the duration of the
+	# swim; _apply_equipment_visibility() restores it on the next item
+	# event, and the state-driven check below re-evaluates each tick.
+	_apply_swim_equipment_hide()
+	# Underwater HUD tint — overlay alpha tracks state.in_water so the
+	# scrim fades on the moment Tux submerges and clears the moment he
+	# climbs out. Cheap, no asset, uses the HUD's existing CanvasLayer.
+	_apply_underwater_tint(state.in_water)
 
 	# While locked, override face_yaw to point at the target so the
 	# capsule (and the sword + shield rigged to it) tracks the enemy
@@ -214,20 +329,34 @@ func _physics_process(delta: float) -> void:
 	if aim_mode and camera and camera.has_method("get_yaw"):
 		state.face_yaw = camera.get_yaw()
 
-	# Stamina regen — paused while blocking so big blocks read as a
-	# serious cost.
+	# Stamina regen — paused while blocking, while actually swimming, and
+	# during a short post-swim lockout. The lockout closes the cheese
+	# where pressing jump from the water briefly puts Tux above the
+	# surface (out of ACT_SWIM) — without it that 0.1s of "not swim"
+	# would harvest a tick of regen each cycle.
 	var is_blocking: bool = state.action == TuxState.ACT_BLOCK and state.action_time >= TuxState.BLOCK_RAISE_DURATION
-	if not is_blocking:
+	var is_swimming: bool = state.action == TuxState.ACT_SWIM
+	if is_swimming:
+		_swim_regen_lockout = SWIM_REGEN_LOCKOUT_S
+	elif _swim_regen_lockout > 0.0:
+		_swim_regen_lockout = max(_swim_regen_lockout - delta, 0.0)
+	if not is_blocking and not is_swimming and _swim_regen_lockout <= 0.0:
 		# Cold halves stamina regen (PlayerStatus reads weather + time
-		# of day; 1.0 when comfy, 0.5 when chilled).
+		# of day; 1.0 when comfy, 0.5 when chilled). BuffManager
+		# stacks food buffs on top — satiated bumps regen 1.5x.
 		var regen_mul: float = PlayerStatus.stamina_regen_multiplier() if PlayerStatus else 1.0
+		if BuffManager:
+			regen_mul *= BuffManager.stamina_regen_multiplier()
 		GameState.regen_stamina(30.0 * regen_mul, delta)
 
 	_apply_passive_movement_mods(delta)
 	# Cold + wet trim horizontal movement (Y preserved so gravity/jump
 	# aren't muted). PlayerStatus.speed_multiplier() returns 1.0 when
-	# unaffected.
+	# unaffected. BuffManager stacks food buffs — Energized (raspberry)
+	# bumps to 1.2x.
 	var move_mul: float = PlayerStatus.speed_multiplier() if PlayerStatus else 1.0
+	if BuffManager:
+		move_mul *= BuffManager.speed_multiplier()
 	velocity = Vector3(state.vel.x * move_mul, state.vel.y, state.vel.z * move_mul)
 	move_and_slide()
 	rotation.y = state.face_yaw
@@ -255,6 +384,19 @@ func _physics_process(delta: float) -> void:
 
 
 func _read_inputs() -> void:
+	# Multiplayer puppets have no input authority — their pose is
+	# overwritten by net_player_sync each tick, so reading the local
+	# keyboard would just fight the sync. Zero everything and bail.
+	if not is_multiplayer_authority():
+		state.input_stick = Vector2.ZERO
+		state.input_attack_pressed = false
+		state.input_attack_held    = false
+		state.input_shield_held    = false
+		state.input_jump_pressed   = false
+		state.input_roll_pressed   = false
+		state.input_sprint_held    = false
+		state.input_camera_yaw     = 0.0
+		return
 	# Camera yaw still tracked (so the camera continues to follow even
 	# mid-dialog), but everything else zeros out while a textbox is up.
 	var cam_yaw: float = camera.get_yaw() if camera and camera.has_method("get_yaw") else 0.0
@@ -308,17 +450,34 @@ func _read_inputs() -> void:
 			# Same convention as face_yaw: atan2(-x, -z) so forward = -Z.
 			lock_yaw = atan2(-to_t.x, -to_t.z)
 
+	# BuildMode hijacks attack/shield while running — its _process polls
+	# the same actions itself for place/cancel. Feeding the presses into
+	# the action state machine would also trigger a sword swing or shield
+	# raise, which we don't want during placement. Zero them out for the
+	# state machine but let the rest (movement, jump, sprint, camera yaw)
+	# stay live so the player can still walk the ghost around.
+	var bm_node: Node = get_node_or_null("/root/BuildMode")
+	var bm_active: bool = false
+	if bm_node != null and "active" in bm_node:
+		bm_active = bool(bm_node.get("active"))
+
 	state.input_stick = stick
-	state.input_attack_pressed = Input.is_action_just_pressed("attack")
-	state.input_attack_held    = Input.is_action_pressed("attack")
-	state.input_shield_held    = Input.is_action_pressed("shield")
+	state.input_attack_pressed = false if bm_active else Input.is_action_just_pressed("attack")
+	state.input_attack_held    = false if bm_active else Input.is_action_pressed("attack")
+	state.input_shield_held    = false if bm_active else Input.is_action_pressed("shield")
 	state.input_jump_pressed   = Input.is_action_just_pressed("jump")
 	state.input_roll_pressed   = Input.is_action_just_pressed("roll")
 	state.input_sprint_held    = Input.is_action_pressed("sprint")
 	state.input_camera_yaw     = lock_yaw
 
 	if Input.is_action_just_pressed("item_use"):
-		_try_use_active_item()
+		# F toggles BuildMode while it's active; otherwise route through
+		# the normal dispatch (which itself ENTERS BuildMode for the
+		# hammer — see _try_use_active_item's "hammer" branch).
+		if bm_active and bm_node != null and bm_node.has_method("toggle"):
+			bm_node.call("toggle", self)
+		else:
+			_try_use_active_item()
 	# Glim Sight is the one held-item — it stays open while B is held
 	# and dismisses the moment the button is released. The static helper
 	# tracks its own state, so a no-op release (sight wasn't open) is
@@ -414,7 +573,13 @@ func _try_use_active_item() -> void:
 		"hookshot":
 			_fire_hookshot(fwd)
 		"hammer":
-			ItemHammer.try_swing(self, fwd)
+			# The Builder's Hammer is the build-mode toggle, not a melee
+			# weapon — ItemHammer.try_swing stays in the tree for the
+			# eventual "wreck a placed piece" tool but the F-press path
+			# now drops Tux straight into placement mode.
+			var bm: Node = get_node_or_null("/root/BuildMode")
+			if bm != null and bm.has_method("toggle"):
+				bm.call("toggle", self)
 		"glim_sight":
 			# Held-item: opening on press, _read_inputs handles release.
 			ItemGlimSight.open(self)
@@ -772,10 +937,11 @@ func _on_player_died() -> void:
 func _on_item_acquired(item_name: String) -> void:
 	if item_name == "glim_mirror":
 		_refresh_shield_skin()
-	# Crafting the starter sword/shield at a workbench reveals the
-	# corresponding mesh on the rig. Fresh games start unarmed.
-	if item_name == "sapling_blade" or item_name == "bark_round":
-		_apply_equipment_visibility()
+	# Re-evaluate sword/shield visibility AND per-weapon hitbox damage
+	# on every inventory acquisition. Cheap dict lookups — fine to run
+	# on any pickup, and keeps stone_sword / future metal tiers in sync
+	# without per-weapon match arms.
+	_apply_equipment_visibility()
 
 
 func _refresh_shield_skin() -> void:
@@ -1031,3 +1197,74 @@ func _spawn_ghost_blade() -> void:
 	t.tween_property(mat, "albedo_color:a", 0.0, 0.22)
 	t.tween_property(ghost, "scale", Vector3(0.45, 0.45, 0.45), 0.22)
 	t.chain().tween_callback(ghost.queue_free)
+
+
+# ---- Swim visuals -----------------------------------------------------
+#
+# Swimming hides the sword + shield (Tux needs his hands to tread water)
+# and tints the HUD a soft blue while submerged. The tint is built once
+# on first use and parented under the HUD CanvasLayer so it sits over
+# the 3D viewport but under the existing death/aim overlays.
+
+# Cached blue tint overlay; spawned lazily so a fresh scene doesn't pay
+# for it upfront and so we don't depend on the HUD existing at _ready.
+var _underwater_tint: ColorRect = null
+const UNDERWATER_TINT_COLOR := Color(0.15, 0.45, 0.70, 0.18)
+
+
+func _apply_swim_equipment_hide() -> void:
+	# Force props off while in ACT_SWIM; restore the inventory-driven
+	# visibility otherwise. Reading inventory each tick is cheap and
+	# keeps the visibility correct after exiting water without needing
+	# an explicit transition signal.
+	var swimming: bool = state and state.action == TuxState.ACT_SWIM
+	if sword:
+		if swimming:
+			sword.visible = false
+		else:
+			sword.visible = bool(GameState.inventory.get("sapling_blade", false))
+	if shield:
+		if swimming:
+			shield.visible = false
+		else:
+			shield.visible = bool(GameState.inventory.get("bark_round", false))
+
+
+func _apply_underwater_tint(submerged: bool) -> void:
+	# HUD lookup is deferred — find the autoload-style HUD in the scene
+	# tree the first time we need it. The HUD is a CanvasLayer parented
+	# under the world scene; if it isn't present (headless/test contexts)
+	# we just skip silently.
+	if _underwater_tint == null:
+		var hud: CanvasLayer = _find_hud_layer()
+		if hud == null:
+			return
+		_underwater_tint = ColorRect.new()
+		_underwater_tint.name = "UnderwaterTint"
+		_underwater_tint.color = UNDERWATER_TINT_COLOR
+		_underwater_tint.anchor_right = 1.0
+		_underwater_tint.anchor_bottom = 1.0
+		_underwater_tint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_underwater_tint.visible = false
+		# Insert at the bottom of the layer so any death/aim overlays
+		# still draw above us.
+		hud.add_child(_underwater_tint)
+		hud.move_child(_underwater_tint, 0)
+	if _underwater_tint.visible != submerged:
+		_underwater_tint.visible = submerged
+
+
+func _find_hud_layer() -> CanvasLayer:
+	# Walk the scene root for a node named "HUD" (the world_disc + dungeon
+	# scenes both add it under the scene root). Falls back to a recursive
+	# search by group name for resilience to future scene reshuffling.
+	var root: Node = get_tree().current_scene if get_tree() else null
+	if root == null:
+		return null
+	var n: Node = root.get_node_or_null("HUD")
+	if n is CanvasLayer:
+		return n
+	for child in root.get_children():
+		if child is CanvasLayer and child.name == "HUD":
+			return child
+	return null

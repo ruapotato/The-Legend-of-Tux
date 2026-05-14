@@ -20,6 +20,7 @@ var _subtitle: Label
 var _slots_box: VBoxContainer
 var _confirm_dialog: ConfirmationDialog
 var _pending_delete_slot: int = -1
+var _ip_field: LineEdit
 
 
 func _ready() -> void:
@@ -71,7 +72,18 @@ func _ready() -> void:
     box.add_child(spacer2)
 
     box.add_child(_make_button("Combat Sandbox", _on_sandbox))
-    box.add_child(_make_button("Level Editor",   _on_editor))
+
+    # Multiplayer MVP — bare-bones IP/port row + Host/Join buttons.
+    # Host listens on NetManager.DEFAULT_PORT and drops into the
+    # procedural world; Join connects to whatever's in the IP field
+    # and then loads the same scene as a client. Disconnected =
+    # single-player, so leaving the network state alone here keeps
+    # the existing slot-picker flow working exactly as before.
+    var net_spacer := Control.new()
+    net_spacer.custom_minimum_size = Vector2(0, 12)
+    box.add_child(net_spacer)
+    box.add_child(_build_network_row())
+
     box.add_child(_make_button("Quit",           _on_quit))
 
     _confirm_dialog = ConfirmationDialog.new()
@@ -206,3 +218,82 @@ func _on_editor() -> void:
 
 func _on_quit() -> void:
     get_tree().quit()
+
+
+# ---- Network MVP --------------------------------------------------------
+
+func _build_network_row() -> Control:
+    # Two-line block: a labelled IP field on top, Host + Join buttons
+    # below. Kept narrow so it tucks neatly under the main mode
+    # buttons without dominating the screen.
+    var col := VBoxContainer.new()
+    col.add_theme_constant_override("separation", 6)
+
+    var ip_row := HBoxContainer.new()
+    ip_row.add_theme_constant_override("separation", 6)
+
+    var ip_lbl := Label.new()
+    ip_lbl.text = "Host IP:Port"
+    ip_lbl.custom_minimum_size = Vector2(110, 32)
+    ip_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    ip_lbl.add_theme_font_size_override("font_size", 16)
+    ip_lbl.add_theme_color_override("font_color", Color(0.85, 0.85, 0.78, 1))
+    ip_row.add_child(ip_lbl)
+
+    _ip_field = LineEdit.new()
+    _ip_field.text = "127.0.0.1:%d" % NetManager.DEFAULT_PORT
+    _ip_field.custom_minimum_size = Vector2(220, 32)
+    _ip_field.placeholder_text = "127.0.0.1:%d" % NetManager.DEFAULT_PORT
+    ip_row.add_child(_ip_field)
+    col.add_child(ip_row)
+
+    var btn_row := HBoxContainer.new()
+    btn_row.add_theme_constant_override("separation", 8)
+    btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
+    btn_row.add_child(_make_button("Host Game", _on_host))
+    btn_row.add_child(_make_button("Join Game", _on_join))
+    col.add_child(btn_row)
+
+    return col
+
+
+func _on_host() -> void:
+    # Slot binding off — multiplayer doesn't save to a slot in MVP.
+    # GameState defaults are fine; the procedural world is fully
+    # determined by WorldGen.world_seed.
+    GameState.last_slot = -1
+    if not NetManager.host(NetManager.DEFAULT_PORT):
+        push_warning("Host failed")
+        return
+    GameState.show_intro = false
+    get_tree().change_scene_to_file("res://scenes/world_disc.tscn")
+
+
+func _on_join() -> void:
+    var parsed: Dictionary = _parse_endpoint(_ip_field.text)
+    var ip: String = parsed.get("ip", "127.0.0.1")
+    var port: int = int(parsed.get("port", NetManager.DEFAULT_PORT))
+    GameState.last_slot = -1
+    if not NetManager.join(ip, port):
+        push_warning("Join failed")
+        return
+    GameState.show_intro = false
+    get_tree().change_scene_to_file("res://scenes/world_disc.tscn")
+
+
+# "127.0.0.1:24847" → {ip, port}. Tolerates a bare hostname (uses
+# the default port) and trims whitespace. Doesn't validate further —
+# ENet will surface a connect error if the address is bogus.
+func _parse_endpoint(s: String) -> Dictionary:
+    var trimmed := s.strip_edges()
+    if trimmed == "":
+        return {"ip": "127.0.0.1", "port": NetManager.DEFAULT_PORT}
+    var colon := trimmed.rfind(":")
+    if colon < 0:
+        return {"ip": trimmed, "port": NetManager.DEFAULT_PORT}
+    var ip := trimmed.substr(0, colon)
+    var port_s := trimmed.substr(colon + 1)
+    var port := port_s.to_int() if port_s.is_valid_int() else NetManager.DEFAULT_PORT
+    if port <= 0 or port > 65535:
+        port = NetManager.DEFAULT_PORT
+    return {"ip": ip, "port": port}

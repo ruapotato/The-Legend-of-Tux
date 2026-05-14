@@ -147,6 +147,8 @@ func _apply(tag: String, t: float) -> void:
         "land":           _pose_land(t)
         "hurt":           _pose_hurt(t)
         "dead":           _pose_dead(t)
+        "swim":           _pose_swim(t)
+        "tread":          _pose_tread(t)
         _:                _pose_idle(t)
 
 
@@ -418,6 +420,41 @@ func _pose_dead(_t: float) -> void:
     _rot(bones.get("pelvis"), Vector3(0, 0, PI / 2))
     _rot(bones.get("arm_l"), Vector3(-0.3, 0, -0.4))
     _rot(bones.get("arm_r"), Vector3(-0.3, 0,  0.4))
+
+
+# Swim stroke: face-down front-crawl. Pelvis pitched FORWARD (positive
+# X tilts the body toward prone — the previous -0.7 was tilting Tux
+# BACKWARD, like he was floating on his back staring at the sky).
+# Arms reach out in front and pull alternately, legs flutter-kick.
+func _pose_swim(t: float) -> void:
+    var freq: float = 5.0
+    var phase: float = sin(t * freq)
+    var phase_b: float = sin(t * freq + PI)
+    _rot(bones.get("pelvis"), Vector3(0.85, 0, 0))    # face-down prone
+    _rot(bones.get("torso"),  Vector3(-0.05, phase * 0.08, 0))
+    _rot(bones.get("head"),   Vector3(-0.25, 0, 0))   # head up to breathe
+    # Arms reach forward and pull back in alternating strokes. With
+    # pelvis already prone, arm_x = +1.4 ish puts the arms forward.
+    _rot(bones.get("arm_l"),  Vector3(1.4 - phase   * 0.7, 0, -0.25))
+    _rot(bones.get("arm_r"),  Vector3(1.4 - phase_b * 0.7, 0,  0.25))
+    _rot(bones.get("leg_l"),  Vector3(-phase   * 0.45, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-phase_b * 0.45, 0, 0))
+
+
+# Tread water: upright, head out, arms sculling low at the sides, legs
+# scissoring slowly to hold position. Pelvis stays near vertical (small
+# forward lean so the silhouette reads as "in water" not "standing").
+func _pose_tread(t: float) -> void:
+    var phase: float = sin(t * 2.2)
+    _rot(bones.get("pelvis"), Vector3(0.20, 0, 0))    # slight forward lean
+    _rot(bones.get("torso"),  Vector3(-0.05, 0, 0))
+    _rot(bones.get("head"),   Vector3(-0.15, sin(t * 0.7) * 0.08, 0))
+    # Arms out at the sides, sculling. arm_x slightly forward, arm_z
+    # pushes them away from the body so they're visible from front view.
+    _rot(bones.get("arm_l"),  Vector3(0.30, 0, -1.05 + phase * 0.15))
+    _rot(bones.get("arm_r"),  Vector3(0.30, 0,  1.05 - phase * 0.15))
+    _rot(bones.get("leg_l"),  Vector3( phase * 0.25, 0, 0))
+    _rot(bones.get("leg_r"),  Vector3(-phase * 0.25, 0, 0))
 
 
 static func _rot(node: Node3D, euler: Vector3) -> void:

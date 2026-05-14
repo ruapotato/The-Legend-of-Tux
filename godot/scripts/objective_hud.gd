@@ -92,44 +92,42 @@ func refresh() -> void:
 
 
 func _compute_objective() -> String:
-    # 1. Game complete — Init defeated.
-    if GameState.has_defeated_boss("init") or GameState.has_flag("init_defeated"):
-        return "Realm restored. Find what you missed."
+    # Survival progression cascade — each step gates on a concrete
+    # resource or crafted item so the player always knows the next
+    # micro-goal. The dungeon arcs from the old game live in the
+    # constants above but no longer drive the HUD; they'll come back
+    # when bosses are reworked for the survival run.
+    var wood: int = _res_count("wood")
+    var stone: int = _res_count("stone")
+    var has_sword: bool = bool(GameState.inventory.get("sapling_blade", false))
+    var has_shield: bool = bool(GameState.inventory.get("bark_round", false))
+    var has_hammer: bool = bool(GameState.inventory.get("hammer", false))
+    var has_axe: bool = bool(GameState.inventory.get("stone_axe", false))
 
-    # 2. Triglyph assembled — last lap.
-    if GameState.has_flag("triglyph_assembled"):
-        return "Open the Null Door."
+    if wood < 3 and not has_sword:
+        return "Punch a bush — gather %d more wood." % (3 - wood)
+    if not has_sword:
+        return "Open the inventory (Esc) and craft the Sapling Blade."
+    if _res_count("wood") < 4 and not has_shield:
+        return "Punch more bushes — gather wood for a shield."
+    if not has_shield:
+        return "Craft the Bark Round shield from your inventory."
+    if not has_axe and stone < 2:
+        return "Find rocks — break two for stone."
+    if not has_axe:
+        return "Craft the Stone Axe so you can fell trees."
+    if not has_hammer:
+        return "Craft the Builder's Hammer (3 wood + 2 stone) to start a shelter."
+    return "Place a shelter with the Builder's Hammer. (More soon.)"
 
-    # 3. All 3 prior songs known — go play the Triglyph at the Crown.
-    var have_glim:  bool = GameState.has_song("glim_theme")
-    var have_sun:   bool = GameState.has_song("sun_chord")
-    var have_moon:  bool = GameState.has_song("moon_chord")
-    if have_glim and have_sun and have_moon \
-            and not GameState.has_song("triglyph_chord"):
-        return "Hum the Triglyph Chord at the Crown."
 
-    # 4. Glim's Theme is the very first song; if missing AND Dungeon 1
-    # is already cleared, the player should backtrack to the Glade.
-    if not have_glim and GameState.has_defeated_boss("wyrdking"):
-        return "Find Glim in the Glade."
-
-    # 5. Dungeons in canonical order. Only the first un-cleared one is
-    # surfaced — later ones reveal themselves as the player grinds.
-    for entry in DUNGEON_ORDER:
-        var boss_id: String = String(entry.get("boss", ""))
-        if boss_id == "":
-            continue
-        if not GameState.has_defeated_boss(boss_id):
-            return "Defeat %s in %s." % [
-                String(entry.get("name", boss_id)),
-                String(entry.get("where", "the dungeon")),
-            ]
-
-    # 6. All 8 dungeons cleared but missing one of the three prior
-    # songs — point at what's left so the cascade in #3 can light up.
-    for s in PRIOR_SONGS:
-        var sid: String = String(s.get("id", ""))
-        if sid != "" and not GameState.has_song(sid):
-            return "Learn %s." % String(s.get("name", sid))
-
-    return "Explore the Wyrdmark."
+# Safe resource-count read — the autoload may have no resources dict
+# during fresh boot or save migration.
+func _res_count(id: String) -> int:
+    if GameState == null:
+        return 0
+    if "resources" in GameState and GameState.resources != null:
+        return int(GameState.resources.get(id, 0))
+    if GameState.has_method("resource_count"):
+        return int(GameState.resource_count(id))
+    return 0

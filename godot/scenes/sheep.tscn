@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://btuxsheep01"]
+[gd_scene load_steps=13 format=3 uid="uid://btuxsheep01"]
 
 [ext_resource type="Script" path="res://scripts/sheep.gd" id="1_sh"]
 
@@ -6,25 +6,50 @@
 radius = 0.28
 height = 0.80
 
-[sub_resource type="SphereMesh" id="fluff_mesh"]
-radius = 0.38
-height = 0.70
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.7, 0.7, 1.1)
+
+; Adapted from hamberg sheep: fluffy wool body composed of an oversized
+; torso sphere with smaller bump spheres clustered on top, a dark capsule
+; head with a wool tuft, four slim dark legs, a curly tail puff. The
+; bumps are the load-bearing visual cue — flat sphere reads as 'ball', a
+; cluster of overlapping spheres reads as 'fluff'.
+[sub_resource type="SphereMesh" id="torso_mesh"]
+radius = 0.32
+height = 0.55
 radial_segments = 12
 rings = 6
 
-[sub_resource type="BoxMesh" id="head_mesh"]
-size = Vector3(0.25, 0.25, 0.30)
+[sub_resource type="SphereMesh" id="bump_mesh"]
+radius = 0.12
+height = 0.18
+radial_segments = 8
+rings = 4
 
-[sub_resource type="CylinderMesh" id="leg_mesh"]
-top_radius = 0.045
-bottom_radius = 0.045
-height = 0.40
+[sub_resource type="CapsuleMesh" id="head_mesh"]
+radius = 0.10
+height = 0.22
+
+[sub_resource type="BoxMesh" id="snout_mesh"]
+size = Vector3(0.08, 0.06, 0.10)
+
+[sub_resource type="CapsuleMesh" id="ear_mesh"]
+radius = 0.025
+height = 0.10
+
+[sub_resource type="CapsuleMesh" id="leg_mesh"]
+radius = 0.035
+height = 0.32
+
+[sub_resource type="SphereMesh" id="tail_mesh"]
+radius = 0.07
+height = 0.10
 
 [sub_resource type="StandardMaterial3D" id="wool_mat"]
 albedo_color = Color(0.94, 0.92, 0.86, 1)
 roughness = 0.95
 
-[sub_resource type="StandardMaterial3D" id="head_mat"]
+[sub_resource type="StandardMaterial3D" id="skin_mat"]
 albedo_color = Color(0.30, 0.24, 0.20, 1)
 roughness = 0.85
 
@@ -37,44 +62,97 @@ script = ExtResource("1_sh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("body_col")
 
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("hit_shape")
+
 [node name="Visual" type="Node3D" parent="."]
 
-[node name="Fluff0" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1.1, 0, 0, 0, 0.95, 0, 0, 0, 1.15, 0, 0.65, 0)
-mesh = SubResource("fluff_mesh")
+; Torso slightly stretched front-to-back so it doesn't read as a beach ball.
+[node name="Torso" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.85, 0, 0, 0, 1.25, 0, 0.62, 0)
+mesh = SubResource("torso_mesh")
 surface_material_override/0 = SubResource("wool_mat")
 
-[node name="Fluff1" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, -0.22, 0.72, 0.10)
-mesh = SubResource("fluff_mesh")
+[node name="Bump1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.78, -0.10)
+mesh = SubResource("bump_mesh")
 surface_material_override/0 = SubResource("wool_mat")
 
-[node name="Fluff2" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0.22, 0.72, 0.10)
-mesh = SubResource("fluff_mesh")
+[node name="Bump2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.78, -0.10)
+mesh = SubResource("bump_mesh")
 surface_material_override/0 = SubResource("wool_mat")
 
+[node name="Bump3" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.82, 0.15)
+mesh = SubResource("bump_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Bump4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.82, 0.15)
+mesh = SubResource("bump_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Bump5" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("bump_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+; Head lays horizontal at the front and stays the same dark skin material
+; as the legs — that contrast is what makes a sheep read as a sheep.
 [node name="Head" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 0.966, 0.259, 0, -0.259, 0.966, 0, 0.78, -0.45)
+transform = Transform3D(1, 0, 0, 0, -4.371e-08, 1, 0, -1, -4.371e-08, 0, 0.70, -0.42)
 mesh = SubResource("head_mesh")
-surface_material_override/0 = SubResource("head_mat")
+surface_material_override/0 = SubResource("skin_mat")
+
+[node name="HeadTuft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, -0.40)
+mesh = SubResource("bump_mesh")
+surface_material_override/0 = SubResource("wool_mat")
+
+[node name="Snout" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, -0.55)
+mesh = SubResource("snout_mesh")
+surface_material_override/0 = SubResource("skin_mat")
+
+[node name="EarL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-4.371e-08, -1, 0, 1, -4.371e-08, 0, 0, 0, 1, -0.11, 0.74, -0.40)
+mesh = SubResource("ear_mesh")
+surface_material_override/0 = SubResource("skin_mat")
+
+[node name="EarR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-4.371e-08, -1, 0, 1, -4.371e-08, 0, 0, 0, 1, 0.11, 0.74, -0.40)
+mesh = SubResource("ear_mesh")
+surface_material_override/0 = SubResource("skin_mat")
 
 [node name="LegFL" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.20, -0.30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.30, -0.22)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("head_mat")
+surface_material_override/0 = SubResource("skin_mat")
 
 [node name="LegFR" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.20, -0.30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.30, -0.22)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("head_mat")
+surface_material_override/0 = SubResource("skin_mat")
 
 [node name="LegBL" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.20, 0.30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.30, 0.22)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("head_mat")
+surface_material_override/0 = SubResource("skin_mat")
 
 [node name="LegBR" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.20, 0.30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.30, 0.22)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("head_mat")
+surface_material_override/0 = SubResource("skin_mat")
+
+[node name="Tail" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, 0.36)
+mesh = SubResource("tail_mesh")
+surface_material_override/0 = SubResource("wool_mat")

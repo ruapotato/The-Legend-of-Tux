@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
 # Wandering pig. Same idle/walk/flee loop as deer/sheep, 4 HP, meat-only
-# drop. Separate script (rather than parameterised) so future
-# species-specific behaviour (truffle hunting, mud rolling) can layer in
-# without touching the deer/sheep code paths.
+# drop. Mesh layout adapted from hamberg's flying-pig minus the wings —
+# pigs in Tux are strictly grounded. Bobs more bouncily than deer/sheep
+# because the silhouette is rounder; reads as a trotting waddle.
 
 const MeatPickup := preload("res://scenes/pickup_meat.tscn")
 
@@ -23,11 +23,15 @@ var state_time: float = 0.0
 var state_duration: float = 0.0
 var move_dir: Vector3 = Vector3.ZERO
 var _player_ref: Node3D = null
+var _bob_phase: float = 0.0
+
+@onready var _visual: Node3D = $Visual
 
 
 func _ready() -> void:
     hp = max_hp
     add_to_group("animal")
+    _bob_phase = randf() * TAU
     _enter_idle()
 
 
@@ -68,6 +72,20 @@ func _physics_process(delta: float) -> void:
         velocity.y = -1.0
 
     move_and_slide()
+    _update_bob(delta)
+
+
+# Bigger amplitude than deer/sheep — pigs read as bouncy when they trot.
+func _update_bob(delta: float) -> void:
+    if _visual == null:
+        return
+    var speed_factor: float = 0.0
+    if state == State.WALK:
+        speed_factor = 7.0
+    elif state == State.FLEE:
+        speed_factor = 15.0
+    _bob_phase += delta * speed_factor
+    _visual.position.y = sin(_bob_phase) * (0.05 if state == State.FLEE else 0.025)
 
 
 func _enter_idle() -> void:
@@ -85,6 +103,8 @@ func _enter_walk() -> void:
     move_dir = Vector3(sin(ang), 0.0, cos(ang))
 
 
+# Hit comes in via the child Hitbox Area3D (layer 32) — sword_hitbox's
+# area-side dispatch parent-fallbacks to this CharacterBody3D.
 func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
@@ -105,9 +125,20 @@ func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> vo
 
 
 func _die() -> void:
-    var parent: Node = get_parent()
-    if parent:
-        var meat := MeatPickup.instantiate()
-        meat.position = global_position + Vector3(0, 0.5, 0)
-        parent.call_deferred("add_child", meat)
+    if GameState and GameState.has_method("add_resource"):
+        GameState.add_resource("meat_raw", 1)
+    _mark_destroyed()
+    SoundBank.play_3d("bush_cut", global_position)
     queue_free()
+
+
+# Procedural-world persistence hook. Animals can wander far from their
+# spawn position, so we don't use position to identify them — instead we
+# read back the prop_id meta stamped at spawn by world_chunk.apply_data.
+# Hand-placed pigs (no meta) silently no-op.
+func _mark_destroyed() -> void:
+    if not has_meta("prop_id"):
+        return
+    if GameState == null:
+        return
+    GameState.destroyed_props[String(get_meta("prop_id"))] = true

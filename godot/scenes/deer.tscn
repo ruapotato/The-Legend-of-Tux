@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://btuxdeer01"]
+[gd_scene load_steps=14 format=3 uid="uid://btuxdeer01"]
 
 [ext_resource type="Script" path="res://scripts/deer.gd" id="1_dr"]
 
@@ -6,30 +6,52 @@
 radius = 0.30
 height = 0.90
 
-[sub_resource type="BoxMesh" id="body_mesh"]
-size = Vector3(1.2, 0.6, 0.4)
+[sub_resource type="BoxShape3D" id="hit_shape"]
+size = Vector3(0.7, 0.8, 1.4)
 
-[sub_resource type="BoxMesh" id="head_mesh"]
-size = Vector3(0.35, 0.35, 0.4)
+; Adapted from hamberg deer: horizontal capsule torso, angled-forward neck,
+; horizontal head + snout, two slender antlers, four slim legs. Mesh
+; positions are stored in *Visual* (not BodyContainer like hamberg) because
+; the Tux project doesn't have animated_character.gd hooking BodyContainer.
+[sub_resource type="CapsuleMesh" id="torso_mesh"]
+radius = 0.18
+height = 0.85
 
-[sub_resource type="CylinderMesh" id="leg_mesh"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.50
+[sub_resource type="CapsuleMesh" id="neck_mesh"]
+radius = 0.08
+height = 0.32
 
-[sub_resource type="StandardMaterial3D" id="hide_mat"]
+[sub_resource type="CapsuleMesh" id="head_mesh"]
+radius = 0.09
+height = 0.24
+
+[sub_resource type="BoxMesh" id="snout_mesh"]
+size = Vector3(0.10, 0.07, 0.14)
+
+[sub_resource type="CapsuleMesh" id="leg_mesh"]
+radius = 0.04
+height = 0.45
+
+[sub_resource type="CylinderMesh" id="antler_mesh"]
+top_radius = 0.012
+bottom_radius = 0.022
+height = 0.28
+
+[sub_resource type="SphereMesh" id="tail_mesh"]
+radius = 0.06
+height = 0.10
+
+[sub_resource type="StandardMaterial3D" id="fur_mat"]
 albedo_color = Color(0.45, 0.30, 0.18, 1)
 roughness = 0.9
 
-[sub_resource type="CylinderMesh" id="antler_base_mesh"]
-top_radius = 0.025
-bottom_radius = 0.035
-height = 0.18
+[sub_resource type="StandardMaterial3D" id="belly_mat"]
+albedo_color = Color(0.72, 0.60, 0.48, 1)
+roughness = 0.9
 
-[sub_resource type="CylinderMesh" id="antler_tip_mesh"]
-top_radius = 0.0
-bottom_radius = 0.03
-height = 0.14
+[sub_resource type="StandardMaterial3D" id="antler_mat"]
+albedo_color = Color(0.85, 0.78, 0.65, 1)
+roughness = 0.6
 
 [node name="Deer" type="CharacterBody3D"]
 collision_layer = 1
@@ -40,54 +62,75 @@ script = ExtResource("1_dr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 shape = SubResource("body_col")
 
+; Sword hits land here. layer=32 matches Tux's SwordHitbox.collision_mask;
+; the area has no take_damage of its own — sword_hitbox falls through to
+; get_parent() and calls take_damage on the CharacterBody3D root.
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("hit_shape")
+
 [node name="Visual" type="Node3D" parent="."]
 
-[node name="Body" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80, 0)
-mesh = SubResource("body_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+; Torso laid on its side (rotated 90deg around X) so it runs front-to-back.
+[node name="Torso" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, -4.371e-08, 1, 0, -1, -4.371e-08, 0, 0.85, 0)
+mesh = SubResource("torso_mesh")
+surface_material_override/0 = SubResource("fur_mat")
+
+; Neck rises forward from the front of the torso at ~25deg.
+[node name="Neck" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.9211, 0.3894, 0, -0.3894, 0.9211, 0, 1.05, -0.45)
+mesh = SubResource("neck_mesh")
+surface_material_override/0 = SubResource("fur_mat")
 
 [node name="Head" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 0.966, 0.259, 0, -0.259, 0.966, 0, 0.95, -0.65)
+transform = Transform3D(1, 0, 0, 0, -4.371e-08, 1, 0, -1, -4.371e-08, 0, 1.28, -0.62)
 mesh = SubResource("head_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+surface_material_override/0 = SubResource("fur_mat")
+
+[node name="Snout" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24, -0.78)
+mesh = SubResource("snout_mesh")
+surface_material_override/0 = SubResource("belly_mat")
+
+; Antlers tilt outward from the top of the head.
+[node name="AntlerL" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.9553, 0.2955, 0, -0.2955, 0.9553, 0, 0, 0, 1, -0.08, 1.45, -0.62)
+mesh = SubResource("antler_mesh")
+surface_material_override/0 = SubResource("antler_mat")
+
+[node name="AntlerR" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.9553, -0.2955, 0, 0.2955, 0.9553, 0, 0, 0, 1, 0.08, 1.45, -0.62)
+mesh = SubResource("antler_mesh")
+surface_material_override/0 = SubResource("antler_mat")
 
 [node name="LegFL" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20, 0.25, -0.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 0.40, -0.34)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+surface_material_override/0 = SubResource("fur_mat")
 
 [node name="LegFR" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20, 0.25, -0.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.40, -0.34)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+surface_material_override/0 = SubResource("fur_mat")
 
 [node name="LegBL" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20, 0.25, 0.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16, 0.40, 0.34)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+surface_material_override/0 = SubResource("fur_mat")
 
 [node name="LegBR" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20, 0.25, 0.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.40, 0.34)
 mesh = SubResource("leg_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+surface_material_override/0 = SubResource("fur_mat")
 
-[node name="AntlerL_Shaft" type="MeshInstance3D" parent="Visual/Head"]
-transform = Transform3D(0.966, -0.259, 0, 0.259, 0.966, 0, 0, 0, 1, -0.10, 0.20, 0.04)
-mesh = SubResource("antler_base_mesh")
-surface_material_override/0 = SubResource("hide_mat")
-
-[node name="AntlerL_Tip" type="MeshInstance3D" parent="Visual/Head"]
-transform = Transform3D(0.866, -0.5, 0, 0.5, 0.866, 0, 0, 0, 1, -0.15, 0.30, -0.04)
-mesh = SubResource("antler_tip_mesh")
-surface_material_override/0 = SubResource("hide_mat")
-
-[node name="AntlerR_Shaft" type="MeshInstance3D" parent="Visual/Head"]
-transform = Transform3D(0.966, 0.259, 0, -0.259, 0.966, 0, 0, 0, 1, 0.10, 0.20, 0.04)
-mesh = SubResource("antler_base_mesh")
-surface_material_override/0 = SubResource("hide_mat")
-
-[node name="AntlerR_Tip" type="MeshInstance3D" parent="Visual/Head"]
-transform = Transform3D(0.866, 0.5, 0, -0.5, 0.866, 0, 0, 0, 1, 0.15, 0.30, -0.04)
-mesh = SubResource("antler_tip_mesh")
-surface_material_override/0 = SubResource("hide_mat")
+[node name="Tail" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90, 0.50)
+mesh = SubResource("tail_mesh")
+surface_material_override/0 = SubResource("belly_mat")

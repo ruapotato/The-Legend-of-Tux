@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://btuxbldf03"]
+
+; Roof piece. 2m x 2m sloped slab — a 0.3m-thick board rotated ~22.5°
+; around the X axis so one edge sits flush with the wall-top of a 2.5m
+; wall and the other rakes upward, giving the simplest survival-style
+; shed roof. Tilted up so the back edge is the high one; pair four of
+; them at 90° rotations to roof a 2x2 cabin. Layer 1 collision.
+;
+; Transform math: Basis(Vector3(1,0,0), 0.3927) — 22.5° in radians; the
+; values 0.9238795 / 0.3826834 = cos/sin(22.5°). Origin lives at the
+; mid-base so a placement at a wall-top corner snaps cleanly.
+
+[sub_resource type="BoxMesh" id="roof_mesh"]
+size = Vector3(2, 0.3, 2.2)
+
+[sub_resource type="BoxShape3D" id="roof_shape"]
+size = Vector3(2, 0.3, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="roof_mat"]
+albedo_color = Color(0.38, 0.25, 0.15, 1)
+roughness = 0.85
+
+[node name="BuildRoof" type="StaticBody3D" groups=["build_piece"]]
+collision_layer = 1
+collision_mask = 0
+metadata/piece_id = "roof"
+metadata/cost_wood = 2
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9238795, 0.3826834, 0, -0.3826834, 0.9238795, 0, 0.4, 0)
+mesh = SubResource("roof_mesh")
+material_override = SubResource("roof_mat")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9238795, 0.3826834, 0, -0.3826834, 0.9238795, 0, 0.4, 0)
+shape = SubResource("roof_shape")

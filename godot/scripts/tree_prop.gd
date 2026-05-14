@@ -32,6 +32,21 @@ var hp: int = 5
 var _shaken: bool = false
 var _shake_cooldown: float = 0.0
 
+# Procedural HP banner — a Label3D that pops in above the trunk for a
+# few seconds after each hit so the player can see chop progress.
+# Built on first damage rather than _ready to keep the idle scene
+# cheap (most trees in the world are never hit).
+var _hp_label: Label3D = null
+var _hp_label_timer: float = 0.0
+
+# Tools that count as "wood-cutting" — bare fists / shields / hammers
+# don't chop trees, the player has to bring an edge. The actual per-hit
+# damage value comes from the attacker's SwordHitbox (whose `damage`
+# tux_player scales by weapon tier), so a Stone Axe does meaningfully
+# more per swing than a Sapling Blade without the tree carrying its own
+# weapon table.
+const CHOPPING_TOOLS: Array[String] = ["sapling_blade", "stone_axe", "stone_sword"]
+
 
 func _ready() -> void:
     add_to_group("ground_snap")
@@ -68,6 +83,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
     if _shake_cooldown > 0:
         _shake_cooldown -= delta
+    if _hp_label_timer > 0.0:
+        _hp_label_timer -= delta
+        if _hp_label and is_instance_valid(_hp_label):
+            # Linear fade in the last 0.6s of the banner's life.
+            _hp_label.modulate.a = clamp(_hp_label_timer / 0.6, 0.0, 1.0)
+            if _hp_label_timer <= 0.0:
+                _hp_label.queue_free()
+                _hp_label = null
 
 
 func _on_roll_enter(body: Node) -> void:
@@ -113,32 +136,80 @@ func _drop_pebble() -> void:
 
 # Called by the trunk-body forwarder when the player's swing hits the
 # tree. Signature matches sword_hitbox: take_damage(amount, source_pos,
-# attacker). When HP hits zero, the tree drops wood pickups and removes
-# itself.
+# attacker). Tools-only — bare fists thunk off; the attacker must carry
+# a sapling_blade or stone_axe in their inventory. Each successful hit
+# drops a floating HP banner above the trunk for visual progress; at 0
+# hp the tree falls and drops WOOD_DROPS_ON_FELL wood pickups.
 func take_damage(amount: int, _source_pos: Vector3 = Vector3.ZERO,
-        _attacker: Node = null) -> void:
+        attacker: Node = null) -> void:
     if hp <= 0:
         return
-    hp -= amount
+    # Gate on tool ownership — bare fists / hammers thunk off and we
+    # flash a hint so the player learns trees need an edge. With a
+    # tool, the actual per-hit damage is the SwordHitbox's value
+    # (scaled by weapon tier in tux_player) so axes and swords feel
+    # distinct.
+    if not _attacker_has_chopping_tool(attacker):
+        _show_hp_banner("Need an axe to chop")
+        return
+    hp -= max(amount, 1)
     _shake_canopy()
     if hp > 0:
+        _show_hp_banner("HP %d / %d" % [hp, hp_full])
         return
     _fell_and_drop_wood()
 
 
+func _attacker_has_chopping_tool(attacker: Node) -> bool:
+    if attacker == null or not attacker.is_in_group("player"):
+        return false
+    if not GameState:
+        return false
+    for tool_id in CHOPPING_TOOLS:
+        if bool(GameState.inventory.get(tool_id, false)):
+            return true
+    return false
+
+
+# Floating HP banner — lazily built on first hit, repositioned above the
+# trunk, and faded out after a couple seconds (timer ticks in _process).
+func _show_hp_banner(text: String) -> void:
+    if _hp_label == null:
+        _hp_label = Label3D.new()
+        _hp_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+        _hp_label.fixed_size = true
+        _hp_label.pixel_size = 0.0022
+        # no_depth_test so the banner draws ON TOP of the trunk mesh —
+        # otherwise the trunk occludes the text and only the edges peek.
+        _hp_label.no_depth_test = true
+        _hp_label.modulate = Color(1.0, 0.95, 0.55, 1.0)
+        _hp_label.outline_modulate = Color(0, 0, 0, 1)
+        _hp_label.outline_size = 6
+        add_child(_hp_label)
+    _hp_label.text = text
+    # ~head height so the player reads it in their natural sightline.
+    # no_depth_test means we don't need to clear the trunk mesh.
+    _hp_label.position = Vector3(0, 1.8, 0)
+    _hp_label.modulate.a = 1.0
+    _hp_label_timer = 2.0
+
+
 func _fell_and_drop_wood() -> void:
-    var parent: Node = get_parent()
-    if parent == null:
-        queue_free()
-        return
-    var base: Vector3 = global_position + Vector3(0, 0.4, 0)
-    for i in wood_drops_on_fell:
-        var p: Node3D = WoodPickup.instantiate()
-        var offset := Vector3(
-            randf_range(-1.0, 1.0),
-            0,
-            randf_range(-1.0, 1.0)
-        )
-        p.position = base + offset
-        parent.call_deferred("add_child", p)
+    # Direct-grant — matches the bush/raspberry path. Feedback comes
+    # from the inventory grid live-refresh + SFX.
+    if GameState and GameState.has_method("add_resource"):
+        GameState.add_resource("wood", wood_drops_on_fell)
+    _mark_destroyed()
+    SoundBank.play_3d("tree_fall", global_position)
     queue_free()
+
+
+# Procedural-world persistence hook — see wood_bush.gd. The prop_id meta
+# is stamped at spawn by world_chunk.apply_data; hand-placed trees have
+# no meta and this is a silent no-op.
+func _mark_destroyed() -> void:
+    if not has_meta("prop_id"):
+        return
+    if GameState == null:
+        return
+    GameState.destroyed_props[String(get_meta("prop_id"))] = true

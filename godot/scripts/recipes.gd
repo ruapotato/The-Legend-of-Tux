@@ -41,6 +41,13 @@ const RECIPES: Dictionary = {
 		"station": "workbench",
 		"key_item": true,
 	},
+	"stone_sword": {
+		"display": "Stone Sword",
+		"cost": {"wood": 2, "stone": 3},
+		"description": "Heavier blade. Hits 50% harder than the Sapling Blade.",
+		"station": "workbench",
+		"key_item": true,
+	},
 	"cooked_meat": {
 		"display": "Cooked Meat",
 		"cost": {"meat_raw": 1},
@@ -83,4 +90,12 @@ func craft(id: String) -> bool:
 		GameState.acquire_item(id)
 	else:
 		GameState.add_resource(id, int(r.get("amount_out", 1)))
+	# Auto-equip tools that have an item_use handler so the player
+	# doesn't have to dig through a B-slot picker (none exists yet).
+	# Crafting the hammer should "just work" — press F (item_use) and
+	# build mode opens. Same for future stone_pick / hoe.
+	if id == "hammer":
+		GameState.active_b_item = "hammer"
+		if GameState.has_signal("active_item_changed"):
+			GameState.active_item_changed.emit("hammer")
 	return true

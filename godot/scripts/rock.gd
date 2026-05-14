@@ -9,8 +9,10 @@ extends RigidBody3D
 # take_damage path the bushes use.
 
 const PebblePickup := preload("res://scenes/pickup_pebble.tscn")
+const StonePickup  := preload("res://scenes/pickup_stone.tscn")
 
-@export var pebble_chance: float = 0.45
+@export var pebble_chance: float = 0.20    # bonus pebble currency
+@export var stone_amount: int = 1          # always-drop stone for crafting
 @export var carry_offset: Vector3 = Vector3(0, 1.6, -0.1)
 @export var throw_speed: float = 12.0
 
@@ -105,13 +107,23 @@ func _shatter() -> void:
     _shattered = true
     hitbox.set_deferred("monitorable", false)
     SoundBank.play_3d("rock_break", global_position)
-    var here: Vector3 = global_position
-    if randf() < pebble_chance:
-        var p := PebblePickup.instantiate()
-        p.position = here + Vector3(0, 0.2, 0)
-        var parent: Node = get_parent()
-        if parent:
-            parent.call_deferred("add_child", p)
+    # Direct grant — matches the bush/animal/tree path.
+    if GameState and GameState.has_method("add_resource"):
+        GameState.add_resource("stone", stone_amount)
+        if randf() < pebble_chance and GameState.has_method("add_pebbles"):
+            GameState.add_pebbles(1)
+    _mark_destroyed()
     var t := create_tween()
     t.tween_property(visual, "scale", Vector3.ZERO, 0.15)
     t.tween_callback(queue_free)
+
+
+# Procedural-world persistence hook — see wood_bush.gd. The prop_id meta
+# is stamped at spawn by world_chunk.apply_data; hand-placed rocks have
+# no meta and this is a silent no-op.
+func _mark_destroyed() -> void:
+    if not has_meta("prop_id"):
+        return
+    if GameState == null:
+        return
+    GameState.destroyed_props[String(get_meta("prop_id"))] = true

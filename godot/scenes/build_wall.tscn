@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://btuxbldf02"]
+
+; Wall piece. 2m wide x 2.5m tall x 0.2m deep wooden plank standing on
+; edge. Origin at the bottom-center so a wall plopped at a foundation's
+; top-corner sits flush. Same brown grain palette as the foundation, a
+; touch darker so the silhouette reads against the floor under shadow.
+; Layer 1 (World) for collision.
+
+[sub_resource type="BoxMesh" id="wall_mesh"]
+size = Vector3(2, 2.5, 0.2)
+
+[sub_resource type="BoxShape3D" id="wall_shape"]
+size = Vector3(2, 2.5, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="wall_mat"]
+albedo_color = Color(0.42, 0.28, 0.16, 1)
+roughness = 0.85
+
+[node name="BuildWall" type="StaticBody3D" groups=["build_piece"]]
+collision_layer = 1
+collision_mask = 0
+metadata/piece_id = "wall"
+metadata/cost_wood = 2
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+mesh = SubResource("wall_mesh")
+material_override = SubResource("wall_mat")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("wall_shape")

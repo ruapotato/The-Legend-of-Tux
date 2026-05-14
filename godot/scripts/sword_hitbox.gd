@@ -20,7 +20,7 @@ extends Area3D
 # Set DEBUG = false once tuning is done. Right now it prints every
 # arm / disarm and every hit dispatch so combat issues are diagnosable.
 
-const DEBUG: bool = true
+const DEBUG: bool = false
 
 signal target_hit(target: Node)
 

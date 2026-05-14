@@ -33,50 +33,50 @@ const T_DUSK:     float = 0.75
 # blue daylight, warm rose dusk. Adjacent palettes lerp smoothly.
 
 const NIGHT_PALETTE := {
-	"sun_color":      Color(0.40, 0.50, 0.85),   # moonlight tint
-	"sun_energy":     0.10,
-	"ambient_color":  Color(0.10, 0.15, 0.30),
-	"ambient_energy": 0.25,
-	"sky_top":        Color(0.02, 0.03, 0.10),
-	"sky_horizon":    Color(0.05, 0.07, 0.18),
-	"ground_horizon": Color(0.04, 0.05, 0.10),
-	"ground_bottom":  Color(0.02, 0.02, 0.05),
+	"sun_color":      Color(0.30, 0.42, 0.78),   # cool moonlight tint
+	"sun_energy":     0.04,                       # deep night — no sun
+	"ambient_color":  Color(0.06, 0.08, 0.22),
+	"ambient_energy": 0.12,                       # very dark ambient
+	"sky_top":        Color(0.005, 0.008, 0.040),  # near-black navy at zenith
+	"sky_horizon":    Color(0.025, 0.040, 0.110),  # deep blue band
+	"ground_horizon": Color(0.020, 0.025, 0.060),
+	"ground_bottom":  Color(0.005, 0.005, 0.020),
 }
 
 const DAWN_PALETTE := {
-	"sun_color":      Color(1.00, 0.65, 0.50),
+	"sun_color":      Color(1.00, 0.62, 0.42),
 	"sun_energy":     0.85,
-	"ambient_color":  Color(0.55, 0.40, 0.45),
+	"ambient_color":  Color(0.55, 0.42, 0.48),
 	"ambient_energy": 0.50,
-	"sky_top":        Color(0.30, 0.35, 0.55),
-	"sky_horizon":    Color(0.85, 0.55, 0.50),
-	"ground_horizon": Color(0.55, 0.40, 0.30),
-	"ground_bottom":  Color(0.10, 0.10, 0.15),
+	"sky_top":        Color(0.18, 0.22, 0.50),    # still dim aloft during dawn
+	"sky_horizon":    Color(0.92, 0.55, 0.48),    # warm pink-amber band rolling in from east
+	"ground_horizon": Color(0.55, 0.38, 0.28),
+	"ground_bottom":  Color(0.08, 0.08, 0.14),
 }
 
 const DAY_PALETTE := {
-	"sun_color":      Color(1.00, 0.96, 0.85),
-	"sun_energy":     1.20,
-	"ambient_color":  Color(0.85, 0.90, 0.95),
-	"ambient_energy": 0.55,
-	"sky_top":        Color(0.28, 0.50, 0.85),
-	"sky_horizon":    Color(0.65, 0.75, 0.88),
-	"ground_horizon": Color(0.40, 0.35, 0.25),
-	"ground_bottom":  Color(0.15, 0.13, 0.10),
+	"sun_color":      Color(1.00, 0.96, 0.86),
+	"sun_energy":     1.50,
+	"ambient_color":  Color(0.62, 0.78, 1.00),
+	"ambient_energy": 0.80,
+	"sky_top":        Color(0.05, 0.28, 0.92),    # deep vibrant blue zenith
+	"sky_horizon":    Color(0.48, 0.72, 0.98),    # bright pale-blue horizon
+	"ground_horizon": Color(0.40, 0.36, 0.26),
+	"ground_bottom":  Color(0.12, 0.11, 0.09),
 }
 
 const DUSK_PALETTE := {
-	"sun_color":      Color(1.00, 0.55, 0.35),
+	"sun_color":      Color(1.00, 0.50, 0.28),
 	"sun_energy":     0.70,
-	"ambient_color":  Color(0.65, 0.45, 0.40),
-	"ambient_energy": 0.45,
-	"sky_top":        Color(0.30, 0.25, 0.40),
-	"sky_horizon":    Color(0.90, 0.55, 0.30),
-	"ground_horizon": Color(0.45, 0.30, 0.20),
-	"ground_bottom":  Color(0.08, 0.07, 0.10),
+	"ambient_color":  Color(0.62, 0.42, 0.42),
+	"ambient_energy": 0.42,
+	"sky_top":        Color(0.20, 0.18, 0.42),    # dusky violet aloft
+	"sky_horizon":    Color(0.95, 0.50, 0.26),    # warm orange-rose band over horizon
+	"ground_horizon": Color(0.42, 0.28, 0.18),
+	"ground_bottom":  Color(0.06, 0.06, 0.10),
 }
 
-var t: float = 0.30                     # 0..1, normalized day cycle
+var t: float = 0.42                     # 0..1, normalized day cycle (mid-morning so the sky is properly blue on first boot)
 var paused: bool = false
 var _last_hour_idx: int = -1
 var _current_period: String = "day"
@@ -113,10 +113,14 @@ func _apply_to_scene() -> void:
 		_cached_sun = _find(scene, "DirectionalLight3D") as DirectionalLight3D
 		_cached_env = _find(scene, "WorldEnvironment") as WorldEnvironment
 		_cached_sky_mat = null
-		if _cached_env and _cached_env.environment and _cached_env.environment.sky:
-			var sm = _cached_env.environment.sky.sky_material
-			if sm is ProceduralSkyMaterial:
-				_cached_sky_mat = sm
+	# Re-fetch the sky material lazily — the env may exist but its sky
+	# resource may not be ready on the first cache pass (sub-resource
+	# load timing). Once cached, this branch becomes a single null check.
+	if _cached_sky_mat == null and _cached_env and _cached_env.environment \
+			and _cached_env.environment.sky:
+		var sm = _cached_env.environment.sky.sky_material
+		if sm is ProceduralSkyMaterial:
+			_cached_sky_mat = sm
 	var pal: Dictionary = current_palette()
 	if _cached_sun and is_instance_valid(_cached_sun):
 		_cached_sun.rotation = sun_rotation()
@@ -199,6 +203,14 @@ func set_t(new_t: float) -> void:
 	t = clamp(new_t, 0.0, 1.0)
 
 
+# Dev-console alias. Same semantics as set_t — clamp to [0, 1] and write
+# directly without disturbing pause/tween state. Provided so callers that
+# look up a `set_time` setter (the dev console; future cutscene scripts)
+# don't have to know the legacy field name.
+func set_time(new_t: float) -> void:
+	set_t(new_t)
+
+
 func pause() -> void:
 	paused = true
 
@@ -228,15 +240,43 @@ func _on_advance_tween_done(target_t: float) -> void:
 	paused = false
 
 
-# Direction sunlight points (toward the ground).
+# Sun orbits the world over 24 in-game hours on a plane tilted ~30° off
+# vertical so the arc rises in the east, climbs through a southerly
+# zenith, and sets in the west — the hamberg pattern. Midnight = nadir,
+# noon = zenith.
+const SUN_ORBIT_TILT: float = 0.5236   # 30° in radians
+
+# World-space vector pointing TOWARD the sun (above horizon when y > 0).
+# This is the opposite of "sun_dir" which historically means the direction
+# light TRAVELS — we keep the old semantics for `sun_dir()` below.
+func _sun_world_pos_dir() -> Vector3:
+	var hour_angle: float = t * TAU                  # 0 at midnight, PI at noon
+	var sun_height: float = -cos(hour_angle)         # -1 midnight, +1 noon
+	var sun_horizontal: float = sin(hour_angle)      # +1 at dawn (east), -1 at dusk (west)
+	var x: float = sun_horizontal
+	var y: float = sun_height * cos(SUN_ORBIT_TILT)
+	var z: float = -sun_height * sin(SUN_ORBIT_TILT) # tilt arc toward south
+	return Vector3(x, y, z).normalized()
+
+
+# Direction sunlight points (toward the ground / downward) — preserved
+# semantics from v1. Equals -sun_world_pos_dir().
 func sun_dir() -> Vector3:
-	var angle: float = t * TAU - PI * 0.5
-	return Vector3(0.30, -sin(angle), -cos(angle)).normalized()
+	return -_sun_world_pos_dir()
 
 
+# Euler rotation for the DirectionalLight3D so its local -Z aligns with
+# sun_dir(). We build a Basis via looking_at and return its Euler.
 func sun_rotation() -> Vector3:
-	var angle: float = t * TAU - PI * 0.5
-	return Vector3(-angle, 0.0, 0.0)
+	var dir: Vector3 = sun_dir()
+	if dir.length_squared() < 0.0001:
+		return Vector3.ZERO
+	# Avoid degenerate up-vector when the sun is straight overhead/below.
+	var up: Vector3 = Vector3.UP
+	if absf(dir.normalized().y) > 0.99:
+		up = Vector3.FORWARD
+	var basis: Basis = Basis.looking_at(dir, up)
+	return basis.get_euler()
 
 
 # Back-compat accessors that older callers (song_book, time_gate, etc.)

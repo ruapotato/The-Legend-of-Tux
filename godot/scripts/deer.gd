@@ -1,8 +1,9 @@
 extends CharacterBody3D
 
 # Wandering deer. Idle/walk loop with a flee response when hit. Drops
-# meat (always) and antler (50%) on death. Modeled after enemy_blob.gd
-# but lighter — no chase, no attack, no targeting; it just exists.
+# meat (always) and antler (50%) on death. Mesh layout adapted from the
+# hamberg passive_animal scenes — torso + neck + head + four legs in a
+# Visual subtree (no animated_character.gd here, so the bob is local).
 
 const MeatPickup   := preload("res://scenes/pickup_meat.tscn")
 const AntlerPickup := preload("res://scenes/pickup_antler.tscn")
@@ -28,11 +29,15 @@ var state_time: float = 0.0
 var state_duration: float = 0.0
 var move_dir: Vector3 = Vector3.ZERO
 var _player_ref: Node3D = null
+var _bob_phase: float = 0.0
+
+@onready var _visual: Node3D = $Visual
 
 
 func _ready() -> void:
     hp = max_hp
     add_to_group("animal")
+    _bob_phase = randf() * TAU  # desync neighbour bobs
     _enter_idle()
 
 
@@ -76,6 +81,22 @@ func _physics_process(delta: float) -> void:
         velocity.y = -1.0
 
     move_and_slide()
+    _update_bob(delta)
+
+
+# Small vertical bob on the Visual subtree so the deer doesn't look
+# stamped to the ground. Faster bob when fleeing — communicates panic
+# without needing a real run animation.
+func _update_bob(delta: float) -> void:
+    if _visual == null:
+        return
+    var speed_factor: float = 0.0
+    if state == State.WALK:
+        speed_factor = 6.0
+    elif state == State.FLEE:
+        speed_factor = 14.0
+    _bob_phase += delta * speed_factor
+    _visual.position.y = sin(_bob_phase) * (0.04 if state == State.FLEE else 0.02)
 
 
 func _enter_idle() -> void:
@@ -95,7 +116,8 @@ func _enter_walk() -> void:
 
 # Sword / arrow hits funnel through here — same signature as enemy_blob's
 # take_damage so existing weapon code (which only knows the two-arg form)
-# stays compatible.
+# stays compatible. Note the hit is dispatched by sword_hitbox via the
+# child Hitbox Area3D (layer 32) → parent-fallback to this CharacterBody3D.
 func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> void:
     if hp <= 0:
         return
@@ -118,13 +140,23 @@ func take_damage(amount: int, source_pos: Vector3, _attacker: Node = null) -> vo
 
 
 func _die() -> void:
-    var parent: Node = get_parent()
-    if parent:
-        var meat := MeatPickup.instantiate()
-        meat.position = global_position + Vector3(0, 0.5, 0)
-        parent.call_deferred("add_child", meat)
-        if randf() < antler_chance:
-            var antler := AntlerPickup.instantiate()
-            antler.position = global_position + Vector3(0.3, 0.5, 0)
-            parent.call_deferred("add_child", antler)
+    var got_antler: bool = randf() < antler_chance
+    if GameState and GameState.has_method("add_resource"):
+        GameState.add_resource("meat_raw", 1)
+        if got_antler:
+            GameState.add_resource("antler", 1)
+    _mark_destroyed()
+    SoundBank.play_3d("bush_cut", global_position)
     queue_free()
+
+
+# Procedural-world persistence hook. Animals can wander far from their
+# spawn position, so we don't use position to identify them — instead we
+# read back the prop_id meta stamped at spawn by world_chunk.apply_data.
+# Hand-placed deer (no meta) silently no-op.
+func _mark_destroyed() -> void:
+    if not has_meta("prop_id"):
+        return
+    if GameState == null:
+        return
+    GameState.destroyed_props[String(get_meta("prop_id"))] = true

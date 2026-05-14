@@ -53,7 +53,10 @@ func _ready() -> void:
     _ensure_objective_label()
     _ensure_lock_reticle()
     _ensure_aim_crosshair()
-    _ensure_terminal_corner()
+    # Terminal corner is from the old shell-themed game; the survival
+    # build doesn't surface kill/chmod commands and the bottom-left is
+    # now occupied by the world mini-map. Skip the spawn.
+    # _ensure_terminal_corner()
     _refresh_shield_label()
     _refresh_hp(GameState.hp, GameState.max_fish * GameState.HP_PER_FISH)
     _on_stamina_changed(GameState.stamina, GameState.MAX_STAMINA)

@@ -20,6 +20,10 @@ radius = 0.32
 height = 1.6
 radius = 0.85
 
+[sub_resource type="CylinderShape3D" id="trunk_hit_shape"]
+height = 4.6
+radius = 0.55
+
 [node name="Tree" type="Node3D"]
 script = ExtResource("1_t")
 
@@ -49,3 +53,13 @@ monitoring = true
 [node name="Shape" type="CollisionShape3D" parent="RollArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("roll_shape")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitorable = true
+monitoring = false
+
+[node name="Shape" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+shape = SubResource("trunk_hit_shape")

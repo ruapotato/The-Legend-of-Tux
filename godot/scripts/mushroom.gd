@@ -45,4 +45,16 @@ func _pick() -> void:
     hint.visible = false
     if GameState.has_method("add_resource"):
         GameState.add_resource("mushroom", 1)
+    _mark_destroyed()
     queue_free()
+
+
+# Procedural-world persistence hook — see wood_bush.gd. The prop_id meta
+# is stamped at spawn by world_chunk.apply_data; hand-placed mushrooms
+# have no meta and this is a silent no-op.
+func _mark_destroyed() -> void:
+    if not has_meta("prop_id"):
+        return
+    if GameState == null:
+        return
+    GameState.destroyed_props[String(get_meta("prop_id"))] = true

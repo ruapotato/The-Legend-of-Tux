@@ -25,6 +25,7 @@ enum {
     ACT_LAND,
     ACT_HURT,
     ACT_DEAD,
+    ACT_SWIM,
 }
 
 # Flip variants — set when ACT_FLIP starts; the animator uses it to pick
@@ -59,6 +60,8 @@ const ANIM_FALL          := "fall"
 const ANIM_LAND          := "land"
 const ANIM_HURT          := "hurt"
 const ANIM_DEAD          := "dead"
+const ANIM_SWIM          := "swim"
+const ANIM_TREAD         := "tread"
 
 # ---- Tuning (Godot units; m, m/s, s) -----------------------------------
 const WALK_MAX_VEL         := 4.0
@@ -157,6 +160,57 @@ const COST_JAB             := 6
 const COST_JUMP_ATTACK     := 12
 const COST_SPIN            := 30
 
+# Swim tuning. Half walking speed under water; the player floats at a
+# CHEST-deep equilibrium — feet sit SWIM_BODY_DEPTH below the water
+# surface so the silhouette has the body submerged with the head poking
+# out (Valheim-style). Buoyancy pushes the feet TOWARD that target
+# depth: a deep dive bobs you up, breaking the surface bobs you down.
+# SWIM_ENTER_DEPTH is the waist-deep threshold that gates ACT_SWIM —
+# you walk through ankle/shin-deep water, only swim once you'd be in
+# above your hips. SWIM_RISE_MAX caps the upward velocity so a deep
+# plunge eases out smoothly instead of rocketing the player to surface.
+const SWIM_SPEED              := 5.0
+const SWIM_RISE_MAX           := 3.0
+const SWIM_FALL_MAX           := 2.0
+const SWIM_BUOYANCY_GAIN      := 1.4
+const SWIM_SURFACE_DAMP       := 8.0
+const SWIM_SURFACE_KICK       := 2.5
+const SWIM_STAMINA_PER_SEC    := 8.0
+# HP drained per second once stamina is exhausted while swimming. Tux
+# is a penguin that can't actually swim — keep paddling past your
+# stamina and the cold ocean starts taking life. Tuned so a full-HP
+# player has roughly 12 seconds of exhausted-swim before death — long
+# enough to scramble for shore from the middle of a small bay.
+const SWIM_HP_DRAIN_PER_SEC   := 1.0
+# When stamina is 0, the player keeps propelling themselves but at this
+# fraction of SWIM_SPEED. The previous implementation hard-stopped
+# movement, which combined with the HP drain felt like death-while-
+# paralyzed. A slow drift means you CAN still claw back to shore — you
+# just bleed HP doing it.
+const SWIM_EXHAUSTED_SPEED_FRAC := 0.45
+# Equilibrium feet-depth below the water surface. With the capsule
+# origin near the feet, 0.45m below puts the WATERLINE at roughly the
+# capsule's mid-shin so the body silhouette sits *at* the surface
+# (head + most of torso clear) — Valheim-style float, not chest-deep.
+const SWIM_BODY_DEPTH         := 0.45
+# Half-band around the equilibrium where the Y velocity damps to zero.
+# Outside the band the buoyancy push (or counter-push above the line)
+# kicks in, restoring surface-level floatation.
+const SWIM_SURFACE_BAND       := 0.08
+# Waist-deep entry gate — only switch into ACT_SWIM once the water has
+# crested this depth. Below it the player walks normally (the existing
+# is_on_floor logic still applies and the player wades through
+# shin-high water without the swim animation kicking in).
+const SWIM_ENTER_DEPTH        := 0.75
+# Exit gate. CRITICAL: must be LESS than SWIM_BODY_DEPTH so the buoyancy
+# equilibrium sits firmly inside the "still swimming" range. With
+# SWIM_BODY_DEPTH=0.45 the equilibrium is at depth=0.45; an exit
+# threshold ≥0.45 would trigger swim-exit at equilibrium itself,
+# causing the rise/fall/rise/fall chatter the user reported. 0.30 means
+# the player has to ACTIVELY climb (terrain shelf, surface kick) to
+# exit — passive floating stays put.
+const SWIM_EXIT_DEPTH         := 0.30
+
 # ---- Inputs (set by owner each tick) -----------------------------------
 var input_stick: Vector2 = Vector2.ZERO
 var input_attack_pressed: bool = false
@@ -173,9 +227,25 @@ var input_camera_yaw: float = 0.0
 var get_stamina: Callable = func() -> int: return 100
 var spend_stamina: Callable = func(_amount: int) -> void: pass
 
+# Equipment gating. The owner mirrors these from GameState.inventory each
+# tick. Bare-handed Tux can only throw the first swing (a punch) — no
+# combo, no jab, no charge/spin, no aerial down-strike. Shield-less Tux
+# can still raise his forearms but the block cone narrows and stamina
+# cost is higher; parry is shield-only.
+var armed: bool = true
+var has_shield: bool = true
+
 # Physics-world feedback (set by owner each tick).
 var is_on_floor: bool = false
 var pos: Vector3 = Vector3.ZERO
+# Water feedback. The owner sets `water_level` (sea-level Y, fed from
+# WorldGen.SEA_LEVEL) and `in_water` (true when pos.y < water_level).
+# The state machine reads both each tick to drive ACT_SWIM transitions
+# and the buoyancy push. `anchor_boots` mirrors GameState — when true,
+# the swim state suppresses buoyancy so Tux sinks instead of floating.
+var water_level: float = 0.0
+var in_water: bool = false
+var anchor_boots: bool = false
 
 # ---- State -------------------------------------------------------------
 var action: int = ACT_IDLE
@@ -216,6 +286,16 @@ func step(delta: float) -> void:
     parry_active = false
     requested_anim_reset = false
 
+    # Water enter: the moment pos drops below the surface, snap into
+    # ACT_SWIM from any non-special action so buoyancy takes over the
+    # vertical channel. "Special" = combat/roll/hurt/dead/flip — let
+    # those finish their animations cleanly; the next tick after they
+    # exit will catch the water transition naturally. Aerial fall into
+    # water IS captured (ACT_FALL/ACT_JUMP transition in here), so a
+    # cliff-jump into the ocean enters swim immediately on submersion.
+    if in_water and action != ACT_SWIM and _swim_can_enter():
+        set_action(ACT_SWIM)
+
     var safety := 6
     while safety > 0:
         var changed := false
@@ -235,6 +315,7 @@ func step(delta: float) -> void:
             ACT_LAND:        changed = _act_land(delta)
             ACT_HURT:        changed = _act_hurt(delta)
             ACT_DEAD:        changed = _act_dead(delta)
+            ACT_SWIM:        changed = _act_swim(delta)
             _:               changed = set_action(ACT_IDLE)
         if not changed:
             break
@@ -311,8 +392,9 @@ func _act_attack(_delta: float) -> bool:
         hit_window_active = true
 
     # Combo input buffering: a press inside the combo window queues the
-    # next swing, which fires when the current one ends.
-    if input_attack_pressed and action_time >= SWING_COMBO_WINDOW.x \
+    # next swing, which fires when the current one ends. Sword-only —
+    # bare-handed Tux only gets the single opening swing.
+    if armed and input_attack_pressed and action_time >= SWING_COMBO_WINDOW.x \
             and action_time <= SWING_COMBO_WINDOW.y and _can_swing():
         combo_queued = true
 
@@ -336,7 +418,7 @@ func _act_attack(_delta: float) -> bool:
     _request_anim(tag, 1.0)
 
     if action_time >= SWING_DURATION:
-        if combo_queued and _can_swing():
+        if armed and combo_queued and _can_swing():
             combo_queued = false
             swing_index = (swing_index + 1) % 3
             spend_stamina.call(COST_SWING)
@@ -346,8 +428,9 @@ func _act_attack(_delta: float) -> bool:
         if swing_index == 2:
             swing_index = 0
         # If the player is still holding attack (with no combo press),
-        # roll into a charge wind-up. Otherwise drop to idle.
-        if input_attack_held:
+        # roll into a charge wind-up. Sword-only — bare fists can't
+        # charge a spin.
+        if armed and input_attack_held:
             charge_time = 0.0
             return set_action(ACT_CHARGING)
         return set_action(ACT_IDLE)
@@ -364,7 +447,7 @@ func _act_jab(_delta: float) -> bool:
     vel.y = -1.0
     _request_anim(ANIM_JAB, 1.0)
     if action_time >= JAB_DURATION:
-        if input_attack_held:
+        if armed and input_attack_held:
             charge_time = 0.0
             return set_action(ACT_CHARGING)
         return set_action(ACT_IDLE)
@@ -473,16 +556,20 @@ func _act_spin(_delta: float) -> bool:
 
 
 func _act_block(_delta: float) -> bool:
-    # Parry window covers the very start of the block raise.
-    if action_time < PARRY_WINDOW:
+    # Parry window covers the very start of the block raise. Shield-only
+    # — you can't parry with bare forearms, only soak partial damage.
+    if has_shield and action_time < PARRY_WINDOW:
         parry_active = true
 
     if not input_shield_held:
         return set_action(ACT_IDLE)
     # Shield + attack → small jump-strike that commits forward with the
-    # swipe-down animation. Lets the shield pressure into a counter.
+    # swipe-down animation. Sword-only — without a blade the slash is
+    # meaningless, so bare-handed players just open the regular swing.
     if input_attack_pressed and _can_swing():
-        return _begin_shield_jump_slash()
+        if armed:
+            return _begin_shield_jump_slash()
+        return _begin_attack_or_jab()
     # Shield + jump → directional flip dodge.
     if input_jump_pressed and _can_roll():
         return _begin_shield_flip()
@@ -552,7 +639,7 @@ func _act_roll(_delta: float) -> bool:
 func _act_jump(_delta: float) -> bool:
     if action_time == 0.0:
         vel.y = JUMP_IMPULSE
-    if input_attack_pressed and get_stamina.call() >= COST_JUMP_ATTACK:
+    if armed and input_attack_pressed and get_stamina.call() >= COST_JUMP_ATTACK:
         spend_stamina.call(COST_JUMP_ATTACK)
         return set_action(ACT_JUMP_ATTACK)
     _air_steer()
@@ -566,7 +653,7 @@ func _act_jump(_delta: float) -> bool:
 
 
 func _act_fall(_delta: float) -> bool:
-    if input_attack_pressed and get_stamina.call() >= COST_JUMP_ATTACK:
+    if armed and input_attack_pressed and get_stamina.call() >= COST_JUMP_ATTACK:
         spend_stamina.call(COST_JUMP_ATTACK)
         return set_action(ACT_JUMP_ATTACK)
     _air_steer()
@@ -603,6 +690,107 @@ func _act_dead(_delta: float) -> bool:
     return false
 
 
+# Swim. Stays put until in_water flips false AND we're back on solid
+# ground — only then drop back to IDLE/MOVE so a brief surfacing arc
+# during a jump doesn't kick us out mid-stroke. Combat/jump inputs are
+# read-only in here: jump becomes a dive impulse, attack/shield are
+# suppressed (combat is hands-free underwater per the design).
+func _act_swim(delta: float) -> bool:
+    # Exit as soon as the feet are clear of the water surface — the old
+    # `not in_water and is_on_floor` gate left swim active for a beat
+    # after stepping onto the beach because move_and_slide takes a tick
+    # to register floor contact. Falling into idle from above the water
+    # is fine: the next tick picks IDLE → MOVE → JUMP/FALL naturally.
+    if not in_water:
+        return set_action(ACT_IDLE)
+
+    # Horizontal: full SWIM_SPEED while stamina remains. When exhausted
+    # the player STILL propels — just at SWIM_EXHAUSTED_SPEED_FRAC of
+    # the cruise rate. The HP drain is the punishment; locking out
+    # movement turned drowning into helpless death-while-paralyzed.
+    var stam: int = get_stamina.call()
+    var stick_dir := _stick_to_world_dir()
+    if stick_dir.length() > 0.001:
+        var target_yaw := atan2(-stick_dir.x, -stick_dir.z)
+        face_yaw = _approach_angle(face_yaw, target_yaw, TURN_RATE * delta)
+        var top_speed: float = SWIM_SPEED
+        if stam <= 0:
+            top_speed *= SWIM_EXHAUSTED_SPEED_FRAC
+        var target_speed: float = input_stick.length() * top_speed
+        var current_speed: float = Vector2(vel.x, vel.z).length()
+        var new_speed: float = move_toward(current_speed, target_speed, ACCEL * delta)
+        vel.x = -sin(face_yaw) * new_speed
+        vel.z = -cos(face_yaw) * new_speed
+        # NB: the per-frame stamina drain lives in the OWNER (tux_player)
+        # because `int(SWIM_STAMINA_PER_SEC * delta + 0.5)` truncates to
+        # 0 every frame at 60fps — small floats round to int 0. The
+        # owner accumulates fractional drain like GameState.regen_stamina
+        # does and dispatches whole-int spends.
+    else:
+        vel.x = move_toward(vel.x, 0.0, 8.0 * delta)
+        vel.z = move_toward(vel.z, 0.0, 8.0 * delta)
+
+    # Vertical: float toward chest-deep equilibrium (feet at
+    # water_level - SWIM_BODY_DEPTH) unless Anchor Boots are on, in
+    # which case the owner's _apply_passive_movement_mods adds the
+    # extra gravity tick and we just let it sink.
+    if anchor_boots:
+        # Sink. Apply normal gravity (capped) so the boots actually
+        # haul Tux down through the water column to the floor.
+        vel.y -= GRAVITY * delta
+        if vel.y < TERMINAL_VEL:
+            vel.y = TERMINAL_VEL
+    else:
+        # Distance ABOVE the chest-deep equilibrium. Positive means we're
+        # too high (head/torso popping out); negative means we're deeper
+        # than chest-deep and need to be pushed up. Inside ±band, damp.
+        var equilibrium_y: float = water_level - SWIM_BODY_DEPTH
+        var dy: float = equilibrium_y - pos.y
+        if dy > SWIM_SURFACE_BAND:
+            # Below equilibrium — buoyancy pushes UP, scaled by depth so
+            # a deep plunge surfaces faster than a shallow drift.
+            var target_up: float = clamp(dy * SWIM_BUOYANCY_GAIN, 0.0, SWIM_RISE_MAX)
+            vel.y = move_toward(vel.y, target_up, GRAVITY * delta)
+        elif dy < -SWIM_SURFACE_BAND:
+            # Above equilibrium — gentle pull DOWN so the player settles
+            # back into chest-deep instead of riding above the water.
+            var target_down: float = -clamp(-dy * SWIM_BUOYANCY_GAIN, 0.0, SWIM_FALL_MAX)
+            vel.y = move_toward(vel.y, target_down, GRAVITY * delta)
+        else:
+            # In the equilibrium band — damp Y so the player bobs at
+            # chest-deep instead of oscillating across the band.
+            vel.y = move_toward(vel.y, 0.0, SWIM_SURFACE_DAMP * delta)
+
+        # Jump = surface kick: a small upward boost (Valheim-style).
+        # Lets the player hop onto a low ledge or surface faster after a
+        # forced dive. NOT a dive impulse — the user reported pressing
+        # space sinking them, which felt wrong.
+        if input_jump_pressed:
+            vel.y += SWIM_SURFACE_KICK
+
+    # Animation pick: TREAD when bobbing in place, SWIM whenever the
+    # player is actually propelling — including the exhausted reduced-
+    # speed case. Don't gate on stamina here or the animation drops to
+    # tread mid-flailing-for-shore (looked like the player gave up).
+    var moving: bool = stick_dir.length() > 0.1
+    if moving:
+        _request_anim(ANIM_SWIM, 1.0)
+    else:
+        _request_anim(ANIM_TREAD, 1.0)
+    return false
+
+
+# Gate for entering ACT_SWIM mid-tick. Combat/roll/hurt/dead/flip get a
+# pass — those are committed actions that should finish (they'll fall
+# through to IDLE next tick and the swim transition fires then).
+func _swim_can_enter() -> bool:
+    match action:
+        ACT_ATTACK, ACT_JAB, ACT_JUMP_ATTACK, ACT_SPIN, ACT_CHARGING, \
+        ACT_ROLL, ACT_FLIP, ACT_HURT, ACT_DEAD:
+            return false
+    return true
+
+
 # ---- Externally-driven transitions -------------------------------------
 
 # Called by the owner when a hit lands on the player. Returns true if the
@@ -628,15 +816,18 @@ func take_hit(source_pos: Vector3, _damage: int) -> bool:
     # Directional shield: only blocks hits that come from roughly in
     # front of the player. Sources behind/to-the-side punch through
     # the guard so an enemy that flanks you while you turtle gets
-    # rewarded. Cone is dot(forward, to_source) > 0 — anything in
-    # the front half-plane.
+    # rewarded. Cone is dot(forward, to_source) > cone_min. With a
+    # shield that's 0.0 (full front half-plane); bare-handed it tightens
+    # to 0.5 (~60° front quarter) so the player has to face the threat
+    # squarely to soak it.
     var shielded_front: bool = false
+    var cone_min: float = 0.0 if has_shield else 0.5
     if action == ACT_BLOCK:
         var fwd: Vector3 = Vector3(-sin(face_yaw), 0.0, -cos(face_yaw))
         var to_src: Vector3 = source_pos - pos
         to_src.y = 0.0
         if to_src.length() > 0.001:
-            shielded_front = fwd.dot(to_src.normalized()) > 0.0
+            shielded_front = fwd.dot(to_src.normalized()) > cone_min
         else:
             shielded_front = true   # source-on-top edge case
 
@@ -644,10 +835,12 @@ func take_hit(source_pos: Vector3, _damage: int) -> bool:
     # attack came from in front. Side/back hits ignore parry too.
     if action == ACT_BLOCK and parry_active and shielded_front:
         return false
-    # Regular block: absorb if facing the source AND have stamina.
+    # Regular block: absorb if facing the source AND have stamina. Bare
+    # forearms cost 1.6x stamina per hit since you're soaking with bone.
+    var block_cost: int = COST_BLOCK_HIT if has_shield else int(COST_BLOCK_HIT * 1.6)
     if action == ACT_BLOCK and shielded_front \
-            and get_stamina.call() >= COST_BLOCK_HIT:
-        spend_stamina.call(COST_BLOCK_HIT)
+            and get_stamina.call() >= block_cost:
+        spend_stamina.call(block_cost)
         # Light shove on a successful block.
         var away := pos - source_pos
         away.y = 0.0
@@ -725,6 +918,14 @@ func _begin_shield_flip() -> bool:
 
 func _begin_attack_or_jab() -> bool:
     combo_queued = false
+    # Unarmed: the only attack available is the basic opening swing —
+    # rendered as a punch since sword/shield are hidden. No jab, no
+    # combo continuation, no charge. Reset swing_index so we always
+    # land on swing_1 (the opener).
+    if not armed:
+        spend_stamina.call(COST_SWING)
+        swing_index = 0
+        return set_action(ACT_ATTACK)
     # Forward thrust if the player is leaning hard into the stick. The
     # facing also snaps to the stick direction so the jab actually goes
     # where they're aiming, not where they happened to be turned.

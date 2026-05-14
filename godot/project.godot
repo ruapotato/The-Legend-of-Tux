@@ -33,8 +33,13 @@ EditorMode="*res://scripts/editor_mode.gd"
 WorldGen="*res://scripts/world_gen.gd"
 WorldStreamer="*res://scripts/world_streamer.gd"
 Weather="*res://scripts/weather.gd"
+WeatherVisuals="*res://scripts/weather_visuals.gd"
 PlayerStatus="*res://scripts/player_status.gd"
 Recipes="*res://scripts/recipes.gd"
+BuffManager="*res://scripts/buff_manager.gd"
+NetManager="*res://scripts/net_manager.gd"
+DevConsole="*res://scripts/dev_console.gd"
+BuildMode="*res://scripts/build_mode.gd"
 
 [display]
 

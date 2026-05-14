@@ -125,6 +125,23 @@ var active_b_item: String = ""
 signal resource_changed(item_id: String, new_count: int)
 var resources: Dictionary = {}
 
+# Player-controllable ordering for the pause-menu inventory grid. Each
+# entry is a resource id occupying a specific slot index; "" marks an
+# empty slot the player has deliberately freed up by exhausting a stack
+# (we don't compact, so the visual layout the player arranged is stable
+# across pickups and drops). When add_resource sees a brand-new id, it's
+# appended; consume_resource that drains a stack leaves the slot id in
+# place so the next pickup of the same resource lands in the same square.
+var slot_order: Array[String] = []
+
+# Survival build-mode placements. Append-only list of dicts in the shape
+# `{piece_id, pos: {x,y,z}, yaw}` — Vector3 isn't JSON-serialisable so the
+# coordinates are stored as a nested dict and converted back at world-load
+# time (see world_disc.gd's _ready and build_mode.gd's instantiate_placed).
+# Cleared by reset() so a fresh game starts on an empty plot; persists
+# with the save snapshot below.
+var placed_pieces: Array[Dictionary] = []
+
 # Anchor Boots: passive toggle, set from the pause menu's Items tab.
 # When true, tux_player.gd applies its slow-walk / heavy-gravity
 # modifiers and the player can sink under water. Saved + loaded so the
@@ -183,6 +200,19 @@ var bosses_defeated: Dictionary = {}
 var permissions: Dictionary = {}
 var binaries: Dictionary = {}
 
+# ---- Procedural-world per-run persistence ------------------------------
+#
+# Foliage / animal props in the streamed disc world are spawned
+# deterministically from (world_seed, chunk_coord, spec_index). Without
+# any state, walking away from a chopped tree and back respawns it.
+# `destroyed_props` is the per-playthrough kill registry: each entry is
+# the prop_id string (assigned in world_chunk.gd's foliage pass) mapped
+# to true. Bush/tree/rock/animal death paths write their meta prop_id
+# here before queue_free; world_chunk.apply_data skips foliage specs
+# whose id is in the set. Saved + loaded so a reload preserves the
+# player's clearcut.
+var destroyed_props: Dictionary = {}
+
 
 func _ready() -> void:
     # Autoload init: seed default permissions so even a code path that
@@ -201,6 +231,9 @@ func reset() -> void:
     fairy_bottles = 0
     keys_by_group.clear()
     inventory.clear()
+    resources.clear()
+    slot_order.clear()
+    placed_pieces.clear()
     active_b_item = ""
     anchor_boots_active = false
     visited_scenes.clear()
@@ -210,6 +243,7 @@ func reset() -> void:
     bosses_defeated.clear()
     permissions.clear()
     binaries.clear()
+    destroyed_props.clear()
     _seed_default_permissions()
     sword_tier = 0
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
@@ -415,6 +449,13 @@ func add_resource(item_id: String, amount: int = 1) -> void:
     var cur: int = int(resources.get(item_id, 0))
     cur += amount
     resources[item_id] = cur
+    # First-ever pickup of this id: append to the persistent slot order so
+    # the pause-menu grid renders it at a stable index. Subsequent
+    # increments reuse the existing slot; an id whose count fell to 0
+    # (then was re-picked) keeps its prior slot — we never erase from
+    # slot_order on consume.
+    if slot_order.find(item_id) == -1:
+        slot_order.append(item_id)
     resource_changed.emit(item_id, cur)
 
 
@@ -778,6 +819,57 @@ func _save_path(slot: int) -> String:
     return "user://save_%d.json" % slot
 
 
+# Convert the typed Array[String] slot_order into a plain Array of
+# strings for JSON. JSON.stringify doesn't preserve the typed-array
+# variant cleanly, and the loader rehydrates into the typed field by
+# hand anyway — easier to write loose strings out.
+func _slot_order_to_array() -> Array:
+    var out: Array = []
+    for s in slot_order:
+        out.append(String(s))
+    return out
+
+
+# Flatten placed_pieces into a plain Array of dicts for JSON. Vector3 is
+# already stored as nested `{x,y,z}` in placed_pieces (build_mode.gd
+# writes them in that shape), so this is essentially a typed-array
+# unwrap. Loader rehydrates via _placed_pieces_from_array below.
+func _placed_pieces_to_array() -> Array:
+    var out: Array = []
+    for entry in placed_pieces:
+        if typeof(entry) != TYPE_DICTIONARY:
+            continue
+        out.append({
+            "piece_id": String(entry.get("piece_id", "")),
+            "pos":      (entry.get("pos", {}) as Dictionary).duplicate(true),
+            "yaw":      float(entry.get("yaw", 0.0)),
+        })
+    return out
+
+
+# Inverse of the above. Tolerant of older saves that predate the field
+# (returns empty) and of entries written by a future format (just
+# preserves the unknown keys).
+func _placed_pieces_from_array(raw: Variant) -> Array[Dictionary]:
+    var out: Array[Dictionary] = []
+    if typeof(raw) != TYPE_ARRAY:
+        return out
+    for entry in (raw as Array):
+        if typeof(entry) != TYPE_DICTIONARY:
+            continue
+        var d: Dictionary = entry as Dictionary
+        var pos_raw: Variant = d.get("pos", {})
+        var pos: Dictionary = {}
+        if typeof(pos_raw) == TYPE_DICTIONARY:
+            pos = (pos_raw as Dictionary).duplicate(true)
+        out.append({
+            "piece_id": String(d.get("piece_id", "")),
+            "pos":      pos,
+            "yaw":      float(d.get("yaw", 0.0)),
+        })
+    return out
+
+
 func _current_scene_id() -> String:
     var scene := get_tree().current_scene
     if scene == null:
@@ -803,6 +895,7 @@ func save_game(slot: int) -> bool:
         "current_key_group": current_key_group,
         "inventory": inventory.duplicate(true),
         "resources": resources.duplicate(true),
+        "slot_order": _slot_order_to_array(),
         "active_b_item": active_b_item,
         "current_scene_id": _current_scene_id(),
         "current_spawn_id": current_spawn_id,
@@ -817,6 +910,8 @@ func save_game(slot: int) -> bool:
         "sword_tier":          sword_tier,
         "permissions":         permissions.duplicate(true),
         "binaries":            binaries.duplicate(true),
+        "destroyed_props":     destroyed_props.duplicate(true),
+        "placed_pieces":       _placed_pieces_to_array(),
     }
     var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
     if f == null:
@@ -863,6 +958,25 @@ func load_game(slot: int) -> bool:
         keys_by_group[current_key_group] = int(data.get("keys", 0))
     inventory = (data.get("inventory", {}) as Dictionary).duplicate(true)
     resources = (data.get("resources", {}) as Dictionary).duplicate(true)
+    # Restore the player's hand-ordered inventory layout. Older saves
+    # predate the field — rebuild a sensible default by listing whatever
+    # resource ids the save carried so the grid still renders something
+    # reasonable on first load after the upgrade.
+    slot_order.clear()
+    var saved_order: Variant = data.get("slot_order", null)
+    if typeof(saved_order) == TYPE_ARRAY:
+        for v in (saved_order as Array):
+            slot_order.append(String(v))
+    else:
+        for k in resources.keys():
+            slot_order.append(String(k))
+    # Make sure every currently-owned resource has *some* slot — guards
+    # against a save whose slot_order was truncated or corrupted (or a
+    # resource that was somehow added without going through add_resource).
+    for k in resources.keys():
+        var s := String(k)
+        if slot_order.find(s) == -1:
+            slot_order.append(s)
     active_b_item = String(data.get("active_b_item", ""))
     # Anchor Boots stay in whatever state Tux left them — they're a
     # passive toggle, not an event flag, so a save mid-Mirelake comes
@@ -928,6 +1042,18 @@ func load_game(slot: int) -> bool:
     sword_tier = int(data.get("sword_tier", 0))
     sword_upgraded.emit(sword_tier)
 
+    # Per-run destroyed prop registry. Older saves predate this — those
+    # come back with an empty set (everything respawns as it would on a
+    # brand-new game), which is the right default.
+    var saved_destroyed: Variant = data.get("destroyed_props", null)
+    destroyed_props = (saved_destroyed as Dictionary).duplicate(true) \
+        if typeof(saved_destroyed) == TYPE_DICTIONARY else {}
+
+    # Survival build placements. world_disc.gd's _ready walks this list
+    # and re-instances each piece under the level root after change_scene
+    # completes — the loader here just rehydrates the data.
+    placed_pieces = _placed_pieces_from_array(data.get("placed_pieces", null))
+
     hp_changed.emit(hp, max_fish * HP_PER_FISH)
     stamina_changed.emit(stamina, MAX_STAMINA)
     pebbles_changed.emit(pebbles)
@@ -938,6 +1064,14 @@ func load_game(slot: int) -> bool:
     var scene_id := String(data.get("current_scene_id", "world_disc"))
     next_spawn_id = current_spawn_id
     var scene_path := "res://scenes/%s.tscn" % scene_id
+    # Harden against saves that point at a scene that no longer exists
+    # (e.g. a synthetic test scene a tool left behind, or an old dungeon
+    # the player saved in that's since been renamed). Fall back to the
+    # survival overworld so the player at least keeps their inventory
+    # and placed pieces instead of being kicked back to the title.
+    if not ResourceLoader.exists(scene_path):
+        push_warning("load_game: scene '%s' missing — falling back to world_disc" % scene_id)
+        scene_path = "res://scenes/world_disc.tscn"
     var err := get_tree().change_scene_to_file(scene_path)
     return err == OK
 

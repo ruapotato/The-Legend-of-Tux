@@ -85,6 +85,14 @@ static func generate_data(cc: Vector2i, world_seed: int) -> Dictionary:
 		faces[t * 3 + 2] = verts[indices[t * 3 + 2]]
 
 	var foliage: Array = _gen_foliage_specs(cc, world_seed, origin_x, origin_z)
+	# Stamp each spec with a deterministic prop_id derived from (chunk
+	# coord, spec ordinal). The id is reproducible from the same world
+	# seed + chunk_coord every time, so the main-thread apply step can
+	# cross-reference GameState.destroyed_props to skip-spawn props the
+	# player has already killed. Computed here in the worker (pure string
+	# work) so generate_data remains side-effect-free.
+	for i in foliage.size():
+		(foliage[i] as Dictionary)["prop_id"] = "%d:%d:%d" % [cc.x, cc.y, i]
 
 	return {
 		"verts": verts, "normals": normals, "colors": colors,
@@ -202,13 +210,26 @@ func apply_data(cc: Vector2i, data: Dictionary) -> void:
 	_coll_shape.shape = shape
 	add_child(_coll_shape)
 
+	# Per-run persistence: skip foliage specs whose prop_id has been
+	# recorded as destroyed (bush/tree/rock chopped, animal slain) by
+	# GameState.destroyed_props. The dict is a flat string→bool, so the
+	# check is a single .has() per spec. Animals can wander after spawn,
+	# so we additionally tag the live instance with the prop_id via meta
+	# — the entity reads it back in its death path before queue_free so
+	# the destruction is recorded regardless of where it died.
+	var destroyed: Dictionary = GameState.destroyed_props if GameState else {}
 	for spec in data["foliage"]:
+		var prop_id: String = String(spec.get("prop_id", ""))
+		if prop_id != "" and destroyed.has(prop_id):
+			continue
 		var scn: PackedScene = WorldGen.get_scene(spec["scene"])
 		if scn == null:
 			continue
 		var inst: Node = scn.instantiate()
 		if inst == null:
 			continue
+		if prop_id != "":
+			inst.set_meta("prop_id", prop_id)
 		add_child(inst)
 		if inst is Node3D:
 			var n3d: Node3D = inst

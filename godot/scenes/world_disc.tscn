@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/tux.tscn" id="r1"]
 [ext_resource type="Script" path="res://scripts/tux_player.gd" id="r2"]
@@ -10,12 +10,16 @@
 [ext_resource type="Script" path="res://scripts/world_fps_overlay.gd" id="r8"]
 [ext_resource type="Script" path="res://scripts/hud_status.gd" id="r9"]
 [ext_resource type="Script" path="res://scripts/game_pause_menu.gd" id="r10"]
+[ext_resource type="Script" path="res://scripts/control_hints.gd" id="r11"]
+[ext_resource type="Script" path="res://scripts/world_mini_map.gd" id="r12"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
-sky_top_color = Color(0.42, 0.60, 0.85, 1)
-sky_horizon_color = Color(0.85, 0.85, 0.78, 1)
-ground_bottom_color = Color(0.10, 0.13, 0.17, 1)
-ground_horizon_color = Color(0.55, 0.62, 0.55, 1)
+sky_top_color = Color(0.05, 0.28, 0.92, 1)
+sky_horizon_color = Color(0.48, 0.72, 0.98, 1)
+ground_bottom_color = Color(0.12, 0.11, 0.09, 1)
+ground_horizon_color = Color(0.40, 0.36, 0.26, 1)
+sun_angle_max = 4.0
+sun_curve = 0.45
 
 [sub_resource type="Sky" id="sky"]
 sky_material = SubResource("sky_mat")
@@ -23,12 +27,14 @@ sky_material = SubResource("sky_mat")
 [sub_resource type="Environment" id="env"]
 background_mode = 2
 sky = SubResource("sky")
-ambient_light_source = 3
-ambient_light_color = Color(0.85, 0.90, 0.95, 1)
-ambient_light_energy = 0.6
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.78, 1.0, 1)
+ambient_light_energy = 0.8
+ambient_light_sky_contribution = 0.35
+reflected_light_source = 2
 fog_enabled = true
-fog_light_color = Color(0.75, 0.80, 0.85, 1)
-fog_density = 0.0015
+fog_light_color = Color(0.70, 0.82, 0.95, 1)
+fog_density = 0.0006
 
 [sub_resource type="PlaneMesh" id="ocean_mesh"]
 size = Vector2(60000, 60000)
@@ -104,5 +110,11 @@ script = ExtResource("r8")
 [node name="StatusRow" type="Control" parent="FpsOverlay"]
 script = ExtResource("r9")
 
+[node name="ControlHints" type="Control" parent="FpsOverlay"]
+script = ExtResource("r11")
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("r10")
+
+[node name="MiniMap" type="CanvasLayer" parent="."]
+script = ExtResource("r12")
